@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>AMS - UP3 PLN Makassar Selatan</title>
     <!-- Favicon icon -->
@@ -18,8 +17,13 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
     <!-- Summernote -->
     <link href="{{ asset('/') }}./asset/frontend/vendor/summernote/summernote.css" rel="stylesheet">
+
+    <link href="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+
 
 
 </head>
@@ -50,7 +54,7 @@
         <div class="nav-header">
             <a href="/dashboard" class="brand-logo">
                 <img class="logo-abbr" src="{{ asset('/') }}./asset/frontend/images/ams-sq.png" alt="">
-                <img class=" logo-compact" src="{{ asset('/') }}./asset/frontend/images/ams-sq.png" alt="">
+                <img class="logo-compact" src="{{ asset('/') }}./asset/frontend/images/ams-sq.png" alt="">
                 <img class="brand-title" src="{{ asset('/') }}./asset/frontend/images/ams-lg.png" alt="">
             </a>
 
@@ -144,11 +148,11 @@
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="flaticon-381-notepad-2"></i>
-                            <span class="nav-text">Daftar Rincian </span>
+                            <span class="nav-text">Daftar Rincian</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a class="" href="/categories">Kategori</a></li>
-                            <li><a class="nav-link {{ Request::is('categories*')  ? 'active' : '' }}" href="/rincian">Item</a></li>
+                            <li><a class="nav-link {{ ($title === "Kontrak Induk") ? 'active' : '' }}" href="/rincian">Item</a></li>
                         </ul>
                     </li>
                     <h5>
@@ -156,12 +160,12 @@
                     </h5>
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="flaticon-381-notepad-2"></i>
+                            <i class="bi bi-cash-coin"></i>
                             <span class="nav-text">SPKK/PRK </span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="" href="/categories">SPKK</a></li>
-                            <li><a class="nav-link {{ Request::is('categories*')  ? 'active' : '' }}" href="/rincian">PRK</a></li>
+                            <li><a class="nav-link {{ Request::is('spkk*')  ? 'active' : '' }}" href="/spkk">SPKK</a></li>
+                            <li><a class="nav-link {{ Request::is('prk*')  ? 'active' : '' }}" href="/prk">PRK</a></li>
                         </ul>
                     </li>
                     <h5>
@@ -173,11 +177,10 @@
                             <span class="nav-text">Data</span>
                         </a>
                     </li>
-
                 </ul>
                 <div class="add-menu-sidebar">
                     <img src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt="" class="mr-3" />
-                    <p class="font-w500 mb-0">Jumat 21 Oktober 2022</p>
+                    <p class="font-w500 mb-0">Jumat <br> 21 Oktober 2022</p>
                   </div>
             </div>
         </div>
@@ -246,6 +249,7 @@
 
     <!-- Apex Chart -->
     <script src="{{ asset('/') }}./asset/frontend/vendor/apexchart/apexchart.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/chartjs-init.js"></script>
 
     <!-- Dashboard 1 -->
     <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script>
@@ -257,6 +261,8 @@
     <!-- Form Steps -->
 	<script src="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/jquery.validate-init.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/tambah-field.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/cascading-dropdown.js"></script>
 
 
 	<script>
@@ -266,11 +272,13 @@
 		});
 	</script>
 
-
     <!-- Summernote -->
     <script src="{{ asset('/') }}./asset/frontend/vendor/summernote/js/summernote.min.js"></script>
     <!-- Summernote init -->
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/summernote-init.js"></script>
+
+    <script src="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert.init.js"></script>
 
 
     <script>

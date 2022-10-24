@@ -41569,7 +41569,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .form-wizard .nav-wizard li .nav-link.done:after {
     background: #14a2ba !important;
 }
-
+tab-pane
 .form-wizard .nav-wizard li .nav-link.done span {
     background-color: #14a2ba;
     color: #fff;
@@ -41587,6 +41587,15 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
 .form-wizard .tab-content .tab-pane {
     padding: 0;
+    /* overflow-y: scroll;
+    height: 300px; */
+}
+
+.form-wizard .tab-content .tab-pane2 {
+    padding: 0;
+    height: 1220px;
+    /* overflow-y: scroll;
+    height: 300px; */
 }
 
 .form-wizard .emial-setup label.mailclinet {

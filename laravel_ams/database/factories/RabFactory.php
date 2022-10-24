@@ -17,7 +17,7 @@ class RabFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nama_kontrak' => $this->faker->sentence(mt_rand(1, 2)),
         ];
     }
 }

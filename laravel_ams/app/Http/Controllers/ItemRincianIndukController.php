@@ -6,7 +6,7 @@ use App\Models\ItemRincianInduk;
 use App\Http\Requests\StoreItemRincianIndukRequest;
 use App\Http\Requests\UpdateItemRincianIndukRequest;
 use Illuminate\Http\Request;
-
+use PhpParser\Node\Stmt\Return_;
 
 class ItemRincianIndukController extends Controller
 {
@@ -18,7 +18,9 @@ class ItemRincianIndukController extends Controller
     public function index()
     {
         return view('categories.index', [
-            'title' => 'Item Kontrak Induk'
+            'title' => 'Kategori Kontrak Induk',
+            'active' => 'Kategori Kontrak Induk',
+            'item_rincian_induks' => ItemRincianInduk::all()
         ]);
     }
 
@@ -29,10 +31,11 @@ class ItemRincianIndukController extends Controller
      */
     public function create()
     {
-        return view('pages.induk.tambah_induk_item', [
-            'active' => 'pages.induk.tambah_induk_item',
-            'title' => 'Tambah Item Kontrak Induk'
-        ]);
+        // return view('categories.index', [
+        //     'active' => 'pages.induk.tambah_induk_item',
+        //     'title' => 'Tambah Item Kontrak Induk',
+        //     'item_rincian_induks' => ItemRincianInduk::all()
+        // ]);
     }
 
     /**
@@ -43,7 +46,13 @@ class ItemRincianIndukController extends Controller
      */
     public function store(StoreItemRincianIndukRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+
+            'nama_kontrak' => 'required|max:250',
+
+        ]);
+        ItemRincianInduk::create($validatedData);
+        return redirect('/categories')->with('success', 'Kategori Berhasil Ditambah!');
     }
 
     /**
@@ -63,9 +72,8 @@ class ItemRincianIndukController extends Controller
      * @param  \App\Models\ItemRincianInduk  $itemRincianInduk
      * @return \Illuminate\Http\Response
      */
-    public function edit(ItemRincianInduk $itemRincianInduk)
+    public function edit(Request $request, ItemRincianInduk $itemRincianInduk)
     {
-        //
     }
 
     /**
@@ -77,7 +85,15 @@ class ItemRincianIndukController extends Controller
      */
     public function update(UpdateItemRincianIndukRequest $request, ItemRincianInduk $itemRincianInduk)
     {
-        //
+        $rules = [
+
+            'nama_kontrak' => 'required|max:250'
+
+        ];
+
+        $validatedData = $request->validate($rules);
+        ItemRincianInduk::where('id', $itemRincianInduk->id)->update($validatedData);
+        return redirect('/categories')->with('success', 'has been edited');
     }
 
     /**
@@ -86,8 +102,15 @@ class ItemRincianIndukController extends Controller
      * @param  \App\Models\ItemRincianInduk  $itemRincianInduk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ItemRincianInduk $itemRincianInduk)
+    public function destroy(ItemRincianInduk $itemRincianInduk, $id)
     {
-        //
+        $itemRincianInduk = ItemRincianInduk::find($id);
+        $itemRincianInduk->rincian_induks()->delete();
+        $itemRincianInduk->delete();
+
+        return redirect('/categories')->with('success', 'Data berhasil dihapus!');
+
+        // ItemRincianInduk::destroy($itemRincianInduk->id);
+        // return redirect('/categories')->with('success', 'post has been deleted');
     }
 }

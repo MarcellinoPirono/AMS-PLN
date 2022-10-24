@@ -15,7 +15,11 @@ class SpkkController extends Controller
      */
     public function index()
     {
-        //
+        return view('spkk.index', [
+            'title' => 'SPKK',
+            'title1' => 'SPKK',
+            'active' => 'SPKK'
+        ]);
     }
 
     /**
@@ -25,7 +29,12 @@ class SpkkController extends Controller
      */
     public function create()
     {
-        //
+        return view('spkk.create', [
+            'title' => 'SPKK',
+            'title1' => 'SPKK',
+            'active' => 'SPKK',
+            'active1' => 'Tambah SPKK'
+        ]);
     }
 
     /**
@@ -81,6 +90,9 @@ class SpkkController extends Controller
      */
     public function destroy(Spkk $spkk)
     {
-        //
+        // $spkk = Spkk::find($id)
+        // $spkk->delete();
+
+        // return redirect('/spkk')->with('success', 'Data berhasil dihapus');
     }
 }

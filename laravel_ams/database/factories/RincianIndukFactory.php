@@ -17,7 +17,10 @@ class RincianIndukFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nama_item' => fake()->text(),
+            'satuan' => fake()->text(),
+            'harga_satuan' => mt_rand(1, 10),
+            'kontraks_id' => mt_rand(1, 20),
         ];
     }
 }

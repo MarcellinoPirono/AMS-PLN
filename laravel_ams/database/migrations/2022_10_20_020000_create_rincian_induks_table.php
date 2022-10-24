@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('rincian_induks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('kontraks_id');
+            $table->string('nama_item');
+            $table->string('satuan');
+            $table->integer('harga_satuan');
             $table->timestamps();
         });
     }

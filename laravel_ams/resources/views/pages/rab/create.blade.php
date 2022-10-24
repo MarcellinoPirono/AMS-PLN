@@ -38,7 +38,7 @@
 														<div class="col-lg-6 mb-2">
 															<div class="form-group">
 																<label class="text-label">Input Lokasi</label>
-																<input type="text" name="lokasiclass="form-control" placeholder="Lokasi" required>
+																<input type="text" name="lokasi" class="form-control" placeholder="Lokasi" required>
 															</div>
 														</div>
 														<div class="col-lg-6 mb-2">
@@ -50,7 +50,7 @@
 														<div class="col-lg-6 mb-2">
 															<div class="form-group">
 																<label class="text-label">Input No.PRK</label>
-																<input type="text"l" placeholder="No.PRK" required>
+																<input type="textl" placeholder="No.PRK" required>
 															</div>
 														</div>
 														<div class="col-lg-6 mb-2">

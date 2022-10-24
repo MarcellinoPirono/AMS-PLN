@@ -17,7 +17,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form method="POST" action="/rincian" class="" enctype="multipart/form-data">
+                                    <form method="POST" action="/rincian/{{$items->kontraks_id}}" class="" enctype="multipart/form-data">
+                                        @method('put')
                                         @csrf
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
@@ -31,7 +32,7 @@
                                             <div class="form-group col-md-6">
                                                 <select class="form-control custom-select input-default" id="kontraks_id" name="kontraks_id">
                                                     @foreach ($kontraks as $item)
-                                                    @if (old('kontraks_id') == $item->id)
+                                                    @if (old('kontraks_id' ) == $item->id)
                                                         <option value="{{ $item->id }}" >{{ $item->nama_kontrak }}</option>
                                                     @else
                                                         <option value="{{ $item->id }}">{{ $item->nama_kontrak }}</option>
@@ -41,7 +42,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control input-default  @error('satuan') is-invalid @enderror" placeholder="Satuan" name="satuan" id="satuan" required autofocus value="{{ old('satuan') }}">
+                                                <input type="text" class="form-control input-default  @error('satuan') is-invalid @enderror" placeholder="Satuan" name="satuan" id="satuan" required autofocus value="{{ old('satuan', $items->satuan) }}">
                                                 @error('satuan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -49,7 +50,7 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control input-default  @error('harga_satuan') is-invalid @enderror" placeholder="Harga Satuan" name="harga_satuan" id="harga_satuan" required autofocus value="{{ old('harga_satuan') }}">
+                                                <input type="text" class="form-control input-default  @error('harga_satuan') is-invalid @enderror" placeholder="Harga Satuan" name="harga_satuan" id="harga_satuan" required autofocus value="{{ old('harga_satuan', $items->harga_satuan) }}">
                                                  @error('harga_satuan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -57,7 +58,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary position-relative">Submit</button>
+                                        <button type="submit" class="btn btn-primary position-relative">Edit Rincian</button>
                                     </form>
 
                                 </div>

@@ -15,7 +15,11 @@ class PrkController extends Controller
      */
     public function index()
     {
-        //
+        return view('prk.index', [
+            'title' => 'PRK',
+            'title1' => 'PRK',
+
+        ]);
     }
 
     /**
@@ -25,7 +29,12 @@ class PrkController extends Controller
      */
     public function create()
     {
-        //
+        return view('prk.create', [
+            'title' => 'PRK',
+            'title1' => 'PRK',
+            'active' => 'PRK',
+            'active1' => 'Tambah PRK'
+        ]);
     }
 
     /**

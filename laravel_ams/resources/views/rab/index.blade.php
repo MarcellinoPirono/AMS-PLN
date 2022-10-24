@@ -12,7 +12,7 @@
                                         <a class="dropdown-item" href="javascript:void()">Februari</a>
                                     </div>
                                 </div>
-                                <a href="/rab/create" type="button" class="btn btn-primary mr-auto ml-3 nav-link {{ ($active) ? 'active' : '' }}">Buat RAB(PO)<span
+                                <a href="/rab/create" type="button" class="btn btn-primary mr-auto ml-3 ">Buat RAB(PO)<span
                                         class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                                 </a>
                                 <div class="input-group search-area position-relative">

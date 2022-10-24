@@ -17,7 +17,7 @@ class ItemRincianIndukFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nama_kontrak' => fake()->name(),
         ];
     }
 }

@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+
 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -8,11 +9,12 @@
                                  <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih Kategori</button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="javascript:void()">Kategori 1</a>
-                                        <a class="dropdown-item" href="javascript:void()">Kategori 2</a>
+                                    @foreach ( $items as $item )
+                                        <a class="dropdown-item" href="">{{$item->item_rincian_induks->nama_kontrak}}</a>
+                                    @endforeach
                                     </div>
                                 </div>
-                                <a href="/item-rincian-induk/create" class="btn btn-primary mr-auto ml-3 ">Tambah Item <span
+                                <a href="/rincian/create" class="btn btn-primary mr-auto ml-3 ">Tambah Item <span
                                         class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                                 </a>
                                 <div class="input-group search-area position-relative">
@@ -23,6 +25,11 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                            @if (session('success'))
+                            <div class="sweetalert sweet-success">
+                                {{ session('success') }}
+                            </div>
+                            @endif
                                 <div class="table-responsive">
                                     <table class="table table-responsive-md">
                                         <thead>
@@ -36,17 +43,29 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach ($items as $item )
                                             <tr>
-                                                <td><strong>01</strong></td>
-                                                <td>Penarikan Kabel TIC 2x10 mm2</td>
-                                                <td>Pemasangan SP 1 Phasa</td>
-                                                <td>PLG</td>
-                                                <td>Rp. 30.999</td>
-                                                <td><div class="d-flex">
-														<a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-														<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-													</div></td>
-                                            </tr>
+                                                <td><strong>{{$loop->iteration}}</strong></td>
+                                                <td>{{$item->nama_item}}</td>
+                                                <td>{{$item->item_rincian_induks->nama_kontrak}}</td>
+                                                <td>{{$item->satuan}}</td>
+                                                <td>{{$item->harga_satuan}}</td>
+                                                <td>
+                                                <div class="d-flex">
+                                                    <a href="/rincian/{{ $item->id }}/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                                    <a href="#" data-toggle="modal" data-target="#deleteModal{{ $item->id }}"> <i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
+                                                    @include('layouts.deleteitem')
+                                                    {{-- <form action="/rincian/{{ $item->id }}" method="post" class="d-inline">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <a class="btn btn-danger shadow btn-xs sharp"
+                                                            onclick="return confirm('Are you sure to delete it?')"><i class="fa fa-trash"></i></a>
+                                                    </form> --}}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                         @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>

@@ -10,15 +10,7 @@ class MainController extends Controller
     {
         return view('dashboard.index', [
             'title' => 'Dashboard',
+            'active' => 'Dashboard',
         ]);
-    }
-
-    public function activeMenu($uri = '')
-    {
-        $active = '';
-        if (Request::is(Request::segment(1) . '/' . $uri . '/*') || Request::is(Request::segment(1) . '/' . $uri) || Request::is($uri)) {
-            $active = 'active';
-        }
-        return $active;
     }
 }

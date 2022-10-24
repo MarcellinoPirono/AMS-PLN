@@ -16,8 +16,14 @@ return new class extends Migration
         Schema::create('rabs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            // $table->integer("total_harga");
+            // $table->string("kategori");
+            // $table->string("vendor");
+            // $table->string("nomor_kontrak");
         });
     }
+
+
 
     /**
      * Reverse the migrations.

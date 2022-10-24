@@ -19,7 +19,7 @@ class RabController extends Controller
         return view('rab.index', [
             'title' => 'Rancangan Anggaran Biaya',
             'title1' => 'RAB',
-            'active' => 'pages.rab.index'
+
         ]);
     }
 
@@ -31,12 +31,16 @@ class RabController extends Controller
      */
     public function create()
     {
-        return view('rab.create', [
-            'active' => 'pages.rab.tambah_rab',
-            'title' => 'Rancangan Anggaran Biaya',
-            'title1' => 'RAB',
-            'title2' => 'Tambah',
-        ]);
+        return view(
+            'rab.create',
+            [
+                'active1' => 'Tambah Rab',
+                'title' => 'Rancangan Anggaran Biaya',
+                'title1' => 'RAB',
+                'active' => 'RAB-PO',
+                'title2' => 'Tambah',
+            ]
+        );
     }
 
     /**
@@ -90,8 +94,11 @@ class RabController extends Controller
      * @param  \App\Models\Rab  $rab
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rab $rab)
+    public function destroy(Rab $rab, $id)
     {
-        //
+        // $rab = Rab::find($id);
+        // $rab->delete();
+
+        // return redirect('/rab')->with('success', 'Data berhasil dihapus');
     }
 }
