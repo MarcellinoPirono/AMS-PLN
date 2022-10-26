@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\RincianInduk;
 use App\Models\ItemRincianInduk;
+use \Http\Resources\RincianIndukResource;
 use App\Http\Requests\StoreRincianIndukRequest;
 use App\Http\Requests\UpdateRincianIndukRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class RincianIndukController extends Controller
 {
@@ -17,10 +21,10 @@ class RincianIndukController extends Controller
      */
     public function index()
     {
-        return view('rincian.index', [
-            'title' => 'Item Kontrak Induk',
-            'items' => RincianInduk::all()
+        $items = DB::select('SELECT * FROM rincian_induks LEFT JOIN item_rincian_induks ON rincian_induks.kontraks_id = item_rincian_induks.id');
 
+        return view('rincian.index', compact('items'), [
+            'title' => 'Item Kontrak Induk',
         ]);
     }
 
@@ -31,13 +35,17 @@ class RincianIndukController extends Controller
      */
     public function create()
     {
-        return view('rincian.create', [
-            'title' => 'Item Kontrak Induk',
-            'active' => 'Rincian Item',
-            'active1' => 'Tambah Rincian Item',
-            'items' => RincianInduk::all(),
-            'kontraks' => ItemRincianInduk::all(),
-        ]);
+        // $items = DB::select('SELECT * FROM rincian_induks LEFT JOIN item_rincian_induks ON rincian_induks.kontraks_id = item_rincian_induks.id');
+
+        return view(
+            'rincian.create',
+            [
+                'title' => 'Item Kontrak Induk',
+                'active' => 'Rincian Item',
+                'active1' => 'Tambah Rincian Item',
+                'items' => ItemRincianInduk::all(),
+            ]
+        );
     }
 
     /**
@@ -48,6 +56,7 @@ class RincianIndukController extends Controller
      */
     public function store(StoreRincianIndukRequest $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
 
             'nama_item' => 'required|max:250',
@@ -77,17 +86,23 @@ class RincianIndukController extends Controller
      * @param  \App\Models\RincianInduk  $rincianInduk
      * @return \Illuminate\Http\Response
      */
-    public function edit(RincianInduk $rincianInduk)
-    {
-        return view('rincian.edit', [
+    public function edit($id)
 
-            'rincian' => $rincianInduk,
-            'title' => 'Item Kontrak Induk',
-            'active' => 'Rincian Item',
-            'active1' => 'Edit Rincian Item',
-            'kontraks' => ItemRincianInduk::all(),
-            'items' => RincianInduk::all(),
-        ]);
+    {
+
+
+        // return $rincianInduk;
+        $items = RincianInduk::findOrFail($id);
+
+        return $items;
+
+        // return view('rincian.edit', [
+        //     'title' => 'Item Kontrak Induk',
+        //     'active' => 'Rincian Item',
+        //     'active1' => 'Edit Rincian Item',
+        //     // 'kontraks' => ItemRincianInduk::all(),
+        //     'items' => $items,
+        // ]);
     }
 
     /**
@@ -119,11 +134,15 @@ class RincianIndukController extends Controller
      * @param  \App\Models\RincianInduk  $rincianInduk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RincianInduk $rincianInduk, $id)
+    public function destroy(RincianInduk $rincianInduk, $nama_item)
     {
+        // dd($request->all());
+        // $rincianInduk = RincianInduk::find($id);
+        // $rincianInduk->delete();
 
-        $RincianInduk = RincianInduk::find($id);
-        $RincianInduk->delete();
+        // RincianInduk::destroy($id);
+
+        RincianInduk::where('nama_item', $nama_item)->delete();
 
         return redirect('/rincian')->with('success', 'Data berhasil dihapus!');
         // RincianInduk::destroy($rincianInduk->id);

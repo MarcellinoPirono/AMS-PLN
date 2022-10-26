@@ -9,13 +9,10 @@ class ItemRincianInduk extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
-
-    protected $table = 'item_rincian_induks';
-    protected $fillable = ['nama_kontrak',];
+    protected $guarded = [''];
 
     public function rincian_induks()
     {
-        return $this->hasMany(RincianInduk::class, 'kontraks_id', 'id');
+        return $this->hasMany(RincianInduk::class, 'kontraks_id');
     }
 }

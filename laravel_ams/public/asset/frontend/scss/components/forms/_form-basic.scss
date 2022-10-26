@@ -30,7 +30,7 @@
 	.input-primary{
 		.form-control{
 			border-color:$primary;
-		}	
+		}
 		.input-group-text{
 			background-color:$primary;
 			color:$white;
@@ -39,7 +39,7 @@
 	.input-danger{
 		.form-control{
 			border-color:$danger;
-		}	
+		}
 		.input-group-text{
 			background-color:$danger;
 			color:$white;
@@ -48,7 +48,7 @@
 	.input-info{
 		.form-control{
 			border-color:$info;
-		}	
+		}
 		.input-group-text{
 			background-color:$info;
 			color:$white;
@@ -57,7 +57,7 @@
 	.input-success{
 		.form-control{
 			border-color:$success;
-		}	
+		}
 		.input-group-text{
 			background-color:$success;
 			color:$white;
@@ -66,7 +66,7 @@
 	.input-warning{
 		.form-control{
 			border-color:$warning;
-		}	
+		}
 		.input-group-text{
 			background-color:$warning;
 			color:$white;
@@ -79,8 +79,8 @@
 	.input-primary-o{
 		.form-control{
 			border-color:$primary;
-			
-		}	
+
+		}
 		.input-group-text{
 			background-color:transparent;
 			border-color:$primary;
@@ -90,7 +90,7 @@
 	.input-danger-o{
 		.form-control{
 			border-color:$danger;
-		}	
+		}
 		.input-group-text{
 			background-color:transparent;
 			border-color:$danger;
@@ -100,7 +100,7 @@
 	.input-info-o{
 		.form-control{
 			border-color:$info;
-		}	
+		}
 		.input-group-text{
 			background-color:transparent;
 			border-color:$info;
@@ -110,7 +110,7 @@
 	.input-success-o{
 		.form-control{
 			border-color:$success;
-		}	
+		}
 		.input-group-text{
 			background-color:transparent;
 			border-color:$success;
@@ -120,7 +120,7 @@
 	.input-warning-o{
 		.form-control{
 			border-color:$warning;
-		}	
+		}
 		.input-group-text{
 			background-color:transparent;
 			border-color:$warning;
@@ -151,7 +151,7 @@
     justify-content: center;
 	padding: 0.532rem 0.75rem;
 	border-radius: $radius;
-		
+
     i{
         font-size: 16px;
     }
@@ -180,7 +180,7 @@
 .custom-file-label{
     // height: 45px;
     // border-radius: 0px!important;
-	
+
     &:after{
         background: #656C73;
         border: 1px solid $border;
@@ -195,7 +195,7 @@
 }
 
 .custom_file_input {
-    .input-group-prepend, 
+    .input-group-prepend,
     .input-group-append {
         // height: 45px;
     }

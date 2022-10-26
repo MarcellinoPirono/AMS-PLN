@@ -58,21 +58,38 @@
 											</div>
 										</div>
 										<div class="col-lg-12 mb-2">
+											<label class="text-label">Pilih Kategori</label>
+										</div>
+										<div class="col-lg-6 mb-2">
 											<div class="form-group">
-												<label class="text-label">Pilih Kategori</label>
-												<form id="rab" method="post" class="form-inline">
-													<select name="kategori" class="form-control custom-select mb-2 mr-sm-2" id="kategori">
-														<option value="" selected="selected">Pilih Kategori</option>
-													</select>
-													<select name="pekerjaan" class="form-control custom-select mb-2 mr-sm-2" id="pekerjaan">
-														<option value="" selected="selected">Pilih Pekerjaan</option>
-													</select>
-													<input type="text" class="form-control col-xl-2 mb-2 mr-sm-2" id="InputVolume" placeholder="Volume">
-													<input type="text" class="form-control col-xl-2 mb-2 mr-sm-2" id="HargaItem" placeholder="Harga" disabled>
-												</form>
-												<input type="button" class="btn btn-primary moreFields" value="Tambah" name="tambah" onclick="updateform()"></input>
+												<select name="kategori" class="form-control" id="kategori">
+													<option value="" selected="selected">Pilih Kategori</option>
+												</select>
 											</div>
 										</div>
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<select name="pekerjaan" class="form-control" id="pekerjaan">
+													<option value="" selected="selected">Pilih Pekerjaan</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<input type="text" class="form-control" id="InputVolume" placeholder="Volume">
+											</div>
+										</div>
+										<div class="col-lg-6 mb-2">
+											<div class="form-group">
+												<input type="text" class="form-control" id="HargaItem" placeholder="Harga" disabled>
+											</div>
+										</div>
+										<div class="col-lg-12 mb-2">
+											<div class="position-relative justify-content-end float-left">
+												<button type="submit" class="btn btn-primary position-relative justify-content-end" onclick="updateform()">Tambah</button>
+											</div>
+										</div>
+										<div class=""></div>
 										<div class="table-responsive">
 											<table class="table table-responsive-sm" id="tabelRAB">
 												<thead>

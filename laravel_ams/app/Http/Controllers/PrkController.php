@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Prk;
-use App\Http\Requests\StorePrkRequest;
-use App\Http\Requests\UpdatePrkRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class PrkController extends Controller
 {
@@ -15,10 +16,9 @@ class PrkController extends Controller
      */
     public function index()
     {
-        return view('prk.index', [
+        $prks = DB::select('SELECT * FROM prks LEFT JOIN skks ON prks.no_skk_prk = skks.id');
+        return view('prk.index', compact('prks'), [
             'title' => 'PRK',
-            'title1' => 'PRK',
-
         ]);
     }
 
@@ -29,21 +29,16 @@ class PrkController extends Controller
      */
     public function create()
     {
-        return view('prk.create', [
-            'title' => 'PRK',
-            'title1' => 'PRK',
-            'active' => 'PRK',
-            'active1' => 'Tambah PRK'
-        ]);
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePrkRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePrkRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -73,11 +68,11 @@ class PrkController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePrkRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Prk  $prk
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePrkRequest $request, Prk $prk)
+    public function update(Request $request, Prk $prk)
     {
         //
     }

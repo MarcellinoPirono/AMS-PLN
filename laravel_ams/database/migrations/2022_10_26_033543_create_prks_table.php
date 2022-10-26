@@ -13,17 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rincian_induks', function (Blueprint $table) {
+        Schema::create('prks', function (Blueprint $table) {
             $table->id();
-
-            // $table->unsignedBigInteger('kontraks_id')->nullable();
-            // $table->foreign('kontraks_id')->references('id')->on('item_rincian_induks');
-
-
-            $table->foreignId('kontraks_id');
-            $table->string('nama_item');
-            $table->string('satuan');
-            $table->integer('harga_satuan');
+            $table->foreignId('no_skk_prk');
+            $table->string('no_prk');
+            $table->string('uraian_prk');
+            $table->string('pagu_prk');
+            $table->string('prk_terkontrak');
+            $table->string('prk_realisasi');
+            $table->string('prk_terbayar');
+            $table->string('prk_sisa');
             $table->timestamps();
         });
     }
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rincian_induks');
+        Schema::dropIfExists('prks');
     }
 };

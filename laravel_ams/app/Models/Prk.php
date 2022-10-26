@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Prk extends Model
 {
     use HasFactory;
+
+    public function skk()
+    {
+        return $this->belongsTo(Skk::class);
+    }
 }

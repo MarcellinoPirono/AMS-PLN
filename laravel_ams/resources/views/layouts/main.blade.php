@@ -161,10 +161,10 @@
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="bi bi-cash-coin"></i>
-                            <span class="nav-text">SPKK/PRK </span>
+                            <span class="nav-text">SKK/PRK </span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="nav-link {{ Request::is('spkk*')  ? 'active' : '' }}" href="/spkk">SPKK</a></li>
+                            <li><a class="nav-link {{ Request::is('spkk*')  ? 'active' : '' }}" href="/skk">SKK</a></li>
                             <li><a class="nav-link {{ Request::is('prk*')  ? 'active' : '' }}" href="/prk">PRK</a></li>
                         </ul>
                     </li>
@@ -264,6 +264,7 @@
     <script src="{{ asset('/') }}./asset/frontend/js/tambah-field.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/cascading-dropdown.js"></script>
 
+    @yield('ajax')
 
 	<script>
 		$(document).ready(function(){
@@ -272,6 +273,12 @@
 		});
 	</script>
 
+    {{-- <script>
+    $(".filter").on('change',function(){
+        console.log("FILTER")
+    })
+    </script> --}}
+
     <!-- Summernote -->
     <script src="{{ asset('/') }}./asset/frontend/vendor/summernote/js/summernote.min.js"></script>
     <!-- Summernote init -->
@@ -279,6 +286,9 @@
 
     <script src="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert.init.js"></script>
+
+    {{-- <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script> --}}
 
 
     <script>

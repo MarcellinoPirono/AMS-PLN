@@ -2533,7 +2533,7 @@ pre code {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-}
+}ntrol
 
 .table-responsive > .table-bordered {
     border: 0;
@@ -2550,7 +2550,8 @@ pre code {
     color: #060607;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #f0f1f5;
+    border: 1px solid #63656b;
+    border-color: #63656b;
     border-radius: 0.75rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -2574,7 +2575,7 @@ pre code {
 .form-control:focus {
     color: #495057;
     background-color: #fff;
-    border-color: #000;
+    border-color: #1EA7C5;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(11, 42, 151, 0.25);
 }
@@ -2598,7 +2599,7 @@ input[type="month"].form-control {
 }
 
 select.form-control:focus::-ms-value {
-    color: #495057;
+    color: #1262b3;
     background-color: #fff;
 }
 
@@ -40272,7 +40273,7 @@ svg text {
 .form-control {
     border-radius: 1.25rem;
     background: #fff;
-    border: 1px solid #f0f1f5;
+    border: 1px solid #a6a6a6;
     color: #000;
     height: 56px;
 }
@@ -41715,6 +41716,7 @@ tab-pane
 
     .form-wizard .tab-content {
         height: 100% !important;
+        overflow-y: scroll;
     }
 }
 

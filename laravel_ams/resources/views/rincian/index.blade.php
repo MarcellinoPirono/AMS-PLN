@@ -3,18 +3,20 @@
 @section('content')
 
 <div class="row">
-                    <div class="col-lg-12">
+    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih Kategori</button>
-                                    <div class="dropdown-menu">
-                                    @foreach ( $items as $item )
-                                        <a class="dropdown-item" href="">{{$item->item_rincian_induks->nama_kontrak}}</a>
-                                    @endforeach
+                                <div class="dropdown">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Pilih Kategori</button>
+                                        <div class="dropdown-menu">
+                                            @foreach($items as $item)
+                                                <a class="dropdown-item" value="{{ $item->id }}">{{$item->nama_kontrak}}</a>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
-                                <a href="/rincian/create" class="btn btn-primary mr-auto ml-3 ">Tambah Item <span
+                                <a href="/rincian/create" class="btn btn-primary mr-auto ml-3">Tambah Item <span
                                         class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                                 </a>
                                 <div class="input-group search-area position-relative">
@@ -31,7 +33,7 @@
                             </div>
                             @endif
                                 <div class="table-responsive">
-                                    <table class="table table-responsive-md">
+                                    <table id="rincian-table" class="table table-responsive-md">
                                         <thead>
                                             <tr>
                                                 <th class="width80">No.</th>
@@ -43,31 +45,28 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($items as $item )
+                                        @foreach ($items as $item)
                                             <tr>
                                                 <td><strong>{{$loop->iteration}}</strong></td>
                                                 <td>{{$item->nama_item}}</td>
-                                                <td>{{$item->item_rincian_induks->nama_kontrak}}</td>
+                                                <td>{{$item->nama_kontrak}}</td>
                                                 <td>{{$item->satuan}}</td>
                                                 <td>{{$item->harga_satuan}}</td>
                                                 <td>
-                                                <div class="d-flex">
-                                                    <a href="/rincian/{{ $item->id }}/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                                    <a href="#" data-toggle="modal" data-target="#deleteModal{{ $item->id }}"> <i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
-                                                    @include('layouts.deleteitem')
-                                                    {{-- <form action="/rincian/{{ $item->id }}" method="post" class="d-inline">
-                                                        @method('delete')
-                                                        @csrf
-                                                        <a class="btn btn-danger shadow btn-xs sharp"
-                                                            onclick="return confirm('Are you sure to delete it?')"><i class="fa fa-trash"></i></a>
-                                                    </form> --}}
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                    <div class="d-flex">
+                                                        <a href="/rincian/{{ $item->id }}/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                                        <a href="#" data-toggle="modal" data-target="#deleteModal{{ $item->id }}"><i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
+                                                        @include('layouts.deleteitem')
+                                                    </div>
+                                                </td>
+                                            </tr>
                                          @endforeach
 
                                         </tbody>
                                     </table>
+                                    <div class="d-flex justify-content-center">
+                                    {{-- {{ $items->links() }} --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -75,3 +74,72 @@
 </div>
 
 @endsection
+<!-- {{-- <script type="text/javascript" charset="utf8" src=""></script>
+<script>
+$(".filter").on('change',function(){
+    console.log("FILTER")
+})
+</script> --}}
+
+@section('ajax')
+<script type="text/javascript">
+    let table = $('#rincian-table').DataTable({
+        processing : true,
+        serverSide : true,
+        "responsive": true,
+        "autoWidth": false,
+        ajax : "{{ route('rincian.index') }}",
+        columns : [
+            {
+            data: 'DT_RowIndex',
+            name: 'DT_RowIndex'
+            },
+            {data:'nama_item', name:'nama_item'},
+            {data:'nama_kontraks', name:'nama_kontraks'},
+            {data:'satuan', name:'satuan'},
+            {data:'harga_satuan', name:'harga_satuan'},
+            // {data:'content', name:'content'},
+            {data: 'action', name: 'action', orderable: false, searchable: false}
+        ]
+    });
+
+    function deleteBlog(id) {
+        let csrf_token = $('meta[name="csrf-token"]').attr('content');
+        swal({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function () {
+            $.ajax({
+                type: "POST",
+                url: "{{ url('administrator/blog') }}" + '/' + id,
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (data) {
+                    table.ajax.reload();
+                    swal({
+                        title: 'Success',
+                        text: 'Data has been deleted',
+                        type: 'success',
+                        timer: '1500'
+                    }).catch(swal.noop);
+                },
+                error: function () {
+                    swal({
+                        title: 'Oops...',
+                        text: 'Something when wrong!',
+                        type: 'error',
+                        timer: '1500'
+                    }).catch(swal.noop);
+                }
+            });
+        })
+    }
+</script>
+@endsection -->

@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rincian_induks', function (Blueprint $table) {
+        Schema::create('skks', function (Blueprint $table) {
             $table->id();
-
-            // $table->unsignedBigInteger('kontraks_id')->nullable();
-            // $table->foreign('kontraks_id')->references('id')->on('item_rincian_induks');
-
-
-            $table->foreignId('kontraks_id');
-            $table->string('nama_item');
-            $table->string('satuan');
-            $table->integer('harga_satuan');
+            $table->string('nomor_skk');
+            $table->string('uraian_skk');
+            $table->string('pagu_skk');
+            $table->string('skk_terkontrak');
+            $table->string('skk_realisasi');
+            $table->string('skk_terbayar');
+            $table->string('skk_sisa');
             $table->timestamps();
         });
     }
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rincian_induks');
+        Schema::dropIfExists('skks');
     }
 };

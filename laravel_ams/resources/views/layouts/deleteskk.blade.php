@@ -1,8 +1,7 @@
-<!-- Delete Transaksi Modal-->
 <form action="" method="post">
     @method('delete')
     @csrf
-    <div class="modal fade" id="deleteModal{{ $kontrak->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal{{ $skk->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -14,7 +13,7 @@
                 <div class="modal-body">Apakah Anda yakin untuk menghapus data?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Tidak</button>
-                    <a class="btn btn-danger" href="{{ "delete/".$kontrak['id'] }}">Hapus</a>
+                    <a class="btn btn-danger" href="{{ "deleteskk/".$skk['id'] }}">Hapus</a>
                 </div>
             </div>
         </div>

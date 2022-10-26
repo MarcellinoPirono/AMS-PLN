@@ -6,13 +6,20 @@
                         <div class="card">
                             <div class="card-header">
                                  <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih Kategori</button>
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih Jenis SKK</button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="javascript:void()">Kategori 1</a>
-                                        <a class="dropdown-item" href="javascript:void()">Kategori 2</a>
+                                        <a class="dropdown-item" href="javascript:void()">SKK AI</a>
+                                        <a class="dropdown-item" href="javascript:void()">SKK AO</a>
                                     </div>
                                 </div>
-                                <a href="/prk/create" class="btn btn-primary mr-auto ml-3 ">Tambah Item <span
+                                <div class="btn-group ml-3" role="group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih SKK</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="javascript:void()">SKK 1</a>
+                                        <a class="dropdown-item" href="javascript:void()">SKK 2</a>
+                                    </div>
+                                </div>
+                                <a href="/prk/create" class="btn btn-primary mr-auto ml-3 ">Tambah PRK <span
                                         class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                                 </a>
                                 <div class="input-group search-area position-relative">
@@ -28,27 +35,47 @@
                                         <thead>
                                             <tr>
                                                 <th class="width80">No.</th>
-                                                <th>Rincian Item</th>
-                                                <th>Kategori</th>
-                                                <th>Satuan</th>
-                                                <th>Harga(1)</th>
-                                                <th>Aksi</th>
+                                                <th>No.SKK_PRK</th>
+                                                <th>No.PRK</th>
+                                                <th>Uraian PRK</th>
+                                                <th>Pagu PRK</th>
+                                                <th>PRK Terkontrak</th>
+                                                <th>PRK Realisasi</th>
+                                                <th>PRK Terbayar</th>
+                                                <th>PRK Sisa</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($prks as $item )
                                             <tr>
-                                                <td><strong>01</strong></td>
-                                                <td>Penarikan Kabel TIC 2x10 mm2</td>
-                                                <td>Pemasangan SP 1 Phasa</td>
-                                                <td>PLG</td>
-                                                <td>Rp. 30.999</td>
-                                                <td><div class="d-flex">
-														<a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-														<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-													</div></td>
-                                            </tr>
+                                                <td><strong>{{$loop->iteration}}</strong></td>
+                                                <td>{{$item->nomor_skk}}</td>
+                                                <td>{{$item->no_prk}}</td>
+                                                <td>{{$item->uraian_prk}}</td>
+                                                <td>{{$item->pagu_prk}}</td>
+                                                <td>{{$item->prk_terkontrak}}</td>
+                                                <td>{{$item->prk_realisasi}}</td>
+                                                <td>{{$item->prk_terbayar}}</td>
+                                                <td>{{$item->prk_sisa}}</td>
+
+                                                <td>
+                                                <div class="d-flex">
+                                                    <a href="/prk/{{ $item->id }}/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+
+                                                    {{-- @include('layouts.deleteitem') --}}
+                                                    <form action="/prk/{{ $item->id }}" method="post" class="d-inline">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <a class="btn btn-danger shadow btn-xs sharp"
+                                                            onclick="return confirm('Are you sure to delete it?')"><i class="fa fa-trash"></i></a>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                         @endforeach
                                         </tbody>
                                     </table>
+
                                 </div>
                             </div>
                         </div>

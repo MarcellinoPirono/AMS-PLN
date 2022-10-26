@@ -5,7 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Spkk extends Model
+class Skk extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function prk()
+    {
+        return $this->hasMany(Prk::class);
+    }
 }
