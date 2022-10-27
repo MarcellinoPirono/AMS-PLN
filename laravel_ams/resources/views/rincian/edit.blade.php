@@ -17,32 +17,39 @@
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form method="POST" action="/rincian/{{$rincian->kontraks_id}}" class="" enctype="multipart/form-data">
+                    <form method="POST" action="/rincian/{{$rincianinduk->id}}" class="" enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default  @error('nama_item') is-invalid @enderror" placeholder="Nama Item" name="nama_item" id="nama_item" required autofocus value="{{ old('nama_item', $items->nama_item) }}">
+                                <input type="text" class="form-control input-default  @error('nama_item') is-invalid @enderror" placeholder="Nama Item" name="nama_item" id="nama_item" required autofocus value="{{ old('nama_item', $rincianinduk->nama_item) }}">
                                     @error('nama_item')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
+                            {{-- <div class="form-group col-md-6">
+                                <input type="text" class="form-control input-default  @error('kontraks_id') is-invalid @enderror" placeholder="Nama Kontrak" name="kontraks_id" id="kontraks_id" required autofocus value="{{ old('kontraks_id', $rincianinduk->item_rincian_induks->nama_kontrak) }}">
+                                    @error('kontraks_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div> --}}
                             <div class="form-group col-md-6">
-                                <select class="form-control custom-select input-default" id="kontraks_id" name="kontraks_id">
-                                    @foreach ($kontraks as $item)
-                                    @if (old('kontraks_id', $rincian->kontraks_id ) == $item->id)
-                                        <!-- <option value="{{ $item->id }}" >{{ $item->nama_kontrak }}</option> -->
-                                    @else
-                                        <!-- <option value="{{ $item->id }}">{{ $item->nama_kontrak }}</option> -->
-                                    @endif
-
+                                <select class="form-control custom-select input-default" name="kontraks_id" id="kontraks_id" name="kontraks_id">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            @if($rincianinduk->kontraks_id == $category->id) selected
+                                            @endif>{{$category->nama_kontrak}}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default  @error('satuan') is-invalid @enderror" placeholder="Satuan" name="satuan" id="satuan" required autofocus value="{{ old('satuan'), $rincian->satuan}}">
+                                <input type="text" class="form-control input-default  @error('satuan') is-invalid @enderror" placeholder="Satuan" name="satuan" id="satuan" required autofocus value="{{ old('satuan', $rincianinduk->satuan)}}">
                                 @error('satuan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -50,7 +57,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default  @error('harga_satuan') is-invalid @enderror" placeholder="Harga Satuan" name="harga_satuan" id="harga_satuan" required autofocus value="{{ old('harga_satuan', $rincian->harga_satuan) }}">
+                                <input type="text" class="form-control input-default  @error('harga_satuan') is-invalid @enderror" placeholder="Harga Satuan" name="harga_satuan" id="harga_satuan" required autofocus value="{{ old('harga_satuan', $rincianinduk->harga_satuan) }}">
                                     @error('harga_satuan')
                                     <div class="invalid-feedback">
                                         {{ $message }}

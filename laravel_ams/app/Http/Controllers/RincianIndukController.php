@@ -21,10 +21,17 @@ class RincianIndukController extends Controller
      */
     public function index()
     {
-        $items = DB::select('SELECT * FROM rincian_induks LEFT JOIN item_rincian_induks ON rincian_induks.kontraks_id = item_rincian_induks.id');
+        // $items = DB::table('rincian_induks')
+        //     ->leftJoin('item_rincian_induks', 'rincian_induks.kontraks_id', '=', 'item_rincian_induks.id')
+        //     ->get();
 
-        return view('rincian.index', compact('items'), [
-            'title' => 'Item Kontrak Induk',
+        // return view('rincian.index', compact('items'), [
+        //     'title' => 'Item Kontrak Induk',
+        // ]);
+
+        return view('rincian.index', [
+            'title' => 'Rincian Item',
+            'items' => RincianInduk::orderBy('id', 'DESC')->paginate(5),
         ]);
     }
 
@@ -59,10 +66,10 @@ class RincianIndukController extends Controller
         // dd($request->all());
         $validatedData = $request->validate([
 
-            'nama_item' => 'required|max:250',
+            'nama_item' => 'required|max:250|unique:rincian_induks,nama_item',
             'satuan' => 'required',
             'kontraks_id' => 'required',
-            'harga_satuan' => 'required',
+            'harga_satuan' => 'required|numeric',
 
         ]);
         RincianInduk::create($validatedData);
@@ -89,12 +96,21 @@ class RincianIndukController extends Controller
     public function edit($id)
 
     {
+        $rincianInduk = RincianInduk::findOrFail($id);
 
+        $data = [
+            'rincianinduk'  => $rincianInduk,
+            'title' => 'Item Kontrak Induk',
+            'active' => 'Rincian Item',
+            'active1' => 'Edit Rincian Item',
+            'categories'    => ItemRincianInduk::orderBy('id', 'DESC')->get(),
+        ];
+        return view('rincian.edit', $data);
 
-        // return $rincianInduk;
-        $items = RincianInduk::findOrFail($id);
+        // // return $rincianInduk;
+        // $items = RincianInduk::findOrFail($id);
 
-        return $items;
+        // // return $items;
 
         // return view('rincian.edit', [
         //     'title' => 'Item Kontrak Induk',
@@ -112,20 +128,37 @@ class RincianIndukController extends Controller
      * @param  \App\Models\RincianInduk  $rincianInduk
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRincianIndukRequest $request, RincianInduk $rincianInduk)
+    public function update(UpdateRincianIndukRequest $request, RincianInduk $rincianInduk, $id)
     {
-        $rules = [
+        $request->validate([
 
             'nama_item' => 'required|max:250',
             'satuan' => 'required',
             'kontraks_id' => 'required',
-            'harga_satuan' => 'required',
+            'harga_satuan' => 'required|numeric',
 
-        ];
+        ]);
 
-        $validatedData = $request->validate($rules);
-        RincianInduk::where('id', $rincianInduk->id)->update($validatedData);
-        return redirect('/rincian')->with('success', 'has been edited');
+        $rincianInduk = RincianInduk::findOrFail($id);
+
+        $input = $request->all();
+        $rincianInduk->update($input);
+
+        return redirect('/rincian')->with('status', 'Rincian Item Berhasil Diedit.');
+
+        // $validatedData = $request->validate($rules);
+        // RincianInduk::where('id', $rincianInduk->id)->update($validatedData);
+        // return redirect('/rincian')->with('success', 'has been edited');
+
+
+        // $rincianInduk->update([
+
+        //     'nama_item' => $request['nama_item'],
+        //     'satuan' => $request['satuan'],
+        //     'kontraks_id' => $request['kontraks_id'],
+        //     'harga_satuan' => $request['harga_satuan'],
+
+        // ]);
     }
 
     /**
@@ -148,4 +181,15 @@ class RincianIndukController extends Controller
         // RincianInduk::destroy($rincianInduk->id);
         // return redirect('/rincian')->with('success', 'post has been deleted');
     }
+
+    // public function ajax(Request, $request)
+    // {
+    //     $rincianInduk = RincianInduk::all();
+
+    //     $rincianInduk = DB::table('rincian_induks')
+    //         ->where('kontraks_id', 'like', "%" . $item . "%")
+    //         ->paginate();
+
+    //     return redirect('/rincian')->with('success', 'Data berhasil dicari!');
+    // }
 }

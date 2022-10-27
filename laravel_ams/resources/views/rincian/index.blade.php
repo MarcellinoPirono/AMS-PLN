@@ -1,20 +1,35 @@
 @extends('layouts.main')
 
 @section('content')
+    @if (session()->has('status'))
+        <div class="alert alert-success alert-dismissible alert-alt fade show">
+            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+            </button>
+            <strong>Success!</strong> {{ session('status') }}
+        </div>
+    @endif
 
 <div class="row">
     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="dropdown">
+                                {{-- <div class="dropdown">
                                     <div class="btn-group" role="group">
                                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Pilih Kategori</button>
                                         <div class="dropdown-menu">
                                             @foreach($items as $item)
-                                                <a class="dropdown-item" value="{{ $item->id }}">{{$item->nama_kontrak}}</a>
+                                                <a class="dropdown-item" value="{{ $item->id }}">{{$item->item_rincian_induks->nama_kontrak}}</a>
                                             @endforeach
                                         </div>
                                     </div>
+                                </div> --}}
+                                <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
+                                <select id="filter-kategori" class="form-control filter">
+                                    <option value="">Pilih Kategori</option>
+                                    @foreach($items as $item)
+                                    <option value="{{ $item->id }}">{{ $item->item_rincian_induks->nama_kontrak }}</option>
+                                    @endforeach
+                                </select>
                                 </div>
                                 <a href="/rincian/create" class="btn btn-primary mr-auto ml-3">Tambah Item <span
                                         class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
@@ -33,7 +48,7 @@
                             </div>
                             @endif
                                 <div class="table-responsive">
-                                    <table id="rincian-table" class="table table-responsive-md">
+                                    <table id="example" class="table table-responsive-md">
                                         <thead>
                                             <tr>
                                                 <th class="width80">No.</th>
@@ -49,10 +64,11 @@
                                             <tr>
                                                 <td><strong>{{$loop->iteration}}</strong></td>
                                                 <td>{{$item->nama_item}}</td>
-                                                <td>{{$item->nama_kontrak}}</td>
+                                                <td>{{$item->item_rincian_induks->nama_kontrak}}</td>
                                                 <td>{{$item->satuan}}</td>
                                                 <td>{{$item->harga_satuan}}</td>
                                                 <td>
+
                                                     <div class="d-flex">
                                                         <a href="/rincian/{{ $item->id }}/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                                                         <a href="#" data-toggle="modal" data-target="#deleteModal{{ $item->id }}"><i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
@@ -72,16 +88,25 @@
                         </div>
                     </div>
 </div>
+<script type="text/javascript">
+    let item = $("#filter-kategori").val()
 
+    // <script>
+    // $(".filter").on('change',function(){
+    //     item = $("#filter-kategori").val()
+    // })
+    // </script>
+    <script>
+    $(".filter").on('change',function(){
+        ajax : {{method : "POST"}}
+        table.column( $(this).data('column'))
+        .search( $(this).val())
+    });
+    </script>
 @endsection
-<!-- {{-- <script type="text/javascript" charset="utf8" src=""></script>
-<script>
-$(".filter").on('change',function(){
-    console.log("FILTER")
-})
-</script> --}}
+{{-- <script type="text/javascript" charset="utf8" src=""></script> --}}
 
-@section('ajax')
+ {{-- @section('ajax')
 <script type="text/javascript">
     let table = $('#rincian-table').DataTable({
         processing : true,
@@ -141,5 +166,4 @@ $(".filter").on('change',function(){
             });
         })
     }
-</script>
-@endsection -->
+</script> --}}

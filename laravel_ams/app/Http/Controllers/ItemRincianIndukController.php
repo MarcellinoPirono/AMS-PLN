@@ -91,19 +91,10 @@ class ItemRincianIndukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
         $itemRincianInduk = ItemRincianInduk::find($id);
         $itemRincianInduk->nama_kontrak = $request->input('nama_kontrak');
         $itemRincianInduk->update();
 
-        // $rules = [
-
-        //     'nama_kontrak' => 'required|max:250'
-
-        // ];
-
-        // $validatedData = $request->validate($rules);
-        // ItemRincianInduk::where('id', $itemRincianInduk->id)->update($validatedData);
         return redirect('/categories')->with('success', 'has been edited');
     }
 

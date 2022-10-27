@@ -115,9 +115,10 @@
                                     <div class="col-xl-12 col-xxl-12">
                                         <div class="card">
                                             <div class="card-header justify-content-center">
-                                                <h4 class="card-title">Purchase Order</h4>
+                                                <h4 class="card-title">RAB</h4>
                                             </div>
                                             <div class="card-body">
+
                                                 <div class="summernote">
 													Merujuk kontrak perjanjian sebagai berikut: <br> Kontrak nomor: ... <br> Tanggal: ... <br>  Pekerjaan: ... <br> Maka dengan ini disampaikan kepada saudara untuk melaksanakan pekerjaan : <br> (Nama Pekerjaan) <br> Lokasi: ... <br>
 												<ol type="1">
@@ -146,6 +147,13 @@
 												<br>Demikian SPBJ/PO ini dibuat untuk dilaksanakan dan dapat diselesaikan dengan sebaik-baiknya.
 												</div>
                                             </div>
+											{{-- <div class="card-body">
+												<div class="form-group">
+													<textarea id="summernote" name="body"></textarea>
+												</div>
+
+											</div> --}}
+
                                         </div>
                                     </div>
                                 </div>

@@ -142,7 +142,9 @@
                                     <h4 class="text-black fs-20">Total Harga RAB</h4>
                                 </div>
                                 <div class="dropdown mb-3 show">
+
                                     <button type="button" class="btn rounded btn-light" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="bi bi-credit-card-2-front-fill " style="color: rgb(42, 147, 165);"></i>
                                         Pilih SPKK
                                         <svg class="ml-2" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 0.999999L7 7L13 1" stroke="#1EA7C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -241,5 +243,10 @@
                 </div>
 
 
-
+                <script>
+                    $(document).ready(function(){
+                        alert('hai')
+                    })
+                </script>
 @endsection
+

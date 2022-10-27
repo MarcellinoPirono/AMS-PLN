@@ -13,6 +13,6 @@ class ItemRincianInduk extends Model
 
     public function rincian_induks()
     {
-        return $this->hasMany(RincianInduk::class, 'kontraks_id');
+        return $this->hasMany(RincianInduk::class);
     }
 }

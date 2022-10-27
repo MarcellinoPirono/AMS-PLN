@@ -16,7 +16,7 @@ class SKKController extends Controller
     {
         return view('skk.index', [
             'title' => 'SKK',
-            'skks' => Skk::orderBy('id', 'DESC')->paginate(5),
+            'skks' => Skk::orderBy('id', 'DESC')->get(),
         ]);
     }
 
@@ -55,7 +55,7 @@ class SKKController extends Controller
 
         ]);
         Skk::create($validatedData);
-        return redirect('/skk')->with('success', 'Skk Berhasil Ditambah!');
+        return redirect('/skk')->with('status', 'Skk Berhasil Ditambah!');
     }
 
     /**
@@ -127,7 +127,7 @@ class SKKController extends Controller
             'skk_sisa' => $request['skk_sisa'],
         ]);
 
-        return redirect('/skk')->with('success', 'has been edited');
+        return redirect('/skk')->with('status', 'Skk Berhasil Diedit.');
     }
 
     /**

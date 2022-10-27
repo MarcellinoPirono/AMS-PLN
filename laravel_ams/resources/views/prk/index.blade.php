@@ -46,29 +46,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($prks as $item )
+                                            @foreach ($prks as $prk )
                                             <tr>
                                                 <td><strong>{{$loop->iteration}}</strong></td>
-                                                <td>{{$item->nomor_skk}}</td>
-                                                <td>{{$item->no_prk}}</td>
-                                                <td>{{$item->uraian_prk}}</td>
-                                                <td>{{$item->pagu_prk}}</td>
-                                                <td>{{$item->prk_terkontrak}}</td>
-                                                <td>{{$item->prk_realisasi}}</td>
-                                                <td>{{$item->prk_terbayar}}</td>
-                                                <td>{{$item->prk_sisa}}</td>
+                                                <td>{{$prk->skk->nomor_skk}}</td>
+                                                <td>{{$prk->no_prk}}</td>
+                                                <td>{{$prk->uraian_prk}}</td>
+                                                <td>{{$prk->pagu_prk}}</td>
+                                                <td>{{$prk->prk_terkontrak}}</td>
+                                                <td>{{$prk->prk_realisasi}}</td>
+                                                <td>{{$prk->prk_terbayar}}</td>
+                                                <td>{{$prk->prk_sisa}}</td>
 
                                                 <td>
                                                 <div class="d-flex">
-                                                    <a href="/prk/{{ $item->id }}/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-
-                                                    {{-- @include('layouts.deleteitem') --}}
-                                                    <form action="/prk/{{ $item->id }}" method="post" class="d-inline">
-                                                        @method('delete')
-                                                        @csrf
-                                                        <a class="btn btn-danger shadow btn-xs sharp"
-                                                            onclick="return confirm('Are you sure to delete it?')"><i class="fa fa-trash"></i></a>
-                                                    </form>
+                                                    <a href="/prk/{{ $prk->id }}/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                                    <a href="#" data-toggle="modal" data-target="#deleteModal{{ $prk->id }}"><i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
+                                                        @include('layouts.deleteprk')
                                                 </div>
                                             </td>
                                         </tr>

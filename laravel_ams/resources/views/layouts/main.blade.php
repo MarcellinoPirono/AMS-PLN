@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>AMS - UP3 PLN Makassar Selatan</title>
     <!-- Favicon icon -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}./asset/frontend/images/ams-bg1.png" />
     <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/chartist/css/chartist.min.css" />`
     <link href="{{ asset('/') }}./asset/frontend/vendor/bootstrap-select/dist/css/bootstrap-select_dark.min.css" rel="stylesheet" />
@@ -15,7 +16,7 @@
     <!-- Form step -->
     <link href="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css" rel="stylesheet"/>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"/>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
@@ -23,6 +24,11 @@
     <link href="{{ asset('/') }}./asset/frontend/vendor/summernote/summernote.css" rel="stylesheet">
 
     <link href="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <link href="{{ asset('/') }}./asset/frontend/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+
 
 
 
@@ -287,11 +293,21 @@
     <script src="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert.init.js"></script>
 
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert-init.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/vendor/sweetalert/sweetalert.all.js"></script>
+
+    <script src="{{ asset('./asset/frontend/js/plugins-init/sweetalert-init.js') }}"></script>
+    <script src="{{ asset('./asset/frontend/js/plugins-init/sweetalert.init.js') }}"></script>
+    <script src="{{ asset('./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    <!-- Datatable -->
+    <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
+
     {{-- <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script> --}}
 
 
-    <script>
+    {{-- <script>
         function carouselReview() {
             /*  testimonial one function by = owl.carousel.js */
             jQuery(".testimonial-one").owlCarousel({
@@ -332,7 +348,7 @@
                 carouselReview();
             }, 1000);
         });
-    </script>
+    </script> --}}
 </body>
 
 </html>

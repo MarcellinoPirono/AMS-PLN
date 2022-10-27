@@ -38,10 +38,10 @@ Route::get('editcategories/{id}', [ItemRincianIndukController::class, 'edit']);
 Route::put('categories/{id}', [ItemRincianIndukController::class, 'update']);
 
 Route::resource('rincian', RincianIndukController::class);
-// Route::get('rincian/{id}/edit', [RincianIndukController::class, 'edit']);
 Route::get('deleteitem/{id}', [RincianIndukController::class, 'destroy']);
 
-Route::get('deleteskk/{id}', [SkkController::class, 'destroy']);
 Route::resource('rab', RabController::class);
 Route::resource('skk', SkkController::class);
 Route::resource('prk', PrkController::class);
+Route::get('deleteskk/{id}', [SkkController::class, 'destroy']);
+Route::get('deleteprk/{id}', [PrkController::class, 'destroy']);

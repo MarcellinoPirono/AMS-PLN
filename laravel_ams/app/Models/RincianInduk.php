@@ -11,8 +11,8 @@ class RincianInduk extends Model
     protected $guarded = [''];
 
 
-    public function item_rincian_induk()
+    public function item_rincian_induks()
     {
-        return $this->belongsTo(ItemRincianInduk::class, 'id');
+        return $this->belongsTo(ItemRincianInduk::class, 'kontraks_id', 'id');
     }
 }
