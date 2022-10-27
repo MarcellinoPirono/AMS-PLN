@@ -6,17 +6,23 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>AMS - UP3 PLN Makassar Selatan</title>
     <!-- Favicon icon -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}./asset/frontend/images/ams-bg1.png" />
     <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/chartist/css/chartist.min.css" />`
-    <link href="{{ asset('/') }}./asset/frontend/vendor/bootstrap-select/dist/css/bootstrap-select_dark.min.css" rel="stylesheet" />
+    <link href="{{ asset('/') }}./asset/frontend/vendor/bootstrap-select/dist/css/bootstrap-select_dark.min.css"
+        rel="stylesheet" />
     <link href="{{ asset('/') }}./asset/frontend/vendor/owl-carousel/owl.carousel.css" rel="stylesheet" />
     <link href="{{ asset('/') }}./asset/frontend/css/style.css" rel="stylesheet" />
 
     <!-- Form step -->
-    <link href="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css" rel="stylesheet"/>
+    <link href="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css"
+        rel="stylesheet" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
@@ -105,24 +111,36 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="./app-profile.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary"
+                                            width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                             <circle cx="12" cy="7" r="4"></circle>
                                         </svg>
                                         <span class="ml-2">Profile </span>
                                     </a>
                                     <a href="./email-inbox.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" class="text-success" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" class="text-success"
+                                            width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path
+                                                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                            </path>
                                             <polyline points="22,6 12,13 2,6"></polyline>
                                         </svg>
                                         <span class="ml-2">Inbox </span>
                                     </a>
                                     <a href="./page-login.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger"
+                                            width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
                                             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                             <polyline points="16 17 21 12 16 7"></polyline>
-                                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                                            <line x1="21" y1="12" x2="9" y2="12">
+                                            </line>
                                         </svg>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -158,7 +176,8 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a class="" href="/categories">Kategori</a></li>
-                            <li><a class="nav-link {{ ($title === "Kontrak Induk") ? 'active' : '' }}" href="/rincian">Item</a></li>
+                            <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
+                                    href="/rincian">Item</a></li>
                         </ul>
                     </li>
                     <h5>
@@ -170,24 +189,28 @@
                             <span class="nav-text">SKK/PRK </span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="nav-link {{ Request::is('spkk*')  ? 'active' : '' }}" href="/skk">SKK</a></li>
-                            <li><a class="nav-link {{ Request::is('prk*')  ? 'active' : '' }}" href="/prk">PRK</a></li>
+                            <li><a class="nav-link {{ Request::is('spkk*') ? 'active' : '' }}"
+                                    href="/skk">SKK</a></li>
+                            <li><a class="nav-link {{ Request::is('prk*') ? 'active' : '' }}" href="/prk">PRK</a>
+                            </li>
                         </ul>
                     </li>
                     <h5>
                         <p class="fs-12 ml-3 mt-3 mb-1 text-black"> PO/RAB</p>
                     </h5>
                     <li>
-                        <a class="nav-link {{ Request::is('rab*')  ? 'active' : '' }}" href="/rab" aria-expanded="">
+                        <a class="nav-link {{ Request::is('rab*') ? 'active' : '' }}" href="/rab"
+                            aria-expanded="">
                             <i class="flaticon-381-folder-14"></i>
                             <span class="nav-text">Data</span>
                         </a>
                     </li>
                 </ul>
                 <div class="add-menu-sidebar">
-                    <img src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt="" class="mr-3" />
+                    <img src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt=""
+                        class="mr-3" />
                     <p class="font-w500 mb-0">Jumat <br> 21 Oktober 2022</p>
-                  </div>
+                </div>
             </div>
         </div>
         <!--**********************************
@@ -212,7 +235,8 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="http://telkom.co.id/" target="_blank">UNHAS</a> 2020</p>
+                <p>Copyright © Designed &amp; Developed by <a href="http://telkom.co.id/" target="_blank">UNHAS</a>
+                    2020</p>
             </div>
         </div>
         <!--**********************************
@@ -262,22 +286,27 @@
     <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script>
 
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-steps/build/jquery.steps.min.js"></script>
-	<script src="{{ asset('/') }}./asset/frontend/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-validation/jquery.validate.min.js"></script>
 
     <!-- Form Steps -->
-	<script src="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/jquery.validate-init.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/tambah-field.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/cascading-dropdown.js"></script>
 
     @yield('ajax')
 
-	<script>
-		$(document).ready(function(){
-			// SmartWizard initialize
-			$('#smartwizard').smartWizard();
-		});
-	</script>
+    <script>
+        $(document).ready(function() {
+            // SmartWizard initialize
+            $('#smartwizard').smartWizard();
+        });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        })
+    </script>
 
     {{-- <script>
     $(".filter").on('change',function(){

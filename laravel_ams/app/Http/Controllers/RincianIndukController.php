@@ -182,14 +182,11 @@ class RincianIndukController extends Controller
         // return redirect('/rincian')->with('success', 'post has been deleted');
     }
 
-    // public function ajax(Request, $request)
-    // {
-    //     $rincianInduk = RincianInduk::all();
-
-    //     $rincianInduk = DB::table('rincian_induks')
-    //         ->where('kontraks_id', 'like', "%" . $item . "%")
-    //         ->paginate();
-
-    //     return redirect('/rincian')->with('success', 'Data berhasil dicari!');
-    // }
+    public function filter(Request $request)
+    {
+        $item = $request->filter;
+        $rincianInduk = RincianInduk::where('kontraks_id', 'like', "%" . $item . "%")->get();
+        return view('rincian.filter', ['items' => $rincianInduk]);
+        // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
+    }
 }

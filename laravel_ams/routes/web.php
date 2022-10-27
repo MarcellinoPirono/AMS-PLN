@@ -38,6 +38,7 @@ Route::get('editcategories/{id}', [ItemRincianIndukController::class, 'edit']);
 Route::put('categories/{id}', [ItemRincianIndukController::class, 'update']);
 
 Route::resource('rincian', RincianIndukController::class);
+Route::any('rincian/filter', [RincianIndukController::class, 'filter']);
 Route::get('deleteitem/{id}', [RincianIndukController::class, 'destroy']);
 
 Route::resource('rab', RabController::class);
