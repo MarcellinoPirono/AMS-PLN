@@ -9,9 +9,9 @@ class Skk extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = [''];
 
-    public function prk()
+    public function prks()
     {
         return $this->hasMany(Prk::class);
     }

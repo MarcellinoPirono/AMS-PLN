@@ -49,7 +49,7 @@
                                             @foreach ($prks as $prk )
                                             <tr>
                                                 <td><strong>{{$loop->iteration}}</strong></td>
-                                                <td>{{$prk->skk->nomor_skk}}</td>
+                                                <td>{{$prk->skks->nomor_skk}}</td>
                                                 <td>{{$prk->no_prk}}</td>
                                                 <td>{{$prk->uraian_prk}}</td>
                                                 <td>{{$prk->pagu_prk}}</td>

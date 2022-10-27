@@ -8,6 +8,8 @@ use App\Models\Prk;
 use App\Models\Skk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class PrkController extends Controller
@@ -84,14 +86,17 @@ class PrkController extends Controller
      */
     public function edit($id)
     {
+
         $prk = Prk::findOrFail($id);
-        return view('prk.edit', [
+
+        $data = [
+            'prk'  => $prk,
             'title' => 'PRK',
             'active' => 'PRK',
             'active1' => 'Edit PRK',
-            'prk' => $prk,
-            'skks' =>  Skk::orderBy('id', 'DESC')->get()
-        ]);
+            'skks'    => Skk::orderBy('id', 'DESC')->get(),
+        ];
+        return view('prk.edit', $data);
     }
 
     /**
@@ -101,21 +106,27 @@ class PrkController extends Controller
      * @param  \App\Models\Prk  $prk
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePrkRequest $request, Prk $prk, $id)
-    {
-        $prk = Prk::find($id);
-        $prk->update([
 
-            'no_skk_prk' => $request['no_skk_prk'],
-            'no_prk' => $request['no_prk'],
-            'uraian_prk' => $request['uraian_prk'],
-            'pagu_prk' => $request['pagu_prk'],
-            'prk_terkontrak' => $request['prk_terkontrak'],
-            'prk_realisasi' => $request['prk_realisasi'],
-            'prk_terbayar' => $request['prk_terbayar'],
-            'prk_sisa' => $request['prk_sisa'],
+    public function update(UpdatePrkRequest $request, $id)
+    {
+        $request->validate([
+
+            'no_skk_prk' => 'required',
+            'no_prk' => 'required|max:250',
+            'uraian_prk' => 'required|max:250',
+            'pagu_prk' => 'required|max:250',
+            'prk_terkontrak' => 'required|max:250',
+            'prk_realisasi' => 'required|max:250',
+            'prk_terbayar' => 'required|max:250',
+            'prk_sisa' => 'required|max:250'
 
         ]);
+
+        $prk = Prk::findOrFail($id);
+
+        $input = $request->all();
+        $prk->update($input);
+
         return redirect('/prk')->with('status', 'PRK Berhasil Diedit.');
     }
 
@@ -130,8 +141,9 @@ class PrkController extends Controller
         // $prk = Prk::find($no_skk_prk);
         // // $sKK->prk()->delete();
         // $prk->delete();
+
         Prk::where('uraian_prk', $uraian_prk)->delete();
 
-        return redirect('/prk')->with('success', 'Data berhasil dihapus!');
+        return redirect('/prk')->with('status', 'Data berhasil dihapus!');
     }
 }

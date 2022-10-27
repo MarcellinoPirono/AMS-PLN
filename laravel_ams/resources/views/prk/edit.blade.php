@@ -15,14 +15,14 @@
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form method="POST" action="/prk/{{ $prk->id }}" class="" enctype="multipart/form-data">
+                                 <form method="POST" action="/prk/{{ $prk->id }}" class="" enctype="multipart/form-data">
                                     @method('put')
 
                                     @csrf
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">No. SKK_PRK:</label>
                                         <div class="col-sm-6">
-                                           <select class="form-control custom-select input-default" name="no_skk_prk" id="no_skk_prk" name="no_skk_prk">
+                                           <select class="form-control custom-select input-default" id="no_skk_prk" name="no_skk_prk">
                                             @foreach ($skks as $skk)
                                                 <option value="{{ $skk->id }}"
                                                     @if($prk->no_skk_prk == $skk->id) selected
@@ -48,7 +48,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Uraian PRK:</label>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control input-default @error('uraian_prk') is-invalid @enderror" placeholder="Uraian SKK" name="uraian_prk" id="uraian_prk" required autofocus value="{{ old('uraian_prk'), $prk->uraian_prk }}">
+                                                <input type="text" class="form-control input-default @error('uraian_prk') is-invalid @enderror" placeholder="Uraian SKK" name="uraian_prk" id="uraian_prk" required autofocus value="{{ old('uraian_prk', $prk->uraian_prk) }}">
                                                 @error('uraian_prk')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -114,7 +114,7 @@
                                     <div class="position-relative justify-content-end float-right">
                                         <button type="submit" class="btn btn-primary position-relative justify-content-end">Submit</button>
                                     </div>
-                                    </form>
+                                </form>
                                 </div>
                             </div>
                         </div>

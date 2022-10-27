@@ -139,9 +139,9 @@ class SKKController extends Controller
     public function destroy(SKK $sKK, $id)
     {
         $sKK = SKK::find($id);
-        // $sKK->prk()->delete();
+        $sKK->prks()->delete();
         $sKK->delete();
 
-        return redirect('/skk')->with('success', 'post has been deleted');
+        return redirect('/skk')->with('status', 'SKK Berhasil Dihapus');
     }
 }

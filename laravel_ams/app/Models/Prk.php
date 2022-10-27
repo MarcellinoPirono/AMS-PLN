@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Prk extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $guarded = [''];
 
-    public function skk()
+    public function skks()
     {
         return $this->belongsTo(Skk::class, 'no_skk_prk', 'id');
     }

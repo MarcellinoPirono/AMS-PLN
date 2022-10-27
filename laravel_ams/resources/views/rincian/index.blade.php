@@ -48,7 +48,7 @@
                             </div>
                             @endif
                                 <div class="table-responsive">
-                                    <table id="example" class="table table-responsive-md">
+                                    <table id="rincian-table" class="table table-responsive-md">
                                         <thead>
                                             <tr>
                                                 <th class="width80">No.</th>
@@ -97,11 +97,29 @@
     // })
     // </script>
     <script>
-    $(".filter").on('change',function(){
-        ajax : {{method : "POST"}}
-        table.column( $(this).data('column'))
-        .search( $(this).val())
-    });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        });
+
+        $(".filter").on('change', function() {
+            let filter = this.value;
+            $.ajax({
+                url: `{{ url('/rincianFilter') }}`,
+                method: "POST",
+                data: JSON.stringify({
+                    filter: filter
+                }),
+                headers: {
+                    'Accept': 'application/json',
+                    'content-Type': 'application/json'
+                },
+                success: function(data) {
+                    console.log(data)
+                    $('#read').html(data)
+                }
+            })
+        });
     </script>
 @endsection
 {{-- <script type="text/javascript" charset="utf8" src=""></script> --}}
@@ -166,4 +184,5 @@
             });
         })
     }
-</script> --}}
+</script>
+@endsection --}}
