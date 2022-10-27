@@ -117,7 +117,7 @@
                     'content-Type': 'application/json'
                 },
                 success: function(data) {
-                    console.log(data)
+                    // console.log(data)
                     $('#read').html(data)
                 }
             })
