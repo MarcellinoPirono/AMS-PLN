@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>AMS - UP3 PLN Makassar Selatan</title>
     <!-- Favicon icon -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}./asset/frontend/images/ams-bg1.png" />
     <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/chartist/css/chartist.min.css" />`
-    <link href="{{ asset('/') }}./asset/frontend/vendor/bootstrap-select/dist/css/bootstrap-select_dark.min.css"
-        rel="stylesheet" />
+    {{-- <link href="{{ asset('/') }}./asset/frontend/vendor/bootstrap-select/dist/css/bootstrap-select_dark.min.css"
+        rel="stylesheet" /> --}}
     <link href="{{ asset('/') }}./asset/frontend/vendor/owl-carousel/owl.carousel.css" rel="stylesheet" />
     <link href="{{ asset('/') }}./asset/frontend/css/style.css" rel="stylesheet" />
 
@@ -29,7 +30,7 @@
     <!-- Summernote -->
     <link href="{{ asset('/') }}./asset/frontend/vendor/summernote/summernote.css" rel="stylesheet">
 
-    <link href="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    {{-- <link href="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet"> --}}
 
     <link href="{{ asset('/') }}./asset/frontend/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 
@@ -189,8 +190,8 @@
                             <span class="nav-text">SKK/PRK </span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="nav-link {{ Request::is('spkk*') ? 'active' : '' }}"
-                                    href="/skk">SKK</a></li>
+                            <li><a class="nav-link {{ Request::is('spkk*') ? 'active' : '' }}" href="/skk">SKK</a>
+                            </li>
                             <li><a class="nav-link {{ Request::is('prk*') ? 'active' : '' }}" href="/prk">PRK</a>
                             </li>
                         </ul>
@@ -278,12 +279,12 @@
     <script src="{{ asset('/') }}./asset/frontend/vendor/peity/jquery.peity.min.js"></script>
 
     <!-- Apex Chart -->
-    <script src="{{ asset('/') }}./asset/frontend/vendor/apexchart/apexchart.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/chartjs-init.js"></script>
+    {{-- <script src="{{ asset('/') }}./asset/frontend/vendor/apexchart/apexchart.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/chartjs-init.js"></script> --}}
 
     <!-- Dashboard 1 -->
-    <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script>
+    {{-- <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script> --}}
 
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-steps/build/jquery.steps.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-validation/jquery.validate.min.js"></script>
@@ -292,7 +293,7 @@
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/jquery.validate-init.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/tambah-field.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/cascading-dropdown.js"></script>
+    {{-- <script src="{{ asset('/') }}./asset/frontend/js/cascading-dropdown.js"></script> --}}
 
     @yield('ajax')
 
@@ -319,15 +320,15 @@
     <!-- Summernote init -->
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/summernote-init.js"></script>
 
-    <script src="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert.init.js"></script>
+    {{-- <script src="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert.init.js"></script> --}}
 
-    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert-init.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/vendor/sweetalert/sweetalert.all.js"></script>
+    {{-- <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert-init.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/vendor/sweetalert/sweetalert.all.js"></script> --}}
 
-    <script src="{{ asset('./asset/frontend/js/plugins-init/sweetalert-init.js') }}"></script>
+    {{-- <script src="{{ asset('./asset/frontend/js/plugins-init/sweetalert-init.js') }}"></script>
     <script src="{{ asset('./asset/frontend/js/plugins-init/sweetalert.init.js') }}"></script>
-    <script src="{{ asset('./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script> --}}
     <!-- Datatable -->
     <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
