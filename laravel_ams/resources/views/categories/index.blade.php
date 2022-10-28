@@ -62,8 +62,7 @@
                                 <div class="d-flex">
                                     <a href="{{ "editcategories/".$kontrak['id'] }}" data-toggle="modal" data-target="#editModalCategories{{ $kontrak->id }}"  class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                                     @include('layouts.editcategory')
-                                    <a href="#" data-toggle="modal" data-target="#deleteModal{{ $kontrak->id }}"><i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
-                                    @include('layouts.delete')
+                                    <button class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -75,9 +74,12 @@
         </div>
     </div>
 </div>
+@include('sweetalert::alert')
+
 
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -88,6 +90,52 @@
             }
         });
 
+        // $('.btncreate').click(function(e){
+        //     e.preventDefault();
+
+        //     var creatcategory = $('#nama_kontrak').val();
+
+
+
+            // $.ajax({
+            //     type: 'POST',
+            //     url: '/categories/create',
+            //     data: {
+            //         creatcategory: creatcategory,
+            //         _token: "{{ csrf_token() }}"
+            //     },
+            //     success: function(response) {
+            //         swal({
+            //             title: "Data Ditambah",
+            //             text: "Data Berhasil Ditambah",
+            //             type: "success",
+            //             timer: 2e3,
+            //             showConfirmButton: !1
+            //         })
+            //             .then((result) => {
+            //                 location.reload();
+            //             });
+            //     }
+            // });
+            // var data = {
+
+            // }
+            // swal({
+
+            // }):
+        // });
+
+        // $('#btnresult').on('click', function(){
+        //     console.log("btn click");
+        //     var creatcategory=$('#nama_kontrak').val();
+
+        //     // var data = {
+
+        //     // };
+
+        //     console.log(data);
+        // })
+
         $('.btndelete').click(function (e) {
             e.preventDefault();
 
@@ -95,13 +143,17 @@
 
             swal({
                     title: "Apakah anda yakin?",
-                    text: "Setelah dihapus, Anda tidak dapat memulihkan Tag ini lagi!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
+                    text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
+                    type: "warning",
+                    showCancelButton: !0,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Hapus",
+                    cancelButtonText: "Batal",
+                    closeOnConfirm: !1,
+                    closeOnCancel: !1
                 })
                 .then((willDelete) => {
-                    if (willDelete) {
+                    if (willDelete.dismiss === Swal.DismissReason.confirm) {
 
                         var data = {
                             "_token": $('input[name=_token]').val(),
@@ -112,13 +164,25 @@
                             url: 'categories/' + deleteid,
                             data: data,
                             success: function (response) {
-                                swal(response.status, {
-                                        icon: "success",
-                                    })
+                                swal({
+                                    title: "Data Dihapus",
+                                    text: "Data Berhasil Dihapus",
+                                    type: "success",
+                                    timer: 2e3,
+                                    showConfirmButton: !1
+                                })
                                     .then((result) => {
                                         location.reload();
                                     });
                             }
+                        });
+                    } else if (willDelete.dismiss === Swal.DismissReason.cancel) {
+                        swal({
+                            title: "Data Tidak Dihapus",
+                            text: "Data Batal Dihapus",
+                            type: "error",
+                            timer: 2e3,
+                            showConfirmButton: !1
                         });
                     }
                 });

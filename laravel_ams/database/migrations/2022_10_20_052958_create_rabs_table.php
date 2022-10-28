@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             // $table->integer("total_harga");
-            // $table->string("kategori");
-            // $table->string("vendor");
             // $table->string("nomor_kontrak");
+            // $table->string("Pekerjaan";)
         });
     }
 

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('item_rincian_induks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kontrak');
+            $table->string('nama_kontrak')->nullable();
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('prks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('no_skk_prk');
+            $table->foreignId('no_skk_prk')->nullable();
             $table->string('no_prk');
             $table->string('uraian_prk');
             $table->string('pagu_prk');

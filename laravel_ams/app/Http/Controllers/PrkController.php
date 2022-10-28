@@ -136,13 +136,13 @@ class PrkController extends Controller
      * @param  \App\Models\Prk  $prk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prk $prk, $uraian_prk)
+    public function destroy(Prk $prk, $id)
     {
-        // $prk = Prk::find($no_skk_prk);
-        // // $sKK->prk()->delete();
-        // $prk->delete();
+        $prk = Prk::find($id);
+        // $sKK->prk()->delete();
+        $prk->delete();
 
-        Prk::where('uraian_prk', $uraian_prk)->delete();
+        // Prk::where('uraian_prk', $uraian_prk)->delete();
 
         return redirect('/prk')->with('status', 'Data berhasil dihapus!');
     }

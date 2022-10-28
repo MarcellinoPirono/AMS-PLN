@@ -8,6 +8,7 @@ use App\Http\Requests\StoreItemRincianIndukRequest;
 use App\Http\Requests\UpdateItemRincianIndukRequest;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
+use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
 class ItemRincianIndukController extends Controller
 {
@@ -18,12 +19,13 @@ class ItemRincianIndukController extends Controller
      */
     public function index()
     {
+        // FacadesAlert::success('Hello');
         return view('categories.index', [
             'title' => 'Kategori Kontrak Induk',
             'active' => 'Kategori Kontrak Induk',
             'active1' => 'Kategori Kontrak Induk',
             'kontraks' => ItemRincianInduk::all(),
-            'items' => RincianInduk::all()
+            'items' => RincianInduk::all(),
         ]);
     }
 
@@ -54,6 +56,7 @@ class ItemRincianIndukController extends Controller
             'nama_kontrak' => 'required|max:250',
 
         ]);
+        FacadesAlert::success('Data Ditambah', 'Data Berhasil Bertambah');
         ItemRincianInduk::create($validatedData);
         return redirect('/categories')->with('success', 'Kategori Berhasil Ditambah!');
     }
@@ -93,7 +96,9 @@ class ItemRincianIndukController extends Controller
     {
         $itemRincianInduk = ItemRincianInduk::find($id);
         $itemRincianInduk->nama_kontrak = $request->input('nama_kontrak');
+        // FacadesAlert::success('Data Ditambah', 'Data Berhasil Bertambah');
         $itemRincianInduk->update();
+
 
         return redirect('/categories')->with('success', 'has been edited');
     }
@@ -110,7 +115,8 @@ class ItemRincianIndukController extends Controller
         $itemRincianInduk->rincian_induks()->delete();
         $itemRincianInduk->delete();
 
-        return redirect('/categories')->with('success', 'post has been deleted');
+        // return redirect('/categories')->with('success', 'post has been deleted');
+        return response()->json(['status' => 'Post has been deleted!']);
     }
 
     public function search()

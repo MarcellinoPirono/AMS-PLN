@@ -13,6 +13,6 @@ class Skk extends Model
 
     public function prks()
     {
-        return $this->hasMany(Prk::class);
+        return $this->hasMany(Prk::class, 'no_skk_prk', 'id');
     }
 }

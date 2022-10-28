@@ -31,7 +31,7 @@ class RincianIndukController extends Controller
 
         return view('rincian.index', [
             'title' => 'Rincian Item',
-            'items' => RincianInduk::orderBy('id', 'DESC')->paginate(5),
+            'items' => RincianInduk::orderBy('id', 'DESC')->get(),
         ]);
     }
 
@@ -167,7 +167,7 @@ class RincianIndukController extends Controller
      * @param  \App\Models\RincianInduk  $rincianInduk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RincianInduk $rincianInduk, $nama_item)
+    public function destroy(RincianInduk $rincianInduk, $id)
     {
         // dd($request->all());
         // $rincianInduk = RincianInduk::find($id);
@@ -175,7 +175,10 @@ class RincianIndukController extends Controller
 
         // RincianInduk::destroy($id);
 
-        RincianInduk::where('nama_item', $nama_item)->delete();
+        // RincianInduk::where('nama_item', $nama_item)->delete();
+        $rincianInduk = RincianInduk::find($id);
+        // $sKK->prk()->delete();
+        $rincianInduk->delete();
 
         return redirect('/rincian')->with('success', 'Data berhasil dihapus!');
         // RincianInduk::destroy($rincianInduk->id);
