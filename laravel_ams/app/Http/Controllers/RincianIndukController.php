@@ -187,7 +187,6 @@ class RincianIndukController extends Controller
 
     public function filter(Request $request)
     {
-        return $request;
         $item = $request->filter;
         $rincianInduk = RincianInduk::where('kontraks_id', 'like', "%" . $item . "%")->get();
         return view('rincian.filter', ['items' => $rincianInduk]);
