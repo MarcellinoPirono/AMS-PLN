@@ -17,7 +17,16 @@ class RabFactory extends Factory
     public function definition()
     {
         return [
-            'nama_kontrak' => $this->faker->sentence(mt_rand(1, 2)),
+            'skk_id' => mt_rand(1, 20),
+            'prk_id' => mt_rand(1, 20),
+            'kategori_id' => mt_rand(1, 20),
+            'item_id' => mt_rand(1, 20),
+
+            'pekerjaan' => fake()->text(),
+            'lokasi' => fake()->text(),
+            'volume' => mt_rand(1, 100),
+            'isi_surat' => fake()->text(),
+
         ];
     }
 }
