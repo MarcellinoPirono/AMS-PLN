@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('rabs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('skk_id');
-            $table->foreignId('prk_id');
-            $table->foreignId('kategori_id');
-            $table->foreignId('item_id');
+            $table->foreignId('skk_id')->nullable();
+            $table->foreignId('prk_id')->nullable();
+            $table->foreignId('kategori_id')->nullable();
+            $table->foreignId('item_id')->nullable();
 
             $table->string('pekerjaan');
             $table->text('lokasi');

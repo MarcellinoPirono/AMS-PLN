@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateItemRincianIndukRequest;
 use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
-// use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
+use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
 class ItemRincianIndukController extends Controller
 {
@@ -101,8 +101,8 @@ class ItemRincianIndukController extends Controller
         // Alert::
         $itemRincianInduk->update();
 
-
-        return redirect('/categories')->with('success', 'has been edited');
+        return response()->json(['status' => 'Post has been edited!']);
+        // return redirect('/categories')->with('success', 'has been edited');
     }
 
     /**

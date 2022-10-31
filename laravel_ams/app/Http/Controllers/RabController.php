@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rab;
+use App\Models\ItemRincianInduk;
+use App\Models\Prk;
+use App\Models\Skk;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRabRequest;
 use App\Http\Requests\UpdateRabRequest;
+use App\Models\RincianInduk;
 
 class RabController extends Controller
 {
@@ -35,11 +39,14 @@ class RabController extends Controller
         return view(
             'rab.create',
             [
-                'active1' => 'Tambah Rab',
+                'active1' => 'Buat Rab',
                 'title' => 'Rancangan Anggaran Biaya',
                 'title1' => 'RAB',
                 'active' => 'RAB-PO',
-                'title2' => 'Tambah',
+                'skks' => Skk::all(),
+                'prks' => Prk::all(),
+                'categories' => ItemRincianInduk::all(),
+                'items' => RincianInduk::all(),
             ]
         );
     }
@@ -52,7 +59,20 @@ class RabController extends Controller
      */
     public function store(StoreRabRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+
+            'skk_id' => 'required|max:250',
+            'prk_id' => 'required|max:250',
+            'kategori_id' => 'required|max:250',
+            'item_id' => 'required|max:250',
+            'pekerjaan' => 'required|max:250',
+            'lokasi' => 'required|max:250',
+            'volume' => 'required|max:250',
+            'isi_surat' => 'required|max:250'
+
+        ]);
+        Rab::create($validatedData);
+        return redirect('/rab')->with('success', 'RAB Berhasil Dibuat!');
     }
 
     /**

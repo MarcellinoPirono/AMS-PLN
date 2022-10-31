@@ -63,7 +63,7 @@
                                 <div class="d-flex">
                                     <a href="{{ "editcategories/".$kontrak['id'] }}" data-toggle="modal" data-target="#editModalCategories{{ $kontrak->id }}"  class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                                     @include('layouts.editcategory')
-                                    <button class="btn btn-danger shadow btn-xs sharp btndelete sweet-confirm-cancel"><i class="fa fa-trash"></i></button>
+                                    <button class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -75,8 +75,6 @@
         </div>
     </div>
 </div>
-@include('sweetalert::alert')
-
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -101,9 +99,9 @@
                     swal({
                         title: "Data Ditambah",
                         text: "Data Berhasil Ditambah",
-                        type: "success",
+                        icon: "success",
                         timer: 2e3,
-                        showConfirmButton: !1
+                        buttons: false
                     })
                         .then((result) => {
                             location.reload();
@@ -111,65 +109,6 @@
                 }
             });
         })
-
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     }
-        // });
-
-        // $('#btnresult').on('click', function(){
-        //     console.log("btn click")
-        //     var data = $('#nama_kontrak').val();
-
-        //     console.log(data);
-        // });
-
-        // $('.btncreate').click(function(e){
-        //     e.preventDefault();
-
-        //     var creatcategory = $('#nama_kontrak').val();
-
-
-
-            // $.ajax({
-            //     type: 'POST',
-            //     url: '/categories/create',
-            //     data: {
-            //         creatcategory: creatcategory,
-            //         _token: "{{ csrf_token() }}"
-            //     },
-            //     success: function(response) {
-            //         swal({
-            //             title: "Data Ditambah",
-            //             text: "Data Berhasil Ditambah",
-            //             type: "success",
-            //             timer: 2e3,
-            //             showConfirmButton: !1
-            //         })
-            //             .then((result) => {
-            //                 location.reload();
-            //             });
-            //     }
-            // });
-            // var data = {
-
-            // }
-            // swal({
-
-            // }):
-        // });
-
-        // $('#btnresult').on('click', function(){
-        //     console.log("btn click");
-        //     var creatcategory=$('#nama_kontrak').val();
-
-        //     // var data = {
-
-        //     // };
-
-        //     console.log(data);
-        // })
 
         $('.btndelete').click(function (e) {
             e.preventDefault();
@@ -179,16 +118,12 @@
             swal({
                     title: "Apakah anda yakin?",
                     text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
-                    type: "warning",
-                    showCancelButton: !0,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Hapus",
-                    cancelButtonText: "Batal",
-                    closeOnConfirm: !1,
-                    closeOnCancel: !1
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
                 })
                 .then((willDelete) => {
-                    if (willDelete.dismiss === Swal.DismissReason.confirm) {
+                    if (willDelete) {
 
                         var data = {
                             "_token": $('input[name=_token]').val(),
@@ -202,26 +137,92 @@
                                 swal({
                                     title: "Data Dihapus",
                                     text: "Data Berhasil Dihapus",
-                                    type: "success",
+                                    icon: "success",
                                     timer: 2e3,
-                                    showConfirmButton: !1
+                                    buttons: false
                                 })
                                     .then((result) => {
                                         location.reload();
                                     });
                             }
                         });
-                    } else if (willDelete.dismiss === Swal.DismissReason.cancel) {
+                    } else {
                         swal({
                             title: "Data Tidak Dihapus",
                             text: "Data Batal Dihapus",
-                            type: "error",
+                            icon: "error",
                             timer: 2e3,
-                            showConfirmButton: !1
+                            buttons: false
                         });
                     }
                 });
         });
+
+        // $('.btnedit').click(function(e){
+        //     e.preventDefault();
+
+        //     var id = $(this).data('id');
+        //     var edit_kontrak = $("#edit_kontrak").val();
+        //     // var edit_kontrak = $("#edit_kontrak").val();
+
+        //     alert(id);
+        //     alert(edit_kontrak);
+
+            // var deleteid = $(this).closest("tr").find('.delete_id').val();
+            // var edit_kontrak = $("#edit_kontrak").val();
+
+            // var data = {
+            //     "_token":$('input[name=_token]').val(),
+            //     "nama_kontrak":edit_kontrak
+            // }
+
+            // $.ajax({
+            //     type: 'PUT',
+            //     url: 'categories/' + id,
+            //     data:data,
+            //     success: function (response) {
+            //         swal({
+            //             title: "Data Diedit",
+            //             text: "Data Berhasil Diedit",
+            //             icon: "success",
+            //             timer: 2e3,
+            //             buttons: false
+            //         })
+            //             .then((result) => {
+            //                 location.reload();
+            //             });
+            //     }
+            // });
+            // alert("edit data");
+        // })
+
+        $('#btnedit').on('click', function(){
+            var token = $('#csrf').val();
+            var nama_kontrak = $("#nama_kontrak").val();
+
+            var data = {
+                "_token":token,
+                "nama_kontrak":nama_kontrak
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: 'categories',
+                data:data,
+                success: function (response) {
+                    swal({
+                        title: "Data Ditambah",
+                        text: "Data Berhasil Ditambah",
+                        icon: "success",
+                        timer: 2e3,
+                        buttons: false
+                    })
+                        .then((result) => {
+                            location.reload();
+                        });
+                }
+            });
+        })
 
     });
 
