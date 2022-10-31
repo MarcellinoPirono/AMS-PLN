@@ -15,4 +15,9 @@ class ItemRincianInduk extends Model
     {
         return $this->hasMany(RincianInduk::class, 'kontraks_id', 'id');
     }
+
+    public function rabs()
+    {
+        return $this->hasMany(Rab::class, 'kategori_id', 'id');
+    }
 }

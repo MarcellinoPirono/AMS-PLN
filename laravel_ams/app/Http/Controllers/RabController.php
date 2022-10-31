@@ -19,6 +19,7 @@ class RabController extends Controller
         return view('rab.index', [
             'title' => 'Rancangan Anggaran Biaya',
             'title1' => 'RAB',
+            'rabs' => Rab::orderBy('id', 'DESC')->get(),
 
         ]);
     }

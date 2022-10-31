@@ -14,4 +14,9 @@ class Prk extends Model
     {
         return $this->belongsTo(Skk::class, 'no_skk_prk', 'id');
     }
+
+    public function rabs()
+    {
+        return $this->hasMany(Rab::class, 'prk_id', 'id');
+    }
 }

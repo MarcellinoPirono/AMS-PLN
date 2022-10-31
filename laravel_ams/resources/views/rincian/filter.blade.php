@@ -10,6 +10,9 @@
         </tr>
     </thead>
     <tbody>
+        @if ($items->count() === 0)
+            <td colspan="7" align="center" class="text-danger" style="font-size: 1.2em">Data not found</td>
+        @endif
         @foreach ($items as $item)
             <tr>
                 <td><strong>{{ $loop->iteration }}</strong></td>

@@ -22,10 +22,10 @@ class RabFactory extends Factory
             'kategori_id' => mt_rand(1, 20),
             'item_id' => mt_rand(1, 20),
 
-            'pekerjaan' => fake()->text(),
+            'pekerjaan' => fake()->name(),
             'lokasi' => fake()->text(),
-            'volume' => mt_rand(1, 100),
-            'isi_surat' => fake()->text(),
+            'volume' => mt_rand(1, 20),
+            'isi_surat' => collect($this->faker->paragraphs(mt_rand(5, 10)))
 
         ];
     }

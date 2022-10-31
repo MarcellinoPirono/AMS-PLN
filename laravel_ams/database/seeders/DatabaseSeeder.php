@@ -8,6 +8,7 @@ use App\Models\ItemRincianInduk;
 use App\Models\RincianInduk;
 use App\Models\Skk;
 use App\Models\Prk;
+use App\Models\Rab;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,5 +24,6 @@ class DatabaseSeeder extends Seeder
         RincianInduk::factory(20)->create();
         Skk::factory(20)->create();
         Prk::factory(20)->create();
+        Rab::factory(20)->create();
     }
 }

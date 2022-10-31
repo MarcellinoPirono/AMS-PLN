@@ -56,7 +56,7 @@ class ItemRincianIndukController extends Controller
             'nama_kontrak' => 'required|max:250',
 
         ]);
-        FacadesAlert::success('Data Ditambah', 'Data Berhasil Bertambah');
+        // FacadesAlert::success('Data Ditambah', 'Data Berhasil Bertambah');
         ItemRincianInduk::create($validatedData);
         return redirect('/categories')->with('success', 'Kategori Berhasil Ditambah!');
     }

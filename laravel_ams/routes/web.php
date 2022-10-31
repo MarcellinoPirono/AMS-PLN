@@ -32,6 +32,7 @@ Route::get('/dashboard', [MainController::class, 'index']);
 Route::get('/login', [LoginController::class, 'login']);
 
 Route::resource('categories', ItemRincianIndukController::class);
+Route::get('categories/create', [ItemRincianIndukController::class, 'store']);
 Route::get('/search', [ItemRincianIndukController::class, 'search']);
 Route::get('delete/{id}', [ItemRincianIndukController::class, 'destroy']);
 Route::get('editcategories/{id}', [ItemRincianIndukController::class, 'edit']);
