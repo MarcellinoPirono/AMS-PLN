@@ -24,7 +24,7 @@
                                 @enderror
                         </div>
                         <div class="position-relative justify-content-end float-right sweetalert">
-                            <button type="submit" id="btnresult" class="btn btn-primary position-relative justify-content-end sweet-success">Submit</button>
+                            <button type="submit" id="btnresult" class="btn btn-primary position-relative justify-content-end">Submit</button>
                         </div>
                     {{-- </form> --}}
                 </div>
@@ -78,14 +78,13 @@
 @include('sweetalert::alert')
 
 
-{{-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> --}}
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     $(document).ready(function () {
 
-        $(document).on('click', '#btnresult', function(){
+        $('#btnresult').on('click', function(){
             var token = $('#csrf').val();
             var nama_kontrak = $("#nama_kontrak").val();
 
@@ -96,7 +95,20 @@
 
             $.ajax({
                 type: 'POST',
-                url: 'categories/create'
+                url: 'categories',
+                data:data,
+                success: function (response) {
+                    swal({
+                        title: "Data Ditambah",
+                        text: "Data Berhasil Ditambah",
+                        type: "success",
+                        timer: 2e3,
+                        showConfirmButton: !1
+                    })
+                        .then((result) => {
+                            location.reload();
+                        });
+                }
             });
         })
 

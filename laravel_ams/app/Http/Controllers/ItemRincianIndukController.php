@@ -6,9 +6,10 @@ use App\Models\ItemRincianInduk;
 use App\Models\RincianInduk;
 use App\Http\Requests\StoreItemRincianIndukRequest;
 use App\Http\Requests\UpdateItemRincianIndukRequest;
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
-use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
+// use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
 class ItemRincianIndukController extends Controller
 {
@@ -97,6 +98,7 @@ class ItemRincianIndukController extends Controller
         $itemRincianInduk = ItemRincianInduk::find($id);
         $itemRincianInduk->nama_kontrak = $request->input('nama_kontrak');
         // FacadesAlert::success('Data Ditambah', 'Data Berhasil Bertambah');
+        // Alert::
         $itemRincianInduk->update();
 
 

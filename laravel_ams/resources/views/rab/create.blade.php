@@ -104,6 +104,7 @@
 														</tr>
 													</thead>
 													<tbody>
+
 													</tbody>
 												</table>
 											</div>
@@ -159,7 +160,20 @@
 										</div>
 									</div>
 								</div>
-								<button data-toggle="modal" data-target="#previewModal">Preview</button>
+								<div id="wizard_Details" class="tab-pane" role="tabpanel">
+									<div class="row">
+										<div class="col-xl-12 col-xxl-12">
+											<div class="card">
+												<div class="card-header justify-content-center">
+													<h4 class="card-title">Preview</h4>
+												</div>
+												<div class="card-body">
+													<button data-toggle="modal" data-target="#previewModal">Preview</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</form>
 						</div>
 					</div>
