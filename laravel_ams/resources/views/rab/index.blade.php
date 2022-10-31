@@ -29,14 +29,15 @@
                                             <tr>
                                                 <th class="width80">No.</th>
                                                 <th>Date</th>
-                                                <th>Nomor Surat</th>
+                                                {{-- <th>Nomor Surat</th>
                                                 <th>Pekerjaan</th>
                                                 <th>Kepada</th>
-                                                <th>Total</th>
+                                                <th>Total</th> --}}
                                                 <th>category_id</th>
                                                 <th>item_id</th>
                                                 <th>skk_id</th>
                                                 <th>prk_id</th>
+                                                <th>harga_satuan</th>
                                                 <th>pekerjaan</th>
                                                 <th>lokasi</th>
                                                 <th>volume</th>
@@ -46,7 +47,17 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($rabs as $rab)
-                                            <td>
+                                                <tr>
+                                                    <td>{{ $rab->categories->nama_kontrak }}</td>
+                                                    <td>{{ $rab->items->nama_item }}</td>
+                                                    <td>{{ $rab->skks->nomor_skk }}</td>
+                                                    <td>{{ $rab->prks->no_prk }}</td>
+                                                    <td>{{ $rab->prks->harga_satuan }}</td>
+                                                    <td>{{ $rab->pekerjaan }}</td>
+                                                    <td>{{ $rab->lokasi }}</td>
+                                                    <td>{{ $rab->volume }}</td>
+                                                    <td>{{ $rab->isi_surat }}</td>
+                                                <td>
 													<div class="dropdown">
 														<button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
 															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
@@ -57,10 +68,9 @@
 														</div>
 													</div>
 												</td>
-                                            @endforeach
-                                            <tr>
 
-                                            </tr>
+                                                </tr>
+                                                @endforeach
                                         </tbody>
                                     </table>
                                 </div>

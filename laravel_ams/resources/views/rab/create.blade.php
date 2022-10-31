@@ -102,6 +102,7 @@
 															<th>Harga</th>
 															<th>Aksi</th>
 														</tr>
+														tr
 													</thead>
 													<tbody>
 
@@ -160,7 +161,7 @@
 										</div>
 									</div>
 								</div>
-								<div id="wizard_Details" class="tab-pane" role="tabpanel">
+								<!-- <div id="wizard_Details" class="tab-pane" role="tabpanel">
 									<div class="row">
 										<div class="col-xl-12 col-xxl-12">
 											<div class="card">
@@ -173,7 +174,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</form>
 						</div>
 					</div>

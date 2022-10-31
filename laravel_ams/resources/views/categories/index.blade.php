@@ -63,7 +63,7 @@
                                 <div class="d-flex">
                                     <a href="{{ "editcategories/".$kontrak['id'] }}" data-toggle="modal" data-target="#editModalCategories{{ $kontrak->id }}"  class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                                     @include('layouts.editcategory')
-                                    <button class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button>
+                                    <button class="btn btn-danger shadow btn-xs sharp btndelete sweet-confirm-cancel"><i class="fa fa-trash"></i></button>
                                 </div>
                             </td>
                         </tr>
