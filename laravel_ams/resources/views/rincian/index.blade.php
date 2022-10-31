@@ -27,8 +27,8 @@
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
                         <select id="filter-kategori" class="form-control filter">
                             <option value="">Pilih Kategori</option>
-                            @foreach ($items as $item)
-                                <option value="{{ $item->id }}">{{ $item->item_rincian_induks->nama_kontrak }}</option>
+                            @foreach ($kategori as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama_kontrak }}</option>
                             @endforeach
                         </select>
                     </div>

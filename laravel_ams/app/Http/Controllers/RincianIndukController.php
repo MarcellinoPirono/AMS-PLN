@@ -29,9 +29,11 @@ class RincianIndukController extends Controller
         //     'title' => 'Item Kontrak Induk',
         // ]);
 
+        $itemRincian  = ItemRincianInduk::get();
         return view('rincian.index', [
             'title' => 'Rincian Item',
             'items' => RincianInduk::orderBy('id', 'DESC')->get(),
+            'kategori' => $itemRincian
         ]);
     }
 
@@ -187,8 +189,9 @@ class RincianIndukController extends Controller
 
     public function filter(Request $request)
     {
+
         $item = $request->filter;
-        $rincianInduk = RincianInduk::where('kontraks_id', 'like', "%" . $item . "%")->get();
+        $rincianInduk = RincianInduk::where('kontraks_id', $item)->get();
         return view('rincian.filter', ['items' => $rincianInduk]);
         // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
     }
