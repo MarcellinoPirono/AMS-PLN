@@ -32,7 +32,7 @@ Route::get('/dashboard', [MainController::class, 'index']);
 Route::get('/login', [LoginController::class, 'login']);
 
 Route::resource('categories', ItemRincianIndukController::class);
-Route::get('/search', [ItemRincianIndukController::class, 'search']);
+Route::get('/categories-search', [ItemRincianIndukController::class, 'categoriessearch']);
 Route::get('delete/{id}', [ItemRincianIndukController::class, 'destroy']);
 Route::get('editcategories/{id}', [ItemRincianIndukController::class, 'edit']);
 Route::put('categories/{id}', [ItemRincianIndukController::class, 'update']);
@@ -42,6 +42,8 @@ Route::any('rincian/filter', [RincianIndukController::class, 'filter']);
 Route::get('deleteitem/{id}', [RincianIndukController::class, 'destroy']);
 
 Route::resource('rab', RabController::class);
+Route::get('/findPrice', 'RabController@findPrice');
+
 Route::resource('skk', SkkController::class);
 Route::resource('prk', PrkController::class);
 

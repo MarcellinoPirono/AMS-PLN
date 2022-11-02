@@ -25,7 +25,7 @@ class RabFactory extends Factory
             'pekerjaan' => fake()->name(),
             'lokasi' => fake()->text(),
             'volume' => mt_rand(1, 20),
-            'isi_surat' => collect($this->faker->paragraphs(mt_rand(5, 10)))
+            'isi_surat' => fake()->text(),
 
         ];
     }

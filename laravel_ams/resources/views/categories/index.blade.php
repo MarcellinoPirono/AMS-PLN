@@ -7,7 +7,7 @@
         <div class="col-xl-5 col-lg-6">
             <div class="card" style="height: 240px">
                 <div class="card-header">
-                    <h4 class="card-title">Buat Kategori BARU</h4>
+                    <h4 class="card-title">Buat Kategori</h4>
                 </div>
                 <div class="card-body">
                     <div class="basic-form">

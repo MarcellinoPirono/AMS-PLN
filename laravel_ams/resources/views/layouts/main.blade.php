@@ -12,8 +12,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}./asset/frontend/images/ams-bg1.png" />
     <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/chartist/css/chartist.min.css" />`
-    {{-- <link href="{{ asset('/') }}./asset/frontend/vendor/bootstrap-select/dist/css/bootstrap-select_dark.min.css"
-        rel="stylesheet" /> --}}
+    <link href="{{ asset('/') }}./asset/frontend/vendor/bootstrap-select/dist/css/bootstrap-select_dark.min.css"
+        rel="stylesheet" />
     <link href="{{ asset('/') }}./asset/frontend/vendor/owl-carousel/owl.carousel.css" rel="stylesheet" />
     <link href="{{ asset('/') }}./asset/frontend/css/style.css" rel="stylesheet" />
 
@@ -33,11 +33,6 @@
     {{-- <link href="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet"> --}}
 
     <link href="{{ asset('/') }}./asset/frontend/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-
-
-
-
-
 
 </head>
 
@@ -104,8 +99,12 @@
                         <ul class="navbar-nav header-right">
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
+<<<<<<< HEAD
                                     <img src="{{ asset('/') }}./asset/frontend/images/profile/17.jpg" width="20"
                                         alt="" />
+=======
+                                    <img src="{{ asset('/') }}./asset/frontend/images/profile/17.jpg" width="20" alt="" />
+>>>>>>> f769c8d8ef5361729f679bd6bd79f714d0a8b7b3
                                     <div class="header-info">
                                         <span class="text-black"><strong></strong></span>
                                         <p class="fs-12 mb-0">Level User</p>
@@ -211,7 +210,7 @@
                 <div class="add-menu-sidebar">
                     <img src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt=""
                         class="mr-3" />
-                    <p class="font-w500 mb-0">Jumat <br> 21 Oktober 2022</p>
+                    <p class="font-w500 mb-0">{{ date('j F Y H:i:s') }} </p>
                 </div>
             </div>
         </div>
@@ -280,12 +279,16 @@
     <script src="{{ asset('/') }}./asset/frontend/vendor/peity/jquery.peity.min.js"></script>
 
     <!-- Apex Chart -->
-    {{-- <script src="{{ asset('/') }}./asset/frontend/vendor/apexchart/apexchart.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/chartjs-init.js"></script> --}}
+    <script src="{{ asset('/') }}./asset/frontend/vendor/apexchart/apexchart.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/chartjs-init.js"></script>
+
+     <script src="/vendor/chart.js/Chart.bundle.min.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/chartjs-init.js"></script>
+
 
     <!-- Dashboard 1 -->
-    {{-- <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script> --}}
+    <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script>
 
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-steps/build/jquery.steps.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-validation/jquery.validate.min.js"></script>
@@ -322,20 +325,20 @@
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/summernote-init.js"></script>
 
     {{-- <script src="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert.init.js"></script> --}}
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert.init.js"></script>
 
-    {{-- <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert-init.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/vendor/sweetalert/sweetalert.all.js"></script> --}}
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert-init.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/vendor/sweetalert/sweetalert.all.js"></script>
 
-    {{-- <script src="{{ asset('./asset/frontend/js/plugins-init/sweetalert-init.js') }}"></script>
+    <script src="{{ asset('./asset/frontend/js/plugins-init/sweetalert-init.js') }}"></script>
     <script src="{{ asset('./asset/frontend/js/plugins-init/sweetalert.init.js') }}"></script>
     <script src="{{ asset('./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script> --}}
     <!-- Datatable -->
     <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
 
-    {{-- <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script> --}}
+    <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
 
 
     {{-- <script>

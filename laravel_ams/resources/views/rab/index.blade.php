@@ -28,16 +28,16 @@
                                         <thead>
                                             <tr>
                                                 <th class="width80">No.</th>
-                                                <th>Date</th>
+                                                {{-- <th>Date</th> --}}
                                                 {{-- <th>Nomor Surat</th>
                                                 <th>Pekerjaan</th>
                                                 <th>Kepada</th>
                                                 <th>Total</th> --}}
                                                 <th>category_id</th>
                                                 <th>item_id</th>
+                                                <th>harga_satuan</th>
                                                 <th>skk_id</th>
                                                 <th>prk_id</th>
-                                                <th>harga_satuan</th>
                                                 <th>pekerjaan</th>
                                                 <th>lokasi</th>
                                                 <th>volume</th>
@@ -48,11 +48,12 @@
                                         <tbody>
                                             @foreach ($rabs as $rab)
                                                 <tr>
+                                                    <td><strong>{{ $loop->iteration }}</strong></td>
                                                     <td>{{ $rab->categories->nama_kontrak }}</td>
                                                     <td>{{ $rab->items->nama_item }}</td>
+                                                    <td>{{ $rab->items->harga_satuan }}</td>
                                                     <td>{{ $rab->skks->nomor_skk }}</td>
                                                     <td>{{ $rab->prks->no_prk }}</td>
-                                                    <td>{{ $rab->prks->harga_satuan }}</td>
                                                     <td>{{ $rab->pekerjaan }}</td>
                                                     <td>{{ $rab->lokasi }}</td>
                                                     <td>{{ $rab->volume }}</td>

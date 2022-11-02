@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateItemRincianIndukRequest;
 use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
-// use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
+use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
 class ItemRincianIndukController extends Controller
 {
@@ -57,7 +57,6 @@ class ItemRincianIndukController extends Controller
             'nama_kontrak' => 'required|max:250',
 
         ]);
-        // FacadesAlert::success('Data Ditambah', 'Data Berhasil Bertambah');
         ItemRincianInduk::create($validatedData);
         return redirect('/categories')->with('success', 'Kategori Berhasil Ditambah!');
     }
@@ -81,9 +80,12 @@ class ItemRincianIndukController extends Controller
      */
     public function edit($id)
     {
+        // return 'Joss';
         $itemRincianInduk = ItemRincianInduk::find($id);
-        $id->put();
-        return redirect('/categories')->with('success', 'has been edited');
+        // $id->put();
+        return response()->json(['result' => $itemRincianInduk]);
+
+        // return redirect('/categories')->with('success', 'has been edited');
     }
 
     /**
@@ -97,12 +99,9 @@ class ItemRincianIndukController extends Controller
     {
         $itemRincianInduk = ItemRincianInduk::find($id);
         $itemRincianInduk->nama_kontrak = $request->input('nama_kontrak');
-        // FacadesAlert::success('Data Ditambah', 'Data Berhasil Bertambah');
-        // Alert::
         $itemRincianInduk->update();
 
-
-        return redirect('/categories')->with('success', 'has been edited');
+        return response()->json(['status' => 'Post has been edited!']);
     }
 
     /**
@@ -117,15 +116,13 @@ class ItemRincianIndukController extends Controller
         $itemRincianInduk->rincian_induks()->delete();
         $itemRincianInduk->delete();
 
-        // return redirect('/categories')->with('success', 'post has been deleted');
         return response()->json(['status' => 'Post has been deleted!']);
     }
 
-    public function search()
+    public function categoriessearch(Request $request)
     {
-        $search_text = $_GET['query'];
-        $itemRincianInduk = ItemRincianInduk::where('title', 'LIKE', '%' . $search_text . '%')->with('nama_kontrak')->get();
-
-        return view('categories.search', compact('categories'));
+        $query = $request->get('query');
+        $filterResult = ItemRincianInduk::where('nama_kontrak', 'LIKE', '%' . $query . '%')->get();
+        return response()->json($filterResult);
     }
 }

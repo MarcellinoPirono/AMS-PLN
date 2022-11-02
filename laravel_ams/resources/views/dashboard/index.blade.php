@@ -243,10 +243,6 @@
                 </div>
 
 
-                <script>
-                    $(document).ready(function(){
-                        alert('hai')
-                    })
-                </script>
+
 @endsection
 

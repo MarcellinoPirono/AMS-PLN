@@ -19,8 +19,15 @@ class RincianIndukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        if ($request->has('search')) {
+            $rincianInduk = RincianInduk::where('nama_item', 'LIKE', '%' . $request->search . '%');
+        } else {
+            $rincianInduk = RincianInduk::get();
+        }
+
         // $items = DB::table('rincian_induks')
         //     ->leftJoin('item_rincian_induks', 'rincian_induks.kontraks_id', '=', 'item_rincian_induks.id')
         //     ->get();

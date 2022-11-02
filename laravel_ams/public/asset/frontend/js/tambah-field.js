@@ -11,10 +11,12 @@ function reindex(){
 
 
 function updateform(){
-    var kategoriPekerjaan = document.getElementById("kategori").value;
-    var pekerjaan = document.getElementById("pekerjaan");
+    var kategoriPekerjaan = document.getElementById("kategory_id");
+    var kategoriPekerjaaninnerHTML = kategoriPekerjaan.options[kategoriPekerjaan.selectedIndex].textContent;
+    var pekerjaan = document.getElementById("item_id");
     var pekerjaaninnerHTML = pekerjaan.options[pekerjaan.selectedIndex].textContent;
-    var volume = document.getElementById("InputVolume").value;
+    var harga = document.getElementById("harga_satuan").value;
+    var volume = document.getElementById("volume").value;
     var table = document.getElementsByTagName("table")[0];
 
     var button = document.createElement("button");
@@ -22,24 +24,26 @@ function updateform(){
     button.setAttribute("onclick", "deleteRow(this)");
 
 
-    var row = table.insertRow(-1);
+    var row = table.insertRow(1);
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
+    var cell6 = row.insertCell(5);
     cell1.innerHTML="1";
-    cell2.innerHTML=kategoriPekerjaan;
+    cell2.innerHTML=kategoriPekerjaaninnerHTML;
     cell3.innerHTML=pekerjaaninnerHTML;
     cell4.innerHTML=volume;
-    cell5.appendChild( button );
+    cell5.innerHTML=harga;
+    cell6.appendChild( button );
 
     reindex();
 }
 
-$(function(){
-    $(".dropdown-menu").on('click', 'a', function(){
-        $(this).parents('.dropdown').find('button').text($(this).text());
-    });
- });
+// $(function(){
+//     $(".dropdown-menu").on('click', 'a', function(){
+//         $(this).parents('.dropdown').find('button').text($(this).text());
+//     });
+//  });
 
