@@ -8,7 +8,7 @@
     <div class="col-xl-5 col-lg-6">
         <div class="card" style="height: 240px">
             <div class="card-header">
-                <h4 class="card-title">Buat Kategori</h4>
+                <h4 class="card-title">Buat Kategori dua</h4>
             </div>
             <div class="card-body">
                 <div class="basic-form">
@@ -79,7 +79,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 
 <script>
     $(document).ready(function () {
