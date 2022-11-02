@@ -15,7 +15,7 @@ function updateform(){
     var kategoriPekerjaaninnerHTML = kategoriPekerjaan.options[kategoriPekerjaan.selectedIndex].textContent;
     var pekerjaan = document.getElementById("item_id");
     var pekerjaaninnerHTML = pekerjaan.options[pekerjaan.selectedIndex].textContent;
-    var harga = document.getElementById("harga_satuan").value;
+    var harga = document.getElementById("harga").value;
     var volume = document.getElementById("volume").value;
     var table = document.getElementsByTagName("table")[0];
 

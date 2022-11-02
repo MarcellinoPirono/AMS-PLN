@@ -18,16 +18,24 @@ class ItemRincianIndukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // FacadesAlert::success('Hello');
+        if($request->has('search')){
+             $kontraks = ItemRincianInduk::where('nama_kontrak','LIKE','%'.$request->search. '%');
+        }
+
+       
+
+        $kontraks = ItemRincianInduk::orderBy('id', 'DESC')->get();
+    
         return view('categories.index', [
             'title' => 'Kategori Kontrak Induk',
             'active' => 'Kategori Kontrak Induk',
             'active1' => 'Kategori Kontrak Induk',
-            'kontraks' => ItemRincianInduk::all(),
-            'items' => RincianInduk::all(),
+            'kontraks' => compact('kontraks'),
         ]);
+
+      
     }
 
     /**
@@ -121,8 +129,9 @@ class ItemRincianIndukController extends Controller
 
     public function categoriessearch(Request $request)
     {
-        $query = $request->get('query');
-        $filterResult = ItemRincianInduk::where('nama_kontrak', 'LIKE', '%' . $query . '%')->get();
-        return response()->json($filterResult);
+        $datas = ItemRincianInduk::select('nama_kontrak')->where("nama_kontrak", "LIKE", "%{$request->terms}%")->get();
+        return response()->json($datas);
     }
+    
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Skk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SKKController extends Controller
 {
@@ -143,5 +144,29 @@ class SKKController extends Controller
         $sKK->delete();
 
         return redirect('/skk')->with('status', 'SKK Berhasil Dihapus');
+    }
+
+    public function getSKK(Request $request)
+    {
+        $skk_id = $request->post('skk_id');
+        $prk = DB::table('prks')->where('no_skk_prk',$skk_id)->orderBy('no_prk')->get();
+
+        $html = '<option value="0" selected disabled>Pilih PRK</option>';
+        foreach($prk as $prks){
+            $html.='<option value="'.$prks->id.'">'.$prks->no_prk.'</option>';
+        }
+        echo $html;
+    }
+
+    public function getCategory(Request $request)
+    {
+        $kategory_id = $request->post('kategory_id');
+        $nama_item = DB::table('rincian_induks')->where('kontraks_id',$kategory_id)->orderBy('nama_item')->get();
+
+        $html = '<option value="0" selected disabled>Pilih Pekerjaan</option>';
+        foreach($nama_item as $item){
+            $html.='<option value="'.$item->id.'">'.$item->nama_item.'</option>';
+        }
+        echo $html;
     }
 }

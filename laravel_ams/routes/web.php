@@ -42,10 +42,12 @@ Route::any('rincian/filter', [RincianIndukController::class, 'filter']);
 Route::get('deleteitem/{id}', [RincianIndukController::class, 'destroy']);
 
 Route::resource('rab', RabController::class);
-Route::get('/findPrice', 'RabController@findPrice');
 
 Route::resource('skk', SkkController::class);
-Route::resource('prk', PrkController::class);
+Route::post('getSKK', [SkkController::class, 'getSKK']);
+Route::post('getCategory', [SkkController::class, 'getCategory']);
 
+Route::resource('prk', PrkController::class);
 Route::get('deleteskk/{id}', [SkkController::class, 'destroy']);
+
 Route::get('deleteprk/{id}', [PrkController::class, 'destroy']);

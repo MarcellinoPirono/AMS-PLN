@@ -1,168 +1,176 @@
 @extends('layouts.main')
 
 @section('content')
-                <div class="row">
-
-                    <div class="col-xl-6 col-xxl-12">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="card avtivity-card">
-                                    <div class="card-body">
-                                        <div class="media align-items-center">
-                                            <span class="activity-icon bgl-warning mr-md-4 mr-3">
-                                                <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="", width="39px">
-                                            </span>
-                                            <div class="media-body">
-                                                <p class="fs-14 mb-2">Pemasangan SP 1 Fasa</p>
-                                                <span class="title text-black font-w600">323</span>
-                                            </div>
-                                        </div>
-                                        <div class="progress" style="height:5px;">
-                                            <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
-                                                <span class="sr-only">42% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="effect bg-primary"></div>
+    <div class="row">
+        <div class="col-xl-6 col-xxl-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card avtivity-card">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <span class="activity-icon bgl-warning mr-md-4 mr-3">
+                                    <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="",
+                                        width="39px">
+                                </span>
+                                <div class="media-body">
+                                    <p class="fs-14 mb-2">Pemasangan SP 1 Fasa</p>
+                                    <span class="title text-black font-w600">323</span>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="card avtivity-card">
-                                    <div class="card-body">
-                                        <div class="media align-items-center">
-                                            <span class="activity-icon bgl-warning mr-md-4 mr-3">
-                                                <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="", width="39px">
-                                            </span>
-                                            <div class="media-body">
-                                                <p class="fs-14 mb-2">Pemasangan/Penarikan SP 3 Fasa</p>
-                                                <span class="title text-black font-w600">241</span>
-                                            </div>
-                                        </div>
-                                        <div class="progress" style="height:5px;">
-                                            <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
-                                                <span class="sr-only">42% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="effect bg-primary"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card avtivity-card">
-                                    <div class="card-body">
-                                        <div class="media align-items-center">
-                                            <span class="activity-icon bgl-warning mr-md-4 mr-3">
-                                                <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="", width="39px">
-                                            </span>
-                                            <div class="media-body">
-                                                <p class="fs-14 mb-2">Pembongkaran</p>
-                                                <span class="title text-black font-w600">433</span>
-                                            </div>
-                                        </div>
-                                        <div class="progress" style="height:5px;">
-                                            <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
-                                                <span class="sr-only">42% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="effect bg-primary"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card avtivity-card">
-                                    <div class="card-body">
-                                        <div class="media align-items-center">
-                                            <span class="activity-icon bgl-warning  mr-md-4 mr-3">
-                                                <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="", width="39px">
-                                            </span>
-                                            <div class="media-body">
-                                                <p class="fs-14 mb-2">Pemeliharaan</p>
-                                                <span class="title text-black font-w600">271</span>
-                                            </div>
-                                        </div>
-                                        <div class="progress" style="height:5px;">
-                                            <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
-                                                <span class="sr-only">42% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="effect bg-primary"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card avtivity-card">
-                                    <div class="card-body">
-                                        <div class="media align-items-center">
-                                            <span class="activity-icon bgl-warning mr-md-4 mr-3">
-                                                <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="", width="39px">
-                                            </span>
-                                            <div class="media-body">
-                                                <p class="fs-14 mb-2">Pekerjaan Jasa Lainnya</p>
-                                                <span class="title text-black font-w600">134</span>
-                                            </div>
-                                        </div>
-                                        <div class="progress" style="height:5px;">
-                                            <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
-                                                <span class="sr-only">42% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="effect bg-primary"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card avtivity-card">
-                                    <div class="card-body">
-                                        <div class="media align-items-center">
-                                            <span class="activity-icon bgl-warning   mr-md-4 mr-3">
-                                                <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="", width="39px">
-                                            </span>
-                                            <div class="media-body">
-                                                <p class="fs-14 mb-2">Material</p>
-                                                <span class="title text-black font-w600">297</span>
-                                            </div>
-                                        </div>
-                                        <div class="progress" style="height:5px;">
-                                            <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
-                                                <span class="sr-only">42% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="effect bg-primary"></div>
+                            <div class="progress" style="height:5px;">
+                                <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
+                                    <span class="sr-only">42% Complete</span>
                                 </div>
                             </div>
                         </div>
+                        <div class="effect bg-primary"></div>
                     </div>
-
-                     <div class="col-xl-6 col-xxl-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="mr-auto pr-3 mb-sm-0 mb-3">
-                                    {{-- <h4 class="card-title">Basic Bar Chart</h4> --}}
-                                    <h4 class="text-black fs-20">Total Harga RAB</h4>
-                                </div>
-                                <div class="dropdown mb-3 show">
-
-                                    <button type="button" class="btn rounded btn-light" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="bi bi-credit-card-2-front-fill " style="color: rgb(42, 147, 165);"></i>
-                                        Pilih SPKK
-                                        <svg class="ml-2" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1 0.999999L7 7L13 1" stroke="#1EA7C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="javascript:void(0);">SPKK 1</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">SPKK 2</a>
-                                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card avtivity-card">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <span class="activity-icon bgl-warning mr-md-4 mr-3">
+                                    <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="",
+                                        width="39px">
+                                </span>
+                                <div class="media-body">
+                                    <p class="fs-14 mb-2">Pemasangan/Penarikan SP 3 Fasa</p>
+                                    <span class="title text-black font-w600">241</span>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <canvas id="barChart_1"></canvas>
+                            <div class="progress" style="height:5px;">
+                                <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
+                                    <span class="sr-only">42% Complete</span>
+                                </div>
                             </div>
                         </div>
+                        <div class="effect bg-primary"></div>
                     </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card avtivity-card">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <span class="activity-icon bgl-warning mr-md-4 mr-3">
+                                    <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="",
+                                        width="39px">
+                                </span>
+                                <div class="media-body">
+                                    <p class="fs-14 mb-2">Pembongkaran</p>
+                                    <span class="title text-black font-w600">433</span>
+                                </div>
+                            </div>
+                            <div class="progress" style="height:5px;">
+                                <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
+                                    <span class="sr-only">42% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="effect bg-primary"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card avtivity-card">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <span class="activity-icon bgl-warning  mr-md-4 mr-3">
+                                    <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="",
+                                        width="39px">
+                                </span>
+                                <div class="media-body">
+                                    <p class="fs-14 mb-2">Pemeliharaan</p>
+                                    <span class="title text-black font-w600">271</span>
+                                </div>
+                            </div>
+                            <div class="progress" style="height:5px;">
+                                <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
+                                    <span class="sr-only">42% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="effect bg-primary"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card avtivity-card">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <span class="activity-icon bgl-warning mr-md-4 mr-3">
+                                    <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="",
+                                        width="39px">
+                                </span>
+                                <div class="media-body">
+                                    <p class="fs-14 mb-2">Pekerjaan Jasa Lainnya</p>
+                                    <span class="title text-black font-w600">134</span>
+                                </div>
+                            </div>
+                            <div class="progress" style="height:5px;">
+                                <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
+                                    <span class="sr-only">42% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="effect bg-primary"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card avtivity-card">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <span class="activity-icon bgl-warning   mr-md-4 mr-3">
+                                    <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="",
+                                        width="39px">
+                                </span>
+                                <div class="media-body">
+                                    <p class="fs-14 mb-2">Material</p>
+                                    <span class="title text-black font-w600">297</span>
+                                </div>
+                            </div>
+                            <div class="progress" style="height:5px;">
+                                <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
+                                    <span class="sr-only">42% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="effect bg-primary"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    {{-- <div class="col-xl-6 col-xxl-12">
+        <div class="col-xl-6 col-xxl-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="mr-auto pr-3 mb-sm-0 mb-3">
+                        {{-- <h4 class="card-title">Basic Bar Chart</h4> --}}
+                        <h4 class="text-black fs-20">Total Harga RAB</h4>
+                    </div>
+                    <div class="dropdown mb-3 show">
+
+                        <button type="button" class="btn rounded btn-light" data-toggle="dropdown"
+                            aria-expanded="true">
+                            <i class="bi bi-credit-card-2-front-fill " style="color: rgb(42, 147, 165);"></i>
+                            Pilih SPKK
+                            <svg class="ml-2" width="14" height="8" viewBox="0 0 14 8" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 0.999999L7 7L13 1" stroke="#1EA7C5" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="javascript:void(0);">SPKK 1</a>
+                            <a class="dropdown-item" href="javascript:void(0);">SPKK 2</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas id="barChart_1"></canvas>
+                </div>
+            </div>
+        </div>
+
+        {{-- <div class="col-xl-6 col-xxl-12">
                         <div class="card">
                             <div class="card-header d-sm-flex d-block pb-0 border-0">
                                 <div class="mr-auto pr-3 mb-sm-0 mb-3">
@@ -202,7 +210,7 @@
 
 
 
-                    {{-- <div class="col-xl-6 col-xxl-12">
+        {{-- <div class="col-xl-6 col-xxl-12">
 						<div class="card">
 							<div class="card-header">
 								<div class="mr-auto pr-3 mb-sm-0 mb-3">
@@ -240,9 +248,5 @@
 						</div>
 					</div> --}}
 
-                </div>
-
-
-
+    </div>
 @endsection
-

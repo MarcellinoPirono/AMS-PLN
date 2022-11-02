@@ -20,4 +20,16 @@ class ItemRincianInduk extends Model
     {
         return $this->hasMany(Rab::class, 'kategori_id', 'id');
     }
+    // public function scopeFilter($query, array $filters)
+    // {
+      
+    //     $query->when($filters['search'] ?? false, function ($query, $search) {
+    //         return $query->where(function ($query) use ($search) {
+    //             $query->where('nama_kontrak', 'like', '%' . $search . '%')
+    //                 ->orWhere('id', 'like', '%' . $search . '%');
+    //         });
+    //     });
+
+    
+    // }
 }
