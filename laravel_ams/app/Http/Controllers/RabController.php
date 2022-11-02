@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreRabRequest;
 use App\Http\Requests\UpdateRabRequest;
 use App\Models\RincianInduk;
+use Illuminate\Support\Facades\DB;
+
 
 class RabController extends Controller
 {
@@ -50,6 +52,16 @@ class RabController extends Controller
             ]
         );
     }
+
+    public function findPrice(Request $request)
+    {
+
+        //it will get price if its id match with product id
+        $p = RincianInduk::select('harga_satuan')->where('id', $request->id)->first();
+
+        return response()->json($p);
+    }
+
 
     /**
      * Store a newly created resource in storage.

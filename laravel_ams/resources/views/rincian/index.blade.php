@@ -36,11 +36,12 @@
                             class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                     </a>
                     <div class="input-group search-area position-relative">
+                        <form action ="/rincian" method="GET">
                         <div class="input-group-append">
-                            <span class="input-group-text"><a href="javascript:void(0)"><i
-                                        class="flaticon-381-search-2"></i></a></span>
+                            <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Search here..." />
+                            <input type="search" name="search" class="form-control" placeholder="Search here..." />
+                        </form>
                     </div>
                 </div>
                 <div class="card-body">
@@ -101,7 +102,7 @@
         // $(".filter").on('change',function(){
         //     item = $("#filter-kategori").val()
         // })
-        // 
+        //
     </script>
     <script>
         $(".filter").on('change', function() {

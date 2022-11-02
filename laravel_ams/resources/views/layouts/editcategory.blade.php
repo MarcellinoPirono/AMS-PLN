@@ -2,7 +2,7 @@
 {{-- <form action="{{ "categories/".$kontrak['id'] }}" method="POST">
     @method('put') --}}
     {{-- @csrf --}}
-    <div class="modal fade text-left" id="editModalCategories{{ $kontrak->id }}" tabindex="-1" role="dialog" aria-labelledby="editDataKiloan" aria-hidden="true">
+    <div class="modal fade text-left" id="editModalCategories" tabindex="-1" role="dialog" aria-labelledby="editDataKiloan" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary1">
@@ -14,13 +14,13 @@
                 <div class="modal-body">
                     {{-- <form id="addform" action="{{ "categories/".$kontrak['id'] }}" method="post" enctype="multipart/form-data">
                         @csrf --}}
-                        <input type="hidden" class="edit_id" value="{{ $kontrak->id }}">
+                        <input type="hidden" class="edit_id" value="{{ $kontrak->nama_kontrak }}">
                         <div class="form-group">
-                            <input type="text" class="form-control input-rounded" placeholder="Nama Kategori" id="edit_kontrak" name="edit_kontrak" value="{{ old('edit_kontrak', $kontrak->nama_kontrak) }}">
+                            <input type="text" class="form-control input-rounded edit_data" placeholder="Nama Kategori" id="edit_kontrak" name="edit_kontrak" value="{{ old('edit_kontrak', $kontrak->nama_kontrak) }}">
                         </div>
                         <div class="position-relative justify-content-end float-right sweetalert">
                             <button type="button" class="btn btn-danger position-relative justify-content-end" data-dismiss="modal">Batal</button>
-                            <button type="submit" id="btnedit" class="btn btn-primary position-relative justify-content-end" data-id='{{ $kontrak->id }}'>Ubah</a>
+                            <button type="button" class="btn btn-primary position-relative justify-content-end btnedit">Ubah</button>
                         </div>
                     {{-- </form> --}}
                 </div>

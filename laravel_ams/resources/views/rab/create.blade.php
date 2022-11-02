@@ -99,7 +99,7 @@
 												<select class="form-control input-default" id="item_id" name="item_id">
 													<option value="">Pilih Pekerjaan</option>
 												@foreach ($items as $item)
-													<option value="{{ $item->id }}" >{{ $item->nama_item}}</option>
+													<option value="{{ $item->nama_item }}" >{{ $item->nama_item}}</option>
 												@endforeach
 												</select>
 											</div>
@@ -117,12 +117,18 @@
 										</div>
 										<div class="col-lg-6 mb-2">
 											<div class="form-group">
-												<input type="text" class="form-control @error('harga_satuan') is-invalid @enderror" name="harga_satuan" id="harga_satuan" placeholder="Harga Satuan" required autofocus value="{{ old('harga_satuan') }}">
+												<input type="text" class="form-control harga_satuan @error('harga_satuan') is-invalid @enderror" name="harga_satuan" id="harga_satuan" placeholder="harga_satuan" required autofocus value="{{ old('harga_satuan') }}">
                                                 @error('harga_satuan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
+												{{-- <input type="text" class="form-control @error('harga_satuan') is-invalid @enderror" name="harga_satuan" id="harga_satuan" placeholder="Harga Satuan" required autofocus value="{{ old('harga_satuan') }}">
+                                                @error('harga_satuan')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror --}}
 											</div>
 										</div>
 										<div class="col-lg-12 mb-2">
@@ -131,7 +137,7 @@
 											</div>
 										</div>
 										<div class="table-responsive">
-											<table class="table table-responsive-sm" id="tabelRAB">
+											<table class="table table-responsive-sm height-100" id="tabelRAB">
 												<thead>
 													<tr>
 														<th>No.</th>
@@ -194,7 +200,7 @@
 														<li>Surat Perjanjian/Kontrak Rinci jenis Pengadaan Jasa/Pengadaan Jasa dan Material/Supply Erect, pembayaran dilaksanakan sebanyak 2 (dua) tahap, Pembayaran Tahap I sebesar 95% (sembilan puluh lima persen) dari nilai Surat Perjanjian/Kontrak Rinci akan dilakukan setelah semua pekerjaan 100% dilaksanakan dengan cara PIHAK KEDUA mengajukan surat permohonan pembayaran dengan melampirkan dokumen-dokumen sebagai berikut :</li>
 													</ol>
 													<ol type="a">
-														<li>Kwitansi bermaterai cukup;</li>
+														<li>tansi bermaterai cukup;</li>
 														<li>Surat Perjanjian/Kontrak Rinci;</li>
 														<li>Faktur Pajak, SSP, Copy NPWP, Copy PKP, Copy surat pemberian nomor seri Faktur Pajak;</li>
 														<li>Berita Acara Serah Terima Pekerjaan (BASTP 1) yang ditandatangani oleh Para Pihak yang dilampiri dengan Laporan Pemeriksaan Pekerjaan;</li>
@@ -233,15 +239,75 @@
 			</div>
 	</div>
 </div>
-
-
-
-
-
-
-
-
 @endsection
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		$(document).on('change','.nama_item',function(){
+			// console.log("hmm its change");
+
+			var cat_id=$(this).val();
+			// console.log(cat_id);
+			var div=$(this).parent();
+
+			var op=" ";
+
+			$.ajax({
+				type:'get',
+				url:'{!!URL::to('findProductName')!!}',
+				data:{'id':cat_id},
+				success:function(data){
+					//console.log('success');
+
+					//console.log(data);
+
+					//console.log(data.length);
+					op+='<option value="0" selected disabled>chose product</option>';
+					for(var i=0;i<data.length;i++){
+					op+='<option value="'+data[i].id+'">'+data[i].productname+'</option>';
+				   }
+
+				   div.find('.productname').html(" ");
+				   div.find('.productname').append(op);
+				},
+				error:function(){
+
+				}
+			});
+		});
+
+		$(document).on('change','.nama_item',function () {
+			var prod_id=$(this).val();
+
+			var a=$(this).parent();
+			console.log(prod_id);
+			var op="";
+			$.ajax({
+				type:'get',
+				url:'{!!URL::to('findPrice')!!}',
+				data:{'id':prod_id},
+				dataType:'json',//return data will be json
+				success:function(data){
+					console.log("harga_satuan");
+					console.log(data.harga_satuan);
+
+					// here price is coloumn name in products table data.coln name
+
+					a.find('.harga_satuan').val(data.harga_satuan);
+
+				},
+				error:function(){
+
+				}
+			});
+
+
+		});
+
+	});
+</script>
+
 <!-- <div id="wizard_Details" class="tab-pane" role="tabpanel">
 									<div class="row">
 										<div class="col-xl-12 col-xxl-12">

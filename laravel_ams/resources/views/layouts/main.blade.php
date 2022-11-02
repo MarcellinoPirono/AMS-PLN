@@ -34,11 +34,6 @@
 
     <link href="{{ asset('/') }}./asset/frontend/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 
-
-
-
-
-
 </head>
 
 <body>
@@ -104,7 +99,7 @@
                         <ul class="navbar-nav header-right">
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-                                    <img src="images/profile/17.jpg" width="20" alt="" />
+                                    <img src="{{ asset('/') }}./asset/frontend/images/profile/17.jpg" width="20" alt="" />
                                     <div class="header-info">
                                         <span class="text-black"><strong>Nama User</strong></span>
                                         <p class="fs-12 mb-0">Level User</p>

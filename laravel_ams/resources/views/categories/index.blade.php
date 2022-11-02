@@ -36,16 +36,16 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Kategori Kontrak Induk</h4>
-                <div class="input-group search-area position-relative" type="get" action="{{ url('/search') }}">
+                <div class="input-group search-area position-relative">
                     <div class="input-group-append">
-                        <button class="btn btn-secondary flaticon-381-search-2" type="submit"></button>
+                        <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
                     </div>
-                    <input type="search" class="form-control" name="query" placeholder="Search here..." />
+                    <input type="text" class="form-control" id="search" name="search" placeholder="Search here..." />
                 </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-responsive-sm">
+                    <table id="categories_table" class="table table-responsive-sm">
                         <thead>
                             <tr>
                                 <th class="width30">No.</th>
@@ -61,7 +61,7 @@
                             <td>{{ $kontrak->nama_kontrak }}</td>
                             <td>
                                 <div class="d-flex">
-                                    <a href="{{ "editcategories/".$kontrak['id'] }}" data-toggle="modal" data-target="#editModalCategories{{ $kontrak->id }}"  class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" data-id="{{ $kontrak->id }}" class="btn btn-primary shadow btn-xs sharp mr-1 tombol-edit"><i class="fa fa-pencil"></i></a>
                                     @include('layouts.editcategory')
                                     <button class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button>
                                 </div>
@@ -78,6 +78,8 @@
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script> --}}
 
 <script>
     $(document).ready(function () {
@@ -108,13 +110,14 @@
                         });
                 }
             });
-        })
+        });
 
         $('.btndelete').click(function (e) {
             e.preventDefault();
 
             var deleteid = $(this).closest("tr").find('.delete_id').val();
 
+            // alert(deleteid);
             swal({
                     title: "Apakah anda yakin?",
                     text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
@@ -158,73 +161,54 @@
                 });
         });
 
-        // $('.btnedit').click(function(e){
-        //     e.preventDefault();
-
-        //     var id = $(this).data('id');
-        //     var edit_kontrak = $("#edit_kontrak").val();
-        //     // var edit_kontrak = $("#edit_kontrak").val();
-
-        //     alert(id);
-        //     alert(edit_kontrak);
-
-            // var deleteid = $(this).closest("tr").find('.delete_id').val();
-            // var edit_kontrak = $("#edit_kontrak").val();
-
-            // var data = {
-            //     "_token":$('input[name=_token]').val(),
-            //     "nama_kontrak":edit_kontrak
-            // }
-
-            // $.ajax({
-            //     type: 'PUT',
-            //     url: 'categories/' + id,
-            //     data:data,
-            //     success: function (response) {
-            //         swal({
-            //             title: "Data Diedit",
-            //             text: "Data Berhasil Diedit",
-            //             icon: "success",
-            //             timer: 2e3,
-            //             buttons: false
-            //         })
-            //             .then((result) => {
-            //                 location.reload();
-            //             });
-            //     }
-            // });
-            // alert("edit data");
-        // })
-
-        $('#btnedit').on('click', function(){
-            var token = $('#csrf').val();
-            var nama_kontrak = $("#nama_kontrak").val();
-
-            var data = {
-                "_token":token,
-                "nama_kontrak":nama_kontrak
-            }
-
+        $('.tombol-edit').click(function(e){
+            var id = $(this).data('id');
             $.ajax({
-                type: 'POST',
-                url: 'categories',
-                data:data,
-                success: function (response) {
-                    swal({
-                        title: "Data Ditambah",
-                        text: "Data Berhasil Ditambah",
-                        icon: "success",
-                        timer: 2e3,
-                        buttons: false
-                    })
-                        .then((result) => {
-                            location.reload();
+                url: 'categories/' + id + '/edit',
+                type: 'GET',
+                success: function(response) {
+                    $('#editModalCategories').modal('show');
+                    $('#edit_kontrak').val(response.result.nama_kontrak);
+
+                    $('.btnedit').click(function(){
+                        $.ajax({
+                            url: 'categories/' + id,
+                            type: 'PUT',
+                            data: {
+                                nama_kontrak: $('#edit_kontrak').val()
+                            },
+                            success: function(response){
+                                swal({
+                                    title: "Data Diedit",
+                                    text: "Data Berhasil Diedit",
+                                    icon: "success",
+                                    timer: 2e3,
+                                    buttons: false
+                                }).then((result) => {
+                                        location.reload();
+                                });
+                                console.log(response);
+                            }
                         });
+                    });
+                    console.log(response.result);
                 }
             });
-        })
-
+        });
     });
+</script>
 
+<script type="text/javascript">
+    var route = "{{ url('categories-search') }}"
+
+    $('#search').typeahead({
+        source: function(query, process) {
+            return $.get(route, {
+                query: query
+            }, function (data) {
+                return process(data);
+            });
+        }
+    });
 </script>
 @endsection
