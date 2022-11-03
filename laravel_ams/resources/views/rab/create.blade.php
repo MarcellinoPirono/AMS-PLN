@@ -28,7 +28,7 @@
                  <span>3</span>
                 </a></li> -->
                         </ul>
-                        <div class="tab-content">
+                        <div class="tab-content tab-flex">
                             <div id="wizard_Service" class="tab-pane" role="tabpanel">
                                 <div method="POST" action="/rab" class="" enctype="multipart/form-data"
                                     class="basic-form">
@@ -82,9 +82,6 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <!-- <div class="col-lg-12 mb-2">
-                   <label class="text-label">Pilih Kategori</label>
-                  </div> -->
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">Pilih Kontrak</label>
@@ -116,7 +113,6 @@
                                                     class="form-control @error('volume') is-invalid @enderror"
                                                     name="volume" id="volume" placeholder="Volume" required autofocus
                                                     value="{{ old('volume') }}">
-                                                
                                                 @error('volume')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -136,12 +132,6 @@
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
-                                                {{-- <input type="text" class="form-control @error('Harga') is-invalid @enderror" name="Harga" id="Harga" placeholder="Harga Satuan" required autofocus value="{{ old('Harga') }}">
-                                                @error('Harga')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror --}}
                                             </div>
                                         </div>
                                         <div class="col-lg-12 mb-2">
@@ -194,7 +184,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="wizard_Item" class="tab-pane2" role="tabpanel">
+                            <div id="wizard_Item" class="tab-pane" role="tabpanel">
                                 <div class="row">
                                     <div class="col-xl-12 col-xxl-12">
                                         <div class="card">

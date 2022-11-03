@@ -22,6 +22,13 @@
 .sw>.tab-content {
     position: relative;
     overflow: hidden;
+
+}
+
+.sw>.tab-flex {
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
 }
 
 .sw .toolbar {
@@ -164,7 +171,7 @@
 }
 
 .sw-theme-default>.tab-content>.tab-pane {
-    padding: 10px
+    padding: 10px;
 }
 
 .sw-theme-default .toolbar>.btn {
@@ -172,7 +179,7 @@
     background-color: #17a2b8;
     border: 1px solid #17a2b8;
     padding: .375rem .75rem;
-    border-radius: .25rem;
+    border-radius: 1rem;
     font-weight: 400
 }
 
