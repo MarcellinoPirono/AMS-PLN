@@ -202,4 +202,28 @@ class RincianIndukController extends Controller
         return view('rincian.filter', ['items' => $rincianInduk]);
         // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
     }
+
+    public function searchRincian(Request $request)
+    {
+        $output = "";
+
+
+        $rincianInduk= RincianInduk::where('nama_item', 'LIKE', '%' . $request->search . '%')->orWhere('satuan', 'LIKE', '%' . $request->search . '%')->get();
+
+        foreach ($rincianInduk as $rincianInduk) {
+            $output .=
+                '<tr>
+            <td>#</td>
+            <td>'. $rincianInduk->nama_item. '</td>
+            <td>'.$rincianInduk->item_rincian_induks->nama_kontrak.'</td>
+            <td>'.$rincianInduk->satuan. '</td>
+            <td>'.$rincianInduk->harga_satuan.'</td>
+            <td>' . ' 
+            <div class="d-flex"><a href="/rincian/' . $rincianInduk['id'] . '/edit" class="btn btn-primary shadow btn-xs sharp mr-1 tombol-edit"><i class="fa fa-pencil"></i></a><button class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button></div>
+            ' . '</td>
+            </tr>';
+        }
+
+        return response($output);
+    }
 }

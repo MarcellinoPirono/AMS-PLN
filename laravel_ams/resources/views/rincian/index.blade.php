@@ -36,12 +36,11 @@
                             class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                     </a>
                     <div class="input-group search-area position-relative">
-                        <form action ="/rincian" method="GET">
                         <div class="input-group-append">
                             <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
+                            <input type="search" id="search" name="search" class="form-control" placeholder="Search here..." />
                         </div>
-                            <input type="search" name="search" class="form-control" placeholder="Search here..." />
-                        </form>
+                      
                     </div>
                 </div>
                 <div class="card-body">
@@ -62,7 +61,7 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="alldata">
                                 @foreach ($items as $item)
                                     <tr>
                                         <td><strong>{{ $loop->iteration }}</strong></td>
@@ -84,6 +83,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
+                            </tbody>
+                             </tbody>
+                            <tbody id="Content" class="searchdata">
 
                             </tbody>
                         </table>
@@ -123,6 +126,37 @@
             })
         });
     </script>
+
+    <script type="text/javascript">
+    $('#search').on('keyup',function(){
+        $value=$(this).val();
+
+        if($value){
+            $('.alldata').hide();
+            $('.searchdata').show();
+        }
+
+        else{
+            $('.alldata').show();
+            $('.searchdata').hide();
+
+        }
+
+    $.ajax({
+
+        type: 'get',
+        url:'{{URL::to('search-rincian') }}',
+        data:{'search':$value},
+
+        success:function(data){
+            console.log(data);
+            $('#Content').html(data);
+        }
+
+    });
+        
+    });
+</script>
 @endsection
 {{-- <script type="text/javascript" charset="utf8" src=""></script> --}}
 

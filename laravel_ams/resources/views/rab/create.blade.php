@@ -10,7 +10,7 @@
 
     <!-- row -->
     <div class="row">
-        <div class="col-xl-6 col-xxl-12">
+        <div class="col-xxl-12">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Form step</h4>
@@ -25,8 +25,8 @@
                                     <span>2</span>
                                 </a></li>
                             <!-- <li><a class="nav-link" href="#wizard_Details">
-             <span>3</span>
-            </a></li> -->
+                 <span>3</span>
+                </a></li> -->
                         </ul>
                         <div class="tab-content">
                             <div id="wizard_Service" class="tab-pane" role="tabpanel">
@@ -46,15 +46,13 @@
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
-
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">Input Lokasi</label>
-                                                <textarea type="text"
-                                                    class="form-control @error('lokasi') is-invalid @enderror"
-                                                    placeholder="Lokasi" name="lokasi" id="lokasi" required autofocus>{{ old('lokasi') }}</textarea>
+                                                <textarea type="text" class="form-control @error('lokasi') is-invalid @enderror" placeholder="Lokasi" name="lokasi"
+                                                    id="lokasi" required autofocus>{{ old('lokasi') }}</textarea>
                                                 @error('lokasi')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -65,7 +63,7 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">Input No.SKK</label>
-                                                <select class="form-control input-default" id="skk_id" name="skk_id" data-dependent="prk_id">
+                                                <select class="form-control input-default" id="skk_id" name="skk_id">
                                                     <option value="0" selected disabled>Pilih No. SKK</option>
                                                     @foreach ($skks as $skk)
                                                         <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}</option>
@@ -85,8 +83,8 @@
                                             </div>
                                         </div>
                                         <!-- <div class="col-lg-12 mb-2">
-               <label class="text-label">Pilih Kategori</label>
-              </div> -->
+                   <label class="text-label">Pilih Kategori</label>
+                  </div> -->
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">Pilih Kontrak</label>
@@ -114,10 +112,11 @@
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
-                                                <input type="text"
+                                                <input type="number"
                                                     class="form-control @error('volume') is-invalid @enderror"
                                                     name="volume" id="volume" placeholder="Volume" required autofocus
                                                     value="{{ old('volume') }}">
+                                                
                                                 @error('volume')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -127,10 +126,11 @@
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
-                                                <input type="text"
+                                                <input type="number"
                                                     class="form-control harga @error('harga') is-invalid @enderror"
-                                                    name="harga" id="harga" placeholder="Harga" required autofocus
+                                                    name="harga" id="harga" placeholder="Harga" readonly autofocus
                                                     value="{{ old('Harga') }}">
+                                                <input type="hidden" id="harga_satuan" name="harga_satuan">
                                                 @error('Harga')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -195,59 +195,86 @@
                                 </div>
                             </div>
                             <div id="wizard_Item" class="tab-pane2" role="tabpanel">
-            <div class="row">
-             <div class="col-xl-12 col-xxl-12">
-              <div class="card">
-               <div class="card-header justify-content-center">
-                <h4 class="card-title">RAB</h4>
-               </div>
-               <div class="card-body">
-                <div class="summernote">
-                 Merujuk kontrak perjanjian sebagai berikut: <br> Kontrak nomor: ... <br> Tanggal: ... <br>  Pekerjaan: ... <br> Maka dengan ini disampaikan kepada saudara untuk melaksanakan pekerjaan : <br> (Nama Pekerjaan) <br> Lokasi: ... <br>
-                 <ol type="1">
-                  <li>Harga Borongan Pekerjaan Rp ...,- (Termasuk PPN 10%) (Jumlah terbilang)</li>
-                  <li>Rincian Pekerjaan diterbitkan dengan Perintah Kerja dari Manager Unit Layanan Pelanggan </li>
-                  <li>Jangka Waktu pelaksanaan pekerjaan ... (hari terbilang) hari kalender sejak tanggal ... sampai dengan tanggal ... </li>
-                  <li>Sumber Dana sesuai dengan ... <br> PRK No : ... </li>
-                  <li>Direksi Pekerjaan adalah Manager Bagian Transaksi Energi Listrik PT PLN (Persero) UP3 Makassar Selatan</li>
-                  <li>Pengawas Pekerjaan adalah Manager Unit Layanan Pelanggan dibantu Supervisor Transaksi Energi Listrik  Unit Layanan Pelanggan </li>
-                  <li>Tempat Penyerahan pekerjaan di Kantor PT PLN (Persero) UP3 Makassar Selatan Jl. Hertasning no 99 Rappocini - Makassar dilengkapi dengan realisasi Perintah Kerja yang sudah selesai dilaksanakan</li>
-                  <li>Surat Perjanjian/Kontrak Rinci jenis Pengadaan Jasa/Pengadaan Jasa dan Material/Supply Erect, pembayaran dilaksanakan sebanyak 2 (dua) tahap, Pembayaran Tahap I sebesar 95% (sembilan puluh lima persen) dari nilai Surat Perjanjian/Kontrak Rinci akan dilakukan setelah semua pekerjaan 100% dilaksanakan dengan cara PIHAK KEDUA mengajukan surat permohonan pembayaran dengan melampirkan dokumen-dokumen sebagai berikut :</li>
-                 </ol>
-                 <ol type="a">
-                  <li>tansi bermaterai cukup;</li>
-                  <li>Surat Perjanjian/Kontrak Rinci;</li>
-                  <li>Faktur Pajak, SSP, Copy NPWP, Copy PKP, Copy surat pemberian nomor seri Faktur Pajak;</li>
-                  <li>Berita Acara Serah Terima Pekerjaan (BASTP 1) yang ditandatangani oleh Para Pihak yang dilampiri dengan Laporan Pemeriksaan Pekerjaan;</li>
-                  <li>Asli bermaterai Surat Pernyataan Keaslian Barang;</li>
-                  <li>Asli bermaterai Surat Pernyataan Jaminan Garansi dari PIHAK KEDUA;</li>
-                  <li>Copy Surat Perjanjian/Kontrak;</li>
-                  <li>Berita acara khusus apabila ada pekerjaan yang dilaksanakan diluar jam kerja;</li>
-                  <li>Bukti pembayaran iuran BPJS Ketenagakerjaan.</li>
-                 </ol>
-                 <br>Apabila SPBJ/PO ini saudara(i) setuju dan sanggup melaksanakan, harap menandatangani SPBJ/PO ini dan dikembalikan kepada kami untuk proses lebih lanjut.
-                 <br>SPBJ/PO ini dibuat dalam ... (jumlah terbilang) rangkap, asli dan ... (jumlah terbilang) turunannya dibubuhi materai secukupnya dan mempunyai kekuatan hukum yang sama.
-                 <br>Demikian SPBJ/PO ini dibuat untuk dilaksanakan dan dapat diselesaikan dengan sebaik-baiknya.
-                </div>
-               </div>
-              </div>
-             </div>
-            </div>
-           </div> -->
+                                <div class="row">
+                                    <div class="col-xl-12 col-xxl-12">
+                                        <div class="card">
+                                            <div class="card-header justify-content-center">
+                                                <h4 class="card-title">RAB</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="summernote">
+                                                    Merujuk kontrak perjanjian sebagai berikut: <br> Kontrak nomor: ... <br>
+                                                    Tanggal: ... <br> Pekerjaan: ... <br> Maka dengan ini disampaikan kepada
+                                                    saudara untuk melaksanakan pekerjaan : <br> (Nama Pekerjaan) <br>
+                                                    Lokasi: ... <br>
+                                                    <ol type="1">
+                                                        <li>Harga Borongan Pekerjaan Rp ...,- (Termasuk PPN 10%) (Jumlah
+                                                            terbilang)</li>
+                                                        <li>Rincian Pekerjaan diterbitkan dengan Perintah Kerja dari Manager
+                                                            Unit Layanan Pelanggan </li>
+                                                        <li>Jangka Waktu pelaksanaan pekerjaan ... (hari terbilang) hari
+                                                            kalender sejak tanggal ... sampai dengan tanggal ... </li>
+                                                        <li>Sumber Dana sesuai dengan ... <br> PRK No : ... </li>
+                                                        <li>Direksi Pekerjaan adalah Manager Bagian Transaksi Energi Listrik
+                                                            PT PLN (Persero) UP3 Makassar Selatan</li>
+                                                        <li>Pengawas Pekerjaan adalah Manager Unit Layanan Pelanggan dibantu
+                                                            Supervisor Transaksi Energi Listrik Unit Layanan Pelanggan </li>
+                                                        <li>Tempat Penyerahan pekerjaan di Kantor PT PLN (Persero) UP3
+                                                            Makassar Selatan Jl. Hertasning no 99 Rappocini - Makassar
+                                                            dilengkapi dengan realisasi Perintah Kerja yang sudah selesai
+                                                            dilaksanakan</li>
+                                                        <li>Surat Perjanjian/Kontrak Rinci jenis Pengadaan Jasa/Pengadaan
+                                                            Jasa dan Material/Supply Erect, pembayaran dilaksanakan sebanyak
+                                                            2 (dua) tahap, Pembayaran Tahap I sebesar 95% (sembilan puluh
+                                                            lima persen) dari nilai Surat Perjanjian/Kontrak Rinci akan
+                                                            dilakukan setelah semua pekerjaan 100% dilaksanakan dengan cara
+                                                            PIHAK KEDUA mengajukan surat permohonan pembayaran dengan
+                                                            melampirkan dokumen-dokumen sebagai berikut :</li>
+                                                    </ol>
+                                                    <ol type="a">
+                                                        <li>tansi bermaterai cukup;</li>
+                                                        <li>Surat Perjanjian/Kontrak Rinci;</li>
+                                                        <li>Faktur Pajak, SSP, Copy NPWP, Copy PKP, Copy surat pemberian
+                                                            nomor seri Faktur Pajak;</li>
+                                                        <li>Berita Acara Serah Terima Pekerjaan (BASTP 1) yang
+                                                            ditandatangani oleh Para Pihak yang dilampiri dengan Laporan
+                                                            Pemeriksaan Pekerjaan;</li>
+                                                        <li>Asli bermaterai Surat Pernyataan Keaslian Barang;</li>
+                                                        <li>Asli bermaterai Surat Pernyataan Jaminan Garansi dari PIHAK
+                                                            KEDUA;</li>
+                                                        <li>Copy Surat Perjanjian/Kontrak;</li>
+                                                        <li>Berita acara khusus apabila ada pekerjaan yang dilaksanakan
+                                                            diluar jam kerja;</li>
+                                                        <li>Bukti pembayaran iuran BPJS Ketenagakerjaan.</li>
+                                                    </ol>
+                                                    <br>Apabila SPBJ/PO ini saudara(i) setuju dan sanggup melaksanakan,
+                                                    harap menandatangani SPBJ/PO ini dan dikembalikan kepada kami untuk
+                                                    proses lebih lanjut.
+                                                    <br>SPBJ/PO ini dibuat dalam ... (jumlah terbilang) rangkap, asli dan
+                                                    ... (jumlah terbilang) turunannya dibubuhi materai secukupnya dan
+                                                    mempunyai kekuatan hukum yang sama.
+                                                    <br>Demikian SPBJ/PO ini dibuat untuk dilaksanakan dan dapat
+                                                    diselesaikan dengan sebaik-baiknya.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div id="wizard_Details" class="tab-pane" role="tabpanel">
-            <div class="row">
-             <div class="col-xl-12 col-xxl-12">
-              <div class="card">
-               <div class="card-header justify-content-center">
-                <h4 class="card-title">Preview</h4>
-               </div>
-               <div class="card-body">
-                <button data-toggle="modal" data-target="#previewModal">Preview</button>
-               </div>
-              </div>
-             </div>
-            </div>
-           </div>
+                                <div class="row">
+                                    <div class="col-xl-12 col-xxl-12">
+                                        <div class="card">
+                                            <div class="card-header justify-content-center">
+                                                <h4 class="card-title">Preview</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <button data-toggle="modal" data-target="#previewModal">Preview</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -259,42 +286,57 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-	jQuery(document).ready(function(){
-		jQuery('#skk_id').change(function(){
-			let skk_id = jQuery(this).val();
-			jQuery.ajax({
-				url: '/getSKK',
-				type: 'POST',
-				data: 'skk_id=' + skk_id + '&_token={{csrf_token()}}',
-				success: function(result) {
-					jQuery('#prk_id').html(result)
-				}
-			});
-		})
+    jQuery(document).ready(function() {
+        jQuery('#skk_id').change(function() {
+            let skk_id = jQuery(this).val();
+            jQuery.ajax({
+                url: '/getSKK',
+                type: 'POST',
+                data: 'skk_id=' + skk_id + '&_token={{ csrf_token() }}',
+                success: function(result) {
+                    jQuery('#prk_id').html(result)
+                }
+            });
+        })
 
-		jQuery('#kategory_id').change(function(){
-			let kategory_id = jQuery(this).val();
-			jQuery.ajax({
-				url: '/getCategory',
-				type: 'POST',
-				data: 'kategory_id=' + kategory_id + '&_token={{csrf_token()}}',
-				success: function(result) {
-					jQuery('#item_id').html(result)
-				}
-			});
-		})
-		jQuery('#skk_id').change(function(){
-			let skk_id = jQuery(this).val();
-			jQuery.ajax({
-				url: '/getSKK',
-				type: 'POST',
-				data: 'skk_id=' + skk_id + '&_token={{csrf_token()}}',
-				success: function(result) {
-					jQuery('#prk_id').html(result)
-				}
-			});
-		})
-	});
+        jQuery('#kategory_id').change(function() {
+            let kategory_id = jQuery(this).val();
+            jQuery.ajax({
+                url: '/getCategory',
+                type: 'POST',
+                data: 'kategory_id=' + kategory_id + '&_token={{ csrf_token() }}',
+                success: function(result) {
+                    jQuery('#item_id').html(result)
+                }
+            });
+        })
+
+        $('#item_id').change(function() {
+            let item_id = $(this).val();
+            $.ajax({
+                url: '/getItem',
+                type: 'POST',
+                data: 'item_id=' + item_id + '&_token={{ csrf_token() }}',
+                success: function(res) {
+                    console.log(res);
+                    $('#volume').val('1');
+                    $('#harga').val(res.harga_satuan);
+                    $('#harga_satuan').val(res.harga_satuan);
+
+                    // $('#harga').change(function(){
+                    //     let volume = parseInt($(this).val())
+                    //     let harga = parseInt($())
+                    // });
+                }
+            });
+        });
+    });
+
+    $(document).on('blur', '#volume', function(){
+        let volume = parseInt($(this).val())
+        let harga_satuan = parseInt($('#harga_satuan').val())
+        $('#harga').val(volume * harga_satuan)
+    });
 </script>
 
 <script type="text/javascript">

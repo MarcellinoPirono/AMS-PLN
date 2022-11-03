@@ -21,12 +21,14 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="btn-group ml-3" role="group">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih SKK</button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="javascript:void()">SKK 1</a>
-                                        <a class="dropdown-item" href="javascript:void()">SKK 2</a>
-                                    </div>
+                                
+                                 <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
+                                    <select id="filter-skk" class="form-control filter">
+                                        <option value="">Pilih SKK</option>
+                                        @foreach ($skks as $skk)
+                                            <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <a href="/skk/create" class="btn btn-primary mr-auto ml-3 ">Tambah SKK<span
                                         class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
@@ -106,7 +108,12 @@
                         </div>
                     </div>
 </div>
-
+    <script>
+        $(".filter").on('change', function() {
+            let skk = $("#filter-skk").val()
+           
+        });
+    </script>
 @endsection
 
 

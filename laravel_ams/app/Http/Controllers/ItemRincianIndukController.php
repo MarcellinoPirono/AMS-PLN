@@ -20,23 +20,71 @@ class ItemRincianIndukController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->has('search')){
-             $kontraks = ItemRincianInduk::where('nama_kontrak','LIKE','%'.$request->search. '%');
-        }
+        // $kontraks = ItemRincianInduk::orderby('id', 'DESC')->get();
 
-       
+        // $data = [
+        //     'kontraks'  => ItemRincianInduk::orderby('id', 'DESC')->get(),
+        //     'title' => 'Kategori Kontrak Induk',
+        //     'active' => 'Kategori Kontrak Induk',
+        //     'active1' => 'Kategori Kontrak Induk',
+        // ];
 
-        $kontraks = ItemRincianInduk::orderBy('id', 'DESC')->get();
-    
+
         return view('categories.index', [
+            'kontraks'  => ItemRincianInduk::orderby('id', 'DESC')->get(),
             'title' => 'Kategori Kontrak Induk',
             'active' => 'Kategori Kontrak Induk',
             'active1' => 'Kategori Kontrak Induk',
-            'kontraks' => compact('kontraks'),
+            
         ]);
+
+       
 
       
     }
+
+    public function searchcategories(Request $request)
+    {
+        $output ="";
+
+
+       $kontraks = ItemRincianInduk::where('nama_kontrak', 'LIKE', '%'. $request->search.'%')->get();
+
+       foreach($kontraks as $kontraks){
+        $output.=
+            '<tr>
+            <input type="hidden" class="delete_id" value='. $kontraks->id .'>
+            <td>#</td>
+            <td>'. $kontraks->nama_kontrak.' </td>
+            <td>'.' 
+            <div class="d-flex"><a href="" data-id="'.$kontraks['id']. '" class="btn btn-primary shadow btn-xs sharp mr-1 tombol-edit"><i class="fa fa-pencil"></i></a><button onclick="deleteCategories(' . $kontraks['id'] . ')" class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button></div>
+            '.'</td>
+            </tr>';
+
+       }
+
+       return response($output);
+    }
+
+    // public function viewmember($id)
+    // {
+
+    //     $member = ItemRincianInduk::find($id);
+
+    //     return view('member')->with('member', $member);
+    // }
+
+    // public function find(Request $request)
+    // {
+    //     $search = $request->input('search');
+
+    //     $members = ItemRincianInduk::where('firstname', 'like', "$search%")
+    //     ->orWhere('lastname', 'like', "$search%")
+    //     ->get();
+
+    //     return view('searchresult')->with('members', $members);
+    // }
+
 
     /**
      * Show the form for creating a new resource.
@@ -120,11 +168,16 @@ class ItemRincianIndukController extends Controller
      */
     public function destroy(ItemRincianInduk $itemRincianInduk, $id)
     {
-        $itemRincianInduk = ItemRincianInduk::find($id);
-        $itemRincianInduk->rincian_induks()->delete();
-        $itemRincianInduk->delete();
+        // $itemRincianInduk = ItemRincianInduk::find($id);
+        // $itemRincianInduk->rincian_induks()->delete();
+        // $itemRincianInduk->delete();
 
-        return response()->json(['status' => 'Post has been deleted!']);
+        // return response()->json(['status' => 'has been deleted!']);
+
+        ItemRincianInduk::destroy($id);
+        return response()->json([
+            'success'   => true
+        ]);
     }
 
     public function categoriessearch(Request $request)

@@ -7,6 +7,10 @@
     <title>AMS - UP3 PLN </title>
     <!-- Favicon icon -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -30,7 +34,7 @@
     <!-- Summernote -->
     <link href="{{ asset('/') }}./asset/frontend/vendor/summernote/summernote.css" rel="stylesheet">
 
-    {{-- <link href="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet"> --}}
+    <link href="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
     <link href="{{ asset('/') }}./asset/frontend/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 </head>
@@ -98,7 +102,8 @@
                         <ul class="navbar-nav header-right">
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-                                    <img src="{{ asset('/') }}./asset/frontend/images/profile/17.jpg" width="20" alt="" />
+                                    <img src="{{ asset('/') }}./asset/frontend/images/profile/17.jpg" width="20"
+                                        alt="" />
                                     <div class="header-info">
                                         <span class="text-black"><strong></strong></span>
                                         <p class="fs-12 mb-0">Level User</p>
@@ -200,11 +205,21 @@
                             <span class="nav-text">Data</span>
                         </a>
                     </li>
+                    <h5>
+                        <p class="fs-12 ml-3 mt-3 mb-1 text-black">Sudahi Deletemu Mari Kerja HPE</p>
+                    </h5>
+                    <li>
+                        <a class="nav-link {{ Request::is('hpe*') ? 'active' : '' }}" href="/hpe"
+                            aria-expanded="">
+                            <i class="flaticon-381-warning-1"></i>
+                            <span class="nav-text">???</span>
+                        </a>
+                    </li>
                 </ul>
-                <div class="add-menu-sidebar">
+                <div class="add-menu-sidebar" id="products">
                     <img src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt=""
                         class="mr-3" />
-                    <p class="font-w500 mb-0" id="time" name="time">{{ date('j F Y H:i:s') }} </p>
+                    <p class="font-w500 mb-0" id="reload" name="reload">{{ date('j F Y H:i:s') }} </p>
                 </div>
             </div>
         </div>
@@ -305,18 +320,18 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
         });
-        $(document).ready(function(){
-            setInterval(function(){
-                $('#time').load('main.blade.php')
-            }, 1000);
-        });
     </script>
+    <script>
+        function loadlink() {
+            $('#reload').load('/main');
+            console.log('TESTING!!!!');
+        }
 
-    {{-- <script>
-    $(".filter").on('change',function(){
-        console.log("FILTER")
-    })
-    </script> --}}
+        loadlink();
+        setInterval(function() {
+            loadlink()
+        }, 10000);
+    </script>
 
     <!-- Summernote -->
     <script src="{{ asset('/') }}./asset/frontend/vendor/summernote/js/summernote.min.js"></script>

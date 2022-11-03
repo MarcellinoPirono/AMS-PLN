@@ -41715,7 +41715,7 @@ tab-pane
     }
 
     .form-wizard .tab-content {
-        height: 1000px !important;
+        height: 767px !important;
         overflow-y: scroll;
     }
 }

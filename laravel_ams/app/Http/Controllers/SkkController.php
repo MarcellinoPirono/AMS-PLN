@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RincianInduk;
 use App\Models\Skk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -168,5 +169,12 @@ class SKKController extends Controller
             $html.='<option value="'.$item->id.'">'.$item->nama_item.'</option>';
         }
         echo $html;
+    }
+
+    public function getItem(Request $request)
+    {
+        $item_id = $request->post('item_id');
+        $harga_item = RincianInduk::find($request->item_id)->where('id',$item_id)->first();
+        return response()->json($harga_item);
     }
 }

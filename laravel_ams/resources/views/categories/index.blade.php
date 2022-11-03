@@ -39,13 +39,15 @@
                 <div class="input-group search-area position-relative">
                     <div class="input-group-append">
                         <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
+                        
+                            <input type="text" class="form-control" id="search" name="search" placeholder="Search here..." />
+    
                     </div>
-                    <input type="text" class="form-control" id="search" name="search" placeholder="Search here..." />
                 </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="categories_table" class="table table-responsive-sm">
+                    <table class="table table-responsive-sm">
                         <thead>
                             <tr>
                                 <th class="width30">No.</th>
@@ -53,7 +55,7 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="alldata">
                         @foreach ($kontraks as $kontrak)
                         <tr>
                             <input type="hidden" class="delete_id" value="{{ $kontrak->id }}">
@@ -69,14 +71,19 @@
                         </tr>
                         @endforeach
                         </tbody>
+                         <tbody id="Content" class="searchdata">
+
+                         </tbody>
                     </table>
+                   
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
@@ -196,9 +203,49 @@
             });
         });
     });
+
+    function deleteCategories(id) {
+        let csrf_token = $('meta[name="csrf-token"]').attr('content');
+        swal({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function () {
+            $.ajax({
+                type: "POST",
+                url: "{{ url('categories') }}" + '/' + id,
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (data) {
+                    table.ajax.reload();
+                    swal({
+                        title: 'Success',
+                        text: 'Data has been deleted',
+                        type: 'success',
+                        timer: '1500'
+                    }).catch(swal.noop);
+                },
+                error: function () {
+                    swal({
+                        title: 'Oops...',
+                        text: 'Something when wrong!',
+                        type: 'error',
+                        timer: '1500'
+                    }).catch(swal.noop);
+                }
+            });
+        })
+    }
+                   
 </script>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     var route = "{{ url('categories-search') }}"
 
     $('#search').typeahead({
@@ -209,6 +256,37 @@
                 return process(data);
             });
         }
+    });
+</script> --}}
+
+<script type="text/javascript">
+    $('#search').on('keyup',function(){
+        $value=$(this).val();
+
+        if($value){
+            $('.alldata').hide();
+            $('.searchdata').show();
+        }
+
+        else{
+            $('.alldata').show();
+            $('.searchdata').hide();
+
+        }
+
+    $.ajax({
+
+        type: 'get',
+        url:'{{URL::to('search-categories') }}',
+        data:{'search':$value},
+
+        success:function(data){
+            console.log(data);
+            $('#Content').html(data);
+        }
+
+    });
+        
     });
 </script>
 @endsection
