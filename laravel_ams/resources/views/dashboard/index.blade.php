@@ -14,7 +14,9 @@
                                 </span>
                                 <div class="media-body">
                                     <p class="fs-14 mb-2">Pemasangan SP 1 Fasa</p>
-                                    <span class="title text-black font-w600">323</span>
+                                    
+                                    <span class="title text-black font-w600">123</span>
+                                    
                                 </div>
                             </div>
                             <div class="progress" style="height:5px;">

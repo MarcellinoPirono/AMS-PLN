@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hpe;
+use App\Models\Skk;
+use App\Models\Prk;
+use App\Models\RincianInduk;
+use App\Models\ItemRincianInduk;
+use App\Models\Rab;
 use Illuminate\Http\Request;
 
 class HpeController extends Controller
@@ -17,7 +22,7 @@ class HpeController extends Controller
         return view('hpe.index', [
             'title' => 'HPE',
             'title1' => 'HPE',
-            // 'hpes' => Hpe::orderBy('id', 'DESC')->get(),
+            'hpes' => Hpe::orderBy('id', 'DESC')->get(),
 
         ]);
     }
@@ -29,7 +34,20 @@ class HpeController extends Controller
      */
     public function create()
     {
-        //
+        return view(
+            'hpe.create',
+            [
+                'active1' => 'Buat HPE',
+                'title' => 'HPE',
+                'title1' => 'HPE',
+                'active' => 'HPE',
+                'skks' => Skk::all(),
+                'prks' => Prk::all(),
+                'categories' => ItemRincianInduk::all(),
+                'items' => RincianInduk::all(),
+                'rabs' => Rab::all(),
+            ]
+        );
     }
 
     /**

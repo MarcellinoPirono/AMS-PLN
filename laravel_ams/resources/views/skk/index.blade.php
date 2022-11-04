@@ -40,7 +40,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="example3" class="display min-w850">
+                                    <table  class="table table-responsive-sm">
                                         <thead>
                                             <tr>
                                                 <th class="width80">No.</th>
@@ -60,11 +60,11 @@
                                                 <td><strong>{{$loop->iteration}}</strong></td>
                                                 <td>{{$skk->nomor_skk}}</td>
                                                 <td>{{$skk->uraian_skk}}</td>
-                                                <td>{{$skk->pagu_skk}}</td>
-                                                <td>{{$skk->skk_terkontrak}}</td>
-                                                <td>{{$skk->skk_realisasi}}</td>
-                                                <td>{{$skk->skk_terbayar}}</td>
-                                                <td>{{$skk->skk_sisa}}</td>
+                                                <td>@currency($skk->pagu_skk)</td>
+                                                <td>@currency($skk->skk_terkontrak)</td>
+                                                <td>@currency($skk->skk_realisasi)</td>
+                                                <td>@currency($skk->skk_terbayar)</td>
+                                                <td>@currency($skk->skk_sisa)</td>
 
                                                 <td>
 

@@ -791,6 +791,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         if (!this.options.cycleSteps) {
           this.main.find('.sw-btn-prev').removeClass("disabled");
           this.main.find('.sw-btn-next').removeClass("disabled");
+          this.main.find('.sw-btn-next').addClass("btnnext");
 
           switch (this._getStepPosition(idx)) {
             case 'first':
@@ -799,11 +800,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
             case 'last':
               this.main.find('.sw-btn-next').addClass("disabled");
+              this.main.find('.sw-btn-next').addClass("btnnext");
               break;
 
             default:
               if (this._getNextShowable(idx) === false) {
                 this.main.find('.sw-btn-next').addClass("disabled");
+                this.main.find('.sw-btn-next').addClass("btnnext");
               }
 
               if (this._getPreviousShowable(idx) === false) {

@@ -36,7 +36,7 @@
                                     <div class="row">
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
-                                                <label class="text-label">Input Pekerjaan</label>
+                                                <label class="text-label">Judul Pekerjaan</label>
                                                 <input type="text"
                                                     class="form-control @error('pekerjaan') is-invalid @enderror"
                                                     name="pekerjaan" id="pekerjaan" placeholder="Pekerjaan" required
@@ -84,7 +84,7 @@
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
-                                                <label class="text-label">Pilih Kontrak</label>
+                                                <label class="text-label">Kategori Pekerjaan</label>
                                                 <select class="form-control input-default" id="kategory_id"
                                                     name="kategory_id">
                                                     <option value="0" selected disabled>Pilih Kontrak</option>
@@ -97,7 +97,7 @@
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
-                                                <label class="text-label">Pilih Pekerjaan</label>
+                                                <label class="text-label">Item Pekerjaan</label>
                                                 <select class="form-control input-default" id="item_id" name="item_id">
                                                     <option value="0" selected disabled>Pilih Pekerjaan</option>
                                                     {{-- @foreach ($items as $item)
@@ -136,9 +136,9 @@
                                         </div>
                                         <div class="col-lg-12 mb-2">
                                             <div class="position-relative justify-content-end float-left">
-                                                <button type="submit"
+                                                <a type="button" id="tambah-kategori"
                                                     class="btn btn-primary position-relative justify-content-end"
-                                                    onclick="updateform()">Tambah</button>
+                                                    >Tambah</a>
                                             </div>
                                         </div>
                                         <div class="table-responsive">
@@ -153,8 +153,9 @@
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-
+                                                <tbody id="tbody-kategori">
+                                                    <tr id="baris-kategori" name="baris-kategori">
+                                                    </tr>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
@@ -312,11 +313,6 @@
                     $('#volume').val('1');
                     $('#harga').val(res.harga_satuan);
                     $('#harga_satuan').val(res.harga_satuan);
-
-                    // $('#harga').change(function(){
-                    //     let volume = parseInt($(this).val())
-                    //     let harga = parseInt($())
-                    // });
                 }
             });
         });
@@ -327,9 +323,39 @@
         let harga_satuan = parseInt($('#harga_satuan').val())
         $('#harga').val(volume * harga_satuan)
     });
+
+    $(document).ready(function(){
+        let baris = 0
+
+        $(document).on('click', '#tambah-kategori', function(){
+            baris = baris + 1
+            let kategori = $('#kategory_id :selected').text()
+            let item = $('#item_id :selected').text()
+            let volume = parseInt($('#volume').val())
+            let harga = parseInt($('#harga').val())
+
+            $('#kategory_id').val(0)
+            $('#item_id').val(0)
+            $('#volume').val('')
+            $('#harga').val('')
+
+            var html = "<tr id='baris"+ baris +"' name='baris"+ baris +"'>"
+            html += "<td class='no'>"+ baris +"</td>"
+            html += "<td class='kategori'>"+ kategori +"</td>"
+            html += "<td class='item'>"+ item +"</td>"
+            html += "<td class='volume'>"+ volume +"</td>"
+            html += "<td class='harga'>"+ harga +"</td>"
+            html += "<td class='delete'><button id='baris-delete"+ baris +"' name='baris-delete"+ baris +"' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></button></td>"
+            $('#tbody-kategori').append(html)
+        });
+
+        $(document).on('click', '#baris-delete'+baris, function(){
+
+        });
+    });
 </script>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function() {
 
         $(document).on('change', '.nama_item', function() {
@@ -399,7 +425,7 @@
         });
 
     });
-</script>
+</script> --}}
 
 <!-- <div id="wizard_Details" class="tab-pane" role="tabpanel">
          <div class="row">

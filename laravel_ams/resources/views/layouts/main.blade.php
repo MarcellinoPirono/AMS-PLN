@@ -105,9 +105,11 @@
                                     <img src="{{ asset('/') }}./asset/frontend/images/profile/17.jpg" width="20"
                                         alt="" />
                                     <div class="header-info">
-                                        <span class="text-black"><strong></strong></span>
-                                        <p class="fs-12 mb-0">Level User</p>
-                                    </div>
+										<span class="text-black"><strong>Nama User</strong></span>
+										<p class="fs-12 mb-0">Level User</p>
+									</div>
+
+        
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="./app-profile.html" class="dropdown-item ai-icon">
@@ -167,17 +169,17 @@
                         </a>
                     </li>
                     <h5>
-                        <p class="fs-12 ml-3 mt-3 mb-3 text-black"> Kontrak Induk</p>
+                        <p class="fs-12 ml-3 mt-3 mb-3 text-black">KHS</p>
                     </h5>
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="flaticon-381-notepad-2"></i>
-                            <span class="nav-text">Daftar Rincian</span>
+                            <span class="nav-text">Daftar KHS</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="" href="/categories">Kategori</a></li>
+                            <li><a class="" href="/categories">Kategori KHS</a></li>
                             <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
-                                    href="/rincian">Item</a></li>
+                                    href="/rincian">Item KHS</a></li>
                         </ul>
                     </li>
                     <h5>
@@ -201,18 +203,18 @@
                     <li>
                         <a class="nav-link {{ Request::is('rab*') ? 'active' : '' }}" href="/rab"
                             aria-expanded="">
-                            <i class="flaticon-381-folder-14"></i>
-                            <span class="nav-text">Data</span>
+                            <i class="bi bi-table"></i>
+                            <span class="nav-text">RAB</span>
                         </a>
                     </li>
                     <h5>
-                        <p class="fs-12 ml-3 mt-3 mb-1 text-black">Sudahi Deletemu Mari Kerja HPE</p>
+                        <p class="fs-12 ml-3 mt-3 mb-1 text-black">Harga HPE</p>
                     </h5>
                     <li>
                         <a class="nav-link {{ Request::is('hpe*') ? 'active' : '' }}" href="/hpe"
                             aria-expanded="">
-                            <i class="flaticon-381-warning-1"></i>
-                            <span class="nav-text">???</span>
+                            <i class="bi bi-file-earmark-spreadsheet"></i>
+                            <span class="nav-text">HPE</span>
                         </a>
                     </li>
                 </ul>
@@ -307,6 +309,9 @@
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/jquery.validate-init.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/tambah-field.js"></script>
     {{-- <script src="{{ asset('/') }}./asset/frontend/js/cascading-dropdown.js"></script> --}}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js" integrity="sha512-jTgBq4+dMYh73dquskmUFEgMY5mptcbqSw2rmhOZZSJjZbD2wMt0H5nhqWtleVkyBEjmzid5nyERPSNBafG4GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     @yield('ajax')
 

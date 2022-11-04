@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hpe', function (Blueprint $table) {
+        Schema::create('hpes', function (Blueprint $table) {
             $table->id();
-            $table->string('rab_id');
+            $table->foreignId('rab_id')->nullable();
             $table->integer('harga_perkiraan');
             $table->integer('jumlah_harga_perkiraan');
             $table->timestamps();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hpe');
+        Schema::dropIfExists('hpes');
     }
 };

@@ -68,7 +68,7 @@
                                         <td>{{ $item->nama_item }}</td>
                                         <td>{{ $item->item_rincian_induks->nama_kontrak }}</td>
                                         <td>{{ $item->satuan }}</td>
-                                        <td>{{ $item->harga_satuan }}</td>
+                                        <td>@currency($item->harga_satuan) </td>
                                         <td>
 
                                             <div class="d-flex">

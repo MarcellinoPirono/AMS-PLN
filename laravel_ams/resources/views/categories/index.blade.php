@@ -64,7 +64,6 @@
                             <td>
                                 <div class="d-flex">
                                     <a href="#" data-id="{{ $kontrak->id }}" class="btn btn-primary shadow btn-xs sharp mr-1 tombol-edit"><i class="fa fa-pencil"></i></a>
-                                    @include('layouts.editcategory')
                                     <button class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button>
                                 </div>
                             </td>
@@ -82,7 +81,36 @@
     </div>
 </div>
 
-{{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+{{-- Modal EDIT --}}
+    <div class="modal fade" id="category_form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Categories</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" class="edit_id" value="{{ $kontrak->nama_kontrak }}">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Nama Kontrak:</label>
+                        <input type="text" class="form-control input-rounded edit_data" placeholder="Nama Kategori"
+                            id="edit_kontrak" name="edit_kontrak"
+                            value="{{ old('edit_kontrak', $kontrak->nama_kontrak) }}">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                    <button id="type-button" type="button" class="btn btn-outline-primary btnedit">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
@@ -124,7 +152,6 @@
 
             var deleteid = $(this).closest("tr").find('.delete_id').val();
 
-            // alert(deleteid);
             swal({
                     title: "Apakah anda yakin?",
                     text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
@@ -174,7 +201,7 @@
                 url: 'categories/' + id + '/edit',
                 type: 'GET',
                 success: function(response) {
-                    $('#editModalCategories').modal('show');
+                    $('#category_form').modal('show');
                     $('#edit_kontrak').val(response.result.nama_kontrak);
 
                     $('.btnedit').click(function(){
@@ -204,60 +231,85 @@
         });
     });
 
-    function deleteCategories(id) {
-        let csrf_token = $('meta[name="csrf-token"]').attr('content');
-        swal({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            type: "warning",
-            showCancelButton: true,
-            cancelButtonColor: '#d33',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then(function () {
+    function editCategories(id) {
             $.ajax({
-                type: "POST",
-                url: "{{ url('categories') }}" + '/' + id,
-                data: {
-                    '_method': 'DELETE',
-                    '_token': csrf_token
-                },
-                success: function (data) {
-                    table.ajax.reload();
-                    swal({
-                        title: 'Success',
-                        text: 'Data has been deleted',
-                        type: 'success',
-                        timer: '1500'
-                    }).catch(swal.noop);
-                },
-                error: function () {
-                    swal({
-                        title: 'Oops...',
-                        text: 'Something when wrong!',
-                        type: 'error',
-                        timer: '1500'
-                    }).catch(swal.noop);
+                url: 'categories/' + id + '/edit',
+                type: 'GET',
+                success: function(response) {
+                    $('#category_form').modal('show');
+                    $('#edit_kontrak').val(response.result.nama_kontrak);
+
+                    $('.btnedit').click(function() {
+                        $.ajax({
+                            url: 'categories/' + id,
+                            type: 'PUT',
+                            data: {
+                                nama_kontrak: $('#edit_kontrak').val()
+                            },
+                            success: function(response) {
+                                swal({
+                                    title: "Data Diedit",
+                                    text: "Data Berhasil Diedit",
+                                    icon: "success",
+                                    timer: 2e3,
+                                    buttons: false
+                                }).then((result) => {
+                                    location.reload();
+                                });
+                                console.log(response);
+                            }
+                        });
+                    });
+                    console.log(response.result);
                 }
             });
-        })
+        }
+
+    function deleteCategories(id) {
+         swal({
+                    title: "Apakah anda yakin?",
+                    text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        var data = {
+                            "_token": $('input[name=_token]').val(),
+                            'id': id,
+                        };
+                        $.ajax({
+                            type: "DELETE",
+                            url: 'categories/' + id,
+                            data: data,
+                            success: function (response) {
+                                swal({
+                                    title: "Data Dihapus",
+                                    text: "Data Berhasil Dihapus",
+                                    icon: "success",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                    .then((result) => {
+                                        location.reload();
+                                    });
+                            }
+                        });
+                    } else {
+                        swal({
+                            title: "Data Tidak Dihapus",
+                            text: "Data Batal Dihapus",
+                            icon: "error",
+                            timer: 2e3,
+                            buttons: false
+                        });
+                    }
+                });
     }
                    
 </script>
-
-{{-- <script type="text/javascript">
-    var route = "{{ url('categories-search') }}"
-
-    $('#search').typeahead({
-        source: function(query, process) {
-            return $.get(route, {
-                query: query
-            }, function (data) {
-                return process(data);
-            });
-        }
-    });
-</script> --}}
 
 <script type="text/javascript">
     $('#search').on('keyup',function(){

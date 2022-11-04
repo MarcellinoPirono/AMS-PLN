@@ -54,10 +54,12 @@ class ItemRincianIndukController extends Controller
         $output.=
             '<tr>
             <input type="hidden" class="delete_id" value='. $kontraks->id .'>
-            <td>#</td>
+            <td></td>
             <td>'. $kontraks->nama_kontrak.' </td>
-            <td>'.' 
-            <div class="d-flex"><a href="" data-id="'.$kontraks['id']. '" class="btn btn-primary shadow btn-xs sharp mr-1 tombol-edit"><i class="fa fa-pencil"></i></a><button onclick="deleteCategories(' . $kontraks['id'] . ')" class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button></div>
+            <td>'. ' 
+            <div class="d-flex">
+            <button onclick="editCategories(' . $kontraks->id . ')" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></button>
+            <button onclick="deleteCategories(' . $kontraks->id . ')" class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button></div>
             '.'</td>
             </tr>';
 
@@ -174,7 +176,10 @@ class ItemRincianIndukController extends Controller
 
         // return response()->json(['status' => 'has been deleted!']);
 
-        ItemRincianInduk::destroy($id);
+        // ItemRincianInduk::destroy($id);
+        $itemRincianInduk = ItemRincianInduk::find($id);
+        $itemRincianInduk->rincian_induks()->delete();
+        $itemRincianInduk->delete();
         return response()->json([
             'success'   => true
         ]);

@@ -49,7 +49,7 @@ class SKKController extends Controller
 
             'nomor_skk' => 'required|max:250',
             'uraian_skk' => 'required|max:250',
-            'pagu_skk' => 'required|max:250',
+            'pagu_skk' => 'required|max:250|numeric',
             'skk_terkontrak' => 'required|max:250',
             'skk_realisasi' => 'required|max:250',
             'skk_terbayar' => 'required|max:250',
@@ -106,7 +106,23 @@ class SKKController extends Controller
      */
     public function update(Request $request, SKK $sKK, $id)
     {
-        $skk = Skk::find($id);
+        $request->validate([
+
+            'nomor_skk' => 'required|max:250',
+            'uraian_skk' => 'required|max:250',
+            'pagu_skk' => 'required|numeric',
+            'skk_terkontrak' => 'required|numeric',
+            'skk_realisasi' => 'required|numeric',
+            'skk_terbayar' => 'required|numeric',
+            'skk_sisa' => 'required|numeric',
+
+        ]);
+        $skk = Skk::findorFail($id);
+
+        $input = $request->all();
+        $skk->update($input);
+
+
         // $rules = [
 
         //     'nomor_skk' => 'required|max:250',
@@ -118,16 +134,16 @@ class SKKController extends Controller
         //     'skk_sisa' => 'required|max:250',
 
         // ];
-        $skk->update([
+        // $skk->update([
 
-            'nomor_skk' => $request['nomor_skk'],
-            'uraian_skk' => $request['uraian_skk'],
-            'pagu_skk' => $request['pagu_skk'],
-            'skk_terkontrak' => $request['skk_terkontrak'],
-            'skk_realisasi' => $request['skk_realisasi'],
-            'skk_terbayar' => $request['skk_terbayar'],
-            'skk_sisa' => $request['skk_sisa'],
-        ]);
+        //     'nomor_skk' => $request['nomor_skk'],
+        //     'uraian_skk' => $request['uraian_skk'],
+        //     'pagu_skk' => $request['pagu_skk'],
+        //     'skk_terkontrak' => $request['skk_terkontrak'],
+        //     'skk_realisasi' => $request['skk_realisasi'],
+        //     'skk_terbayar' => $request['skk_terbayar'],
+        //     'skk_sisa' => $request['skk_sisa'],
+        // ]);
 
         return redirect('/skk')->with('status', 'Skk Berhasil Diedit.');
     }
@@ -162,6 +178,7 @@ class SKKController extends Controller
     public function getCategory(Request $request)
     {
         $kategory_id = $request->post('kategory_id');
+        // $nama_kontrak = DB::table('item_rincian_induks')->where('id',$kategory_id)->orderBy('nama_kontrak')->get();
         $nama_item = DB::table('rincian_induks')->where('kontraks_id',$kategory_id)->orderBy('nama_item')->get();
 
         $html = '<option value="0" selected disabled>Pilih Pekerjaan</option>';

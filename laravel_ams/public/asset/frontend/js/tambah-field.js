@@ -20,8 +20,13 @@ function updateform(){
     var table = document.getElementsByTagName("table")[0];
 
     var button = document.createElement("button");
-    button.innerHTML = "Delete";
+    button.innerHTML = "<i class='fa fa-trash'></i>";
     button.setAttribute("onclick", "deleteRow(this)");
+    button.setAttribute("class", "btn btn-danger shadow btn-xs sharp")
+
+    var input = document.createElement("input")
+    input.setAttribute("type", "hidden")
+    input.setAttribute("id", "coba")
 
 
     var row = table.insertRow(1);

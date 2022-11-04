@@ -29,4 +29,8 @@ class Rab extends Model
     {
         return $this->belongsTo(RincianInduk::class, 'item_id', 'id');
     }
+    public function hpes()
+    {
+        return $this->belongsTo(Hpe::class, 'rab_id', 'id');
+    }
 }
