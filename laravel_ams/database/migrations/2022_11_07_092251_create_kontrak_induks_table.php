@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('item_rincian_induks', function (Blueprint $table) {
+        Schema::create('kontrak_induks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('khs_id')->nullable();
-            $table->string('nama_kategori')->nullable();
+            $table->string('nomor_kontrak_induk');
+            $table->foreignId('khs_id')->nullable();            
+            $table->string('nama_vendor');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_rincian_induks');
+        Schema::dropIfExists('kontrak_induks');
     }
 };

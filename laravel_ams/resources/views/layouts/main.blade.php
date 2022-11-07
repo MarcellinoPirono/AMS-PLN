@@ -15,7 +15,7 @@
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}./asset/frontend/images/ams-bg1.png" />
-    <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/chartist/css/chartist.min.css" />`
+    <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/chartist/css/chartist.min.css" />
     <link href="{{ asset('/') }}./asset/frontend/vendor/bootstrap-select/dist/css/bootstrap-select_dark.min.css"
         rel="stylesheet" />
     <link href="{{ asset('/') }}./asset/frontend/vendor/owl-carousel/owl.carousel.css" rel="stylesheet" />
@@ -30,6 +30,10 @@
         rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+
 
     <!-- Summernote -->
     <link href="{{ asset('/') }}./asset/frontend/vendor/summernote/summernote.css" rel="stylesheet">
@@ -101,15 +105,22 @@
                         </div>
                         <ul class="navbar-nav header-right">
                             <li class="nav-item dropdown header-profile">
+
+                                <a href="/buat-kontrak" type="button" class="btn btn-primary mr-auto ml-3 ">Buat
+                                    Kontrak (PO)<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
                                     <img src="{{ asset('/') }}./asset/frontend/images/profile/17.jpg" width="20"
                                         alt="" />
                                     <div class="header-info">
-										<span class="text-black"><strong>Nama User</strong></span>
-										<p class="fs-12 mb-0">Level User</p>
-									</div>
+                                        <span class="text-black"><strong>Nama User</strong></span>
+                                        <p class="fs-12 mb-0">Level User</p>
+                                    </div>
 
-        
+
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="./app-profile.html" class="dropdown-item ai-icon">
@@ -148,6 +159,7 @@
                                     </a>
                                 </div>
                             </li>
+
                         </ul>
                     </div>
                 </nav>
@@ -169,17 +181,17 @@
                         </a>
                     </li>
                     <h5>
-                        <p class="fs-12 ml-3 mt-3 mb-3 text-black">KHS</p>
+                        <p class="fs-12 ml-3 mt-3 mb-3 text-black">Rincian Pekerjaan</p>
                     </h5>
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="flaticon-381-notepad-2"></i>
-                            <span class="nav-text">Daftar KHS</span>
+                            <span class="nav-text">Rincian Pekerjaan</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="" href="/categories">Kategori KHS</a></li>
+                            <li><a class="" href="/categories">Kategori</a></li>
                             <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
-                                    href="/rincian">Item KHS</a></li>
+                                    href="/rincian">Item</a></li>
                         </ul>
                     </li>
                     <h5>
@@ -198,13 +210,13 @@
                         </ul>
                     </li>
                     <h5>
-                        <p class="fs-12 ml-3 mt-3 mb-1 text-black"> PO/RAB</p>
+                        <p class="fs-12 ml-3 mt-3 mb-1 text-black"> Buat Kontrak (PO)</p>
                     </h5>
                     <li>
-                        <a class="nav-link {{ Request::is('rab*') ? 'active' : '' }}" href="/rab"
+                        <a class="nav-link {{ Request::is('khs*') ? 'active' : '' }}" href="/khs"
                             aria-expanded="">
                             <i class="bi bi-table"></i>
-                            <span class="nav-text">RAB</span>
+                            <span class="nav-text">Buat Kontrak</span>
                         </a>
                     </li>
                     <h5>
@@ -238,6 +250,23 @@
                 @yield('content')
             </div>
         </div>
+
+        <div class="floating-container">
+            <div class="floating-button">+</div>
+            <div class="element-container">
+                <span class="float-element">
+                    <i class="material-icons">phone
+                    </i>
+                </span>
+                <span class="float-element">
+                    <i class="material-icons">Apa</i>
+                </span>
+                <span class="float-element">
+                    <i class="material-icons">chat</i>
+                </span>
+            </div>
+        </div>
+
         <!--**********************************
             Content body end
         ***********************************-->
@@ -247,7 +276,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="http://telkom.co.id/" target="_blank">UNHAS</a>
+                <p>Copyright © Designed &amp; Developed by <a href="http://telkom.co.id/" target="_blank">....</a>
                     2020</p>
             </div>
         </div>
@@ -262,15 +291,7 @@
         <!--**********************************
            Support ticket button end
         ***********************************-->
-
-
     </div>
-
-
-
-
-
-
     <!--**********************************
         Main wrapper end
     ***********************************-->
@@ -308,12 +329,22 @@
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/jquery.validate-init.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/tambah-field.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
     {{-- <script src="{{ asset('/') }}./asset/frontend/js/cascading-dropdown.js"></script> --}}
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"
+        integrity="sha512-jTgBq4+dMYh73dquskmUFEgMY5mptcbqSw2rmhOZZSJjZbD2wMt0H5nhqWtleVkyBEjmzid5nyERPSNBafG4GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js" integrity="sha512-jTgBq4+dMYh73dquskmUFEgMY5mptcbqSw2rmhOZZSJjZbD2wMt0H5nhqWtleVkyBEjmzid5nyERPSNBafG4GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    @yield('ajax')
+
+    <script type="text/javascript">
+        function updateDiv() {
+            document.getElementById("reload").innerHTML = document.getElementById("reload").innerHTML;
+        }
+    </script>
 
     <script>
         $(document).ready(function() {
@@ -325,19 +356,15 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
         });
-    </script>
-    <script>
-        function loadlink() {
-            $('#reload').load('/main');
-            console.log('TESTING!!!!');
-        }
 
-        loadlink();
-        setInterval(function() {
-            loadlink()
-        }, 10000);
+        // $(document).ready(function() {
+        //     setInterval(function() {
+        //         $('#reload').load(window.location.href + " #reload");
+        //     }, 1000);
+        // });
     </script>
 
+    @yield('ajax')
     <!-- Summernote -->
     <script src="{{ asset('/') }}./asset/frontend/vendor/summernote/js/summernote.min.js"></script>
     <!-- Summernote init -->

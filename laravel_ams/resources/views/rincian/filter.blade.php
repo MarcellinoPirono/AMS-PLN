@@ -4,6 +4,7 @@
             <th class="width80">No.</th>
             <th>Rincian Item</th>
             <th>Kategori</th>
+            <th>Jenis KHS</th>
             <th>Satuan</th>
             <th>Harga(1)</th>
             <th>Aksi</th>
@@ -17,7 +18,8 @@
             <tr>
                 <td><strong>{{ $loop->iteration }}</strong></td>
                 <td>{{ $item->nama_item }}</td>
-                <td>{{ $item->item_rincian_induks->nama_kontrak }}</td>
+                <td>{{ $item->item_rincian_induks->nama_kategori }}</td>
+                <td>{{ $item->item_rincian_induks->khs->jenis_khs}}</td>
                 <td>{{ $item->satuan }}</td>
                 <td>{{ $item->harga_satuan }}</td>
                 <td>

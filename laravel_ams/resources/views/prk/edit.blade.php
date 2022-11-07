@@ -22,7 +22,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">No. SKK_PRK:</label>
                                         <div class="col-sm-6">
-                                           <select class="form-control custom-select input-default" id="no_skk_prk" name="no_skk_prk">
+                                        <select class="form-control custom-select input-default" id="no_skk_prk" name="no_skk_prk">
                                             @foreach ($skks as $skk)
                                                 <option value="{{ $skk->id }}"
                                                     @if($prk->no_skk_prk == $skk->id) selected

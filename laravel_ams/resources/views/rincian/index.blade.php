@@ -19,7 +19,7 @@
                                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Pilih Kategori</button>
                                         <div class="dropdown-menu">
                                             @foreach ($items as $item)
-                                                <a class="dropdown-item" value="{{ $item->id }}">{{$item->item_rincian_induks->nama_kontrak}}</a>
+                                                <a class="dropdown-item" value="{{ $item->id }}">{{$item->item_rincian_induks->nama_kategori}}</a>
                                             @endforeach
                                         </div>
                                     </div>
@@ -28,7 +28,7 @@
                         <select id="filter-kategori" class="form-control filter">
                             <option value="">Pilih Kategori</option>
                             @foreach ($kategori as $item)
-                                <option value="{{ $item->id }}">{{ $item->nama_kontrak }}</option>
+                                <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -56,6 +56,7 @@
                                     <th class="width80">No.</th>
                                     <th>Rincian Item</th>
                                     <th>Kategori</th>
+                                    <th>Jenis KHS</th>
                                     <th>Satuan</th>
                                     <th>Harga(1)</th>
                                     <th>Aksi</th>
@@ -66,7 +67,8 @@
                                     <tr>
                                         <td><strong>{{ $loop->iteration }}</strong></td>
                                         <td>{{ $item->nama_item }}</td>
-                                        <td>{{ $item->item_rincian_induks->nama_kontrak }}</td>
+                                        <td>{{ $item->item_rincian_induks->nama_kategori}}</td>
+                                        <td>{{ $item->item_rincian_induks->khs->jenis_khs}}</td>
                                         <td>{{ $item->satuan }}</td>
                                         <td>@currency($item->harga_satuan) </td>
                                         <td>
@@ -174,7 +176,8 @@
             name: 'DT_RowIndex'
             },
             {data:'nama_item', name:'nama_item'},
-            {data:'nama_kontraks', name:'nama_kontraks'},
+            {data:'nama_kategori', name:'nama_kategori'},
+            {data:'jenis_khs', name:'jenis_khs'},
             {data:'satuan', name:'satuan'},
             {data:'harga_satuan', name:'harga_satuan'},
             // {data:'content', name:'content'},

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ItemRincianInduk>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Khs>
  */
-class ItemRincianIndukFactory extends Factory
+class KhsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class ItemRincianIndukFactory extends Factory
     public function definition()
     {
         return [
-            'nama_kategori' => fake()->name(),
-            // 'khs_id' => mt_rand(1,20),
+            'jenis_khs' => fake()->name(),
         ];
     }
 }

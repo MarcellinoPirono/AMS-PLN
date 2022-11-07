@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RincianInduk>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class RincianIndukFactory extends Factory
+class KontrakIndukFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +17,8 @@ class RincianIndukFactory extends Factory
     public function definition()
     {
         return [
-            'nama_item' => fake()->text(),
-            'satuan' => fake()->text(),
-            'harga_satuan' => mt_rand(1, 10),
-            'kategori_id' => mt_rand(1, 20),
+            'nomor_kontrak_induk' => fake()->text(),            
+            'nama_vendor' => fake()->text(),
             // 'khs_id' => mt_rand(1,20),
         ];
     }

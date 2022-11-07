@@ -12,7 +12,7 @@
                                         <a class="dropdown-item" href="javascript:void()">Februari</a>
                                     </div>
                                 </div>
-                                <a href="/rab/create" type="button" class="btn btn-primary mr-auto ml-3 ">Buat RAB(PO)<span
+                                <a href="/buat-kontrak" type="button" class="btn btn-primary mr-auto ml-3 ">Buat Kontrak (PO)<span
                                         class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                                 </a>
                                 <div class="input-group search-area position-relative">
@@ -49,7 +49,7 @@
                                             @foreach ($rabs as $rab)
                                                 <tr>
                                                     <td><strong>{{ $loop->iteration }}</strong></td>
-                                                    <td>{{ $rab->categories->nama_kontrak }}</td>
+                                                    <td>{{ $rab->categories->nama_kategori }}</td>
                                                     <td>{{ $rab->items->nama_item }}</td>
                                                     <td>{{ $rab->items->harga_satuan }}</td>
                                                     <td>{{ $rab->skks->nomor_skk }}</td>

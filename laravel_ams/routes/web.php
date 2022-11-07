@@ -42,7 +42,9 @@ Route::get('/search-rincian', [RincianIndukController::class, 'searchRincian']);
 
 Route::get('deleteitem/{id}', [RincianIndukController::class, 'destroy']);
 
-Route::resource('rab', RabController::class);
+Route::resource('khs', RabController::class);
+Route::get('/buat-kontrak', [RabController::class, 'buat_kontrak']);
+
 
 Route::resource('skk', SkkController::class);
 Route::post('getSKK', [SkkController::class, 'getSKK']);

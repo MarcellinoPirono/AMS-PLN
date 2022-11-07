@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\ItemRincianInduk;
 use App\Models\RincianInduk;
+use App\Models\Khs;
 use App\Http\Requests\StoreItemRincianIndukRequest;
 use App\Http\Requests\UpdateItemRincianIndukRequest;
+use App\Http\Resources\KategoriResource;
 use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\Return_;
 use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
@@ -32,6 +35,7 @@ class ItemRincianIndukController extends Controller
 
         return view('categories.index', [
             'kontraks'  => ItemRincianInduk::orderby('id', 'DESC')->get(),
+            'khss' => Khs::all(),
             'title' => 'Kategori Kontrak Induk',
             'active' => 'Kategori Kontrak Induk',
             'active1' => 'Kategori Kontrak Induk',
@@ -112,10 +116,12 @@ class ItemRincianIndukController extends Controller
     {
         $validatedData = $request->validate([
 
-            'nama_kontrak' => 'required|max:250',
+            'nama_kategori' => 'required|max:250',
+            'khs_id' => 'required',
 
         ]);
         ItemRincianInduk::create($validatedData);
+        // return response()->json(['status' => 'Post has been added!']);
         return redirect('/categories')->with('success', 'Kategori Berhasil Ditambah!');
     }
 
@@ -140,8 +146,27 @@ class ItemRincianIndukController extends Controller
     {
         // return 'Joss';
         $itemRincianInduk = ItemRincianInduk::find($id);
-        // $id->put();
-        return response()->json(['result' => $itemRincianInduk]);
+        $khs = Khs::find($id);
+
+    
+
+
+        // $itemRincianInduk = DB::select('SELECT * FROM khs LEFT JOIN item_rincian_induks ON khs.id = item_rincian_induks.khs_id');
+        // $tanggal = DB::select('SELECT * FROM riwayattransaksis LEFT JOIN laporan_keuangans ON riwayattransaksis.tgl_transaksi = laporan_keuangans.tanggal GROUP BY riwayattransaksis.tgl_transaksi UNION SELECT * FROM riwayattransaksis RIGHT JOIN laporan_keuangans ON riwayattransaksis.tgl_transaksi = laporan_keuangans.tanggal GROUP BY riwayattransaksis.tgl_transaksi');
+
+        // $khs = Khs::find($id);
+        
+        // $data = [
+        //     'kontrak' => $itemRincianInduk,
+        //     'khs' => $khs,
+    // ];
+
+        
+        return response()->json([
+            'result' => new KategoriResource($itemRincianInduk),
+            // 'result2' => $khs,
+            
+        ]);
 
         // return redirect('/categories')->with('success', 'has been edited');
     }
@@ -156,7 +181,8 @@ class ItemRincianIndukController extends Controller
     public function update(Request $request, $id)
     {
         $itemRincianInduk = ItemRincianInduk::find($id);
-        $itemRincianInduk->nama_kontrak = $request->input('nama_kontrak');
+        $itemRincianInduk->nama_kategori = $request->input('nama_kategori');
+        $itemRincianInduk->khs_id = $request->input('edit_khs_id');
         $itemRincianInduk->update();
 
         return response()->json(['status' => 'Post has been edited!']);

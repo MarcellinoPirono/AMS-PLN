@@ -30,19 +30,20 @@
                                 @enderror
                             </div>
                             {{-- <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default  @error('kontraks_id') is-invalid @enderror" placeholder="Nama Kontrak" name="kontraks_id" id="kontraks_id" required autofocus value="{{ old('kontraks_id', $rincianinduk->item_rincian_induks->nama_kontrak) }}">
-                                    @error('kontraks_id')
+                                <input type="text" class="form-control input-default  @error('kategori_id') is-invalid @enderror" placeholder="Nama Kategori" name="kategori_id" id="kategori_id" required autofocus value="{{ old('kategori_id', $rincianinduk->item_rincian_induks->nama_kategori) }}">
+                                    @error('kategori_id')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div> --}}
                             <div class="form-group col-md-6">
-                                <select class="form-control custom-select input-default" name="kontraks_id" id="kontraks_id" name="kontraks_id">
+                                <select class="form-control custom-select input-default" name="kategori_id" id="kategori_id" name="kategori_id">
+                                    <option value="0" disabled>Pilih ...</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
-                                            @if($rincianinduk->kontraks_id == $category->id) selected
-                                            @endif>{{$category->nama_kontrak}}
+                                            @if($rincianinduk->kategori_id == $category->id) selected
+                                            @endif>{{$category->nama_kategori}}
                                         </option>
                                     @endforeach
                                 </select>

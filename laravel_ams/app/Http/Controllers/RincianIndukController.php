@@ -73,7 +73,7 @@ class RincianIndukController extends Controller
 
             'nama_item' => 'required|max:250|unique:rincian_induks,nama_item',
             'satuan' => 'required',
-            'kontraks_id' => 'required',
+            'kategori_id' => 'required',
             'harga_satuan' => 'required|numeric',
 
         ]);
@@ -139,7 +139,7 @@ class RincianIndukController extends Controller
 
             'nama_item' => 'required|max:250',
             'satuan' => 'required',
-            'kontraks_id' => 'required',
+            'kategori_id' => 'required',
             'harga_satuan' => 'required|numeric',
 
         ]);
@@ -194,7 +194,7 @@ class RincianIndukController extends Controller
     {
 
         $item = $request->filter;
-        $rincianInduk = RincianInduk::where('kontraks_id', $item)->get();
+        $rincianInduk = RincianInduk::where('kategori_id', $item)->get();
         return view('rincian.filter', ['items' => $rincianInduk]);
         // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
     }
@@ -211,7 +211,8 @@ class RincianIndukController extends Controller
                 '<tr>
             <td>#</td>
             <td>'. $rincianInduk->nama_item. '</td>
-            <td>'.$rincianInduk->item_rincian_induks->nama_kontrak.'</td>
+            <td>'.$rincianInduk->item_rincian_induks->nama_kategori.'</td>
+            <td>'.$rincianInduk->item_rincian_induks->khs->jenis_khs.'</td>
             <td>'.$rincianInduk->satuan. '</td>
             <td>'.$rincianInduk->harga_satuan.'</td>
             <td>' . ' 

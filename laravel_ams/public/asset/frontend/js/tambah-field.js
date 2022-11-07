@@ -18,6 +18,7 @@ function updateform(){
     var harga = document.getElementById("harga").value;
     var volume = document.getElementById("volume").value;
     var table = document.getElementsByTagName("table")[0];
+    
 
     var button = document.createElement("button");
     button.innerHTML = "<i class='fa fa-trash'></i>";

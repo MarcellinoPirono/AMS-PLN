@@ -13,7 +13,12 @@ class ItemRincianInduk extends Model
 
     public function rincian_induks()
     {
-        return $this->hasMany(RincianInduk::class, 'kontraks_id', 'id');
+        return $this->hasMany(RincianInduk::class, 'kategori_id', 'id');
+    }
+
+    public function khs()
+    {
+        return $this->belongsTo(Khs::class, 'khs_id');
     }
 
     public function rabs()

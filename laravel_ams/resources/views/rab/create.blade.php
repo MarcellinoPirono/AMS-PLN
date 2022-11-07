@@ -24,9 +24,9 @@
                             <li><a class="nav-link" href="#wizard_Item">
                                     <span>2</span>
                                 </a></li>
-                            <!-- <li><a class="nav-link" href="#wizard_Details">
-                 <span>3</span>
-                </a></li> -->
+                            <li><a class="nav-link" href="#wizard_Details">
+                                    <span>3</span>
+                                </a></li>
                         </ul>
                         <div class="tab-content tab-flex">
                             <div id="wizard_Service" class="tab-pane" role="tabpanel">
@@ -34,6 +34,31 @@
                                     class="basic-form">
                                     @csrf
                                     <div class="row">
+                                        <div class="col-lg-6 mb-2">
+                                            <div class="form-group">
+                                                <label class="text-label">No. Purchase Order(PO)</label>
+                                                <input type="text"
+                                                    class="form-control @error('po') is-invalid @enderror"
+                                                    name="po" id="po" placeholder="No. PO" required
+                                                    autofocus value="{{ old('po') }}">
+                                                @error('po')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <div class="form-group">
+                                                <label class="text-label">Pilih No. Kontrak Induk</label>
+                                                <select class="form-control input-default" id="kontrak_induk" name="kontrak_induk">
+                                                    <option value="0" selected disabled>No. Kontrak Induk</option>
+                                                    @foreach ($kontraks as $kontrak)
+                                                        <option value="{{ $kontrak->id }}">{{ $kontrak->nomor_kontrak_induk }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">Judul Pekerjaan</label>
@@ -62,6 +87,35 @@
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
+                                                <label class="text-label">Start Date</label>
+                                                <input type="text"
+                                                    class="form-control @error('startDate') is-invalid @enderror"
+                                                    name="startDate" id="startDate" placeholder="Start Date" required
+                                                    autofocus value="{{ old('startDate') }}">
+                                                @error('startDate')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <div class="form-group">
+                                                <label class="text-label">End Date</label>
+                                                <input type="text"
+                                                    class="form-control @error('endDate') is-invalid @enderror"
+                                                    name="endDate" id="endDate" placeholder="End Date" required
+                                                    autofocus value="{{ old('endDate') }}">
+                                                @error('startDate')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 mb-2">
+                                            <div class="form-group">
                                                 <label class="text-label">Input No.SKK</label>
                                                 <select class="form-control input-default" id="skk_id" name="skk_id">
                                                     <option value="0" selected disabled>Pilih No. SKK</option>
@@ -84,12 +138,12 @@
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
-                                                <label class="text-label">Kategori Pekerjaan</label>
-                                                <select class="form-control input-default" id="kategory_id"
+                                                <label class="text-label">Pilih Direksi Pekerjaan</label>
+                                                <select class="form-control input-default" id="pejabat"
                                                     name="kategory_id">
-                                                    <option value="0" selected disabled>Pilih Kontrak</option>
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}">{{ $category->nama_kontrak }}
+                                                    <option value="0" selected disabled>Direksi Pekerjaan</option>
+                                                    @foreach ($pejabats as $pejabat)
+                                                        <option value="{{ $pejabat->id }}">{{ $pejabat->nama_pejabat }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -97,95 +151,178 @@
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
-                                                <label class="text-label">Item Pekerjaan</label>
-                                                <select class="form-control input-default" id="item_id" name="item_id">
-                                                    <option value="0" selected disabled>Pilih Pekerjaan</option>
-                                                    {{-- @foreach ($items as $item)
-                                                        <option value="{{ $item->nama_item }}">{{ $item->nama_item }}
-                                                        </option>
-                                                    @endforeach --}}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 mb-2">
-                                            <div class="form-group">
-                                                <input type="number"
-                                                    class="form-control @error('volume') is-invalid @enderror"
-                                                    name="volume" id="volume" placeholder="Volume" required autofocus
-                                                    value="{{ old('volume') }}">
-                                                @error('volume')
+                                                <label class="text-label">Input Pengawas Pekerjaan</label>
+                                                <input type="text"
+                                                    class="form-control @error('pengawas') is-invalid @enderror"
+                                                    name="pengawas" id="pengawas" placeholder="Pengawas Pekerjaan" required
+                                                    autofocus value="{{ old('pengawas') }}">
+                                                @error('pengawas')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6 mb-2">
-                                            <div class="form-group">
-                                                <input type="number"
-                                                    class="form-control harga @error('harga') is-invalid @enderror"
-                                                    name="harga" id="harga" placeholder="Harga" readonly autofocus
-                                                    value="{{ old('Harga') }}">
-                                                <input type="hidden" id="harga_satuan" name="harga_satuan">
-                                                @error('Harga')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 mb-2">
-                                            <div class="position-relative justify-content-end float-left">
-                                                <a type="button" id="tambah-kategori"
-                                                    class="btn btn-primary position-relative justify-content-end"
-                                                    >Tambah</a>
-                                            </div>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive-sm height-100" id="tabelRAB">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No.</th>
-                                                        <th>Kategori Pekerjaan</th>
-                                                        <th>Pekerjaan</th>
-                                                        <th>Volume</th>
-                                                        <th>Harga</th>
-                                                        <th>Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="tbody-kategori">
-                                                    <tr id="baris-kategori" name="baris-kategori">
-                                                    </tr>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th id="jumlah">Jumlah</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th id="pajak">PPN 11%</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th id="total">Total Harga</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 </div>
                             </div>
                             <div id="wizard_Item" class="tab-pane" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-xl-12 col-xxl-12">
+                                        <div class="card">
+                                            <div class="card-header justify-content-center">
+                                                <h4 class="card-title">Belanja Pekerjaan</h4>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Kategori Pekerjaan</label>
+                                                        <select class="form-control input-default" id="kategory_id"
+                                                            name="kategory_id">
+                                                            <option value="0" selected disabled>Pilih Kategori</option>
+                                                            @foreach ($categories as $category)
+                                                                <option value="{{ $category->id }}">{{ $category->nama_kategori }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Item Pekerjaan</label>
+                                                        <select class="form-control input-default" id="item_id" name="item_id">
+                                                            <option value="0" selected disabled>Pilih Pekerjaan</option>
+                                                            @foreach ($items as $item)
+                                                                <option value="{{ $item->nama_item }}">{{ $item->nama_item }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <input type="number"
+                                                            class="form-control @error('volume') is-invalid @enderror"
+                                                            name="volume" id="volume" placeholder="Volume" required autofocus
+                                                            value="{{ old('volume') }}">
+                                                        @error('volume')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <input type="number"
+                                                            class="form-control harga @error('harga') is-invalid @enderror"
+                                                            name="harga" id="harga" placeholder="Harga" readonly autofocus
+                                                            value="{{ old('Harga') }}">
+                                                        <input type="hidden" id="harga_satuan" name="harga_satuan">
+                                                        @error('Harga')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-2">
+                                                    <div class="position-relative justify-content-end float-left">
+                                                        <a type="button" id="tambah-kategori"
+                                                            class="btn btn-primary position-relative justify-content-end"
+                                                            >Tambah</a>
+                                                    </div>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table class="table table-responsive-sm height-100" id="tabelRAB">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No.</th>
+                                                                <th>Kategori Pekerjaan</th>
+                                                                <th>Pekerjaan</th>
+                                                                <th>Satuan</th>
+                                                                <th>Volume</th>
+                                                                <th>Harga</th>
+                                                                <th>Aksi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbody-kategori">
+                                                            <tr id="baris-kategori" name="baris-kategori">
+                                                                <td></td>
+                                                                <td>
+                                                                    <select class="form-control input-default" id="kategory_id"
+                                                                        name="kategory_id">
+                                                                        <option value="0" selected disabled>Pilih Kategori</option>
+                                                                        @foreach ($categories as $category)
+                                                                            <option value="{{ $category->id }}">{{ $category->nama_kategori }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                
+                                                            </td>
+                                                                <td>
+                                                                    <select class="form-control input-default" id="item_id" name="item_id">
+                                                                        <option value="0" selected disabled>Pilih Pekerjaan</option>
+                                                                        @foreach ($items as $item)
+                                                                            <option value="{{ $item->nama_item }}">{{ $item->nama_item }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </td>
+                                                                <td></td>
+                                                                <td><input type="number"
+                                                                        class="form-control @error('volume') is-invalid @enderror"
+                                                                        name="volume" id="volume" placeholder="Volume" required autofocus
+                                                                        value="{{ old('volume') }}">
+                                                                    @error('volume')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror</td>
+                                                                <td> </td>
+
+                                                                    <td></td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th id="jumlah">Jumlah</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th id="pajak">PPN 11%</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th id="total">Total Harga</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                    <div class="col-lg-12 mb-2">
+                                                    <div class="position-relative justify-content-end float-left">
+                                                        <a type="button" id="tambah-pekerjaan"
+                                                            class="btn btn-primary position-relative justify-content-end"
+                                                            >Tambah</a>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="wizard_Details" class="tab-pane" role="tabpanel">
                                 <div class="row">
                                     <div class="col-xl-12 col-xxl-12">
                                         <div class="card">
@@ -251,21 +388,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="wizard_Details" class="tab-pane" role="tabpanel">
-                                <div class="row">
-                                    <div class="col-xl-12 col-xxl-12">
-                                        <div class="card">
-                                            <div class="card-header justify-content-center">
-                                                <h4 class="card-title">Preview</h4>
-                                            </div>
-                                            <div class="card-body">
-                                                <button data-toggle="modal" data-target="#previewModal">Preview</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -348,11 +471,47 @@
             html += "<td class='delete'><button id='baris-delete"+ baris +"' name='baris-delete"+ baris +"' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></button></td>"
             $('#tbody-kategori').append(html)
         });
+        
+        $(document).on('click', '#tambah-pekerjaan', function(){
+            baris = baris + 1
+            let kategori = $('#kategory_id :selected').text()
+            let item = $('#item_id :selected').text()
+            let volume = parseInt($('#volume').val())
+            let harga = parseInt($('#harga').val())
+
+            $('#kategory_id').val(0)
+            $('#item_id').val(0)
+            $('#volume').val('')
+            $('#harga').val('')
+
+            var html = "<tr id='baris"+ baris +"' name='baris"+ baris +"'>"
+            html += "<td class='no'>"+ baris +"</td>"
+            html += "<td class='kategori'>"+ kategori +"</td>"
+            html += "<td class='item'>"+ item +"</td>"
+            html += "<td class='volume'>"+ volume +"</td>"
+            html += "<td class='harga'>"+ harga +"</td>"
+            html += "<td class='delete'><button id='baris-delete"+ baris +"' name='baris-delete"+ baris +"' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></button></td>"
+            $('#tbody-kategori').append(html)
+        });
+
 
         $(document).on('click', '#baris-delete'+baris, function(){
 
         });
-    });
+        $("#startDate").datepicker({
+        todayBtn:  1,
+        autoclose: true,
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#endDate').datepicker('setStartDate', minDate);
+        });
+        
+        $("#endDate").datepicker()
+            .on('changeDate', function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+                $('#startDate').datepicker('setEndDate', minDate);
+            });
+        });
 </script>
 
 {{-- <script type="text/javascript">

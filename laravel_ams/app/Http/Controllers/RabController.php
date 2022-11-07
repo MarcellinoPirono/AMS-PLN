@@ -9,7 +9,9 @@ use App\Models\Skk;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRabRequest;
 use App\Http\Requests\UpdateRabRequest;
+use App\Models\KontrakInduk;
 use App\Models\RincianInduk;
+use App\Models\Pejabat;
 use Illuminate\Support\Facades\DB;
 
 
@@ -24,6 +26,19 @@ class RabController extends Controller
     {
         return view('rab.index', [
             'title' => 'Rancangan Anggaran Biaya',
+            'title1' => 'RAB',
+            'rabs' => Rab::orderBy('id', 'DESC')->get(),
+            'kontraks' => KontrakInduk::get(),
+        ]);
+
+       
+    }
+
+    public function buat_kontrak()
+    {
+
+        return view('rab.buat_kontrak', [
+            'title' => 'Pilih Jenis Kontrak yang akan Dibuat',
             'title1' => 'RAB',
             'rabs' => Rab::orderBy('id', 'DESC')->get(),
 
@@ -41,14 +56,16 @@ class RabController extends Controller
         return view(
             'rab.create',
             [
-                'active1' => 'Buat Rab',
-                'title' => 'Rancangan Anggaran Biaya',
-                'title1' => 'RAB',
-                'active' => 'RAB-PO',
+                'active1' => 'Buat KHS',
+                'title' => 'Kontrak Harga Satuan (KHS)',
+                'title1' => 'KHS',
+                'active' => 'KHS',
                 'skks' => Skk::all(),
                 'prks' => Prk::all(),
                 'categories' => ItemRincianInduk::all(),
                 'items' => RincianInduk::all(),
+                'kontraks' => KontrakInduk::all(),
+                'pejabats' => Pejabat::all(),
             ]
         );
     }

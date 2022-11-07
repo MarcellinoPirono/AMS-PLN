@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('item_rincian_induks', function (Blueprint $table) {
+        Schema::create('khs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('khs_id')->nullable();
-            $table->string('nama_kategori')->nullable();
+            $table->string('jenis_khs');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_rincian_induks');
+        Schema::dropIfExists('khs');
     }
 };

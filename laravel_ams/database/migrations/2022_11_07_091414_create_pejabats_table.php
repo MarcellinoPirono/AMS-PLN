@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('item_rincian_induks', function (Blueprint $table) {
+        Schema::create('pejabats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('khs_id')->nullable();
-            $table->string('nama_kategori')->nullable();
+            $table->string("nama_pejabat");
+            $table->string("jabatan");
+            $table->string("unit_up3");
+            $table->string("unit_ulp")->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_rincian_induks');
+        Schema::dropIfExists('pejabats');
     }
 };

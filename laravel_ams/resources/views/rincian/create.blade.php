@@ -29,9 +29,9 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <select class="form-control input-default" id="kontraks_id" name="kontraks_id">
+                                <select class="form-control input-default" id="kategori_id" name="kategori_id">
                                     @foreach ($items as $item)
-                                        <option value="{{ $item->id }}" >{{ $item->nama_kontrak }}</option>
+                                        <option value="{{ $item->id }}" >{{ $item->nama_kategori }}</option>
                                     @endforeach
                                 </select>
                             </div>
