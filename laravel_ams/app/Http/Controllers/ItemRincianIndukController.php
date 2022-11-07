@@ -52,14 +52,17 @@ class ItemRincianIndukController extends Controller
         $output ="";
 
 
-       $kontraks = ItemRincianInduk::where('nama_kontrak', 'LIKE', '%'. $request->search.'%')->get();
+       $kontraks = ItemRincianInduk::where('nama_kategori', 'LIKE', '%'. $request->search.'%')->orWhereHas('khs', function ($query) use ($request) {
+            $query->where('jenis_khs', 'LIKE', '%' . $request->search . '%');
+        })->get();
 
        foreach($kontraks as $kontraks){
         $output.=
             '<tr>
             <input type="hidden" class="delete_id" value='. $kontraks->id .'>
-            <td></td>
-            <td>'. $kontraks->nama_kontrak.' </td>
+            <td>'. $kontraks->id.'</td>
+            <td>'. $kontraks->nama_kategori.' </td>
+            <td>'. $kontraks->khs->jenis_khs.' </td>
             <td>'. ' 
             <div class="d-flex">
             <button onclick="editCategories(' . $kontraks->id . ')" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></button>
@@ -146,7 +149,7 @@ class ItemRincianIndukController extends Controller
     {
         // return 'Joss';
         $itemRincianInduk = ItemRincianInduk::find($id);
-        $khs = Khs::find($id);
+        // $khs = Khs::find($id);
 
     
 
@@ -163,7 +166,7 @@ class ItemRincianIndukController extends Controller
 
         
         return response()->json([
-            'result' => new KategoriResource($itemRincianInduk),
+            'result' => $itemRincianInduk,
             // 'result2' => $khs,
             
         ]);

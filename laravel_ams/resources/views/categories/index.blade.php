@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <select class="form-control input-default" id="khs_id" name="khs_id">
-                                <option value="0" selected disabled>Pilih ...</option>
+                                <option value="0" selected disabled>Pilih Jenis KHS <option>
                                 @foreach ($khss as $khs)
                                     <option value="{{ $khs->id }}">{{ $khs->jenis_khs }}</option>
                                 @endforeach
@@ -124,7 +124,7 @@
                         <select class="form-control input-default" id="khs_id" name="khs_id">
                             <option value="0" disabled>Pilih ...</option>
                             @foreach ($khss as $khs)
-                                <option @if ($kontrak->khs_id == $khs->id) value="{{ $khs->id }}" selected @endif>{{ $khs->jenis_khs }}</option>
+                                <option value="{{ $khs->id }}" {{ $kontrak->khs_id == $khs->id ? 'selected' : '' }}>{{ $khs->jenis_khs }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -239,8 +239,14 @@
                     success: function(response) {
                         $('#category_form').modal('show');
                         $('#edit_kontrak').val(response.result.nama_kategori);
-                        $('#khs_id').empty();
-                        // $('#edit_khs_id :selected').val(response.result.khs_id);
+                        // $('#khs_id').empty();
+                        // $('#edit_khs_id').val(response.result.khs_id);
+                        var oldValue = '{{ old('response.result.khs_id') }}';
+                        if(oldValue !== ''){
+                            $('#edit_khs_id').val(oldValue);
+                        }
+
+                        $("#edit_khs_id").change();
 
                         // $('.btnedit').click(function() {
                         //     $.ajax({
@@ -277,14 +283,14 @@
                 type: 'GET',
                 success: function(response) {
                     $('#category_form').modal('show');
-                    $('#edit_kontrak').val(response.result.nama_kontrak);
+                    $('#edit_kontrak').val(response.result.nama_kategori);
 
                     $('.btnedit').click(function() {
                         $.ajax({
                             url: 'categories/' + id,
                             type: 'PUT',
                             data: {
-                                nama_kontrak: $('#edit_kontrak').val()
+                                nama_kategori: $('#edit_kontrak').val()
                             },
                             success: function(response) {
                                 swal({

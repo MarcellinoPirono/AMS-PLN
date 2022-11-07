@@ -6,11 +6,10 @@
                     <a href="/khs/create">
                            <div class="card avtivity-card">
                                 <div class="card-body text-center ai-icon  text-primary">
-                                   <img src="{{ asset('/') }}./asset/frontend/images/iconkontrak.svg" alt="",
-                                                width="150" class="mb-2">
+                                   <img src="{{ asset('/') }}./asset/frontend/images/iconbuat.svg" alt="" width="150" class="mb-2">
                                      <div class="media-body">
                                             <h4>
-                                                <p class="fs-18">Buat Kontrak Harga Satuan (KHS)</p>
+                                                <p class="fs-18">Buat KHS</p>
                                             </h4>
                                     </div>
                                     <a href="/khs/create" class="btn my-2 btn-secondary btn-lg px-4"> Buat Sekarang <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
@@ -24,7 +23,7 @@
                     <a href="/create-via-laksdan">
                         <div class="card avtivity-card">
                             <div class="card-body text-center ai-icon  text-primary">
-                               <img src="{{ asset('/') }}./asset/frontend/images/iconkontrak.svg" alt="",
+                               <img src="{{ asset('/') }}./asset/frontend/images/iconbuat.svg" alt="",
                                             width="150" class="mb-2">
                                             <div class="media-body">
                                             <h4>
@@ -45,14 +44,14 @@
                         <div class="card avtivity-card">
                                     <div class="card-body text-center ai-icon  text-primary">
 
-                                            <img src="{{ asset('/') }}./asset/frontend/images/iconkontrak.svg" alt="",
+                                            <img src="{{ asset('/') }}./asset/frontend/images/iconbuat.svg" alt="",
                                             width="150" class="mb-2">
                                        <div class="media-body">
                                             <h4>
                                                 <p class="fs-18">Buat Kontrak NON-PO </p>
                                             </h4>
                                         </div>
-                                        <a href="javascript:void(0);" class="btn my-2 btn-secondary btn-lg">Create Now  <i class="fa fa-arrow-right" aria-hidden="true"></i> </a>
+                                        <a href="javascript:void(0);" class="btn my-2 btn-secondary btn-lg">Buat Sekarang  <i class="fa fa-arrow-right" aria-hidden="true"></i> </a>
                                     </div>
                                     <div class="effect bg-primary"></div>
                         </div>

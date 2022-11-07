@@ -215,7 +215,7 @@
                     <li>
                         <a class="nav-link {{ Request::is('khs*') ? 'active' : '' }}" href="/khs"
                             aria-expanded="">
-                            <i class="bi bi-table"></i>
+                            <i class="flaticon-381-notebook-2"></i>
                             <span class="nav-text">Buat Kontrak</span>
                         </a>
                     </li>

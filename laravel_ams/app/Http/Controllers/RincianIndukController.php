@@ -191,7 +191,7 @@ class RincianIndukController extends Controller
     }
 
     public function filter(Request $request)
-    {
+    { 
 
         $item = $request->filter;
         $rincianInduk = RincianInduk::where('kategori_id', $item)->get();
@@ -204,7 +204,9 @@ class RincianIndukController extends Controller
         $output = "";
 
 
-        $rincianInduk= RincianInduk::where('nama_item', 'LIKE', '%' . $request->search . '%')->orWhere('satuan', 'LIKE', '%' . $request->search . '%')->get();
+        $rincianInduk= RincianInduk::where('nama_item', 'LIKE', '%' . $request->search . '%')->orWhere('satuan', 'LIKE', '%' . $request->search . '%')->orWhereHas('item_rincian_induks', function ($query) use ($request) {
+            $query->where('nama_kategori', 'LIKE', '%' . $request->search . '%');
+            })->get();
 
         foreach ($rincianInduk as $rincianInduk) {
             $output .=

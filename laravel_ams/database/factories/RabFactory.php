@@ -19,12 +19,12 @@ class RabFactory extends Factory
         return [
             'skk_id' => mt_rand(1, 20),
             'prk_id' => mt_rand(1, 20),
-            'kategori_id' => mt_rand(1, 20),
-            'item_id' => mt_rand(1, 20),
+            'kategori_id' => mt_rand(1, 2),
+            'item_id' => mt_rand(1, 7),
 
             'pekerjaan' => fake()->name(),
             'lokasi' => fake()->text(),
-            'volume' => mt_rand(1, 20),
+            'volume' => mt_rand(1, 200),
             'isi_surat' => fake()->text(),
 
         ];
