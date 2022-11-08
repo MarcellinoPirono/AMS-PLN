@@ -22,12 +22,18 @@ class Rab extends Model
 
     public function categories()
     {
-        return $this->belongsTo(ItemRincianInduk::class, 'kategori_id', 'id');
+        return $this->belongsTo(ItemRincianInduk::class, 'kategori_id', 'id')->withDefault([
+            'nama_kategori' => ' ',
+
+        ]);
     }
 
     public function items()
     {
-        return $this->belongsTo(RincianInduk::class, 'item_id', 'id');
+        return $this->belongsTo(RincianInduk::class, 'item_id', 'id')->withDefault([
+            'nama_item' => ' ',
+
+        ]);
     }
     public function hpes()
     {

@@ -53,6 +53,19 @@ class RabController extends Controller
      */
     public function create()
     {
+        $kategoris = ItemRincianInduk::all();
+        $data_kategori =[];
+        foreach ($kategoris as $kategori) {            
+            $data_kategori =  $kategori->nama_kategori;
+        }
+
+        $items = RincianInduk::all();
+        $data_items =RincianInduk::all(['nama_item']);
+        // foreach ($items as $item) {            
+        //     $data_items =  $item->nama_item;
+        // }
+
+
         return view(
             'rab.create',
             [
@@ -66,7 +79,7 @@ class RabController extends Controller
                 'items' => RincianInduk::all(),
                 'kontraks' => KontrakInduk::all(),
                 'pejabats' => Pejabat::all(),
-            ]
+            ], compact('data_items', 'data_kategori')
         );
     }
 
@@ -151,4 +164,5 @@ class RabController extends Controller
 
         // return redirect('/rab')->with('success', 'Data berhasil dihapus');
     }
+    
 }

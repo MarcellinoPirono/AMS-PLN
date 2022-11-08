@@ -37,10 +37,9 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">No. Purchase Order(PO)</label>
-                                                <input type="text"
-                                                    class="form-control @error('po') is-invalid @enderror"
-                                                    name="po" id="po" placeholder="No. PO" required
-                                                    autofocus value="{{ old('po') }}">
+                                                <input type="text" class="form-control @error('po') is-invalid @enderror"
+                                                    name="po" id="po" placeholder="No. PO" required autofocus
+                                                    value="{{ old('po') }}">
                                                 @error('po')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -51,10 +50,12 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">Pilih No. Kontrak Induk</label>
-                                                <select class="form-control input-default" id="kontrak_induk" name="kontrak_induk">
+                                                <select class="form-control input-default" id="kontrak_induk"
+                                                    name="kontrak_induk">
                                                     <option value="0" selected disabled>No. Kontrak Induk</option>
                                                     @foreach ($kontraks as $kontrak)
-                                                        <option value="{{ $kontrak->id }}">{{ $kontrak->nomor_kontrak_induk }}</option>
+                                                        <option value="{{ $kontrak->id }}">
+                                                            {{ $kontrak->nomor_kontrak_induk }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -104,8 +105,8 @@
                                                 <label class="text-label">End Date</label>
                                                 <input type="text"
                                                     class="form-control @error('endDate') is-invalid @enderror"
-                                                    name="endDate" id="endDate" placeholder="End Date" required
-                                                    autofocus value="{{ old('endDate') }}">
+                                                    name="endDate" id="endDate" placeholder="End Date" required autofocus
+                                                    value="{{ old('endDate') }}">
                                                 @error('startDate')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -140,7 +141,7 @@
                                             <div class="form-group">
                                                 <label class="text-label">Pilih Direksi Pekerjaan</label>
                                                 <select class="form-control input-default" id="pejabat"
-                                                    name="kategory_id">
+                                                    name="pejabat">
                                                     <option value="0" selected disabled>Direksi Pekerjaan</option>
                                                     @foreach ($pejabats as $pejabat)
                                                         <option value="{{ $pejabat->id }}">{{ $pejabat->nama_pejabat }}
@@ -154,15 +155,15 @@
                                                 <label class="text-label">Input Pengawas Pekerjaan</label>
                                                 <input type="text"
                                                     class="form-control @error('pengawas') is-invalid @enderror"
-                                                    name="pengawas" id="pengawas" placeholder="Pengawas Pekerjaan" required
-                                                    autofocus value="{{ old('pengawas') }}">
+                                                    name="pengawas" id="pengawas" placeholder="Pengawas Pekerjaan"
+                                                    required autofocus value="{{ old('pengawas') }}">
                                                 @error('pengawas')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
                                             </div>
-                                        </div>                                        
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -174,103 +175,58 @@
                                                 <h4 class="card-title">Belanja Pekerjaan</h4>
                                             </div>
                                             <div class="row">
-                                                <div class="col-lg-6 mb-2">
-                                                    <div class="form-group">
-                                                        <label class="text-label">Kategori Pekerjaan</label>
-                                                        <select class="form-control input-default" id="kategory_id"
-                                                            name="kategory_id">
-                                                            <option value="0" selected disabled>Pilih Kategori</option>
-                                                            @foreach ($categories as $category)
-                                                                <option value="{{ $category->id }}">{{ $category->nama_kategori }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 mb-2">
-                                                    <div class="form-group">
-                                                        <label class="text-label">Item Pekerjaan</label>
-                                                        <select class="form-control input-default" id="item_id" name="item_id">
-                                                            <option value="0" selected disabled>Pilih Pekerjaan</option>
-                                                            @foreach ($items as $item)
-                                                                <option value="{{ $item->nama_item }}">{{ $item->nama_item }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 mb-2">
-                                                    <div class="form-group">
-                                                        <input type="number"
-                                                            class="form-control @error('volume') is-invalid @enderror"
-                                                            name="volume" id="volume" placeholder="Volume" required autofocus
-                                                            value="{{ old('volume') }}">
-                                                        @error('volume')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 mb-2">
-                                                    <div class="form-group">
-                                                        <input type="number"
-                                                            class="form-control harga @error('harga') is-invalid @enderror"
-                                                            name="harga" id="harga" placeholder="Harga" readonly autofocus
-                                                            value="{{ old('Harga') }}">
-                                                        <input type="hidden" id="harga_satuan" name="harga_satuan">
-                                                        @error('Harga')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12 mb-2">
-                                                    <div class="position-relative justify-content-end float-left">
-                                                        <a type="button" id="tambah-kategori"
-                                                            class="btn btn-primary position-relative justify-content-end"
-                                                            >Tambah</a>
-                                                    </div>
-                                                </div>
                                                 <div class="table-responsive">
                                                     <table class="table table-responsive-sm height-100" id="tabelRAB">
-                                                        <thead>
+                                                        <thead class="">
                                                             <tr>
                                                                 <th>No.</th>
                                                                 <th>Kategori Pekerjaan</th>
                                                                 <th>Pekerjaan</th>
                                                                 <th>Satuan</th>
                                                                 <th>Volume</th>
-                                                                <th>Harga</th>
+                                                                <th>Harga Satuan</th>
+                                                                <th>Harga Total</th>
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody id="tbody-kategori">
-                                                            <tr id="baris-kategori" name="baris-kategori">
-                                                                <td></td>
-                                                                <td>
-                                                                    <select class="form-control input-default" id="kategory_id"
+                                                            {{-- <tr id="baris-kategori" name="baris-kategori"> --}}
+                                                                {{-- <td>
+
+                                                                </td>
+                                                                <td> --}}
+                                                                    {{-- <select class="form-control input-default" id="kategory_id"
                                                                         name="kategory_id">
                                                                         <option value="0" selected disabled>Pilih Kategori</option>
                                                                         @foreach ($categories as $category)
                                                                             <option value="{{ $category->id }}">{{ $category->nama_kategori }}
                                                                             </option>
                                                                         @endforeach
-                                                                    </select>
-                                                                
-                                                            </td>
-                                                                <td>
-                                                                    <select class="form-control input-default" id="item_id" name="item_id">
+                                                                    </select> --}}
+                                                                {{-- </td>
+                                                                <td> --}}
+                                                                    {{-- <select class="form-control input-default" id="item_id" name="item_id">
                                                                         <option value="0" selected disabled>Pilih Pekerjaan</option>
                                                                         @foreach ($items as $item)
                                                                             <option value="{{ $item->nama_item }}">{{ $item->nama_item }}
                                                                             </option>
                                                                         @endforeach
-                                                                    </select>
-                                                                </td>
-                                                                <td></td>
-                                                                <td><input type="number"
+                                                                    </select> --}}
+                                                                {{-- </td>
+                                                                <td> --}}
+                                                                    {{-- <input type="number"
+                                                                        class="form-control harga @error('harga') is-invalid @enderror"
+                                                                        name="harga" id="harga" placeholder=" --- " readonly disabled
+                                                                        value="{{ old('Harga') }}">
+                                                                    <input type="hidden" id="harga_satuan" name="harga_satuan">
+                                                                    @error('Harga')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror --}}
+                                                                {{-- </td>
+                                                                <td> --}}
+                                                                    {{-- <input type="number"
                                                                         class="form-control @error('volume') is-invalid @enderror"
                                                                         name="volume" id="volume" placeholder="Volume" required autofocus
                                                                         value="{{ old('volume') }}">
@@ -278,15 +234,71 @@
                                                                         <div class="invalid-feedback">
                                                                             {{ $message }}
                                                                         </div>
-                                                                    @enderror</td>
-                                                                <td> </td>
+                                                                    @enderror
+                                                                </td> --}}
 
-                                                                    <td></td>
-                                                            </tr>
+                                                                {{-- <td> --}}
+                                                                    {{-- <input type="number"
+                                                                        class="form-control harga @error('harga') is-invalid @enderror"
+                                                                        name="harga" id="harga" placeholder=" --- "
+                                                                        readonly disabled value="{{ old('Harga') }}">
+                                                                    <input type="hidden" id="harga_satuan"
+                                                                        name="harga_satuan">
+                                                                    @error('Harga')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror --}}
 
+                                                                {{-- </td>
+                                                                <td> --}}
+                                                                    {{-- <input type="number"
+                                                                        class="form-control harga @error('harga') is-invalid @enderror"
+                                                                        name="harga" id="harga" placeholder=" --- "
+                                                                        readonly disabled value="{{ old('Harga') }}">
+                                                                    <input type="hidden" id="harga_satuan"
+                                                                        name="harga_satuan">
+                                                                    @error('Harga')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror --}}
+                                                                {{-- </td>
+                                                                <td> --}}
+                                                                    {{-- <button
+                                                                        class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                                            class="fa fa-trash"></i></button> --}}
+                                                                {{-- </td> --}}
+                                                            {{-- </tr> --}}
                                                         </tbody>
+
+                                                    </table>
+                                                    <div class="col-lg-12 mb-2">
+                                                        <div class="position-relative justify-content-end float-left">
+                                                            <a type="button" id="tambah-pekerjaan"
+                                                                class="btn btn-primary position-relative justify-content-end" onclick="updateform('{{$data_items}}')">Tambah</a>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <table class="table table-responsive-sm height-100" id="tabelRAB">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
                                                         <tfoot>
                                                             <tr>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
                                                                 <th></th>
                                                                 <th></th>
                                                                 <th></th>
@@ -297,10 +309,16 @@
                                                                 <th></th>
                                                                 <th></th>
                                                                 <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
                                                                 <th id="pajak">PPN 11%</th>
                                                                 <th></th>
                                                             </tr>
                                                             <tr>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
                                                                 <th></th>
                                                                 <th></th>
                                                                 <th></th>
@@ -309,13 +327,6 @@
                                                             </tr>
                                                         </tfoot>
                                                     </table>
-                                                    <div class="col-lg-12 mb-2">
-                                                    <div class="position-relative justify-content-end float-left">
-                                                        <a type="button" id="tambah-pekerjaan"
-                                                            class="btn btn-primary position-relative justify-content-end"
-                                                            >Tambah</a>
-                                                    </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -388,7 +399,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -441,77 +452,81 @@
         });
     });
 
-    $(document).on('blur', '#volume', function(){
+    $(document).on('blur', '#volume', function() {
         let volume = parseInt($(this).val())
         let harga_satuan = parseInt($('#harga_satuan').val())
         $('#harga').val(volume * harga_satuan)
     });
 
-    $(document).ready(function(){
-        let baris = 0
+    // $(document).ready(function() {
+    //     let baris = 0
 
-        $(document).on('click', '#tambah-kategori', function(){
-            baris = baris + 1
-            let kategori = $('#kategory_id :selected').text()
-            let item = $('#item_id :selected').text()
-            let volume = parseInt($('#volume').val())
-            let harga = parseInt($('#harga').val())
+        // $(document).on('click', '#tambah-kategori', function() {
+        //     baris = baris + 1
+        //     let kategori = $('#kategory_id :selected').text()
+        //     let item = $('#item_id :selected').text()
+        //     let volume = parseInt($('#volume').val())
+        //     let harga = parseInt($('#harga').val())
 
-            $('#kategory_id').val(0)
-            $('#item_id').val(0)
-            $('#volume').val('')
-            $('#harga').val('')
+        //     $('#kategory_id').val(0)
+        //     $('#item_id').val(0)
+        //     $('#volume').val('')
+        //     $('#harga').val('')
 
-            var html = "<tr id='baris"+ baris +"' name='baris"+ baris +"'>"
-            html += "<td class='no'>"+ baris +"</td>"
-            html += "<td class='kategori'>"+ kategori +"</td>"
-            html += "<td class='item'>"+ item +"</td>"
-            html += "<td class='volume'>"+ volume +"</td>"
-            html += "<td class='harga'>"+ harga +"</td>"
-            html += "<td class='delete'><button id='baris-delete"+ baris +"' name='baris-delete"+ baris +"' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></button></td>"
-            $('#tbody-kategori').append(html)
-        });
-        
-        $(document).on('click', '#tambah-pekerjaan', function(){
-            baris = baris + 1
-            let kategori = $('#kategory_id :selected').text()
-            let item = $('#item_id :selected').text()
-            let volume = parseInt($('#volume').val())
-            let harga = parseInt($('#harga').val())
+        //     var html = "<tr id='baris" + baris + "' name='baris" + baris + "'>"
+        //     html += "<td class='no'>" + baris + "</td>"
+        //     html += "<td class='kategori'>" + kategori + "</td>"
+        //     html += "<td class='item'>" + item + "</td>"
+        //     html += "<td class='volume'>" + volume + "</td>"
+        //     html += "<td class='harga'>" + harga + "</td>"
+        //     html += "<td class='delete'><button id='baris-delete" + baris + "' name='baris-delete" +
+        //         baris +
+        //         "' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></button></td>"
+        //     $('#tbody-kategori').append(html)
+        // });
 
-            $('#kategory_id').val(0)
-            $('#item_id').val(0)
-            $('#volume').val('')
-            $('#harga').val('')
+        // $(document).on('click', '#tambah-pekerjaan', function() {
+        //     baris = baris + 1
+        //     let kategori = $('#kategory_id :selected').text()
+        //     let item = $('#item_id :selected').text()
+        //     let volume = parseInt($('#volume').val())
+        //     let harga = parseInt($('#harga').val())
 
-            var html = "<tr id='baris"+ baris +"' name='baris"+ baris +"'>"
-            html += "<td class='no'>"+ baris +"</td>"
-            html += "<td class='kategori'>"+ kategori +"</td>"
-            html += "<td class='item'>"+ item +"</td>"
-            html += "<td class='volume'>"+ volume +"</td>"
-            html += "<td class='harga'>"+ harga +"</td>"
-            html += "<td class='delete'><button id='baris-delete"+ baris +"' name='baris-delete"+ baris +"' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></button></td>"
-            $('#tbody-kategori').append(html)
-        });
+        //     $('#kategory_id').val(0)
+        //     $('#item_id').val(0)
+        //     $('#volume').val('')
+        //     $('#harga').val('')
+
+        //     var html = "<tr id='baris" + baris + "' name='baris" + baris + "'>"
+        //     html += "<td class='no'>" + baris + "</td>"
+        //     html += "<td class='kategori'>" + kategori + "</td>"
+        //     html += "<td class='item'>" + item + "</td>"
+        //     html += "<td class='volume'>" + volume + "</td>"
+        //     html += "<td class='harga'>" + harga + "</td>"
+        //     html += "<td class='delete'><button id='baris-delete" + baris + "' name='baris-delete" +
+        //         baris +
+        //         "' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></button></td>"
+        //     $('#tbody-kategori').append(html)
+        // });
 
 
-        $(document).on('click', '#baris-delete'+baris, function(){
+        // $(document).on('click', '#baris-delete' + baris, function() {
 
-        });
-        $("#startDate").datepicker({
-        todayBtn:  1,
-        autoclose: true,
-        }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#endDate').datepicker('setStartDate', minDate);
-        });
-        
-        $("#endDate").datepicker()
-            .on('changeDate', function (selected) {
-                var minDate = new Date(selected.date.valueOf());
-                $('#startDate').datepicker('setEndDate', minDate);
-            });
-        });
+        // });
+        // $("#startDate").datepicker({
+        //     todayBtn: 1,
+        //     autoclose: true,
+        // }).on('changeDate', function(selected) {
+        //     var minDate = new Date(selected.date.valueOf());
+        //     $('#endDate').datepicker('setStartDate', minDate);
+        // });
+
+        // $("#endDate").datepicker()
+        //     .on('changeDate', function(selected) {
+        //         var minDate = new Date(selected.date.valueOf());
+        //         $('#startDate').datepicker('setEndDate', minDate);
+        //     });
+    // });
 </script>
 
 {{-- <script type="text/javascript">

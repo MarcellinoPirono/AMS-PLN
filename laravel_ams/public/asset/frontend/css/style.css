@@ -54006,7 +54006,7 @@ html[dir="rtl"]
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    margin: 15px 0;
+    margin: 15px 8px;
     color: white;
     display: grid;
     place-items: center;
@@ -54052,4 +54052,86 @@ html[dir="rtl"]
 }
 .floating-container:hover .element-container .float-element:nth-child(3) {
     animation: come-in 0.4s forwards 0.6s;
+}
+
+.btn-floating {
+    /* position: fixed;
+    right: 25px;
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+    
+    z-index: 9999; */
+
+    position: fixed;
+    width: 80px;
+    height: 80px;
+    bottom: 0;
+    right: 0;
+    margin: -20px 40px;
+    z-index: 99999999;
+    border-radius: 100px;
+    border: 0;
+    overflow: hidden;
+    animation-name: example1;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    animation-timing-function: ease;
+}
+
+.btn-floating:hover {
+    width: auto;
+    padding: 0 20px;
+    cursor: pointer;
+    transition-duration: 1s;
+    transition: 1s;
+}
+
+@keyframes example {
+    0%   {left:1000px; top:1000px;}
+    25%  {left:1200px; top:1000px;}
+    50%  {left:1200px; top:1200px;}
+    75%  {left:1000px; top:1200px;}
+    100% {left:1000px; top:1000px;}
+  }
+
+@keyframes example1 {
+    from {margin: -20px 40px;}
+    to {margin: -20px -90px;}
+  }
+
+.btn-floating:span {
+    font-size: 16px;
+    margin-left: 5px;
+    -webkit-transition: 5.3s;
+    transition: all 3s;
+    line-height: 0px;
+    display: none;
+    transition-duration: 5s;
+}
+
+.btn-floating:hover span {
+    display: inline-block;
+}
+
+.btn-floating:hover img {
+    margin-bottom: -3px;
+}
+
+.btnfloating.whatsapp {
+    bottom: 25px;
+    background-color: #fff;
+    border: 2px solid #000;
+}
+
+.btn-floating.whatsapp:hover {
+    background-color: #1f7a12;
+}
+
+.btn-floating.facebook{
+    bottom: 85px;
+    background-color: #fff;
+    /* border: 1px solid #000; */
+    box-shadow: 0 20px 20px -10px rgba(0, 0, 0, 0.5);
 }

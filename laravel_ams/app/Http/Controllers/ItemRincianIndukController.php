@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\Return_;
 use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
+use Illuminate\Support\Facades\Input;
+
 
 class ItemRincianIndukController extends Controller
 {
@@ -148,13 +150,26 @@ class ItemRincianIndukController extends Controller
     public function edit($id)
     {
         // return 'Joss';
-        $itemRincianInduk = ItemRincianInduk::find($id);
         // $khs = Khs::find($id);
+        $itemRincianInduk = ItemRincianInduk::with('khs')->find($id);
+       
+       
+
+        // $data = array_merge($itemRincianInduk->toArray(), $khs->toArray());
+
+        // $khs = Khs::find($id);
+        // $itemRincianInduk2 = DB::table('item_rincian_induks')
+        //                     ->select('khs_id, nama_kategori')
+        //                     ->where('khs_id', $id)
+        //                     ->groupBy('khs_id')
+        //                     ->get();
 
     
+        // $itemRincianInduk = DB::table('khss')
+        //                     ->leftJoin('item_rincian_induks', 'khss.id', '=', 'item_rincian_induks.khs_id')
+        //                     ->find($id);
 
-
-        // $itemRincianInduk = DB::select('SELECT * FROM khs LEFT JOIN item_rincian_induks ON khs.id = item_rincian_induks.khs_id');
+        // $itemRincianInduk = DB::select('SELECT * FROM khs FULL OUTER JOIN item_rincian_induks ON khs.id = item_rincian_induks.khs_id');
         // $tanggal = DB::select('SELECT * FROM riwayattransaksis LEFT JOIN laporan_keuangans ON riwayattransaksis.tgl_transaksi = laporan_keuangans.tanggal GROUP BY riwayattransaksis.tgl_transaksi UNION SELECT * FROM riwayattransaksis RIGHT JOIN laporan_keuangans ON riwayattransaksis.tgl_transaksi = laporan_keuangans.tanggal GROUP BY riwayattransaksis.tgl_transaksi');
 
         // $khs = Khs::find($id);
@@ -183,12 +198,14 @@ class ItemRincianIndukController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $khs = DB::table('khs')->select('id')->where('jenis_khs', $request->input('edit_khs_id'))->first();
         $itemRincianInduk = ItemRincianInduk::find($id);
-        $itemRincianInduk->nama_kategori = $request->input('nama_kategori');
-        $itemRincianInduk->khs_id = $request->input('edit_khs_id');
-        $itemRincianInduk->update();
-
-        return response()->json(['status' => 'Post has been edited!']);
+        // $itemRincianInduk->nama_kategori = $request->input('edit_kontrak');
+        // $itemRincianInduk->khs_id = $khs;
+        // $itemRincianInduk->update();
+        dd($itemRincianInduk);
+        dd($khs);
+        // return response()->json(['success' => true]);
     }
 
     /**

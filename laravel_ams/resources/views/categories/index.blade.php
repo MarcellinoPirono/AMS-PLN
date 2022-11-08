@@ -16,7 +16,7 @@
                         <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                         <div class="form-group">
                             <input type="text"
-                                class="form-control input-rounded @error('nama_kategori') is-invalid @enderror"
+                                class="form-control input-rounded @error('nama_kategori') is }}-invalid @enderror"
                                 placeholder="Nama Kategori" id="nama_kategori" name="nama_kategori" required autofocus
                                 value="{{ old('nama_kategori') }}">
                             @error('nama_kategori')
@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <select class="form-control input-default" id="khs_id" name="khs_id">
-                                <option value="0" selected disabled>Pilih Jenis KHS <option>
+                                <option>Pilih..<option>
                                 @foreach ($khss as $khs)
                                     <option value="{{ $khs->id }}">{{ $khs->jenis_khs }}</option>
                                 @endforeach
@@ -121,10 +121,24 @@
                     </div>
 
                     <div class="form-group">
-                        <select class="form-control input-default" id="khs_id" name="khs_id">
-                            <option value="0" disabled>Pilih ...</option>
+                        <select class="form-control input-default" id="edit_khs_id" name="edit_khs_id">
+                            <option value="0">Pilih ...</option>
                             @foreach ($khss as $khs)
-                                <option value="{{ $khs->id }}" {{ $kontrak->khs_id == $khs->id ? 'selected' : '' }}>{{ $khs->jenis_khs }}</option>
+                                {{-- @if ($khs->id == ['khs_id'])
+                                    <option value="{{ $khs->id }}" selected>{{ $khs->jenis_khs }}</option>
+                                @endif --}}
+                
+                                {{-- @if (old('edit_khs_id') === $khs->id || $kontrak->khs_id === $khs->id)
+                                    <option value="{{$khs->id}}" selected>{{ $khs->jenis_khs }}</option>
+                                @else
+                                    <option value="{{$khs->id}}" >{{ $khs->jenis_khs }}</option>
+                                @endif --}}
+                               
+                                {{-- <option value="{{ $khs->id }}" {{ ($khs->id == old('edit_khs_id', $kontrak->khs_id)) ? 'selected' : '' }}>{{ $khs->jenis_khs }}</option> --}}
+                                <option @if ($khs->id === $kontrak->khs_id || old('edit_khs_id') === $khs->id) selected @endif >
+                                    {{ $khs->jenis_khs }}</option>
+                               
+                                {{-- <option value="{{ $khs->id }}" {{ (old("khs_id") == $khs->id ? "selected":"") }}>{{ $khs->jenis_khs }}</option> --}}
                             @endforeach
                         </select>
                     </div>
@@ -231,6 +245,7 @@
                     });
             });
 
+    
             $('.tombol-edit').click(function(e) {
                 var id = $(this).data('id');
                 $.ajax({
@@ -239,37 +254,46 @@
                     success: function(response) {
                         $('#category_form').modal('show');
                         $('#edit_kontrak').val(response.result.nama_kategori);
+                        $('#edit_khs_id').val(response.result.khs.jenis_khs);
+                        // $('#edit_khs_id').append('<option value="'+ response.result.khs_id +'">'+response.result.jenis_khs+'</option>')
+                        // $('#khs_id').empty();
                         // $('#khs_id').empty();
                         // $('#edit_khs_id').val(response.result.khs_id);
-                        var oldValue = '{{ old('response.result.khs_id') }}';
-                        if(oldValue !== ''){
-                            $('#edit_khs_id').val(oldValue);
-                        }
+                        // var oldValue = '{{ old('response.result.khs_id') }}';
+                        // if(oldValue !== ''){
+                        //     $('#edit_khs_id').val(oldValue);
+                        // }
 
-                        $("#edit_khs_id").change();
+                        // $("#edit_khs_id").change();
 
-                        // $('.btnedit').click(function() {
-                        //     $.ajax({
-                        //         url: 'categories/' + id,
-                        //         type: 'PUT',
-                        //         data: {
-                        //             nama_kategori: $('#edit_kontrak').val(),
-                        //             khs_id: $('#edit_khs_id').val(),
-                        //         },
-                        //         success: function(response) {
-                        //             swal({
-                        //                 title: "Data Diedit",
-                        //                 text: "Data Berhasil Diedit",
-                        //                 icon: "success",
-                        //                 timer: 2e3,
-                        //                 buttons: false97
-                        //             }).then((result) => {
-                        //                 location.reload();
-                        //             });
-                        //             console.log(response);
-                        //         }
-                        //     });
-                        // });
+                        $('.btnedit').click(function() {
+                            // let kontrak = $('#edit_kontrak').val();
+                            // let khs_id = $('#edit_khs_id').val();
+
+                            // console.log(kontrak);
+                            // console.log(khs_id);
+                            $.ajax({
+                                url: 'categories/' + id,
+                                type: 'PUT',
+                                data: {
+                                    nama_kategori: $('#edit_kontrak').val(),
+                                    khs_id: $('#edit_khs_id').val(),
+                                },
+                                success: function(response) {
+                                    swal({
+                                        title: "Data Diedit",
+                                        text: "Data Berhasil Diedit",
+                                        icon: "success",
+                                        timer: 2e3,
+                                        buttons: false
+                                    }).then((result) => {
+                                        location.reload();
+                                    });
+                                    console.log(response);
+                                }
+                            });
+                        });
+                        console.log(response.result.khs.jenis_khs);
                         console.log(response.result);
                         // console.log(response.result2);
                     }
@@ -281,9 +305,12 @@
             $.ajax({
                 url: 'categories/' + id + '/edit',
                 type: 'GET',
+                dataType: "JSON",
+
                 success: function(response) {
                     $('#category_form').modal('show');
                     $('#edit_kontrak').val(response.result.nama_kategori);
+                    // $('#khs_id').empty();
 
                     $('.btnedit').click(function() {
                         $.ajax({
@@ -291,6 +318,7 @@
                             type: 'PUT',
                             data: {
                                 nama_kategori: $('#edit_kontrak').val()
+                                // khs_id: $('#khs_id').val()
                             },
                             success: function(response) {
                                 swal({

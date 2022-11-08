@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 
+
 return [
 
     /*
@@ -16,6 +17,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -212,6 +215,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+
     ])->toArray(),
 
 ];

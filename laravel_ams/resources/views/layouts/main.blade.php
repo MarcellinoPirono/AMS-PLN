@@ -44,6 +44,9 @@
 </head>
 
 <body>
+   
+
+    
     <!--*******************
         Preloader start
     ********************-->
@@ -54,6 +57,8 @@
             <div class="sk-child sk-bounce3"></div>
         </div>
     </div>
+
+    
     <!--*******************
         Preloader end
     ********************-->
@@ -104,12 +109,7 @@
                             </div>
                         </div>
                         <ul class="navbar-nav header-right">
-                            <li class="nav-item dropdown header-profile">
-
-                                <a href="/buat-kontrak" type="button" class="btn btn-primary mr-auto ml-3 ">Buat
-                                    Kontrak (PO)<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
-                                </a>
-                            </li>
+                          
 
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
@@ -251,7 +251,7 @@
             </div>
         </div>
 
-        <div class="floating-container">
+        <!-- <div class="floating-container">
             <div class="floating-button">+</div>
             <div class="element-container">
                 <span class="float-element">
@@ -265,7 +265,15 @@
                     <i class="material-icons">chat</i>
                 </span>
             </div>
-        </div>
+        </div> -->
+
+        <a href="/buat-kontrak">
+        <button class="btn-floating facebook">
+            <img src="{{ asset('/') }}./asset/frontend/images/iconcreate.svg"
+            width="85px" height="85px" alt="">
+            <span style="color: #5DCDE0"> Buat Kontrak </span>
+        </button>
+        </a>
 
         <!--**********************************
             Content body end
@@ -276,8 +284,8 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="http://telkom.co.id/" target="_blank">....</a>
-                    2020</p>
+                <p>Copyright © Designed &amp; Developed by <a href="https://www.youtube.com/" target="_blank">....</a>
+                    2099</p>
             </div>
         </div>
         <!--**********************************

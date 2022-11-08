@@ -13,7 +13,10 @@ class RincianInduk extends Model
 
     public function item_rincian_induks()
     {
-        return $this->belongsTo(ItemRincianInduk::class, 'kategori_id', 'id');
+        return $this->belongsTo(ItemRincianInduk::class, 'kategori_id', 'id')->withDefault([
+            'nama_kategori'=> ' ',
+         
+    ]);
     }
     public function rabs()
     {

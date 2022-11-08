@@ -9,6 +9,9 @@ class ItemRincianInduk extends Model
 {
     use HasFactory;
 
+    // protected $appends = ['jenis_khs'];
+    protected $fillable = ['nama_kategori', 'khs_id'];
+
     protected $guarded = [''];
 
     public function rincian_induks()
@@ -18,8 +21,15 @@ class ItemRincianInduk extends Model
 
     public function khs()
     {
-        return $this->belongsTo(Khs::class, 'khs_id');
+        return $this->belongsTo(Khs::class, 'khs_id')->withDefault([
+            'jenis_khs' => ' ',
+        ]);;
     }
+
+    // public function getJenisKhsAttribute()
+    // {
+    //     return $this->khs->jenis_khs;
+    // }
 
     public function rabs()
     {
