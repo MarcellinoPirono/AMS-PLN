@@ -60,7 +60,7 @@ class RabController extends Controller
         }
 
         $items = RincianInduk::all();
-        $data_items =RincianInduk::all(['nama_item']);
+        $data_items =RincianInduk::all(['id','nama_item']);
         // foreach ($items as $item) {            
         //     $data_items =  $item->nama_item;
         // }

@@ -198,14 +198,15 @@ class ItemRincianIndukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $khs = DB::table('khs')->select('id')->where('jenis_khs', $request->input('edit_khs_id'))->first();
-        $itemRincianInduk = ItemRincianInduk::find($id);
-        // $itemRincianInduk->nama_kategori = $request->input('edit_kontrak');
-        // $itemRincianInduk->khs_id = $khs;
+        // $khs = DB::table('khs')->select('id')->where('jenis_khs', $request->input('edit_khs_id'))->first();
+        $itemRincianInduk = ItemRincianInduk::with('khs')->find($id);
+        $itemRincianInduk->nama_kategori = $request->input('edit_kontrak');
+        $itemRincianInduk->khs->id = $request->input('edit_khs_id');
+        // $itemRincianInduk[0]->khs_id = $khs;
         // $itemRincianInduk->update();
-        dd($itemRincianInduk);
-        dd($khs);
-        // return response()->json(['success' => true]);
+        dd($itemRincianInduk); 
+        // dd($khs);
+        // return response()->json(['success' => true]);  
     }
 
     /**

@@ -279,18 +279,18 @@
                                     nama_kategori: $('#edit_kontrak').val(),
                                     khs_id: $('#edit_khs_id').val(),
                                 },
-                                success: function(response) {
-                                    swal({
-                                        title: "Data Diedit",
-                                        text: "Data Berhasil Diedit",
-                                        icon: "success",
-                                        timer: 2e3,
-                                        buttons: false
-                                    }).then((result) => {
-                                        location.reload();
-                                    });
-                                    console.log(response);
-                                }
+                                // success: function(response) {
+                                //     swal({
+                                //         title: "Data Diedit",
+                                //         text: "Data Berhasil Diedit",
+                                //         icon: "success",
+                                //         timer: 2e3,
+                                //         buttons: false
+                                //     }).then((result) => {
+                                //         location.reload();
+                                //     });
+                                //     console.log(response);
+                                // }
                             });
                         });
                         console.log(response.result.khs.jenis_khs);

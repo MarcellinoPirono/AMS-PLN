@@ -29,11 +29,11 @@ function updateform(data_items){
     var table = document.getElementsByTagName("table")[0];
     
     // var select1 = document.createElement("select");
-    // for( var i=0; i < data_items.length; i++){
-        //     console.log(data_items[i])
-        // }
-    var nama_item1 = data_items.map(({item}) => item.nama_item);
-    console.log(nama_item1);
+    for( var i=0; i < data_items.length; i++){
+            console.log(data_items)
+        }
+    // var nama_item1 = data_items.map(({item}) => item.nama_item);
+    // console.log(nama_item1);
     
     var select1 = document.createElement("select");
     select1.innerHTML = "<option value='0' selected disabled>Pilih Kategori</option>";
@@ -42,8 +42,10 @@ function updateform(data_items){
     select1.setAttribute("class", "form-control input-default");
     
     var select2 = document.createElement("select");    
-    // for(item in nama_item){
-    //     select2.innerHTML = item;
+    // for (i = 0; i < data_items[$nama_item].length; i++) {
+    //     result = "<option value=" + i + ">" + data_items[i] + "</option>"
+    //     select2.innerHTML += result
+
     // }
     select2.innerHTML = "<option value='0' selected disabled>Pilih {ekerjaan}</option>";
     select2.setAttribute("id", "item_id");
