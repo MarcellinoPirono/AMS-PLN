@@ -54,7 +54,7 @@
                                                     name="kontrak_induk">
                                                     <option value="0" selected disabled>No. Kontrak Induk</option>
                                                     @foreach ($kontraks as $kontrak)
-                                                        <option value="{{ $kontrak->id }}">
+                                                        <option value="{{ $kontrak->khs_id }}">
                                                             {{ $kontrak->nomor_kontrak_induk }}</option>
                                                     @endforeach
                                                 </select>
@@ -89,7 +89,7 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">Start Date</label>
-                                                <input type="text"
+                                                <input type="date" data-date="" data-date-format="DD/MM/YYYY"
                                                     class="form-control @error('startDate') is-invalid @enderror"
                                                     name="startDate" id="startDate" placeholder="Start Date" required
                                                     autofocus value="{{ old('startDate') }}">
@@ -103,7 +103,7 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">End Date</label>
-                                                <input type="text"
+                                                <input type="date" data-date="" data-date-format="DD/MM/YYYY"
                                                     class="form-control @error('endDate') is-invalid @enderror"
                                                     name="endDate" id="endDate" placeholder="End Date" required autofocus
                                                     value="{{ old('endDate') }}">
@@ -163,7 +163,7 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 </div>
                             </div>
@@ -190,93 +190,13 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody id="tbody-kategori">
-                                                            {{-- <tr id="baris-kategori" name="baris-kategori"> --}}
-                                                                {{-- <td>
-
-                                                                </td>
-                                                                <td> --}}
-                                                                    {{-- <select class="form-control input-default" id="kategory_id"
-                                                                        name="kategory_id">
-                                                                        <option value="0" selected disabled>Pilih Kategori</option>
-                                                                        @foreach ($categories as $category)
-                                                                            <option value="{{ $category->id }}">{{ $category->nama_kategori }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select> --}}
-                                                                {{-- </td>
-                                                                <td> --}}
-                                                                    {{-- <select class="form-control input-default" id="item_id" name="item_id">
-                                                                        <option value="0" selected disabled>Pilih Pekerjaan</option>
-                                                                        @foreach ($items as $item)
-                                                                            <option value="{{ $item->nama_item }}">{{ $item->nama_item }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select> --}}
-                                                                {{-- </td>
-                                                                <td> --}}
-                                                                    {{-- <input type="number"
-                                                                        class="form-control harga @error('harga') is-invalid @enderror"
-                                                                        name="harga" id="harga" placeholder=" --- " readonly disabled
-                                                                        value="{{ old('Harga') }}">
-                                                                    <input type="hidden" id="harga_satuan" name="harga_satuan">
-                                                                    @error('Harga')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
-                                                                    @enderror --}}
-                                                                {{-- </td>
-                                                                <td> --}}
-                                                                    {{-- <input type="number"
-                                                                        class="form-control @error('volume') is-invalid @enderror"
-                                                                        name="volume" id="volume" placeholder="Volume" required autofocus
-                                                                        value="{{ old('volume') }}">
-                                                                    @error('volume')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
-                                                                    @enderror
-                                                                </td> --}}
-
-                                                                {{-- <td> --}}
-                                                                    {{-- <input type="number"
-                                                                        class="form-control harga @error('harga') is-invalid @enderror"
-                                                                        name="harga" id="harga" placeholder=" --- "
-                                                                        readonly disabled value="{{ old('Harga') }}">
-                                                                    <input type="hidden" id="harga_satuan"
-                                                                        name="harga_satuan">
-                                                                    @error('Harga')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
-                                                                    @enderror --}}
-
-                                                                {{-- </td>
-                                                                <td> --}}
-                                                                    {{-- <input type="number"
-                                                                        class="form-control harga @error('harga') is-invalid @enderror"
-                                                                        name="harga" id="harga" placeholder=" --- "
-                                                                        readonly disabled value="{{ old('Harga') }}">
-                                                                    <input type="hidden" id="harga_satuan"
-                                                                        name="harga_satuan">
-                                                                    @error('Harga')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
-                                                                    @enderror --}}
-                                                                {{-- </td>
-                                                                <td> --}}
-                                                                    {{-- <button
-                                                                        class="btn btn-danger shadow btn-xs sharp btndelete"><i
-                                                                            class="fa fa-trash"></i></button> --}}
-                                                                {{-- </td> --}}
-                                                            {{-- </tr> --}}
                                                         </tbody>
 
                                                     </table>
                                                     <div class="col-lg-12 mb-2">
                                                         <div class="position-relative justify-content-end float-left">
                                                             <a type="button" id="tambah-pekerjaan"
-                                                                class="btn btn-primary position-relative justify-content-end" onclick="updateform('{{$data_items}}')">Tambah</a>
+                                                                class="btn btn-primary position-relative justify-content-end" onclick="updateform('{{$data_kategori}}')">Tambah</a>
                                                         </div>
 
                                                     </div>
@@ -422,245 +342,57 @@
                     jQuery('#prk_id').html(result)
                 }
             });
+        })        
+
+        jQuery('#kontrak_induk').change(function(){
+            let kontrak_induk = jQuery(this).val();
+            console.log(kontrak_induk);           
+            // jQuery.ajax({
+            //     url: '/getKontrakInduk',
+            //     type: 'POST',
+            //     data: 'kontrak_induk=' + kontrak_induk + '&_token={{ csrf_token() }}',
+            //     success: function(result) {
+            //         $('.btnnext1').click(function(e){
+            //             console.log(kontrak_induk);
+            //         });
+            //     }
+            // });
         })
 
-        jQuery('#kategory_id').change(function() {
-            let kategory_id = jQuery(this).val();
-            jQuery.ajax({
-                url: '/getCategory',
-                type: 'POST',
-                data: 'kategory_id=' + kategory_id + '&_token={{ csrf_token() }}',
-                success: function(result) {
-                    jQuery('#item_id').html(result)
-                }
-            });
+        // $('#item_id').change(function() {
+        //     let item_id = $(this).val();
+        //     $.ajax({
+        //         url: '/getItem',
+        //         type: 'POST',
+        //         data: 'item_id=' + item_id + '&_token={{ csrf_token() }}',
+        //         success: function(res) {
+        //             console.log(res);
+        //             $('#volume').val('1');
+        //             $('#harga').val(res.harga_satuan);
+        //             $('#harga_satuan').val(res.harga_satuan);
+        //         }
+        //     });
+        // });
+        
+        jQuery('#btnnext1').click(function(){
+            console.log('TES!!!');
         })
-
-        $('#item_id').change(function() {
-            let item_id = $(this).val();
-            $.ajax({
-                url: '/getItem',
-                type: 'POST',
-                data: 'item_id=' + item_id + '&_token={{ csrf_token() }}',
-                success: function(res) {
-                    console.log(res);
-                    $('#volume').val('1');
-                    $('#harga').val(res.harga_satuan);
-                    $('#harga_satuan').val(res.harga_satuan);
-                }
-            });
-        });
-    });
-
-    $(document).on('blur', '#volume', function() {
-        let volume = parseInt($(this).val())
-        let harga_satuan = parseInt($('#harga_satuan').val())
-        $('#harga').val(volume * harga_satuan)
     });
 
     // $(document).ready(function() {
-    //     let baris = 0
+    //     $('.btnnext1').click(function(){
+    //         // e.preventDefault();
+    //         // let prk_id = $('#prk_id').val();
+    //         console.log('Tes');
+    //         // console.log(prk_id);
+    //         // console.log(kontrak_induk);
+            
+    //     });
+    // });
 
-        // $(document).on('click', '#tambah-kategori', function() {
-        //     baris = baris + 1
-        //     let kategori = $('#kategory_id :selected').text()
-        //     let item = $('#item_id :selected').text()
-        //     let volume = parseInt($('#volume').val())
-        //     let harga = parseInt($('#harga').val())
-
-        //     $('#kategory_id').val(0)
-        //     $('#item_id').val(0)
-        //     $('#volume').val('')
-        //     $('#harga').val('')
-
-        //     var html = "<tr id='baris" + baris + "' name='baris" + baris + "'>"
-        //     html += "<td class='no'>" + baris + "</td>"
-        //     html += "<td class='kategori'>" + kategori + "</td>"
-        //     html += "<td class='item'>" + item + "</td>"
-        //     html += "<td class='volume'>" + volume + "</td>"
-        //     html += "<td class='harga'>" + harga + "</td>"
-        //     html += "<td class='delete'><button id='baris-delete" + baris + "' name='baris-delete" +
-        //         baris +
-        //         "' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></button></td>"
-        //     $('#tbody-kategori').append(html)
-        // });
-
-        // $(document).on('click', '#tambah-pekerjaan', function() {
-        //     baris = baris + 1
-        //     let kategori = $('#kategory_id :selected').text()
-        //     let item = $('#item_id :selected').text()
-        //     let volume = parseInt($('#volume').val())
-        //     let harga = parseInt($('#harga').val())
-
-        //     $('#kategory_id').val(0)
-        //     $('#item_id').val(0)
-        //     $('#volume').val('')
-        //     $('#harga').val('')
-
-        //     var html = "<tr id='baris" + baris + "' name='baris" + baris + "'>"
-        //     html += "<td class='no'>" + baris + "</td>"
-        //     html += "<td class='kategori'>" + kategori + "</td>"
-        //     html += "<td class='item'>" + item + "</td>"
-        //     html += "<td class='volume'>" + volume + "</td>"
-        //     html += "<td class='harga'>" + harga + "</td>"
-        //     html += "<td class='delete'><button id='baris-delete" + baris + "' name='baris-delete" +
-        //         baris +
-        //         "' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></button></td>"
-        //     $('#tbody-kategori').append(html)
-        // });
-
-
-        // $(document).on('click', '#baris-delete' + baris, function() {
-
-        // });
-        // $("#startDate").datepicker({
-        //     todayBtn: 1,
-        //     autoclose: true,
-        // }).on('changeDate', function(selected) {
-        //     var minDate = new Date(selected.date.valueOf());
-        //     $('#endDate').datepicker('setStartDate', minDate);
-        // });
-
-        // $("#endDate").datepicker()
-        //     .on('changeDate', function(selected) {
-        //         var minDate = new Date(selected.date.valueOf());
-        //         $('#startDate').datepicker('setEndDate', minDate);
-        //     });
+    // $(document).on('blur', '#volume', function() {
+    //     let volume = parseInt($(this).val())
+    //     let harga_satuan = parseInt($('#harga_satuan').val())
+    //     $('#harga').val(volume * harga_satuan)
     // });
 </script>
-
-{{-- <script type="text/javascript">
-    $(document).ready(function() {
-
-        $(document).on('change', '.nama_item', function() {
-            // console.log("hmm its change");
-
-            var cat_id = $(this).val();
-            // console.log(cat_id);
-            var div = $(this).parent();
-
-            var op = " ";
-
-            $.ajax({
-                type: 'get',
-                url: '{!! URL::to('findProductName') !!}',
-                data: {
-                    'id': cat_id
-                },
-                success: function(data) {
-                    //console.log('success');
-
-                    //console.log(data);
-
-                    //console.log(data.length);
-                    op += '<option value="0" selected disabled>chose product</option>';
-                    for (var i = 0; i < data.length; i++) {
-                        op += '<option value="' + data[i].id + '">' + data[i].productname +
-                            '</option>';
-                    }
-
-                    div.find('.productname').html(" ");
-                    div.find('.productname').append(op);
-                },
-                error: function() {
-
-                }
-            });
-        });
-
-        $(document).on('change', '.nama_item', function() {
-            var prod_id = $(this).val();
-
-            var a = $(this).parent();
-            console.log(prod_id);
-            var op = "";
-            $.ajax({
-                type: 'get',
-                url: '{!! URL::to('findPrice') !!}',
-                data: {
-                    'id': prod_id
-                },
-                dataType: 'json', //return data will be json
-                success: function(data) {
-                    console.log("Harga");
-                    console.log(data.Harga);
-
-                    // here price is coloumn name in products table data.coln name
-
-                    a.find('.Harga').val(data.Harga);
-
-                },
-                error: function() {
-
-                }
-            });
-
-
-        });
-
-    });
-</script> --}}
-
-<!-- <div id="wizard_Details" class="tab-pane" role="tabpanel">
-         <div class="row">
-          <div class="col-xl-12 col-xxl-12">
-           <div class="card">
-            <div class="card-header justify-content-center">
-             <h4 class="card-title">Preview</h4>
-            </div>
-            <div class="card-body">
-             <div class="table-responsive">
-              <table class="table table-responsive-md">
-               <thead>
-                <tr>
-                 <th class="width80">No.</th>
-                 <th>Uraian Kegiatan</th>
-                 <th>Satuan</th>
-                 <th>Volume</th>
-                 <th>Jumlah</th>
-                </tr>
-               </thead>
-               <tbody>
-                <tr>
-                 <td><strong>01</strong></td>
-                 <td>Penarikan Kabel TIC 2x10 mm2</td>
-                 <td>Pemasangan SP 1 Phasa</td>
-                 <td>PLG</td>
-                 <td>Rp. 30.999</td>
-                </tr>
-                <tr>
-                 <td><strong>02</strong></td>
-                 <td>Penarikan Kabel TIC 2x10 mm2</td>
-                 <td>Pemasangan SP 1 Phasa</td>
-                 <td>PLG</td>
-                 <td>Rp. 30.999</td>
-                </tr>
-                <tr>
-                 <td><strong>03</strong></td>
-                 <td>Penarikan Kabel TIC 2x10 mm2</td>
-                 <td>Pemasangan SP 1 Phasa</td>
-                 <td>PLG</td>
-                 <td>Rp. 30.999</td>
-                </tr>
-                <tr>
-                 <td><strong></strong></td>
-                 <td></td>
-                 <td></td>
-                 <td>Jumlah</td>
-                 <td>Rp. 30.999</td>
-                </tr>
-                <tr>
-                 <td><strong></strong></td>
-                 <td></td>
-                 <td></td>
-                 <td>PPN(11%)</td>
-                 <td>Rp. 30.999</td>
-                </tr>
-               </tbody>
-              </table>
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div> -->

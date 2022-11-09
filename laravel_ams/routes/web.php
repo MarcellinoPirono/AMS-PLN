@@ -50,6 +50,7 @@ Route::resource('skk', SkkController::class);
 Route::post('getSKK', [SkkController::class, 'getSKK']);
 Route::post('getCategory', [SkkController::class, 'getCategory']);
 Route::post('getItem', [SkkController::class, 'getItem']);
+Route::post('getKontrakInduk', [SkkController::class, 'getKontrakInduk']);
 
 Route::resource('prk', PrkController::class);
 Route::get('deleteskk/{id}', [SkkController::class, 'destroy']);

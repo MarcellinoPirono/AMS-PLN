@@ -2183,6 +2183,8 @@ pre code {
     width: 100%;
     margin-bottom: 1rem;
     color: #7e7e7e;
+    /* overflow-y: auto !important;
+    height: 50vh !important; */
 }
 
 .table th,
@@ -2195,6 +2197,8 @@ pre code {
 .table thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #eeeeee;
+    /* position: sticky !important;
+    top: 0 !important; */
 }
 
 .table tbody + tbody {
@@ -54068,16 +54072,16 @@ html[dir="rtl"]
     height: 80px;
     bottom: 0;
     right: 0;
-    margin: -20px 40px;
+    margin: -20px -10px;
     z-index: 99999999;
     border-radius: 100px;
     border: 0;
     overflow: hidden;
-    animation-name: example1;
+    /* animation-name: example1;
     animation-duration: 4s;
     animation-iteration-count: infinite;
     animation-direction: alternate-reverse;
-    animation-timing-function: ease;
+    animation-timing-function: ease; */
 }
 
 .btn-floating:hover {
@@ -54086,6 +54090,11 @@ html[dir="rtl"]
     cursor: pointer;
     transition-duration: 1s;
     transition: 1s;
+    animation-name: example1;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    animation-timing-function: ease;
 }
 
 @keyframes example {
@@ -54098,7 +54107,7 @@ html[dir="rtl"]
 
 @keyframes example1 {
     from {margin: -20px 40px;}
-    to {margin: -20px -90px;}
+    to {margin: -20px 0px;}
   }
 
 .btn-floating:span {
@@ -54134,4 +54143,30 @@ html[dir="rtl"]
     background-color: #fff;
     /* border: 1px solid #000; */
     box-shadow: 0 20px 20px -10px rgba(0, 0, 0, 0.5);
+}
+
+input {
+    position: relative;
+    width: 150px; height: 20px;
+    color: white;
+}
+
+input:before {
+    position: absolute;
+    top: 3px; left: 3px;
+    content: attr(data-date);
+    display: inline-block;
+    color: black;
+}
+
+input::-webkit-datetime-edit, input::-webkit-inner-spin-button, input::-webkit-clear-button {
+    display: none;
+}
+
+input::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    color: black;
+    opacity: 1;
 }

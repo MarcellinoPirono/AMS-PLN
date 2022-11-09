@@ -149,44 +149,11 @@ class ItemRincianIndukController extends Controller
      */
     public function edit($id)
     {
-        // return 'Joss';
-        // $khs = Khs::find($id);
         $itemRincianInduk = ItemRincianInduk::with('khs')->find($id);
        
-       
-
-        // $data = array_merge($itemRincianInduk->toArray(), $khs->toArray());
-
-        // $khs = Khs::find($id);
-        // $itemRincianInduk2 = DB::table('item_rincian_induks')
-        //                     ->select('khs_id, nama_kategori')
-        //                     ->where('khs_id', $id)
-        //                     ->groupBy('khs_id')
-        //                     ->get();
-
-    
-        // $itemRincianInduk = DB::table('khss')
-        //                     ->leftJoin('item_rincian_induks', 'khss.id', '=', 'item_rincian_induks.khs_id')
-        //                     ->find($id);
-
-        // $itemRincianInduk = DB::select('SELECT * FROM khs FULL OUTER JOIN item_rincian_induks ON khs.id = item_rincian_induks.khs_id');
-        // $tanggal = DB::select('SELECT * FROM riwayattransaksis LEFT JOIN laporan_keuangans ON riwayattransaksis.tgl_transaksi = laporan_keuangans.tanggal GROUP BY riwayattransaksis.tgl_transaksi UNION SELECT * FROM riwayattransaksis RIGHT JOIN laporan_keuangans ON riwayattransaksis.tgl_transaksi = laporan_keuangans.tanggal GROUP BY riwayattransaksis.tgl_transaksi');
-
-        // $khs = Khs::find($id);
-        
-        // $data = [
-        //     'kontrak' => $itemRincianInduk,
-        //     'khs' => $khs,
-    // ];
-
-        
         return response()->json([
-            'result' => $itemRincianInduk,
-            // 'result2' => $khs,
-            
+            'result' => $itemRincianInduk,            
         ]);
-
-        // return redirect('/categories')->with('success', 'has been edited');
     }
 
     /**
@@ -198,15 +165,12 @@ class ItemRincianIndukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $khs = DB::table('khs')->select('id')->where('jenis_khs', $request->input('edit_khs_id'))->first();
-        $itemRincianInduk = ItemRincianInduk::with('khs')->find($id);
-        $itemRincianInduk->nama_kategori = $request->input('edit_kontrak');
-        $itemRincianInduk->khs->id = $request->input('edit_khs_id');
-        // $itemRincianInduk[0]->khs_id = $khs;
-        // $itemRincianInduk->update();
-        dd($itemRincianInduk); 
-        // dd($khs);
-        // return response()->json(['success' => true]);  
+        $khs = Khs::select('id')->where('jenis_khs', $request->khs_id)->get();
+        $itemRincianInduk = ItemRincianInduk::where('id', $id)->get();
+        $itemRincianInduk[0]->nama_kategori = $request->nama_kategori;
+        $itemRincianInduk[0]->khs_id = $khs[0]->id;
+        $itemRincianInduk[0]->update();
+        return response()->json(['success' => true]);  
     }
 
     /**
@@ -217,13 +181,6 @@ class ItemRincianIndukController extends Controller
      */
     public function destroy(ItemRincianInduk $itemRincianInduk, $id)
     {
-        // $itemRincianInduk = ItemRincianInduk::find($id);
-        // $itemRincianInduk->rincian_induks()->delete();
-        // $itemRincianInduk->delete();
-
-        // return response()->json(['status' => 'has been deleted!']);
-
-        // ItemRincianInduk::destroy($id);
         $itemRincianInduk = ItemRincianInduk::find($id);
         $itemRincianInduk->rincian_induks()->delete();
         $itemRincianInduk->delete();

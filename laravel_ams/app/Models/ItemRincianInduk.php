@@ -23,7 +23,7 @@ class ItemRincianInduk extends Model
     {
         return $this->belongsTo(Khs::class, 'khs_id')->withDefault([
             'jenis_khs' => ' ',
-        ]);;
+        ]);
     }
 
     // public function getJenisKhsAttribute()

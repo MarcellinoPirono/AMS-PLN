@@ -196,7 +196,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
         if (elm.length > 0) {
           return elm;
-        } // Element not found
+        } // Element not found{{  }}{{  }}
 
 
         this._showError("Element not found " + selector);
@@ -334,8 +334,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
         var toolbar = $('<div></div>').addClass('toolbar toolbar-' + position).attr('role', 'toolbar'); // Create the toolbar buttons
 
-        var btnNext = this.options.toolbarSettings.showNextButton !== false ? $('<button></button>').text(this.options.lang.next).addClass('btn btn-primary   sw-btn-next').attr('type', 'button') : null;
-        var btnPrevious = this.options.toolbarSettings.showPreviousButton !== false ? $('<button></button>').text(this.options.lang.previous).addClass('btn btn-primary sw-btn-prev').attr('type', 'button') : null;
+        var btnNext = this.options.toolbarSettings.showNextButton !== false ? $('<button></button>').text(this.options.lang.next).addClass('btn btn-primary   sw-btn-next').attr('id', 'btnnext1').attr('type', 'submit') : null;
+        var btnPrevious = this.options.toolbarSettings.showPreviousButton !== false ? $('<button></button>').text(this.options.lang.previous).addClass('btn btn-primary sw-btn-prev') : null;
         toolbar.append(btnPrevious, btnNext); // Add extra toolbar buttons
 
         if (this.options.toolbarSettings.toolbarExtraButtons && this.options.toolbarSettings.toolbarExtraButtons.length > 0) {
@@ -791,22 +791,29 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         if (!this.options.cycleSteps) {
           this.main.find('.sw-btn-prev').removeClass("disabled");
           this.main.find('.sw-btn-next').removeClass("disabled");
-          this.main.find('.sw-btn-next').addClass("btnnext");
+          this.main.find('.sw-btn-next').addClass("btnnext2");
+          this.main.find('.sw-btn-next').removeClass("btnnext1");
+          this.main.find('.sw-btn-next').removeClass("btnnext3");
 
           switch (this._getStepPosition(idx)) {
             case 'first':
               this.main.find('.sw-btn-prev').addClass("disabled");
+              this.main.find('.sw-btn-next').addClass("btnnext1");
+              this.main.find('.sw-btn-next').removeClass("btnnext2");
+              this.main.find('.sw-btn-next').removeClass("btnnext3");
               break;
 
             case 'last':
               this.main.find('.sw-btn-next').addClass("disabled");
-              this.main.find('.sw-btn-next').addClass("btnnext");
+              this.main.find('.sw-btn-next').addClass("btnnext3");
+              this.main.find('.sw-btn-next').removeClass("btnnext1");
+              this.main.find('.sw-btn-next').removeClass("btnnext2");
               break;
 
             default:
               if (this._getNextShowable(idx) === false) {
                 this.main.find('.sw-btn-next').addClass("disabled");
-                this.main.find('.sw-btn-next').addClass("btnnext");
+                // this.main.find('.sw-btn-next').addClass("btnnext2");
               }
 
               if (this._getPreviousShowable(idx) === false) {

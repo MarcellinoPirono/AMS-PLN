@@ -29,19 +29,17 @@
                                             <tr>
                                                 <th class="width80">No.</th>
                                                 {{-- <th>Date</th> --}}
-                                                {{-- <th>Nomor Surat</th>
-                                                <th>Pekerjaan</th>
-                                                <th>Kepada</th>
-                                                <th>Total</th> --}}
-                                                <th>category_id</th>
-                                                <th>item_id</th>
-                                                <th>harga_satuan</th>
-                                                <th>skk_id</th>
-                                                <th>prk_id</th>
-                                                <th>pekerjaan</th>
-                                                <th>lokasi</th>
-                                                <th>volume</th>
-                                                <th>isi_surat</th>
+                                                {{-- <th>Nomor Surat</th> --}}
+                                                <th>No. PO</th>
+                                                <th>Tanggal PO</th>
+                                                <th>No SKK</th>
+                                                <th>Judul / Pekerjaan</th>
+                                                <th>Lokasi</th>
+                                                <th>Vendor</th>
+                                                <th>Total Harga</th>
+                                                <th>----</th>
+                                                <th>----</th>
+                                                <th>----</th>
                                                 <th> </th>
                                             </tr>
                                         </thead>

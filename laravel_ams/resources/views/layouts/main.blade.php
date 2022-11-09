@@ -14,6 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}./asset/frontend/images/ams-bg1.png" />
     <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/chartist/css/chartist.min.css" />
     <link href="{{ asset('/') }}./asset/frontend/vendor/bootstrap-select/dist/css/bootstrap-select_dark.min.css"
@@ -44,9 +45,9 @@
 </head>
 
 <body>
-   
 
-    
+
+
     <!--*******************
         Preloader start
     ********************-->
@@ -58,7 +59,7 @@
         </div>
     </div>
 
-    
+
     <!--*******************
         Preloader end
     ********************-->
@@ -109,7 +110,7 @@
                             </div>
                         </div>
                         <ul class="navbar-nav header-right">
-                          
+
 
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
@@ -268,11 +269,11 @@
         </div> -->
 
         <a href="/buat-kontrak">
-        <button class="btn-floating facebook">
-            <img src="{{ asset('/') }}./asset/frontend/images/iconcreate.svg"
-            width="85px" height="85px" alt="">
-            <span style="color: #5DCDE0"> Buat Kontrak </span>
-        </button>
+            <button class="btn-floating facebook">
+                <img src="{{ asset('/') }}./asset/frontend/images/iconcreate.svg" width="85px" height="85px"
+                    alt="">
+                <span style="color: #5DCDE0"> Buat Kontrak </span>
+            </button>
         </a>
 
         <!--**********************************
@@ -370,6 +371,16 @@
         //         $('#reload').load(window.location.href + " #reload");
         //     }, 1000);
         // });
+    </script>
+
+    <script>
+        $("input").on("change", function() {
+            this.setAttribute(
+                "data-date",
+                moment(this.value, "YYYY-MM-DD")
+                .format(this.getAttribute("data-date-format"))
+            )
+        }).trigger("change")
     </script>
 
     @yield('ajax')

@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         Rab::factory(20)->create();
         Hpe::factory(20)->create();
         Pejabat::factory(20)->create();
-        KontrakInduk::factory(20)->create();
+        // KontrakInduk::factory(20)->create();
         // Khs::factory(2)->create();
 
         Khs::create([
@@ -43,6 +43,18 @@ class DatabaseSeeder extends Seeder
                 'jenis_khs' => 'JTM',
             ]
         );
+
+        KontrakInduk::create([
+            'nomor_kontrak_induk' => '801/01.AGA.03/',
+            'khs_id' => '1',
+            'nama_vendor' => 'PT ABC'
+        ]);
+
+        KontrakInduk::create([
+            'nomor_kontrak_induk' => '506/02.AGA.04/',
+            'khs_id' => '2',
+            'nama_vendor' => 'PT XYZ'
+        ]);
 
         
         ItemRincianInduk::create([

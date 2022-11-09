@@ -178,7 +178,6 @@ class SKKController extends Controller
     public function getCategory(Request $request)
     {
         $kategory_id = $request->post('kategory_id');
-        // $nama_kontrak = DB::table('item_rincian_induks')->where('id',$kategory_id)->orderBy('nama_kontrak')->get();
         $nama_item = DB::table('rincian_induks')->where('kontraks_id',$kategory_id)->orderBy('nama_item')->get();
 
         $html = '<option value="0" selected disabled>Pilih Pekerjaan</option>';
@@ -188,10 +187,23 @@ class SKKController extends Controller
         echo $html;
     }
 
+    // public function getKontrakInduk(Request $request)
+    // {
+    //     $kontrak_induk = $request->post('kontrak_induk');
+    //     $nama_kategori = DB::table('item_rincian_induks')->where('khs_id',$kontrak_induk)->orderBy('nama_kategori')->get();
+
+    //     $html = '<option value="0" selected disabled>Pilih Pekerjaan</option>';
+    //     foreach($nama_kategori as $kategori){
+    //         $html.='<option value="'.$kategori->id.'">'.$kategori->nama_kategori.'</option>';
+    //     }
+    //     echo $html;
+    // }
+
     public function getItem(Request $request)
     {
         $item_id = $request->post('item_id');
         $harga_item = RincianInduk::find($request->item_id)->where('id',$item_id)->first();
         return response()->json($harga_item);
     }
+
 }
