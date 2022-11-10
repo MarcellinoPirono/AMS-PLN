@@ -50,6 +50,17 @@ function reindex(){
 function updateform(){
     var table = document.getElementsByTagName("table")[0];
     
+    // var kontrak_induk = document.getElementById('kontrak_induk').value;
+    $.ajax({
+        type: "POST",
+        url: '/getKontrakInduk',
+        data: 'kontrak_induk=' + kontrak_induk + '&_token={{ csrf_token() }}',
+        success: function(response) {
+            console.log(response);
+        }
+    });
+
+    // console.log(kontrak_induk);
     // var select1 = document.createElement("select");
     // const data_items = JSON.parse(data_kategori);
     // for (var i = 0; i < data_kategori.length; i++){
@@ -137,9 +148,3 @@ function updateform(){
     // console.log(data_items);
     reindex();
 }
-
-// $(function(){
-//     $(".dropdown-menu").on('click', 'a', function(){
-//         $(this).parents('.dropdown').find('button').text($(this).text());
-//     });
-//  });{{  }}{{  }}

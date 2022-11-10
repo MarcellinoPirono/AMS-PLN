@@ -337,7 +337,7 @@
     <!-- Form Steps -->
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/jquery.validate-init.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/tambah-field.js"></script>
+    {{-- <script src="{{ asset('/') }}./asset/frontend/js/tambah-field.js"></script> --}}
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 

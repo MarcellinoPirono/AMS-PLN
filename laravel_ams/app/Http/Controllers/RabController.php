@@ -107,6 +107,8 @@ class RabController extends Controller
         );
     }
 
+
+
     public function findPrice(Request $request)
     {
 

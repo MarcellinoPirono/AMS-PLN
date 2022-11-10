@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ItemRincianInduk;
 use App\Models\RincianInduk;
 use App\Models\Skk;
 use Illuminate\Http\Request;
@@ -187,17 +188,12 @@ class SKKController extends Controller
         echo $html;
     }
 
-    // public function getKontrakInduk(Request $request)
-    // {
-    //     $kontrak_induk = $request->post('kontrak_induk');
-    //     $nama_kategori = DB::table('item_rincian_induks')->where('khs_id',$kontrak_induk)->orderBy('nama_kategori')->get();
-
-    //     $html = '<option value="0" selected disabled>Pilih Pekerjaan</option>';
-    //     foreach($nama_kategori as $kategori){
-    //         $html.='<option value="'.$kategori->id.'">'.$kategori->nama_kategori.'</option>';
-    //     }
-    //     echo $html;
-    // }
+    public function getKontrakInduk(Request $request)
+    {
+        $khs_id = $request->post('kontrak_induk');
+        $nama_kategori = DB::table('item_rincian_induks')->where('khs_id', $khs_id)->get();
+        return response()->json($nama_kategori);
+    }
 
     public function getItem(Request $request)
     {
