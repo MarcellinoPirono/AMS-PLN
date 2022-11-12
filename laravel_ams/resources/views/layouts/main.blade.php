@@ -347,7 +347,12 @@
         integrity="sha512-jTgBq4+dMYh73dquskmUFEgMY5mptcbqSw2rmhOZZSJjZbD2wMt0H5nhqWtleVkyBEjmzid5nyERPSNBafG4GQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
+    <script>
+        document.getElementById("wrap").addEventListener("scroll", function() {
+            var translate = "translate(0," + this.scrollTop + "px)";
+            this.querySelector("thead").style.transform = translate;
+        });
+    </script>
 
     <script type="text/javascript">
         function updateDiv() {

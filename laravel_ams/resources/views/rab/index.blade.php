@@ -22,7 +22,7 @@
                                     <input type="text" class="form-control" placeholder="Search here..." />
                                 </div>
                             </div>
-                            <div class="card-body">
+                            <div id="" class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-responsive-md">
                                         <thead>

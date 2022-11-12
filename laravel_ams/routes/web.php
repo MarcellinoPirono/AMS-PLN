@@ -10,6 +10,7 @@ use App\Http\Controllers\PrkController;
 use App\Http\Controllers\SkkController;
 use App\Http\Controllers\RincianIndukController;
 use App\Http\Controllers\HpeController;
+use App\Http\Controllers\PdfkhsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -58,6 +59,8 @@ Route::get('deleteskk/{id}', [SkkController::class, 'destroy']);
 Route::get('deleteprk/{id}', [PrkController::class, 'destroy']);
 
 Route::resource('hpe', HpeController::class);
+
+Route::resource('surat', PdfkhsController::class);
 
 // Route::view('products', 'layouts.main', [
 // 'data' => App\Http\Controllers\MainController::all()

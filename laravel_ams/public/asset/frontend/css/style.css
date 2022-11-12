@@ -2183,6 +2183,7 @@ pre code {
     width: 100%;
     margin-bottom: 1rem;
     color: #7e7e7e;
+
     /* overflow-y: auto !important;
     height: 50vh !important; */
 }
@@ -54169,4 +54170,9 @@ input::-webkit-calendar-picker-indicator {
     right: 0;
     color: black;
     opacity: 1;
+}
+
+#wrap {
+    overflow: auto;
+    height: 520px;
 }

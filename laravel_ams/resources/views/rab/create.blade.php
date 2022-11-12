@@ -63,10 +63,10 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">Judul Pekerjaan</label>
-                                                <input type="text"
+                                                <textarea type="text"
                                                     class="form-control @error('pekerjaan') is-invalid @enderror"
                                                     name="pekerjaan" id="pekerjaan" placeholder="Pekerjaan" required
-                                                    autofocus value="{{ old('pekerjaan') }}">
+                                                    autofocus>{{ old('pekerjaan') }}</textarea>
                                                 @error('pekerjaan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -189,7 +189,6 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody id="tbody-kategori">
-                                                            <input type="hidden" id="nomor" value="0">
                                                         </tbody>
 
                                                     </table>
@@ -345,21 +344,11 @@
             });
         })
 
-        jQuery('#kontrak_induk').change(function() {
-            let kontrak_induk = jQuery(this).val();
-            console.log(kontrak_induk);
-            // updateform(kontrak_induk);        
-            // jQuery.ajax({
-            //     url: '/getKontrakInduk',
-            //     type: 'POST',
-            //     data: 'kontrak_induk=' + kontrak_induk + '&_token={{ csrf_token() }}',
-            //     success: function(result) {
-            //         $('.btnnext1').click(function(e){
-            //             console.log(kontrak_induk);
-            //         });
-            //     }
-            // });
-        })
+        // jQuery('#kontrak_induk').change(function(){
+        //     alert('Terklikji')
+            // let kategory_id = jQuery(this).val();
+            // console.log(kategory_id);
+        // })
 
         // $('#item_id').change(function() {
         //     let item_id = $(this).val();
@@ -382,19 +371,6 @@
 
 
     });
-
-    // $(document).ready(function() {
-
-    //     $('.btnnext1').click(function(){
-    //         // e.preventDefault();
-    //         // let prk_id = $('#prk_id').val();
-    //         console.log('Tes');
-    //         // console.log(prk_id);
-    //         // console.log(kontrak_induk);
-
-    //     });
-    // });
-
     // $(document).on('blur', '#volume', function() {
     //     let volume = parseInt($(this).val())
     //     let harga_satuan = parseInt($('#harga_satuan').val())
@@ -403,123 +379,14 @@
 </script>
 
 <script>
-    function deleteRow(r) {
-        var i = r.parentNode.parentNode.rowIndex;
-        document.getElementById("tabelRAB").deleteRow(i);
-        var nomor = document.getElementById("nomor").value = --click;
-        click = click
-        reindex();
-    }
-
-    function reindex() {
-        const ids = document.querySelectorAll("tr > td:nth-child(1)");
-        ids.forEach((e, i) => {
-            e.innerHTML = "<strong>" + (i + 1) + "</strong>"
-            nomor_tabel = i + 1;
-        });
-
-        if (nomor_tabel == click) {
-            var select1 = document.createElement("select");
-            select1.innerHTML = "<option value='0' selected disabled>Pilih Kategori</option>" +
-                kategori + "";
-            select1.setAttribute("id", "kategory_id[]");
-            select1.setAttribute("name", "kategory_id[]");
-            select1.setAttribute("class", "form-control input-default");
-
-            var select2 = document.createElement("select");
-            select2.innerHTML = "<option value='0' selected disabled>Pilih Pekerjaan</option>";
-            select2.setAttribute("id", "item_id[]");
-            select2.setAttribute("name", "item_id[]");
-            select2.setAttribute("class", "form-control input-default");
-
-            var input1 = document.createElement("input");
-            input1.setAttribute("type", "number");
-            input1.setAttribute("class", "form-control satuan");
-            input1.setAttribute("name", "satuan[]");
-            input1.setAttribute("id", "satuan[]");
-            input1.setAttribute("placeholder", "Satuan");
-            input1.setAttribute("readonly", true);
-            input1.setAttribute("disabled", true);
-
-            var input2 = document.createElement("input");
-            input2.setAttribute("type", "number");
-            input2.setAttribute("class", "form-control volume");
-            input2.setAttribute("name", "volume[]");
-            input2.setAttribute("id", "volume[]");
-            input2.setAttribute("placeholder", "Volume");
-            input2.setAttribute("required", true);
-
-            var input3 = document.createElement("input");
-            input3.setAttribute("type", "number");
-            input3.setAttribute("class", "form-control harga_satuan");
-            input3.setAttribute("name", "harga_satuan[]");
-            input3.setAttribute("id", "harga_satuan[]");
-            input3.setAttribute("placeholder", "Harga Satuan");
-            input3.setAttribute("readonly", true);
-            input3.setAttribute("disabled", true);
-
-            var input4 = document.createElement("input");
-            input4.setAttribute("type", "number");
-            input4.setAttribute("class", "form-control harga");
-            input4.setAttribute("name", "harga[]");
-            input4.setAttribute("id", "harga[]");
-            input4.setAttribute("placeholder", "Harga");
-            input4.setAttribute("readonly", true);
-            input4.setAttribute("disabled", true);
-        }
-
-        // const ids2 = document.querySelectorAll("tr > td:nth-child(2)");
-        // ids2.forEach((e, i) => {
-        //     e.innerHTML = ("<select class='form-control input-default' id='kategory_id[" + (i + 1) +
-        //         "]' name='kategory_id[" + (i + 1) + "]'><option value=" + 0 +
-        //         " selected disabled>Pilih Kategori</option>" + kategori +"</select>");
-        // });
-
-        // const ids3 = document.querySelectorAll("tr > td:nth-child(3)");
-        // ids3.forEach((e, i) => {
-        //     e.innerHTML = ("<select class='form-control input-default' id='item_id[" + (i + 1) +
-        //         "]' name='item_id[" + (i + 1) + "]'><option value=" + 0 +
-        //         " selected disabled>Pilih Pekerjaan</option></select>")
-        // });
-
-        // const ids4 = document.querySelectorAll("tr > td:nth-child(4)");
-        // ids4.forEach((e, i) => {
-        //     e.innerHTML = (
-        //         "<input type='number' class='form-control satuan @error('satuan') is-invalid @enderror' id='satuan[" +
-        //         (i + 1) + "]' name='satuan[" + (i + 1) + "]' placeholder='Satuan' readonly disabled>")
-        // });
-
-        // const ids5 = document.querySelectorAll("tr > td:nth-child(5)");
-        // ids5.forEach((e, i) => {
-        //     e.innerHTML = (
-        //         "<input type='number' class='form-control volume @error('volume') is-invalid @enderror' id='volume[" +
-        //         (i + 1) + "]' name='volume[" + (i + 1) + "]' placeholder='Volume' required>")
-        // });
-
-        // const ids6 = document.querySelectorAll("tr > td:nth-child(6)");
-        // ids6.forEach((e, i) => {
-        //     e.innerHTML = (
-        //         "<input type='number' class='form-control harga_satuan @error('harga_satuan') is-invalid @enderror' id='harga_satuan[" +
-        //         (i + 1) + "]' name='harga_satuan[" + (i + 1) +
-        //         "]' placeholder='Harga Satuan' readonly disabled>")
-        // });
-
-        // const ids7 = document.querySelectorAll("tr > td:nth-child(7)");
-        // ids7.forEach((e, i) => {
-        //     e.innerHTML = (
-        //         "<input type='number' class='form-control harga @error('harga') is-invalid @enderror' id='harga[" +
-        //         (i + 1) + "]' name='harga[" + (i + 1) + "]' placeholder='Harga' readonly disabled>")
-        // });
-    }
-
-
     var click = 0
     var nomor_tabel = 0
-
+    var k = 0
+    
     function updateform() {
-
+        
         var kontrak_induk = document.getElementById('kontrak_induk').value;
-
+        
         $.ajax({
             url: '/getKontrakInduk',
             type: "POST",
@@ -529,87 +396,174 @@
                 for (i = 0; i < response.length; i++) {
                     kategori += ("<option value='" + (i + 1) + "'>" + response[i].nama_kategori +
                         "</option>")
-                }
-                console.log(kategori);
-
-
+                }                    
+                
                 var table = document.getElementsByTagName("table")[0];
-                var nomor = document.getElementById("nomor").value = ++click;
-                click = click
+                click++;
+                console.log(click);
 
-                // var select1 = document.createElement("select");
-                // select1.innerHTML = "<option value='0' selected disabled>Pilih Kategori</option>" +
-                //     kategori + "";
-                // select1.setAttribute("id", "kategory_id[]");
-                // select1.setAttribute("name", "kategory_id[]");
-                // select1.setAttribute("class", "form-control input-default");
+                var select1 = document.createElement("select");
+                select1.innerHTML = "<option value='0' selected disabled>Pilih Kategori</option>" + kategori + "";
+                select1.setAttribute("id", "kategory_id["+click+"]");
+                select1.setAttribute("name", "kategory_id");
+                select1.setAttribute("class", "form-control input-default");
+                select1.setAttribute("onchange", "change_kategori(this)")
 
-                // var select2 = document.createElement("select");
-                // select2.innerHTML = "<option value='0' selected disabled>Pilih Pekerjaan</option>";
-                // select2.setAttribute("id", "item_id[]");
-                // select2.setAttribute("name", "item_id[]");
-                // select2.setAttribute("class", "form-control input-default");
+                var select2 = document.createElement("select");
+                select2.innerHTML = "<option value='0' selected disabled>Pilih Pekerjaan</option>";
+                select2.setAttribute("id", "item_id["+click+"]");
+                select2.setAttribute("name", "item_id");
+                select2.setAttribute("class", "form-control input-default");
 
-                // var input1 = document.createElement("input");
-                // input1.setAttribute("type", "number");
-                // input1.setAttribute("class", "form-control satuan");
-                // input1.setAttribute("name", "satuan[]");
-                // input1.setAttribute("id", "satuan[]");
-                // input1.setAttribute("placeholder", "Satuan");
-                // input1.setAttribute("readonly", true);
-                // input1.setAttribute("disabled", true);
+                var input1 = document.createElement("input");
+                input1.setAttribute("type", "number");
+                input1.setAttribute("class", "form-control satuan");
+                input1.setAttribute("id", "satuan["+click+"]");
+                input1.setAttribute("name", "satuan");
+                input1.setAttribute("placeholder", "Satuan");
+                input1.setAttribute("readonly", true);
+                input1.setAttribute("disabled", true);
 
-                // var input2 = document.createElement("input");
-                // input2.setAttribute("type", "number");
-                // input2.setAttribute("class", "form-control volume");
-                // input2.setAttribute("name", "volume[]");
-                // input2.setAttribute("id", "volume[]");
-                // input2.setAttribute("placeholder", "Volume");
-                // input2.setAttribute("required", true);
+                var input2 = document.createElement("input");
+                input2.setAttribute("type", "number");
+                input2.setAttribute("class", "form-control volume");
+                input2.setAttribute("id", "volume["+click+"]");
+                input2.setAttribute("name", "volume");
+                input2.setAttribute("placeholder", "Volume");
+                input2.setAttribute("required", true);
 
-                // var input3 = document.createElement("input");
-                // input3.setAttribute("type", "number");
-                // input3.setAttribute("class", "form-control harga_satuan");
-                // input3.setAttribute("name", "harga_satuan[]");
-                // input3.setAttribute("id", "harga_satuan[]");
-                // input3.setAttribute("placeholder", "Harga Satuan");
-                // input3.setAttribute("readonly", true);
-                // input3.setAttribute("disabled", true);
+                var input3 = document.createElement("input");
+                input3.setAttribute("type", "number");
+                input3.setAttribute("class", "form-control harga_satuan");
+                input3.setAttribute("id", "harga_satuan["+click+"]");
+                input3.setAttribute("name", "harga_satuan");
+                input3.setAttribute("placeholder", "Harga Satuan");
+                input3.setAttribute("readonly", true);
+                input3.setAttribute("disabled", true);
 
-                // var input4 = document.createElement("input");
-                // input4.setAttribute("type", "number");
-                // input4.setAttribute("class", "form-control harga");
-                // input4.setAttribute("name", "harga[]");
-                // input4.setAttribute("id", "harga[]");
-                // input4.setAttribute("placeholder", "Harga");
-                // input4.setAttribute("readonly", true);
-                // input4.setAttribute("disabled", true);
-
+                var input4 = document.createElement("input");
+                input4.setAttribute("type", "number");
+                input4.setAttribute("class", "form-control harga");
+                input4.setAttribute("id", "harga["+click+"]");
+                input4.setAttribute("name", "harga");
+                input4.setAttribute("placeholder", "Harga");
+                input4.setAttribute("readonly", true);
+                input4.setAttribute("disabled", true);
+                
                 var button = document.createElement("button");
                 button.innerHTML = "<i class='fa fa-trash'></i>";
                 button.setAttribute("onclick", "deleteRow(this)");
                 button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
-
-                var row = table.insertRow(1);
+                
+                var row = table.insertRow(-1);
                 var cell1 = row.insertCell(0);
-                // var cell2 = row.insertCell(1);
-                // var cell3 = row.insertCell(2);
-                // var cell4 = row.insertCell(3);
-                // var cell5 = row.insertCell(4);
-                // var cell6 = row.insertCell(5);
-                // var cell7 = row.insertCell(6);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                var cell6 = row.insertCell(5);
+                var cell7 = row.insertCell(6);
                 var cell8 = row.insertCell(7);
                 cell1.innerHTML = "1";
-                // cell2.appendChild(select1);
-                // cell3.appendChild(select2);
-                // cell4.appendChild(input1);
-                // cell5.appendChild(input2);
-                // cell6.appendChild(input3);
-                // cell7.appendChild(input4);
+                cell2.appendChild(select1);
+                cell3.appendChild(select2);
+                cell4.appendChild(input1);
+                cell5.appendChild(input2);
+                cell6.appendChild(input3);
+                cell7.appendChild(input4);
                 cell8.appendChild(button);
-
+                
                 reindex();
+
+
+
+                // var select_kategori = document.change("#tabelRAB tr td:nth-child(2)");
+                // var select_kategori_value = select_kategori.value;
+                // console.log(select_kategori);
+                // console.log(select_kategori_value);
+
+                // $(document).ready(function(){
+                //     $('#kategory_id[1]').change(function(){
+                //         // var kategory_id = $(this).val();
+                //         // console.log(kategory_id);
+                //         alert("Terklikji");
+                //     });
+                // });
+                // var kategory_id = document.getElementById('kategory_id[1]');
+                // var kategory_id_value = kategory_id.value;
+                // var kategory_id_text = kategory_id.options[kategory_id.selectedIndex].text;
+                // console.log(kategory_id_value);
+                // console.log(kategory_id_text);
             }
         });
     }
+
+    function deleteRow(r) {
+        var table = r.parentNode.parentNode.rowIndex;
+        document.getElementById("tabelRAB").deleteRow(table);
+        click--;
+
+        var select_id_kategori = document.querySelectorAll("#tabelRAB tr td:nth-child(2) select");
+        for(var i=0; i<select_id_kategori.length; i++) 
+        {
+            select_id_kategori[i].id = "kategory_id["+(i+1)+"]";
+        }
+
+        var select_id_item = document.querySelectorAll("#tabelRAB tr td:nth-child(3) select");
+        for(var i=0; i<select_id_item.length; i++) 
+        {
+            select_id_item[i].id = "item_id["+(i+1)+"]";
+        }
+        
+        var select_id_satuan = document.querySelectorAll("#tabelRAB tr td:nth-child(4) input");
+        for(var i=0; i<select_id_satuan.length; i++) 
+        {
+            select_id_satuan[i].id = "satuan["+(i+1)+"]";
+        }
+        
+        var select_id_volume = document.querySelectorAll("#tabelRAB tr td:nth-child(5) input");
+        for(var i=0; i<select_id_volume.length; i++) 
+        {
+            select_id_volume[i].id = "volume["+(i+1)+"]";
+        }
+        
+        var select_id_harga_satuan = document.querySelectorAll("#tabelRAB tr td:nth-child(6) input");
+        for(var i=0; i<select_id_harga_satuan.length; i++) 
+        {
+            select_id_harga_satuan[i].id = "harga_satuan["+(i+1)+"]";
+        }
+        
+        var select_id_harga = document.querySelectorAll("#tabelRAB tr td:nth-child(7) input");
+        for(var i=0; i<select_id_harga.length; i++) 
+        {
+            select_id_harga[i].id = "harga["+(i+1)+"]";
+        }
+
+        reindex();
+    }
+    
+    function reindex() {
+        const ids = document.querySelectorAll("tr > td:nth-child(1)");
+        ids.forEach((e, i) => {
+            e.innerHTML = "<strong id=nomor["+(i+1)+"] value="+(i+1)+">" + (i + 1) + "</strong>"
+            nomor_tabel = i+1;
+        });
+    }
+
+    function change_kategori(c) {
+        // alert("tes");
+        var change = c.parentNode.parentNode.rowIndex;
+        var kategory_id = document.getElementById("kategory_id["+change+"]");
+        var kategory_id_value = kategory_id.value;
+        // var kategory_id_text = kategory_id.options[kategory_id.selectedIndex].text;
+        // alert(kategory_id_text);
+    }
+
+    // jQuery(document).ready(function() {
+    //     jQuery('#kategory_id[1]').change(function(){
+    //         alert('Terklikji')
+    //         // let kategory_id = jQuery(this).val();
+    //         // console.log(kategory_id);
+    //     })
+    // });
 </script>
