@@ -131,9 +131,6 @@
                                                 <label class="text-label">Input No.PRK</label>
                                                 <select class="form-control input-default" id="prk_id" name="prk_id">
                                                     <option value="0" selected disabled>Pilih PRK</option>
-                                                    {{-- @foreach ($prks as $prk)
-                                                        <option value="{{ $prk->id }}">{{ $prk->no_prk }}</option>
-                                                    @endforeach --}}
                                                 </select>
                                             </div>
                                         </div>
@@ -176,8 +173,8 @@
                                             <div class="row">
                                                 <div class="table-responsive">
                                                     <table class="table table-responsive-sm height-100" id="tabelRAB">
-                                                        <thead class="">
-                                                            <tr>
+                                                        <thead>
+                                                            <tr class="">
                                                                 <th>No.</th>
                                                                 <th>Kategori Pekerjaan</th>
                                                                 <th>Pekerjaan</th>
@@ -221,18 +218,8 @@
                                                                 <th></th>
                                                                 <th></th>
                                                                 <th></th>
-                                                                <th></th>
-                                                                <th id="jumlah">Jumlah</th>
-                                                                <th></th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th id="pajak">PPN 11%</th>
+                                                                <th style="width: 204.73px">Jumlah:</th>
+                                                                <th style="width: 204.73px" id="jumlah"></th>
                                                                 <th></th>
                                                             </tr>
                                                             <tr>
@@ -241,8 +228,18 @@
                                                                 <th></th>
                                                                 <th></th>
                                                                 <th></th>
+                                                                <th style="width: 204.73px">PPN 11%:</th>
+                                                                <th style="width: 204.73px" id="pajak"></th>
                                                                 <th></th>
-                                                                <th id="total">Total Harga</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th style="width: 204.73px">Total Harga:</th>
+                                                                <th style="width: 204.73px" id="total"></th>
                                                                 <th></th>
                                                             </tr>
                                                         </tfoot>
@@ -343,39 +340,7 @@
                 }
             });
         })
-
-        // jQuery('#kontrak_induk').change(function(){
-        //     alert('Terklikji')
-            // let kategory_id = jQuery(this).val();
-            // console.log(kategory_id);
-        // })
-
-        // $('#item_id').change(function() {
-        //     let item_id = $(this).val();
-        //     $.ajax({
-        //         url: '/getItem',
-        //         type: 'POST',
-        //         data: 'item_id=' + item_id + '&_token={{ csrf_token() }}',
-        //         success: function(res) {
-        //             console.log(res);
-        //             $('#volume').val('1');
-        //             $('#harga').val(res.harga_satuan);
-        //             $('#harga_satuan').val(res.harga_satuan);
-        //         }
-        //     });
-        // });
-
-        // jQuery('#btnnext1').click(function(){
-        //     console.log('TES!!!');
-        // })
-
-
     });
-    // $(document).on('blur', '#volume', function() {
-    //     let volume = parseInt($(this).val())
-    //     let harga_satuan = parseInt($('#harga_satuan').val())
-    //     $('#harga').val(volume * harga_satuan)
-    // });
 </script>
 
 <script>
@@ -394,7 +359,7 @@
             success: function(response) {
                 var kategori = [""]
                 for (i = 0; i < response.length; i++) {
-                    kategori += ("<option value='" + (i + 1) + "'>" + response[i].nama_kategori +
+                    kategori += ("<option value='" + response[i].id + "'>" + response[i].nama_kategori +
                         "</option>")
                 }                    
                 
@@ -414,15 +379,18 @@
                 select2.setAttribute("id", "item_id["+click+"]");
                 select2.setAttribute("name", "item_id");
                 select2.setAttribute("class", "form-control input-default");
+                select2.setAttribute("onchange", "change_item(this)");
 
                 var input1 = document.createElement("input");
-                input1.setAttribute("type", "number");
+                input1.setAttribute("type", "text");
                 input1.setAttribute("class", "form-control satuan");
                 input1.setAttribute("id", "satuan["+click+"]");
                 input1.setAttribute("name", "satuan");
                 input1.setAttribute("placeholder", "Satuan");
+                input1.setAttribute("value", "");
                 input1.setAttribute("readonly", true);
                 input1.setAttribute("disabled", true);
+                input1.setAttribute("required", true);
 
                 var input2 = document.createElement("input");
                 input2.setAttribute("type", "number");
@@ -430,6 +398,8 @@
                 input2.setAttribute("id", "volume["+click+"]");
                 input2.setAttribute("name", "volume");
                 input2.setAttribute("placeholder", "Volume");
+                input2.setAttribute("value", "");
+                input2.setAttribute("onblur", "blur_volume(this)");
                 input2.setAttribute("required", true);
 
                 var input3 = document.createElement("input");
@@ -438,8 +408,10 @@
                 input3.setAttribute("id", "harga_satuan["+click+"]");
                 input3.setAttribute("name", "harga_satuan");
                 input3.setAttribute("placeholder", "Harga Satuan");
+                input3.setAttribute("value", "");
                 input3.setAttribute("readonly", true);
                 input3.setAttribute("disabled", true);
+                input3.setAttribute("required", true);
 
                 var input4 = document.createElement("input");
                 input4.setAttribute("type", "number");
@@ -447,8 +419,10 @@
                 input4.setAttribute("id", "harga["+click+"]");
                 input4.setAttribute("name", "harga");
                 input4.setAttribute("placeholder", "Harga");
+                input4.setAttribute("value", "");
                 input4.setAttribute("readonly", true);
                 input4.setAttribute("disabled", true);
+                input4.setAttribute("required", true);
                 
                 var button = document.createElement("button");
                 button.innerHTML = "<i class='fa fa-trash'></i>";
@@ -474,26 +448,6 @@
                 cell8.appendChild(button);
                 
                 reindex();
-
-
-
-                // var select_kategori = document.change("#tabelRAB tr td:nth-child(2)");
-                // var select_kategori_value = select_kategori.value;
-                // console.log(select_kategori);
-                // console.log(select_kategori_value);
-
-                // $(document).ready(function(){
-                //     $('#kategory_id[1]').change(function(){
-                //         // var kategory_id = $(this).val();
-                //         // console.log(kategory_id);
-                //         alert("Terklikji");
-                //     });
-                // });
-                // var kategory_id = document.getElementById('kategory_id[1]');
-                // var kategory_id_value = kategory_id.value;
-                // var kategory_id_text = kategory_id.options[kategory_id.selectedIndex].text;
-                // console.log(kategory_id_value);
-                // console.log(kategory_id_text);
             }
         });
     }
@@ -539,6 +493,32 @@
             select_id_harga[i].id = "harga["+(i+1)+"]";
         }
 
+        if(click == 0)
+        {
+            document.getElementById("jumlah").innerHTML = "";
+            document.getElementById("pajak").innerHTML = "";
+            document.getElementById("total").innerHTML = "";
+        } else
+        {
+            var total_harga = [];
+    
+            for(var i = 0; i < click; i++)
+            {
+                total_harga[i] = document.getElementById("harga["+(i+1)+"]").value;
+                total_harga[i] = parseInt(total_harga[i])
+            }
+    
+            const total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all;
+            var ppn = total_harga_all * 11 / 100;
+            ppn = Math.round(ppn);
+            document.getElementById("pajak").innerHTML = "Rp. " + ppn;
+            var total = total_harga_all + ppn;
+            total = Math.round(total);
+            document.getElementById("total").innerHTML = "Rp. " + total;
+        }
+
+
         reindex();
     }
     
@@ -551,19 +531,60 @@
     }
 
     function change_kategori(c) {
-        // alert("tes");
         var change = c.parentNode.parentNode.rowIndex;
-        var kategory_id = document.getElementById("kategory_id["+change+"]");
-        var kategory_id_value = kategory_id.value;
-        // var kategory_id_text = kategory_id.options[kategory_id.selectedIndex].text;
-        // alert(kategory_id_text);
+        var kategory_id = document.getElementById("kategory_id["+change+"]").value;
+
+        $.ajax({
+            url: '/getCategory',
+            type: "POST",
+            data: 'kategory_id=' + kategory_id + '&_token={{ csrf_token() }}',
+            success: function(response){
+                var item_id = document.getElementById("item_id["+change+"]");
+                item_id.innerHTML = response;
+                document.getElementById("satuan["+change+"]").value = "";
+                document.getElementById("volume["+change+"]").value = "";
+                document.getElementById("harga_satuan["+change+"]").value = "";
+                document.getElementById("harga["+change+"]").value = "";
+            }
+        })
     }
 
-    // jQuery(document).ready(function() {
-    //     jQuery('#kategory_id[1]').change(function(){
-    //         alert('Terklikji')
-    //         // let kategory_id = jQuery(this).val();
-    //         // console.log(kategory_id);
-    //     })
-    // });
+    function change_item(c) {
+        var change = c.parentNode.parentNode.rowIndex;
+        var item_id = document.getElementById("item_id["+change+"]").value;
+
+        $.ajax({
+            url: '/getItem',
+            type: "POST",
+            data: 'item_id=' + item_id + '&_token={{ csrf_token() }}',
+            success: function(response){
+                document.getElementById("satuan["+change+"]").value = response.satuan;
+                document.getElementById("harga_satuan["+change+"]").value = response.harga_satuan;
+            }
+        })
+    }
+
+    function blur_volume(c) {
+        var change = c.parentNode.parentNode.rowIndex;
+        var volume = document.getElementById("volume["+change+"]").value;
+        var harga_satuan = document.getElementById("harga_satuan["+change+"]").value;
+        document.getElementById("harga["+change+"]").value = volume * harga_satuan;
+
+        var total_harga = [];
+
+        for(var i = 0; i < click; i++)
+        {
+            total_harga[i] = document.getElementById("harga["+(i+1)+"]").value;
+            total_harga[i] = parseInt(total_harga[i])
+        }
+
+        const total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all;
+        var ppn = total_harga_all * 11 / 100;
+        ppn = Math.round(ppn);
+        document.getElementById("pajak").innerHTML = "Rp. " + ppn;
+        var total = total_harga_all + ppn;
+        total = Math.round(total);
+        document.getElementById("total").innerHTML = "Rp. " + total;
+    }
 </script>

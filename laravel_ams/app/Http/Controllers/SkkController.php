@@ -87,15 +87,6 @@ class SKKController extends Controller
             'active1' => 'Edit SKK',
             'skk' => $skk,
         ]);
-
-        // return view('skk.edit', [
-
-        //     'skk' => $sKK,
-        //     'title' => 'SKK',
-        //     'active' => 'SKK ',
-        //     'active1' => 'Edit SKK ',
-        //     'skks' => Skk::all(),
-        // ]);
     }
 
     /**
@@ -122,29 +113,6 @@ class SKKController extends Controller
 
         $input = $request->all();
         $skk->update($input);
-
-
-        // $rules = [
-
-        //     'nomor_skk' => 'required|max:250',
-        //     'uraian_skk' => 'required|max:250',
-        //     'pagu_skk' => 'required|max:250',
-        //     'skk_terkontrak' => 'required|max:250',
-        //     'skk_realisasi' => 'required|max:250',
-        //     'skk_terbayar' => 'required|max:250',
-        //     'skk_sisa' => 'required|max:250',
-
-        // ];
-        // $skk->update([
-
-        //     'nomor_skk' => $request['nomor_skk'],
-        //     'uraian_skk' => $request['uraian_skk'],
-        //     'pagu_skk' => $request['pagu_skk'],
-        //     'skk_terkontrak' => $request['skk_terkontrak'],
-        //     'skk_realisasi' => $request['skk_realisasi'],
-        //     'skk_terbayar' => $request['skk_terbayar'],
-        //     'skk_sisa' => $request['skk_sisa'],
-        // ]);
 
         return redirect('/skk')->with('status', 'Skk Berhasil Diedit.');
     }
@@ -176,23 +144,23 @@ class SKKController extends Controller
         echo $html;
     }
 
+    public function getKontrakInduk(Request $request)
+    {
+        $khs_id = $request->post('kontrak_induk');
+        $nama_kategori = DB::table('item_rincian_induks')->where('khs_id', $khs_id)->get();
+        return response()->json($nama_kategori);
+    }
+    
     public function getCategory(Request $request)
     {
         $kategory_id = $request->post('kategory_id');
-        $nama_item = DB::table('rincian_induks')->where('kontraks_id',$kategory_id)->orderBy('nama_item')->get();
+        $nama_item = DB::table('rincian_induks')->where('kategori_id',$kategory_id)->get();
 
         $html = '<option value="0" selected disabled>Pilih Pekerjaan</option>';
         foreach($nama_item as $item){
             $html.='<option value="'.$item->id.'">'.$item->nama_item.'</option>';
         }
         echo $html;
-    }
-
-    public function getKontrakInduk(Request $request)
-    {
-        $khs_id = $request->post('kontrak_induk');
-        $nama_kategori = DB::table('item_rincian_induks')->where('khs_id', $khs_id)->get();
-        return response()->json($nama_kategori);
     }
 
     public function getItem(Request $request)
