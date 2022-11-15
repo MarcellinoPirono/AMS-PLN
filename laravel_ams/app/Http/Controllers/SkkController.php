@@ -46,11 +46,12 @@ class SKKController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
 
             'nomor_skk' => 'required|max:250',
             'uraian_skk' => 'required|max:250',
-            'pagu_skk' => 'required|max:250|numeric',
+            'pagu_skk' => 'required|max:250',
             'skk_terkontrak' => 'required|max:250',
             'skk_realisasi' => 'required|max:250',
             'skk_terbayar' => 'required|max:250',

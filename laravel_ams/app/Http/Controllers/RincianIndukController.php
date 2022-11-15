@@ -7,6 +7,7 @@ use App\Models\ItemRincianInduk;
 use \Http\Resources\RincianIndukResource;
 use App\Http\Requests\StoreRincianIndukRequest;
 use App\Http\Requests\UpdateRincianIndukRequest;
+use App\Models\Khs;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,41 +22,46 @@ class RincianIndukController extends Controller
      */
     public function index(Request $request)
     {
-
-       
-
-        // $items = DB::table('rincian_induks')
-        //     ->leftJoin('item_rincian_induks', 'rincian_induks.kontraks_id', '=', 'item_rincian_induks.id')
-        //     ->get();
-
-        // return view('rincian.index', compact('items'), [
-        //     'title' => 'Item Kontrak Induk',
-        // ]);
-
         $itemRincian  = ItemRincianInduk::get();
-        return view('rincian.index', [
-            'title' => 'Rincian Item',
-            'items' => RincianInduk::orderBy('id', 'DESC')->get(),
-            'kategori' => $itemRincian
+        return view('khs.detail_khs.item_khs.item_khs', [
+            'title' => 'Item KHS',
+            'items' => RincianInduk::orderBy('id', 'DESC')->get(),            
+            'kategori' => $itemRincian, 
         ]);
     }
+
+     public function jenis_khs(Request $request)
+    {
+        $jenis_khs = $request->jenis_khs;
+        $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
+
+        return view('khs.detail_khs.item_khs.item_khs', [
+            'title' => 'Item KHS '. $jenis_khs.'',
+            'items' => RincianInduk::where('khs_id', $khs_id)->get(),
+            'jenis_khs' => $jenis_khs
+        ]);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        // $items = DB::select('SELECT * FROM rincian_induks LEFT JOIN item_rincian_induks ON rincian_induks.kontraks_id = item_rincian_induks.id');
+        // dd($request->jenis_khs);
+        $jenis_khs = $request->jenis_khs;
 
         return view(
-            'rincian.create',
+            'khs.detail_khs.item_khs.buat_item_khs',
             [
-                'title' => 'Item Kontrak Induk',
-                'active' => 'Rincian Item',
-                'active1' => 'Tambah Rincian Item',
+                'title' => 'Item KHS ' . $jenis_khs . '',
+                'active' => 'Item KHS',
+                'active1' => 'Tambah ' . $jenis_khs . '',
                 'items' => ItemRincianInduk::all(),
+                'jenis_khs'=> $jenis_khs
             ]
         );
     }
@@ -68,17 +74,32 @@ class RincianIndukController extends Controller
      */
     public function store(StoreRincianIndukRequest $request)
     {
-        // dd($request->all());
+        // dd($request);
+        $jenis_khs = $request->khs_id;
+        // dd($jenis_khs);
+        $khs_id = Khs::select('id')->where('jenis_khs', $jenis_khs)->get();
+        // dd($khs_id[0]->id);
+        $request->khs_id = $khs_id[0]->id;
+
+        dd($request);
+
         $validatedData = $request->validate([
 
-            'nama_item' => 'required|max:250|unique:rincian_induks,nama_item',
+            'khs_id' => 'required',
+            'nama_item' => 'required|max:250',
+            // 'kategori' => 'required',
             'satuan' => 'required',
-            'kategori_id' => 'required',
-            'harga_satuan' => 'required|numeric',
+            'harga_satuan' => 'required',
 
         ]);
+
+
+
+
+
+        
         RincianInduk::create($validatedData);
-        return redirect('/rincian')->with('success', 'Post has been edited');
+        return redirect('/menu-item-khs')->with('success', 'Item KHS Berhasil Ditambahkan');
     }
 
     /**
@@ -110,7 +131,7 @@ class RincianIndukController extends Controller
             'active1' => 'Edit Rincian Item',
             'categories'    => ItemRincianInduk::orderBy('id', 'DESC')->get(),
         ];
-        return view('rincian.edit', $data);
+        return view('khs.detail_khs.item_khs.edit_item_khs', $data);
 
         // // return $rincianInduk;
         // $items = RincianInduk::findOrFail($id);

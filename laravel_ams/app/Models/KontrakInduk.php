@@ -13,4 +13,9 @@ class KontrakInduk extends Model
     {
         return $this->belongsTo(Khs::class, 'khs_id');
     }
+
+    public function addendums()
+    {
+        return $this->hasMany(Addendum::class, 'kontrak_induk_id', 'id');
+    }
 }

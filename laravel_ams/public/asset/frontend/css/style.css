@@ -839,6 +839,7 @@ pre code {
 .col-auto,
 .col-sm-1,
 .col-sm-2,
+.col-sm-25,
 .col-sm-3,
 .col-sm-4,
 .col-sm-5,
@@ -1170,6 +1171,11 @@ pre code {
     .col-sm-2 {
         flex: 0 0 16.6666666667%;
         max-width: 16.6666666667%;
+    }
+
+    .col-sm-25 {
+        flex: 0 0 18.6666666667%;
+        max-width: 18.6666666667%;
     }
 
     .col-sm-3 {

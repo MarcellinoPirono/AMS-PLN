@@ -13,7 +13,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Pemasangan SP 1 Fasa</p>
+                                    <p class="fs-14 mb-2">KHS yang sudah terbit</p>
                                     
                                     <span class="title text-black font-w600">123</span>
                                     
@@ -37,7 +37,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Pemasangan/Penarikan SP 3 Fasa</p>
+                                    <p class="fs-14 mb-2">Capaian Seluruh kontrak KHS dan Non</p>
                                     <span class="title text-black font-w600">241</span>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Pembongkaran</p>
+                                    <p class="fs-14 mb-2">Jumlah Kontrak</p>
                                     <span class="title text-black font-w600">433</span>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Pemeliharaan</p>
+                                    <p class="fs-14 mb-2">Jumlah</p>
                                     <span class="title text-black font-w600">271</span>
                                 </div>
                             </div>

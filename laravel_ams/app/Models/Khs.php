@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Khs extends Model
 {
     use HasFactory;
+    protected $guarded = [''];
 
     public function kontrak_induks()
     {
@@ -19,8 +20,13 @@ class Khs extends Model
         return $this->hasMany(ItemRincianInduk::class, 'khs_id');
     }
 
-    // public function rincian_induks()
+    // public function item_rincian_induks()
     // {
-    //     return $this->hasMany(RincianInduk::class, 'khs_id');
+    //     return $this->hasMany(ItemRincianInduk::class, 'khs_id');
     // }
+
+    public function rincian_induks()
+    {
+        return $this->hasMany(RincianInduk::class, 'kategori_id');
+    }
 }

@@ -10,7 +10,14 @@ use App\Http\Controllers\PrkController;
 use App\Http\Controllers\SkkController;
 use App\Http\Controllers\RincianIndukController;
 use App\Http\Controllers\HpeController;
+use App\Http\Controllers\JenisKhsController;
+use App\Http\Controllers\KontrakIndukController;
+use App\Http\Controllers\KhsController;
 use App\Http\Controllers\PdfkhsController;
+use App\Http\Controllers\VendorController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\AddendumController;
+use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,10 +41,31 @@ Route::get('/dashboard', [MainController::class, 'index']);
 Route::get('/login', [LoginController::class, 'login']);
 
 Route::resource('categories', ItemRincianIndukController::class);
-
 Route::get('/search-categories', [ItemRincianIndukController::class, 'searchcategories']);
 
-Route::resource('rincian', RincianIndukController::class);
+
+//KHS
+Route::get('item-khs/{jenis_khs}', [RincianIndukController::class, 'jenis_khs']);
+Route::get('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'create']);
+Route::post('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'store']);
+
+Route::resource('item-khs', RincianIndukController::class);
+        
+Route::resource('jenis-khs', KhsController::class);
+Route::get('/search-jenis-khs', [KhsController::class, 'searchjeniskhs']);
+
+
+Route::resource('vendor-khs', VendorController::class);
+Route::resource('kontrak-induk-khs', KontrakIndukController::class);
+Route::resource('addendum-khs', AddendumController::class);
+// Route::post('getNoKontrakInduk', [AddendumController::class, 'getNoKontrakInduk']);
+// Route::resource('addendum-khs ', AddendumController::class);
+
+
+//MENU
+Route::get('/menu-item-khs', [MenuController::class, 'MenuItemKHS']);
+
+
 Route::any('rincian/filter', [RincianIndukController::class, 'filter']);
 Route::get('/search-rincian', [RincianIndukController::class, 'searchRincian']);
 

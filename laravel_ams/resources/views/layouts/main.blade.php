@@ -181,22 +181,9 @@
                             <span class="nav-text">Dashboard</span>
                         </a>
                     </li>
+
                     <h5>
-                        <p class="fs-12 ml-3 mt-3 mb-3 text-black">Rincian Pekerjaan</p>
-                    </h5>
-                    <li>
-                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="flaticon-381-notepad-2"></i>
-                            <span class="nav-text">Rincian Pekerjaan</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a class="" href="/categories">Kategori</a></li>
-                            <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
-                                    href="/rincian">Item</a></li>
-                        </ul>
-                    </li>
-                    <h5>
-                        <p class="fs-12 ml-3 mt-3 mb-3 text-black">Anggaran</p>
+                        <p class="fs-12 ml-3 mt-4 mb-1 text-black">Anggaran</p>
                     </h5>
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -204,14 +191,117 @@
                             <span class="nav-text">SKK/PRK </span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="nav-link {{ Request::is('spkk*') ? 'active' : '' }}" href="/skk">SKK</a>
+                            <li><a class="nav-link {{ Request::is('spkk*') ? 'active' : '' }}"
+                                    href="/skk"><strong>SKK</strong></a>
                             </li>
-                            <li><a class="nav-link {{ Request::is('prk*') ? 'active' : '' }}" href="/prk">PRK</a>
+                            <li><a class="nav-link {{ Request::is('prk*') ? 'active' : '' }}"
+                                    href="/prk"><strong>PRK</strong></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <h5>
+                        <p class="fs-12 ml-3 mt-4 mb-1 text-black">KHS</p>
+                    </h5>
+                    <li>
+                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-notepad-2"></i>
+                            <span class="nav-text">KHS</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/khs">
+                                    <strong>Buat PO</strong>
+                                </a>
+                            </li>
+                            {{-- <li>
+                                <a class="nav-link {{ Request::is('detailkhs*') ? 'active' : '' }}" href="/detailkhs">
+                                    Vendor KHS
+                                </a>
+                            </li> --}}
+                            <li>
+                                <a class="has-arrow ai-icon nav-link {{ Request::is('detailkhs*') ? 'active' : '' }}"
+                                    href="javascript:void()">
+                                    <strong>Detail KHS</strong>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <!-- <li><a class="" href="/categories">Kategori</a></li> -->
+                                    <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
+                                            href="/jenis-khs">&ensp; &ensp; Jenis KHS</a></li>
+                                    <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
+                                            href="/vendor-khs">&ensp; &ensp; Vendor KHS</a></li>
+                                    <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
+                                            href="/menu-item-khs">&ensp; &ensp; Item KHS</a></li>
+                                    <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
+                                            href="/kontrak-induk-khs">&ensp; &ensp; Kontrak Induk KHS</a></li>
+                                    <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
+                                            href="/addendum-khs">&ensp; &ensp; Addendum KHS</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <h5>
+                        <p class="fs-12 ml-3 mt-4 mb-1 text-black">PO Non KHS</p>
+                    </h5>
+                    <li>
+                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-notepad-2"></i>
+                            <span class="nav-text">PO Non KHS</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/pokhs">
+                                    <strong>Buat PO</strong>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="has-arrow ai-icon nav-link {{ Request::is('detailkhs*') ? 'active' : '' }}"
+                                    href="javascript:void()">
+                                    <strong>Detail Non KHS</strong>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <!-- <li><a class="" href="/categories">Kategori</a></li> -->
+                                    <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
+                                            href="/rincian">Vendor Non KHS</a></li>
+                                    <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
+                                            href="/rincian">Addendum Non KHS</a></li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
                     <h5>
-                        <p class="fs-12 ml-3 mt-3 mb-1 text-black"> Buat Kontrak (PO)</p>
+                        <p class="fs-12 ml-3 mt-4 mb-1 text-black">Non PO</p>
+                    </h5>
+                    <li>
+                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-notepad-2"></i>
+                            <span class="nav-text">Non PO</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/pokhs">
+                                    <strong>Buat PO</strong>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="has-arrow ai-icon nav-link {{ Request::is('detailkhs*') ? 'active' : '' }}"
+                                    href="javascript:void()">
+                                    <strong>Detail Non PO</strong>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <!-- <li><a class="" href="/categories">Kategori</a></li> -->
+                                    <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
+                                            href="/rincian">Vendor Non PO</a></li>
+                                    <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
+                                            href="/rincian">Addendum Non PO</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <h5>
+                        <p class="fs-12 ml-3 mt-4 mb-1 text-black"> Buat Kontrak (PO)</p>
                     </h5>
                     <li>
                         <a class="nav-link {{ Request::is('khs*') ? 'active' : '' }}" href="/khs"
@@ -221,7 +311,7 @@
                         </a>
                     </li>
                     <h5>
-                        <p class="fs-12 ml-3 mt-3 mb-1 text-black">Harga HPE</p>
+                        <p class="fs-12 ml-3 mt-4 mb-1 text-black">Harga HPE</p>
                     </h5>
                     <li>
                         <a class="nav-link {{ Request::is('hpe*') ? 'active' : '' }}" href="/hpe"
@@ -233,7 +323,7 @@
                 </ul>
                 <div class="add-menu-sidebar" id="products">
                     <img src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt=""
-                        class="mr-3" />
+                        class="mr-3" /> 
                     <p class="font-w500 mb-0" id="reload" name="reload">{{ date('j F Y H:i:s') }} </p>
                 </div>
             </div>
@@ -371,11 +461,11 @@
             },
         });
 
-        $(document).ready(function() {
-            setInterval(function() {
-                $('#reload').load(window.location.href + " #reload");
-            }, 1000);
-        });
+        // $(document).ready(function() {
+        //     setInterval(function() {
+        //         $('#reload').load(window.location.href + " #reload");
+        //     }, 1000);
+        // });
 
         // var fixmeTop = $('.fixme').offset().top;
         // $(window).scroll(function() {
@@ -394,7 +484,7 @@
         // });
     </script>
 
-    <script>
+    <!-- <script>
         $("input").on("change", function() {
             this.setAttribute(
                 "data-date",
@@ -402,7 +492,7 @@
                 .format(this.getAttribute("data-date-format"))
             )
         }).trigger("change")
-    </script>
+    </script> -->
 
     @yield('ajax')
     <!-- Summernote -->

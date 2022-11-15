@@ -22,8 +22,9 @@ class RincianInduk extends Model
     {
         return $this->hasMany(Rab::class, 'item_id', 'id');
     }
-    // public function khs()
-    // {
-    //     return $this->belongsTo(Khs::class, 'khs_id');
-    // }
+  
+    public function khs()
+    {
+        return $this->belongsTo(Khs::class, 'khs_id');
+    }
 }

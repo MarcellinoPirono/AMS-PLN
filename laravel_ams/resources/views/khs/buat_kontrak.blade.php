@@ -18,21 +18,18 @@
                 <div class="card-body">
                     <div id="smartwizard" class="form-wizard order-create">
                         <ul class="nav nav-wizard">
-                            <li><a class="nav-link" href="#informasi_umum">
+                            <li><a class="nav-link" href="#wizard_Service">
                                     <span>1</span>
                                 </a></li>
-                            <li><a class="nav-link" href="#daftar_rab">
+                            <li><a class="nav-link" href="#wizard_Item">
                                     <span>2</span>
                                 </a></li>
-                            <li><a class="nav-link" href="#redaksi">
+                            <li><a class="nav-link" href="#wizard_Details">
                                     <span>3</span>
-                                </a></li>
-                            <li><a class="nav-link" href="#isi_kontrak">
-                                    <span>4</span>
                                 </a></li>
                         </ul>
                         <div class="tab-content tab-flex">
-                            <div id="informasi_umum" class="tab-pane" role="tabpanel">
+                            <div id="wizard_Service" class="tab-pane" role="tabpanel">
                                 <div method="POST" action="/rab" class="" enctype="multipart/form-data"
                                     class="basic-form">
                                     @csrf
@@ -166,12 +163,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="daftar_rab" class="tab-pane" role="tabpanel">
+                            <div id="wizard_Item" class="tab-pane" role="tabpanel">
                                 <div class="row">
                                     <div class="col-xl-12 col-xxl-12">
                                         <div class="card">
                                             <div class="card-header justify-content-center">
-                                                <h4 class="card-title">Daftar RAB</h4>
+                                                <h4 class="card-title">Belanja Pekerjaan</h4>
                                             </div>
                                             <div class="row">
                                                 <div class="table-responsive">
@@ -253,62 +250,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="redaksi" class="tab-pane" role="tabpanel">
-                                <div class="row">
-                                    <div class="col-xl-12 col-xxl-12">
-                                        <div class="card">
-                                            <div class="card-header justify-content-center">
-                                                <h4 class="card-title">Daftar RAB</h4>
-                                            </div>
-                                            <div class="row">
-                                                <div class="table-responsive">
-                                                    <table class="table table-responsive-sm height-100" id="tabelRAB">
-                                                        <thead>
-                                                            <tr class="">
-                                                                <th>No.</th>
-                                                                <th>Redaksi</th>
-                                                                <th>Deskripsi</th>
-                                                                <!-- <th>Satuan</th>
-                                                                <th>Volume</th>
-                                                                <th>Harga Satuan</th>
-                                                                <th>Harga Total</th> -->
-                                                                <th>Aksi</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="tbody-kategori">
-                                                        </tbody>
-
-                                                    </table>
-                                                    <div class="col-lg-12 mb-2">
-                                                        <div class="position-relative justify-content-end float-left">
-                                                            <a type="button" id="tambah-pekerjaan"
-                                                                class="btn btn-primary position-relative justify-content-end"
-                                                                onclick="updateform()">Tambah</a>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <table class="table table-responsive-sm height-100" id="tabelRAB1">
-                                                        <thead>
-                                                            <tr>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                            </tr>
-                                                        </thead>                                                        
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="isi_kontrak" class="tab-pane" role="tabpanel">
+                            <div id="wizard_Details" class="tab-pane" role="tabpanel">
                                 <div class="row">
                                     <div class="col-xl-12 col-xxl-12">
                                         <div class="card">
