@@ -17,7 +17,7 @@ class KhsController extends Controller
     {
         return view('khs.detail_khs.jenis_khs.jenis_khs', [
             'title' => 'Jenis KHS',
-            'khss' => Khs::all(),
+            'khss' => Khs::paginate(10),
         ]);
         
     }
@@ -137,13 +137,16 @@ class KhsController extends Controller
         $output ="";
 
 
-        $khss = Khs::where('jenis_khs', 'LIKE', '%'. $request->search.'%')->orWhere('nama_pekerjaan', 'LIKE', '%' . $request->search . '%')->get();
+        $khss = Khs::where('jenis_khs', 'LIKE', '%'. $request->search.'%')->orWhere('nama_pekerjaan', 'LIKE', '%' . $request->search . '%')->paginate(2);
+
+        $nomor = 0;
 
        foreach($khss as $khs){
+        $nomor = $nomor + 1;
         $output.=
             '<tr>
             <input type="hidden" class="delete_id" value='. $khs->id .'>
-            <td>#</td>
+            <td>'. $nomor.'</td>
             <td>'. $khs->jenis_khs.' </td>
             <td>'. $khs->nama_pekerjaan.' </td>
             <td>'. ' 

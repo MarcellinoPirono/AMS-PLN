@@ -31,10 +31,12 @@
         rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    {{-- <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" /> --}}
 
-
+    <!-- Pickdate -->
+    <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/pickadate/themes/default.css">
+    <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/pickadate/themes/default.date.css">
 
     <!-- Summernote -->
     <link href="{{ asset('/') }}./asset/frontend/vendor/summernote/summernote.css" rel="stylesheet">
@@ -205,12 +207,12 @@
                     </h5>
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="flaticon-381-notepad-2"></i>
+                            <i class="bi bi-file-earmark-spreadsheet"></i>
                             <span class="nav-text">KHS</span>
                         </a>
                         <ul aria-expanded="false">
                             <li>
-                                <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/khs">
+                                <a class="nav-link {{ Request::is('po-khs*') ? 'active' : '' }}" href="/po-khs">
                                     <strong>Buat PO</strong>
                                 </a>
                             </li>
@@ -246,7 +248,7 @@
                     </h5>
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="flaticon-381-notepad-2"></i>
+                            <i class="bi bi-journal-text"></i>
                             <span class="nav-text">PO Non KHS</span>
                         </a>
                         <ul aria-expanded="false">
@@ -275,7 +277,7 @@
                     </h5>
                     <li>
                         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="flaticon-381-notepad-2"></i>
+                            <i class="bi bi-journal-bookmark-fill"></i>
                             <span class="nav-text">Non PO</span>
                         </a>
                         <ul aria-expanded="false">
@@ -304,7 +306,7 @@
                         <p class="fs-12 ml-3 mt-4 mb-1 text-black"> Buat Kontrak (PO)</p>
                     </h5>
                     <li>
-                        <a class="nav-link {{ Request::is('khs*') ? 'active' : '' }}" href="/khs"
+                        <a class="nav-link {{ Request::is('khs*') ? 'active' : '' }}" href="/po-khs"
                             aria-expanded="">
                             <i class="flaticon-381-notebook-2"></i>
                             <span class="nav-text">Buat Kontrak</span>
@@ -323,7 +325,7 @@
                 </ul>
                 <div class="add-menu-sidebar" id="products">
                     <img src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt=""
-                        class="mr-3" /> 
+                        class="mr-2" />
                     <p class="font-w500 mb-0" id="reload" name="reload">{{ date('j F Y H:i:s') }} </p>
                 </div>
             </div>
@@ -376,7 +378,7 @@
         <div class="footer">
             <div class="copyright">
                 <p>Copyright © Designed &amp; Developed by <a href="https://www.youtube.com/" target="_blank">....</a>
-                    2099</p>
+                    2022</p>
             </div>
         </div>
         <!--**********************************
@@ -428,14 +430,14 @@
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/jquery.validate-init.js"></script>
     {{-- <script src="{{ asset('/') }}./asset/frontend/js/tambah-field.js"></script> --}}
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    {{-- <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script> --}}
 
     {{-- <script src="{{ asset('/') }}./asset/frontend/js/cascading-dropdown.js"></script> --}}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"
         integrity="sha512-jTgBq4+dMYh73dquskmUFEgMY5mptcbqSw2rmhOZZSJjZbD2wMt0H5nhqWtleVkyBEjmzid5nyERPSNBafG4GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 
     <script>
         document.getElementById("wrap").addEventListener("scroll", function() {
@@ -484,6 +486,8 @@
         // });
     </script>
 
+
+
     <!-- <script>
         $("input").on("change", function() {
             this.setAttribute(
@@ -494,11 +498,22 @@
         }).trigger("change")
     </script> -->
 
+    
+
+
     @yield('ajax')
     <!-- Summernote -->
     <script src="{{ asset('/') }}./asset/frontend/vendor/summernote/js/summernote.min.js"></script>
     <!-- Summernote init -->
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/summernote-init.js"></script>
+
+    <!-- pickdate -->
+    <script src="{{ asset('/') }}./asset/frontend/vendor/pickadate/picker.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/vendor/pickadate/picker.time.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/vendor/pickadate/picker.date.js"></script>
+
+    <!-- Pickdate -->
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/pickadate-init.js"></script>
 
     {{-- <script src="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert.init.js"></script>

@@ -103,7 +103,7 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">End Date</label>
-                                                <input type="date" data-date="" data-date-format="DD/MM/YYYY"
+                                                <input type="date" data-date="" data-date-format="DD/MM/YYYY" id="datepicker"
                                                     class="form-control @error('endDate') is-invalid @enderror"
                                                     name="endDate" id="endDate" placeholder="End Date" required autofocus
                                                     value="{{ old('endDate') }}">

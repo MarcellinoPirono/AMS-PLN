@@ -9,4 +9,9 @@ class Vendor extends Model
 {
     use HasFactory;
     protected $guarded = [''];
+
+    public function kontrak_induks()
+    {
+        return $this->hasMany(KontrakInduk::class, 'vendor_id', 'id');
+    }
 }

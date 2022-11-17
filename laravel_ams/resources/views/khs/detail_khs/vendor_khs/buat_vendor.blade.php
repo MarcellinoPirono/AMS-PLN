@@ -29,7 +29,7 @@
                                 @enderror
                             </div>                            
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default  @error('nama_direktur') is-invalid @enderror" placeholder="Nomor Kontrak Induk" name="nama_direktur" id="nama_direktur" required autofocus value="{{ old('nama_direktur') }}">
+                                <input type="text" class="form-control input-default  @error('nama_direktur') is-invalid @enderror" placeholder="Nama Direktur" name="nama_direktur" id="nama_direktur" required autofocus value="{{ old('nama_direktur') }}">
                                     @error('nama_direktur')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -69,7 +69,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default  @error('no_rek_2') is-invalid @enderror" placeholder="Nomor Rekening 12" name="no_rek_2" id="no_rek_2" required autofocus value="{{ old('no_rek_2') }}">
+                                <input type="text" class="form-control input-default  @error('no_rek_2') is-invalid @enderror" placeholder="Nomor Rekening 2" name="no_rek_2" id="no_rek_2" required autofocus value="{{ old('no_rek_2') }}">
                                 @error('no_rek_2')
                                     <div class="invalid-feedback">
                                         {{ $message }}

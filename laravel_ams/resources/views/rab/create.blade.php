@@ -3,8 +3,8 @@
 @section('content')
     <div class="page-titles">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">{{ $active }}</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $active1 }}</a></li>
+            <li class="breadcrumb-item"><a href="/khs">{{ $active }}</a></li>
+            <li class="breadcrumb-item active"><a href="">{{ $active1 }}</a></li>
         </ol>
     </div>
 
@@ -57,10 +57,23 @@
                                                     name="kontrak_induk">
                                                     <option value="0" selected disabled>No. Kontrak Induk</option>
                                                     @foreach ($kontraks as $kontrak)
-                                                        <option value="{{ $kontrak->khs_id }}">
+                                                        <option value="{{ $kontrak->khs_id }}">{{ $kontrak->khs->jenis_khs }} - 
                                                             {{ $kontrak->nomor_kontrak_induk }}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <div class="form-group">
+                                                <label class="text-label">No. Addendum</label>
+                                                <input type="text" class="form-control @error('po') is-invalid @enderror"
+                                                    name="po" id="po" placeholder="No. PO" required autofocus
+                                                    value="{{ old('po') }}">
+                                                @error('po')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-2">
@@ -92,7 +105,7 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">Start Date</label>
-                                                <input type="date" data-date="" data-date-format="DD/MM/YYYY"
+                                                <input type="text" id="datepicker"
                                                     class="form-control @error('startDate') is-invalid @enderror"
                                                     name="startDate" id="startDate" placeholder="Start Date" required
                                                     autofocus value="{{ old('startDate') }}">
@@ -106,7 +119,7 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">End Date</label>
-                                                <input type="date" data-date="" data-date-format="DD/MM/YYYY"
+                                                <input type="text" id="datepicker"
                                                     class="form-control @error('endDate') is-invalid @enderror"
                                                     name="endDate" id="endDate" placeholder="End Date" required autofocus
                                                     value="{{ old('endDate') }}">
@@ -143,7 +156,7 @@
                                                 <select class="form-control input-default" id="pejabat" name="pejabat">
                                                     <option value="0" selected disabled>Direksi Pekerjaan</option>
                                                     @foreach ($pejabats as $pejabat)
-                                                        <option value="{{ $pejabat->id }}">{{ $pejabat->nama_pejabat }}
+                                                        <option value="{{ $pejabat->id }}">{{ $pejabat->jabatan }} - {{ $pejabat->nama_pejabat }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -179,8 +192,8 @@
                                                         <thead>
                                                             <tr class="">
                                                                 <th>No.</th>
-                                                                <th>Kategori Pekerjaan</th>
                                                                 <th>Pekerjaan</th>
+                                                                <th>Kategori Pekerjaan</th>
                                                                 <th>Satuan</th>
                                                                 <th>Volume</th>
                                                                 <th>Harga Satuan</th>
@@ -190,7 +203,6 @@
                                                         </thead>
                                                         <tbody id="tbody-kategori">
                                                         </tbody>
-
                                                     </table>
                                                     <div class="col-lg-12 mb-2">
                                                         <div class="position-relative justify-content-end float-left">
@@ -198,9 +210,7 @@
                                                                 class="btn btn-primary position-relative justify-content-end"
                                                                 onclick="updateform()">Tambah</a>
                                                         </div>
-
                                                     </div>
-
                                                     <table class="table table-responsive-sm height-100" id="tabelRAB1">
                                                         <thead>
                                                             <tr>
@@ -415,9 +425,9 @@
             type: "POST",
             data: 'kontrak_induk=' + kontrak_induk + '&_token={{ csrf_token() }}',
             success: function(response) {
-                var kategori = [""]
+                var item = [""]
                 for (i = 0; i < response.length; i++) {
-                    kategori += ("<option value='" + response[i].id + "'>" + response[i].nama_kategori +
+                    item += ("<option value='" + response[i].id + "'>" + response[i].nama_item +
                         "</option>")
                 }                    
                 
@@ -426,24 +436,17 @@
                 console.log(click);
 
                 var select1 = document.createElement("select");
-                select1.innerHTML = "<option value='0' selected disabled>Pilih Kategori</option>" + kategori + "";
-                select1.setAttribute("id", "kategory_id["+click+"]");
-                select1.setAttribute("name", "kategory_id");
+                select1.innerHTML = "<option value='0' selected disabled>Pilih Pekerjaan</option>" + item + "";
+                select1.setAttribute("id", "item_id["+click+"]");
+                select1.setAttribute("name", "item_id");
                 select1.setAttribute("class", "form-control input-default");
-                select1.setAttribute("onchange", "change_kategori(this)")
-
-                var select2 = document.createElement("select");
-                select2.innerHTML = "<option value='0' selected disabled>Pilih Pekerjaan</option>";
-                select2.setAttribute("id", "item_id["+click+"]");
-                select2.setAttribute("name", "item_id");
-                select2.setAttribute("class", "form-control input-default");
-                select2.setAttribute("onchange", "change_item(this)");
+                select1.setAttribute("onchange", "change_item(this)");
 
                 var input1 = document.createElement("input");
                 input1.setAttribute("type", "text");
-                input1.setAttribute("class", "form-control satuan");
-                input1.setAttribute("id", "satuan["+click+"]");
-                input1.setAttribute("name", "satuan");
+                input1.setAttribute("class", "form-control kategory_id");
+                input1.setAttribute("id", "kategory_id["+click+"]");
+                input1.setAttribute("name", "kategory_id");
                 input1.setAttribute("placeholder", "Satuan");
                 input1.setAttribute("value", "");
                 input1.setAttribute("readonly", true);
@@ -451,36 +454,47 @@
                 input1.setAttribute("required", true);
 
                 var input2 = document.createElement("input");
-                input2.setAttribute("type", "number");
-                input2.setAttribute("class", "form-control volume");
-                input2.setAttribute("id", "volume["+click+"]");
-                input2.setAttribute("name", "volume");
-                input2.setAttribute("placeholder", "Volume");
+                input2.setAttribute("type", "text");
+                input2.setAttribute("class", "form-control satuan");
+                input2.setAttribute("id", "satuan["+click+"]");
+                input2.setAttribute("name", "satuan");
+                input2.setAttribute("placeholder", "Satuan");
                 input2.setAttribute("value", "");
-                input2.setAttribute("onblur", "blur_volume(this)");
+                input2.setAttribute("readonly", true);
+                input2.setAttribute("disabled", true);
                 input2.setAttribute("required", true);
 
                 var input3 = document.createElement("input");
                 input3.setAttribute("type", "number");
-                input3.setAttribute("class", "form-control harga_satuan");
-                input3.setAttribute("id", "harga_satuan["+click+"]");
-                input3.setAttribute("name", "harga_satuan");
-                input3.setAttribute("placeholder", "Harga Satuan");
+                input3.setAttribute("class", "form-control volume");
+                input3.setAttribute("id", "volume["+click+"]");
+                input3.setAttribute("name", "volume");
+                input3.setAttribute("placeholder", "Volume");
                 input3.setAttribute("value", "");
-                input3.setAttribute("readonly", true);
-                input3.setAttribute("disabled", true);
+                input3.setAttribute("onblur", "blur_volume(this)");
                 input3.setAttribute("required", true);
 
                 var input4 = document.createElement("input");
                 input4.setAttribute("type", "number");
-                input4.setAttribute("class", "form-control harga");
-                input4.setAttribute("id", "harga["+click+"]");
-                input4.setAttribute("name", "harga");
-                input4.setAttribute("placeholder", "Harga");
+                input4.setAttribute("class", "form-control harga_satuan");
+                input4.setAttribute("id", "harga_satuan["+click+"]");
+                input4.setAttribute("name", "harga_satuan");
+                input4.setAttribute("placeholder", "Harga Satuan");
                 input4.setAttribute("value", "");
                 input4.setAttribute("readonly", true);
                 input4.setAttribute("disabled", true);
                 input4.setAttribute("required", true);
+
+                var input5 = document.createElement("input");
+                input5.setAttribute("type", "number");
+                input5.setAttribute("class", "form-control harga");
+                input5.setAttribute("id", "harga["+click+"]");
+                input5.setAttribute("name", "harga");
+                input5.setAttribute("placeholder", "Harga");
+                input5.setAttribute("value", "");
+                input5.setAttribute("readonly", true);
+                input5.setAttribute("disabled", true);
+                input5.setAttribute("required", true);
                 
                 var button = document.createElement("button");
                 button.innerHTML = "<i class='fa fa-trash'></i>";
@@ -498,11 +512,11 @@
                 var cell8 = row.insertCell(7);
                 cell1.innerHTML = "1";
                 cell2.appendChild(select1);
-                cell3.appendChild(select2);
-                cell4.appendChild(input1);
-                cell5.appendChild(input2);
-                cell6.appendChild(input3);
-                cell7.appendChild(input4);
+                cell3.appendChild(input1);
+                cell4.appendChild(input2);
+                cell5.appendChild(input3);
+                cell6.appendChild(input4);
+                cell7.appendChild(input5);
                 cell8.appendChild(button);
                 
                 reindex();
@@ -514,17 +528,17 @@
         var table = r.parentNode.parentNode.rowIndex;
         document.getElementById("tabelRAB").deleteRow(table);
         click--;
-
-        var select_id_kategori = document.querySelectorAll("#tabelRAB tr td:nth-child(2) select");
-        for(var i=0; i<select_id_kategori.length; i++) 
-        {
-            select_id_kategori[i].id = "kategory_id["+(i+1)+"]";
-        }
-
-        var select_id_item = document.querySelectorAll("#tabelRAB tr td:nth-child(3) select");
+        
+        var select_id_item = document.querySelectorAll("#tabelRAB tr td:nth-child(2) select");
         for(var i=0; i<select_id_item.length; i++) 
         {
             select_id_item[i].id = "item_id["+(i+1)+"]";
+        }
+
+        var select_id_kategori = document.querySelectorAll("#tabelRAB tr td:nth-child(3) input");
+        for(var i=0; i<select_id_kategori.length; i++) 
+        {
+            select_id_kategori[i].id = "kategory_id["+(i+1)+"]";
         }
         
         var select_id_satuan = document.querySelectorAll("#tabelRAB tr td:nth-child(4) input");
@@ -588,25 +602,6 @@
         });
     }
 
-    function change_kategori(c) {
-        var change = c.parentNode.parentNode.rowIndex;
-        var kategory_id = document.getElementById("kategory_id["+change+"]").value;
-
-        $.ajax({
-            url: '/getCategory',
-            type: "POST",
-            data: 'kategory_id=' + kategory_id + '&_token={{ csrf_token() }}',
-            success: function(response){
-                var item_id = document.getElementById("item_id["+change+"]");
-                item_id.innerHTML = response;
-                document.getElementById("satuan["+change+"]").value = "";
-                document.getElementById("volume["+change+"]").value = "";
-                document.getElementById("harga_satuan["+change+"]").value = "";
-                document.getElementById("harga["+change+"]").value = "";
-            }
-        })
-    }
-
     function change_item(c) {
         var change = c.parentNode.parentNode.rowIndex;
         var item_id = document.getElementById("item_id["+change+"]").value;
@@ -616,6 +611,7 @@
             type: "POST",
             data: 'item_id=' + item_id + '&_token={{ csrf_token() }}',
             success: function(response){
+                document.getElementById("kategory_id["+change+"]").value = response.kategori;
                 document.getElementById("satuan["+change+"]").value = response.satuan;
                 document.getElementById("harga_satuan["+change+"]").value = response.harga_satuan;
             }
@@ -637,7 +633,7 @@
         }
 
         const total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all;
+        document.getElementById("jumlah").innerHTML = "@currency(" + total_harga_all +")";
         var ppn = total_harga_all * 11 / 100;
         ppn = Math.round(ppn);
         document.getElementById("pajak").innerHTML = "Rp. " + ppn;

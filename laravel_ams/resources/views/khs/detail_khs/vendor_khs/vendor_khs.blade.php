@@ -85,128 +85,131 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        let item = $("#filter-kategori").val()
-
-        // <script>
-        // $(".filter").on('change',function(){
-        //     item = $("#filter-kategori").val()
-        // })
-        //
-    </script>
     <script>
-        $(".filter").on('change', function() {
-            let filter = this.value;
-            $.ajax({
-                url: `{{ url('/rincian/filter') }}`,
-                method: "POST",
-                data: JSON.stringify({
-                    filter: filter
-                }),
-                headers: {
-                    'Accept': 'application/json',
-                    'content-Type': 'application/json'
-                },
-                success: function(data) {
-                    $('#read').html(data)
-                }
-            })
-        });
-    </script>
+        $(document).ready(function() {            
+
+    //     function editVendors(id) {
+    //         $.ajax({
+    //             url: 'vendor-khs/' + id + '/edit',
+    //             type: 'GET',
+    //             success: function(response) {
+    //                 $('#category_form').modal('show');
+    //                 $('#edit_jenis_khs').val(response.result.jenis_khs);
+    //                 $('#edit_nama_pekerjaan').val(response.result.nama_pekerjaan);
+
+    //                 $('.btnedit').click(function() {
+    //                     $.ajax({
+    //                         url: 'jenis-khs/' + id,
+    //                         type: 'PUT',
+    //                         data: {
+    //                             jenis_khs: $('#edit_jenis_khs').val(),
+    //                             nama_pekerjaan: $('#edit_nama_pekerjaan').val(),
+    //                         },
+    //                         success: function(response) {
+    //                             swal({
+    //                                 title: "Data Diedit",
+    //                                 text: "Data Berhasil Diedit",
+    //                                 icon: "success",
+    //                                 timer: 2e3,
+    //                                 buttons: false
+    //                             }).then((result) => {
+    //                                 location.reload();
+    //                             });
+    //                         }
+    //                     });
+    //                 });
+    //                 console.log(response.result.khs.jenis_khs);
+    //                 console.log(response.result);
+    //             }
+    //         });
+    //     }
+
+    //     function deleteCategories(id) {
+    //         swal({
+    //                 title: "Apakah anda yakin?",
+    //                 text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
+    //                 icon: "warning",
+    //                 buttons: true,
+    //                 dangerMode: true,
+    //             })
+    //             .then((willDelete) => {
+    //                 if (willDelete) {
+
+    //                     var data = {
+    //                         "_token": $('input[name=_token]').val(),
+    //                         'id': id,
+    //                     };
+    //                     $.ajax({
+    //                         type: "DELETE",
+    //                         url: 'jenis-khs/' + id,
+    //                         data: data,
+    //                         success: function(response) {
+    //                             swal({
+    //                                     title: "Data Dihapus",
+    //                                     text: "Data Berhasil Dihapus",
+    //                                     icon: "success",
+    //                                     timer: 2e3,
+    //                                     buttons: false
+    //                                 })
+    //                                 .then((result) => {
+    //                                     location.reload();
+    //                                 });
+    //                         }
+    //                     });
+    //                 } else {
+    //                     swal({
+    //                         title: "Data Tidak Dihapus",
+    //                         text: "Data Batal Dihapus",
+    //                         icon: "error",
+    //                         timer: 2e3,
+    //                         buttons: false
+    //                     });
+    //                 }
+    //             });
+    //     }
+
+    //     function change_backslash(event) {
+    //         if (event.keyCode == 191 || event.keyCode == 111) {
+    //             var press = document.getElementById("jenis_khs").value;
+    //             var aftpress = press + "-";
+    //             document.getElementById("jenis_khs").value = aftpress;
+
+    //             event.preventDefault();
+    //             event.stopPropagation();
+    //         }
+    //     }
+    // </script>
 
     <script type="text/javascript">
-    $('#search').on('keyup',function(){
-        $value=$(this).val();
+        $('#search').on('keyup',function(){
+            $value=$(this).val();
 
-        if($value){
-            $('.alldata').hide();
-            $('.searchdata').show();
-        }
+            if($value){
+                $('.alldata').hide();
+                $('.searchdata').show();
+            }
 
-        else{
-            $('.alldata').show();
-            $('.searchdata').hide();
+            else{
+                $('.alldata').show();
+                $('.searchdata').hide();
 
-        }
+            }
 
-    $.ajax({
+        $.ajax({
 
-        type: 'get',
-        url:'{{URL::to('search-rincian') }}',
-        data:{'search':$value},
+            type: 'get',
+            url:'{{URL::to('search-vendor') }}',
+            data:{
+                'search':$value
+            },
 
-        success:function(data){
-            console.log(data);
-            $('#Content').html(data);
-        }
+            success:function(data){
+                console.log(data);
+                $('#Content').html(data);
+            }
 
-    });
+        });
         
     });
 </script>
 @endsection
-{{-- <script type="text/javascript" charset="utf8" src=""></script> --}}
-
-{{-- @section('ajax')
-<script type="text/javascript">
-    let table = $('#rincian-table').DataTable({
-        processing : true,
-        serverSide : true,
-        "responsive": true,
-        "autoWidth": false,
-        ajax : "{{ route('rincian.index') }}",
-        columns : [
-            {
-            data: 'DT_RowIndex',
-            name: 'DT_RowIndex'
-            },
-            {data:'nama_item', name:'nama_item'},
-            {data:'nama_kategori', name:'nama_kategori'},
-            {data:'jenis_khs', name:'jenis_khs'},
-            {data:'satuan', name:'satuan'},
-            {data:'harga_satuan', name:'harga_satuan'},
-            // {data:'content', name:'content'},
-            {data: 'action', name: 'action', orderable: false, searchable: false}
-        ]
-    });
-
-    function deleteBlog(id) {
-        let csrf_token = $('meta[name="csrf-token"]').attr('content');
-        swal({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            type: "warning",
-            showCancelButton: true,
-            cancelButtonColor: '#d33',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then(function () {
-            $.ajax({
-                type: "POST",
-                url: "{{ url('administrator/blog') }}" + '/' + id,
-                data: {
-                    '_method': 'DELETE',
-                    '_token': csrf_token
-                },
-                success: function (data) {
-                    table.ajax.reload();
-                    swal({
-                        title: 'Success',
-                        text: 'Data has been deleted',
-                        type: 'success',
-                        timer: '1500'
-                    }).catch(swal.noop);
-                },
-                error: function () {
-                    swal({
-                        title: 'Oops...',
-                        text: 'Something when wrong!',
-                        type: 'error',
-                        timer: '1500'
-                    }).catch(swal.noop);
-                }
-            });
-        })
-    }
-</script>
-@endsection --}}

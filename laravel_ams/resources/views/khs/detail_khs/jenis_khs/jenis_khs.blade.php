@@ -88,6 +88,9 @@
                             <tbody id="Content" class="searchdata">
                             </tbody>
                         </table>
+                        <div class="pagination pagination-gutter pagination-primary no-bg d-flex float-right">
+                                        {{ $khss->links() }}
+                                    </div>
                     </div>
                 </div>
             </div>
@@ -99,7 +102,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Categories</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Jenis KHS</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -110,7 +113,7 @@
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Jenis KHS:</label>
                         <input type="text" class="form-control input-rounded edit_data" placeholder="Nama Kategori"
-                            id="edit_jenis_khs" name="edit_jenis_khs" value="{{ old('edit_jenis_khs', $khs->jenis_khs) }}">
+                            id="edit_jenis_khs" name="edit_jenis_khs" onkeydown="change_backslash2(event)" value="{{ old('edit_jenis_khs', $khs->jenis_khs) }}">
                     </div>
 
                     <input type="hidden" class="edit_id" value="{{ $khs->nama_pekerjaan }}">
@@ -132,7 +135,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+
 
     <script>
         $(document).ready(function() {
@@ -339,6 +342,17 @@
                 var press = document.getElementById("jenis_khs").value;
                 var aftpress = press + "-";
                 document.getElementById("jenis_khs").value = aftpress;
+
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        }
+
+        function change_backslash2(event) {
+            if (event.keyCode == 191 || event.keyCode == 111) {
+                var press = document.getElementById("edit_jenis_khs").value;
+                var aftpress = press + "-";
+                document.getElementById("edit_jenis_khs").value = aftpress;
 
                 event.preventDefault();
                 event.stopPropagation();

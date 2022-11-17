@@ -48,16 +48,32 @@ Route::get('/search-categories', [ItemRincianIndukController::class, 'searchcate
 Route::get('item-khs/{jenis_khs}', [RincianIndukController::class, 'jenis_khs']);
 Route::get('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'create']);
 Route::post('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'store']);
+Route::get('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'edit'])->name('item-khs.edit');
+Route::get('item-khs/{jenis_khs}/{id}', [RincianIndukController::class, 'destroy']);
+Route::put('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'update']);
 
-Route::resource('item-khs', RincianIndukController::class);
+
+// Route::put('item-khs/{jenis_khs}/{id}/update', [RincianIndukController::class, 'update']);
+
+
+// Route::resource('item-khs', RincianIndukController::class);
         
 Route::resource('jenis-khs', KhsController::class);
 Route::get('/search-jenis-khs', [KhsController::class, 'searchjeniskhs']);
 
-
+//Vendor KHS
 Route::resource('vendor-khs', VendorController::class);
+Route::get('/search-vendor', [VendorController::class, 'searchvendor']);
+
+//Kontrak Induk KHS
+Route::any('kontrak-induk-khs/filter', [KontrakIndukController::class, 'filteringtable']);
 Route::resource('kontrak-induk-khs', KontrakIndukController::class);
+Route::get('/search-kontrak-induk', [KontrakIndukController::class, 'searchkontrakinduk']);
+
+//Addendum KHS
+Route::any('addendum-khs/filter', [AddendumController::class, 'filter']);
 Route::resource('addendum-khs', AddendumController::class);
+Route::get('/search-addendum-khs', [AddendumController::class, 'searchaddendumkhs']);
 // Route::post('getNoKontrakInduk', [AddendumController::class, 'getNoKontrakInduk']);
 // Route::resource('addendum-khs ', AddendumController::class);
 
@@ -71,20 +87,19 @@ Route::get('/search-rincian', [RincianIndukController::class, 'searchRincian']);
 
 Route::get('deleteitem/{id}', [RincianIndukController::class, 'destroy']);
 
-Route::resource('khs', RabController::class);
+//PO KHS
+Route::resource('po-khs', RabController::class);
+Route::get('export-pdf-khs/{$id}', [RabController::class, 'export_pdf_khs']);
 Route::get('/buat-kontrak', [RabController::class, 'buat_kontrak']);
 
-
+Route::resource('prk', PrkController::class);
+Route::get('search-prk', [PrkController::class. 'searchprk']);
 Route::resource('skk', SkkController::class);
 Route::post('getSKK', [SkkController::class, 'getSKK']);
 Route::post('getCategory', [SkkController::class, 'getCategory']);
 Route::post('getItem', [SkkController::class, 'getItem']);
 Route::post('getKontrakInduk', [SkkController::class, 'getKontrakInduk']);
 
-Route::resource('prk', PrkController::class);
-Route::get('deleteskk/{id}', [SkkController::class, 'destroy']);
-
-Route::get('deleteprk/{id}', [PrkController::class, 'destroy']);
 
 Route::resource('hpe', HpeController::class);
 
@@ -92,4 +107,4 @@ Route::resource('surat', PdfkhsController::class);
 
 // Route::view('products', 'layouts.main', [
 // 'data' => App\Http\Controllers\MainController::all()
-// ]);
+// ]);{{  }}

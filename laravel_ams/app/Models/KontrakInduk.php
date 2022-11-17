@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class KontrakInduk extends Model
 {
     use HasFactory;
+    protected $guarded = [''];
 
     public function khs()
     {
@@ -17,5 +18,10 @@ class KontrakInduk extends Model
     public function addendums()
     {
         return $this->hasMany(Addendum::class, 'kontrak_induk_id', 'id');
+    }
+
+    public function vendors()
+    {
+        return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
     }
 }

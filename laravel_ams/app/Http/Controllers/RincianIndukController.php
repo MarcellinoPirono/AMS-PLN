@@ -37,7 +37,7 @@ class RincianIndukController extends Controller
 
         return view('khs.detail_khs.item_khs.item_khs', [
             'title' => 'Item KHS '. $jenis_khs.'',
-            'items' => RincianInduk::where('khs_id', $khs_id)->get(),
+            'items' => RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'DESC')->get(),
             'jenis_khs' => $jenis_khs
         ]);
     }
@@ -74,29 +74,19 @@ class RincianIndukController extends Controller
      */
     public function store(StoreRincianIndukRequest $request)
     {
-        // dd($request);
         $jenis_khs = $request->khs_id;
-        // dd($jenis_khs);
         $khs_id = Khs::select('id')->where('jenis_khs', $jenis_khs)->get();
-        // dd($khs_id[0]->id);
-        $request->khs_id = $khs_id[0]->id;
-
-        dd($request);
+        $request["khs_id"] = $khs_id[0]->id;
 
         $validatedData = $request->validate([
 
-            'khs_id' => 'required',
             'nama_item' => 'required|max:250',
-            // 'kategori' => 'required',
+            'kategori' => 'required',
+            'khs_id' => 'required',
             'satuan' => 'required',
             'harga_satuan' => 'required',
 
         ]);
-
-
-
-
-
         
         RincianInduk::create($validatedData);
         return redirect('/menu-item-khs')->with('success', 'Item KHS Berhasil Ditambahkan');
@@ -119,17 +109,21 @@ class RincianIndukController extends Controller
      * @param  \App\Models\RincianInduk  $rincianInduk
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
 
     {
-        $rincianInduk = RincianInduk::findOrFail($id);
+        $jenis_khs = $request->jenis_khs;
+        $id_item = $request->id;
+
+
+        $item_khs = RincianInduk::find($id_item);
 
         $data = [
-            'rincianinduk'  => $rincianInduk,
-            'title' => 'Item Kontrak Induk',
-            'active' => 'Rincian Item',
-            'active1' => 'Edit Rincian Item',
-            'categories'    => ItemRincianInduk::orderBy('id', 'DESC')->get(),
+            'item_khs'  => $item_khs,
+            'title' => 'Edit Item KHS ' .$jenis_khs. '',
+            'active' => 'Item KHS',
+            'active1' => 'Edit ' . $jenis_khs . '',
+            'jenis_khs' => $jenis_khs,
         ];
         return view('khs.detail_khs.item_khs.edit_item_khs', $data);
 
@@ -156,21 +150,31 @@ class RincianIndukController extends Controller
      */
     public function update(UpdateRincianIndukRequest $request, RincianInduk $rincianInduk, $id)
     {
+        // dd($request);
+        $id_item = $request->id;
+        $jenis_khs = $request->khs_id;
+        $khs_id = Khs::select('id')->where('jenis_khs', $jenis_khs)->get();
+        $request["khs_id"] = $khs_id[0]->id;
+
         $request->validate([
 
             'nama_item' => 'required|max:250',
+            'kategori' => 'required',
+            'khs_id' => 'required',
             'satuan' => 'required',
-            'kategori_id' => 'required',
-            'harga_satuan' => 'required|numeric',
+            'harga_satuan' => 'required',
 
         ]);
 
-        $rincianInduk = RincianInduk::findOrFail($id);
+        // dd($validate);
+
+        $rincianInduk = RincianInduk::find($id_item);
 
         $input = $request->all();
         $rincianInduk->update($input);
+        return response()->json(['success' => true]);
 
-        return redirect('/rincian')->with('status', 'Rincian Item Berhasil Diedit.');
+        // return redirect('/rincian')->with('status', 'Rincian Item Berhasil Diedit.');
 
         // $validatedData = $request->validate($rules);
         // RincianInduk::where('id', $rincianInduk->id)->update($validatedData);
@@ -193,9 +197,11 @@ class RincianIndukController extends Controller
      * @param  \App\Models\RincianInduk  $rincianInduk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RincianInduk $rincianInduk, $id)
+    public function destroy(Request $request, $id)
     {
-        // dd($request->all());
+        // dd($request->id);
+
+        $id=$request->id;
         // $rincianInduk = RincianInduk::find($id);
         // $rincianInduk->delete();
 
@@ -206,7 +212,7 @@ class RincianIndukController extends Controller
         // $sKK->prk()->delete();
         $rincianInduk->delete();
 
-        return redirect('/rincian')->with('success', 'Data berhasil dihapus!');
+        // return redirect('/rincian')->with('success', 'Data berhasil dihapus!');
         // RincianInduk::destroy($rincianInduk->id);
         // return redirect('/rincian')->with('success', 'post has been deleted');
     }
@@ -222,24 +228,24 @@ class RincianIndukController extends Controller
 
     public function searchRincian(Request $request)
     {
+
         $output = "";
-
-
-        $rincianInduk= RincianInduk::where('nama_item', 'LIKE', '%' . $request->search . '%')->orWhere('satuan', 'LIKE', '%' . $request->search . '%')->orWhereHas('item_rincian_induks', function ($query) use ($request) {
-            $query->where('nama_kategori', 'LIKE', '%' . $request->search . '%');
-            })->get();
+        $nomor = 0;
+        $jenis_khs = $request->jenis_khs;
+        $rincianInduk= RincianInduk::where('nama_item', 'LIKE', '%' . $request->search . '%')->orWhere('satuan', 'LIKE', '%' . $request->search . '%')->get();
 
         foreach ($rincianInduk as $rincianInduk) {
+            $nomor = $nomor + 1;
             $output .=
                 '<tr>
-            <td>#</td>
-            <td>'. $rincianInduk->nama_item. '</td>
-            <td>'.$rincianInduk->item_rincian_induks->nama_kategori.'</td>
-            <td>'.$rincianInduk->item_rincian_induks->khs->jenis_khs.'</td>
+            <td>'.$nomor.'</td>
+            <td>'.$rincianInduk->nama_item. '</td>
+            <td>'.$rincianInduk->kategori.'</td>
+            <td>'.$rincianInduk->khs->jenis_khs.'</td>
             <td>'.$rincianInduk->satuan. '</td>
             <td>'.$rincianInduk->harga_satuan.'</td>
             <td>' . ' 
-            <div class="d-flex"><a href="/rincian/' . $rincianInduk['id'] . '/edit" class="btn btn-primary shadow btn-xs sharp mr-1 tombol-edit"><i class="fa fa-pencil"></i></a><button class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button></div>
+            <div class="d-flex"><a href="/item-khs/'. $jenis_khs .''."/".'' . $rincianInduk['id'] . '/edit" class="btn btn-primary shadow btn-xs sharp mr-1 tombol-edit"><i class="fa fa-pencil"></i></a> <button onclick="deleteItem(' . $rincianInduk->id . ')" class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button></div>
             ' . '</td>
             </tr>';
         }

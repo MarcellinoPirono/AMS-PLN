@@ -23,7 +23,8 @@
                     </div>
                     <a href="/item-khs/{{ $jenis_khs }}/create" class="btn btn-primary mr-auto ml-3">Tambah Item <span
                             class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
-                    </a>                       
+                    </a>
+                    <input type="hidden" name="jenis_khs" id="jenis_khs" value="{{ $jenis_khs }}">                       
                     <div class="input-group search-area position-relative">
                         <div class="input-group-append">
                             <span class="input-group-text"><a href="javascript:void(0)"><i
@@ -56,6 +57,9 @@
                             <tbody class="alldata">
                                 @foreach ($items as $item)
                                     <tr>
+                                        <input type="hidden" class="delete_id" value="{{ $item->id }}">
+
+                                        
                                         <td><strong>{{ $loop->iteration }}</strong></td>
                                         <td>{{ $item->nama_item }}</td>
                                         <td>{{ $item->kategori }}</td>
@@ -64,13 +68,11 @@
                                         <td>@currency($item->harga_satuan) </td>
                                         <td>
                                             <div class="d-flex">
-                                                <a href="/rincian/{{ $item->id }}/edit"
+                                                <a href="{{ route('item-khs.edit', ['jenis_khs' => $item->khs->jenis_khs, 'id' => $item->id]) }}"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <a href="#" data-toggle="modal"
-                                                    data-target="#deleteModal{{ $item->id }}"><i
-                                                        class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
-                                                @include('layouts.deleteitem')
+                                               <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                        class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -90,17 +92,10 @@
             </div>
         </div>
     </div>
-@endsection
-<script type="text/javascript">
-    let item = $("#filter-kategori").val()
-
-    // <script>
-    // $(".filter").on('change',function(){
-    //     item = $("#filter-kategori").val()
-    // })
-    //
-</script>
-<script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+    <script>
     $(".filter").on('change', function() {
         let filter = this.value;
         $.ajax({
@@ -121,8 +116,99 @@
 </script>
 
 <script type="text/javascript">
+$('.btndelete').click(function(e) {
+                e.preventDefault();
+
+                var deleteid = $(this).closest("tr").find('.delete_id').val();
+
+                swal({
+                        title: "Apakah anda yakin?",
+                        text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+
+                            var data = {
+                                "_token": $('input[name=_token]').val(),
+                                'id': deleteid,
+                            };
+                            $.ajax({
+                                type: "GET",
+                                url: "{{ url('item-khs/'.$jenis_khs.'') }}"+'/'+ deleteid,
+                                data: data,
+                                success: function(response) {
+                                    swal({
+                                            title: "Data Dihapus",
+                                            text: "Data Berhasil Dihapus",
+                                            icon: "success",
+                                            timer: 2e3,
+                                            buttons: false
+                                        })
+                                        .then((result) => {
+                                            window.location.href = "{{ url('item-khs/'.$jenis_khs.'') }}";
+                                        });
+                                }
+                            });
+                        } else {
+                            swal({
+                                title: "Data Tidak Dihapus",
+                                text: "Data Batal Dihapus",
+                                icon: "error",
+                                timer: 2e3,
+                                buttons: false
+                            });
+                        }
+                    });
+            });
+function deleteItem(id) {
+            swal({
+                    title: "Apakah anda yakin?",
+                    text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        var data = {
+                            "_token": $('input[name=_token]').val(),
+                            'id': id,
+                        };
+                        $.ajax({
+                            type: "GET",
+                            url: "{{ url('item-khs/'.$jenis_khs.'') }}"+'/'+id,
+                            data: data,
+                            success: function(response) {
+                                swal({
+                                        title: "Data Dihapus",
+                                        text: "Data Berhasil Dihapus",
+                                        icon: "success",
+                                        timer: 2e3,
+                                        buttons: false
+                                    })
+                                    .then((result) => {
+                                        window.location.href = "{{ url('item-khs/'.$jenis_khs.'') }}";
+                                    });
+                            }
+                        });
+                    } else {
+                        swal({
+                            title: "Data Tidak Dihapus",
+                            text: "Data Batal Dihapus",
+                            icon: "error",
+                            timer: 2e3,
+                            buttons: false
+                        });
+                    }
+                });
+        }
     $('#search').on('keyup', function() {
         $value = $(this).val();
+        var jenis_khs= $("#jenis_khs").val();
 
         if ($value) {
             $('.alldata').hide();
@@ -138,7 +224,8 @@
             type: 'get',
             url: '{{ URL::to('search-rincian') }}',
             data: {
-                'search': $value
+                'search': $value,
+                'jenis_khs': jenis_khs
             },
 
             success: function(data) {
@@ -150,3 +237,14 @@
 
     });
 </script>
+@endsection
+{{-- <script type="text/javascript">
+    let item = $("#filter-kategori").val()
+
+    // <script>
+    // $(".filter").on('change',function(){
+    //     item = $("#filter-kategori").val()
+    // })
+    //
+</script> --}}
+

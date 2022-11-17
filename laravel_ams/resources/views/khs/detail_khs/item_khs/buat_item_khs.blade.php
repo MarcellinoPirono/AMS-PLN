@@ -32,13 +32,13 @@
                                         </div>
                                     @enderror
                                 </div>
-                                {{-- <div class="col-lg-6 mb-2">
+                                <div class="col-lg-6 mb-2">
                                     <label class="text-label">Kategori:</label>
                                     <div class="form-group mt-lg-2">
-                                        <label class="radio-inline"><input type="radio" name="kategori" >Jasa</label>
-                                        <label class="radio-inline"><input type="radio" name="kategori">Material</label>
+                                        <label class="radio-inline"><input class="kategori" type="radio" name="kategori" id="kategori" value="Jasa">Jasa &ensp; &ensp;</label>
+                                        <label class=" radio-inline"><input class="kategori" type="radio" name="kategori" id="kategori" value="Material">Material</label>
                                     </div>
-                                </div> --}}
+                                </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Nama Item :</label>
                                     <input type="text"
@@ -77,7 +77,6 @@
                                 </div>
                             </div>
                             <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Tambah</button>
-                       
                     </div>
                 </div>
             </div>
@@ -177,17 +176,17 @@
             $('#btn_tambah').on('click', function() {
                 var token = $('#csrf').val();
                 var khs_id = $("#khs_id").val();
-                // var kategori = $("#kategori").val();
+                var kategori =  $(".kategori:checked").val();
                 var nama_item = $("#nama_item").val();
                 var satuan = $("#satuan").val();
                 var harga_satuan = $("#harga_satuan").val();
                 harga_satuan = harga_satuan.replace(/\./g, "");
                 harga_satuan = parseInt(harga_satuan);
 
-
                 var data = {
                     "_token": token,
                     "khs_id": khs_id,
+                    "kategori": kategori,
                     "nama_item": nama_item,
                     "satuan": satuan,
                     "harga_satuan": harga_satuan
@@ -206,7 +205,7 @@
                                 buttons: false
                             })
                             .then((result) => {
-                                location.reload();
+                                window.location.href = "{{ url('item-khs/'.$jenis_khs.'') }}";
                             });
                     }
                 });

@@ -13,7 +13,15 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">                                        
+                <div class="card-header"> 
+                    <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
+                        <select id="filter-addendum" class="form-control filter">
+                            <option value="">Pilih Nomor Kontrak Induk</option>
+                            @foreach ($kontrakinduks as $kontrakinduk)
+                                <option value="{{ $kontrakinduk->id }}">{{ $kontrakinduk->nomor_kontrak_induk }}</option>
+                            @endforeach
+                        </select>
+                    </div>                                       
                     <a href="/addendum-khs/create" class="btn btn-primary mr-auto ml-3">Tambah Addendum<span
                             class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                     </a>
@@ -55,7 +63,7 @@
                                         <td>
 
                                             <div class="d-flex">
-                                                <a href="/vendor-khs/{{ $addendum->id }}/edit"
+                                                <a href="/addendum-khs/{{ $addendum->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
                                                 <a href="#" data-toggle="modal"
@@ -94,7 +102,7 @@
         $(".filter").on('change', function() {
             let filter = this.value;
             $.ajax({
-                url: `{{ url('/rincian/filter') }}`,
+                url: `{{ url('/kontrak-induk-khs/filter') }}`,
                 method: "POST",
                 data: JSON.stringify({
                     filter: filter
@@ -128,7 +136,7 @@
     $.ajax({
 
         type: 'get',
-        url:'{{URL::to('search-rincian') }}',
+        url:'{{URL::to('search-addendum-khs') }}',
         data:{'search':$value},
 
         success:function(data){

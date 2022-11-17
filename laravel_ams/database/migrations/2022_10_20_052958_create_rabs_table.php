@@ -19,14 +19,14 @@ return new class extends Migration
             $table->string('tanggal_po');
             $table->foreignId('skk_id')->nullable();
             $table->foreignId('prk_id')->nullable();
-            $table->foreignId('kategori_id')->nullable();
-            $table->foreignId('item_id')->nullable();
+            // $table->foreignId('kategori_id')->nullable();
+            // $table->foreignId('item_id')->nullable();
             $table->string('pekerjaan');
             $table->text('lokasi');
             $table->foreignId('nomor_kontrak_induk');
             $table->string('total_harga');
-            $table->integer('volume');
-            $table->text('isi_surat');
+            // $table->integer('volume');
+            // $table->text('isi_surat');
 
             $table->timestamps();
             // $table->integer("total_harga");

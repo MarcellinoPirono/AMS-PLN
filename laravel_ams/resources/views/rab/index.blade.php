@@ -12,7 +12,7 @@
                                         <a class="dropdown-item" href="javascript:void()">Februari</a>
                                     </div>
                                 </div>
-                                <a href="/buat-kontrak" type="button" class="btn btn-primary mr-auto ml-3 ">Buat Kontrak (PO)<span
+                                <a href="/po-khs/create" type="button" class="btn btn-primary mr-auto ml-3 ">Buat Kontrak (PO)<span
                                         class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                                 </a>
                                 <div class="input-group search-area position-relative">
@@ -63,7 +63,8 @@
 														</button>
 														<div class="dropdown-menu">
 															<a class="dropdown-item" href="#">Preview</a>
-															<a class="dropdown-item" href="#">Export (pdf/excel)</a>
+															<a class="dropdown-item" href="export-pdf-khs/{{ $rab->id }}">Export (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
+															<a class="dropdown-item" href="export-excel-khs/{{ $rab->id }}">Export (excel) <i class="bi bi-file-earmark-excel-fill"></i></a>
 														</div>
 													</div>
 												</td>

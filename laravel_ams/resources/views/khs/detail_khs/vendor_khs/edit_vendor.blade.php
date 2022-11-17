@@ -4,7 +4,7 @@
 
 <div class="page-titles">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/rincian">{{$active}}</a></li>
+        <li class="breadcrumb-item"><a href="/vendor-khs">{{$active}}</a></li>
         <li class="breadcrumb-item active"><a href="javascript:void(0)">{{$active1}}</a></li>
     </ol>
 </div>
@@ -94,7 +94,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary position-relative">Edit Rincian</button>
+                        <button type="submit" class="btn btn-primary position-relative">Edit Vendor</button>
                     </form>
                 </div>
             </div>

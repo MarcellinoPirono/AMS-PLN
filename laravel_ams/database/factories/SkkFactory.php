@@ -17,13 +17,13 @@ class SkkFactory extends Factory
     public function definition()
     {
         return [
-            'nomor_skk' => mt_rand(1, 20),
-            'uraian_skk' => fake()->text(),
-            'pagu_skk' => fake()->text(),
-            'skk_terkontrak' => fake()->name(),
-            'skk_realisasi' => fake()->name(),
-            'skk_terbayar' => fake()->name(),
-            'skk_sisa' => fake()->name(),
+            'nomor_skk' => fake()->name(),
+            'uraian_skk' => fake()->name(),
+            'pagu_skk' => mt_rand(10000, 2000000),
+            'skk_terkontrak' => mt_rand(10000, 2000000),
+            'skk_realisasi' => mt_rand(10000, 2000000),
+            'skk_terbayar' => mt_rand(10000, 2000000),
+            'skk_sisa' => mt_rand(10000, 2000000),
         ];
     }
 }

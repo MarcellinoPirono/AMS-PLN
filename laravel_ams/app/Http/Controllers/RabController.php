@@ -13,7 +13,9 @@ use App\Models\Khs;
 use App\Models\KontrakInduk;
 use App\Models\RincianInduk;
 use App\Models\Pejabat;
+use App\Models\OrderedRab;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class RabController extends Controller
@@ -26,7 +28,7 @@ class RabController extends Controller
     public function index()
     {
         return view('rab.index', [
-            'title' => 'Rancangan Anggaran Biaya',
+            'title' => 'PO KHS',
             'title1' => 'RAB',
             'rabs' => Rab::orderBy('id', 'DESC')->get(),
             'kontraks' => KontrakInduk::get(),
@@ -93,7 +95,7 @@ class RabController extends Controller
         return view(
             'rab.create',
             [
-                'active1' => 'Buat KHS',
+                'active1' => 'Buat PO-KHS',
                 'title' => 'Kontrak Harga Satuan (KHS)',
                 'title1' => 'KHS',
                 'active' => 'KHS',
@@ -103,6 +105,7 @@ class RabController extends Controller
                 'items' => RincianInduk::all(),
                 'kontraks' => KontrakInduk::all(),
                 'pejabats' => Pejabat::all(),
+                'khs' => Khs::all(),
             ], compact('data_kategori', 'data_items')
         );
     }
@@ -190,5 +193,19 @@ class RabController extends Controller
 
         // return redirect('/rab')->with('success', 'Data berhasil dihapus');
     }
+
+    public function export_pdf_khs($id)
+    {
+        $values_pdf_page1 = Rab::where('id', $id)->get();
+        $rab_id = Rab::where('id', $id)->get(['rab_id']);
+        // $values_pdf_page2 = OrderedRab::where('rab_id', $rab_id)->get();
+        $pdf = Pdf::loadView('pdf.kontrak', [
+            "value" => $values_pdf_page1,
+            // "orderedrabs" => $values_pdf_page2,
+        ]);
+        return $pdf->download('po_khs.pdf');
+    }
+
+
     
 }

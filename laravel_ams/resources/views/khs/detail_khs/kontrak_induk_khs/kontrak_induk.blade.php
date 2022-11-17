@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">                    
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
-                        <select id="filter-kategori" class="form-control filter">
+                        <select id="filter-kontrak-induk" class="form-control filter-kontrak-induk">
                             <option value="">Pilih Jenis KHS</option>
                             @foreach ($khss as $khs)
                                 <option value="{{ $khs->id }}">{{ $khs->jenis_khs }}</option>
@@ -54,12 +54,11 @@
                                 @foreach ($kontrakinduks as $kontrakinduk)
                                     <tr>
                                         <td><strong>{{ $loop->iteration }}</strong></td>
-                                        <td>{{ $kontrakinduk->jenis_khs }}</td>
+                                        <td>{{ $kontrakinduk->khs->jenis_khs }}</td>
                                         <td>{{ $kontrakinduk->nomor_kontrak_induk }}</td>
                                         <td>{{ $kontrakinduk->tanggal_kontrak_induk }}</td>                                        
-                                        <td>{{ $kontrakinduk->nama_vendor }}</td>   
+                                        <td>{{ $kontrakinduk->vendors->nama_vendor }}</td>   
                                         <td>
-
                                             <div class="d-flex">
                                                 <a href="/kontrak-induk-khs/{{ $kontrakinduk->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
@@ -88,7 +87,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        let item = $("#filter-kategori").val()
+        let item = $("#filter-kontrak-induk").val()
 
         // <script>
         // $(".filter").on('change',function(){
@@ -96,16 +95,23 @@
         // })
         //
     </script>
-    <script>
-        $(".filter").on('change', function() {
+    <script type="text/javascript">
+        $(".filter-kontrak-induk").on('change', function() {
             let filter = this.value;
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
             $.ajax({
-                url: `{{ url('/rincian/filter') }}`,
+                url: '{{URL::to('kontrak-induk-khs/filter') }}',
                 method: "POST",
                 data: JSON.stringify({
-                    filter: filter
+                    filter: filter,
+                    // '_token': token,
                 }),
-                headers: {
+                headers: {                    
                     'Accept': 'application/json',
                     'content-Type': 'application/json'
                 },
@@ -134,7 +140,7 @@
     $.ajax({
 
         type: 'get',
-        url:'{{URL::to('search-rincian') }}',
+        url:'{{URL::to('search-kontrak-induk') }}',
         data:{'search':$value},
 
         success:function(data){

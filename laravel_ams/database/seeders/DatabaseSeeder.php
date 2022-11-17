@@ -16,6 +16,7 @@ use App\Models\Khs;
 use App\Models\Vendor;
 use App\Models\Addendum;
 use App\Models\Satuan;
+use App\Models\Redaksi;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -123,7 +124,18 @@ class DatabaseSeeder extends Seeder
             'satuan' => 'roll',
             'harga_satuan' => '63132'            
         ]);
-        
+
+        Vendor::create([
+            'nama_vendor' => 'PT. Distribusi Energi Mandiri',
+            'nama_direktur' => 'Ir. H. Murjani',
+            'alamat_kantor_1' => 'Jl. Cendrawasih KOMP. RUKO CENDRAWASIH SQUARE O. C18, Makassar',
+            'alamat_kantor_2' => 'Jl. Cendrawasih',
+            'no_rek_1' => '555555555',            
+            'nama_bank_1' => 'Bank BSI',            
+            'no_rek_2' => '66666666',            
+            'nama_bank_2' => 'Bank BI',            
+            'npwp' => '0892318349273',            
+        ]);
         Vendor::create([
             'nama_vendor' => 'PT ABC',
             'nama_direktur' => 'Arfandy Adimurfiq',
@@ -150,14 +162,14 @@ class DatabaseSeeder extends Seeder
         KontrakInduk::create([
             'khs_id' => '1',
             'nomor_kontrak_induk' => '0029.PJ/DAN.01.04/161000/2020',
-            'tanggal_kontrak_induk' => '01 April 2020',
-            'nama_vendor' => 'PT. Distribusi Energi Mandiri'            
+            'tanggal_kontrak_induk' => '2020-04-01',
+            'vendor_id' => '1'            
         ]);
         KontrakInduk::create([
             'khs_id' => '2',
             'nomor_kontrak_induk' => '0030.PJ/DAN.02.05/171000/2021',
-            'tanggal_kontrak_induk' => '09 Mei 2021',
-            'nama_vendor' => 'PT. ABC'            
+            'tanggal_kontrak_induk' => '2021-05-09',
+            'vendor_id' => '2'            
         ]);
 
         Pejabat::create([
@@ -207,5 +219,10 @@ class DatabaseSeeder extends Seeder
             'singkatan' => 'btg',
             'kepanjangan' => 'batang',                     
         ]);
+
+        // Redaksi::create([            
+        //     'nama_redaksi' => 'Surat Perjanjian',
+        //     'deskripsi' => 'Surat Perjanjian',                     
+        // ]);
     }
 }

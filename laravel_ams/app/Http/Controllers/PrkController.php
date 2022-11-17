@@ -114,11 +114,11 @@ class PrkController extends Controller
             'no_skk_prk' => 'required',
             'no_prk' => 'required|max:250',
             'uraian_prk' => 'required|max:250',
-            'pagu_prk' => 'required|max:250',
-            'prk_terkontrak' => 'required|max:250',
-            'prk_realisasi' => 'required|max:250',
-            'prk_terbayar' => 'required|max:250',
-            'prk_sisa' => 'required|max:250'
+            'pagu_prk' => 'required|numeric',
+            'prk_terkontrak' => 'required|numeric',
+            'prk_realisasi' => 'required|numeric',
+            'prk_terbayar' => 'required|numeric',
+            'prk_sisa' => 'required|numeric'
 
         ]);
 
@@ -126,8 +126,7 @@ class PrkController extends Controller
 
         $input = $request->all();
         $prk->update($input);
-
-        return redirect('/prk')->with('status', 'PRK Berhasil Diedit.');
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -136,14 +135,47 @@ class PrkController extends Controller
      * @param  \App\Models\Prk  $prk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prk $prk, $id)
+    public function destroy($id)
     {
+        // dd($id);
+
         $prk = Prk::find($id);
-        // $sKK->prk()->delete();
         $prk->delete();
 
-        // Prk::where('uraian_prk', $uraian_prk)->delete();
+        return response()->json([
+            'success'   => true
+        ]);
+    }
 
-        return redirect('/prk')->with('status', 'Data berhasil dihapus!');
+    public function searchprk(Request $request)
+    {
+        $output ="";
+
+
+       $prks= Prk::where('no_prk', 'LIKE', '%'. $request->search.'%')->orWhere('uraian_prk', 'LIKE', '%' . $request->search . '%')->orWhereHas('skks', function ($query) use ($request) {
+        $query->where('nomor_skk', 'LIKE', '%' . $request->search . '%');})->get();
+
+       foreach($prks as $prk){
+        $output.=
+            '<tr>
+            <input type="hidden" class="delete_id" value='. $prk->id .'>
+            <td>'. $prk->id.'</td>
+            <td>'. $prk->skks->nomor_skk.'</td>
+            <td>'. $prk->no_prk.' </td>
+            <td>'. $prk->uraian_prk.' </td>
+            <td>'. $prk->pagu_prk.' </td>
+            <td>'. $prk->prk_terkontrak.' </td>
+            <td>'. $prk->prk_realisasi.' </td>
+            <td>'. $prk->prk_terbayar.' </td>
+            <td>'. $prk->prk_sisa.' </td>                     
+            <td>'. ' 
+            <div class="d-flex">
+            <a href="/prk/'.$prk->id.'/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+            <a href="#" data-toggle="modal" data-target="#deleteModal{{ $prk->id }}"><i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
+            '.'</td>
+            </tr>';
+       }
+
+       return response($output);
     }
 }

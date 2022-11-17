@@ -46,7 +46,6 @@ class SKKController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $validatedData = $request->validate([
 
             'nomor_skk' => 'required|max:250',
@@ -99,6 +98,7 @@ class SKKController extends Controller
      */
     public function update(Request $request, SKK $sKK, $id)
     {
+        // dd($request);
         $request->validate([
 
             'nomor_skk' => 'required|max:250',
@@ -114,8 +114,7 @@ class SKKController extends Controller
 
         $input = $request->all();
         $skk->update($input);
-
-        return redirect('/skk')->with('status', 'Skk Berhasil Diedit.');
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -126,11 +125,14 @@ class SKKController extends Controller
      */
     public function destroy(SKK $sKK, $id)
     {
+        // dd($id);
         $sKK = SKK::find($id);
         $sKK->prks()->delete();
         $sKK->delete();
-
-        return redirect('/skk')->with('status', 'SKK Berhasil Dihapus');
+        
+        return response()->json([
+            'success'   => true
+        ]);
     }
 
     public function getSKK(Request $request)
@@ -148,7 +150,7 @@ class SKKController extends Controller
     public function getKontrakInduk(Request $request)
     {
         $khs_id = $request->post('kontrak_induk');
-        $nama_kategori = DB::table('item_rincian_induks')->where('khs_id', $khs_id)->get();
+        $nama_kategori = DB::table('rincian_induks')->where('khs_id', $khs_id)->get();
         return response()->json($nama_kategori);
     }
     
