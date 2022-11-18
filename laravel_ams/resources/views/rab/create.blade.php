@@ -89,13 +89,11 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-2">
-                                            <div class="form-group">
+                                            <div class="form-group icon2">
                                                 <label class="text-label">Start Date</label>
-                                                <input type="text"
-                                                    class="form-control @error('startDate') is-invalid @enderror"
-                                                    name="start_date" id="start_date" placeholder="Start Date" required
-                                                    autofocus value="{{ old('startDate') }}">
-                                                @error('startDate')
+                                                <input name="start_date" id="start_date" class="icon1 datepicker-default form-control @error('start_date') is-invalid @enderror"
+                                                placeholder="Start Date PO-KHS" value="{{ old('start_date') }}" required > 
+                                                @error('start_date')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -103,13 +101,11 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-2">
-                                            <div class="form-group">
+                                            <div class="form-group icon2">
                                                 <label class="text-label">End Date</label>
-                                                <input type="text"
-                                                    class="form-control @error('endDate') is-invalid @enderror"
-                                                    name="end_date" id="end_date" placeholder="End Date" required autofocus
-                                                    value="{{ old('endDate') }}">
-                                                @error('startDate')
+                                                <input name="end_date" id="end_date" class="icon1 datepicker-default form-control @error('end_date') is-invalid @enderror"
+                                                placeholder="End Date PO-KHS" value="{{ old('end_date') }}" required >
+                                                @error('end_date')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -293,7 +289,7 @@
                                                         <div class="position-relative justify-content-end float-left">
                                                             <a type="button" id="tambah-pekerjaan"
                                                                 class="btn btn-primary position-relative justify-content-end"
-                                                                onclick="updateform()">Tambah</a>
+                                                                onclick="updateform2()">Tambah</a>
                                                         </div>
 
                                                     </div>
@@ -433,7 +429,7 @@
                         "</option>")
                 }
 
-                var table = document.getElementsByTagName("table")[0];
+                var table = document.getElementById('tabelRAB');
                 click++;
                 console.log(click);
 
@@ -589,7 +585,7 @@
     }
 
     function reindex() {
-        const ids = document.querySelectorAll("tr > td:nth-child(1)");
+        const ids = document.querySelectorAll("#tabelRAB tr > td:nth-child(1)");
         ids.forEach((e, i) => {
             e.innerHTML = "<strong id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
             nomor_tabel = i + 1;
@@ -606,7 +602,7 @@
             data: 'item_id=' + item_id + '&_token={{ csrf_token() }}',
             success: function(response) {
                 document.getElementById("kategory_id[" + change + "]").value = response.kategori;
-                document.getElementById("satuan[" + change + "]").value = response.satuan;
+                document.getElementById("satuan[" + change + "]").value = response.satuan_id;
                 document.getElementById("harga_satuan[" + change + "]").value = response.harga_satuan;
             }
         })
@@ -657,9 +653,10 @@
 
     function next3() {
         btn_next3 = document.getElementById('btnnext3');
-        btn_next3.innerText = "Submit";
+        btn_next3.innerText = "Simpan Data";
         btn_next3.setAttribute("id", "btnnext4");
         btn_next3.setAttribute("onclick", "next4()");
+        btn_next3.setAttribute("class", "btn btn-success sw-btn-next");
 
         btn_prev3 = document.getElementById('btnprev3');
         btn_prev3.setAttribute("id", "btnprev4");
@@ -669,17 +666,23 @@
     function next4() {
         var token = $('#csrf').val();
         var po = document.getElementById('po').value;
+        var today = new Date();
+        today = new Date(today.getTime() - (today.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
         var kontrak_induk = document.getElementById('kontrak_induk').value;
         var pekerjaan = document.getElementById('pekerjaan').value;
         var lokasi = document.getElementById('lokasi').value;
         var start_date = document.getElementById('start_date').value;
         var end_date = document.getElementById('end_date').value;
+        start_date = new Date(start_date);
+        end_date = new Date(end_date);
+        start_date = new Date(start_date.getTime() - (start_date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+        end_date = new Date(end_date.getTime() - (end_date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
         var addendum = document.getElementById('addendum').value;
         var skk_id = document.getElementById('skk_id').value;
         var prk_id = document.getElementById('prk_id').value;
         var pejabat = document.getElementById('pejabat').value;
         var pengawas = document.getElementById('pengawas').value;
-
+        
         var item_id = [];
         var kategory_id = [];
         var satuan = [];
@@ -689,7 +692,7 @@
         
         for(var i = 0; i < click; i++)
         {
-            item_id[i] = document.getElementById("item_id["+i+"]").value;
+            item_id[i] = document.getElementById("item_id["+ (i + 1) +"]").value;
             kategory_id[i] = document.getElementById("kategory_id["+ (i + 1) +"]").value;
             satuan[i] = document.getElementById("satuan["+ (i + 1) +"]").value;
             volume[i] = document.getElementById("volume["+ (i + 1) +"]").value;
@@ -698,10 +701,14 @@
             harga_satuan[i] = parseInt(harga_satuan[i]);
             harga[i] = document.getElementById("harga["+ (i + 1) +"]").value;
             harga[i] = parseInt(harga[i]);
-
         }
-        // alert(click);
-
+        
+        const bef_ppn_total_harga = harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+        var ppn = bef_ppn_total_harga * 11 / 100;
+        ppn = Math.round(ppn);
+        var total_harga = bef_ppn_total_harga + ppn;
+        total_harga = Math.round(total_harga);
+        
         swal({
             title: "Apakah anda yakin?",
             text: "Anda tidak dapat mengedit Data ini lagi!",
@@ -711,7 +718,48 @@
         })
         .then((willCreate) => {
             if (willCreate) {
+                var data = {
+                    "_token": token,
+                    "nomor_po": po,
+                    "tanggal_po": today,
+                    "skk_id": skk_id,
+                    "prk_id": prk_id,
+                    "pekerjaan": pekerjaan,
+                    "lokasi": lokasi,
+                    "startdate": start_date,
+                    "enddate": end_date,
+                    "nomor_kontrak_induk": kontrak_induk,
+                    "addendum_id": addendum,
+                    "pejabat_id": pejabat,
+                    "pengawas": pengawas,
+                    "total_harga": total_harga,
+                    "kategori_order": kategory_id,
+                    "item_order": item_id,
+                    "satuan_id": satuan,
+                    "harga_satuan": harga_satuan,
+                    "volume": volume,
+                    "jumlah_harga": harga,
+                    "click": click,
+                }
+                console.log(data);
 
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('po-khs') }}",
+                    data: data,
+                    success: function(response) {
+                        swal({
+                            title: "Data Ditambah",
+                            text: "Data Berhasil Ditambah",
+                            icon: "success",
+                            timer: 2e3,
+                            buttons: false
+                        })
+                        .then((result) => {
+                            window.location.href = "/po-khs";
+                        });
+                    }
+                });
             } else {
                 swal({
                     title: "Data Belum Ditambah",

@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">                    
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
-                        <select id="filter-kontrak-induk" class="form-control filter-kontrak-induk">
+                        <select id="filter-kontrak-induk" class="form-control filter-kontrak-induk" onchange="displayVals(this.value)">
                             <option value="">Pilih Jenis KHS</option>
                             @foreach ($khss as $khs)
                                 <option value="{{ $khs->id }}">{{ $khs->jenis_khs }}</option>
@@ -82,7 +82,7 @@
         </div>
     </div>
    
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
 
         $(".filter-kontrak-induk").on('change', function() {
             let filter = this.value;
@@ -108,7 +108,7 @@
                 }
             })
         });
-    </script>
+    </script> -->
 
     <script type="text/javascript">
     $('#search').on('keyup',function(){
@@ -147,6 +147,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+<script data-require="jquery@2.1.1" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
 <script>
@@ -200,3 +201,20 @@
         });
     });
 </script>
+
+<script>
+    function displayVals(data)
+    {
+        var val = data;
+        $.ajax({
+        type: "POST",
+        url: "{{URL::to('kontrak-induk-khs/filter') }}",
+        data: { khs_id : val },
+            success:function(campaigns)
+            {
+                $("#read").html(campaigns);
+            }
+        });
+    }
+</script>
+

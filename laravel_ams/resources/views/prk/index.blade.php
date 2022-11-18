@@ -4,22 +4,25 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih Jenis
-                            SKK</button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void()">SKK AI</a>
-                            <a class="dropdown-item" href="javascript:void()">SKK AO</a>
-                        </div>
-                    </div>
-                    <div class="btn-group ml-3" role="group">
+                <div class="card-header">                    
+                    <!-- <div class="btn-group" role="group">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih
                             SKK</button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void()">SKK 1</a>
-                            <a class="dropdown-item" href="javascript:void()">SKK 2</a>
+                            <select id="filter-skk" class="form-control filter-skk" onchange="displayVals(this.value)">
+                                @foreach ($skks as $skk)
+                                    <option value="{{$skk->id}}">{{$skk->nomor_skk}}</option>
+                                @endforeach
+                            </select>                                
                         </div>
+                    </div> -->
+                    <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
+                        <select id="filter-skk" class="form-control filter-skk" onchange="displayVals(this.value)">
+                            <option value="">Pilih SKK</option>
+                            @foreach ($skks as $skk)
+                                <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <a href="/prk/create" class="btn btn-primary mr-auto ml-3 ">Tambah PRK <span class="btn-icon-right"><i
                                 class="fa fa-plus-circle"></i></span>
@@ -33,7 +36,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-responsive-md">
+                        <table class="table table-responsive-md" id="read">
                             <thead>
                                 <tr>
                                     <th class="width80">No.</th>
@@ -118,6 +121,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+<script data-require="jquery@2.1.1" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
 <script>
@@ -170,5 +174,21 @@
                 });
         });
     });
+</script>
+
+<script>
+    function displayVals(data)
+    {
+        var val = data;
+        $.ajax({
+        type: "POST",
+        url: "{{URL::to('prk/filter') }}",
+        data: { no_skk_prk : val },
+            success:function(campaigns)
+            {
+                $("#read").html(campaigns);
+            }
+        });
+    }
 </script>
 

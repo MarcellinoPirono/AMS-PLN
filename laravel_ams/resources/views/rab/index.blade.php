@@ -33,13 +33,14 @@
                                                 <th>No. PO</th>
                                                 <th>Tanggal PO</th>
                                                 <th>No SKK</th>
+                                                <th>No PRK</th>
                                                 <th>Judul / Pekerjaan</th>
                                                 <th>Lokasi</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
                                                 <th>Vendor</th>
-                                                <th>Total Harga</th>
-                                                <th>----</th>
-                                                <th>----</th>
-                                                <th>----</th>
+                                                <th>Nomor Kontrak Induk</th>
+                                                <th>Total Harga</th>                                                
                                                 <th> </th>
                                             </tr>
                                         </thead>
@@ -47,15 +48,18 @@
                                             @foreach ($rabs as $rab)
                                                 <tr>
                                                     <td><strong>{{ $loop->iteration }}</strong></td>
-                                                    <td>{{ $rab->categories->nama_kategori }}</td>
-                                                    <td>{{ $rab->items->nama_item }}</td>
-                                                    <td>{{ $rab->items->harga_satuan }}</td>
+                                                    <td>{{ $rab->nomor_po }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($rab->tanggal_po)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>
                                                     <td>{{ $rab->skks->nomor_skk }}</td>
                                                     <td>{{ $rab->prks->no_prk }}</td>
                                                     <td>{{ $rab->pekerjaan }}</td>
                                                     <td>{{ $rab->lokasi }}</td>
-                                                    <td>{{ $rab->volume }}</td>
-                                                    <td>{{ $rab->isi_surat }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($rab->startdate)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($rab->enddate)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>
+                                                    <td>{{ $rab->vendors->nama_vendor }}</td>
+                                                    <td>{{ $rab->nomor_kontraks->nomor_kontrak_induk }}</td>
+                                                    <td>@currency($rab->total_harga) </td>
+                                                   
                                                 <td>
 													<div class="dropdown">
 														<button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">

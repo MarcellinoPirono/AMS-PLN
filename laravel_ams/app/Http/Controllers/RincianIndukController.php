@@ -217,12 +217,20 @@ class RincianIndukController extends Controller
         // return redirect('/rincian')->with('success', 'post has been deleted');
     }
 
-    public function filter(Request $request)
+    public function filteritem(Request $request)
     { 
 
-        $item = $request->filter;
-        $rincianInduk = RincianInduk::where('kategori_id', $item)->get();
-        return view('rincian.filter', ['items' => $rincianInduk]);
+        $kategori= $request->val;
+        $jenis_khs= $request->jenis_khs;
+        $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
+
+        if($kategori == ""){
+            $items = RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'ASC')->get();
+        }
+        else{
+            $items = RincianInduk::where('kategori', $kategori)->where('khs_id', $khs_id)->get();
+        }        
+        return view('khs.detail_khs.item_khs.filter_item_khs', ['items' => $items]);
         // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
     }
 

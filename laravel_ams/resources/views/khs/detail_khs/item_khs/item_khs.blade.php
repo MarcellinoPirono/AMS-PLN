@@ -15,10 +15,10 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
-                        <select id="filter-kategori" class="form-control filter">
+                        <select id="filter-kategori" class="form-control filter-kategori" onchange=displayVals(this.value)>
                             <option value="">Pilih Kategori</option>                            
-                            <option value="1">Material</option>
-                            <option value="2">Jasa</option>                            
+                            <option value="Material">Material</option>
+                            <option value="Jasa">Jasa</option>                            
                         </select>
                     </div>
                     <a href="/item-khs/{{ $jenis_khs }}/create" class="btn btn-primary mr-auto ml-3">Tambah Item <span
@@ -64,7 +64,7 @@
                                         <td>{{ $item->nama_item }}</td>
                                         <td>{{ $item->kategori }}</td>
                                         <td>{{ $item->khs->jenis_khs }}</td>
-                                        <td>{{ $item->satuan }}</td>
+                                        <td>{{ $item->satuans->singkatan }}</td>
                                         <td>@currency($item->harga_satuan) </td>
                                         <td>
                                             <div class="d-flex">
@@ -95,7 +95,8 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-    <script>
+    <script data-require="jquery@2.1.1" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- <script>
     $(".filter").on('change', function() {
         let filter = this.value;
         $.ajax({
@@ -113,7 +114,7 @@
             }
         })
     });
-</script>
+</script> -->
 
 <script type="text/javascript">
 $('.btndelete').click(function(e) {
@@ -238,13 +239,21 @@ function deleteItem(id) {
     });
 </script>
 @endsection
-{{-- <script type="text/javascript">
-    let item = $("#filter-kategori").val()
-
-    // <script>
-    // $(".filter").on('change',function(){
-    //     item = $("#filter-kategori").val()
-    // })
-    //
-</script> --}}
-
+<script>
+    function displayVals(data)
+    {
+        var val = data;
+        var jenis_khs = jenis_khs;
+        $.ajax({
+        type: "POST",
+        url: "{{url('item-khs/'.$jenis_khs.'/filter') }}",
+        data: { 
+            val : val,
+        jenis_khs :  jenis_khs},
+            success:function(campaigns)
+            {
+                $("#read").html(campaigns);
+            }
+        });
+    }
+</script>

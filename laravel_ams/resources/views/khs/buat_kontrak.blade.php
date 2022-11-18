@@ -87,10 +87,10 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-2">
-                                            <div class="form-group">
+                                            <div class="form-group icon1">
                                                 <label class="text-label">Start Date</label>
                                                 <input type="date" data-date="" data-date-format="DD/MM/YYYY"
-                                                    class="form-control @error('startDate') is-invalid @enderror"
+                                                    class="icon1 form-control @error('startDate') is-invalid @enderror"
                                                     name="startDate" id="startDate" placeholder="Start Date" required
                                                     autofocus value="{{ old('startDate') }}">
                                                 @error('startDate')

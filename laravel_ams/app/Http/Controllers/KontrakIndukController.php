@@ -95,14 +95,19 @@ class KontrakIndukController extends Controller
         ]);
     }
 
-    public function filteringtable(Request $request)
+    public function filterkontrakinduk(Request $request)
     { 
 
-        $khs_id = $request->filter;
-        dd($khs_id);     
-        $kontrakinduks = KontrakInduk::where('khs_id', $khs_id)->get();
-        return response()->json($kontrakinduks);
-        // return view('khs.detail_khs.kontrak_induk_khs.filter_kontrak_induk_khs', ['kontrakinduks' => $kontrakinduks]);
+        $khs_id = $request->khs_id;
+        
+        if($khs_id == ""){
+            $kontrakinduks = KontrakInduk::all();
+        }
+        else{
+            $kontrakinduks = KontrakInduk::where('khs_id', $khs_id)->get();
+        }
+        // return response()->json($kontrakinduks);
+        return view('khs.detail_khs.kontrak_induk_khs.filter_kontrak_induk_khs', ['kontrakinduks' => $kontrakinduks]);
         // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
     }
 

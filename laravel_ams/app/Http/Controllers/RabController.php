@@ -14,6 +14,7 @@ use App\Models\KontrakInduk;
 use App\Models\RincianInduk;
 use App\Models\Pejabat;
 use App\Models\OrderedRab;
+use App\Models\OrderKhs;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -63,7 +64,7 @@ class RabController extends Controller
         // }
 
         // $items = RincianInduk::all();
-        $data_items = RincianInduk::select('id', 'nama_item', 'harga_satuan', 'satuan')->get();
+        $data_items = RincianInduk::select('id', 'nama_item', 'harga_satuan', 'satuan_id')->get();
         $data_kategori = ItemRincianInduk::select('id','khs_id','nama_kategori')->get();
         // $khs =Khs::all();
 
@@ -130,20 +131,74 @@ class RabController extends Controller
      */
     public function store(StoreRabRequest $request)
     {
-        $validatedData = $request->validate([
-
+        // dd($request);
+        $request->validate([
+            'nomor_po' => 'required|max:250',
+            'tanggal_po' => 'required|max:250',
             'skk_id' => 'required|max:250',
             'prk_id' => 'required|max:250',
-            'kategori_id' => 'required|max:250',
-            'item_id' => 'required|max:250',
             'pekerjaan' => 'required|max:250',
             'lokasi' => 'required|max:250',
+            'startdate' => 'required|max:250',
+            'enddate' => 'required|max:250',
+            'nomor_kontrak_induk' => 'required|max:250',
+            'addendum_id' => 'required|max:250',
+            'pejabat_id' => 'required|max:250',
+            'pengawas' => 'required|max:250',
+            'total_harga' => 'required|max:250',
+            'kategori_order' => 'required|max:250',
+            'item_order' => 'required|max:250',
+            'satuan_id' => 'required|max:250',
+            'harga_satuan' => 'required|max:250',
             'volume' => 'required|max:250',
-            'isi_surat' => 'required|max:250'
-
+            'jumlah_harga' => 'required|max:250',
         ]);
-        Rab::create($validatedData);
-        return redirect('/rab')->with('success', 'RAB Berhasil Dibuat!');
+
+        $rab = [
+            'nomor_po' => $request->nomor_po,
+            'tanggal_po' => $request->tanggal_po,
+            'skk_id' => $request->skk_id,
+            'prk_id' => $request->prk_id,
+            'pekerjaan' => $request->pekerjaan,
+            'lokasi' => $request->lokasi,
+            'startdate' => $request->startdate,
+            'enddate' => $request->enddate,
+            'nomor_kontrak_induk' => $request->nomor_kontrak_induk,
+            'addendum_id' => $request->addendum_id,
+            'pejabat_id' => $request->pejabat_id,
+            'pengawas' => $request->pengawas,
+            'total_harga' => $request->total_harga,
+        ];
+
+        Rab::create($rab);
+
+        $id = Rab::where('nomor_po', $request->nomor_po)->value('id');
+
+        $total_tabel = $request->click;
+
+        $rab_id = [];
+
+        for($i=0; $i<$total_tabel; $i++)
+        {
+            $rab_id[$i]=$id;
+        }
+
+        for($j=0; $j<$total_tabel; $j++)
+        {
+            $order_khs = [
+                'rab_id' => $rab_id[$j],
+                'kategori_order' => $request->kategori_order[$j],
+                'item_order' => $request->item_order[$j],
+                'satuan_id' => $request->satuan_id[$j],
+                'harga_satuan' => $request->harga_satuan[$j],
+                'volume' => $request->volume[$j],
+                'jumlah_harga' => $request->jumlah_harga[$j],
+            ];
+            OrderKhs::create($order_khs);
+        }
+
+        return redirect('/po-khs')->with('status', 'PO KHS Berhasil Ditambah!');
+
     }
 
     /**

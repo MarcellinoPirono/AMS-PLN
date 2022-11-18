@@ -24,6 +24,7 @@ class PrkController extends Controller
         // $prks = DB::select('SELECT * FROM prks LEFT JOIN skks ON prks.no_skk_prk = skks.id');
         return view('prk.index', [
             'title' => 'PRK',
+            'skks' => Skk::all(),
             'prks' => Prk::orderby('id', 'DESC')->get(),
         ]);
     }
@@ -178,5 +179,20 @@ class PrkController extends Controller
        }
 
        return response($output);
+    }
+
+    public function filterprk(Request $request)
+    { 
+
+        $no_skk_prk = $request->no_skk_prk;
+
+        if($no_skk_prk == ""){
+            $prks = Prk::orderby('id', 'DESC')->get();
+        }
+        else{
+            $prks = Prk::where('no_skk_prk', $no_skk_prk)->get();
+        }        
+        return view('prk.filter', ['prks' => $prks]);
+        // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
     }
 }

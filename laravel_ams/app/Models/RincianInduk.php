@@ -27,4 +27,9 @@ class RincianInduk extends Model
     {
         return $this->belongsTo(Khs::class, 'khs_id');
     }
+
+    public function satuans()
+    {
+        return $this->belongsTo(Satuan::class, 'satuan_id', 'id');
+    }
 }

@@ -91,11 +91,17 @@ class AddendumController extends Controller
 
 
 
-    public function filter(Request $request)
+    public function filteraddendum(Request $request)
     {
 
-        $kontrak_induk_id = $request->filter;
-        $addendums = Addendum::where('kontrak_induk_id', $kontrak_induk_id)->get();
+        $kontrak_induk_id = $request->kontrak_induk_id;
+
+        if ($kontrak_induk_id == ""){
+            $addendums = Addendum::orderby('id', 'DESC')->get();
+        }
+        else{
+            $addendums = Addendum::where('kontrak_induk_id', $kontrak_induk_id)->get();
+        }
         return view('khs.detail_khs.addendum_khs.filter_addendum', ['addendums' => $addendums]);
         // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
     }

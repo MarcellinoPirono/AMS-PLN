@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('order_khs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('rab_id');
-            $table->foreignId('kategori_order');
+            $table->string('kategori_order');
             $table->foreignId('item_order');
-            $table->integer('harga_order');
+            $table->foreignId('satuan_id');
+            $table->integer('harga_satuan');
             $table->integer('volume');
-            // $table->integer('harga');
+            $table->integer('jumlah_harga');
             $table->timestamps();
         });
     }

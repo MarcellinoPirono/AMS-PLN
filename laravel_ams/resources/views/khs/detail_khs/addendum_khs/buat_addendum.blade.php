@@ -42,7 +42,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 icon1">
                                <input name="tanggal_addendum" id="tanggal_addendum" class="icon1 datepicker-default form-control @error('tanggal_addendum') is-invalid @enderror"
                                         placeholder="Tanggal Pembuatan Addendum " required >
                         

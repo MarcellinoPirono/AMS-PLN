@@ -23,7 +23,8 @@ return new class extends Migration
             $table->foreignId('khs_id')->nullable();            
             $table->string('kategori');
             $table->string('nama_item');
-            $table->string('satuan');
+            // $table->string('satuan');
+            $table->foreignId('satuan_id');
             $table->integer('harga_satuan');
             $table->timestamps();
         });

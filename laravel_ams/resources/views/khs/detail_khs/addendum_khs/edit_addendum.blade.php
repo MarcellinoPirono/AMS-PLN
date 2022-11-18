@@ -41,8 +41,8 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-6">
-                                 <input name="tanggal_addendum" id="tanggal_addendum" class="datepicker-default form-control @error('tanggal_addendum') is-invalid @enderror"
+                            <div class="icon1 form-group col-md-6">
+                                 <input name="tanggal_addendum" id="tanggal_addendum" class="icon1 datepicker-default form-control @error('tanggal_addendum') is-invalid @enderror"
                                         placeholder="Tanggal Kontrak Induk" value="{{ old('tanggal_addendum', $addendums->tanggal_addendum) }}" required >
 
                                     @error('tanggal_addendum')

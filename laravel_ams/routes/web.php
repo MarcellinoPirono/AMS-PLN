@@ -50,6 +50,7 @@ Route::get('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'creat
 Route::post('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'store']);
 Route::get('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'edit'])->name('item-khs.edit');
 Route::get('item-khs/{jenis_khs}/{id}', [RincianIndukController::class, 'destroy']);
+Route::any('item-khs/{jenis_khs}/filter', [RincianIndukController::class, 'filteritem']);
 Route::put('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'update']);
 
 
@@ -66,13 +67,13 @@ Route::resource('vendor-khs', VendorController::class);
 Route::get('/search-vendor', [VendorController::class, 'searchvendor']);
 
 //Kontrak Induk KHS
-Route::any('kontrak-induk-khs/filter', [KontrakIndukController::class, 'filteringtable']);
 Route::resource('kontrak-induk-khs', KontrakIndukController::class);
+Route::any('kontrak-induk-khs/filter', [KontrakIndukController::class, 'filterkontrakinduk']);
 Route::get('/search-kontrak-induk', [KontrakIndukController::class, 'searchkontrakinduk']);
 
 //Addendum KHS
-Route::any('addendum-khs/filter', [AddendumController::class, 'filter']);
 Route::resource('addendum-khs', AddendumController::class);
+Route::any('addendum-khs/filter', [AddendumController::class, 'filteraddendum']);
 Route::get('/search-addendum-khs', [AddendumController::class, 'searchaddendumkhs']);
 // Route::post('getNoKontrakInduk', [AddendumController::class, 'getNoKontrakInduk']);
 // Route::resource('addendum-khs ', AddendumController::class);
@@ -93,6 +94,7 @@ Route::get('export-pdf-khs/{$id}', [RabController::class, 'export_pdf_khs']);
 Route::get('/buat-kontrak', [RabController::class, 'buat_kontrak']);
 
 Route::resource('prk', PrkController::class);
+Route::any('prk/filter', [PrkController::class, 'filterprk']);
 Route::get('/search-prk', [PrkController::class, 'searchprk']);
 Route::resource('skk', SkkController::class);
 Route::get('/search-skk', [SkkController::class, 'searchskk']);

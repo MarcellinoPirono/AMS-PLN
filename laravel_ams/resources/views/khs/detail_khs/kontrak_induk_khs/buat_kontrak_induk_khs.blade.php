@@ -44,7 +44,7 @@
                                         </div>  
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-6">
+                            <div class="icon1 form-group col-md-6">
                                     {{-- <i class="bi bi-calendar2-minus"></i> --}}
                                     <input name="tanggal_kontrak_induk" id="tanggal_kontrak_induk" class="icon1 datepicker-default form-control @error('tanggal_addendum') is-invalid @enderror"
                                         placeholder="Tanggal Kontrak Induk" required >
@@ -95,8 +95,8 @@
             var nomor_kontrak_induk = $("#nomor_kontrak_induk").val();
             var tanggal_kontrak_induk = $("#tanggal_kontrak_induk").val();
             // var date = Date.parse(tanggal_kontrak_induk);
-            var date = new Date(tanggal_kontrak_induk);
             var vendor_id = $("#vendor_id").val();
+            var date = new Date(tanggal_kontrak_induk);
             var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
 
             var data = {

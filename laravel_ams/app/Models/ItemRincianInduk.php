@@ -35,6 +35,7 @@ class ItemRincianInduk extends Model
     {
         return $this->hasMany(Rab::class, 'kategori_id', 'id');
     }
+    
     // public function scopeFilter($query, array $filters)
     // {
       

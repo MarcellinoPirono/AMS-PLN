@@ -2,11 +2,11 @@
     <thead>
         <tr>
             <th class="width80">No.</th>
-            <th>No. Kontrak Induk</th>                                    
+            <th>Rincian Item</th>
+            <th>Kategori</th>
             <th>Jenis KHS</th>
-            <th>Nama Pekerjaan</th>
-            <th>No. Addendum</th>
-            <th>Tanggal Addendum</th> 
+            <th>Satuan</th>
+            <th>Harga(1)</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -14,26 +14,25 @@
         @if ($items->count() === 0)
             <td colspan="7" align="center" class="text-danger" style="font-size: 1.2em">Data not found</td>
         @endif
-        @foreach ($addendums as $addendum)
+        @foreach ($items as $item)
             <tr>
                 <td><strong>{{ $loop->iteration }}</strong></td>
-                <td>{{ $addendum->kontrak_induks->nomor_kontrak_induk }}</td>
-                <td>{{ $addendum->kontrak_induks->khs->jenis_khs }}</td>
-                <td>{{ $addendum->kontrak_induks->khs->nama_pekerjaan }}</td>
-                <td>{{ $addendum->nomor_addendum }}</td>                                        
-                <td>{{ $addendum->tanggal_addendum }}</td> 
+                <td>{{ $item->nama_item }}</td>
+                <td>{{ $item->kategori }}</td>
+                <td>{{ $item->khs->jenis_khs }}</td>
+                <td>{{ $item->satuans->singkatan }}</td>
+                <td>@currency($item->harga_satuan) </td>
                 <td>
 
                     <div class="d-flex">
-                        <a href="/addendum-khs/{{ $addendum->id }}/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                        <a href="{{ route('item-khs.edit', ['jenis_khs' => $item->khs->jenis_khs, 'id' => $item->id]) }}" class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                 class="fa fa-pencil"></i></a>
                         <a href="#" data-toggle="modal" data-target="#deleteModal{{ $item->id }}"><i
                                 class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
-                        <!-- @include('layouts.deleteitem') -->
+                        {{--<!-- @include('layouts.deleteitem') -->--}}
                     </div>
                 </td>
             </tr>
         @endforeach
-
     </tbody>
 </table>

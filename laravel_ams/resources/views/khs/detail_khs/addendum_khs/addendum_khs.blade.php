@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
-                        <select id="filter-addendum" class="form-control filter">
+                        <select id="filter-addendum" class="form-control filter" onchange="displayVals(this.value)">
                             <option value="">Pilih Nomor Kontrak Induk</option>
                             @foreach ($kontrakinduks as $kontrakinduk)
                                 <option value="{{ $kontrakinduk->id }}">{{ $kontrakinduk->nomor_kontrak_induk }}</option>
@@ -66,7 +66,7 @@
                                             <div class="d-flex">
                                                 <a href="/addendum-khs/{{ $addendum->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
-                                                        class="fa fa-pencil"></i></a>
+                                                        class="align-items-center text-center fa fa-pencil"></i></a>
                                                 <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
                                                         class="fa fa-trash"></i></button>
                                             </div>
@@ -88,7 +88,7 @@
         </div>
     </div>
 
-    <script>
+    <!-- <script>
         $(".filter").on('change', function() {
             let filter = this.value;
             $.ajax({
@@ -106,7 +106,7 @@
                 }
             })
         });
-    </script>
+    </script> -->
 
     <script type="text/javascript">
     $('#search').on('keyup',function(){
@@ -145,6 +145,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+<script data-require="jquery@2.1.1" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
 <script>
@@ -198,5 +199,22 @@
         });
     });
 </script>
+
+<script>
+    function displayVals(data)
+    {
+        var val = data;
+        $.ajax({
+        type: "POST",
+        url: "{{URL::to('addendum-khs/filter') }}",
+        data: { kontrak_induk_id : val },
+            success:function(campaigns)
+            {
+                $("#read").html(campaigns);
+            }
+        });
+    }
+</script>
+
 
 
