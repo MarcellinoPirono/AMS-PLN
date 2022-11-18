@@ -10,14 +10,14 @@ class VendorController extends Controller
     {
         return view('khs.detail_khs.vendor_khs.vendor_khs', [
             'title' => 'Vendor KHS',
-            'vendors' => Vendor::all(),
+            'vendors' => Vendor::orderby('id', 'DESC')->get(),
             // 'kontrak' => Vendor::all(),
         ]);
-        
+
     }
 
     public function create()
-    {        
+    {
 
         return view(
             'khs.detail_khs.vendor_khs.buat_vendor',
@@ -43,11 +43,15 @@ class VendorController extends Controller
             'nama_bank_1' => 'required',
             'no_rek_2' => 'required',
             'nama_bank_2' => 'required',
-            'npwp' => 'required',
+            'npwp' => 'required|numeric',
+            'npwp.required.numeric' =>'Harus Angka',
 
         ]);
+
         Vendor::create($validatedData);
-        return redirect('/vendor-khs')->with('success', 'Vendor Berhasil Ditambahkan');
+
+
+
     }
 
     public function edit($id)
@@ -77,7 +81,7 @@ class VendorController extends Controller
             'nama_bank_1' => 'required',
             'no_rek_2' => 'required',
             'nama_bank_2' => 'required',
-            'npwp' => 'required',
+            'npwp' => 'required|numeric',
 
         ]);
 
@@ -85,22 +89,17 @@ class VendorController extends Controller
 
         $input = $request->all();
         $vendors->update($input);
+    }
 
-        return redirect('/vendor-khs')->with('status', 'Vendor KHS Berhasil Diedit.');
+   public function destroy(Vendor $Vendor, $id)
+    {
+        // dd($id);
+        $Vendor = Vendor::find($id);
+        $Vendor->delete();
 
-        // $validatedData = $request->validate($rules);
-        // RincianInduk::where('id', $rincianInduk->id)->update($validatedData);
-        // return redirect('/rincian')->with('success', 'has been edited');
-
-
-        // $rincianInduk->update([
-
-        //     'nama_item' => $request['nama_item'],
-        //     'satuan' => $request['satuan'],
-        //     'kontraks_id' => $request['kontraks_id'],
-        //     'harga_satuan' => $request['harga_satuan'],
-
-        // ]);
+        return response()->json([
+            'success'   => true
+        ]);
     }
 
     public function searchvendor(Request $request)
@@ -119,10 +118,10 @@ class VendorController extends Controller
             <td>'. $vendors->nama_direktur.' </td>
             <td>'. $vendors->alamat_kantor_1.' </td>
             <td>'. $vendors->alamat_kantor_2.' </td>
-            <td>'. $vendors->no_rek_1. ' - ' . $vendors->nama_bank_1.' </td>            
+            <td>'. $vendors->no_rek_1. ' - ' . $vendors->nama_bank_1.' </td>
             <td>'. $vendors->no_rek_2. ' - ' . $vendors->nama_bank_2.' </td>
             <td>'. $vendors->npwp.' </td>
-            <td>'. ' 
+            <td>'. '
             <div class="d-flex">
             <a href="/vendor-khs/'.$vendors->id.'/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
             <a href="#" data-toggle="modal" data-target="#deleteModal{{ $vendor->id }}"><i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
@@ -134,4 +133,4 @@ class VendorController extends Controller
        return response($output);
     }
 
-}    
+}

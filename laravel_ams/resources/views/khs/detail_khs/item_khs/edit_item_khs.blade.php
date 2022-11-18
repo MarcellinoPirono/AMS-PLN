@@ -42,8 +42,8 @@
                                     <label class="text-label">Nama Item :</label>
                                     <input type="text"
                                         class="form-control input-default  @error('nama_item') is-invalid @enderror"
-                                        placeholder="Nama Item" name="nama_item" id="nama_item" required
-                                        value="{{ old('nama_item', $item_khs->nama_item) }}">
+                                        placeholder="Nama Item" name="nama_item" id="nama_item" required autofocus
+                                        value="{{ old('nama_item', $item_khs->nama_item) }}" >
                                     @error('nama_item')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -54,8 +54,8 @@
                                     <label class="text-label">Satuan:</label>
                                     <input type="text"
                                         class="form-control input-default  @error('satuan') is-invalid @enderror"
-                                        placeholder="Satuan" name="satuan" id="satuan" required autofocus
-                                        value="{{ old('satuan', $item_khs->satuan) }}">
+                                        placeholder="Satuan" name="satuan" id="satuan"
+                                        value="{{ old('satuan', $item_khs->satuan) }}" required>
                                     @error('satuan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -75,7 +75,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="position-relative justify-content-end float-right"> 
+                            <div class="position-relative justify-content-end float-right">
                                 <button type="submit" id="btn_edit" class="btn btn-primary position-relative justify-content-end">Edit Item KHS</button>
                             </div>
                     </div>

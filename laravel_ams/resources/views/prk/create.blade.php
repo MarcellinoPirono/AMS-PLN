@@ -15,6 +15,7 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
+                        <form action="" class="mb-5" enctype="multipart/form-data">
                         <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                         <div class="form-group row">
                             <label class="col-sm-25 col-form-label">No. SKK_PRK:</label>
@@ -137,6 +138,7 @@
                             <button type="submit" id="btnresult"
                                 class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -17,9 +17,8 @@
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form method="POST" action="/vendor-khs/{{$vendors->id}}" class="" enctype="multipart/form-data">
-                        @method('put')
-                        @csrf
+                     <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                        <input type="hidden" class="edit_id" id="edit_id" value="{{ $vendors->id }}">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <input type="text" class="form-control input-default  @error('nama_vendor') is-invalid @enderror" placeholder="Nama Vendor" name="nama_vendor" id="nama_vendor" required autofocus value="{{ old('nama_vendor', $vendors->nama_vendor) }}">
@@ -36,7 +35,7 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>                            
+                            </div>
                             <div class="form-group col-md-6">
                                 <input type="text" class="form-control input-default  @error('alamat_kantor_1') is-invalid @enderror" placeholder="Alamat Kantor 1" name="alamat_kantor_1" id="alamat_kantor_1" required autofocus value="{{ old('alamat_kantor_1', $vendors->alamat_kantor_1)}}">
                                 @error('alamat_kantor_1')
@@ -94,14 +93,75 @@
                                 @enderror
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary position-relative">Edit Vendor</button>
-                    </form>
+                         <div class="position-relative justify-content-end float-right">
+                            <button type="submit" id="btnedit"
+                                class="btn btn-primary position-relative justify-content-end">Edit Data</button>
+                        </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('#btnedit').on('click', function() {
+            var token = $('#csrf').val();
+            var id = $('#edit_id').val();
+            var nama_vendor = $("#nama_vendor").val();
+            var nama_direktur = $("#nama_direktur").val();
+            var alamat_kantor_1 = $("#alamat_kantor_1").val();
+            var alamat_kantor_2 = $("#alamat_kantor_2").val();
+            var no_rek_1 = $("#no_rek_1").val();
+            var nama_bank_1 = $("#nama_bank_1").val();
+            var no_rek_2 = $("#no_rek_2").val();
+            var nama_bank_2 = $("#nama_bank_2").val();
+            var npwp = $("#npwp").val();
+
+
+            var data = {
+                "_token": token,
+                "nama_vendor": nama_vendor,
+                "nama_direktur": nama_direktur,
+                "alamat_kantor_1": alamat_kantor_1,
+                "alamat_kantor_2": alamat_kantor_2,
+                "no_rek_1": no_rek_1,
+                "nama_bank_1": nama_bank_1,
+                "no_rek_2": no_rek_2,
+                "nama_bank_2": nama_bank_2,
+                "npwp": npwp,
+            }
+
+            $.ajax({
+                type: 'PUT',
+                url: "{{ url('vendor-khs') }}" + '/' + id,
+                data: data,
+                success: function(response) {
+                    swal({
+                            title: "Data Vendor Diedit",
+                            text: "Data Berhasil Diedit",
+                            icon: "success",
+                            timer: 2e3,
+                            buttons: false
+                        })
+                        .then((result) => {
+                            window.location.href = "/vendor-khs";
+                        });
+                }
+            });
+        });
+    });
+</script>
+
+
+
 
 
 

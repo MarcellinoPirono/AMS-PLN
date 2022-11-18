@@ -40,7 +40,7 @@ class AddendumController extends Controller
 
             'kontrak_induk_id' => 'required',
             'nomor_addendum' => 'required',
-            'tanggal_addendum' => 'required',            
+            'tanggal_addendum' => 'required',
 
         ]);
         Addendum::create($validatedData);
@@ -67,7 +67,7 @@ class AddendumController extends Controller
         $request->validate([
             'kontrak_induk_id' => 'required',
             'nomor_addendum' => 'required',
-            'tanggal_addendum' => 'date',            
+            'tanggal_addendum' => 'required',
         ]);
 
         $addendums = Addendum::findOrFail($id);
@@ -75,13 +75,26 @@ class AddendumController extends Controller
         $input = $request->all();
         $addendums->update($input);
 
-        return redirect('/addendum-khs')->with('status', 'Addendum KHS Berhasil Diedit.');
+
     }
 
-    public function filter(Request $request)
-    { 
+     public function destroy(Addendum $Addendum, $id)
+    {
+        // dd($id);
+        $Addendum = Addendum::find($id);
+        $Addendum->delete();
 
-        $kontrak_induk_id = $request->filter;        
+        return response()->json([
+            'success'   => true
+        ]);
+    }
+
+
+
+    public function filter(Request $request)
+    {
+
+        $kontrak_induk_id = $request->filter;
         $addendums = Addendum::where('kontrak_induk_id', $kontrak_induk_id)->get();
         return view('khs.detail_khs.addendum_khs.filter_addendum', ['addendums' => $addendums]);
         // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
@@ -93,9 +106,9 @@ class AddendumController extends Controller
 
 
        $addendums= Addendum::where('nomor_addendum', 'LIKE', '%'. $request->search.'%')->orWhere('tanggal_addendum', 'LIKE', '%' . $request->search . '%')->orWhereHas('kontrak_induks', function ($query) use ($request) {
-        $query->where('nomor_kontrak_induk', 'LIKE', '%' . $request->search . '%');})->get();            
-        
-        
+        $query->where('nomor_kontrak_induk', 'LIKE', '%' . $request->search . '%');})->get();
+
+
         // dd($addendums);
        foreach($addendums as $addendum){
         $output.=
@@ -105,9 +118,9 @@ class AddendumController extends Controller
             <td>'. $addendum->kontrak_induks->nomor_kontrak_induk.'</td>
             <td>'. $addendum->kontrak_induks->khs->jenis_khs.' </td>
             <td>'. $addendum->kontrak_induks->khs->nama_pekerjaan.' </td>
-            <td>'. $addendum->nomor_addendum.' </td>            
-            <td>'. $addendum->tanggal_addendum.' </td>            
-            <td>'. ' 
+            <td>'. $addendum->nomor_addendum.' </td>
+            <td>'. $addendum->tanggal_addendum.' </td>
+            <td>'. '
             <div class="d-flex">
             <a href="/addendum-khs/'.$addendum->id.'/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
             <a href="#" data-toggle="modal" data-target="#deleteModal{{ $vendor->id }}"><i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
@@ -123,7 +136,7 @@ class AddendumController extends Controller
     //     $no_kontrak_induk = $request->post('no_kontrak_induk');
     //     $jenis_khs = KontrakInduk::find($request->no_kontrak_induk)->where('nomor_kontrak_induk', $no_kontrak_induk)->value('jenis_khs');
     //     dd($jenis_khs);
-    //     return response()->json($jenis_khs);           
+    //     return response()->json($jenis_khs);
     // }
 
 

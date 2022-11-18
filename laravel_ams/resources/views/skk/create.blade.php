@@ -122,7 +122,7 @@
                         </div>
                         <div class="position-relative justify-content-end float-right">
                             <button type="submit" id="btnresult"
-                                class="btn btn-primary position-relative justify-content-end">Submit</button>
+                                class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
                         </div>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                 "skk_terbayar": skk_terbayar,
                 "skk_sisa": skk_sisa,
             }
-            
+
             $.ajax({
                 type: 'POST',
                 url: "{{ url('skk') }}",
