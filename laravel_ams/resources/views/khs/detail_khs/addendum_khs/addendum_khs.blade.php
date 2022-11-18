@@ -59,7 +59,7 @@
                                         <td>{{ $addendum->kontrak_induks->khs->jenis_khs }}</td>
                                         <td>{{ $addendum->kontrak_induks->khs->nama_pekerjaan }}</td>
                                         <td>{{ $addendum->nomor_addendum }}</td>                                        
-                                        <td>{{ $addendum->tanggal_addendum }}</td>                                                                                                                                                                
+                                        <td>{{ \Carbon\Carbon::parse($addendum->tanggal_addendum)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>                                                                                                                                                                
                                         <td>
 
                                             <div class="d-flex">
@@ -75,8 +75,7 @@
                                     </tr>
                                 @endforeach
 
-                            </tbody>
-                             </tbody>
+                            </tbody>                             
                             <tbody id="Content" class="searchdata">
 
                             </tbody>

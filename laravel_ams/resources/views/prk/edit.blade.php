@@ -138,7 +138,7 @@
                             </div>
                             <div class="position-relative justify-content-end float-right">
                                 <button type="button" data-id="{{ $prk->id }}"
-                                    class="btn btn-primary position-relative justify-content-end btnedit">Submit</button>
+                                    class="btn btn-primary position-relative justify-content-end btnedit">Edit Data</button>
                             </div>
                         </form>
                     </div>

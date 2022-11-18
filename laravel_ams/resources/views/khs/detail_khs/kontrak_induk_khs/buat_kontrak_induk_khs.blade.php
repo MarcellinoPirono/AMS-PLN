@@ -16,8 +16,7 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
-                        <form method="POST" action="/kontrak-induk-khs" class="" enctype="multipart/form-data">
-                            @csrf
+                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <select class="form-control input-default" id="khs_id" name="khs_id">
@@ -46,11 +45,11 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <i class="bi bi-calendar2-minus"></i>
-                                    <input name="datepicker" id="datepicker" class="datepicker-default form-control" @error('datepicker') is-invalid @enderror"
+                                    {{-- <i class="bi bi-calendar2-minus"></i> --}}
+                                    <input name="tanggal_kontrak_induk" id="tanggal_kontrak_induk" class="icon1 datepicker-default form-control @error('tanggal_addendum') is-invalid @enderror"
                                         placeholder="Tanggal Kontrak Induk" required >
                         
-                                    @error('datepicker')
+                                    @error('tanggal_kontrak_induk')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -65,22 +64,22 @@
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary position-relative">Submit</button>
-                        </form>
+                            <div class="position-relative justify-content-end float-right">
+                            <button type="submit" id="btntambah"
+                                class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
+                            </div>
+                       
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<!-- <link id="bs-css" href="https://netdna.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-<link id="bsdp-css" href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
-    rel="stylesheet"> -->
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
         $('#khs_id').on('change', function() {
@@ -88,5 +87,46 @@
             const nama_pekerjaan = selected.data('namapekerjaan');
             $("#nama_pekerjaan").val(nama_pekerjaan);
         });
+
+        
+        $('#btntambah').on('click', function() {
+            var token = $('#csrf').val();
+            var khs_id = $("#khs_id").val();
+            var nomor_kontrak_induk = $("#nomor_kontrak_induk").val();
+            var tanggal_kontrak_induk = $("#tanggal_kontrak_induk").val();
+            // var date = Date.parse(tanggal_kontrak_induk);
+            var date = new Date(tanggal_kontrak_induk);
+            var vendor_id = $("#vendor_id").val();
+            var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+
+            var data = {
+                "_token": token,
+                "khs_id": khs_id,
+                "nomor_kontrak_induk": nomor_kontrak_induk,
+                "tanggal_kontrak_induk": dateString,
+                "vendor_id": vendor_id,
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('kontrak-induk-khs') }}",
+                data: data,
+                success: function(response) {
+                    swal({
+                            title: "Data Ditambah",
+                            text: "Data Berhasil Ditambah",
+                            icon: "success",
+                            timer: 2e3,
+                            buttons: false
+                        })
+                        .then((result) => {
+                            window.location.href = "/kontrak-induk-khs";
+                        });
+                }
+            });
+        });
     });
+
+
+    
 </script>

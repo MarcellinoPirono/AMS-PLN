@@ -173,4 +173,35 @@ class SKKController extends Controller
         return response()->json($harga_item);
     }
 
+    public function searchskk(Request $request)
+    {
+        $output ="";
+
+
+       $skks= Skk::where('nomor_skk', 'LIKE', '%'. $request->search.'%')->orWhere('uraian_skk', 'LIKE', '%' . $request->search . '%')->get();
+        // dd($prks);
+
+       foreach($skks as $skk){
+        $output.=
+            '<tr>
+            <input type="hidden" class="delete_id" value='. $skk->id .'>
+            <td>'. $skk->id.'</td>
+            <td>'. $skk->nomor_skk.'</td>
+            <td>'. $skk->uraian_skk.' </td>
+            <td>'. $skk->pagu_skk.' </td>
+            <td>'. $skk->skk_terkontrak.' </td>
+            <td>'. $skk->skk_realisasi.' </td>
+            <td>'. $skk->skk_terbayar.' </td>
+            <td>'. $skk->skk_sisa.' </td>                     
+            <td>'. ' 
+            <div class="d-flex">
+            <a href="/skk/'.$skk->id.'/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+            <a href="#" data-toggle="modal" data-target="#deleteModal{{ $skk->id }}"><i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
+            '.'</td>
+            </tr>';
+       }
+
+       return response($output);
+    }
+
 }

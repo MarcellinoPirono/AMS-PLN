@@ -18,7 +18,7 @@ class AddendumController extends Controller
             'title' => 'Addendum',
             'active' => 'Addendum',
             'active1' => 'Addendum KHS',
-            'addendums' => Addendum::all(),
+            'addendums' => Addendum::orderby('id', 'DESC')->get(),
             'kontrakinduks' => KontrakInduk::all(),
         ]);
     }
@@ -35,12 +35,12 @@ class AddendumController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        // dd($request);
         $validatedData = $request->validate([
 
             'kontrak_induk_id' => 'required',
             'nomor_addendum' => 'required',
-            'tanggal_addendum' => 'date',            
+            'tanggal_addendum' => 'required',            
 
         ]);
         Addendum::create($validatedData);

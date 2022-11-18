@@ -93,8 +93,9 @@ Route::get('export-pdf-khs/{$id}', [RabController::class, 'export_pdf_khs']);
 Route::get('/buat-kontrak', [RabController::class, 'buat_kontrak']);
 
 Route::resource('prk', PrkController::class);
-Route::get('search-prk', [PrkController::class. 'searchprk']);
+Route::get('/search-prk', [PrkController::class, 'searchprk']);
 Route::resource('skk', SkkController::class);
+Route::get('/search-skk', [SkkController::class, 'searchskk']);
 Route::post('getSKK', [SkkController::class, 'getSKK']);
 Route::post('getCategory', [SkkController::class, 'getCategory']);
 Route::post('getItem', [SkkController::class, 'getItem']);

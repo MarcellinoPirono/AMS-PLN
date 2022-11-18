@@ -17,8 +17,8 @@
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form method="POST" action="/addendum-khs" class="" enctype="multipart/form-data">
-                        @csrf
+                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+
                         <div class="form-row">
                             <div class="form-group col-md-6">                                                            
                                 <select class="form-control input-default" id="kontrak_induk_id" name="kontrak_induk_id"> 
@@ -43,23 +43,30 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="date" class="form-control input-default  @error('tanggal_addendum') is-invalid @enderror" placeholder="Tanggal Addendum" name="tanggal_addendum" id="tanggal_addendum" required autofocus>
-                                @error('tanggal_addendum')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                               <input name="tanggal_addendum" id="tanggal_addendum" class="icon1 datepicker-default form-control @error('tanggal_addendum') is-invalid @enderror"
+                                        placeholder="Tanggal Pembuatan Addendum " required >
+                        
+                                    @error('tanggal_addendum')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                             </div>                            
                         </div>
-                        <button type="submit" class="btn btn-primary position-relative">Submit</button>
-                    </form>
+                        <div class="position-relative justify-content-end float-right">
+                            <button type="submit" id="btntambah"
+                                class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#kontrak_induk_id').on('change', function() {
@@ -68,6 +75,41 @@
             const nama_pekerjaan = selected.data('namapekerjaan'); 
             $("#jenis_khs").val(jenis_khs);
             $("#nama_pekerjaan").val(nama_pekerjaan);
+        });
+
+        $('#btntambah').on('click', function() {
+            var token = $('#csrf').val();
+            var kontrak_induk_id = $("#kontrak_induk_id").val();
+            var nomor_addendum = $("#nomor_addendum").val();
+            var tanggal_addendum = $("#tanggal_addendum").val();
+            // var date = Date.parse(tanggal_kontrak_induk);
+            var date = new Date(tanggal_addendum);
+            var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+
+            var data = {
+                "_token": token,
+                "kontrak_induk_id": kontrak_induk_id,
+                "nomor_addendum": nomor_addendum,
+                "tanggal_addendum": dateString,
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('addendum-khs') }}",
+                data: data,
+                success: function(response) {
+                    swal({
+                            title: "Data Ditambah",
+                            text: "Data Berhasil Ditambah",
+                            icon: "success",
+                            timer: 2e3,
+                            buttons: false
+                        })
+                        .then((result) => {
+                            window.location.href = "/addendum-khs";
+                        });
+                }
+            });
         });
     });
 </script>

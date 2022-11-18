@@ -26,10 +26,9 @@
                     </a>
                     <div class="input-group search-area position-relative">
                         <div class="input-group-append">
-                            <span class="input-group-text"><a href="javascript:void(0)"><i
-                                        class="flaticon-381-search-2"></i></a></span>
+                            <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
+                            <input id="search" type="search" name="search" class="form-control" placeholder="Search here..." />
                         </div>
-                        <input id="search" type="text" class="form-control" placeholder="Search here..." />
                     </div>
                 </div>
                 <div class="card-body">
@@ -48,7 +47,7 @@
                                     <th>PRK Sisa</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="alldata">
                                 @foreach ($prks as $prk)
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $prk->id }}">
@@ -82,6 +81,37 @@
             </div>
         </div>
     </div>
+    
+<script type="text/javascript">
+    $('#search').on('keyup',function(){
+        $value=$(this).val();
+
+        if($value){
+            $('.alldata').hide();
+            $('.searchdata').show();
+        }
+
+        else{
+            $('.alldata').show();
+            $('.searchdata').hide();
+
+        }
+        
+        $.ajax({
+
+            type: 'get',
+            url:'{{URL::to('search-prk') }}',
+            data:{'search':$value},
+
+            success:function(data){
+                console.log(data);
+                $('#Content').html(data);
+            }
+            
+        });
+        
+    });
+</script>
 @endsection
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -89,11 +119,12 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 
+
 <script>
     $(document).ready(function() {
         $('.btndelete').click(function(e) {
             e.preventDefault();
-
+            
             var deleteid = $(this).closest("tr").find('.delete_id').val();
 
             swal({
@@ -141,35 +172,3 @@
     });
 </script>
 
-<script type="text/javascript">
-        $('#search').on('keyup',function(){
-            $value=$(this).val();
-
-            if($value){
-                $('.alldata').hide();
-                $('.searchdata').show();
-            }
-
-            else{
-                $('.alldata').show();
-                $('.searchdata').hide();
-
-            }
-
-        $.ajax({
-
-            type: 'get',
-            url:'{{URL::to('search-prk') }}',
-            data:{
-                'search':$value
-            },
-
-            success:function(data){
-                console.log(data);
-                $('#Content').html(data);
-            }
-
-        });
-        
-    });
-</script>

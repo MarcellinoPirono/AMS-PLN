@@ -326,7 +326,7 @@
                 <div class="add-menu-sidebar" id="products">
                     <img src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt=""
                         class="mr-2" />
-                    <p class="font-w500 mb-0" id="reload" name="reload">{{ date('j F Y H:i:s') }} </p>
+                    <p class="font-w500 mb-0" id="reload" name="reload">{{ date('D, d-M-Y H:i:s') }} </p>
                 </div>
             </div>
         </div>

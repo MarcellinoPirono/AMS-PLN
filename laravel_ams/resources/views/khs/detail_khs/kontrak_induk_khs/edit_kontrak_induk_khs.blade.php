@@ -17,9 +17,13 @@
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form method="POST" action="/kontrak-induk-khs/{{$kontrakinduks->id}}" class="" enctype="multipart/form-data">
-                        @method('put')
-                        @csrf
+                   {{-- <form method="POST" action="/kontrak-induk-khs/{{ $kontrakinduks->id }}" class="" enctype="multipart/form-data">
+                            @method('put')
+                            @csrf --}}
+
+                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                        <input type="hidden" class="edit_id" id="edit_id" value="{{ $kontrakinduks->id }}">
+
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <select class="form-control input-default" id="khs_id" name="khs_id">
@@ -41,12 +45,14 @@
                                 @enderror
                             </div>                            
                             <div class="form-group col-md-6">
-                                <input type="date" class="form-control input-default  @error('tanggal_kontrak_induk') is-invalid @enderror" placeholder="Tanggal Kontrak Induk" name="tanggal_kontrak_induk" id="tanggal_kontrak_induk" required autofocus value="{{ old('tanggal_kontrak_induk', $kontrakinduks->tanggal_kontrak_induk)}}">
-                                @error('tanggal_kontrak_induk')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input name="tanggal_kontrak_induk" id="tanggal_kontrak_induk" class="datepicker-default form-control @error('tanggal_kontrak_induk') is-invalid @enderror"
+                                        placeholder="Tanggal Kontrak Induk" value="{{ old('tanggal_kontrak_induk', $kontrakinduks->tanggal_kontrak_induk) }}" required >
+                        
+                                    @error('tanggal_kontrak_induk')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <select class="form-control input-default" id="vendor_id" name="vendor_id">
@@ -57,16 +63,20 @@
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary position-relative">Edit Kontrak Induk</button>
-                    </form>
+                        <div class="position-relative justify-content-end float-right">
+                            <button type="submit" id="btnedit"
+                                class="btn btn-primary position-relative justify-content-end">Edit Data</button>
+                        </div>
+                                     
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script><script>
     $(document).ready(function() {
         $('#khs_id').on('change', function() {
             const selected = $(this).find('option:selected');
@@ -74,6 +84,43 @@
             const nama_pekerjaan = selected.data('namapekerjaan'); 
             // $("#jenis_khs").val(jenis_khs);
             $("#nama_pekerjaan").val(nama_pekerjaan);
+        });
+
+         $('#btnedit').on('click', function() {
+            var token = $('#csrf').val();
+            var id = $('#edit_id').val();
+            var khs_id = $("#khs_id").val();
+            var nomor_kontrak_induk = $("#nomor_kontrak_induk").val();
+            var tanggal_kontrak_induk = $("#tanggal_kontrak_induk").val();
+            var date = new Date(tanggal_kontrak_induk);
+            var vendor_id = $("#vendor_id").val();
+            var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+           
+            var data = {
+                 "_token": token,
+                "khs_id": khs_id,
+                "nomor_kontrak_induk": nomor_kontrak_induk,
+                "tanggal_kontrak_induk": dateString,
+                "vendor_id": vendor_id,
+            }
+
+            $.ajax({
+                url: "{{ url('kontrak-induk-khs') }}" + '/' + id,
+                type: 'PUT',
+                data: data,
+                success: function(response) {
+                    swal({
+                            title: "Data Diedit",
+                            text: "Data Berhasil Diedit",
+                            icon: "success",
+                            timer: 2e3,
+                            buttons: false
+                        })
+                        .then((result) => {
+                            window.location.href = "/kontrak-induk-khs";
+                        });
+                }
+            });
         });
     });
 </script>

@@ -154,6 +154,7 @@ class PrkController extends Controller
 
        $prks= Prk::where('no_prk', 'LIKE', '%'. $request->search.'%')->orWhere('uraian_prk', 'LIKE', '%' . $request->search . '%')->orWhereHas('skks', function ($query) use ($request) {
         $query->where('nomor_skk', 'LIKE', '%' . $request->search . '%');})->get();
+        // dd($prks);
 
        foreach($prks as $prk){
         $output.=

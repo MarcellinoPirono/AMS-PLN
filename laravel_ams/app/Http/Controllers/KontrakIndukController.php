@@ -7,6 +7,8 @@ use App\Models\Khs;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Carbon\Carbon;
+
 
 class KontrakIndukController extends Controller
 {
@@ -33,12 +35,12 @@ class KontrakIndukController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $validatedData = $request->validate([
 
             'khs_id' => 'required',
             'nomor_kontrak_induk' => 'required',
-            'tanggal_kontrak_induk' => 'date',            
+            'tanggal_kontrak_induk' => 'required',            
             'vendor_id' => 'required',            
 
         ]);
@@ -53,9 +55,9 @@ class KontrakIndukController extends Controller
 
         $data = [
             'kontrakinduks'  => $kontrakinduks,
-            'title' => 'Kontrak Induk',
-            'active' => 'Kontrak Induk',
-            'active1' => 'Edit Kontrak Induk',
+            'title' => 'Kontrak Induk KHS',
+            'active' => 'Kontrak Induk KHS',
+            'active1' => 'Edit Kontrak Induk KHS',
             'khss' => Khs::all(),
             'vendors' => Vendor::all(),
             // 'categories' => ItemRincianInduk::orderBy('id', 'DESC')->get(),
@@ -65,11 +67,12 @@ class KontrakIndukController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request);
         $request->validate([
 
             'khs_id' => 'required',
             'nomor_kontrak_induk' => 'required',
-            'tanggal_kontrak_induk' => 'date',
+            'tanggal_kontrak_induk' => 'required',
             'vendor_id' => 'required',            
         ]);
 
@@ -78,7 +81,18 @@ class KontrakIndukController extends Controller
         $input = $request->all();
         $kontrakinduks->update($input);
 
-        return redirect('/kontrak-induk-khs')->with('status', 'Kontrak Induk KHS Berhasil Diedit.');
+        // return redirect('/kontrak-induk-khs')->with('status', 'Kontrak Induk KHS Berhasil Diedit.');
+    }
+
+    public function destroy(KontrakInduk $KontrakInduk, $id)
+    {
+        // dd($id);
+        $KontrakInduk = KontrakInduk::find($id);
+        $KontrakInduk->delete();
+
+        return response()->json([
+            'success'   => true
+        ]);
     }
 
     public function filteringtable(Request $request)

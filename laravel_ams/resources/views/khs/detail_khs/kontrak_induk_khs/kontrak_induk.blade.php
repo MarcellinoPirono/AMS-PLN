@@ -33,11 +33,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @if (session('success'))
-                        <div class="sweetalert sweet-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                   
                     <div class="table-responsive" id="read">
                         <table id="rincian-table" class="table table-responsive-md">
                             <thead>
@@ -53,20 +49,19 @@
                             <tbody class="alldata">
                                 @foreach ($kontrakinduks as $kontrakinduk)
                                     <tr>
+                                        <input type="hidden" class="delete_id" value="{{ $kontrakinduk->id }}">
                                         <td><strong>{{ $loop->iteration }}</strong></td>
                                         <td>{{ $kontrakinduk->khs->jenis_khs }}</td>
                                         <td>{{ $kontrakinduk->nomor_kontrak_induk }}</td>
-                                        <td>{{ $kontrakinduk->tanggal_kontrak_induk }}</td>                                        
+                                        <td>{{ \Carbon\Carbon::parse($kontrakinduk->tanggal_kontrak_induk)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>                                        
                                         <td>{{ $kontrakinduk->vendors->nama_vendor }}</td>   
                                         <td>
                                             <div class="d-flex">
                                                 <a href="/kontrak-induk-khs/{{ $kontrakinduk->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <a href="#" data-toggle="modal"
-                                                    data-target="#deleteModal{{ $kontrakinduk->id }}"><i
-                                                        class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
-                                                {{-- <!-- @include('layouts.deleteitem') --> --}}
+                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                        class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -86,16 +81,9 @@
             </div>
         </div>
     </div>
+   
     <script type="text/javascript">
-        let item = $("#filter-kontrak-induk").val()
 
-        // <script>
-        // $(".filter").on('change',function(){
-        //     item = $("#filter-kategori").val()
-        // })
-        //
-    </script>
-    <script type="text/javascript">
         $(".filter-kontrak-induk").on('change', function() {
             let filter = this.value;
             $.ajaxSetup({
@@ -153,68 +141,62 @@
     });
 </script>
 @endsection
-{{-- <script type="text/javascript" charset="utf8" src=""></script> --}}
 
-{{-- @section('ajax')
-<script type="text/javascript">
-    let table = $('#rincian-table').DataTable({
-        processing : true,
-        serverSide : true,
-        "responsive": true,
-        "autoWidth": false,
-        ajax : "{{ route('rincian.index') }}",
-        columns : [
-            {
-            data: 'DT_RowIndex',
-            name: 'DT_RowIndex'
-            },
-            {data:'nama_item', name:'nama_item'},
-            {data:'nama_kategori', name:'nama_kategori'},
-            {data:'jenis_khs', name:'jenis_khs'},
-            {data:'satuan', name:'satuan'},
-            {data:'harga_satuan', name:'harga_satuan'},
-            // {data:'content', name:'content'},
-            {data: 'action', name: 'action', orderable: false, searchable: false}
-        ]
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+        $('.btndelete').click(function(e) {
+            e.preventDefault();
+            
+            var deleteid = $(this).closest("tr").find('.delete_id').val();
+
+            swal({
+                    title: "Apakah anda yakin?",
+                    text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        var data = {
+                            "_token": $('input[name=_token]').val(),
+                            'id': deleteid,
+                        };
+                        $.ajax({
+                            type: "DELETE",
+                            url: "{{ url('kontrak-induk-khs') }}"+'/'+deleteid,
+                            data: data,
+                            success: function(response) {
+                                swal({
+                                        title: "Data Dihapus",
+                                        text: "Data Berhasil Dihapus",
+                                        icon: "success",
+                                        timer: 2e3,
+                                        buttons: false
+                                    })
+                                    .then((result) => {
+                                        location.reload();
+                                    });
+                            }
+                        });
+                    } else {
+                        swal({
+                            title: "Data Tidak Dihapus",
+                            text: "Data Batal Dihapus",
+                            icon: "error",
+                            timer: 2e3,
+                            buttons: false
+                        });
+                    }
+                });
+        });
     });
-
-    function deleteBlog(id) {
-        let csrf_token = $('meta[name="csrf-token"]').attr('content');
-        swal({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            type: "warning",
-            showCancelButton: true,
-            cancelButtonColor: '#d33',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then(function () {
-            $.ajax({
-                type: "POST",
-                url: "{{ url('administrator/blog') }}" + '/' + id,
-                data: {
-                    '_method': 'DELETE',
-                    '_token': csrf_token
-                },
-                success: function (data) {
-                    table.ajax.reload();
-                    swal({
-                        title: 'Success',
-                        text: 'Data has been deleted',
-                        type: 'success',
-                        timer: '1500'
-                    }).catch(swal.noop);
-                },
-                error: function () {
-                    swal({
-                        title: 'Oops...',
-                        text: 'Something when wrong!',
-                        type: 'error',
-                        timer: '1500'
-                    }).catch(swal.noop);
-                }
-            });
-        })
-    }
 </script>
-@endsection --}}

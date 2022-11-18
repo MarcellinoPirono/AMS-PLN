@@ -97,8 +97,8 @@ class RabController extends Controller
             [
                 'active1' => 'Buat PO-KHS',
                 'title' => 'Kontrak Harga Satuan (KHS)',
-                'title1' => 'KHS',
-                'active' => 'KHS',
+                'title1' => 'PO-KHS',
+                'active' => 'PO-KHS',
                 'skks' => Skk::all(),
                 'prks' => Prk::all(),
                 'categories' => ItemRincianInduk::all(),

@@ -17,9 +17,8 @@
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form method="POST" action="/addendum-khs/{{$addendums->id}}" class="" enctype="multipart/form-data">
-                        @method('put')
-                        @csrf
+                    <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                        <input type="hidden" class="edit_id" id="edit_id" value="{{ $addendums->id }}">
                         <div class="form-row">
                             <div class="form-group col-md-6">                                                            
                                 <select class="form-control input-default" id="kontrak_induk_id" name="kontrak_induk_id">                                                   
@@ -35,7 +34,7 @@
                                 <input type="text" class="form-control input-default"  name="nama_pekerjaan" id="nama_pekerjaan" placeholder="Nama Pekerjaan" readonly disabled value="{{ old('kontrak_induk_id', $addendums->kontrak_induks->khs->nama_pekerjaan) }}">             
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default  @error('nomor_addendum') is-invalid @enderror" placeholder="Nomor Addendum" name="nomor_addendum" id="nomor_addendum" required autofocus value="{{ old('nomor_addendum', $addendums->nomor_addendum) }}">
+                                <input type="text" class="form-control input-default  @error('nomor_addendum') is-invalid @enderror" placeholder="Nomor Addendum" name="nomor_addendum" id="nomor_addendum"  value="{{ old('nomor_addendum', $addendums->nomor_addendum) }}" required autofocus>
                                     @error('nomor_addendum')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -43,12 +42,14 @@
                                 @enderror
                             </div>                            
                             <div class="form-group col-md-6">
-                                <input type="date" class="form-control input-default  @error('tanggal_addendum') is-invalid @enderror" placeholder="Tanggal Addendum" name="tanggal_addendum" id="tanggal_addendum" required autofocus value="{{ old('tanggal_addendum', $addendums->tanggal_addendum)}}">
-                                @error('tanggal_addendum')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                 <input name="tanggal_addendum" id="tanggal_addendum" class="datepicker-default form-control @error('tanggal_addendum') is-invalid @enderror"
+                                        placeholder="Tanggal Kontrak Induk" value="{{ old('tanggal_addendum', $addendums->tanggal_addendum) }}" required >
+                        
+                                    @error('tanggal_addendum')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                             </div>                            
                         </div>
                         <button type="submit" class="btn btn-primary position-relative">Edit Addendum</button>
@@ -68,6 +69,43 @@
             const nama_pekerjaan = selected.data('namapekerjaan'); 
             $("#jenis_khs").val(jenis_khs);
             $("#nama_pekerjaan").val(nama_pekerjaan);
+        });
+
+    $('#btnedit').on('click', function() {
+            var token = $('#csrf').val();
+            var id = $('#edit_id').val();
+            var kontrak_induk_id = $("#kontrak_induk_id").val();
+            var nomor_addendum = $("#nomor_kontrak_induk").val();
+            var tanggal_kontrak_induk = $("#tanggal_kontrak_induk").val();
+            var date = new Date(tanggal_kontrak_induk);
+            var vendor_id = $("#vendor_id").val();
+            var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+           
+            var data = {
+                 "_token": token,
+                "khs_id": khs_id,
+                "nomor_kontrak_induk": nomor_kontrak_induk,
+                "tanggal_kontrak_induk": dateString,
+                "vendor_id": vendor_id,
+            }
+
+            $.ajax({
+                url: "{{ url('kontrak-induk-khs') }}" + '/' + id,
+                type: 'PUT',
+                data: data,
+                success: function(response) {
+                    swal({
+                            title: "Data Diedit",
+                            text: "Data Berhasil Diedit",
+                            icon: "success",
+                            timer: 2e3,
+                            buttons: false
+                        })
+                        .then((result) => {
+                            window.location.href = "/kontrak-induk-khs";
+                        });
+                }
+            });
         });
     });
 </script>

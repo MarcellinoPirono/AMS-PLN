@@ -17,19 +17,19 @@ class RabFactory extends Factory
     public function definition()
     {
         return [
-            'skk_id' => mt_rand(1, 20),
             'nomor_po' => mt_rand(1, 20),
             'tanggal_po' => mt_rand(1, 20),
+            'skk_id' => mt_rand(1, 20),
             'prk_id' => mt_rand(1, 20),
-            'kategori_id' => mt_rand(1, 2),
-            'item_id' => mt_rand(1, 7),
+            // 'kategori_id' => mt_rand(1, 2),
+            // 'item_id' => mt_rand(1, 7),
             'nomor_kontrak_induk' => mt_rand(1, 200),
             'total_harga' => mt_rand(1, 200),
 
             'pekerjaan' => fake()->name(),
             'lokasi' => fake()->text(),
-            'volume' => mt_rand(1, 200),
-            'isi_surat' => fake()->text(),
+            // 'volume' => mt_rand(1, 200),
+            // 'isi_surat' => fake()->text(),
 
         ];
     }

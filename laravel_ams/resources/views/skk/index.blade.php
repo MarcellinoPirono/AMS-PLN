@@ -19,10 +19,9 @@
                     </a>
                     <div class="input-group search-area position-relative">
                         <div class="input-group-append">
-                            <span class="input-group-text"><a href="javascript:void(0)"><i
-                                        class="flaticon-381-search-2"></i></a></span>
+                            <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
+                            <input type="search" id="search" name="search" class="form-control" placeholder="Search here..." />
                         </div>
-                        <input type="text" class="form-control" placeholder="Search here..." />
                     </div>
 
                     {{-- <div class="sweetalert mt-5">
@@ -45,7 +44,7 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="alldata">
                                 @foreach ($skks as $skk)
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $skk->id }}">
@@ -68,6 +67,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                            </tbody>
+                            <tbody id="Content" class="searchdata">
+
                             </tbody>
                         </table>
                         {{-- <div class="pagination pagination-gutter pagination-primary no-bg d-flex float-right">
@@ -139,4 +141,34 @@
             });
         });
     </script>
+    <script type="text/javascript">
+    $('#search').on('keyup',function(){
+        $value=$(this).val();
+
+        if($value){
+            $('.alldata').hide();
+            $('.searchdata').show();
+        }
+
+        else{
+            $('.alldata').show();
+            $('.searchdata').hide();
+
+        }
+        
+        $.ajax({
+
+            type: 'get',
+            url:'{{URL::to('search-skk') }}',
+            data:{'search':$value},
+
+            success:function(data){
+                console.log(data);
+                $('#Content').html(data);
+            }
+            
+        });
+        
+    });
+</script>
 @endsection
