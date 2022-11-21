@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Pejabat extends Model
 {
     use HasFactory;
+
+    public function rabs()
+    {
+        return $this->hasMany(Rab::class, 'pejabat_id', 'id');
+    }
 }

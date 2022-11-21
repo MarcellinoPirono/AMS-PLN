@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('kategori_order');
             $table->foreignId('item_order');
             $table->foreignId('satuan_id');
-            $table->integer('harga_satuan');
-            $table->integer('volume');
-            $table->integer('jumlah_harga');
+            $table->double('harga_satuan');
+            $table->double('volume');
+            $table->double('jumlah_harga');
             $table->timestamps();
         });
     }

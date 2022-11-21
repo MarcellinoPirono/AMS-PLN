@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreignId('nomor_kontrak_induk');
             $table->foreignId('addendum_id');
             $table->foreignId('pejabat_id');
-            $table->foreignId('vendor_id');
+            // $table->foreignId('vendor_id');
             $table->text('pengawas');
             $table->integer('total_harga');
 

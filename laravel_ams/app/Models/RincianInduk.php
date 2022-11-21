@@ -32,4 +32,9 @@ class RincianInduk extends Model
     {
         return $this->belongsTo(Satuan::class, 'satuan_id', 'id');
     }
+
+    public function order_khs()
+    {
+        return $this->hasMany(OrderKhs::class, 'item_order');
+    }
 }

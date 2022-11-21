@@ -29,7 +29,7 @@ class RabFactory extends Factory
             'total_harga' => mt_rand(50000, 2000000),
             'addendum_id' => mt_rand(1, 3),
             'pejabat_id' => mt_rand(1, 2),
-            'vendor_id' => mt_rand(1, 2),
+            // 'vendor_id' => mt_rand(1, 2),
             'startdate' => fake()->date(),
             'enddate' => fake()->date(),
             'pekerjaan' => fake()->name(),

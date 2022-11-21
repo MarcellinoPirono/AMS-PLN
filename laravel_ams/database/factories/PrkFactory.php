@@ -18,13 +18,13 @@ class PrkFactory extends Factory
     {
         return [
             'no_skk_prk' => mt_rand(1, 20),
-            'no_prk' => mt_rand(1, 200),
+            'no_prk' => mt_rand(21, 200),
             'uraian_prk' => fake()->text(),
-            'pagu_prk' => fake()->text(),
-            'prk_terkontrak' => fake()->name(),
-            'prk_realisasi' => fake()->name(),
-            'prk_terbayar' => fake()->name(),
-            'prk_sisa' => fake()->name(),
+            'pagu_prk' => '0',
+            'prk_terkontrak' => '0',
+            'prk_realisasi' => '0',
+            'prk_terbayar' => '0',
+            'prk_sisa' => '0',
 
         ];
     }

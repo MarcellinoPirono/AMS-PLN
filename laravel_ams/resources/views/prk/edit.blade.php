@@ -206,24 +206,6 @@
     });
 </script>
 
-<script>
-    $(document).ready(function() {
-        $('#pagu_prk').blur(function(){
-            var pagu_prk = $(this).val();
-            pagu_prk = pagu_prk.replace(/\./g, "");
-            pagu_prk = pagu_prk.replace(/\Rp /g, "");
-            pagu_prk = parseInt(pagu_prk);
-            var prk_terkontrak = $("#prk_terkontrak").val();
-            prk_terkontrak = prk_terkontrak.replace(/\./g, "");
-            prk_terkontrak = prk_terkontrak.replace(/\Rp /g, "");
-            prk_terkontrak = parseInt(prk_terkontrak);
-            var prk_sisa = pagu_prk - prk_terkontrak;
-
-            $('#prk_sisa').val(prk_sisa);
-        })
-    });
-</script>
-
 <script type="text/javascript">
     function tandaPemisahTitik(b) {
         var _minus = false;
@@ -307,4 +289,32 @@
             return false;
         }
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#pagu_prk').blur(function(){
+            var pagu_prk = $(this).val();
+            pagu_prk = pagu_prk.replace(/\./g, "");
+            pagu_prk = parseInt(pagu_prk);
+            var prk_terkontrak = $("#prk_terkontrak").val();
+            prk_terkontrak = prk_terkontrak.replace(/\./g, "");
+            prk_terkontrak = parseInt(prk_terkontrak);
+            var prk_sisa = pagu_prk - prk_terkontrak;
+            prk_sisa = prk_sisa.toString();
+            prk_sisa_2 = "";
+            panjang = prk_sisa.length;
+            j = 0;
+            for (i = panjang; i > 0; i--) {
+                j = j + 1;
+                if (((j % 3) == 1) && (j != 1)) {
+                    prk_sisa_2 = prk_sisa.substr(i - 1, 1) + "." + prk_sisa_2;
+                } else {
+                    prk_sisa_2 = prk_sisa.substr(i - 1, 1) + prk_sisa_2;
+                }
+            }
+
+            $('#prk_sisa').val(prk_sisa_2);
+        })
+    });
 </script>

@@ -90,7 +90,7 @@ Route::get('deleteitem/{id}', [RincianIndukController::class, 'destroy']);
 
 //PO KHS
 Route::resource('po-khs', RabController::class);
-Route::get('export-pdf-khs/{$id}', [RabController::class, 'export_pdf_khs']);
+Route::get('export-pdf-khs/{id}', [RabController::class, 'export_pdf_khs']);
 Route::get('/buat-kontrak', [RabController::class, 'buat_kontrak']);
 
 Route::resource('prk', PrkController::class);

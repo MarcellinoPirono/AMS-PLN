@@ -9,6 +9,7 @@ class Prk extends Model
 {
     use HasFactory;
     protected $guarded = [''];
+    // protected $fillable = ['prk_terkontrak'];
 
     public function skks()
     {

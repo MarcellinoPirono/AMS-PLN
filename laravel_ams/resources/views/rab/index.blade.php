@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <div id="" class="card-body">
-                                <div class="table-responsive">
+                            <div class="table-responsive">
                                     <table class="table table-responsive-md">
                                         <thead>
                                             <tr>
@@ -38,7 +38,7 @@
                                                 <th>Lokasi</th>
                                                 <th>Start Date</th>
                                                 <th>End Date</th>
-                                                <th>Vendor</th>
+                                                {{-- <th>Vendor</th> --}}
                                                 <th>Nomor Kontrak Induk</th>
                                                 <th>Total Harga</th>                                                
                                                 <th> </th>
@@ -51,12 +51,12 @@
                                                     <td>{{ $rab->nomor_po }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($rab->tanggal_po)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>
                                                     <td>{{ $rab->skks->nomor_skk }}</td>
-                                                    <td>{{ $rab->prks->no_prk }}</td>
+                                                    <td>{{ $rab->prks->no_prk}}</td>
                                                     <td>{{ $rab->pekerjaan }}</td>
                                                     <td>{{ $rab->lokasi }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($rab->startdate)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>
                                                     <td>{{ \Carbon\Carbon::parse($rab->enddate)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>
-                                                    <td>{{ $rab->vendors->nama_vendor }}</td>
+                                                    {{-- <td>{{ $rab->vendors->nama_vendor }}</td> --}}
                                                     <td>{{ $rab->nomor_kontraks->nomor_kontrak_induk }}</td>
                                                     <td>@currency($rab->total_harga) </td>
                                                    

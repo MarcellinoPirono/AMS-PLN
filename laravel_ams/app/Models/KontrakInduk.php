@@ -24,4 +24,8 @@ class KontrakInduk extends Model
     {
         return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
     }
+    public function rabs()
+    {
+        return $this->hasMany(Rab::class, 'nomor_kontrak_induk', 'id');
+    }
 }

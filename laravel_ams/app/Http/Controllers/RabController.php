@@ -13,10 +13,17 @@ use App\Models\Khs;
 use App\Models\KontrakInduk;
 use App\Models\RincianInduk;
 use App\Models\Pejabat;
-use App\Models\OrderedRab;
+// use App\Models\OrderedRab;
 use App\Models\OrderKhs;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Carbon;
+use PhpParser\Node\Expr\Cast\Double;
+use Riskihajar\Terbilang\Facades\Terbilang;
+// use Carbon\Carbon
+// use Carbon\Carbon;
+
+// use Illuminate\Support\Carbon;
 
 
 class RabController extends Controller
@@ -27,7 +34,7 @@ class RabController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { 
         return view('rab.index', [
             'title' => 'PO KHS',
             'title1' => 'RAB',
@@ -169,9 +176,21 @@ class RabController extends Controller
             'pengawas' => $request->pengawas,
             'total_harga' => $request->total_harga,
         ];
-
+        
+        
         Rab::create($rab);
+        // $prk = Prk::all();
+        $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
+        $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
+        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
 
+        // $no_skk_prk = Skk::where('id', $request->skk_id)->value('id');
+        // $all_prk_terkontrak = Prk::where('no_skk_prk', $no_skk_prk)->get('prk_terkontrak');
+        // foreach($all_prk_terkontrak as $prk_terkontrak)
+        //     $updated_prk_terkontrak += (int)$prk_terkontrak;
+        // dd($updated_prk_terkontrak);
+        // Skk::where('id', $request->skk_id)->update(array('skk_terkontrak'=>(Double)$all_prk_terkontrak));
+        
         $id = Rab::where('nomor_po', $request->nomor_po)->value('id');
 
         $total_tabel = $request->click;
@@ -251,15 +270,30 @@ class RabController extends Controller
 
     public function export_pdf_khs($id)
     {
+        // dd($id);
         $values_pdf_page1 = Rab::where('id', $id)->get();
-        $rab_id = Rab::where('id', $id)->get(['rab_id']);
-        // $values_pdf_page2 = OrderedRab::where('rab_id', $rab_id)->get();
-        $pdf = Pdf::loadView('pdf.kontrak', [
-            "value" => $values_pdf_page1,
-            // "orderedrabs" => $values_pdf_page2,
+        $enddate = Rab::select('enddate')->where('id', $id)->first();
+        $startdate = Rab::select('startdate')->where('id', $id)->first();
+        // $startdate = Carbon::createFromFormat('Y-m-d', $values_pdf_page1->startdate)->format('1');
+        // $enddate = Carbon::createFromFormat('Y-m-d', $values_pdf_page1->enddate)->format('1');
+        
+        // $enddate = Carbon::createFromFormat('Y-m-d', $enddate)->format('d-m-Y');
+        // dd($enddate);
+        // $startdate = strtotime($startdate);
+        // $hari = $enddate - $startdate;
+        // dd($hari);
+
+        $rab_id = Rab::where('id', $id)->value('id');
+        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+        $pdf = Pdf::loadView('layouts.surat', [
+            "po_khs" => $values_pdf_page1,
+            "rab_khs" => $values_pdf_page2,
+            // "hari" => $hari,
+            // "title" => "Preview KHS"
         ]);
         return $pdf->download('po_khs.pdf');
     }
+
 
 
     

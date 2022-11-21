@@ -778,8 +778,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             this._resetCSSClass(this.current_index, "done");
           }
         } // Next step anchor > Remove other classes and add active class
-
-
         this._resetCSSClass(idx, "done");
 
         this._setCSSClass(idx, "active");

@@ -283,15 +283,25 @@
         $('#pagu_skk').blur(function(){
             var pagu_skk = $(this).val();
             pagu_skk = pagu_skk.replace(/\./g, "");
-            pagu_skk = pagu_skk.replace(/\Rp /g, "");
             pagu_skk = parseInt(pagu_skk);
             var skk_terkontrak = $("#skk_terkontrak").val();
             skk_terkontrak = skk_terkontrak.replace(/\./g, "");
-            skk_terkontrak = skk_terkontrak.replace(/\Rp /g, "");
             skk_terkontrak = parseInt(skk_terkontrak);
             var skk_sisa = pagu_skk - skk_terkontrak;
+            skk_sisa = skk_sisa.toString();
+            skk_sisa_2 = "";
+            panjang = skk_sisa.length;
+            j = 0;
+            for (i = panjang; i > 0; i--) {
+                j = j + 1;
+                if (((j % 3) == 1) && (j != 1)) {
+                    skk_sisa_2 = skk_sisa.substr(i - 1, 1) + "." + skk_sisa_2;
+                } else {
+                    skk_sisa_2 = skk_sisa.substr(i - 1, 1) + skk_sisa_2;
+                }
+            }
 
-            $('#skk_sisa').val(skk_sisa);
+            $('#skk_sisa').val(skk_sisa_2);
         })
     });
 </script>

@@ -15,7 +15,6 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
-                        <form action="" class="mb-5" enctype="multipart/form-data">
                         <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                         <div class="form-group row">
                             <label class="col-sm-25 col-form-label">No. SKK_PRK:</label>
@@ -28,7 +27,6 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label class="col-sm-25 col-form-label">No. PRK:</label>
                             <div class="col-sm-6">
@@ -81,7 +79,6 @@
                                     placeholder="PRK Terkontrak" name="prk_terkontrak" id="prk_terkontrak" required
                                     autofocus value="{{ old('prk_terkontrak') }}">
                                 @error('prk_terkontrak')
-                                    <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -137,8 +134,7 @@
                         <div class="position-relative justify-content-end float-right">
                             <button type="submit" id="btnresult"
                                 class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
-                        </div>
-                        </form>
+                        </div>      
                     </div>
                 </div>
             </div>

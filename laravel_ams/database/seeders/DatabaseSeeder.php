@@ -48,8 +48,9 @@ class DatabaseSeeder extends Seeder
                 'jenis_khs' => 'JTM',
                 'nama_pekerjaan' => 'Pengadaan Jasa Konstruksi dan Pemeliharaan JTM, Gardu Distribusi, JTR Dengan Pola Kesepakatan Harga Satuan (KHS) Tahun 2020/2021',
             ]
-        );
+        );    
 
+       
         // 
         // ItemRincianInduk::create([
         //     'nama_kategori' => 'Jasa',

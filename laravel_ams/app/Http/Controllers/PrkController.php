@@ -56,7 +56,7 @@ class PrkController extends Controller
 
             'no_skk_prk' => 'required|max:250',
             'no_prk' => 'required|max:250',
-            'uraian_prk' => 'required|max:250',
+            'uraian_prk' => 'required',
             'pagu_prk' => 'required|max:250',
             'prk_terkontrak' => 'required|max:250',
             'prk_realisasi' => 'required|max:250',
