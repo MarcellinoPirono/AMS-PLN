@@ -1,8 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-    @if (session()->has('success'))
-    @endif
     <div class="row">
         <div class="col-xl-5 col-lg-6">
             <div class="card" style="height: auto">
@@ -13,26 +11,18 @@
                     <div class="basic-form">
                         <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                         <div class="form-group">
-                            <input type="text"
-                                class="form-control input-rounded @error('jenis_khs') is }}-invalid @enderror"
-                                placeholder="Jenis KHS" id="jenis_khs" name="jenis_khs" required autofocus
-                                value="{{ old('jenis_khs') }}" onkeydown="change_backslash(event)">
-                            @error('jenis_khs')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <input type="text" class="form-control input-rounded validate0" placeholder="Jenis KHS"
+                                id="jenis_khs" name="jenis_khs" required autofocus value="{{ old('jenis_khs') }}"
+                                onkeydown="change_backslash(event)">
+                            <div class="invalid-feedback validate_khs0">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <textarea type="text" class="form-control @error('nama_pekerjaan') is }}-invalid @enderror"
-                                placeholder="Nama Pekerjaan" id="nama_pekerjaan" name="nama_pekerjaan" required autofocus>{{ old('nama_pekerjaan') }}</textarea>
-                            @error('nama_pekerjaan')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <textarea type="text" class="form-control validate1" placeholder="Nama Pekerjaan" id="nama_pekerjaan"
+                                name="nama_pekerjaan" required autofocus>{{ old('nama_pekerjaan') }}</textarea>
+                            <div class="invalid-feedback validate_khs1">
+                            </div>
                         </div>
-
                         <div class="position-relative justify-content-end float-right sweetalert">
                             <button type="submit" id="btnresult"
                                 class="btn btn-primary position-relative justify-content-end">Submit</button>
@@ -89,8 +79,8 @@
                             </tbody>
                         </table>
                         <div class="pagination pagination-gutter pagination-primary no-bg d-flex float-right">
-                                        {{ $khss->links() }}
-                                    </div>
+                            {{ $khss->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -112,15 +102,20 @@
                     <input type="hidden" class="edit_id" value="{{ $khs->jenis_khs }}">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Jenis KHS:</label>
-                        <input type="text" class="form-control input-rounded edit_data" placeholder="Nama Kategori"
-                            id="edit_jenis_khs" name="edit_jenis_khs" onkeydown="change_backslash2(event)" value="{{ old('edit_jenis_khs', $khs->jenis_khs) }}">
+                        <input type="text" class="form-control input-rounded edit_data edit_validate0"
+                            placeholder="Jenis KHS" id="edit_jenis_khs" name="edit_jenis_khs"
+                            onkeydown="change_backslash2(event)" value="{{ old('edit_jenis_khs', $khs->jenis_khs) }}">
+                        <div class="invalid-feedback edit_validate_khs0">
+                        </div>
                     </div>
-
                     <input type="hidden" class="edit_id" value="{{ $khs->nama_pekerjaan }}">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Nama Pekerjaan:</label>
-                        <textarea type="text" class="form-control edit_data" placeholder="Nama Kategori" id="edit_nama_pekerjaan"
-                            name="edit_nama_pekerjaan" value="{{ old('edit_nama_pekerjaan', $khs->nama_pekerjaan) }}"></textarea>
+                        <textarea type="text" class="form-control edit_data edit_validate1" placeholder="Nama Pekerjaan"
+                            id="edit_nama_pekerjaan" name="edit_nama_pekerjaan"
+                            value="{{ old('edit_nama_pekerjaan', $khs->nama_pekerjaan) }}"></textarea>
+                        <div class="invalid-feedback edit_validate_khs1">
+                        </div>
                     </div>
                 </div>
 
@@ -165,6 +160,19 @@
                             .then((result) => {
                                 location.reload();
                             });
+                    },
+                    error: function(response) {
+                        var input = 2;
+
+                        for (var i = 0; i < input; i++) {
+                            $('.validate' + i).removeClass("is-invalid");
+                            $('.validate_khs' + i).html("");
+                            if ($('.validate' + i).val() == "") {
+                                $('.validate' + i).addClass("is-invalid");
+                                $('.validate_khs' + i).html("Tolong Isi " + $('.validate' + i)
+                                    .attr("placeholder"));
+                            }
+                        }
                     }
                 });
             });
@@ -247,11 +255,23 @@
                                     }).then((result) => {
                                         location.reload();
                                     });
+                                },
+                                error: function(response) {
+                                    var input = 2;
+
+                                    for (var i = 0; i < input; i++) {
+                                        $('.edit_validate' + i).removeClass("is-invalid");
+                                        $('.edit_validate_khs' + i).html("");
+                                        if ($('.edit_validate' + i).val() == "") {
+                                            $('.edit_validate' + i).addClass("is-invalid");
+                                            $('.edit_validate_khs' + i).html("Tolong Isi " + $(
+                                                '.edit_validate' + i).attr(
+                                                "placeholder"));
+                                        }
+                                    }
                                 }
                             });
                         });
-                        console.log(response.result.khs.jenis_khs);
-                        console.log(response.result);
                     }
                 });
             });
@@ -284,11 +304,23 @@
                                 }).then((result) => {
                                     location.reload();
                                 });
+                            },
+                            error: function(response) {
+                                var input = 2;
+
+                                for (var i = 0; i < input; i++) {
+                                    $('.edit_validate' + i).removeClass("is-invalid");
+                                    $('.edit_validate_khs' + i).html("");
+                                    if ($('.edit_validate' + i).val() == "") {
+                                        $('.edit_validate' + i).addClass("is-invalid");
+                                        $('.edit_validate_khs' + i).html("Tolong Isi " + $(
+                                            '.edit_validate' + i).attr(
+                                            "placeholder"));
+                                    }
+                                }
                             }
                         });
                     });
-                    console.log(response.result.khs.jenis_khs);
-                    console.log(response.result);
                 }
             });
         }

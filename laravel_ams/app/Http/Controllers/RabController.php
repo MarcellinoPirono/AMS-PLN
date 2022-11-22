@@ -179,16 +179,15 @@ class RabController extends Controller
         
         
         Rab::create($rab);
-        // $prk = Prk::all();
-        $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
-        $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
-        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
+        // $prk = Prk::all();        
 
+        // $updated_prk_terkontrak = 0;
         // $no_skk_prk = Skk::where('id', $request->skk_id)->value('id');
         // $all_prk_terkontrak = Prk::where('no_skk_prk', $no_skk_prk)->get('prk_terkontrak');
         // foreach($all_prk_terkontrak as $prk_terkontrak)
-        //     $updated_prk_terkontrak += (int)$prk_terkontrak;
-        // dd($updated_prk_terkontrak);
+        //     dd($prk_terkontrak);    
+
+        //     // $updated_prk_terkontrak += (Double)$prk_terkontrak;
         // Skk::where('id', $request->skk_id)->update(array('skk_terkontrak'=>(Double)$all_prk_terkontrak));
         
         $id = Rab::where('nomor_po', $request->nomor_po)->value('id');
@@ -215,6 +214,9 @@ class RabController extends Controller
             ];
             OrderKhs::create($order_khs);
         }
+        $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
+        $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
+        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
 
         return redirect('/po-khs')->with('status', 'PO KHS Berhasil Ditambah!');
 
@@ -289,7 +291,7 @@ class RabController extends Controller
             "po_khs" => $values_pdf_page1,
             "rab_khs" => $values_pdf_page2,
             // "hari" => $hari,
-            // "title" => "Preview KHS"
+            "title" => "PO-KHS"
         ]);
         return $pdf->download('po_khs.pdf');
     }

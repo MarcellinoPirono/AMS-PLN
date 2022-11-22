@@ -3,7 +3,7 @@
 @section('content')
     <div class="page-titles">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url('item-khs/'.$jenis_khs.'') }}">{{ $active }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('item-khs/' . $jenis_khs . '') }}">{{ $active }}</a></li>
             <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $active1 }}</a></li>
         </ol>
     </div>
@@ -16,67 +16,54 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
-                        {{-- <form method="POST" action="/item-khs/{{ $jenis_khs }}/store" class="" enctype="multipart/form-data"> --}}
-                            <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
-                        
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label class="text-label">Jenis Kontrak :</label>
-                                    <input type="text"
-                                        class="form-control input-default  @error('khs_id') is-invalid @enderror"
-                                        placeholder="Jenis Kontrak" name="khs_id" id="khs_id" readonly
-                                        disabled required autofocus value="{{ old('khs_id', $jenis_khs) }}">
-                                    @error('khs_id')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="col-lg-6 mb-2">
-                                    <label class="text-label">Kategori:</label>
-                                    <div class="form-group mt-lg-2">
-                                        <label class="radio-inline"><input class="kategori" type="radio" name="kategori" id="kategori" value="Jasa">Jasa &ensp; &ensp;</label>
-                                        <label class=" radio-inline"><input class="kategori" type="radio" name="kategori" id="kategori" value="Material">Material</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="text-label">Nama Item :</label>
-                                    <input type="text"
-                                        class="form-control input-default  @error('nama_item') is-invalid @enderror"
-                                        placeholder="Nama Item" name="nama_item" id="nama_item" required autofocus
-                                        value="{{ old('nama_item') }}">
-                                    @error('nama_item')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                 <div class="form-group col-md-6">
-                                    <label class="text-label">Satuan:</label>
-                                    <input type="text"
-                                        class="form-control input-default  @error('satuan') is-invalid @enderror"
-                                        placeholder="Satuan" name="satuan" id="satuan" required autofocus
-                                        value="{{ old('satuan') }}">
-                                    @error('satuan')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="text-label">Harga Satuan (Rp):</label>
-                                    <input onkeydown="return numbersonly(this, event);"
-                                        onkeyup="javascript:tandaPemisahTitik(this);" type="text"
-                                        class="form-control input-default  @error('harga_satuan') is-invalid @enderror"
-                                        placeholder="Harga Satuan" name="harga_satuan" id="harga_satuan" required autofocus>
-                                    @error('harga_satuan')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="text-label">Jenis Kontrak :</label>
+                                <input type="text" class="form-control input-default" placeholder="Jenis Kontrak"
+                                    name="khs_id" id="khs_id" readonly disabled required autofocus
+                                    value="{{ old('khs_id', $jenis_khs) }}">
+                            </div>
+                            <div class="form-group col-lg-6 mb-2">
+                                <label class="text-label">Kategori :</label>
+                                <div class="form-group mt-lg-2">
+                                    <label class="radio-inline">
+                                        <input class="kategori" type="radio" name="kategori" id="kategori" checked
+                                            value="Jasa">Jasa &ensp; &ensp;
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input class="kategori" type="radio" name="kategori" id="kategori"
+                                            value="Material">Material
+                                    </label>
                                 </div>
                             </div>
-                            <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Tambah</button>
+                            <div class="form-group col-md-6">
+                                <label class="text-label">Nama Item :</label>
+                                <input type="text" class="form-control input-default validate0" placeholder="Nama Item"
+                                    name="nama_item" id="nama_item" required autofocus value="{{ old('nama_item') }}">
+                                <div class="invalid-feedback validate_item0">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="text-label">Satuan :</label>
+                                <input type="text"
+                                    class="form-control input-default validate1"
+                                    placeholder="Satuan" name="satuan" id="satuan" required autofocus
+                                    value="{{ old('satuan') }}">
+                                <div class="invalid-feedback validate_item1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="text-label">Harga Satuan (Rp) :</label>
+                                <input onkeydown="return numbersonly(this, event);"
+                                    onkeyup="javascript:tandaPemisahTitik(this);" type="text"
+                                    class="form-control input-default validate2"
+                                    placeholder="Harga Satuan" name="harga_satuan" id="harga_satuan" required autofocus>
+                                <div class="invalid-feedback validate_item2">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Tambah</button>
                     </div>
                 </div>
             </div>
@@ -173,42 +160,47 @@
     }
 
     $(document).ready(function() {
-            $('#btn_tambah').on('click', function() {
-                var token = $('#csrf').val();
-                var khs_id = $("#khs_id").val();
-                var kategori =  $(".kategori:checked").val();
-                var nama_item = $("#nama_item").val();
-                var satuan = $("#satuan").val();
-                var harga_satuan = $("#harga_satuan").val();
-                harga_satuan = harga_satuan.replace(/\./g, "");
-                harga_satuan = parseInt(harga_satuan);
+        $('#btn_tambah').on('click', function() {
+            var token = $('#csrf').val();
+            var khs_id = $("#khs_id").val();
+            var kategori = $(".kategori:checked").val();
+            var nama_item = $("#nama_item").val();
+            var satuan = $("#satuan").val();
+            var harga_satuan = $("#harga_satuan").val();
+            harga_satuan = harga_satuan.replace(/\./g, "");
+            harga_satuan = parseInt(harga_satuan);
 
-                var data = {
-                    "_token": token,
-                    "khs_id": khs_id,
-                    "kategori": kategori,
-                    "nama_item": nama_item,
-                    "satuan": satuan,
-                    "harga_satuan": harga_satuan
+            var data = {
+                "_token": token,
+                "khs_id": khs_id,
+                "kategori": kategori,
+                "nama_item": nama_item,
+                "satuan": satuan,
+                "harga_satuan": harga_satuan
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '',
+                data: data,
+                success: function(response) {
+                    swal({
+                            title: "Data Ditambah",
+                            text: "Data Berhasil Ditambah",
+                            icon: "success",
+                            timer: 2e3,
+                            buttons: false
+                        })
+                        .then((result) => {
+                            window.location.href = "{{ url('item-khs/' . $jenis_khs . '') }}";
+                        });
+                },
+                error: function(response) {
+                    var input = 3
+
+                    // for ()
                 }
-
-                $.ajax({
-                    type: 'POST',
-                    url: '',
-                    data: data,
-                    success: function(response) {
-                        swal({
-                                title: "Data Ditambah",
-                                text: "Data Berhasil Ditambah",
-                                icon: "success",
-                                timer: 2e3,
-                                buttons: false
-                            })
-                            .then((result) => {
-                                window.location.href = "{{ url('item-khs/'.$jenis_khs.'') }}";
-                            });
-                    }
-                });
             });
         });
+    });
 </script>

@@ -1,0 +1,187 @@
+ /** Define the margins of your page **/
+ :root{
+    font-family: 'Calibri';
+ }
+ 
+ @page {
+    margin: 180px 20px 100px 20px;
+}
+/* @page {
+    margin: 0cm 0cm;
+} */
+
+header {
+    position: fixed;
+    top: -182px;
+    left: -22px;
+    /* right: -20px; */
+    width: 100%;
+    /* height: 3cm; */
+    /* height: 100%; */
+    /* background-color: yellowgreen; */
+    /* position: static;
+    top: 0cm;
+    left: 0cm;
+    right: 0cm;
+    height: 3cm; */
+    /* width: 100%; */
+
+    /** Extra personal styles **/
+    /* color: white; */
+    /* text-align: center; */
+    /* line-height: 35px; */
+    /* margin-bottom: 350px ; */
+    /* : 150px ; */
+}
+
+/* .header{
+    background-color: aqua;
+    height:100px;
+    margin: 20 20 20 20;
+} */
+
+/* .contents{
+    margin-top:50px;
+} */
+
+header img{
+    width:100%;
+    height:150px;  
+}
+
+footer {
+    /* position: fixed; 
+    bottom: -60px; 
+    left: 0px; 
+    right: 0px;
+    height: 50px; 
+    font-size: 20px !important; */
+    position: fixed; 
+    bottom: 0cm; 
+    left: 0px; 
+    /* right: 0cm; */
+    height: 1cm;
+
+    /** Extra personal styles **/
+    color: rgb(0, 0, 0);
+    /* text-align: center; */
+    line-height: 35px; 
+    font-size: 10px; 
+}
+
+.footer-container{
+    display: flex;
+    justify-content: space-between;    
+}
+
+/* .footer-1{
+} */
+@font-face {
+    font-family: 'Calibri';
+    src: local('Calibri Regular'), local('Calibri-Regular'),
+        url('Calibri.woff2') format('woff2'),
+        url('Calibri.woff') format('woff'),
+        url('Calibri.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Calibri';
+    src: local('Calibri Bold'), local('Calibri-Bold'),
+        url('Calibri-Bold.woff2') format('woff2'),
+        url('Calibri-Bold.woff') format('woff'),
+        url('Calibri-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Calibri';
+    src: local('Calibri Bold Italic'), local('Calibri-Bold-Italic'),
+        url('Calibri-BoldItalic.woff2') format('woff2'),
+        url('Calibri-BoldItalic.woff') format('woff'),
+        url('Calibri-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+body{
+    font-family: Calibri;
+}
+.page-break {
+    page-break-after: always;
+}
+
+.p2{
+    text-align: left;
+    float: right;
+    margin-right: 50px;           
+}
+
+/* .container1{
+    margin-top: 50px;
+} */
+
+.navbar {
+    text-align: center;
+    /* color: white !important; */
+    font-size: 14px;
+    margin-top: -50px; 
+}
+
+#firstTable table {
+    border: 3px solid black;
+    margin-top: 25px;
+    }
+
+.first {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-top: none;
+    border-bottom: none;
+}
+
+.warna{
+    background-color: #C5C6D0;
+}
+.sub-judul{
+    font-family: Calibri;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: -20px;
+    tab-size: 4;
+
+}
+.tabulasi {
+    display: inline-block;
+    margin-left: 40px;
+}
+
+table td{ 
+    word-break: break-all;  /* MUST ADD THIS */
+    vertical-align: top;
+    overflow-wrap: break-word;
+  }
+
+.wrapword {
+    white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+    white-space: -webkit-pre-wrap;          /* Chrome & Safari */ 
+    white-space: -pre-wrap;                 /* Opera 4-6 */
+    white-space: -o-pre-wrap;               /* Opera 7 */
+    white-space: pre-wrap;                  /* CSS3 */
+    word-wrap: break-word;                  /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
+}
+
+.coba{
+    -ms-word-break: break-all;
+    word-break: break-all;
+
+ /* Non standard for webkit */
+     word-break: break-word;
+
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+}
