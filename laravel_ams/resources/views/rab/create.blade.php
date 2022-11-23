@@ -632,6 +632,19 @@
     }
 
     function next1() {
+        // alert("Halo");
+        // window.location.hash = 
+        // delete next;
+        // this.main.find('.sw-btn-prev').removeClass("sw-btn-prev");
+        // delete SmartWizard;
+        // _this._showNext().disable();
+        // return false;
+        // alert("HALO AGAIN!!!")
+        // window.location.href = "#informasi_umum";
+        // reset();
+        
+        // event.stopPropagation();
+        // alert("Halo again");
         btn_next1 = document.getElementById('btnnext1');
         btn_next1.setAttribute("id", "btnnext2");
         btn_next1.setAttribute("onclick", "next2()");

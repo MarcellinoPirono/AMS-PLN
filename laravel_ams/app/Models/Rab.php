@@ -56,4 +56,5 @@ class Rab extends Model
     {
         return $this->belongsTo(Hpe::class, 'rab_id', 'id');
     }
+    
 }

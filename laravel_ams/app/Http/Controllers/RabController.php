@@ -20,6 +20,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use PhpParser\Node\Expr\Cast\Double;
 use Riskihajar\Terbilang\Facades\Terbilang;
+use DateTime;
 // use Carbon\Carbon
 // use Carbon\Carbon;
 
@@ -270,7 +271,104 @@ class RabController extends Controller
         // return redirect('/rab')->with('success', 'Data berhasil dihapus');
     }
 
-    public function export_pdf_khs($id)
+    public function searchpokhs(Request $request)
+    {
+        $output ="";
+
+
+       $rabs= Rab::where('nomor_po', 'LIKE', '%'. $request->search.'%')->orWhere('tanggal_po', 'LIKE', '%' . $request->search . '%')->orWhere('pekerjaan', 'LIKE', '%' . $request->search . '%')->get();
+        // dd($prks);
+
+       foreach($rabs as $rab){
+        $output.=
+            '<tr>
+            <input type="hidden" class="delete_id" value='. $rab->id .'>
+            <td>'. $rab->id.'</td>
+            <td>'. $rab->nomor_po.'</td>
+            <td>'. $rab->tanggal_po.' </td>
+            <td>'. $rab->skks->nomor_skk.' </td>
+            <td>'. $rab->prks->no_prk.' </td>
+            <td>'. $rab->pekerjaan.' </td>
+            <td>'. $rab->lokasi.' </td>
+            <td>'. $rab->startdate.' </td>
+            <td>'. $rab->enddate.' <td>                     
+            <td>'. $rab->nomor_kontraks->nomor_kontrak_induk.' <td>                     
+            <td>'. $rab->total_harga.' <td>                     
+            <td>'. ' 
+            <div class="dropdown">
+                <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="preview-pdf-khs/{{$rab->id}}">Preview</a>
+                    <a class="dropdown-item" href="export-pdf-khs/{{ $rab->id }}">Export (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
+                    <a class="dropdown-item" href="export-excel-khs/{{ $rab->id }}">Export (excel) <i class="bi bi-file-earmark-excel-fill"></i></a>
+                </div>
+            </div>
+            '.'</td>
+            </tr>';
+       }
+
+       return response($output);
+    }
+
+    public function export_pdf_khs(Request $request, $id)
+    {
+        // dd($id);  
+        // $startdate = [];
+        // $enddate = [];
+
+        $values_pdf_page1 = Rab::where('id', $id)->get();
+        // $enddate = Rab::select('enddate')->where('id', $id)->get();
+        // $startdate = Rab::select('startdate')->where('id', $id)->get();
+      
+        // $startdate = DB::table('rabs')->select('startdate')->where('id', $id)->get();
+        $startdate = Rab::where('id', $id)->value('startdate');
+        $enddate = Rab::where('id', $id)->value('enddate');
+        // $enddate = DB::table('rabs')->select('enddate')->where('id', $id)->get();
+        // $startdate = $startdate->toDateTimeString();
+        // $startdate = Carbon::createFromFormat('Y/m/d', $startdate)->format('Y/m/d');
+        $datetime1 = new DateTime($startdate);
+        // $datetime1->setTimestamp();
+        $datetime2 = new DateTime($enddate);
+        $interval = $datetime1->diff($datetime2);
+        $days = $interval->format('%a');
+        
+        // $startdate = Carbon::parse($startdate)->format('l');
+        // $enddate = Carbon::parse($enddate)->format('l');
+        // dd($days);
+
+        
+        // $day = $enddate - $startdate;
+        // dd($day);
+
+        
+        // $enddate = Carbon::createFromFormat('Y-m-d', $values_pdf_page1->enddate)->format('1');
+        
+        // $enddate = Carbon::createFromFormat('Y-m-d', $enddate)->format('d-m-Y');
+        // dd($enddate);
+        // $startdate = strtotime($startdate);
+        // $hari = $enddate - $startdate;
+        // dd($hari);
+
+        $rab_id = Rab::where('id', $id)->value('id');
+        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+
+        $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
+        $ppn = $jumlah * 0.11;
+        $pdf = Pdf::loadView('layouts.surat', [
+            "po_khs" => $values_pdf_page1,
+            "rab_khs" => $values_pdf_page2,
+            "jumlah" => $jumlah,
+            "ppn" => $ppn,
+            "days" => $days,
+            "title" => "PO-KHS",
+        
+        ]);
+        return $pdf->download('po_khs.pdf');
+    }
+
+    public function preview_pdf_khs($id)
     {
         // dd($id);
         $values_pdf_page1 = Rab::where('id', $id)->get();
@@ -287,13 +385,18 @@ class RabController extends Controller
 
         $rab_id = Rab::where('id', $id)->value('id');
         $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
-        $pdf = Pdf::loadView('layouts.surat', [
+        // $pdf = Pdf::loadView('layouts.surat', [
+        //     "po_khs" => $values_pdf_page1,
+        //     "rab_khs" => $values_pdf_page2,
+        //     // "hari" => $hari,
+        //     "title" => "PO-KHS"
+        // ]);
+        // return $pdf->download('po_khs.pdf');
+        return view('layouts.surat',[
             "po_khs" => $values_pdf_page1,
             "rab_khs" => $values_pdf_page2,
-            // "hari" => $hari,
-            "title" => "PO-KHS"
+            "title" => "PO-KHS",
         ]);
-        return $pdf->download('po_khs.pdf');
     }
 
 

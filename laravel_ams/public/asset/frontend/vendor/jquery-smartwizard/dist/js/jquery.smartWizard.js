@@ -82,6 +82,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       // show/hide a Next button
       showPreviousButton: true,
       // show/hide a Previous button
+      showSubmitButton: true,
       toolbarExtraButtons: [] // Extra buttons to show on toolbar, array of jQuery input/buttons elements
 
     },
@@ -110,7 +111,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     lang: {
       // Language variables for button
       next: 'Next',
-      previous: 'Previous'
+      previous: 'Previous',
+      submit: 'Submit'
     },
     disabledSteps: [],
     // Array Steps disabled
@@ -119,7 +121,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     hiddenSteps: [] // Hidden steps
 
   };
-
   var SmartWizard = /*#__PURE__*/function () {
     function SmartWizard(element, options) {
       _classCallCheck(this, SmartWizard);
@@ -268,7 +269,58 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         this.main.find('.sw-btn-next').on("click", function (e) {
           e.preventDefault();
 
-          _this._showNext();
+          // switch (this._getStepPosition(idx)) {
+          //   case 'first':
+              // if($('#po').val() == "") {
+              //   alert("ISIKI")
+              // } else {
+              //   _this._showNext();
+              // }
+          //   break;
+          // }
+
+          // if (!this.options.cycleSteps) {
+            // this.main.find('.sw-btn-prev').removeClass("disabled");
+            // this.main.find('.sw-btn-next').removeClass("disabled");
+  
+            // if(this._getStepPosition(idx) == 'first') {
+              _this._showNext();
+            // }
+            // switch (this._getStepPosition(idx)) {
+            //   case 'first':
+                // if($('#po').val() == "") {
+                //   alert("ISIKI")
+                // } else {
+                //   _this._showNext();
+                // }
+                // this.main.find('.sw-btn-prev').addClass("disabled");
+                // next.disable();
+                // this.main.find('.sw-btn-next').
+                // return false;
+                // this.main.find('.sw-btn-prev').attr("id", "btnprev1");
+                // this.main.find('.sw-btn-prev').attr("onclick", "prev1()");
+                // this.main.find('.sw-btn-next').attr("id", "btnnext1");
+                // this.main.find('.sw-btn-next').attr("onclick", "next1()");
+          //       break;
+          //     case 'last':
+          //       this.main.find('.sw-btn-next').addClass("disabled");
+          //       break;
+  
+          //     default:
+          //       if (this._getNextShowable(idx) === false) {
+          //         this.main.find('.sw-btn-next').addClass("disabled");
+          //       }
+  
+          //       if (this._getPreviousShowable(idx) === false) {
+          //         this.main.find('.sw-btn-prev').addClass("disabled");
+          //       }
+  
+          //       break;
+          //   }
+          // }
+          // alert("halo")
+
+          
         }); // Previous button event
 
         this.main.find('.sw-btn-prev').on("click", function (e) {
@@ -799,7 +851,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               this.main.find('.sw-btn-next').attr("onclick", "next1()");
               break;
             case 'last':
-              // this.main.find('.sw-btn-next').addClass("disabled");
+              this.main.find('.sw-btn-next').addClass("disabled");
               break;
 
             default:
@@ -958,7 +1010,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       key: "reset",
       value: function reset() {
         // Reset all
-        this._setURLHash('#');
+        this._setURLHash('#informasi_umum');
 
         this._initOptions();
 
