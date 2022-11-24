@@ -169,8 +169,8 @@
                             $('.validate_khs' + i).html("");
                             if ($('.validate' + i).val() == "") {
                                 $('.validate' + i).addClass("is-invalid");
-                                $('.validate_khs' + i).html("Tolong Isi " + $('.validate' + i)
-                                    .attr("placeholder"));
+                                $('.validate_khs' + i).html("Form " + $('.validate' + i)
+                                    .attr("placeholder") + " Tidak Boleh Kosong");
                             }
                         }
                     }

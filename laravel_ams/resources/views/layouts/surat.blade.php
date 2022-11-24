@@ -110,7 +110,7 @@
                         <td style="text-indent:80px; font-weight:bold;" colspan="3">{{ $pokhs->pekerjaan }}</td>
                     </tr>
                     <tr>
-                        <td style="text-indent:80px;">Lokasi</td>
+                        <td style="text-indent:80px;font-weight:bold;">Lokasi</td>
                         <td>:</td>
                         <td style="font-weight:bold;">{{ $pokhs->lokasi }}</td>
                     </tr>
@@ -118,7 +118,7 @@
             </div>
             <div class="content3" style="margin-left: 40px;">
                 <ol type="1">
-                    <li>Harga Borongan Pekerjaan {{ $pokhs->total_harga }}</li>
+                    <li>Harga Borongan Pekerjaan @currency($pokhs->total_harga),- (Termasuk PPN 11%)</li>
                     <li>Rincian Pekerjaan diterbitkan dengan Perintah Kerja dari Manager Unit Layanan Pelanggan
                     </li>
                     <li>Jangka waktu pelaksanaan pekerjaan {{ $days }} <span class="italic">({{Terbilang::make($days)}})</span> hari kalender sejak tanggal {{  \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}
@@ -126,7 +126,7 @@
                         dengan tanggal {{  \Carbon\Carbon::parse($pokhs->enddate)->isoFormat('DD MMMM YYYY') }}</li>
                     <li>Sumber Dana Sesuai dengan SKK {{ $pokhs->skks->nomor_skk }} <br> PRK No:
                         {{ $pokhs->prks->no_prk }}</li>
-                    <li>Direksi Pekerjaan adalah {{ $pokhs->pejabats->nama_pejabat }} PT PLN (Persero) UP3
+                    <li>Direksi Pekerjaan adalah {{ $pokhs->pejabats->jabatan }} PT PLN (Persero) UP3
                         Makassar
                         Selatan</li>
                     <li>Pengawas Pekerjaan adalah {{ $pokhs->pengawas }} PT PLN (Persero) UP3 Makassar Selatan
@@ -197,6 +197,27 @@
             </div>
             </div>
         @endforeach
+
+        <div class="page-break"></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td style="height: 50px;" align="center" valign="bottom">SETUJU MELAKSANAKAN</td>
+                <td style="width:35%;" align="center" valign="bottom">PT PLN (PERSERO) UIW SULSELRABAR</td>
+            </tr>
+            <tr>
+                <td align="center" valign="top">{{$pokhs->nomor_kontraks->vendors->nama_vendor}}</td>
+                <td align="center" valign="middle">UP3 MAKASSAR SELATAN</td>
+            </tr>
+            <tr>
+                <td align="center" valign="top">Direktur</td>
+                <td align="center" valign="middle">{{$jabatan_manager}}</td>
+            </tr>
+            <tr style="height: 150px;">
+                <td style="height: 150px;" align="center" valign="bottom">{{$pokhs->nomor_kontraks->vendors->nama_direktur}}</td>
+                <td align="center" valign="bottom">{{$nama_manager}}</td>
+            </tr>
+        </table>
+
     </main>
 
 
@@ -262,16 +283,33 @@
         <td></td>
         <td></td>
     </tr> -->
-            @foreach ($rab_khs as $rabkhs)
+                @foreach ($rab_khs as $rabkhs)
+                @if ($rabkhs->kategori_order == "Jasa")
                 <tr>
-                    <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>
-                    <td class="first" align="left" valign="middle">{{ $rabkhs->rincian_induks->nama_item }}</td>
-                    <td class="first" align="center" valign="middle">{{ $rabkhs->satuans->singkatan }}</td>
-                    <td class="first" align="center" valign="middle">{{ $rabkhs->volume }}</td>
-                    <td class="first" align="right" valign="middle">@currency2($rabkhs->harga_satuan)</td>
-                    <td class="first" align="right" valign="middle">@currency2($rabkhs->jumlah_harga)</td>
+                    
                 </tr>
-            @endforeach
+                <tr>
+                   <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>                    
+                   <!-- <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td> -->
+                   <td class="first" align="left" valign="middle">{{ $rabkhs->rincian_induks->nama_item }}</td>
+                   <td class="first" align="center" valign="middle">{{ $rabkhs->satuans->singkatan }}</td>
+                   <td class="first" align="center" valign="middle">{{ $rabkhs->volume }}</td>
+                   <td class="first" align="right" valign="middle">@currency2($rabkhs->harga_satuan)</td>
+                   <td class="first" align="right" valign="middle">@currency2($rabkhs->jumlah_harga)</td>
+               </tr>                    
+                @endif
+                @if ($rabkhs->kategori_order == "Material")
+                <tr>
+                   <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>                    
+                   <!-- <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td> -->
+                   <td class="first" align="left" valign="middle">{{ $rabkhs->rincian_induks->nama_item }}</td>
+                   <td class="first" align="center" valign="middle">{{ $rabkhs->satuans->singkatan }}</td>
+                   <td class="first" align="center" valign="middle">{{ $rabkhs->volume }}</td>
+                   <td class="first" align="right" valign="middle">@currency2($rabkhs->harga_satuan)</td>
+                   <td class="first" align="right" valign="middle">@currency2($rabkhs->jumlah_harga)</td>
+               </tr>  
+                @endif
+                @endforeach
             <tr>
                 <td rowspan="3" colspan="3"></td>
                 <td colspan="2" align="center" valign="middle"><b>Jumlah</b></td>
@@ -300,15 +338,15 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
         <td style="height: 50px;" align="center" valign="bottom">Mengetahui</td>
-        <td style="width:35%;" align="center" valign="bottom">Makassar, 32 Januari 2099</td>
+        <td style="width:35%;" align="center" valign="bottom">Makassar, {{ \Carbon\Carbon::parse($pokhs->tanggal_po)->isoFormat('dddd, DD MMMM YYYY') }}</td>
     </tr>
     <tr>
-        <td align="center" valign="top">MANAGER</td>
-        <td align="center" valign="middle">MANAGER BAG TRANSAKSI ENERGI LISTRIK</td>
+        <td align="center" valign="top">{{$jabatan_manager}}</td>
+        <td align="center" valign="middle">{{$pokhs->pejabats->jabatan}}</td>
     </tr>
     <tr style="height: 150px;">
-        <td style="height: 150px;" align="center" valign="bottom">RADITYA HARI</td>
-        <td align="center" valign="bottom">PRADIKTA CENDIKA</td>
+        <td style="height: 150px;" align="center" valign="bottom">{{$nama_manager}}</td>
+        <td align="center" valign="bottom">{{$pokhs->pejabats->nama_pejabat}}</td>
     </tr>
     </table>
 

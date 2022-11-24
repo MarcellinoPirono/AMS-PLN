@@ -269,58 +269,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         this.main.find('.sw-btn-next').on("click", function (e) {
           e.preventDefault();
 
-          // switch (this._getStepPosition(idx)) {
-          //   case 'first':
-              // if($('#po').val() == "") {
-              //   alert("ISIKI")
-              // } else {
-              //   _this._showNext();
-              // }
-          //   break;
-          // }
-
-          // if (!this.options.cycleSteps) {
-            // this.main.find('.sw-btn-prev').removeClass("disabled");
-            // this.main.find('.sw-btn-next').removeClass("disabled");
-  
-            // if(this._getStepPosition(idx) == 'first') {
-              _this._showNext();
-            // }
-            // switch (this._getStepPosition(idx)) {
-            //   case 'first':
-                // if($('#po').val() == "") {
-                //   alert("ISIKI")
-                // } else {
-                //   _this._showNext();
-                // }
-                // this.main.find('.sw-btn-prev').addClass("disabled");
-                // next.disable();
-                // this.main.find('.sw-btn-next').
-                // return false;
-                // this.main.find('.sw-btn-prev').attr("id", "btnprev1");
-                // this.main.find('.sw-btn-prev').attr("onclick", "prev1()");
-                // this.main.find('.sw-btn-next').attr("id", "btnnext1");
-                // this.main.find('.sw-btn-next').attr("onclick", "next1()");
-          //       break;
-          //     case 'last':
-          //       this.main.find('.sw-btn-next').addClass("disabled");
-          //       break;
-  
-          //     default:
-          //       if (this._getNextShowable(idx) === false) {
-          //         this.main.find('.sw-btn-next').addClass("disabled");
-          //       }
-  
-          //       if (this._getPreviousShowable(idx) === false) {
-          //         this.main.find('.sw-btn-prev').addClass("disabled");
-          //       }
-  
-          //       break;
-          //   }
-          // }
-          // alert("halo")
-
-          
+          _this._showNext();
         }); // Previous button event
 
         this.main.find('.sw-btn-prev').on("click", function (e) {

@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         @foreach ( $jenis_khs as $khs )
-        <div class="col-xl-4 col-lg-12 col-xxl-4 col-sm-12">
+        <div class="col-xl-6 col-lg-12 col-xxl-6 col-sm-12">
             <a href="/item-khs/{{ $khs->jenis_khs }}">
                 <div class="card avtivity-card">
                     <div class="card-body text-center ai-icon  text-primary">

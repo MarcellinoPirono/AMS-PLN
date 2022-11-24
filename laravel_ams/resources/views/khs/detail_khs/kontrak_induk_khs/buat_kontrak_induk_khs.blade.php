@@ -44,7 +44,7 @@
                                         </div>  
                                     @enderror
                                 </div>
-                            <div class="icon1 form-group col-md-6">
+                            <div class="form-group col-md-6">
                                     {{-- <i class="bi bi-calendar2-minus"></i> --}}
                                     <input name="tanggal_kontrak_induk" id="tanggal_kontrak_induk" class="icon1 datepicker-default form-control @error('tanggal_addendum') is-invalid @enderror"
                                         placeholder="Tanggal Kontrak Induk" required >

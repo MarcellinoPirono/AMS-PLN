@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>AMS - UP3 PLN </title>
+    <title>AMS - UP3 PLN Makassar</title>
     <!-- Favicon icon -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -15,7 +15,7 @@
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}./asset/frontend/images/ams-bg1.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}./asset/frontend/images/icon.svg" />
     <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/chartist/css/chartist.min.css" />
     <link href="{{ asset('/') }}./asset/frontend/vendor/bootstrap-select/dist/css/bootstrap-select_dark.min.css"
         rel="stylesheet" />
@@ -76,9 +76,9 @@
         ***********************************-->
         <div class="nav-header">
             <a href="/dashboard" class="brand-logo">
-                <img class="logo-abbr" src="{{ asset('/') }}./asset/frontend/images/ams-sq.png" alt="">
-                <img class="logo-compact" src="{{ asset('/') }}./asset/frontend/images/ams-sq.png" alt="">
-                <img class="brand-title" src="{{ asset('/') }}./asset/frontend/images/ams-lg.png" alt="">
+                <img class="logo-abbr" src="{{ asset('/') }}./asset/frontend/images/ams-sq.svg" width="500" alt="">
+                <img class="logo-compact" src="{{ asset('/') }}./asset/frontend/images/ams-sq.svg" width="500" alt="">
+                <img class="brand-title" src="{{ asset('/') }}./asset/frontend/images/ams-lg2.svg" width="500" height="200" alt="">
             </a>
 
             <div class="nav-control">
@@ -119,8 +119,8 @@
                                     <img src="{{ asset('/') }}./asset/frontend/images/profile/17.jpg" width="20"
                                         alt="" />
                                     <div class="header-info">
-                                        <span class="text-black"><strong>Nama User</strong></span>
-                                        <p class="fs-12 mb-0">Level User</p>
+                                        <span class="text-white"><strong>Nama User Nama User Nama User</strong></span>
+                                        <p class="text-warning fs-12 mb-0">Level User</p>
                                     </div>
 
 
@@ -302,7 +302,7 @@
                         </ul>
                     </li>
 
-                    <h5>
+                    {{-- <h5>
                         <p class="fs-12 ml-3 mt-4 mb-1 text-black"> Buat Kontrak (PO)</p>
                     </h5>
                     <li>
@@ -321,7 +321,7 @@
                             <i class="bi bi-file-earmark-spreadsheet"></i>
                             <span class="nav-text">HPE</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
                 <div class="add-menu-sidebar" id="products">
                     <img src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt=""

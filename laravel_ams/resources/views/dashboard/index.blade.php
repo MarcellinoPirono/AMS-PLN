@@ -13,7 +13,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">KHS yang sudah terbit</p>
+                                    <p class="fs-14 mb-2">PO KHS SP/APP</p>
                                     
                                     <span class="title text-black font-w600">123</span>
                                     
@@ -37,7 +37,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Capaian Seluruh kontrak KHS dan Non</p>
+                                    <p class="fs-14 mb-2">PO KHS JTM</p>
                                     <span class="title text-black font-w600">241</span>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Jumlah Kontrak</p>
+                                    <p class="fs-14 mb-2">Kontrak Non-PO</p>
                                     <span class="title text-black font-w600">433</span>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Jumlah</p>
+                                    <p class="fs-14 mb-2">Kontrak PO Non KHS</p>
                                     <span class="title text-black font-w600">271</span>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Pekerjaan Jasa</p>
+                                    <p class="fs-14 mb-2">Kontrak NON PO</p>
                                     <span class="title text-black font-w600">134</span>
                                 </div>
                             </div>

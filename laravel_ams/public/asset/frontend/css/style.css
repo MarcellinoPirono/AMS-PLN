@@ -3121,16 +3121,16 @@ fieldset:disabled a.btn {
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #125d72;
-    border-color: #13657c;
+    background-color: #4262a1;
+    border-color: #14a2ba;
 }
 
 .btn-primary:focus,
 .btn-primary.focus {
     color: #fff;
-    background-color: #125d72;
-    border-color: #13657c;
-    box-shadow: 0 0 0 0.2rem rgba(48, 74, 167, 0.5);
+    background-color: #28406f;
+    border-color: #14a2ba;
+    box-shadow: 0 0 0 0.2rem rgba(206, 217, 219, 0.5);
 }
 
 .btn-primary.disabled,
@@ -13275,7 +13275,7 @@ a.active {
     position: absolute;
     left: 0;
     top: 0;
-    background-color: #fff;
+    background-color: #28406F;
     transition: all 0.2s ease;
     z-index: 5;
 }
@@ -13394,7 +13394,7 @@ a.active {
 }
 
 .hamburger .line {
-    background: #14a2ba;
+    background: #fff;
     display: block;
     height: 3px;
     border-radius: 3px;
@@ -13521,7 +13521,10 @@ a.active {
     z-index: 1;
     position: relative;
     padding: 0rem;
-    background-color: #fff;
+    /* background-color: #14a2ba; */
+    /* 40, 64, 111 #28406f */
+    /* background-image: linear-gradient(to right, rgba(40, 64, 111), rgba(20, 162, 186)); */
+    background: linear-gradient(90deg, rgba(40, 64, 111,1) 25%, rgba(20, 162, 186,1) 100%);
     z-index: 4;
     padding-left: 21.563rem;
     transition: all 0.2s ease;
@@ -13771,7 +13774,7 @@ svg.pulse-svg .third-circle {
 .header-left .dashboard_bar {
     font-size: 28px;
     font-weight: 600;
-    color: #000;
+    color: #fff;
 }
 
 @media only screen and (max-width: 1400px) {
@@ -17740,7 +17743,7 @@ html[dir="rtl"]
 
 .deznav .metismenu > li:hover > a,
 .deznav .metismenu > li:focus > a {
-    color: #14a2ba;
+    color: #28406F;
 }
 
 .deznav .metismenu > li:hover > a g [fill],
@@ -17792,7 +17795,7 @@ html[dir="rtl"]
 .deznav .metismenu ul a:focus,
 .deznav .metismenu ul a.mm-active {
     text-decoration: none;
-    color: #14a2ba;
+    color: #28406F;
 }
 
 .deznav .metismenu a {
@@ -18543,7 +18546,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     position: absolute;
     border-radius: 4px;
     width: 6px;
-    background: #14a2ba;
+    background: #28406F;
     top: 0;
     right: 0;
     opacity: 0;
@@ -18558,8 +18561,8 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     .metismenu
     > li.mm-active
     > a {
-    color: #14a2ba;
-    background: rgba(11, 42, 151, 0.1);
+    color: #28406F;
+    background: rgba(40, 64, 111, 0.1);
 }
 
 [data-sidebar-style="full"][data-layout="vertical"]
@@ -18568,7 +18571,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     > li.mm-active
     > a
     i {
-    color: #14a2ba;
+    color: #28406F;
 }
 
 [data-sidebar-style="full"][data-layout="vertical"]
@@ -18626,7 +18629,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     .nav-control
     .hamburger
     .line {
-    background-color: #14a2ba !important;
+    background-color: #fff !important;
 }
 
 [data-sidebar-style="full"][data-layout="vertical"] .menu-toggle .copyright,
@@ -18844,7 +18847,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     .metismenu
     > li.mm-active
     > a {
-    background: #14a2ba;
+    background: #28406F;
     border-radius: 1.25rem;
     color: #fff;
 }
@@ -18877,7 +18880,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     > li:hover
     > a {
     border-radius: 1.25rem;
-    background: #14a2ba;
+    background: #28406F;
     color: #fff;
 }
 
@@ -19208,7 +19211,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
         .metismenu
         > li.mm-active
         > a {
-        background: #14a2ba;
+        background: #28406F;
         color: #fff;
         border-radius: 1.25rem;
     }
@@ -19226,7 +19229,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
         .metismenu
         > li:hover
         > a {
-        background: #14a2ba;
+        background: #28406F;
         color: #fff;
         border-radius: 1.25rem;
         position: unset;
@@ -20565,7 +20568,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 }
 
 [data-sidebar-style="overlay"] .nav-header .hamburger.is-active .line {
-    background-color: #14a2ba;
+    background-color: #fff;
 }
 
 [data-sidebar-style="overlay"] .menu-toggle .nav-header {
@@ -27682,7 +27685,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
 [data-headerbg="color_1"] .nav-header .hamburger.is-active .line,
 [data-headerbg="color_1"] .nav-header .hamburger .line {
-    background: #14a2ba !important;
+    background: #fff !important;
 }
 
 @media (min-width: 992px) {
@@ -44214,8 +44217,8 @@ button:focus {
 }
 
 .shadow.btn-primary {
-    -webkit-box-shadow: 0 5px 15px 0 rgba(11, 42, 151, 0.2) !important;
-    box-shadow: 0 5px 15px 0 rgba(11, 42, 151, 0.2) !important;
+    -webkit-box-shadow: 0 5px 15px 0 rgba(20, 162, 186, 0.2) !important;
+    box-shadow: 0 5px 15px 0 rgba(20, 162, 186, 0.2) !important;
 }
 
 .shadow.btn-secondary {
@@ -47406,8 +47409,8 @@ code {
 
 .picker .picker__frame .picker__box .picker__header .picker__nav--prev:hover,
 .picker .picker__frame .picker__box .picker__header .picker__nav--next:hover {
-    background-color: #496ff2 !important;
-    color: #14a2ba !important;
+    background-color: #14a2ba !important;
+    color: #000 !important;
 }
 
 .picker .picker__frame .picker__box .picker__header .picker__nav--prev {
@@ -47457,17 +47460,17 @@ code {
     .picker__day.picker__day--highlighted {
     border: 0 !important;
     padding: 0;
-    background-color: #496ff2 !important;
+    background-color: #28406F !important;
     color: #fff !important;
 }
 
 .picker .picker__frame .picker__box .picker__table .picker__day:hover {
-    background-color: #496ff2 !important;
+    background-color: #14a2ba !important;
     color: #fff !important;
 }
 
 .picker .picker__frame .picker__box .picker__footer .picker__button--today {
-    background-color: #496ff2 !important;
+    background-color: #28406F !important;
     color: #fff !important;
 }
 
@@ -47502,7 +47505,7 @@ code {
     .picker__box
     .picker__footer
     .picker__button--today:hover {
-    background-color: #496ff2 !important;
+    background-color: #14a2ba !important;
     color: #fff !important;
 }
 
@@ -49848,7 +49851,7 @@ span#counter {
 
 /* add menu sidebar */
 .add-menu-sidebar {
-    background: #14a2ba;
+    background: #28406F;
     padding: 20px 18px;
     display: flex;
     align-items: center;
@@ -54194,8 +54197,62 @@ input::-webkit-calendar-picker-indicator {
 }
 
 .icon2{
-    background: url("https://cdn-icons-png.flaticon.com/512/747/747310.png") no-repeat left;
+    background: url("../images/kalender.png") no-repeat left;
     background-size: 20px;
     background-position: 7px;
     background-position-y: 50px;
 }
+
+@media (min-width: 376px) {
+    .tes {
+        background: url("../images/kalender.png") no-repeat left;
+        background-size: 20px;
+        background-position: 7px;
+        background-position-y: 40px;
+    }
+}
+
+@media (min-width: 576px) {
+    .tes {
+        background: url("../images/kalender.png") no-repeat left;
+        background-size: 20px;
+        background-position: 7px;
+        background-position-y: 40px;
+    }
+}
+
+@media (min-width: 768px) {
+    .tes {
+        background: url("../images/kalender.png") no-repeat left;
+        background-size: 20px;
+        background-position: 7px;
+        background-position-y: 39px;
+    }
+}
+
+@media (min-width: 992px) {
+    .tes {
+        background: url("../images/kalender.png") no-repeat left;
+        background-size: 20px;
+        background-position: 7px;
+        background-position-y: 41px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .tes {
+        background: url("../images/kalender.png") no-repeat left;
+        background-size: 20px;
+        background-position: 7px;
+        background-position-y: 41px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .tes {
+        background: url("../images/kalender.png") no-repeat left;
+        background-size: 20px;
+        background-position: 7px;
+        background-position-y: 49px;
+    }
+}    

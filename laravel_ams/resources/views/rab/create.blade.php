@@ -18,16 +18,16 @@
                 <div class="card-body">
                     <div id="smartwizard" class="form-wizard order-create">
                         <ul class="nav nav-wizard">
-                            <li><a class="nav-link" href="#informasi_umum">
+                            <li><a class="nav-link valid1" href="#informasi_umum">
                                     <span>1</span>
                                 </a></li>
-                            <li><a class="nav-link" href="#daftar_rab">
+                            <li><a class="nav-link valid2" href="#daftar_rab">
                                     <span>2</span>
                                 </a></li>
-                            <li><a class="nav-link" href="#redaksi">
+                            <li><a class="nav-link valid3" href="#redaksi">
                                     <span>3</span>
                                 </a></li>
-                            <li><a class="nav-link" href="#isi_kontrak">
+                            <li><a class="nav-link valid4" href="#isi_kontrak">
                                     <span>4</span>
                                 </a></li>
                         </ul>
@@ -40,28 +40,27 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">No. Purchase Order(PO)</label>
-                                                <input type="text" class="form-control @error('po') is-invalid @enderror"
+                                                <input type="text" class="form-control validate0"
                                                     name="po" id="po" placeholder="No. PO" required autofocus
                                                     value="{{ old('po') }}">
-                                                @error('po')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
+                                                <div class="invalid-feedback validate_rab0">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">Pilih No. Kontrak Induk</label>
-                                                <select class="form-control input-default" id="kontrak_induk"
+                                                <select class="form-control input-default validate1" id="kontrak_induk"
                                                     name="kontrak_induk">
-                                                    <option value="0" selected disabled>No. Kontrak Induk</option>
+                                                    <option value="0" selected disabled>Pilih No. Kontrak Induk</option>
                                                     @foreach ($kontraks as $kontrak)
                                                         <option value="{{ $kontrak->khs_id }}">
                                                             {{ $kontrak->khs->jenis_khs }} -
                                                             {{ $kontrak->nomor_kontrak_induk }}</option>
                                                     @endforeach
                                                 </select>
+                                                <div class="invalid-feedback validate_rab1">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-2">
@@ -89,7 +88,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-2">
-                                            <div class="form-group icon2">
+                                            <div class="form-group tes">
                                                 <label class="text-label">Start Date</label>
                                                 <input name="start_date" id="start_date" class="icon1 datepicker-default form-control @error('start_date') is-invalid @enderror"
                                                 placeholder="Start Date PO-KHS" value="{{ old('start_date') }}" required > 
@@ -101,7 +100,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-2">
-                                            <div class="form-group icon2">
+                                            <div class="form-group tes">
                                                 <label class="text-label">End Date</label>
                                                 <input name="end_date" id="end_date" class="icon1 datepicker-default form-control @error('end_date') is-invalid @enderror"
                                                 placeholder="End Date PO-KHS" value="{{ old('end_date') }}" required >
@@ -632,6 +631,7 @@
     }
 
     function next1() {
+        // var elm = 0;
         // alert("Halo");
         // window.location.hash = 
         // delete next;
@@ -640,18 +640,25 @@
         // _this._showNext().disable();
         // return false;
         // alert("HALO AGAIN!!!")
-        // window.location.href = "#informasi_umum";
+        // $('[class$="done"],[class*="done "]').each(function(){$(this).removeClass($(this).attr('class').match(/\S+done\b/)[0])})
+        window.location.href = "#informasi_umum";
+        // $('[class$="done"],[class*="done "]').each(function(){$(this).removeClass(this.className.match(/\S+done\b/))})
+        // $('[class$="valid2"]').each(function(i){$(this).removeClass(this.className)});
+        // console.log($('.valid2'));
+        $('.valid2').removeClass('active');
+        console.log($('.valid2')[0].className);
+        
         // reset();
         
         // event.stopPropagation();
         // alert("Halo again");
-        btn_next1 = document.getElementById('btnnext1');
-        btn_next1.setAttribute("id", "btnnext2");
-        btn_next1.setAttribute("onclick", "next2()");
+        // btn_next1 = document.getElementById('btnnext1');
+        // btn_next1.setAttribute("id", "btnnext2");
+        // btn_next1.setAttribute("onclick", "next2()");
 
-        btn_prev1 = document.getElementById('btnprev1');
-        btn_prev1.setAttribute("id", "btnprev2");
-        btn_prev1.setAttribute("onclick", "prev2()");
+        // btn_prev1 = document.getElementById('btnprev1');
+        // btn_prev1.setAttribute("id", "btnprev2");
+        // btn_prev1.setAttribute("onclick", "prev2()");
     }
 
     function next2() {
@@ -662,6 +669,7 @@
         btn_prev2 = document.getElementById('btnprev2');
         btn_prev2.setAttribute("id", "btnprev3");
         btn_prev2.setAttribute("onclick", "prev3()");
+        
     }
 
     function next3() {

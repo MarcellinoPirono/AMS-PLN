@@ -352,7 +352,12 @@ class RabController extends Controller
         // dd($hari);
 
         $rab_id = Rab::where('id', $id)->value('id');
-        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();        
+        // $rab_now = OrderKhs::where('rab_id', $rab_id)->get();        
+
+
+        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
+        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
         $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
         $ppn = $jumlah * 0.11;
@@ -362,6 +367,8 @@ class RabController extends Controller
             "jumlah" => $jumlah,
             "ppn" => $ppn,
             "days" => $days,
+            "jabatan_manager" => $jabatan_manager,
+            "nama_manager" => $nama_manager,
             "title" => "PO-KHS",
         
         ]);
