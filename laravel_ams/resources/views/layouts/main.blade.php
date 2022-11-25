@@ -22,9 +22,12 @@
     <link href="{{ asset('/') }}./asset/frontend/vendor/owl-carousel/owl.carousel.css" rel="stylesheet" />
     <link href="{{ asset('/') }}./asset/frontend/css/style.css" rel="stylesheet" />
 
+
     <!-- Form step -->
-    <link href="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css"
-        rel="stylesheet" />
+    <link href="{{ asset('/') }}./asset/frontend/vendor/wizard2/dist/css/smart_wizard_all.css" rel="stylesheet" />
+
+    {{-- <link href="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css"
+        rel="stylesheet" /> --}}
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
@@ -35,6 +38,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" /> --}}
 
     <!-- Pickdate -->
+    <link href="{{ asset('/') }}./asset/frontend/vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/pickadate/themes/default.css">
     <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/pickadate/themes/default.date.css">
 
@@ -427,7 +432,10 @@
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-validation/jquery.validate.min.js"></script>
 
     <!-- Form Steps -->
-    <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
+
+    {{-- <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script> --}}
+    <script src="{{ asset('/') }}./asset/frontend/vendor/wizard2/dist/js/jquery.smartWizard.js"></script>
+
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/jquery.validate-init.js"></script>
     {{-- <script src="{{ asset('/') }}./asset/frontend/js/tambah-field.js"></script> --}}
     {{-- <script type="text/javascript"
@@ -508,11 +516,14 @@
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/summernote-init.js"></script>
 
     <!-- pickdate -->
+    <script src="{{ asset('/') }}./asset/frontend//vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
     <script src="{{ asset('/') }}./asset/frontend/vendor/pickadate/picker.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/vendor/pickadate/picker.time.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/vendor/pickadate/picker.date.js"></script>
 
     <!-- Pickdate -->
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/material-date-picker-init.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/pickadate-init.js"></script>
 
     {{-- <script src="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js"></script>

@@ -17,8 +17,8 @@
             </div>
             <div class="card-body">
                 <div class="basic-form">
+                    <form name="valid_addendum" id="valid_addendum" action="#">
                         <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
-
                         <div class="form-row">
                             <div class="form-group col-md-6">                                                            
                                 <select class="form-control input-default" id="kontrak_induk_id" name="kontrak_induk_id"> 
@@ -35,28 +35,17 @@
                                 <input type="text" class="form-control input-default"  name="nama_pekerjaan" id="nama_pekerjaan" placeholder="Nama Pekerjaan" readonly disabled>             
                             </div>    
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default  @error('nomor_addendum') is-invalid @enderror" placeholder="Nomor Addendum" name="nomor_addendum" id="nomor_addendum" required autofocus>
-                                @error('nomor_addendum')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="text" class="form-control input-default" placeholder="Nomor Addendum" name="nomor_addendum" id="nomor_addendum" required autofocus>                                
                             </div>
                             <div class="form-group col-md-6 icon1">
-                               <input name="tanggal_addendum" id="tanggal_addendum" class="icon1 datepicker-default form-control @error('tanggal_addendum') is-invalid @enderror"
-                                        placeholder="Tanggal Pembuatan Addendum " required >
-                        
-                                    @error('tanggal_addendum')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                               <input name="tanggal_addendum" id="tanggal_addendum" class="icon1 datepicker-default form-control"                                  placeholder="Tanggal Pembuatan Addendum " required >                        
                             </div>                            
                         </div>
                         <div class="position-relative justify-content-end float-right">
                             <button type="submit" id="btntambah"
                                 class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
                         </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -77,39 +66,99 @@
             $("#nama_pekerjaan").val(nama_pekerjaan);
         });
 
-        $('#btntambah').on('click', function() {
-            var token = $('#csrf').val();
-            var kontrak_induk_id = $("#kontrak_induk_id").val();
-            var nomor_addendum = $("#nomor_addendum").val();
-            var tanggal_addendum = $("#tanggal_addendum").val();
-            // var date = Date.parse(tanggal_kontrak_induk);
-            var date = new Date(tanggal_addendum);
-            var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
-
-            var data = {
-                "_token": token,
-                "kontrak_induk_id": kontrak_induk_id,
-                "nomor_addendum": nomor_addendum,
-                "tanggal_addendum": dateString,
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('addendum-khs') }}",
-                data: data,
-                success: function(response) {
-                    swal({
-                            title: "Data Ditambah",
-                            text: "Data Berhasil Ditambah",
-                            icon: "success",
-                            timer: 2e3,
-                            buttons: false
-                        })
-                        .then((result) => {
-                            window.location.href = "/addendum-khs";
-                        });
+        $('#valid_addendum').validate({
+            rules:{
+                kontrak_induk_id:{
+                    required: true
+                },
+                nomor_addendum:{
+                    required:true
+                },
+                tanggal_addendum:{
+                    required:true
                 }
-            });
+            },
+            messages:{
+                kontrak_induk_id:{
+                    required: "Silakan Pilih Nomor Kontrak Induk"
+                },
+                nomor_addendum:{
+                    required: "Silakan Isi Nomor Addendum"
+                },
+                tanggal_addendum:{
+                    required: "Silakan Pilih Tanggal Addendum"
+                }
+            },
+            submitHandler: function(form) {
+                    var token = $('#csrf').val();
+                    var kontrak_induk_id = $("#kontrak_induk_id").val();
+                    var nomor_addendum = $("#nomor_addendum").val();
+                    var tanggal_addendum = $("#tanggal_addendum").val();
+                    var date = new Date(tanggal_addendum);
+                    var tanggal_addendum = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+
+                    var data = {
+                        "_token": token,
+                        "kontrak_induk_id": kontrak_induk_id,
+                        "nomor_addendum": nomor_addendum,
+                        "tanggal_addendum": tanggal_addendum,                        
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('addendum-khs') }}",
+                        data: data,
+                        success: function(response) {
+                            swal({
+                                    title: "Data Ditambah",
+                                    text: "Data Berhasil Ditambah",
+                                    icon: "success",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((result) => {
+                                    window.location.href = "/addendum-khs";
+                                });
+                        }
+                    });
+                }
         });
+
+
+
+        // $('#btntambah').on('click', function() {
+        //     var token = $('#csrf').val();
+        //     var kontrak_induk_id = $("#kontrak_induk_id").val();
+        //     var nomor_addendum = $("#nomor_addendum").val();
+        //     var tanggal_addendum = $("#tanggal_addendum").val();
+        //     // var date = Date.parse(tanggal_kontrak_induk);
+        //     var date = new Date(tanggal_addendum);
+        //     var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+
+        //     var data = {
+        //         "_token": token,
+        //         "kontrak_induk_id": kontrak_induk_id,
+        //         "nomor_addendum": nomor_addendum,
+        //         "tanggal_addendum": dateString,
+        //     }
+
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: "{{ url('addendum-khs') }}",
+        //         data: data,
+        //         success: function(response) {
+        //             swal({
+        //                     title: "Data Ditambah",
+        //                     text: "Data Berhasil Ditambah",
+        //                     icon: "success",
+        //                     timer: 2e3,
+        //                     buttons: false
+        //                 })
+        //                 .then((result) => {
+        //                     window.location.href = "/addendum-khs";
+        //                 });
+        //         }
+        //     });
+        // });
     });
 </script>

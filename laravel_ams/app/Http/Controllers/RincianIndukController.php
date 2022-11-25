@@ -8,6 +8,7 @@ use \Http\Resources\RincianIndukResource;
 use App\Http\Requests\StoreRincianIndukRequest;
 use App\Http\Requests\UpdateRincianIndukRequest;
 use App\Models\Khs;
+use App\Models\Satuan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -53,6 +54,7 @@ class RincianIndukController extends Controller
     {
         // dd($request->jenis_khs);
         $jenis_khs = $request->jenis_khs;
+        $satuan = Satuan::all();
 
         return view(
             'khs.detail_khs.item_khs.buat_item_khs',
@@ -61,7 +63,8 @@ class RincianIndukController extends Controller
                 'active' => 'Item KHS',
                 'active1' => 'Tambah ' . $jenis_khs . '',
                 'items' => ItemRincianInduk::all(),
-                'jenis_khs'=> $jenis_khs
+                'jenis_khs'=> $jenis_khs,
+                'satuan'=>$satuan
             ]
         );
     }

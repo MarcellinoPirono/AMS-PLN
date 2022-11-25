@@ -15,126 +15,94 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
-                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">No. SKK_PRK:</label>
-                            <div class="form-group col-md-6">
-                                <select class="form-control input-default" id="no_skk_prk" name="no_skk_prk">
-                                    <option value="0" selected disabled>Pilih No SKK</option>
-                                    @foreach ($skss as $skk)
-                                        <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}</option>
-                                    @endforeach
-                                </select>
+                        <form name="valid_prk" id="valid_prk" action="#">
+                            <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">No. SKK_PRK:</label>
+                                <div class="form-group col-md-6">
+                                    <select class="form-control input-default" id="no_skk_prk" name="no_skk_prk">
+                                        <option value="0" selected disabled>Pilih No SKK</option>
+                                        @foreach ($skss as $skk)
+                                            <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">No. PRK:</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control @error('no_prk') is-invalid @enderror"
-                                    name="no_prk" id="no_prk" placeholder="No PRK" required autofocus
-                                    value="{{ old('no_prk') }}">
-                                @error('no_prk')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">No. PRK:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control"
+                                        name="no_prk" id="no_prk" placeholder="No PRK" required autofocus
+                                        value="{{ old('no_prk') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">Uraian PRK:</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default @error('uraian_prk') is-invalid @enderror"
-                                    placeholder="Uraian PRK" name="uraian_prk" id="uraian_prk" required autofocus
-                                    value="{{ old('uraian_prk') }}">
-                                @error('uraian_prk')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">Uraian PRK:</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        placeholder="Uraian PRK" name="uraian_prk" id="uraian_prk" required autofocus
+                                        value="{{ old('uraian_prk') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">Pagu PRK (Rp) :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default input-default @error('pagu_prk') is-invalid @enderror"
-                                    placeholder="Pagu PRK" onkeydown="return numbersonly(this, event);"
-                                    onkeyup="javascript:tandaPemisahTitik(this);" value="{{ old('pagu_skk') }}"
-                                    name="pagu_prk" id="pagu_prk" required autofocus value="{{ old('pagu_prk') }}">
-                                @error('pagu_prk')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">Pagu PRK (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default input-default"
+                                        placeholder="Pagu PRK" onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" value="{{ old('pagu_skk') }}"
+                                        name="pagu_prk" id="pagu_prk" required autofocus value="{{ old('pagu_prk') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">PRK Terkontrak (Rp) :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default @error('prk_terkontrak') is-invalid @enderror"
-                                    onkeydown="return numbersonly(this, event);"
-                                    onkeyup="javascript:tandaPemisahTitik(this);" value="0"
-                                    placeholder="PRK Terkontrak" name="prk_terkontrak" id="prk_terkontrak" required
-                                    autofocus value="{{ old('prk_terkontrak') }}">
-                                @error('prk_terkontrak')
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">PRK Terkontrak (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);"
+                                        placeholder="PRK Terkontrak" name="prk_terkontrak" id="prk_terkontrak" required
+                                        autofocus value="{{ old('prk_terkontrak') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">PRK Realisasi (Rp) :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default @error('prk_realisasi') is-invalid @enderror"
-                                    onkeydown="return numbersonly(this, event);"
-                                    onkeyup="javascript:tandaPemisahTitik(this);" value="0" placeholder="PRK Realisasi"
-                                    name="prk_realisasi" id="prk_realisasi" required autofocus
-                                    value="{{ old('prk_realisasi') }}">
-                                @error('prk_realisasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">PRK Realisasi (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" placeholder="PRK Realisasi"
+                                        name="prk_realisasi" id="prk_realisasi" required autofocus
+                                        value="{{ old('prk_realisasi') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">PRK Terbayar (Rp) :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default @error('prk_terbayar') is-invalid @enderror"
-                                    onkeydown="return numbersonly(this, event);"
-                                    onkeyup="javascript:tandaPemisahTitik(this);" value="0" placeholder="PRK Terbayar"
-                                    name="prk_terbayar" id="prk_terbayar" required autofocus
-                                    value="{{ old('prk_terbayar') }}">
-                                @error('prk_terbayar')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">PRK Terbayar (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" placeholder="PRK Terbayar"
+                                        name="prk_terbayar" id="prk_terbayar" required autofocus
+                                        value="{{ old('prk_terbayar') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">PRK Sisa (Rp) :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default @error('prk_sisa') is-invalid @enderror"
-                                    onkeydown="return numbersonly(this, event);"
-                                    onkeyup="javascript:tandaPemisahTitik(this);" value="0" placeholder="PRK Sisa"
-                                    name="prk_sisa" id="prk_sisa" required autofocus value="{{ old('prk_sisa') }}">
-                                @error('prk_sisa')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">PRK Sisa (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" value="0" placeholder="PRK Sisa"
+                                        name="prk_sisa" id="prk_sisa" readonly disabled autofocus>
+                                </div>
                             </div>
-                        </div>
-                        <div class="position-relative justify-content-end float-right">
-                            <button type="submit" id="btnresult"
-                                class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
-                        </div>      
+                            <div class="position-relative justify-content-end float-right">
+                                <button type="submit"
+                                    class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
+                            </div>      
+                        </form>
                     </div>
                 </div>
             </div>
@@ -148,58 +116,183 @@
 
 <script>
     $(document).ready(function() {
-        $('#btnresult').on('click', function() {
-            var token = $('#csrf').val();
-            var no_skk_prk = $("#no_skk_prk").val();
-            var no_prk = $("#no_prk").val();
-            var uraian_prk = $("#uraian_prk").val();
-            var pagu_prk = $("#pagu_prk").val();
+        $('#pagu_prk').blur(function(){
+            var pagu_prk = $(this).val();
             pagu_prk = pagu_prk.replace(/\./g, "");
             pagu_prk = parseInt(pagu_prk);
             var prk_terkontrak = $("#prk_terkontrak").val();
             prk_terkontrak = prk_terkontrak.replace(/\./g, "");
             prk_terkontrak = parseInt(prk_terkontrak);
-            var prk_realisasi = $("#prk_realisasi").val();
-            prk_realisasi = prk_realisasi.replace(/\./g, "");
-            prk_realisasi = parseInt(prk_realisasi);
-            var prk_terbayar = $("#prk_terbayar").val();
-            prk_terbayar = prk_terbayar.replace(/\./g, "");
-            prk_terbayar = parseInt(prk_terbayar);
-            var prk_sisa = $("#prk_sisa").val();
-            prk_sisa = prk_sisa.replace(/\./g, "");
-            prk_sisa = parseInt(prk_sisa);
-
-            var data = {
-                "_token": token,
-                "no_skk_prk": no_skk_prk,
-                "no_prk": no_prk,
-                "uraian_prk": uraian_prk,
-                "pagu_prk": pagu_prk,
-                "prk_terkontrak": prk_terkontrak,
-                "prk_realisasi": prk_realisasi,
-                "prk_terbayar": prk_terbayar,
-                "prk_sisa": prk_sisa,
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('prk') }}",
-                data: data,
-                success: function(response) {
-                    swal({
-                            title: "Data Ditambah",
-                            text: "Data Berhasil Ditambah",
-                            icon: "success",
-                            timer: 2e3,
-                            buttons: false
-                        })
-                        .then((result) => {
-                            window.location.href = "/prk";
-                        });
+            var prk_sisa = pagu_prk - prk_terkontrak;
+            prk_sisa = prk_sisa.toString();
+            prk_sisa_2 = "";
+            if(prk_sisa.charAt(0) == "-") {
+                prk_sisa = prk_sisa.replace(/\-/g, "");
+                panjang = prk_sisa.length;
+                j = 0;
+                for (i = panjang; i > 0; i--) {
+                    j = j + 1;
+                    if (((j % 3) == 1) && (j != 1)) {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + "." + prk_sisa_2;
+                    } else {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + prk_sisa_2;
+                    }
                 }
-            });
-            // console.log(data);
-        });
+                prk_sisa_2 = "-" + prk_sisa_2;
+                $('#prk_sisa').val(prk_sisa_2);
+            } else {
+                panjang = prk_sisa.length;
+                j = 0;
+                for (i = panjang; i > 0; i--) {
+                    j = j + 1;
+                    if (((j % 3) == 1) && (j != 1)) {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + "." + prk_sisa_2;
+                    } else {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + prk_sisa_2;
+                    }
+                }
+                $('#prk_sisa').val(prk_sisa_2);
+            }
+        })
+
+        $('#prk_terkontrak').blur(function(){
+            var prk_terkontrak = $(this).val();
+            prk_terkontrak = prk_terkontrak.replace(/\./g, "");
+            prk_terkontrak = parseInt(prk_terkontrak);
+            var pagu_prk = $("#pagu_prk").val();
+            pagu_prk = pagu_prk.replace(/\./g, "");
+            pagu_prk = parseInt(pagu_prk);
+            var prk_sisa = pagu_prk - prk_terkontrak;
+            prk_sisa = prk_sisa.toString();
+            prk_sisa_2 = "";
+            if(prk_sisa.charAt(0) == "-") {
+                prk_sisa = prk_sisa.replace(/\-/g, "");
+                panjang = prk_sisa.length;
+                j = 0;
+                for (i = panjang; i > 0; i--) {
+                    j = j + 1;
+                    if (((j % 3) == 1) && (j != 1)) {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + "." + prk_sisa_2;
+                    } else {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + prk_sisa_2;
+                    }
+                }
+                prk_sisa_2 = "-" + prk_sisa_2;
+                $('#prk_sisa').val(prk_sisa_2);
+            } else {
+                panjang = prk_sisa.length;
+                j = 0;
+                for (i = panjang; i > 0; i--) {
+                    j = j + 1;
+                    if (((j % 3) == 1) && (j != 1)) {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + "." + prk_sisa_2;
+                    } else {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + prk_sisa_2;
+                    }
+                }
+                $('#prk_sisa').val(prk_sisa_2);
+            }
+        })
+
+        $('#valid_prk').validate({
+            rules: {
+                no_skk_prk: {
+                    required: true
+                },
+                no_prk: {
+                    required: true
+                },
+                uraian_prk: {
+                    required: true
+                },
+                pagu_prk: {
+                    required: true
+                },
+                prk_terkontrak: {
+                    required: true
+                },
+                prk_realisasi: {
+                    required: true
+                },
+                prk_terbayar: {
+                    required: true
+                }
+            },
+            messages: {
+                no_skk_prk: {
+                    required: "Silakan Pilih No SKK"
+                },
+                no_prk: {
+                    required: "Silakan Isi No PRK"
+                },
+                uraian_prk: {
+                    required: "Silakan Isi Uraian PRK"
+                },
+                pagu_prk: {
+                    required: "Silakan Isi Pagu PRK"
+                },
+                prk_terkontrak: {
+                    required: "Silakan Isi PRK Terkontrak"
+                },
+                prk_realisasi: {
+                    required: "Silakan Isi PRK Realisasi"
+                },
+                prk_terbayar: {
+                    required: "Silakan Isi PRK Terbayar"
+                }
+            },
+            submitHandler: function(form) {
+                var token = $('#csrf').val();
+                var no_skk_prk = $("#no_skk_prk").val();
+                var no_prk = $("#no_prk").val();
+                var uraian_prk = $("#uraian_prk").val();
+                var pagu_prk = $("#pagu_prk").val();
+                pagu_prk = pagu_prk.replace(/\./g, "");
+                pagu_prk = parseInt(pagu_prk);
+                var prk_terkontrak = $("#prk_terkontrak").val();
+                prk_terkontrak = prk_terkontrak.replace(/\./g, "");
+                prk_terkontrak = parseInt(prk_terkontrak);
+                var prk_realisasi = $("#prk_realisasi").val();
+                prk_realisasi = prk_realisasi.replace(/\./g, "");
+                prk_realisasi = parseInt(prk_realisasi);
+                var prk_terbayar = $("#prk_terbayar").val();
+                prk_terbayar = prk_terbayar.replace(/\./g, "");
+                prk_terbayar = parseInt(prk_terbayar);
+                var prk_sisa = $("#prk_sisa").val();
+                prk_sisa = prk_sisa.replace(/\./g, "");
+                prk_sisa = parseInt(prk_sisa);
+
+                var data = {
+                    "_token": token,
+                    "no_skk_prk": no_skk_prk,
+                    "no_prk": no_prk,
+                    "uraian_prk": uraian_prk,
+                    "pagu_prk": pagu_prk,
+                    "prk_terkontrak": prk_terkontrak,
+                    "prk_realisasi": prk_realisasi,
+                    "prk_terbayar": prk_terbayar,
+                    "prk_sisa": prk_sisa,
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('prk') }}",
+                    data: data,
+                    success: function(response) {
+                        swal({
+                                title: "Data Ditambah",
+                                text: "Data Berhasil Ditambah",
+                                icon: "success",
+                                timer: 2e3,
+                                buttons: false
+                            })
+                            .then((result) => {
+                                window.location.href = "/prk";
+                            });
+                    }
+                });
+            }
+        })
     });
 </script>
 

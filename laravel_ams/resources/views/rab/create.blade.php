@@ -641,24 +641,24 @@
         // return false;
         // alert("HALO AGAIN!!!")
         // $('[class$="done"],[class*="done "]').each(function(){$(this).removeClass($(this).attr('class').match(/\S+done\b/)[0])})
-        window.location.href = "#informasi_umum";
+        // window.location.href = "#informasi_umum";
         // $('[class$="done"],[class*="done "]').each(function(){$(this).removeClass(this.className.match(/\S+done\b/))})
         // $('[class$="valid2"]').each(function(i){$(this).removeClass(this.className)});
         // console.log($('.valid2'));
-        $('.valid2').removeClass('active');
-        console.log($('.valid2')[0].className);
+        // $('.valid2').removeClass('active');
+        // console.log($('.valid2')[0].className);
         
         // reset();
         
         // event.stopPropagation();
         // alert("Halo again");
-        // btn_next1 = document.getElementById('btnnext1');
-        // btn_next1.setAttribute("id", "btnnext2");
-        // btn_next1.setAttribute("onclick", "next2()");
+        btn_next1 = document.getElementById('btnnext1');
+        btn_next1.setAttribute("id", "btnnext2");
+        btn_next1.setAttribute("onclick", "next2()");
 
-        // btn_prev1 = document.getElementById('btnprev1');
-        // btn_prev1.setAttribute("id", "btnprev2");
-        // btn_prev1.setAttribute("onclick", "prev2()");
+        btn_prev1 = document.getElementById('btnprev1');
+        btn_prev1.setAttribute("id", "btnprev2");
+        btn_prev1.setAttribute("onclick", "prev2()");
     }
 
     function next2() {

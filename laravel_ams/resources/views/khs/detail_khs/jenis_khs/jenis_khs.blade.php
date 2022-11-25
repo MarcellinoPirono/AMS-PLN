@@ -9,24 +9,22 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
-                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
-                        <div class="form-group">
-                            <input type="text" class="form-control input-rounded validate0" placeholder="Jenis KHS"
-                                id="jenis_khs" name="jenis_khs" required autofocus value="{{ old('jenis_khs') }}"
-                                onkeydown="change_backslash(event)">
-                            <div class="invalid-feedback validate_khs0">
+                        <form name="valid_khs" id="valid_khs" action="#">
+                            <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-rounded" placeholder="Jenis KHS"
+                                    id="jenis_khs" name="jenis_khs" required autofocus value="{{ old('jenis_khs') }}"
+                                    onkeydown="change_backslash(event)">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <textarea type="text" class="form-control validate1" placeholder="Nama Pekerjaan" id="nama_pekerjaan"
-                                name="nama_pekerjaan" required autofocus>{{ old('nama_pekerjaan') }}</textarea>
-                            <div class="invalid-feedback validate_khs1">
+                            <div class="form-group">
+                                <textarea type="text" class="form-control" placeholder="Nama Pekerjaan" id="nama_pekerjaan" name="nama_pekerjaan"
+                                    required autofocus>{{ old('nama_pekerjaan') }}</textarea>
                             </div>
-                        </div>
-                        <div class="position-relative justify-content-end float-right sweetalert">
-                            <button type="submit" id="btnresult"
-                                class="btn btn-primary position-relative justify-content-end">Submit</button>
-                        </div>
+                            <div class="position-relative justify-content-end float-right sweetalert">
+                                <button type="submit"
+                                    class="btn btn-primary position-relative justify-content-end">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -97,32 +95,27 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
-                <div class="modal-body">
-                    <input type="hidden" class="edit_id" value="{{ $khs->jenis_khs }}">
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Jenis KHS:</label>
-                        <input type="text" class="form-control input-rounded edit_data edit_validate0"
-                            placeholder="Jenis KHS" id="edit_jenis_khs" name="edit_jenis_khs"
-                            onkeydown="change_backslash2(event)" value="{{ old('edit_jenis_khs', $khs->jenis_khs) }}">
-                        <div class="invalid-feedback edit_validate_khs0">
+                <form name="edit_valid_khs" id="edit_valid_khs" action="#">
+                    <div class="modal-body">
+                        <input type="hidden" class="edit_id" value="{{ $khs->jenis_khs }}">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Jenis KHS:</label>
+                            <input type="text" class="form-control input-rounded edit_data" placeholder="Jenis KHS"
+                                id="edit_jenis_khs" name="edit_jenis_khs" onkeydown="change_backslash2(event)"
+                                value="{{ old('edit_jenis_khs', $khs->jenis_khs) }}">
+                        </div>
+                        <input type="hidden" class="edit_id" value="{{ $khs->nama_pekerjaan }}">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Nama Pekerjaan:</label>
+                            <textarea type="text" class="form-control edit_data" placeholder="Nama Pekerjaan" id="edit_nama_pekerjaan"
+                                name="edit_nama_pekerjaan" value="{{ old('edit_nama_pekerjaan', $khs->nama_pekerjaan) }}"></textarea>
                         </div>
                     </div>
-                    <input type="hidden" class="edit_id" value="{{ $khs->nama_pekerjaan }}">
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Nama Pekerjaan:</label>
-                        <textarea type="text" class="form-control edit_data edit_validate1" placeholder="Nama Pekerjaan"
-                            id="edit_nama_pekerjaan" name="edit_nama_pekerjaan"
-                            value="{{ old('edit_nama_pekerjaan', $khs->nama_pekerjaan) }}"></textarea>
-                        <div class="invalid-feedback edit_validate_khs1">
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-primary">Edit</button>
                     </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
-                    <button id="type-button" type="button" class="btn btn-outline-primary btnedit">Edit</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -134,47 +127,52 @@
 
     <script>
         $(document).ready(function() {
-            $('#btnresult').on('click', function() {
-                var token = $('#csrf').val();
-                var jenis_khs = $("#jenis_khs").val();
-                var nama_pekerjaan = $("#nama_pekerjaan").val();
-
-                var data = {
-                    "_token": token,
-                    "jenis_khs": jenis_khs,
-                    "nama_pekerjaan": nama_pekerjaan
-                }
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'jenis-khs',
-                    data: data,
-                    success: function(response) {
-                        swal({
-                                title: "Data Ditambah",
-                                text: "Data Berhasil Ditambah",
-                                icon: "success",
-                                timer: 2e3,
-                                buttons: false
-                            })
-                            .then((result) => {
-                                location.reload();
-                            });
+            $('#valid_khs').validate({
+                rules: {
+                    jenis_khs: {
+                        required: true
                     },
-                    error: function(response) {
-                        var input = 2;
-
-                        for (var i = 0; i < input; i++) {
-                            $('.validate' + i).removeClass("is-invalid");
-                            $('.validate_khs' + i).html("");
-                            if ($('.validate' + i).val() == "") {
-                                $('.validate' + i).addClass("is-invalid");
-                                $('.validate_khs' + i).html("Form " + $('.validate' + i)
-                                    .attr("placeholder") + " Tidak Boleh Kosong");
-                            }
-                        }
+                    nama_pekerjaan: {
+                        required: true
                     }
-                });
+                },
+                messages: {
+                    jenis_khs: {
+                        required: "Silakan Isi Jenis KHS"
+                    },
+                    nama_pekerjaan: {
+                        required: "Silakan Isi Nama Pekerjaan"
+                    }
+                },
+                submitHandler: function(form) {
+                    var token = $('#csrf').val();
+                    var jenis_khs = $("#jenis_khs").val();
+                    var nama_pekerjaan = $("#nama_pekerjaan").val();
+
+                    var data = {
+                        "_token": token,
+                        "jenis_khs": jenis_khs,
+                        "nama_pekerjaan": nama_pekerjaan
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'jenis-khs',
+                        data: data,
+                        success: function(response) {
+                            swal({
+                                    title: "Data Ditambah",
+                                    text: "Data Berhasil Ditambah",
+                                    icon: "success",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((result) => {
+                                    location.reload();
+                                });
+                        },
+                    });
+                }
             });
 
             $('.btndelete').click(function(e) {
@@ -228,6 +226,7 @@
 
             $('.tombol-edit').click(function(e) {
                 var id = $(this).data('id');
+
                 $.ajax({
                     url: 'jenis-khs/' + id + '/edit',
                     type: 'GET',
@@ -235,43 +234,52 @@
                         $('#category_form').modal('show');
                         $('#edit_jenis_khs').val(response.result.jenis_khs);
                         $('#edit_nama_pekerjaan').val(response.result.nama_pekerjaan);
-
-                        $('.btnedit').click(function() {
-                            $.ajax({
-                                url: 'jenis-khs/' + id,
-                                type: 'PUT',
-                                data: {
-                                    jenis_khs: $('#edit_jenis_khs').val(),
-                                    nama_pekerjaan: $('#edit_nama_pekerjaan')
-                                        .val(),
+                        console.log("test");
+                        $('#edit_valid_khs').validate({
+                            rules: {
+                                edit_jenis_khs: {
+                                    required: true
                                 },
-                                success: function(response) {
-                                    swal({
-                                        title: "Data Diedit",
-                                        text: "Data Berhasil Diedit",
-                                        icon: "success",
-                                        timer: 2e3,
-                                        buttons: false
-                                    }).then((result) => {
-                                        location.reload();
-                                    });
-                                },
-                                error: function(response) {
-                                    var input = 2;
-
-                                    for (var i = 0; i < input; i++) {
-                                        $('.edit_validate' + i).removeClass("is-invalid");
-                                        $('.edit_validate_khs' + i).html("");
-                                        if ($('.edit_validate' + i).val() == "") {
-                                            $('.edit_validate' + i).addClass("is-invalid");
-                                            $('.edit_validate_khs' + i).html("Tolong Isi " + $(
-                                                '.edit_validate' + i).attr(
-                                                "placeholder"));
-                                        }
-                                    }
+                                edit_nama_pekerjaan: {
+                                    required: true
                                 }
-                            });
+                            },
+                            messages: {
+                                edit_jenis_khs: {
+                                    required: "Silakan Isi Jenis KHS"
+                                },
+                                edit_nama_pekerjaan: {
+                                    required: "Silakan Isi Nama Pekerjaan"
+                                }
+                            },
+
+                            // console.log();
+                            submitHandler: function(form) {
+                                $.ajax({
+                                    url: 'jenis-khs/' + id,
+                                    type: 'PUT',
+                                    data: {
+                                        jenis_khs: $('#edit_jenis_khs')
+                                            .val(),
+                                        nama_pekerjaan: $(
+                                                '#edit_nama_pekerjaan')
+                                            .val(),
+                                    },
+                                    success: function(response) {
+                                        swal({
+                                            title: "Data Diedit",
+                                            text: "Data Berhasil Diedit",
+                                            icon: "success",
+                                            timer: 2e3,
+                                            buttons: false
+                                        }).then((result) => {
+                                            location.reload();
+                                        });
+                                    }
+                                })
+                            }
                         });
+
                     }
                 });
             });
@@ -286,40 +294,49 @@
                     $('#edit_jenis_khs').val(response.result.jenis_khs);
                     $('#edit_nama_pekerjaan').val(response.result.nama_pekerjaan);
 
-                    $('.btnedit').click(function() {
-                        $.ajax({
-                            url: 'jenis-khs/' + id,
-                            type: 'PUT',
-                            data: {
-                                jenis_khs: $('#edit_jenis_khs').val(),
-                                nama_pekerjaan: $('#edit_nama_pekerjaan').val(),
+                    $('#edit_valid_khs').validate({
+                        rules: {
+                            edit_jenis_khs: {
+                                required: true
                             },
-                            success: function(response) {
-                                swal({
-                                    title: "Data Diedit",
-                                    text: "Data Berhasil Diedit",
-                                    icon: "success",
-                                    timer: 2e3,
-                                    buttons: false
-                                }).then((result) => {
-                                    location.reload();
-                                });
-                            },
-                            error: function(response) {
-                                var input = 2;
-
-                                for (var i = 0; i < input; i++) {
-                                    $('.edit_validate' + i).removeClass("is-invalid");
-                                    $('.edit_validate_khs' + i).html("");
-                                    if ($('.edit_validate' + i).val() == "") {
-                                        $('.edit_validate' + i).addClass("is-invalid");
-                                        $('.edit_validate_khs' + i).html("Tolong Isi " + $(
-                                            '.edit_validate' + i).attr(
-                                            "placeholder"));
-                                    }
-                                }
+                            edit_nama_pekerjaan: {
+                                required: true
                             }
-                        });
+                        },
+                        messages: {
+                            edit_jenis_khs: {
+                                required: "Silakan Isi Jenis KHS"
+                            },
+                            edit_nama_pekerjaan: {
+                                required: "Silakan Isi Nama Pekerjaan"
+                            }
+                        },
+
+                        // console.log();
+                        submitHandler: function(form) {
+                            $.ajax({
+                                url: 'jenis-khs/' + id,
+                                type: 'PUT',
+                                data: {
+                                    jenis_khs: $('#edit_jenis_khs')
+                                        .val(),
+                                    nama_pekerjaan: $(
+                                            '#edit_nama_pekerjaan')
+                                        .val(),
+                                },
+                                success: function(response) {
+                                    swal({
+                                        title: "Data Diedit",
+                                        text: "Data Berhasil Diedit",
+                                        icon: "success",
+                                        timer: 2e3,
+                                        buttons: false
+                                    }).then((result) => {
+                                        location.reload();
+                                    });
+                                }
+                            })
+                        }
                     });
                 }
             });

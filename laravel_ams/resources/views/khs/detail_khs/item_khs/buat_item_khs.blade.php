@@ -16,54 +16,53 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
-                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="text-label">Jenis Kontrak :</label>
-                                <input type="text" class="form-control input-default" placeholder="Jenis Kontrak"
-                                    name="khs_id" id="khs_id" readonly disabled required autofocus
-                                    value="{{ old('khs_id', $jenis_khs) }}">
-                            </div>
-                            <div class="form-group col-lg-6 mb-2">
-                                <label class="text-label">Kategori :</label>
-                                <div class="form-group mt-lg-2">
-                                    <label class="radio-inline">
-                                        <input class="kategori" type="radio" name="kategori" id="kategori" checked
-                                            value="Jasa">Jasa &ensp; &ensp;
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input class="kategori" type="radio" name="kategori" id="kategori"
-                                            value="Material">Material
-                                    </label>
+                        <form name="valid_item_khs" id="valid_item_khs" action="#">
+                            <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label class="text-label">Jenis Kontrak :</label>
+                                    <input type="text" class="form-control input-default" placeholder="Jenis Kontrak"
+                                        name="khs_id" id="khs_id" readonly disabled required autofocus
+                                        value="{{ old('khs_id', $jenis_khs) }}">
+                                </div>
+                                <div class="form-group col-lg-6 mb-2">
+                                    <label class="text-label">Kategori :</label>
+                                    <div class="form-group mt-lg-2">
+                                        <p class="container">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="kategori" class="kategori"                                               value="Jasa" checked>Jasa &ensp; &ensp;
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="kategori" 
+                                                class="kategori" value="Material">Material
+                                            </label>
+                                        </p>    
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="text-label">Nama Item :</label>
+                                    <input type="text" class="form-control input-default" placeholder="Nama Item"
+                                        name="nama_item" id="nama_item" required autofocus value="{{ old('nama_item') }}">                                
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="text-label">Satuan :</label>
+                                    <select class="form-control input-default" id="satuan_id" name="satuan_id"> 
+                                        <option value="0" selected disabled>Satuan</option>                                   
+                                        @foreach ($satuan as $satuan)
+                                        <option value="{{ $satuan->id }}">{{ $satuan->singkatan}}</option>
+                                        @endforeach                                    
+                                    </select>                                                                   
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="text-label">Harga Satuan (Rp) :</label>
+                                    <input onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" type="text"
+                                        class="form-control input-default validate2"
+                                        placeholder="Harga Satuan" name="harga_satuan" id="harga_satuan" required autofocus>                                    
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label class="text-label">Nama Item :</label>
-                                <input type="text" class="form-control input-default validate0" placeholder="Nama Item"
-                                    name="nama_item" id="nama_item" required autofocus value="{{ old('nama_item') }}">
-                                <div class="invalid-feedback validate_item0">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="text-label">Satuan :</label>
-                                <input type="text"
-                                    class="form-control input-default validate1"
-                                    placeholder="Satuan" name="satuan" id="satuan" required autofocus
-                                    value="{{ old('satuan') }}">
-                                <div class="invalid-feedback validate_item1">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="text-label">Harga Satuan (Rp) :</label>
-                                <input onkeydown="return numbersonly(this, event);"
-                                    onkeyup="javascript:tandaPemisahTitik(this);" type="text"
-                                    class="form-control input-default validate2"
-                                    placeholder="Harga Satuan" name="harga_satuan" id="harga_satuan" required autofocus>
-                                <div class="invalid-feedback validate_item2">
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Tambah</button>
+                            <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Tambah</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -160,47 +159,131 @@
     }
 
     $(document).ready(function() {
-        $('#btn_tambah').on('click', function() {
-            var token = $('#csrf').val();
-            var khs_id = $("#khs_id").val();
-            var kategori = $(".kategori:checked").val();
-            var nama_item = $("#nama_item").val();
-            var satuan = $("#satuan").val();
-            var harga_satuan = $("#harga_satuan").val();
-            harga_satuan = harga_satuan.replace(/\./g, "");
-            harga_satuan = parseInt(harga_satuan);
 
-            var data = {
-                "_token": token,
-                "khs_id": khs_id,
-                "kategori": kategori,
-                "nama_item": nama_item,
-                "satuan": satuan,
-                "harga_satuan": harga_satuan
-            }
+        $('#valid_item_khs').validate({
+            rules:{  
+                khs_id:{
+                    required:true
+                },       
+                kategori:{
+                    required:true
+                },       
+                nama_item:{
+                    required:true
+                },
+                satuan_id:{
+                    required:true
+                },
+                harga_satuan:{
+                    required:true
+                }
+            },
+            messages:{ 
+                khs_id:{
+                    required: "Silakan Pilih Jenis KHS"
+                },               
+                kategori:{
+                    required: "Silakan Pilih Kategori <br/>"
+                },                
+                nama_item:{
+                    required: "Silakan Isi Nama Item"
+                },
+                satuan_id:{
+                    required: "Silakan Pilih Satuan"
+                },
+                harga_satuan:{
+                    required: "Silakan Isi Harga Satuan"
+                }
+            },
 
-            $.ajax({
-                type: 'POST',
-                url: '',
-                data: data,
-                success: function(response) {
-                    swal({
-                            title: "Data Ditambah",
-                            text: "Data Berhasil Ditambah",
-                            icon: "success",
-                            timer: 2e3,
-                            buttons: false
-                        })
-                        .then((result) => {
+            errorPlacement: function(error, element) 
+            {
+                if ( element.is(":radio") ) 
+                {
+                    error.appendTo( element.parents('.container') );
+                }
+                else 
+                { // This is the default behavior 
+                    error.insertAfter( element );
+                }
+            },
+            submitHandler: function(form) {
+                var token = $('#csrf').val();
+                var khs_id = $("#khs_id").val();
+                var kategori = $(".kategori:checked").val();
+
+                // console.log(kategori);
+                var nama_item = $("#nama_item").val();
+                var satuan_id = $("#satuan_id").val();
+                var harga_satuan = $("#harga_satuan").val();                    
+
+                var data = {
+                    "_token": token,
+                    "khs_id": khs_id,
+                    "kategori": kategori,
+                    "nama_item": nama_item,
+                    "satuan_id": satuan_id,
+                    "harga_satuan": harga_satuan,                      
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '',
+                    data: data,
+                    success: function(response) {
+                        swal({
+                                title: "Data Ditambah",
+                                text: "Data Berhasil Ditambah",
+                                icon: "success",
+                                timer: 2e3,
+                                buttons: false
+                        }).then((result) => {
                             window.location.href = "{{ url('item-khs/' . $jenis_khs . '') }}";
                         });
-                },
-                error: function(response) {
-                    var input = 3
-
-                    // for ()
-                }
-            });
+                    }
+                });
+            } 
         });
+        // $('#btn_tambah').on('click', function() {
+        //     var token = $('#csrf').val();
+        //     var khs_id = $("#khs_id").val();
+        //     var kategori = $(".kategori:checked").val();
+        //     var nama_item = $("#nama_item").val();
+        //     var satuan = $("#satuan").val();
+        //     var harga_satuan = $("#harga_satuan").val();
+        //     harga_satuan = harga_satuan.replace(/\./g, "");
+        //     harga_satuan = parseInt(harga_satuan);
+
+        //     var data = {
+        //         "_token": token,
+        //         "khs_id": khs_id,
+        //         "kategori": kategori,
+        //         "nama_item": nama_item,
+        //         "satuan": satuan,
+        //         "harga_satuan": harga_satuan
+        //     }
+
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: '',
+        //         data: data,
+        //         success: function(response) {
+        //             swal({
+        //                     title: "Data Ditambah",
+        //                     text: "Data Berhasil Ditambah",
+        //                     icon: "success",
+        //                     timer: 2e3,
+        //                     buttons: false
+        //                 })
+        //                 .then((result) => {
+        //                     window.location.href = "{{ url('item-khs/' . $jenis_khs . '') }}";
+        //                 });
+        //         },
+        //         error: function(response) {
+        //             var input = 3
+
+        //             // for ()
+        //         }
+        //     });
+        // });
     });
 </script>

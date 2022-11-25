@@ -7,7 +7,6 @@
             <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $active1 }}</a></li>
         </ol>
     </div>
-
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -16,114 +15,80 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
-                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">No. SKK :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default  @error('nomor_skk') is-invalid @enderror"
-                                    placeholder="Nomor SKK" name="nomor_skk" id="nomor_skk" required autofocus
-                                    value="{{ old('nomor_skk') }}">
-                                @error('nomor_skk')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                        <form name="valid_skk" id="valid_skk" action="#">
+                            <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">No. SKK :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        placeholder="Nomor SKK" name="nomor_skk" id="nomor_skk" required autofocus
+                                        value="{{ old('nomor_skk') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">Uraian SKK :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default  @error('uraian_skk') is-invalid @enderror"
-                                    placeholder="Uraian SKK" name="uraian_skk" id="uraian_skk" required autofocus
-                                    value="{{ old('uraian_skk') }}">
-                                @error('uraian_skk')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">Uraian SKK :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        placeholder="Uraian SKK" name="uraian_skk" id="uraian_skk" required autofocus
+                                        value="{{ old('uraian_skk') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">Pagu SKK (Rp) :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default  @error('pagu_skk') is-invalid @enderror"
-                                    placeholder="Pagu SKK" name="pagu_skk" id="pagu_skk" required autofocus
-                                    onkeydown="return numbersonly(this, event);"
-                                    onkeyup="javascript:tandaPemisahTitik(this);" value="{{ old('pagu_skk') }}">
-                                @error('pagu_skk')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">Pagu SKK (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        placeholder="Pagu SKK" name="pagu_skk" id="pagu_skk" readonly disabled autofocus
+                                        onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" value="0">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">SKK Terkontrak (Rp) :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default  @error('skk_terkontrak') is-invalid @enderror"
-                                    placeholder="SKK Tekontrak" name="skk_terkontrak" id="skk_terkontrak" required
-                                    onkeydown="return numbersonly(this, event);"
-                                    onkeyup="javascript:tandaPemisahTitik(this);" autofocus value="0">
-                                @error('skk_terkontrak')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">SKK Terkontrak (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        placeholder="SKK Tekontrak" name="skk_terkontrak" id="skk_terkontrak" readonly disabled
+                                        onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" autofocus value="0">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">SKK Realisasi (Rp) :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default  @error('skk_realisasi') is-invalid @enderror"
-                                    placeholder="SKK Realisasi" name="skk_realisasi" id="skk_realisasi" required
-                                    onkeydown="return numbersonly(this, event);"
-                                    onkeyup="javascript:tandaPemisahTitik(this);" autofocus value="0">
-                                @error('skk_realisasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">SKK Realisasi (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        placeholder="SKK Realisasi" name="skk_realisasi" id="skk_realisasi" required
+                                        onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" autofocus value="{{ old('skk_realisasi') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">SKK Terbayar (Rp) :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default  @error('skk_terbayar') is-invalid @enderror"
-                                    placeholder="SKK Terbayar" name="skk_terbayar" id="skk_terbayar" required autofocus
-                                    onkeydown="return numbersonly(this, event);"
-                                    onkeyup="javascript:tandaPemisahTitik(this);" value="0">
-                                @error('skk_terbayar')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">SKK Terbayar (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        placeholder="SKK Terbayar" name="skk_terbayar" id="skk_terbayar" required autofocus
+                                        onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" value="{{ old('skk_terbayar') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-25 col-form-label">SKK Sisa (Rp) :</label>
-                            <div class="col-sm-6">
-                                <input type="text"
-                                    class="form-control input-default  @error('skk_sisa') is-invalid @enderror"
-                                    placeholder="SKK Sisa" name="skk_sisa" id="skk_sisa" required autofocus
-                                    onkeydown="return numbersonly(this, event);"
-                                    onkeyup="javascript:tandaPemisahTitik(this);" value="0">
-                                @error('skk_sisa')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">SKK Sisa (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        placeholder="SKK Sisa" name="skk_sisa" id="skk_sisa" readonly disabled autofocus
+                                        onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" value="0">
+                                </div>
                             </div>
-                        </div>
-                        <div class="position-relative justify-content-end float-right">
-                            <button type="submit" id="btnresult"
-                                class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
-                        </div>
+                            <div class="position-relative justify-content-end float-right">
+                                <button type="submit" class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -137,55 +102,85 @@
 
 <script>
     $(document).ready(function() {
-        $('#btnresult').on('click', function() {
-            var token = $('#csrf').val();
-            var nomor_skk = $("#nomor_skk").val();
-            var uraian_skk = $("#uraian_skk").val();
-            var pagu_skk = $("#pagu_skk").val();
-            pagu_skk = pagu_skk.replace(/\./g, "");
-            pagu_skk = parseInt(pagu_skk);
-            var skk_terkontrak = $("#skk_terkontrak").val();
-            skk_terkontrak = skk_terkontrak.replace(/\./g, "");
-            skk_terkontrak = parseInt(skk_terkontrak);
-            var skk_realisasi = $("#skk_realisasi").val();
-            skk_realisasi = skk_realisasi.replace(/\./g, "");
-            skk_realisasi = parseInt(skk_realisasi);
-            var skk_terbayar = $("#skk_terbayar").val();
-            skk_terbayar = skk_terbayar.replace(/\./g, "");
-            skk_terbayar = parseInt(skk_terbayar);
-            var skk_sisa = $("#skk_sisa").val();
-            skk_sisa = skk_sisa.replace(/\./g, "");
-            skk_sisa = parseInt(skk_sisa);
-
-            var data = {
-                "_token": token,
-                "nomor_skk": nomor_skk,
-                "uraian_skk": uraian_skk,
-                "pagu_skk": pagu_skk,
-                "skk_terkontrak": skk_terkontrak,
-                "skk_realisasi": skk_realisasi,
-                "skk_terbayar": skk_terbayar,
-                "skk_sisa": skk_sisa,
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('skk') }}",
-                data: data,
-                success: function(response) {
-                    swal({
-                            title: "Data Ditambah",
-                            text: "Data Berhasil Ditambah",
-                            icon: "success",
-                            timer: 2e3,
-                            buttons: false
-                        })
-                        .then((result) => {
-                            window.location.href = "/skk";
-                        });
+        $('#valid_skk').validate({
+            rules:{
+                nomor_skk: {
+                    required: true
+                },
+                uraian_skk: {
+                    required: true
+                },
+                skk_realisasi: {
+                    required: true
+                },
+                skk_terbayar: {
+                    required: true
                 }
-            });
-        });
+            },
+            messages: {
+                nomor_skk: {
+                    required: "Silakan Isi No SKK"
+                },
+                uraian_skk: {
+                    required: "Silakan Isi Uraian SKK"
+                },
+                skk_realisasi: {
+                    required: "Silakan Isi SKK Realisasi"
+                },
+                skk_terbayar: {
+                    required: "Silakan Isi SKK Terbayar"
+                }
+            },
+            submitHandler: function(form) {
+                var token = $('#csrf').val();
+                var nomor_skk = $("#nomor_skk").val();
+                var uraian_skk = $("#uraian_skk").val();
+                var pagu_skk = $("#pagu_skk").val();
+                pagu_skk = pagu_skk.replace(/\./g, "");
+                pagu_skk = parseInt(pagu_skk);
+                var skk_terkontrak = $("#skk_terkontrak").val();
+                skk_terkontrak = skk_terkontrak.replace(/\./g, "");
+                skk_terkontrak = parseInt(skk_terkontrak);
+                var skk_realisasi = $("#skk_realisasi").val();
+                skk_realisasi = skk_realisasi.replace(/\./g, "");
+                skk_realisasi = parseInt(skk_realisasi);
+                var skk_terbayar = $("#skk_terbayar").val();
+                skk_terbayar = skk_terbayar.replace(/\./g, "");
+                skk_terbayar = parseInt(skk_terbayar);
+                var skk_sisa = $("#skk_sisa").val();
+                skk_sisa = skk_sisa.replace(/\./g, "");
+                skk_sisa = parseInt(skk_sisa);
+
+                var data = {
+                    "_token": token,
+                    "nomor_skk": nomor_skk,
+                    "uraian_skk": uraian_skk,
+                    "pagu_skk": pagu_skk,
+                    "skk_terkontrak": skk_terkontrak,
+                    "skk_realisasi": skk_realisasi,
+                    "skk_terbayar": skk_terbayar,
+                    "skk_sisa": skk_sisa,
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('skk') }}",
+                    data: data,
+                    success: function(response) {
+                        swal({
+                                title: "Data Ditambah",
+                                text: "Data Berhasil Ditambah",
+                                icon: "success",
+                                timer: 2e3,
+                                buttons: false
+                            })
+                            .then((result) => {
+                                window.location.href = "/skk";
+                            });
+                    }
+                });
+            }
+        })
     });
 </script>
 

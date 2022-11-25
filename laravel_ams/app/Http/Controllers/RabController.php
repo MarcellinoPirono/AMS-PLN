@@ -46,15 +46,56 @@ class RabController extends Controller
        
     }
 
-    public function buat_kontrak()
+
+    public function buat_po_khs()
     {
 
-        return view('rab.buat_kontrak', [
-            'title' => 'Pilih Jenis Kontrak yang akan Dibuat',
-            'title1' => 'RAB',
-            'rabs' => Rab::orderBy('id', 'DESC')->get(),
+        $data_items = RincianInduk::select('id', 'nama_item', 'harga_satuan', 'satuan_id')->get();
+        $data_kategori = ItemRincianInduk::select('id', 'khs_id', 'nama_kategori')->get();
+        // $khs =Khs::all();
 
-        ]);
+        // $data = $data_items->concat($data_kategori);
+        // $data = DB::select('SELECT * FROM item_rincian_induks LEFT JOIN rincian_induks ON item_rincian_induks.id = rincian_induks.kategori_id');
+        // $data = array_merge($data_items->toArray(), $data_kategori->toArray());
+
+        // foreach ($items as $item) {
+        //     $data_items =  $item->nama_item;
+        // }
+
+        // $data =
+        // [
+        //     'active1' => 'Buat KHS',
+        //     'title' => 'Kontrak Harga Satuan (KHS)',
+        //     'title1' => 'KHS',
+        //     'active' => 'KHS',
+        //     'skks' => Skk::all(),
+        //     'prks' => Prk::all(),
+        //     'categories' => ItemRincianInduk::all(),
+        //     'items' => RincianInduk::all(),
+        //     'kontraks' => KontrakInduk::all(),
+        //     'pejabats' => Pejabat::all(),
+        // ];
+
+        // return view('rab.create')->with($data);
+
+
+        return view(
+            'rab.buat_po_khs',
+            [
+                'active1' => 'Buat PO-KHS',
+                'title' => 'Kontrak Harga Satuan (KHS)',
+                'title1' => 'PO-KHS',
+                'active' => 'PO-KHS',
+                'skks' => Skk::all(),
+                'prks' => Prk::all(),
+                'categories' => ItemRincianInduk::all(),
+                'items' => RincianInduk::all(),
+                'kontraks' => KontrakInduk::all(),
+                'pejabats' => Pejabat::all(),
+                'khs' => Khs::all(),
+            ],
+            compact('data_kategori', 'data_items')
+        );
     }
 
 

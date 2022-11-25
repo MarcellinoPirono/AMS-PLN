@@ -96,7 +96,7 @@ class SKKController extends Controller
      * @param  \App\Models\SKK  $sKK
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SKK $sKK, $id)
+    public function update(Request $request, $id)
     {
         // dd($request);
         $request->validate([

@@ -8,7 +8,7 @@
         </ol>
     </div>
 
-    <div class="row">
+    <div class="row form-material">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -16,7 +16,8 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
-                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                        <form name="valid_kontrak_induk" id="valid_kontrak_induk" action="#">
+                            <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <select class="form-control input-default" id="khs_id" name="khs_id">
@@ -33,27 +34,12 @@
                                         id="nama_pekerjaan" placeholder="Nama Pekerjaan" readonly disabled>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    
-                                    <input type="text"
-                                        class="form-control input-default  @error('nomor_kontrak_induk') is-invalid @enderror"
+                                    <input type="text" class="form-control input-default"
                                         placeholder="Nomor Kontrak Induk" name="nomor_kontrak_induk"
                                         id="nomor_kontrak_induk" required autofocus>
-                                    @error('nomor_kontrak_induk')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>  
-                                    @enderror
                                 </div>
-                            <div class="form-group col-md-6">
-                                    {{-- <i class="bi bi-calendar2-minus"></i> --}}
-                                    <input name="tanggal_kontrak_induk" id="tanggal_kontrak_induk" class="icon1 datepicker-default form-control @error('tanggal_addendum') is-invalid @enderror"
-                                        placeholder="Tanggal Kontrak Induk" required >
-                        
-                                    @error('tanggal_kontrak_induk')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                <div class="form-group col-md-6 icon2">
+                                    <input type="text" class="icon1 form-control date-picker" placeholder="Tanggal Kontrak Induk" id="mdate" name="tanggal_kontrak_induk">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <select class="form-control input-default" id="vendor_id" name="vendor_id">
@@ -65,11 +51,13 @@
                                 </div>
                             </div>
                             <div class="position-relative justify-content-end float-right">
-                            <button type="submit" id="btntambah"
-                                class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
+                                <button type="submit" class="btn btn-primary position-relative justify-content-end">Tambah
+                                    Data</button>
                             </div>
-                       
+
+                        </form>
                     </div>
+                
                 </div>
             </div>
         </div>
@@ -88,45 +76,109 @@
             $("#nama_pekerjaan").val(nama_pekerjaan);
         });
 
-        
-        $('#btntambah').on('click', function() {
-            var token = $('#csrf').val();
-            var khs_id = $("#khs_id").val();
-            var nomor_kontrak_induk = $("#nomor_kontrak_induk").val();
-            var tanggal_kontrak_induk = $("#tanggal_kontrak_induk").val();
-            // var date = Date.parse(tanggal_kontrak_induk);
-            var vendor_id = $("#vendor_id").val();
-            var date = new Date(tanggal_kontrak_induk);
-            var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
-
-            var data = {
-                "_token": token,
-                "khs_id": khs_id,
-                "nomor_kontrak_induk": nomor_kontrak_induk,
-                "tanggal_kontrak_induk": dateString,
-                "vendor_id": vendor_id,
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('kontrak-induk-khs') }}",
-                data: data,
-                success: function(response) {
-                    swal({
-                            title: "Data Ditambah",
-                            text: "Data Berhasil Ditambah",
-                            icon: "success",
-                            timer: 2e3,
-                            buttons: false
-                        })
-                        .then((result) => {
-                            window.location.href = "/kontrak-induk-khs";
-                        });
+        $('#valid_kontrak_induk').validate({
+            rules: {
+                khs_id: {
+                    required: true
+                },
+                nomor_kontrak_induk: {
+                    required: true
+                },
+                tanggal_kontrak_induk: {
+                    required: true
+                },
+                vendor_id: {
+                    required: true
                 }
-            });
+            },
+            messages: {
+                khs_id: {
+                    required: "Silakan Pilih Jenis KHS"
+                },
+                nomor_kontrak_induk: {
+                    required: "Silakan Isi Nomor Kontrak Induk"
+                },
+                tanggal_kontrak_induk: {
+                    required: "Silakan Isi Tanggal Kontrak Induk"
+                },
+                vendor_id: {
+                    required: "Silakan Pilih Vendor"
+                }
+            },
+            submitHandler: function(form) {
+                var token = $('#csrf').val();
+                var khs_id = $("#khs_id").val();
+                var nomor_kontrak_induk = $("#nomor_kontrak_induk").val();
+                var tanggal_kontrak_induk = $("#mdate").val();
+                var vendor_id = $("#vendor_id").val();
+                // var tanggal_kontrak_induk = new Date(tanggal_kontrak_induk);
+                // console.log(tanggal_kontrak_induk);
+                // var tanggal_kontrak_induk = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+                //     .toISOString().split("T")[0];
+
+                var data = {
+                    "_token": token,
+                    "khs_id": khs_id,
+                    "nomor_kontrak_induk": nomor_kontrak_induk,
+                    "tanggal_kontrak_induk": tanggal_kontrak_induk,
+                    "vendor_id": vendor_id,
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('kontrak-induk-khs') }}",
+                    data: data,
+                    success: function(response) {
+                        swal({
+                                title: "Data Ditambah",
+                                text: "Data Berhasil Ditambah",
+                                icon: "success",
+                                timer: 2e3,
+                                buttons: false
+                            })
+                            .then((result) => {
+                                window.location.href = "/kontrak-induk-khs";
+                            });
+                    }
+                });
+            }
         });
+
+        // $('#btntambah').on('click', function() {
+        //     var token = $('#csrf').val();
+        //     var khs_id = $("#khs_id").val();
+        //     var nomor_kontrak_induk = $("#nomor_kontrak_induk").val();
+        //     var tanggal_kontrak_induk = $("#tanggal_kontrak_induk").val();
+        //     // var date = Date.parse(tanggal_kontrak_induk);
+        //     var vendor_id = $("#vendor_id").val();
+        //     var date = new Date(tanggal_kontrak_induk);
+        //     var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+
+        //     var data = {
+        //         "_token": token,
+        //         "khs_id": khs_id,
+        //         "nomor_kontrak_induk": nomor_kontrak_induk,
+        //         "tanggal_kontrak_induk": dateString,
+        //         "vendor_id": vendor_id,
+        //     }
+
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: "{{ url('kontrak-induk-khs') }}",
+        //         data: data,
+        //         success: function(response) {
+        //             swal({
+        //                     title: "Data Ditambah",
+        //                     text: "Data Berhasil Ditambah",
+        //                     icon: "success",
+        //                     timer: 2e3,
+        //                     buttons: false
+        //                 })
+        //                 .then((result) => {
+        //                     window.location.href = "/kontrak-induk-khs";
+        //                 });
+        //         }
+        //     });
+        // });
     });
-
-
-    
 </script>

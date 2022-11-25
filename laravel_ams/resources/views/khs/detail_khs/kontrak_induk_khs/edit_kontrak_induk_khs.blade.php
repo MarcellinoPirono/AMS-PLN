@@ -20,8 +20,8 @@
                    {{-- <form method="POST" action="/kontrak-induk-khs/{{ $kontrakinduks->id }}" class="" enctype="multipart/form-data">
                             @method('put')
                             @csrf --}}
-
-                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                    <form name="edit_valid_kontrak_induk" id="edit_valid_kontrak_induk" action="#">
+                        <!-- <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}"> -->
                         <input type="hidden" class="edit_id" id="edit_id" value="{{ $kontrakinduks->id }}">
 
                         <div class="form-row">
@@ -37,22 +37,11 @@
                                 <input type="text" class="form-control input-default" name="nama_pekerjaan" id="nama_pekerjaan" placeholder="Nama Pekerjaan" readonly disabled value="{{ old('khs_id', $kontrakinduks->khs->nama_pekerjaan) }}">             
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default  @error('nomor_kontrak_induk') is-invalid @enderror" placeholder="Nomor Kontrak Induk" name="nomor_kontrak_induk" id="nomor_kontrak_induk" required autofocus value="{{ old('nomor_kontrak_induk', $kontrakinduks->nomor_kontrak_induk) }}">
-                                    @error('nomor_kontrak_induk')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="text" class="form-control input-default " placeholder="Nomor Kontrak Induk" name="nomor_kontrak_induk" id="nomor_kontrak_induk" required autofocus value="{{ old('nomor_kontrak_induk', $kontrakinduks->nomor_kontrak_induk) }}">                                    
                             </div>                            
                             <div class="form-group col-md-6 icon1">
-                                <input name="tanggal_kontrak_induk" id="tanggal_kontrak_induk" class="icon1 datepicker-default form-control @error('tanggal_kontrak_induk') is-invalid @enderror"
-                                        placeholder="Tanggal Kontrak Induk" value="{{ old('tanggal_kontrak_induk', $kontrakinduks->tanggal_kontrak_induk) }}" required >
-                        
-                                    @error('tanggal_kontrak_induk')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                <input name="tanggal_kontrak_induk" id="tanggal_kontrak_induk" class="icon1 datepicker-default form-control"
+                                        placeholder="Tanggal Kontrak Induk" value="{{ old('tanggal_kontrak_induk', $kontrakinduks->tanggal_kontrak_induk) }}" required >                        
                             </div>
                             <div class="form-group col-md-6">
                                 <select class="form-control input-default" id="vendor_id" name="vendor_id">
@@ -67,7 +56,7 @@
                             <button type="submit" id="btnedit"
                                 class="btn btn-primary position-relative justify-content-end">Edit Data</button>
                         </div>
-                                     
+                    </form>                                     
                 </div>
             </div>
         </div>
@@ -86,43 +75,114 @@
             $("#nama_pekerjaan").val(nama_pekerjaan);
         });
 
-         $('#btnedit').on('click', function() {
-            var token = $('#csrf').val();
-            var id = $('#edit_id').val();
-            var khs_id = $("#khs_id").val();
-            var nomor_kontrak_induk = $("#nomor_kontrak_induk").val();
-            var tanggal_kontrak_induk = $("#tanggal_kontrak_induk").val();
-            var date = new Date(tanggal_kontrak_induk);
-            var vendor_id = $("#vendor_id").val();
-            var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
-           
-            var data = {
-                 "_token": token,
-                "khs_id": khs_id,
-                "nomor_kontrak_induk": nomor_kontrak_induk,
-                "tanggal_kontrak_induk": dateString,
-                "vendor_id": vendor_id,
-            }
 
-            $.ajax({
-                url: "{{ url('kontrak-induk-khs') }}" + '/' + id,
-                type: 'PUT',
-                data: data,
-                success: function(response) {
-                    swal({
-                            title: "Data Diedit",
-                            text: "Data Berhasil Diedit",
-                            icon: "success",
-                            timer: 2e3,
-                            buttons: false
-                        })
-                        .then((result) => {
-                            window.location.href = "/kontrak-induk-khs";
-                        });
+
+        // $('#btnedit').on('click', function() {
+        //     var token = $('#csrf').val();
+        //     var id = $('#edit_id').val();
+        //     var khs_id = $("#khs_id").val();
+        //     var nomor_kontrak_induk = $("#nomor_kontrak_induk").val();
+        //     var tanggal_kontrak_induk = $("#tanggal_kontrak_induk").val();
+        //     var date = new Date(tanggal_kontrak_induk);
+        //     var vendor_id = $("#vendor_id").val();
+        //     var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+           
+
+        //     var data = {
+        //          "_token": token,
+        //         "khs_id": khs_id,
+        //         "nomor_kontrak_induk": nomor_kontrak_induk,
+        //         "tanggal_kontrak_induk": dateString,
+        //         "vendor_id": vendor_id,
+        //     }
+                        
+
+        //     // $.ajax({
+        //     //     url: "{{ url('kontrak-induk-khs') }}" + '/' + id,
+        //     //     type: 'PUT',
+        //     //     data: data,
+        //     //     success: function(response) {
+        //     //         swal({
+        //     //                 title: "Data Diedit",
+        //     //                 text: "Data Berhasil Diedit",
+        //     //                 icon: "success",
+        //     //                 timer: 2e3,
+        //     //                 buttons: false
+        //     //             })
+        //     //             .then((result) => {
+        //     //                 window.location.href = "/kontrak-induk-khs";
+        //     //             });
+        //     //     }
+        //     // });
+        // });
+    });
+
+    $(document).ready(function(){
+        $('#edit_valid_kontrak_induk').validate({
+                rules:{
+                    khs_id:{
+                        required: true
+                    },
+                    nomor_kontrak_induk:{
+                        required:true
+                    },
+                    tanggal_kontrak_induk:{
+                        required:true
+                    },
+                    vendor_id:{
+                        required:true
+                    }   
+                },
+                messages:{
+                    khs_id:{
+                        required: "Silakan Pilih Jenis KHS"
+                    },
+                    nomor_kontrak_induk:{
+                        required: "Silakan Isi Nomor Kontrak Induk"
+                    },
+                    tanggal_kontrak_induk:{
+                        required: "Silakan Isi Tanggal Kontrak Induk"
+                    },
+                    vendor_id:{
+                        required: "Silakan Pilih Vendor"
+                    }
+                },
+                // console.log();
+                submitHandler: function(form) {
+                    var id = $('#edit_id').val();
+                    var khs_id = $("#khs_id").val();
+                    var nomor_kontrak_induk = $("#nomor_kontrak_induk").val();
+                    var tanggal_kontrak_induk = $("#tanggal_kontrak_induk").val();
+                    var date = new Date(tanggal_kontrak_induk);
+                    var vendor_id = $("#vendor_id").val();
+                    var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+                    
+                    var data = {                        
+                        "khs_id": khs_id,
+                        "nomor_kontrak_induk": nomor_kontrak_induk,
+                        "tanggal_kontrak_induk": dateString,
+                        "vendor_id": vendor_id,
+                    }
+                    $.ajax({
+                        url: "{{ url('kontrak-induk-khs') }}" + '/' + id,
+                        type: 'PUT',
+                        data: data,
+                        success: function(response) {
+                            swal({
+                                    title: "Data Diedit",
+                                    text: "Data Berhasil Diedit",
+                                    icon: "success",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((result) => {
+                                    window.location.href = "/kontrak-induk-khs";
+                                });
+                        }
+                    })
                 }
             });
-        });
-    });
+    })
 </script>
 
 
