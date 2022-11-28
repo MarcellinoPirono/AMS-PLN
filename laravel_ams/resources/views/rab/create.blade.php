@@ -124,6 +124,10 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control input-default" name="latest_addendum"
+                                                id="latest_addendum" placeholder="Latest Addendum" readonly disabled>
+                                        </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">Input No.SKK</label>
@@ -404,8 +408,10 @@
                     jQuery('#prk_id').html(result)
                 }
             });
-        })
+        });       
     });
+
+    
 </script>
 
 <script>

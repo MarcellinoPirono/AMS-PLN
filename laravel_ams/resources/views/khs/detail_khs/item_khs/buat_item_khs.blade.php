@@ -26,18 +26,17 @@
                                         value="{{ old('khs_id', $jenis_khs) }}">
                                 </div>
                                 <div class="form-group col-lg-6 mb-2">
-                                    <label class="text-label">Kategori :</label>
+                                    <label class="text-label">Kategori :</label>                          
                                     <div class="form-group mt-lg-2">
-                                        <p class="container">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="kategori" class="kategori"                                               value="Jasa" checked>Jasa &ensp; &ensp;
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="kategori" 
-                                                class="kategori" value="Material">Material
-                                            </label>
-                                        </p>    
-                                    </div>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="kategori" class="kategori"                                               value="Jasa">Jasa &ensp; &ensp;
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="kategori" 
+                                            class="kategori" value="Material">Material
+                                        </label>
+                                        <div id="radioerror"></div>                                        
+                                    </div>                                    
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Nama Item :</label>
@@ -48,10 +47,10 @@
                                     <label class="text-label">Satuan :</label>
                                     <select class="form-control input-default" id="satuan_id" name="satuan_id"> 
                                         <option value="0" selected disabled>Satuan</option>                                   
-                                        @foreach ($satuan as $satuan)
+                                        @foreach ($satuans as $satuan)
                                         <option value="{{ $satuan->id }}">{{ $satuan->singkatan}}</option>
                                         @endforeach                                    
-                                    </select>                                                                   
+                                    </select>  
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Harga Satuan (Rp) :</label>
@@ -156,10 +155,11 @@
             //alert (e.keyCode);
             return false;
         }
-    }
+    }            
+</script>
 
+<script>
     $(document).ready(function() {
-
         $('#valid_item_khs').validate({
             rules:{  
                 khs_id:{
@@ -183,7 +183,7 @@
                     required: "Silakan Pilih Jenis KHS"
                 },               
                 kategori:{
-                    required: "Silakan Pilih Kategori <br/>"
+                    required: "Silakan Pilih Kategori"
                 },                
                 nama_item:{
                     required: "Silakan Isi Nama Item"
@@ -195,27 +195,28 @@
                     required: "Silakan Isi Harga Satuan"
                 }
             },
-
+            
             errorPlacement: function(error, element) 
-            {
-                if ( element.is(":radio") ) 
+            {                
+                if ( element.attr("name") == "kategori" ) 
                 {
-                    error.appendTo( element.parents('.container') );
+                    error.appendTo("#radioerror");
                 }
                 else 
                 { // This is the default behavior 
                     error.insertAfter( element );
                 }
             },
+            
             submitHandler: function(form) {
                 var token = $('#csrf').val();
                 var khs_id = $("#khs_id").val();
                 var kategori = $(".kategori:checked").val();
-
-                // console.log(kategori);
                 var nama_item = $("#nama_item").val();
                 var satuan_id = $("#satuan_id").val();
-                var harga_satuan = $("#harga_satuan").val();                    
+                var harga_satuan = $("#harga_satuan").val(); 
+                harga_satuan = harga_satuan.replace(/\./g, ""); 
+                harga_satuan = parseInt(harga_satuan);            
 
                 var data = {
                     "_token": token,
@@ -227,7 +228,7 @@
                 };
                 $.ajax({
                     type: 'POST',
-                    url: '',
+                    url: '{{ url('item-khs/' . $jenis_khs . '/create') }}',
                     data: data,
                     success: function(response) {
                         swal({
@@ -243,47 +244,5 @@
                 });
             } 
         });
-        // $('#btn_tambah').on('click', function() {
-        //     var token = $('#csrf').val();
-        //     var khs_id = $("#khs_id").val();
-        //     var kategori = $(".kategori:checked").val();
-        //     var nama_item = $("#nama_item").val();
-        //     var satuan = $("#satuan").val();
-        //     var harga_satuan = $("#harga_satuan").val();
-        //     harga_satuan = harga_satuan.replace(/\./g, "");
-        //     harga_satuan = parseInt(harga_satuan);
-
-        //     var data = {
-        //         "_token": token,
-        //         "khs_id": khs_id,
-        //         "kategori": kategori,
-        //         "nama_item": nama_item,
-        //         "satuan": satuan,
-        //         "harga_satuan": harga_satuan
-        //     }
-
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: '',
-        //         data: data,
-        //         success: function(response) {
-        //             swal({
-        //                     title: "Data Ditambah",
-        //                     text: "Data Berhasil Ditambah",
-        //                     icon: "success",
-        //                     timer: 2e3,
-        //                     buttons: false
-        //                 })
-        //                 .then((result) => {
-        //                     window.location.href = "{{ url('item-khs/' . $jenis_khs . '') }}";
-        //                 });
-        //         },
-        //         error: function(response) {
-        //             var input = 3
-
-        //             // for ()
-        //         }
-        //     });
-        // });
     });
 </script>

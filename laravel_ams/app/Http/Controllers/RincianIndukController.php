@@ -64,7 +64,7 @@ class RincianIndukController extends Controller
                 'active1' => 'Tambah ' . $jenis_khs . '',
                 'items' => ItemRincianInduk::all(),
                 'jenis_khs'=> $jenis_khs,
-                'satuan'=>$satuan
+                'satuans'=>$satuan
             ]
         );
     }
@@ -86,7 +86,7 @@ class RincianIndukController extends Controller
             'nama_item' => 'required|max:250',
             'kategori' => 'required',
             'khs_id' => 'required',
-            'satuan' => 'required',
+            'satuan_id' => 'required',
             'harga_satuan' => 'required',
 
         ]);
@@ -120,6 +120,7 @@ class RincianIndukController extends Controller
 
 
         $item_khs = RincianInduk::find($id_item);
+        $satuan = Satuan::all();
 
         $data = [
             'item_khs'  => $item_khs,
@@ -127,6 +128,8 @@ class RincianIndukController extends Controller
             'active' => 'Item KHS',
             'active1' => 'Edit ' . $jenis_khs . '',
             'jenis_khs' => $jenis_khs,
+            'satuans' => $satuan,
+            'id_item' => $id_item
         ];
         return view('khs.detail_khs.item_khs.edit_item_khs', $data);
 
@@ -164,7 +167,7 @@ class RincianIndukController extends Controller
             'nama_item' => 'required|max:250',
             'kategori' => 'required',
             'khs_id' => 'required',
-            'satuan' => 'required',
+            'satuan_id' => 'required',
             'harga_satuan' => 'required',
 
         ]);

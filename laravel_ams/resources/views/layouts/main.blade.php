@@ -124,7 +124,7 @@
                                     <img src="{{ asset('/') }}./asset/frontend/images/profile/17.jpg" width="20"
                                         alt="" />
                                     <div class="header-info">
-                                        <span class="text-white"><strong>Nama User Nama User Nama User</strong></span>
+                                        <span class="text-white"><strong>Nama User</strong></span>
                                         <p class="text-warning fs-12 mb-0">Level User</p>
                                     </div>
 
@@ -365,13 +365,13 @@
             </div>
         </div> -->
 
-        <a href="/buat-kontrak">
+        <!-- <a href="/buat-kontrak">
             <button class="btn-floating facebook">
                 <img src="{{ asset('/') }}./asset/frontend/images/iconcreate.svg" width="85px" height="85px"
                     alt="">
                 <span style="color: #5DCDE0"> Buat Kontrak </span>
             </button>
-        </a>
+        </a> -->
 
         <!--**********************************
             Content body end

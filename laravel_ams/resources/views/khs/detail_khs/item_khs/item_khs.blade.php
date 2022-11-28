@@ -56,17 +56,15 @@
                             </thead>
                             <tbody class="alldata">
                                 @foreach ($items as $item)
-                                    <tr>
-                                        <input type="hidden" class="delete_id" value="{{ $item->id }}">
-
-                                        
+                                    <tr style="width: 1135px;">
+                                        <input type="hidden" class="delete_id" value="{{ $item->id }}">                                        
                                         <td><strong>{{ $loop->iteration }}</strong></td>
                                         <td>{{ $item->nama_item }}</td>
                                         <td>{{ $item->kategori }}</td>
                                         <td>{{ $item->khs->jenis_khs }}</td>
                                         <td>{{ $item->satuans->singkatan }}</td>
                                         <td>@currency($item->harga_satuan) </td>
-                                        <td>
+                                        <td style="width:96px">
                                             <div class="d-flex">
                                                 <a href="{{ route('item-khs.edit', ['jenis_khs' => $item->khs->jenis_khs, 'id' => $item->id]) }}"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i

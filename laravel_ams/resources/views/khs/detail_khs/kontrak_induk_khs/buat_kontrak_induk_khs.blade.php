@@ -38,8 +38,15 @@
                                         placeholder="Nomor Kontrak Induk" name="nomor_kontrak_induk"
                                         id="nomor_kontrak_induk" required autofocus>
                                 </div>
-                                <div class="form-group col-md-6 icon2">
-                                    <input type="text" class="icon1 form-control date-picker" placeholder="Tanggal Kontrak Induk" id="mdate" name="tanggal_kontrak_induk">
+                                <div class="form-group col-md-6">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="bi bi-calendar2-minus"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control date-picker"
+                                            placeholder="Tanggal Kontrak Induk" id="mdate" name="tanggal_kontrak_induk">
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <select class="form-control input-default" id="vendor_id" name="vendor_id">
@@ -57,7 +64,7 @@
 
                         </form>
                     </div>
-                
+
                 </div>
             </div>
         </div>

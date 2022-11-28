@@ -94,7 +94,7 @@ Route::resource('po-khs', RabController::class);
 Route::get('export-pdf-khs/{id}', [RabController::class, 'export_pdf_khs']);
 Route::get('preview-pdf-khs/{id}', [RabController::class, 'preview_pdf_khs']);
 Route::get('/search-pokhs', [RabController::class, 'searchpokhs']);
-Route::get('/buat-kontrak', [RabController::class, 'buat_kontrak']);
+Route::post('/getAddendum', [RabController::class, 'getAddendum']);
 
 Route::resource('prk', PrkController::class);
 Route::any('prk/filter', [PrkController::class, 'filterprk']);
@@ -105,6 +105,7 @@ Route::post('getSKK', [SkkController::class, 'getSKK']);
 Route::post('getCategory', [SkkController::class, 'getCategory']);
 Route::post('getItem', [SkkController::class, 'getItem']);
 Route::post('getKontrakInduk', [SkkController::class, 'getKontrakInduk']);
+Route::post('getKontrak_Induk', [SkkController::class, 'getKontrak_Induk']);
 
 
 Route::resource('hpe', HpeController::class);

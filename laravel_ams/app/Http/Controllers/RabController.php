@@ -13,6 +13,7 @@ use App\Models\Khs;
 use App\Models\KontrakInduk;
 use App\Models\RincianInduk;
 use App\Models\Pejabat;
+use App\Models\Addendum;
 // use App\Models\OrderedRab;
 use App\Models\OrderKhs;
 use Illuminate\Support\Facades\DB;
@@ -115,6 +116,8 @@ class RabController extends Controller
         // $items = RincianInduk::all();
         $data_items = RincianInduk::select('id', 'nama_item', 'harga_satuan', 'satuan_id')->get();
         $data_kategori = ItemRincianInduk::select('id','khs_id','nama_kategori')->get();
+        // $kontrak_induk_id = KontrakInduk::select('id')->get();
+        // $latest_addendum = Addendum::groupBy('kontrak_induk_id')->latest('tanggal_addendum')->get();
         // $khs =Khs::all();
 
         // $data = $data_items->concat($data_kategori);
@@ -156,6 +159,7 @@ class RabController extends Controller
                 'kontraks' => KontrakInduk::all(),
                 'pejabats' => Pejabat::all(),
                 'khs' => Khs::all(),
+                // 'latest_addendum' => $latest_addendum
             ], compact('data_kategori', 'data_items')
         );
     }
@@ -446,8 +450,11 @@ class RabController extends Controller
             "title" => "PO-KHS",
         ]);
     }
-
-
-
     
+    public function getAddendum(Request $request)
+    {
+        $kontrak_induk = $request->post('kontrak_induk');
+        $latest_addendum = Addendum::find($request->kontrak_induk)->where('kontrak_induk_id', $kontrak_induk)->latest('tanggal_addendum')->latest('created_at')->get();
+        return response()->json($latest_addendum);
+    }    
 }

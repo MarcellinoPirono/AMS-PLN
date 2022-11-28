@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ItemRincianInduk;
+use App\Models\KontrakInduk;
 use App\Models\RincianInduk;
 use App\Models\Skk;
 use Illuminate\Http\Request;
@@ -140,7 +141,7 @@ class SKKController extends Controller
         $skk_id = $request->post('skk_id');
         $prk = DB::table('prks')->where('no_skk_prk',$skk_id)->orderBy('no_prk')->get();
 
-        $html = '<option value="0" selected disabled>Pilih PRK</option>';
+        $html = '<option value="" selected disabled>Pilih PRK</option>';
         foreach($prk as $prks){
             $html.='<option value="'.$prks->id.'">'.$prks->no_prk.'</option>';
         }
@@ -149,9 +150,18 @@ class SKKController extends Controller
 
     public function getKontrakInduk(Request $request)
     {
-        $khs_id = $request->post('kontrak_induk');
+        $kontrak_induk_id = $request->post('kontrak_induk');
+        $khs_id = KontrakInduk::where('id', $kontrak_induk_id)->value('khs_id');
         $nama_kategori = DB::table('rincian_induks')->where('khs_id', $khs_id)->get();
         return response()->json($nama_kategori);
+    }
+
+    public function getKontrak_Induk(Request $request)
+    {
+        $kontrak_induk_id = $request->post('kontrak_induk');
+        $kontrak_induk = KontrakInduk::where('id', $kontrak_induk_id)->value('khs_id');
+        $nama_item = DB::table('rincian_induks')->where('khs_id',$kontrak_induk)->get();
+        return response()->json($nama_item);
     }
     
     public function getCategory(Request $request)
@@ -159,7 +169,7 @@ class SKKController extends Controller
         $kategory_id = $request->post('kategory_id');
         $nama_item = DB::table('rincian_induks')->where('kategori_id',$kategory_id)->get();
 
-        $html = '<option value="0" selected disabled>Pilih Pekerjaan</option>';
+        $html = '<option value="" selected disabled>Pilih Pekerjaan</option>';
         foreach($nama_item as $item){
             $html.='<option value="'.$item->id.'">'.$item->nama_item.'</option>';
         }
