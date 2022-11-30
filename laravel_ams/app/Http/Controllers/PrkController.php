@@ -64,7 +64,22 @@ class PrkController extends Controller
             'prk_sisa' => 'required|max:250'
 
         ]);
+        
+        // Update Pagu SKK
+        $total_pagu_prk = 0;
+        $previous_pagu_prk = Prk::where('no_skk_prk', $request->no_skk_prk)->get("pagu_prk");        
+        foreach($previous_pagu_prk as $pagu_prk)            
+            $total_pagu_prk += (Double)$pagu_prk->pagu_prk;
+        $updated_pagu_skk = $request->pagu_prk + $total_pagu_prk;
+        Skk::where('id', $request->no_skk_prk)->update(array('pagu_skk'=>(Double)$updated_pagu_skk));
+
+        $pagu_skk = Skk::where('id', $request->no_skk_prk)->value("pagu_skk");
+        $skk_terkontrak = Skk::where('id', $request->no_skk_prk)->value("skk_terkontrak");
+        $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
+        Skk::where('id', $request->no_skk_prk)->update(array('skk_sisa'=>(Double)$updated_skk_sisa));
+
         Prk::create($validatedData);
+
         return redirect('/prk')->with('success', 'Prk Berhasil Ditambah!');
     }
 
@@ -127,6 +142,20 @@ class PrkController extends Controller
 
         $input = $request->all();
         $prk->update($input);
+
+        //Update Pagu SKK
+        $updated_pagu_skk = 0;
+        $previous_pagu_prk = Prk::where('no_skk_prk', $request->no_skk_prk)->get("pagu_prk");        
+        foreach($previous_pagu_prk as $pagu_prk)            
+            $updated_pagu_skk += (Double)$pagu_prk->pagu_prk;                
+        Skk::where('id', $request->no_skk_prk)->update(array('pagu_skk'=>(Double)$updated_pagu_skk));
+
+        //Update SKK Sisa
+        $pagu_skk = Skk::where('id', $request->no_skk_prk)->value("pagu_skk");
+        $skk_terkontrak = Skk::where('id', $request->no_skk_prk)->value("skk_terkontrak");
+        $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
+        Skk::where('id', $request->no_skk_prk)->update(array('skk_sisa'=>(Double)$updated_skk_sisa));
+
         return response()->json(['success' => true]);
     }
 

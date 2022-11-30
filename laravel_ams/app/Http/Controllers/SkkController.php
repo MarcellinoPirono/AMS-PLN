@@ -179,7 +179,14 @@ class SKKController extends Controller
     public function getItem(Request $request)
     {
         $item_id = $request->post('item_id');
-        $harga_item = RincianInduk::find($request->item_id)->where('id',$item_id)->first();
+
+        $harga_item1 = DB::table('satuans')
+                        ->rightJoin('rincian_induks', 'rincian_induks.satuan_id', '=', 'satuans.id');
+        $harga_item = DB::table('rincian_induks')
+                        ->leftJoin('satuans', 'rincian_induks.satuan_id', '=', 'satuans.id')
+                        ->unionAll($harga_item1)
+                        ->where('rincian_induks.id', $item_id)
+                        ->first();
         return response()->json($harga_item);
     }
 
@@ -187,11 +194,9 @@ class SKKController extends Controller
     {
         $output ="";
 
+        $skks= Skk::where('nomor_skk', 'LIKE', '%'. $request->search.'%')->orWhere('uraian_skk', 'LIKE', '%' . $request->search . '%')->get();
 
-       $skks= Skk::where('nomor_skk', 'LIKE', '%'. $request->search.'%')->orWhere('uraian_skk', 'LIKE', '%' . $request->search . '%')->get();
-        // dd($prks);
-
-       foreach($skks as $skk){
+        foreach($skks as $skk){
         $output.=
             '<tr>
             <input type="hidden" class="delete_id" value='. $skk->id .'>

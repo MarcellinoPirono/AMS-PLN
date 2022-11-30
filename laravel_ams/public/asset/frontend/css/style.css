@@ -41041,7 +41041,12 @@ input[type="checkbox"]:checked:after {
 .picker__select--month,
 .picker__select--year {
     height: 2.5em;
+    /* font-size: 10px; */
 }
+
+/* select.picker__select--year {
+    font-size: 10px
+} */
 
 .picker__input {
     background-color: transparent !important;

@@ -16,6 +16,7 @@ use App\Models\Pejabat;
 use App\Models\Addendum;
 // use App\Models\OrderedRab;
 use App\Models\OrderKhs;
+use App\Models\Redaksi;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
@@ -221,20 +222,9 @@ class RabController extends Controller
             'pejabat_id' => $request->pejabat_id,
             'pengawas' => $request->pengawas,
             'total_harga' => $request->total_harga,
-        ];
+        ];        
         
-        
-        Rab::create($rab);
-        // $prk = Prk::all();        
-
-        // $updated_prk_terkontrak = 0;
-        // $no_skk_prk = Skk::where('id', $request->skk_id)->value('id');
-        // $all_prk_terkontrak = Prk::where('no_skk_prk', $no_skk_prk)->get('prk_terkontrak');
-        // foreach($all_prk_terkontrak as $prk_terkontrak)
-        //     dd($prk_terkontrak);    
-
-        //     // $updated_prk_terkontrak += (Double)$prk_terkontrak;
-        // Skk::where('id', $request->skk_id)->update(array('skk_terkontrak'=>(Double)$all_prk_terkontrak));
+        Rab::create($rab);        
         
         $id = Rab::where('nomor_po', $request->nomor_po)->value('id');
 
@@ -260,12 +250,129 @@ class RabController extends Controller
             ];
             OrderKhs::create($order_khs);
         }
-        $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
-        $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
-        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
+
+        //Update PRK 1
+        // $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
+        // $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
+        // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));        
+
+        // Update PRK 2
+        $updated_prk_terkontrak = 0;
+        $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
+        foreach($previous_prk_terkontrak as $prk_terkontrak)
+            $updated_prk_terkontrak += (Double)$prk_terkontrak->total_harga;
+        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));        
+
+        //Update SKK 
+        $updated_skk_terkontrak = 0;        
+        $previous_skk_terkontrak = Prk::where('no_skk_prk', $request->skk_id)->get('prk_terkontrak');
+        foreach($previous_skk_terkontrak as $skk_terkontrak)        
+            $updated_skk_terkontrak += (Double)$skk_terkontrak->prk_terkontrak;
+        Skk::where('id', $request->skk_id)->update(array('skk_terkontrak'=>(Double)$updated_skk_terkontrak));
+        
 
         return redirect('/po-khs')->with('status', 'PO KHS Berhasil Ditambah!');
 
+    }
+    public function simpan_po_khs(StoreRabRequest $request)
+    {
+        // dd($request);
+        $request->validate([
+            'nomor_po' => 'required|max:250',
+            'tanggal_po' => 'required|max:250',
+            'skk_id' => 'required|max:250',
+            'prk_id' => 'required|max:250',
+            'pekerjaan' => 'required|max:250',
+            'lokasi' => 'required|max:250',
+            'startdate' => 'required|max:250',
+            'enddate' => 'required|max:250',
+            'nomor_kontrak_induk' => 'required|max:250',
+            'addendum_id' => 'required|max:250',
+            'pejabat_id' => 'required|max:250',
+            'pengawas' => 'required|max:250',
+            'total_harga' => 'required|max:250',
+            'kategori_order' => 'required|max:250',
+            'item_order' => 'required|max:250',
+            'satuan_id' => 'required|max:250',
+            'harga_satuan' => 'required|max:250',
+            'volume' => 'required|max:250',
+            'jumlah_harga' => 'required|max:250',
+        ]);
+
+        $rab = [
+            'nomor_po' => $request->nomor_po,
+            'tanggal_po' => $request->tanggal_po,
+            'skk_id' => $request->skk_id,
+            'prk_id' => $request->prk_id,
+            'pekerjaan' => $request->pekerjaan,
+            'lokasi' => $request->lokasi,
+            'startdate' => $request->startdate,
+            'enddate' => $request->enddate,
+            'nomor_kontrak_induk' => $request->nomor_kontrak_induk,
+            'addendum_id' => $request->addendum_id,
+            'pejabat_id' => $request->pejabat_id,
+            'pengawas' => $request->pengawas,
+            'total_harga' => $request->total_harga,
+        ];
+
+        Rab::create($rab);
+
+        $id = Rab::where('nomor_po', $request->nomor_po)->value('id');
+
+        $total_tabel = $request->click;
+
+        $rab_id = [];
+
+        for ($i = 0; $i < $total_tabel; $i++) {
+            $rab_id[$i] = $id;
+        }
+
+        for ($j = 0; $j < $total_tabel; $j++) {
+            $order_khs = [
+                'rab_id' => $rab_id[$j],
+                'kategori_order' => $request->kategori_order[$j],
+                'item_order' => $request->item_order[$j],
+                'satuan_id' => $request->satuan_id[$j],
+                'harga_satuan' => $request->harga_satuan[$j],
+                'volume' => $request->volume[$j],
+                'jumlah_harga' => $request->jumlah_harga[$j],
+            ];
+            OrderKhs::create($order_khs);
+        }
+
+        //Update PRK 1
+        // $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
+        // $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
+        // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));        
+
+        // Update PRK Terkontrak
+        $updated_prk_terkontrak = 0;
+        $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
+        foreach ($previous_prk_terkontrak as $prk_terkontrak)
+            $updated_prk_terkontrak += (float)$prk_terkontrak->total_harga;
+        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak' => (float)$updated_prk_terkontrak));
+
+        //Update PRK Sisa
+        $pagu_prk = Prk::where('id', $request->prk_id)->value('pagu_prk');
+        $prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
+        $updated_prk_sisa = (float)$pagu_prk - (float)$prk_terkontrak;
+        Prk::where('id', $request->prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
+
+        //Update SKK Terkontrak
+        $updated_skk_terkontrak = 0;
+        $previous_skk_terkontrak = Prk::where('no_skk_prk', $request->skk_id)->get('prk_terkontrak');
+        foreach ($previous_skk_terkontrak as $skk_terkontrak)
+            $updated_skk_terkontrak += (float)$skk_terkontrak->prk_terkontrak;
+        Skk::where('id', $request->skk_id)->update(array('skk_terkontrak' => (float)$updated_skk_terkontrak));
+
+        //Update SKK Sisa
+        $pagu_skk = Skk::where('id', $request->skk_id)->value('pagu_skk');
+        $skk_terkontrak = Skk::where('id', $request->skk_id)->value('skk_terkontrak');
+        $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
+        Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
+
+
+        return redirect('/po-khs')->with('status', 'PO KHS Berhasil Ditambah!');
     }
 
     /**
@@ -457,4 +564,18 @@ class RabController extends Controller
         $latest_addendum = Addendum::find($request->kontrak_induk)->where('kontrak_induk_id', $kontrak_induk)->latest('tanggal_addendum')->latest('created_at')->get();
         return response()->json($latest_addendum);
     }    
+
+    public function getRedaksi(Request $request){
+        $redaksi = Redaksi::all();
+
+        // dd($redaksi);
+
+        // $nama_redaksi = '<option value="" selected disabled>Pilih Redaksi</option>';
+        // foreach ($redaksi as $redaksis) {
+        //     $nama_redaksi .= '<option value="' . $redaksis->id . '">' . $redaksis->nama_redaksi . '</option>';
+        // }
+        // // dd($nama_redaksi);
+        // echo $nama_redaksi;
+        return response()->json($redaksi);
+    }
 }

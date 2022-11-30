@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('rab_id');
             $table->string('kategori_order');
             $table->foreignId('item_order');
-            $table->foreignId('satuan_id');
+            $table->string('satuan_id');
             $table->double('harga_satuan');
             $table->double('volume');
             $table->double('jumlah_harga');

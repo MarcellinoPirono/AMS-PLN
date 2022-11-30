@@ -54,16 +54,14 @@
                                                     <label for="first-name" class="form-label">No. Purchase
                                                         Order(PO)</label>
                                                     <input type="text" class="form-control" id="po" name="po"
-                                                        value="{{ old('po') }}" placeholder="No.PO" required autofocus>
+                                                        value="{{ old('po') }}" placeholder="No. PO" required autofocus>
                                                     <div class="valid-feedback">
-                                                        Benar
+                                                        Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silahkan Isi No. PO.
+                                                        Silakan Isi No. PO
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
@@ -79,12 +77,11 @@
                                                                 {{ $kontrak->nomor_kontrak_induk }}</option>
                                                         @endforeach
                                                     </select>
-
                                                     <div class="valid-feedback">
-                                                        Benar
+                                                        Data Terpilih
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silahkan Pilih. No Kontrak Induk
+                                                        Silakan Pilih No. Kontrak Induk
                                                     </div>
 
                                                 </div>
@@ -95,23 +92,23 @@
                                                     <textarea type="text" class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan" id="pekerjaan"
                                                         placeholder="Pekerjaan" required>{{ old('pekerjaan') }}</textarea>
                                                     <div class="valid-feedback">
-                                                        Benar
+                                                        Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silahkan isi Judul Pekerjaan
+                                                        Silakan isi Judul Pekerjaan
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Input Lokasi</label>
-                                                    <textarea type="text" class="form-control @error('lokasi') is-invalid @enderror" placeholder="Lokasi" name="lokasi"
+                                                    <textarea type="text" class="form-control" placeholder="Lokasi" name="lokasi"
                                                         id="lokasi" required autofocus>{{ old('lokasi') }}</textarea>
                                                     <div class="valid-feedback">
-                                                        Benar
+                                                        Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silahkan isi Lokasi
+                                                        Silakan isi Lokasi
                                                     </div>
                                                 </div>
                                             </div>
@@ -126,15 +123,14 @@
                                                             </span>
                                                         </div>
                                                         <input type="text" name="start_date" id="start_date"
-                                                            class="datepicker-default form-control"
-                                                            placeholder="Start Date PO-KHS" required autofocus
-                                                            value="{{ old('start_date') }}"
+                                                            class="form-control datepicker-default"required
+                                                            placeholder="Start Date PO-KHS"
                                                             style="border-radius: 0 20px 20px 0">
                                                         <div class="valid-feedback">
-                                                            Benar
+                                                            Data Terisi
                                                         </div>
                                                         <div class="invalid-feedback">
-                                                            Silahkan Atur Jadwal Start Date
+                                                            Silakan Atur Jadwal Start Date
                                                         </div>
                                                     </div>
                                                 </div>
@@ -151,26 +147,24 @@
                                                         </div>
                                                         <input type="text" name="end_date" id="end_date"
                                                             class="form-control datepicker-default"
-                                                            placeholder="End Date PO-KHS" required autofocus
-                                                            value="{{ old('end_date') }}"
+                                                            placeholder="End Date PO-KHS" readonly="false" required autofocus
                                                             style="border-radius: 0 20px 20px 0">
                                                         <div class="valid-feedback">
-                                                            Benar
+                                                            Data Terisi
                                                         </div>
                                                         <div class="invalid-feedback">
-                                                            Silahkan Atur Jadwal End Date
+                                                            Silakan Atur Jadwal End Date
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">No. Addendum</label>
                                                     <input type="text"
                                                         class="form-control"
-                                                        name="addendum" id="addendum" placeholder="No. Addendum"
-                                                        required disabled readonly>
+                                                        name="addendum" id="addendum" placeholder="No. Addendum Belum Ada"
+                                                        required disabled>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-2">
@@ -184,28 +178,27 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-
                                                     <div class="valid-feedback">
-                                                        Benar
+                                                        Data Terpilih
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silahkan Pilih No. SKK
+                                                        Silakan Pilih No. SKK
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input No.PRK</label>
+                                                    <label class="text-label">Input No. PRK</label>
                                                     <select class="form-control input-default" id="prk_id"
                                                         name="prk_id" required>
                                                         <option value="" selected disabled>Pilih PRK</option>
                                                     </select>
                                                     <div class="valid-feedback">
-                                                        Benar
+                                                        Data Terpilih
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silahkan Pilih No. PRK
+                                                        Silakan Pilih No. PRK
                                                     </div>
                                                 </div>
                                             </div>
@@ -225,10 +218,10 @@
                                                         @endforeach
                                                     </select>
                                                     <div class="valid-feedback">
-                                                        Benar
+                                                        Data Terpilih
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silahkan Pilih Direksi
+                                                        Silakan Pilih Direksi
                                                     </div>
                                                 </div>
                                             </div>
@@ -241,10 +234,10 @@
                                                         name="pengawas" id="pengawas" placeholder="Pengawas Pekerjaan"
                                                         required autofocus value="{{ old('pengawas') }}">
                                                     <div class="valid-feedback">
-                                                        Benar
+                                                        Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silahkan isi Pengawas Pekerjaan
+                                                        Silakan isi Pengawas Pekerjaan
                                                     </div>
                                                 </div>
                                             </div>
@@ -287,7 +280,7 @@
                                                                             </select></td>
                                                                         <td><input type="text" class="form-control kategory_id" id="kategory_id[1]" name="kategory_id" placeholder="Kategori" value="" disabled readonly required></td>
                                                                         <td><input type="text" class="form-control satuan" id="satuan[1]" name="satuan" placeholder="Satuan" value="" disabled readonly required></td>
-                                                                        <td><input type="text" class="form-control volume" id="volume[1]" name="volume" placeholder="volume" value="" onblur="blur_volume(this)"  required></td>
+                                                                        <td><input type="text" class="form-control volume" id="volume[1]" name="volume" placeholder="volume" value="" onblur="blur_volume(this)" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);"  required></td>
                                                                         <td><input type="text" class="form-control harga_satuan" id="harga_satuan[1]" name="harga_satuan" placeholder="Harga Satuan" value="" disabled readonly required></td>
                                                                         <td><input type="text" class="form-control harga" id="harga[1]" name="harga" placeholder="Jumlah" value="" disabled readonly required></td>
                                                                         <td><button onclick="deleteRow(this)" class="btn btn-danger shadow btn-xs sharp"><i class='fa fa-trash'></i></button></td>
@@ -356,105 +349,51 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
+                                <div id="redaksi" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <form id="form-3" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
-                                        <div class="col">
-                                            <label for="address" class="form-label">Address</label>
-                                            <input type="text" class="form-control" id="address"
-                                                placeholder="1234 Main St" required="">
-                                            <div class="invalid-feedback">
-                                                Please enter your shipping address.
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <label for="validationCustom04" class="form-label">State</label>
-                                            <select class="form-select" id="state" required>
-                                                <option selected disabled value="">Choose...</option>
-                                                <option>State 1</option>
-                                                <option>State 2</option>
-                                                <option>State 3</option>
-                                            </select>
-                                            <div class="valid-feedback">
-                                                Looks good!
-                                            </div>
-                                            <div class="invalid-feedback">
-                                                Please select a valid state.
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <label for="validationCustom05" class="form-label">Zip</label>
-                                            <input type="text" class="form-control" id="zip" required>
-                                            <div class="invalid-feedback">
-                                                Please provide a valid zip.
+                                       <div class="row">
+                                            <div class="col-xl-12 col-xxl-12">
+                                                <div class="card">
+                                                    <div class="card-header justify-content-center">
+                                                        <h4 class="card-title">Daftar RAB</h4>
+                                                    </div>
+                                                    <div class="row ml-2">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-responsive-sm height-100" id="tabelRedaksi">
+                                                                <thead>
+                                                                    <tr class="">
+                                                                        <th>No.</th>
+                                                                        <th>Redaksi</th>
+                                                                        <th>Deskripsi</th>
+                                                                    
+                                                                        <th>Aksi</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="tbody-redaksi">
+                                                                </tbody>
+
+                                                            </table>
+                                                            <div class="col-lg-12 mb-2">
+                                                                <div class="position-relative justify-content-end float-left">
+                                                                    <a type="button" id="tambah-pekerjaan"
+                                                                        class="btn btn-primary position-relative justify-content-end"
+                                                                        onclick="updateRedaksi()">Tambah</a>
+                                                                </div>
+
+                                                            </div>
+
+                                
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-                                <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
+                                <div id="isi_kontrak" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
 
                                     <form id="form-4" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
-                                        <div class="col">
-                                            <div class="mb-3 text-muted">Please confirm your order details</div>
-
-                                            <div id="order-details"></div>
-
-                                            <h4 class="mt-3">Payment</h4>
-                                            <hr class="my-2">
-
-                                            <div class="row gy-3">
-                                                <div class="col-md-3">
-                                                    <label for="cc-name" class="form-label">Name on card</label>
-                                                    <input type="text" class="form-control" id="cc-name"
-                                                        value="My Name" placeholder="" required="">
-                                                    <small class="text-muted">Full name as displayed on card</small>
-                                                    <div class="invalid-feedback">
-                                                        Name on card is required
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <label for="cc-number" class="form-label">Credit card number</label>
-                                                    <input type="text" class="form-control" id="cc-number"
-                                                        value="54545454545454" placeholder="" required="">
-                                                    <div class="invalid-feedback">
-                                                        Credit card number is required
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <label for="cc-expiration" class="form-label">Expiration</label>
-                                                    <input type="text" class="form-control" id="cc-expiration"
-                                                        value="1/28" placeholder="" required="">
-                                                    <div class="invalid-feedback">
-                                                        Expiration date required
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <label for="cc-cvv" class="form-label">CVV</label>
-                                                    <input type="text" class="form-control" id="cc-cvv"
-                                                        value="123" placeholder="" required="">
-                                                    <div class="invalid-feedback">
-                                                        Security code required
-                                                    </div>
-                                                </div>
-
-                                                <div class="col">
-                                                    <input type="checkbox" class="form-check-input" id="save-info"
-                                                        required>
-                                                    <label class="form-check-label" for="save-info">I agree to the terms
-                                                        and
-                                                        conditions</label>
-                                                </div>
-
-                                                <small class="text-muted">This is an example page, do not enter any real
-                                                    data,
-                                                    even
-                                                    tho
-                                                    we don't submit this information!</small>
-
-                                            </div>
-                                        </div>
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -488,6 +427,9 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
     <!-- Bootrap for the demo page -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
@@ -507,6 +449,9 @@
 
     <script type="text/javascript">
         const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+
+
+
 
 
         function onCancel() {
@@ -549,9 +494,9 @@
         }
 
         function showConfirm() {
-            const name = $('#first-name').val() + ' ' + $('#last-name').val();
-            const products = $('#sel-products').val();
-            const shipping = $('#address').val() + ' ' + $('#state').val() + ' ' + $('#zip').val();
+            const name = $('#lokasi').val() + ' ' + $('#lokasi').val();
+            const products = $('#lokasi').val();
+            const shipping = $('#lokasi').val() + ' ' + $('#lokasi').val() + ' ' + $('#lokasi').val();
             let html = `
                   <div class="row">
                     <div class="col">
@@ -596,6 +541,9 @@
             $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIdx, nextStepIdx,
                 stepDirection) {
                 // Validate only on forward movement
+                $('#start_date').removeAttr('readonly');
+                $('#end_date').removeAttr('readonly');
+
                 if (stepDirection == 'forward') {
                     let form = document.getElementById('form-' + (currentStepIdx + 1));
                     if (form) {
@@ -710,8 +658,11 @@
                     }
                 });
             })
+
         });
     </script>
+    <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step3_redaksi.js"></script>
+
 @endsection
 
 <script>
@@ -735,7 +686,6 @@
 
                 var table = document.getElementById('tabelRAB');
                 click++;
-                // console.log(click);
 
                 var select1 = document.createElement("select");
                 select1.innerHTML = "<option value='' selected disabled>Pilih Pekerjaan</option>" + item;
@@ -752,7 +702,6 @@
                 input1.setAttribute("name", "kategory_id");
                 input1.setAttribute("placeholder", "Kategori");
                 input1.setAttribute("value", "");
-                input1.setAttribute("readonly", true);
                 input1.setAttribute("disabled", true);
                 input1.setAttribute("required", true);
 
@@ -763,22 +712,23 @@
                 input2.setAttribute("name", "satuan");
                 input2.setAttribute("placeholder", "Satuan");
                 input2.setAttribute("value", "");
-                input2.setAttribute("readonly", true);
                 input2.setAttribute("disabled", true);
                 input2.setAttribute("required", true);
 
                 var input3 = document.createElement("input");
-                input3.setAttribute("type", "number");
+                input3.setAttribute("type", "text");
                 input3.setAttribute("class", "form-control volume");
                 input3.setAttribute("id", "volume[" + click + "]");
                 input3.setAttribute("name", "volume");
                 input3.setAttribute("placeholder", "Volume");
                 input3.setAttribute("value", "");
                 input3.setAttribute("onblur", "blur_volume(this)");
+                input3.setAttribute("onkeydown", "return numbersonly(this, event);");
+                input3.setAttribute("onkeyup", "javascript:tandaPemisahTitik(this);");
                 input3.setAttribute("required", true);
 
                 var input4 = document.createElement("input");
-                input4.setAttribute("type", "number");
+                input4.setAttribute("type", "text");
                 input4.setAttribute("class", "form-control harga_satuan");
                 input4.setAttribute("id", "harga_satuan[" + click + "]");
                 input4.setAttribute("name", "harga_satuan");
@@ -789,7 +739,7 @@
                 input4.setAttribute("required", true);
 
                 var input5 = document.createElement("input");
-                input5.setAttribute("type", "number");
+                input5.setAttribute("type", "text");
                 input5.setAttribute("class", "form-control harga");
                 input5.setAttribute("id", "harga[" + click + "]");
                 input5.setAttribute("name", "harga");
@@ -871,17 +821,56 @@
 
             for (var i = 0; i < click; i++) {
                 total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+                total_harga[i] = total_harga[i].replace(/\./g, "");
                 total_harga[i] = parseInt(total_harga[i])
             }
 
-            const total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all;
+            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+            total_harga_all = total_harga_all.toString();
+            total_harga_all_2 = "";
+            panjang_2 = total_harga_all.length;
+            k = 0;
+            for (i = panjang_2; i > 0; i--) {
+                k = k + 1;
+                if (((k % 3) == 1) && (k != 1)) {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                } else {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                }
+            }
+            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+            total_harga_all = parseInt(total_harga_all);
             var ppn = total_harga_all * 11 / 100;
             ppn = Math.round(ppn);
-            document.getElementById("pajak").innerHTML = "Rp. " + ppn;
+            ppn = ppn.toString();
+            ppn_2 = ""
+            panjang_3 = ppn.length;
+            l = 0;
+            for(i = panjang_3; i > 0; i--) {
+                l = l + 1;
+                if (((l % 3) == 1) && (l != 1)) {
+                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                } else {
+                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                }
+            }
+            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+            ppn = parseInt(ppn);
             var total = total_harga_all + ppn;
             total = Math.round(total);
-            document.getElementById("total").innerHTML = "Rp. " + total;
+            total = total.toString();
+            total_2 = "";
+            panjang_4 = total.length;
+            m = 0;
+            for(i = panjang_4; i > 0; i--) {
+                m = m + 1;
+                if (((m % 3) == 1) && (m != 1)) {
+                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                } else {
+                    total_2 = total.substr(i - 1, 1) + total_2;
+                }
+            }
+            document.getElementById("total").innerHTML = "Rp. " + total_2;
         }
 
         reindex();
@@ -910,8 +899,94 @@
             data: 'item_id=' + item_id + '&_token={{ csrf_token() }}',
             success: function(response) {
                 document.getElementById("kategory_id[" + change + "]").value = response.kategori;
-                document.getElementById("satuan[" + change + "]").value = response.satuan_id;
-                document.getElementById("harga_satuan[" + change + "]").value = response.harga_satuan;
+                document.getElementById("satuan[" + change + "]").value = response.kepanjangan + ' (' + response.singkatan + ')';
+                var harga_satuan = response.harga_satuan;
+                harga_satuan = harga_satuan.toString();
+                harga_satuan_2 = "";
+                panjang = harga_satuan.length;
+                j = 0;
+                for (i = panjang; i > 0; i--) {
+                    j = j + 1;
+                    if (((j % 3) == 1) && (j != 1)) {
+                        harga_satuan_2 = harga_satuan.substr(i - 1, 1) + "." + harga_satuan_2;
+                    } else {
+                        harga_satuan_2 = harga_satuan.substr(i - 1, 1) + harga_satuan_2;
+                    }
+                }
+                document.getElementById("harga_satuan[" + change + "]").value = harga_satuan_2;
+                var volume = document.getElementById("volume[" + change + "]").value;
+                harga_satuan = parseInt(harga_satuan);
+                volume = volume.replace(/\./g, "");
+                volume = parseInt(volume);
+                var jumlah = volume * harga_satuan;
+                jumlah = jumlah.toString();
+                jumlah_2 = "";
+                panjang_2 = jumlah.length;
+                k = 0;
+                for(i = panjang_2; i > 0; i--) {
+                    k = k + 1;
+                    if (((k % 3) == 1) && (k != 1)) {
+                        jumlah_2 = jumlah.substr(i - 1, 1) + "." + jumlah_2;
+                    } else {
+                        jumlah_2 = jumlah.substr(i - 1, 1) + jumlah_2;
+                    }
+                }
+                document.getElementById("harga[" + change + "]").value = jumlah_2;
+
+                var total_harga = [];
+
+                for (var i = 0; i < click; i++) {
+                    total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+                    total_harga[i] = total_harga[i].replace(/\./g, "");
+                    total_harga[i] = parseInt(total_harga[i])
+                }
+
+                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                total_harga_all = total_harga_all.toString();
+                total_harga_all_2 = "";
+                panjang_2 = total_harga_all.length;
+                k = 0;
+                for (i = panjang_2; i > 0; i--) {
+                    k = k + 1;
+                    if (((k % 3) == 1) && (k != 1)) {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                    } else {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                    }
+                }
+                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+                total_harga_all = parseInt(total_harga_all);
+                var ppn = total_harga_all * 11 / 100;
+                ppn = Math.round(ppn);
+                ppn = ppn.toString();
+                ppn_2 = ""
+                panjang_3 = ppn.length;
+                l = 0;
+                for(i = panjang_3; i > 0; i--) {
+                    l = l + 1;
+                    if (((l % 3) == 1) && (l != 1)) {
+                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                    } else {
+                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                    }
+                }
+                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+                ppn = parseInt(ppn);
+                var total = total_harga_all + ppn;
+                total = Math.round(total);
+                total = total.toString();
+                total_2 = "";
+                panjang_4 = total.length;
+                m = 0;
+                for(i = panjang_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                    } else {
+                        total_2 = total.substr(i - 1, 1) + total_2;
+                    }
+                }
+                document.getElementById("total").innerHTML = "Rp. " + total_2;
             }
         })
     }
@@ -929,7 +1004,9 @@
                     item += ("<option value='" + result[i].id + "'>" + result[i].nama_item +
                         "</option>")
                 }
-                document.getElementById("item_id[1]").innerHTML = "<option value='' selected disabled>Pilih Pekerjaan</option>" + item;
+                for(var i = 0; i < click; i++) {
+                    document.getElementById("item_id[" + (i + 1) + "]").innerHTML = "<option value='' selected disabled>Pilih Pekerjaan</option>" + item;
+                }
             }
         })
     }
@@ -937,24 +1014,81 @@
     function blur_volume(c) {
         var change = c.parentNode.parentNode.rowIndex;
         var volume = document.getElementById("volume[" + change + "]").value;
+        volume = volume.replace(/\./g, "");
+        volume = parseInt(volume);
         var harga_satuan = document.getElementById("harga_satuan[" + change + "]").value;
-        document.getElementById("harga[" + change + "]").value = volume * harga_satuan;
+        harga_satuan = harga_satuan.replace(/\./g, "");
+        harga_satuan = parseInt(harga_satuan);
+
+        var harga = volume * harga_satuan;
+        harga = harga.toString();
+        harga_2 = "";
+        panjang = harga.length;
+        j = 0;
+        for (i = panjang; i > 0; i--) {
+            j = j + 1;
+            if (((j % 3) == 1) && (j != 1)) {
+                harga_2 = harga.substr(i - 1, 1) + "." + harga_2;
+            } else {
+                harga_2 = harga.substr(i - 1, 1) + harga_2;
+            }
+        }
+        document.getElementById("harga[" + change + "]").value = harga_2;
 
         var total_harga = [];
 
         for (var i = 0; i < click; i++) {
             total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+            total_harga[i] = total_harga[i].replace(/\./g, "");
             total_harga[i] = parseInt(total_harga[i])
         }
 
-        const total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all;
+        var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+        total_harga_all = total_harga_all.toString();
+        total_harga_all_2 = "";
+        panjang_2 = total_harga_all.length;
+        k = 0;
+        for (i = panjang_2; i > 0; i--) {
+            k = k + 1;
+            if (((k % 3) == 1) && (k != 1)) {
+                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+            } else {
+                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+            }
+        }
+        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+        total_harga_all = parseInt(total_harga_all);
         var ppn = total_harga_all * 11 / 100;
         ppn = Math.round(ppn);
-        document.getElementById("pajak").innerHTML = "Rp. " + ppn;
+        ppn = ppn.toString();
+        ppn_2 = ""
+        panjang_3 = ppn.length;
+        l = 0;
+        for(i = panjang_3; i > 0; i--) {
+            l = l + 1;
+            if (((l % 3) == 1) && (l != 1)) {
+                ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+            } else {
+                ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+            }
+        }
+        document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+        ppn = parseInt(ppn);
         var total = total_harga_all + ppn;
         total = Math.round(total);
-        document.getElementById("total").innerHTML = "Rp. " + total;
+        total = total.toString();
+        total_2 = "";
+        panjang_4 = total.length;
+        m = 0;
+        for(i = panjang_4; i > 0; i--) {
+            m = m + 1;
+            if (((m % 3) == 1) && (m != 1)) {
+                total_2 = total.substr(i - 1, 1) + "." + total_2;
+            } else {
+                total_2 = total.substr(i - 1, 1) + total_2;
+            }
+        }
+        document.getElementById("total").innerHTML = "Rp. " + total_2;
     }
 
     function next1() {
@@ -1011,7 +1145,7 @@
         btn_prev3.setAttribute("onclick", "prev4()");
     }
 
-    function next4() {
+    function onSubmitData() {
         var token = $('#csrf').val();
         var po = document.getElementById('po').value;
         var today = new Date();
@@ -1046,8 +1180,10 @@
             volume[i] = document.getElementById("volume[" + (i + 1) + "]").value;
             volume[i] = parseInt(volume[i]);
             harga_satuan[i] = document.getElementById("harga_satuan[" + (i + 1) + "]").value;
+            harga_satuan[i] = harga_satuan[i].replace(/\./g, "");
             harga_satuan[i] = parseInt(harga_satuan[i]);
             harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+            harga[i] = harga[i].replace(/\./g, "");
             harga[i] = parseInt(harga[i]);
         }
 
@@ -1056,6 +1192,7 @@
         ppn = Math.round(ppn);
         var total_harga = bef_ppn_total_harga + ppn;
         total_harga = Math.round(total_harga);
+     
 
         swal({
                 title: "Apakah anda yakin?",
@@ -1093,7 +1230,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: "{{ url('po-khs') }}",
+                        url: "/simpan-po-khs",
                         data: data,
                         success: function(response) {
                             swal({
@@ -1139,5 +1276,90 @@
         btn_prev3 = document.getElementById('btnprev3');
         btn_prev3.setAttribute("id", "btnprev2");
         btn_prev3.setAttribute("onclick", "prev2()");
+    }
+</script>
+
+<script type="text/javascript">
+    function tandaPemisahTitik(b) {
+        var _minus = false;
+        if (b < 0) _minus = true;
+        b = b.toString();
+        b = b.replace(".", "");
+        b = b.replace("-", "");
+        c = "";
+        panjang = b.length;
+        j = 0;
+        for (i = panjang; i > 0; i--) {
+            j = j + 1;
+            if (((j % 3) == 1) && (j != 1)) {
+                c = b.substr(i - 1, 1) + "." + c;
+            } else {
+                c = b.substr(i - 1, 1) + c;
+            }
+        }
+        if (_minus) c = "-" + c;
+        return c;
+    }
+
+    function numbersonly(ini, e) {
+        if (e.keyCode >= 49) {
+            if (e.keyCode <= 57) {
+                a = ini.value.toString().replace(".", "");
+                b = a.replace(/[^\d]/g, "");
+                b = (b == "0") ? String.fromCharCode(e.keyCode) : b + String.fromCharCode(e.keyCode);
+                ini.value = tandaPemisahTitik(b);
+                return false;
+            } else if (e.keyCode <= 105) {
+                if (e.keyCode >= 96) {
+                    //e.keycode = e.keycode - 47;
+                    a = ini.value.toString().replace(".", "");
+                    b = a.replace(/[^\d]/g, "");
+                    b = (b == "0") ? String.fromCharCode(e.keyCode - 48) : b + String.fromCharCode(e.keyCode - 48);
+                    ini.value = tandaPemisahTitik(b);
+                    //alert(e.keycode);
+                    return false;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if (e.keyCode == 48) {
+            a = ini.value.replace(".", "") + String.fromCharCode(e.keyCode);
+            b = a.replace(/[^\d]/g, "");
+            if (parseFloat(b) != 0) {
+                ini.value = tandaPemisahTitik(b);
+                return false;
+            } else {
+                return false;
+            }
+        } else if (e.keyCode == 95) {
+            a = ini.value.replace(".", "") + String.fromCharCode(e.keyCode - 48);
+            b = a.replace(/[^\d]/g, "");
+            if (parseFloat(b) != 0) {
+                ini.value = tandaPemisahTitik(b);
+                return false;
+            } else {
+                return false;
+            }
+        } else if (e.keyCode == 8 || e.keycode == 46) {
+            a = ini.value.replace(".", "");
+            b = a.replace(/[^\d]/g, "");
+            b = b.substr(0, b.length - 1);
+            if (tandaPemisahTitik(b) != "") {
+                ini.value = tandaPemisahTitik(b);
+            } else {
+                ini.value = "";
+            }
+
+            return false;
+        } else if (e.keyCode == 9) {
+            return true;
+        } else if (e.keyCode == 17) {
+            return true;
+        } else {
+            //alert (e.keyCode);
+            return false;
+        }
     }
 </script>

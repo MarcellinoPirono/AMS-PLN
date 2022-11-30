@@ -25,8 +25,8 @@
 
     <!-- Form step -->
     <link href="{{ asset('/') }}./asset/frontend/vendor/wizard2/dist/css/smart_wizard_all.css" rel="stylesheet" />
-
-    {{-- <link href="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css"
+{{-- 
+    <link href="{{ asset('/') }}./asset/frontend/vendor/jquery-smartwizard/dist/css/smart_wizard.min.css"
         rel="stylesheet" /> --}}
 
     <link
@@ -287,8 +287,13 @@
                         </a>
                         <ul aria-expanded="false">
                             <li>
-                                <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/pokhs">
-                                    <strong>Buat PO</strong>
+                                <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/non-po">
+                                    <strong>Buat KAK & RAB</strong>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/non-po-hpe">
+                                    <strong>Buat HPE</strong>
                                 </a>
                             </li>
                             <li>

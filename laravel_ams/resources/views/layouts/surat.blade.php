@@ -292,7 +292,7 @@
                    <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>                    
                    <!-- <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td> -->
                    <td class="first" align="left" valign="middle">{{ $rabkhs->rincian_induks->nama_item }}</td>
-                   <td class="first" align="center" valign="middle">{{ $rabkhs->satuans->singkatan }}</td>
+                   <td class="first" align="center" valign="middle">{{ $rabkhs->satuan_id }}</td>
                    <td class="first" align="center" valign="middle">{{ $rabkhs->volume }}</td>
                    <td class="first" align="right" valign="middle">@currency2($rabkhs->harga_satuan)</td>
                    <td class="first" align="right" valign="middle">@currency2($rabkhs->jumlah_harga)</td>

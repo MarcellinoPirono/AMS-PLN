@@ -30,9 +30,9 @@ class DatabaseSeeder extends Seeder
     {
         // ItemRincianInduk::factory(20)->create();
         // RincianInduk::factory(20)->create();
-        Skk::factory(20)->create();
-        Prk::factory(20)->create();
-        Rab::factory(20)->create();
+        // Skk::factory(20)->create();
+        // Prk::factory(20)->create();
+        // Rab::factory(20)->create();
         // Hpe::factory(20)->create();
         // Pejabat::factory(20)->create();
         // KontrakInduk::factory(20)->create();
@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             'jenis_khs' => 'SP-APP',
             'nama_pekerjaan' => 'Pengadaan Jasa Konstruksi dan Pemeliharaan SP & APP Dengan Pola Kesepakatan Harga Satuan (KHS) Tahun 2020/2021',
         ]);
+
 
         Khs::create(
             [
@@ -221,9 +222,102 @@ class DatabaseSeeder extends Seeder
             'kepanjangan' => 'batang',                     
         ]);
 
-        // Redaksi::create([            
-        //     'nama_redaksi' => 'Surat Perjanjian',
-        //     'deskripsi' => 'Surat Perjanjian',                     
-        // ]);
+
+        Redaksi::create([            
+            'nama_redaksi' => 'Surat Perjanjian',
+            'deskripsi_redaksi' => 'Surat Perjanjian',                     
+        ]);
+
+
+        Redaksi::create([
+            'nama_redaksi' => 'Surat Perjanjian2',
+            'deskripsi_redaksi' => 'Surat Perjanjian2',
+        ]);
+        Redaksi::create([
+            'nama_redaksi' => 'Surat Perjanjian3',
+            'deskripsi_redaksi' => 'Surat Perjanjian3',
+        ]);
+
+        Skk::create([
+            'nomor_skk' => '020/DAN/2020',
+            'uraian_skk' => 'Pembelian Motor',
+            'pagu_skk' => '0',
+            'skk_terkontrak' => '0',
+            'skk_realisasi' => '0',
+            'skk_terbayar' => '0',
+            'skk_sisa' => '0',
+        ]);
+        Skk::create([
+            'nomor_skk' => '021/DAN/2021',
+            'uraian_skk' => 'Pembelian Mobil',
+            'pagu_skk' => '12000000000',
+            'skk_terkontrak' => '0',
+            'skk_realisasi' => '0',
+            'skk_terbayar' => '0',
+            'skk_sisa' => '0',
+        ]);
+        Skk::create([
+            'nomor_skk' => '022/DAN/2022',
+            'uraian_skk' => 'Pembelian Skuter',
+            'pagu_skk' => '5000000000',
+            'skk_terkontrak' => '0',
+            'skk_realisasi' => '0',
+            'skk_terbayar' => '0',
+            'skk_sisa' => '0',
+        ]);
+        
+        Prk::create([
+            'no_skk_prk' => '1',
+            'no_prk' => '001/DAN.PRK/2020',
+            'uraian_prk' => 'Pembelian Ban',
+            'pagu_prk' => '0',
+            'prk_terkontrak' => '0',
+            'prk_realisasi' => '0',
+            'prk_terbayar' => '0',
+            'prk_sisa' => '0',
+        ]);
+        Prk::create([
+            'no_skk_prk' => '1',
+            'no_prk' => '002/DAN.PRK/2020',
+            'uraian_prk' => 'Pembelian Velg',
+            'pagu_prk' => '500000000',
+            'prk_terkontrak' => '20000000',
+            'prk_realisasi' => '0',
+            'prk_terbayar' => '0',
+            'prk_sisa' => '0',
+        ]);
+        Prk::create([
+            'no_skk_prk' => '1',
+            'no_prk' => '003/DAN.PRK/2020',
+            'uraian_prk' => 'Pembelian Spion',
+            'pagu_prk' => '350000000',
+            'prk_terkontrak' => '50000000',
+            'prk_realisasi' => '0',
+            'prk_terbayar' => '0',
+            'prk_sisa' => '0',
+        ]);
+        Prk::create([
+            'no_skk_prk' => '2',
+            'no_prk' => '010/DAN.PRK/2021',
+            'uraian_prk' => 'Pembelian Knalpot',
+            'pagu_prk' => '5000000000',
+            'prk_terkontrak' => '0',
+            'prk_realisasi' => '0',
+            'prk_terbayar' => '0',
+            'prk_sisa' => '0',
+        ]);
+        Prk::create([
+            'no_skk_prk' => '3',
+            'no_prk' => '020/DAN.PRK/2022',
+            'uraian_prk' => 'Pembelian Roda',
+            'pagu_prk' => '450000000',
+            'prk_terkontrak' => '0',
+            'prk_realisasi' => '0',
+            'prk_terbayar' => '0',
+            'prk_sisa' => '0',
+        ]);
+        
+        
+        
     }
 }

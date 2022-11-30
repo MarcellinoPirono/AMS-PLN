@@ -17,6 +17,7 @@ use App\Http\Controllers\PdfkhsController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AddendumController;
+use App\Http\Controllers\NonPOController;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 
@@ -90,11 +91,13 @@ Route::get('deleteitem/{id}', [RincianIndukController::class, 'destroy']);
 
 //PO KHS
 Route::get('po-khs/buat-po', [RabController::class, 'buat_po_khs']);
+Route::post('simpan-po-khs', [RabController::class, 'simpan_po_khs']);
 Route::resource('po-khs', RabController::class);
 Route::get('export-pdf-khs/{id}', [RabController::class, 'export_pdf_khs']);
 Route::get('preview-pdf-khs/{id}', [RabController::class, 'preview_pdf_khs']);
 Route::get('/search-pokhs', [RabController::class, 'searchpokhs']);
 Route::post('/getAddendum', [RabController::class, 'getAddendum']);
+Route::get('/getRedaksi', [RabController::class, 'getRedaksi']);
 
 Route::resource('prk', PrkController::class);
 Route::any('prk/filter', [PrkController::class, 'filterprk']);
@@ -115,3 +118,6 @@ Route::resource('surat', PdfkhsController::class);
 // Route::view('products', 'layouts.main', [
 // 'data' => App\Http\Controllers\MainController::all()
 // ]);{{  }}
+
+//Non-PO
+Route::resource('non-po', NonPOController::class);
