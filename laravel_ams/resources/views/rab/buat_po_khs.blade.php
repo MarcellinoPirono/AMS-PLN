@@ -102,8 +102,7 @@
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Input Lokasi</label>
-                                                    <textarea type="text" class="form-control" placeholder="Lokasi" name="lokasi"
-                                                        id="lokasi" required autofocus>{{ old('lokasi') }}</textarea>
+                                                    <textarea type="text" class="form-control" placeholder="Lokasi" name="lokasi" id="lokasi" required autofocus>{{ old('lokasi') }}</textarea>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -147,8 +146,8 @@
                                                         </div>
                                                         <input type="text" name="end_date" id="end_date"
                                                             class="form-control datepicker-default"
-                                                            placeholder="End Date PO-KHS" readonly="false" required autofocus
-                                                            style="border-radius: 0 20px 20px 0">
+                                                            placeholder="End Date PO-KHS" readonly="false" required
+                                                            autofocus style="border-radius: 0 20px 20px 0">
                                                         <div class="valid-feedback">
                                                             Data Terisi
                                                         </div>
@@ -161,10 +160,9 @@
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">No. Addendum</label>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        name="addendum" id="addendum" placeholder="No. Addendum Belum Ada"
-                                                        required disabled>
+                                                    <input type="text" class="form-control" name="addendum"
+                                                        id="addendum" placeholder="No. Addendum Belum Ada" required
+                                                        disabled>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-2">
@@ -269,21 +267,45 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-kategori">
-                                                                   <tr>
+                                                                    <tr>
                                                                         <td><strong id="nomor"
                                                                                 value="1">1</strong></td>
                                                                         <td><select name="item_id" id="item_id[1]"
                                                                                 class="form-control input-default"
-                                                                                onchange="change_item(this)"
-                                                                                required>
-                                                                                <option value="" selected disabled required>Pilih Pekerjaan</option>
+                                                                                onchange="change_item(this)" required>
+                                                                                <option value="" selected disabled
+                                                                                    required>Pilih Pekerjaan</option>
                                                                             </select></td>
-                                                                        <td><input type="text" class="form-control kategory_id" id="kategory_id[1]" name="kategory_id" placeholder="Kategori" value="" disabled readonly required></td>
-                                                                        <td><input type="text" class="form-control satuan" id="satuan[1]" name="satuan" placeholder="Satuan" value="" disabled readonly required></td>
-                                                                        <td><input type="text" class="form-control volume" id="volume[1]" name="volume" placeholder="volume" value="" onblur="blur_volume(this)" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);"  required></td>
-                                                                        <td><input type="text" class="form-control harga_satuan" id="harga_satuan[1]" name="harga_satuan" placeholder="Harga Satuan" value="" disabled readonly required></td>
-                                                                        <td><input type="text" class="form-control harga" id="harga[1]" name="harga" placeholder="Jumlah" value="" disabled readonly required></td>
-                                                                        <td><button onclick="deleteRow(this)" class="btn btn-danger shadow btn-xs sharp"><i class='fa fa-trash'></i></button></td>
+                                                                        <td><input type="text"
+                                                                                class="form-control kategory_id"
+                                                                                id="kategory_id[1]" name="kategory_id"
+                                                                                placeholder="Kategori" value=""
+                                                                                disabled readonly required></td>
+                                                                        <td><input type="text"
+                                                                                class="form-control satuan" id="satuan[1]"
+                                                                                name="satuan" placeholder="Satuan"
+                                                                                value="" disabled readonly required>
+                                                                        </td>
+                                                                        <td><input type="text"
+                                                                                class="form-control volume" id="volume[1]"
+                                                                                name="volume" placeholder="volume"
+                                                                                value="" onblur="blur_volume(this)"
+                                                                                onkeydown="return numbersonly(this, event);"
+                                                                                onkeyup="javascript:tandaPemisahTitik(this);"
+                                                                                required></td>
+                                                                        <td><input type="text"
+                                                                                class="form-control harga_satuan"
+                                                                                id="harga_satuan[1]" name="harga_satuan"
+                                                                                placeholder="Harga Satuan" value=""
+                                                                                disabled readonly required></td>
+                                                                        <td><input type="text"
+                                                                                class="form-control harga" id="harga[1]"
+                                                                                name="harga" placeholder="Jumlah"
+                                                                                value="" disabled readonly required>
+                                                                        </td>
+                                                                        <td><button onclick="deleteRow(this)"
+                                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                                    class='fa fa-trash'></i></button></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -292,7 +314,7 @@
                                                                     class="position-relative justify-content-end float-left">
                                                                     <a type="button" id="tambah-pekerjaan"
                                                                         class="btn btn-primary position-relative justify-content-end"
-                                                                        onclick="updateform()" required >Tambah</a>
+                                                                        onclick="updateform()" required>Tambah</a>
                                                                 </div>
                                                             </div>
                                                             <table class="table table-responsive-sm height-100"
@@ -351,21 +373,22 @@
                                 </div>
                                 <div id="redaksi" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <form id="form-3" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
-                                       <div class="row">
+                                        <div class="row">
                                             <div class="col-xl-12 col-xxl-12">
                                                 <div class="card">
                                                     <div class="card-header justify-content-center">
-                                                        <h4 class="card-title">Daftar RAB</h4>
+                                                        <h4 class="card-title">Redaksi</h4>
                                                     </div>
                                                     <div class="row ml-2">
                                                         <div class="table-responsive">
-                                                            <table class="table table-responsive-sm height-100" id="tabelRedaksi">
+                                                            <table class="table table-responsive-sm height-100"
+                                                                id="tabelRedaksi">
                                                                 <thead>
                                                                     <tr class="">
                                                                         <th>No.</th>
                                                                         <th>Redaksi</th>
                                                                         <th>Deskripsi</th>
-                                                                    
+
                                                                         <th>Aksi</th>
                                                                     </tr>
                                                                 </thead>
@@ -374,7 +397,8 @@
 
                                                             </table>
                                                             <div class="col-lg-12 mb-2">
-                                                                <div class="position-relative justify-content-end float-left">
+                                                                <div
+                                                                    class="position-relative justify-content-end float-left">
                                                                     <a type="button" id="tambah-pekerjaan"
                                                                         class="btn btn-primary position-relative justify-content-end"
                                                                         onclick="updateRedaksi()">Tambah</a>
@@ -382,7 +406,7 @@
 
                                                             </div>
 
-                                
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -393,7 +417,156 @@
                                 <div id="isi_kontrak" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
 
                                     <form id="form-4" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
-                                        
+                                        <div class="row">
+                                            <div class="col-xl-12 col-xxl-12">
+                                                <div class="card">
+                                                    <div class="card-header justify-content-center">
+                                                        <h4 class="card-title">Isi Kontrak</h4>
+                                                    </div>
+                                                    <div class="row ml-2 justify-content-start">
+                                                        <div class="col-xl-12 col-xxl-12">
+                                                            <h5 class="card-title">Step 1: Informasi Umum</h5>
+                                                        </div>
+                                                        <br>
+                                                        <div class="col-xl-6 col-xxl-6">
+                                                            <p> No. Purchase Order: </p>
+                                                        </div>
+                                                        <div class="col-xl-6 col-xxl-6">
+                                                            <p> No. Kontrak Induk: </p>
+                                                        </div>
+                                                        <div class="col-xl-6 col-xxl-6">
+                                                            <p> Judul Pekerjaan: </p>
+                                                        </div>
+                                                        <div class="col-xl-6 col-xxl-6">
+                                                            <p> Lokasi: </p>
+                                                        </div>
+                                                        <div class="col-xl-6 col-xxl-6">
+                                                            <p> Start Date: </p>
+                                                        </div>
+                                                        <div class="col-xl-6 col-xxl-6">
+                                                            <p> End Date: </p>
+                                                        </div>
+                                                        <div class="col-xl-6 col-xxl-6">
+                                                            <p> No. Addendum: </p>
+                                                        </div>
+                                                        <div class="col-xl-6 col-xxl-6">
+                                                            <p> No. SKK: </p>
+                                                        </div>
+                                                        <div class="col-xl-6 col-xxl-6">
+                                                            <p> No. PRK: </p>
+                                                        </div>
+                                                        <div class="col-xl-6 col-xxl-6">
+                                                            <p> Direksi Pekerjaan </p>
+                                                        </div>
+                                                        <div class="col-xl-6 col-xxl-6">
+                                                            <p> Pengawas Pekerjaan: </p>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row ml-2 justify-content-start">
+                                                        <h5 class="card-title">Step 2: Daftar RAB</h5>
+                                                        <div class="col-xl-12 col-xxl-12">
+                                                            <div class="wrapword" id="firstTable">
+                                                                <table width="100%" border="2" cellspacing="0"
+                                                                    cellpadding="0">
+                                                                    <tr class="warna">
+                                                                        <td style="width:4%;" rowspan="2"
+                                                                            align="center" valign="middle">No</td>
+                                                                        <td rowspan="2" align="center"
+                                                                            valign="middle">Uraian Pekerjaan</td>
+                                                                        <td style="width:9%;" rowspan="2"
+                                                                            align="center" valign="middle">Satuan</td>
+                                                                        <td style="width:9%;" rowspan="2"
+                                                                            align="center" valign="middle">Volume</td>
+                                                                        <td style="width:25%;" colspan="2"
+                                                                            align="center" valign="middle">Harga</td>
+                                                                    </tr>
+                                                                    <tr class="warna">
+                                                                        <td style="width:12%;" align="center"
+                                                                            valign="middle">Satuan (RP)</td>
+                                                                        <td style="width:15%;" align="center"
+                                                                            valign="middle">Jumlah (RP)</td>
+                                                                    </tr>
+                                                                    <tr>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="first" align="center"
+                                                                            valign="middle">1</td>
+                                                                        <!-- <td class="first" align="center" valign="middle"></td> -->
+                                                                        <td class="first" align="left"
+                                                                            valign="middle">
+                                                                            tes</td>
+                                                                        <td class="first" align="center"
+                                                                            valign="middle">tes</td>
+                                                                        <td class="first" align="center"
+                                                                            valign="middle">tes</td>
+                                                                        <td class="first" align="right"
+                                                                            valign="middle">tes</td>
+                                                                        <td class="first" align="right"
+                                                                            valign="middle">tes</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td rowspan="3" colspan="3"></td>
+                                                                        <td colspan="2" align="center"
+                                                                            valign="middle"><b>Jumlah</b></td>
+                                                                        <td align="right"><b>9.999.999</b></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="2" align="center"
+                                                                            valign="middle"><b>PPN 11%</b></td>
+                                                                        <td align="right"><b>100.000</b></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="2" align="center"
+                                                                            valign="middle"><b>TOTAL</b></td>
+                                                                        <td align="right"><b>99.999.999</b>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="first1"></td>
+                                                                        <td class="first2" rowspan="2" colspan="5"
+                                                                            style="font-weight: bold; font-style:italic;">
+                                                                            Terbilang:
+                                                                            sembilan rupiah
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="first1"></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row ml-2 justify-content-start">
+                                                        <h5 class="card-title">Step 3: Redaksi</h5>
+                                                        <div class="col-xl-12 col-xxl-12">
+                                                            <div class="wrapword" id="firstTable">
+                                                                <table width="100%" border="2" cellspacing="0"
+                                                                    cellpadding="0">
+                                                                    <tr class="warna">
+                                                                        <td style="width:4%;" align="center"
+                                                                            valign="middle">No</td>
+                                                                        <td style="width:25%;" align="center"
+                                                                            valign="middle">Redaksi</td>
+                                                                        <td align="center" valign="middle">Deskripsi</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="first" align="center"
+                                                                            valign="middle">1</td>
+                                                                        <td class="first" align="center"
+                                                                            valign="middle">tes</td>
+                                                                        <td class="first" align="center"
+                                                                            valign="middle">tes</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -644,7 +817,7 @@
                 });
             })
 
-             jQuery('#kontrak_induk').change(function() {
+            jQuery('#kontrak_induk').change(function() {
                 let kontrak_induk = jQuery(this).val();
                 jQuery('#addendum').val('');
                 jQuery.ajax({
@@ -652,7 +825,7 @@
                     type: 'POST',
                     data: 'kontrak_induk=' + kontrak_induk + '&_token={{ csrf_token() }}',
                     success: function(result) {
-                        if(result.length > 0) {
+                        if (result.length > 0) {
                             jQuery('#addendum').val(result[0].nomor_addendum)
                         }
                     }
@@ -662,7 +835,6 @@
         });
     </script>
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step3_redaksi.js"></script>
-
 @endsection
 
 <script>
@@ -785,7 +957,7 @@
         var select_id_item = document.querySelectorAll("#tabelRAB tr td:nth-child(2) select");
         for (var i = 0; i < select_id_item.length; i++) {
             select_id_item[i].id = "item_id[" + (i + 1) + "]";
-        }   
+        }
 
         var select_id_kategori = document.querySelectorAll("#tabelRAB tr td:nth-child(3) input");
         for (var i = 0; i < select_id_kategori.length; i++) {
@@ -846,7 +1018,7 @@
             ppn_2 = ""
             panjang_3 = ppn.length;
             l = 0;
-            for(i = panjang_3; i > 0; i--) {
+            for (i = panjang_3; i > 0; i--) {
                 l = l + 1;
                 if (((l % 3) == 1) && (l != 1)) {
                     ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
@@ -862,7 +1034,7 @@
             total_2 = "";
             panjang_4 = total.length;
             m = 0;
-            for(i = panjang_4; i > 0; i--) {
+            for (i = panjang_4; i > 0; i--) {
                 m = m + 1;
                 if (((m % 3) == 1) && (m != 1)) {
                     total_2 = total.substr(i - 1, 1) + "." + total_2;
@@ -875,10 +1047,10 @@
 
         reindex();
 
-        if(click == 0) {
+        if (click == 0) {
             updateform();
         }
-        
+
     }
 
     function reindex() {
@@ -899,7 +1071,8 @@
             data: 'item_id=' + item_id + '&_token={{ csrf_token() }}',
             success: function(response) {
                 document.getElementById("kategory_id[" + change + "]").value = response.kategori;
-                document.getElementById("satuan[" + change + "]").value = response.kepanjangan + ' (' + response.singkatan + ')';
+                document.getElementById("satuan[" + change + "]").value = response.kepanjangan + ' (' +
+                    response.singkatan + ')';
                 var harga_satuan = response.harga_satuan;
                 harga_satuan = harga_satuan.toString();
                 harga_satuan_2 = "";
@@ -923,7 +1096,7 @@
                 jumlah_2 = "";
                 panjang_2 = jumlah.length;
                 k = 0;
-                for(i = panjang_2; i > 0; i--) {
+                for (i = panjang_2; i > 0; i--) {
                     k = k + 1;
                     if (((k % 3) == 1) && (k != 1)) {
                         jumlah_2 = jumlah.substr(i - 1, 1) + "." + jumlah_2;
@@ -941,7 +1114,8 @@
                     total_harga[i] = parseInt(total_harga[i])
                 }
 
-                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator +
+                    currentvalue);
                 total_harga_all = total_harga_all.toString();
                 total_harga_all_2 = "";
                 panjang_2 = total_harga_all.length;
@@ -962,7 +1136,7 @@
                 ppn_2 = ""
                 panjang_3 = ppn.length;
                 l = 0;
-                for(i = panjang_3; i > 0; i--) {
+                for (i = panjang_3; i > 0; i--) {
                     l = l + 1;
                     if (((l % 3) == 1) && (l != 1)) {
                         ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
@@ -978,7 +1152,7 @@
                 total_2 = "";
                 panjang_4 = total.length;
                 m = 0;
-                for(i = panjang_4; i > 0; i--) {
+                for (i = panjang_4; i > 0; i--) {
                     m = m + 1;
                     if (((m % 3) == 1) && (m != 1)) {
                         total_2 = total.substr(i - 1, 1) + "." + total_2;
@@ -993,7 +1167,7 @@
 
     function ganti_item() {
         var kontrak_induk = document.getElementById('kontrak_induk').value;
-        
+
         $.ajax({
             url: '/getKontrak_Induk',
             type: 'POST',
@@ -1004,8 +1178,9 @@
                     item += ("<option value='" + result[i].id + "'>" + result[i].nama_item +
                         "</option>")
                 }
-                for(var i = 0; i < click; i++) {
-                    document.getElementById("item_id[" + (i + 1) + "]").innerHTML = "<option value='' selected disabled>Pilih Pekerjaan</option>" + item;
+                for (var i = 0; i < click; i++) {
+                    document.getElementById("item_id[" + (i + 1) + "]").innerHTML =
+                        "<option value='' selected disabled>Pilih Pekerjaan</option>" + item;
                 }
             }
         })
@@ -1064,7 +1239,7 @@
         ppn_2 = ""
         panjang_3 = ppn.length;
         l = 0;
-        for(i = panjang_3; i > 0; i--) {
+        for (i = panjang_3; i > 0; i--) {
             l = l + 1;
             if (((l % 3) == 1) && (l != 1)) {
                 ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
@@ -1080,7 +1255,7 @@
         total_2 = "";
         panjang_4 = total.length;
         m = 0;
-        for(i = panjang_4; i > 0; i--) {
+        for (i = panjang_4; i > 0; i--) {
             m = m + 1;
             if (((m % 3) == 1) && (m != 1)) {
                 total_2 = total.substr(i - 1, 1) + "." + total_2;
@@ -1094,7 +1269,7 @@
     function next1() {
         // var elm = 0;
         // alert("Halo");
-        // window.location.hash = 
+        // window.location.hash =
         // delete next;
         // this.main.find('.sw-btn-prev').removeClass("sw-btn-prev");
         // delete SmartWizard;
@@ -1192,7 +1367,7 @@
         ppn = Math.round(ppn);
         var total_harga = bef_ppn_total_harga + ppn;
         total_harga = Math.round(total_harga);
-     
+
 
         swal({
                 title: "Apakah anda yakin?",

@@ -65,19 +65,23 @@
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
-   
+
     cell1.innerHTML = "1";
     cell2.appendChild(select1);
     cell3.appendChild(input1);
     cell4.appendChild(button);
-  
+
+
 
     reindex1();
+
         }
     });
 
 }
-     
+
+
+
 
     function deleteRow1(r) {
     var table = r.parentNode.parentNode.rowIndex;
@@ -99,7 +103,7 @@
     if(click == 0) {
         updateRedaksi();
         }
-        
+
     }
 
     function reindex1() {
@@ -110,6 +114,25 @@
         });
     }
 
-   
+function change_redaksi(c) {
+
+
+    var change = c.parentNode.parentNode.rowIndex;
+    var redaksi_id = document.getElementById("redaksi_id[" + change + "]").value;
+
+    $.ajax({
+        url: '/getDeskripsi',
+        type: "POST",
+        data: 'redaksi_id=' + redaksi_id + '&_token={{ csrf_token() }}',
+        success: function (response) {
+            document.getElementById("deskripsi_id[" + change + "]").value = response.deskripsi;
+
+
+        }
+    })
+}
+
+
+
 
 

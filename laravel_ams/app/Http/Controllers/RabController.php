@@ -37,7 +37,7 @@ class RabController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
+    {
         return view('rab.index', [
             'title' => 'PO KHS',
             'title1' => 'RAB',
@@ -45,7 +45,7 @@ class RabController extends Controller
             'kontraks' => KontrakInduk::get(),
         ]);
 
-       
+
     }
 
 
@@ -110,7 +110,7 @@ class RabController extends Controller
     {
         // $kategoris = ItemRincianInduk::all();
         // $data_kategori =[];
-        // foreach ($kategoris as $kategori) {            
+        // foreach ($kategoris as $kategori) {
         //     $data_kategori =  $kategori->nama_kategori;
         // }
 
@@ -125,7 +125,7 @@ class RabController extends Controller
         // $data = DB::select('SELECT * FROM item_rincian_induks LEFT JOIN rincian_induks ON item_rincian_induks.id = rincian_induks.kategori_id');
         // $data = array_merge($data_items->toArray(), $data_kategori->toArray());
 
-        // foreach ($items as $item) {            
+        // foreach ($items as $item) {
         //     $data_items =  $item->nama_item;
         // }
 
@@ -222,10 +222,10 @@ class RabController extends Controller
             'pejabat_id' => $request->pejabat_id,
             'pengawas' => $request->pengawas,
             'total_harga' => $request->total_harga,
-        ];        
-        
-        Rab::create($rab);        
-        
+        ];
+
+        Rab::create($rab);
+
         $id = Rab::where('nomor_po', $request->nomor_po)->value('id');
 
         $total_tabel = $request->click;
@@ -254,22 +254,22 @@ class RabController extends Controller
         //Update PRK 1
         // $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
         // $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
-        // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));        
+        // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
 
         // Update PRK 2
         $updated_prk_terkontrak = 0;
         $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
         foreach($previous_prk_terkontrak as $prk_terkontrak)
             $updated_prk_terkontrak += (Double)$prk_terkontrak->total_harga;
-        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));        
+        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
 
-        //Update SKK 
-        $updated_skk_terkontrak = 0;        
+        //Update SKK
+        $updated_skk_terkontrak = 0;
         $previous_skk_terkontrak = Prk::where('no_skk_prk', $request->skk_id)->get('prk_terkontrak');
-        foreach($previous_skk_terkontrak as $skk_terkontrak)        
+        foreach($previous_skk_terkontrak as $skk_terkontrak)
             $updated_skk_terkontrak += (Double)$skk_terkontrak->prk_terkontrak;
         Skk::where('id', $request->skk_id)->update(array('skk_terkontrak'=>(Double)$updated_skk_terkontrak));
-        
+
 
         return redirect('/po-khs')->with('status', 'PO KHS Berhasil Ditambah!');
 
@@ -343,7 +343,7 @@ class RabController extends Controller
         //Update PRK 1
         // $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
         // $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
-        // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));        
+        // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
 
         // Update PRK Terkontrak
         $updated_prk_terkontrak = 0;
@@ -443,10 +443,10 @@ class RabController extends Controller
             <td>'. $rab->pekerjaan.' </td>
             <td>'. $rab->lokasi.' </td>
             <td>'. $rab->startdate.' </td>
-            <td>'. $rab->enddate.' <td>                     
-            <td>'. $rab->nomor_kontraks->nomor_kontrak_induk.' <td>                     
-            <td>'. $rab->total_harga.' <td>                     
-            <td>'. ' 
+            <td>'. $rab->enddate.' <td>
+            <td>'. $rab->nomor_kontraks->nomor_kontrak_induk.' <td>
+            <td>'. $rab->total_harga.' <td>
+            <td>'. '
             <div class="dropdown">
                 <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
                     <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
@@ -466,14 +466,14 @@ class RabController extends Controller
 
     public function export_pdf_khs(Request $request, $id)
     {
-        // dd($id);  
+        // dd($id);
         // $startdate = [];
         // $enddate = [];
 
         $values_pdf_page1 = Rab::where('id', $id)->get();
         // $enddate = Rab::select('enddate')->where('id', $id)->get();
         // $startdate = Rab::select('startdate')->where('id', $id)->get();
-      
+
         // $startdate = DB::table('rabs')->select('startdate')->where('id', $id)->get();
         $startdate = Rab::where('id', $id)->value('startdate');
         $enddate = Rab::where('id', $id)->value('enddate');
@@ -485,18 +485,18 @@ class RabController extends Controller
         $datetime2 = new DateTime($enddate);
         $interval = $datetime1->diff($datetime2);
         $days = $interval->format('%a');
-        
+
         // $startdate = Carbon::parse($startdate)->format('l');
         // $enddate = Carbon::parse($enddate)->format('l');
         // dd($days);
 
-        
+
         // $day = $enddate - $startdate;
         // dd($day);
 
-        
+
         // $enddate = Carbon::createFromFormat('Y-m-d', $values_pdf_page1->enddate)->format('1');
-        
+
         // $enddate = Carbon::createFromFormat('Y-m-d', $enddate)->format('d-m-Y');
         // dd($enddate);
         // $startdate = strtotime($startdate);
@@ -504,8 +504,8 @@ class RabController extends Controller
         // dd($hari);
 
         $rab_id = Rab::where('id', $id)->value('id');
-        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();        
-        // $rab_now = OrderKhs::where('rab_id', $rab_id)->get();        
+        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+        // $rab_now = OrderKhs::where('rab_id', $rab_id)->get();
 
 
         $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
@@ -522,7 +522,7 @@ class RabController extends Controller
             "jabatan_manager" => $jabatan_manager,
             "nama_manager" => $nama_manager,
             "title" => "PO-KHS",
-        
+
         ]);
         return $pdf->download('po_khs.pdf');
     }
@@ -535,7 +535,7 @@ class RabController extends Controller
         $startdate = Rab::select('startdate')->where('id', $id)->first();
         // $startdate = Carbon::createFromFormat('Y-m-d', $values_pdf_page1->startdate)->format('1');
         // $enddate = Carbon::createFromFormat('Y-m-d', $values_pdf_page1->enddate)->format('1');
-        
+
         // $enddate = Carbon::createFromFormat('Y-m-d', $enddate)->format('d-m-Y');
         // dd($enddate);
         // $startdate = strtotime($startdate);
@@ -557,25 +557,26 @@ class RabController extends Controller
             "title" => "PO-KHS",
         ]);
     }
-    
+
     public function getAddendum(Request $request)
     {
         $kontrak_induk = $request->post('kontrak_induk');
         $latest_addendum = Addendum::find($request->kontrak_induk)->where('kontrak_induk_id', $kontrak_induk)->latest('tanggal_addendum')->latest('created_at')->get();
         return response()->json($latest_addendum);
-    }    
+    }
 
     public function getRedaksi(Request $request){
         $redaksi = Redaksi::all();
 
-        // dd($redaksi);
-
-        // $nama_redaksi = '<option value="" selected disabled>Pilih Redaksi</option>';
-        // foreach ($redaksi as $redaksis) {
-        //     $nama_redaksi .= '<option value="' . $redaksis->id . '">' . $redaksis->nama_redaksi . '</option>';
-        // }
-        // // dd($nama_redaksi);
-        // echo $nama_redaksi;
         return response()->json($redaksi);
+    }
+
+    public function getDeskripsi(Request $request){
+        $redaksi_id = $request->post('redaksi_id');
+
+        dd($redaksi_id);
+        $deskripsi = DB::table('redaksis')->where('id', $redaksi_id)->select('deskripsi_redaksi')->get();
+
+        return response()->json($deskripsi);
     }
 }

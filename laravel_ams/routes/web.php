@@ -18,6 +18,7 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AddendumController;
 use App\Http\Controllers\NonPOController;
+use App\Http\Controllers\PejabatController;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 
@@ -59,7 +60,7 @@ Route::put('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'up
 
 
 // Route::resource('item-khs', RincianIndukController::class);
-        
+
 Route::resource('jenis-khs', KhsController::class);
 Route::get('/search-jenis-khs', [KhsController::class, 'searchjeniskhs']);
 
@@ -79,6 +80,9 @@ Route::get('/search-addendum-khs', [AddendumController::class, 'searchaddendumkh
 // Route::post('getNoKontrakInduk', [AddendumController::class, 'getNoKontrakInduk']);
 // Route::resource('addendum-khs ', AddendumController::class);
 
+//Pejabat
+Route::resource('pejabat', PejabatController::class);
+Route::get('/search-pejabat', [PejabatController::class, 'searchpejabat']);
 
 //MENU
 Route::get('/menu-item-khs', [MenuController::class, 'MenuItemKHS']);
@@ -98,6 +102,7 @@ Route::get('preview-pdf-khs/{id}', [RabController::class, 'preview_pdf_khs']);
 Route::get('/search-pokhs', [RabController::class, 'searchpokhs']);
 Route::post('/getAddendum', [RabController::class, 'getAddendum']);
 Route::get('/getRedaksi', [RabController::class, 'getRedaksi']);
+Route::get('/getDeskripsi', [RabController::class, 'getDeskripsi']);
 
 Route::resource('prk', PrkController::class);
 Route::any('prk/filter', [PrkController::class, 'filterprk']);
