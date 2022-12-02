@@ -60,7 +60,7 @@ class NonPOController extends Controller
 
 
         return view(
-            'non-po.kak-rab',
+            'non-po.duplicate_buat_non_po',
             [
                 'active1' => 'Buat PO-KHS',
                 'title' => 'Non Purchase Order',

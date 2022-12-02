@@ -134,7 +134,7 @@
              </h5>
              <li>
                  <a class="nav-link {{ Request::is('pejabat *') ? 'active' : '' }}" href="/pejabat" aria-expanded="">
-                     <i class="bi bi-person-vcard"></i>
+                    <i class="bi bi-person-badge"></i>
                      <span class="nav-text">Pejabat</span>
                  </a>
              </li>

@@ -2,26 +2,6 @@
     var nomor_tabel = 1
     var k = 0
 
-    // function change_redaksi(c){
-    //     var change = c.parentNode.parentNode.rowIndex;
-    //     var redaksi_id = document.getElementById("redaksi_id[" + change + "]").value;
-    //      $.ajax({
-    //         url:'/getRedaksi',
-    //         type: 'POST',
-    //         data: 'redaksi_id=' + redaksi_id + '&_token={{ csrf_token() }}',
-    //         success: function(response){
-    //             var redaksi = [""]
-    //             for (i = 0; i < response.length; i++) {
-    //                 redaksi += ("<option value='" + response[i].id + "'>" + response[i].nama_redaksi +
-    //                     "</option>")
-
-    //         }
-
-
-    //      })
-
-
-    // }
 
     function updateRedaksi() {
     $.ajax({
@@ -80,9 +60,6 @@
 
 }
 
-
-
-
     function deleteRow1(r) {
     var table = r.parentNode.parentNode.rowIndex;
     document.getElementById("tabelRedaksi").deleteRow(table);
@@ -109,7 +86,7 @@
     function reindex1() {
         const ids = document.querySelectorAll("#tabelRedaksi tr > td:nth-child(1)");
         ids.forEach((e, i) => {
-        e.innerHTML = "<strong id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
+        e.innerHTML = "<strong id=nomor1[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
             nomor_tabel = i + 1;
         });
     }
@@ -119,13 +96,15 @@ function change_redaksi(c) {
 
     var change = c.parentNode.parentNode.rowIndex;
     var redaksi_id = document.getElementById("redaksi_id[" + change + "]").value;
+    // alert(redaksi_id);
 
     $.ajax({
         url: '/getDeskripsi',
         type: "POST",
-        data: 'redaksi_id=' + redaksi_id + '&_token={{ csrf_token() }}',
+        "headers": { 'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content') },
+        data: 'redaksi_id=' + redaksi_id,
         success: function (response) {
-            document.getElementById("deskripsi_id[" + change + "]").value = response.deskripsi;
+            document.getElementById("deskripsi_id[" + change + "]").value = response.deskripsi_redaksi;
 
 
         }

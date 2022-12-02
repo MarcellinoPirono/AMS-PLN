@@ -40,8 +40,15 @@
                                 <input type="text" class="form-control input-default " placeholder="Nomor Kontrak Induk" name="nomor_kontrak_induk" id="nomor_kontrak_induk" required autofocus value="{{ old('nomor_kontrak_induk', $kontrakinduks->nomor_kontrak_induk) }}">                                    
                             </div>                            
                             <div class="form-group col-md-6 icon1">
-                                <input name="tanggal_kontrak_induk" id="tanggal_kontrak_induk" class="icon1 datepicker-default form-control"
-                                        placeholder="Tanggal Kontrak Induk" value="{{ old('tanggal_kontrak_induk', $kontrakinduks->tanggal_kontrak_induk) }}" required >                        
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                            class="bi bi-calendar2-minus"></i>
+                                        </span>
+                                    </div>
+                                    <input name="tanggal_kontrak_induk" id="tanggal_kontrak_induk" class="datepicker-default form-control"
+                                    placeholder="Tanggal Kontrak Induk" value="{{ old('tanggal_kontrak_induk', $kontrakinduks->tanggal_kontrak_induk) }}" style="border-radius: 0 20px 20px 0" required >                        
+                                </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <select class="form-control input-default" id="vendor_id" name="vendor_id">

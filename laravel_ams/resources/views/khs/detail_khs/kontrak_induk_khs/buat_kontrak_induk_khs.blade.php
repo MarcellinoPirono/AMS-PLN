@@ -44,8 +44,8 @@
                                             <span class="input-group-text"><i class="bi bi-calendar2-minus"></i>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control date-picker"
-                                            placeholder="Tanggal Kontrak Induk" id="mdate" name="tanggal_kontrak_induk">
+                                        <input type="text" class="form-control datepicker-default"
+                                            placeholder="Tanggal Kontrak Induk" id="tanggal_kontrak_induk" name="tanggal_kontrak_induk" style="border-radius: 0 20px 20px 0">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -116,12 +116,13 @@
                 var token = $('#csrf').val();
                 var khs_id = $("#khs_id").val();
                 var nomor_kontrak_induk = $("#nomor_kontrak_induk").val();
-                var tanggal_kontrak_induk = $("#mdate").val();
+                var tanggal_kontrak_induk = $("#tanggal_kontrak_induk").val();
                 var vendor_id = $("#vendor_id").val();
-                // var tanggal_kontrak_induk = new Date(tanggal_kontrak_induk);
-                // console.log(tanggal_kontrak_induk);
-                // var tanggal_kontrak_induk = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
-                //     .toISOString().split("T")[0];
+                var tanggal_kontrak_induk = new Date(tanggal_kontrak_induk);
+                var tanggal_kontrak_induk = new Date(tanggal_kontrak_induk.getTime() - (tanggal_kontrak_induk.getTimezoneOffset() * 60000))
+                    .toISOString().split("T")[0];
+
+                
 
                 var data = {
                     "_token": token,

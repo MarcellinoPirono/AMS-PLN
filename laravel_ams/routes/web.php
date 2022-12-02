@@ -102,7 +102,7 @@ Route::get('preview-pdf-khs/{id}', [RabController::class, 'preview_pdf_khs']);
 Route::get('/search-pokhs', [RabController::class, 'searchpokhs']);
 Route::post('/getAddendum', [RabController::class, 'getAddendum']);
 Route::get('/getRedaksi', [RabController::class, 'getRedaksi']);
-Route::get('/getDeskripsi', [RabController::class, 'getDeskripsi']);
+Route::post('/getDeskripsi', [RabController::class, 'getDeskripsi']);
 
 Route::resource('prk', PrkController::class);
 Route::any('prk/filter', [PrkController::class, 'filterprk']);

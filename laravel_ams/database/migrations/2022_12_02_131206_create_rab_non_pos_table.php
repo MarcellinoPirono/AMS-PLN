@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('non_pos', function (Blueprint $table) {
+        Schema::create('rab_non_pos', function (Blueprint $table) {
             $table->id();
-            $table->string("nomor_rpbj");
-            $table->foreignId("skk_id");
-            $table->foreignId("prk_id");
-            $table->text("kak");
-            $table->double("total_harga");
+            $table->foreignId("non_po_id");
+            $table->string("satuan");
+            $table->double("volume");
+            $table->double("harga_satuan");            
+            $table->double("jumlah_harga");            
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('non_pos');
+        Schema::dropIfExists('rab_non_pos');
     }
 };

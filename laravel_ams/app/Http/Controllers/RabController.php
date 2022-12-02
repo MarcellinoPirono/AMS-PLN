@@ -95,6 +95,7 @@ class RabController extends Controller
                 'kontraks' => KontrakInduk::all(),
                 'pejabats' => Pejabat::all(),
                 'khs' => Khs::all(),
+                'redaksis'=>Redaksi::all(),
             ],
             compact('data_kategori', 'data_items')
         );
@@ -574,9 +575,13 @@ class RabController extends Controller
     public function getDeskripsi(Request $request){
         $redaksi_id = $request->post('redaksi_id');
 
-        dd($redaksi_id);
-        $deskripsi = DB::table('redaksis')->where('id', $redaksi_id)->select('deskripsi_redaksi')->get();
+        // dd($redaksi_id);
+        $deskripsi_redaksi = Redaksi::where('id', $redaksi_id)->value('deskripsi_redaksi');
 
+        
+        $deskripsi = DB::table('redaksis')->where('deskripsi_redaksi', $deskripsi_redaksi)->first();
+        // dd($deskripsi);
+        
         return response()->json($deskripsi);
     }
 }

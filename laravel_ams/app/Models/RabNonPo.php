@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NonPo extends Model
+class RabNonPo extends Model
 {
     use HasFactory;
 
-    public function rab_non_pos(){
+    public function non_pos(){
 
-        return $this->hasMany(RabNonPo::class, 'non_po_id', 'id');
+        return $this->belongsTo(NonPo::class, 'non_po_id', 'id');
     }
 }

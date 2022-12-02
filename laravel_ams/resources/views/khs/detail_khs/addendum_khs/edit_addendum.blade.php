@@ -37,8 +37,18 @@
                                 <div class="form-group col-md-6">
                                     <input type="text" class="form-control input-default" placeholder="Nomor Addendum" name="nomor_addendum" id="nomor_addendum"  value="{{ old('nomor_addendum', $addendums->nomor_addendum) }}" required autofocus>                                
                                 </div>
-                                <div class="icon1 form-group col-md-6">
-                                     <input name="tanggal_addendum" id="tanggal_addendum" class="icon1 datepicker-default form-control" placeholder="Tanggal Kontrak Induk" value="{{ old('tanggal_addendum', $addendums->tanggal_addendum) }}" required >
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="bi bi-calendar2-minus"></i>
+                                                </span>
+                                            </div>
+                                        <input type="text" name="tanggal_addendum" id="tanggal_addendum" class="form-control datepicker-default" placeholder="Tanggal Kontrak Induk" value="{{ old('tanggal_addendum', $addendums->tanggal_addendum) }}" style="border-radius: 0 20px 20px 0" required >
+                                        </div>
+
+                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="position-relative justify-content-end float-right">

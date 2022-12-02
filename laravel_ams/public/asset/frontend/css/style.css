@@ -21,6 +21,11 @@ color:red;
 font-family:verdana, Helvetica;
 } */
 
+#pdfViewer {
+    border: 1px solid black;
+    direction: ltr;
+}
+
 select.error{
     border-color: #f94687;
     padding-right: calc(1.5em + 0.75rem);
@@ -54314,4 +54319,122 @@ input::-webkit-calendar-picker-indicator {
 
 .tes1 {
     background: url("../images/kalender.png") no-repeat center;
+}
+
+#firstTable table {
+    border: 3px solid black;
+    margin-top: 25px;
+    }
+
+.first {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-top: none;
+    border-bottom: none;
+}
+
+.first1 {
+    border-left: 1px solid #000;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+}
+
+.first2 {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+}
+
+.warna{
+    background-color: #C5C6D0;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: black;
+}
+.sub-judul{
+    font-family: Calibri;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: -20px;
+    tab-size: 4;
+
+}
+.italic {
+    font-family: Calibri;
+    font-weight: normal;
+    font-style: italic;
+
+}
+.judul {
+    font-family: Calibri;
+    font-weight: bold;
+    font-style: normal;
+    font-size: x-large;
+    text-decoration: underline;
+    text-align: center;
+    padding-bottom:20px ;
+
+}
+.tabulasi2 {
+    display: inline-block;
+    margin-left: 2.1em;
+}
+.tabulasi3 {
+    display: inline-block;
+    margin-left: 3.1em;
+}
+.tabulasi35 {
+    display: inline-block;
+    margin-left: 3.5em;
+}
+.tabulasi5 {
+    display: inline-block;
+    margin-left: 5.5em;
+}
+
+.wrapword {
+    white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+    white-space: -webkit-pre-wrap;          /* Chrome & Safari */ 
+    white-space: -pre-wrap;                 /* Opera 4-6 */
+    white-space: -o-pre-wrap;               /* Opera 7 */
+    white-space: pre-wrap;                  /* CSS3 */
+    word-wrap: break-word;                  /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
+}
+
+.coba{
+    -ms-word-break: break-all;
+    word-break: break-all;
+
+ /* Non standard for webkit */
+     word-break: break-word;
+
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+}
+
+
+.uprightTbl * {
+    border: none;
+    border-collapse: collapse;
+    padding: 5;
+    margin: 0;
+}
+
+.noborder {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+}
+
+table#rincian {
+    border:0px;
+    border-collapse:collapse;
+    border-spacing:3px;
 }
