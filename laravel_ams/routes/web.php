@@ -126,3 +126,5 @@ Route::resource('surat', PdfkhsController::class);
 
 //Non-PO
 Route::resource('non-po', NonPOController::class);
+Route::get('non-po/buat-non-po', [NonPOController::class, 'buat_non_po']);
+Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po']);

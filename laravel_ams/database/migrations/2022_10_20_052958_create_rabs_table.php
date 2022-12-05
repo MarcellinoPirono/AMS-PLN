@@ -26,11 +26,13 @@ return new class extends Migration
             $table->date('startdate');
             $table->date('enddate');
             $table->foreignId('nomor_kontrak_induk');
-            $table->string('addendum_id');
+            $table->string('addendum_id')->nullable();
             $table->foreignId('pejabat_id');
             // $table->foreignId('vendor_id');
             $table->text('pengawas');
             $table->integer('total_harga');
+            $table->string('pdf_file');
+
 
             // $table->integer('volume');
             // $table->text('isi_surat');

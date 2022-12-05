@@ -19,10 +19,14 @@ use App\Models\OrderKhs;
 use App\Models\Redaksi;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Support\Carbon;
 use PhpParser\Node\Expr\Cast\Double;
 use Riskihajar\Terbilang\Facades\Terbilang;
 use DateTime;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 // use Carbon\Carbon
 // use Carbon\Carbon;
 
@@ -300,6 +304,13 @@ class RabController extends Controller
             'jumlah_harga' => 'required|max:250',
         ]);
 
+        $nama_pdf = $request->nomor_po;
+        $ubah_pdf = str_replace('.', '_', $nama_pdf);
+        $ubah_pdf2 = str_replace('/','-', $ubah_pdf);
+        
+
+        $mypdf = 'public/storage/file-pdf-khs/'.$ubah_pdf2.'.pdf';
+
         $rab = [
             'nomor_po' => $request->nomor_po,
             'tanggal_po' => $request->tanggal_po,
@@ -314,6 +325,7 @@ class RabController extends Controller
             'pejabat_id' => $request->pejabat_id,
             'pengawas' => $request->pengawas,
             'total_harga' => $request->total_harga,
+            'pdf_file' =>$mypdf,
         ];
 
         Rab::create($rab);
@@ -341,12 +353,39 @@ class RabController extends Controller
             OrderKhs::create($order_khs);
         }
 
-        //Update PRK 1
-        // $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
-        // $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
-        // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
+        $values_pdf_page1 = Rab::where('id', $id)->get();
+        
+        $startdate = Rab::where('id', $id)->value('startdate');
+        $enddate = Rab::where('id', $id)->value('enddate');
+        $datetime1 = new DateTime($startdate);
+        $datetime2 = new DateTime($enddate);
+        $interval = $datetime1->diff($datetime2);
+        $days = $interval->format('%a');
 
-        // Update PRK Terkontrak
+        $rab_id = Rab::where('id', $id)->value('id');
+        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+
+
+        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
+        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
+
+        $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
+        $ppn = $jumlah * 0.11;
+
+        $pdf = Pdf::loadView('layouts.surat',[
+            "po_khs" => $values_pdf_page1,
+            "rab_khs" => $values_pdf_page2,
+            "jumlah" => $jumlah,
+            "ppn" => $ppn,
+            "days" => $days,
+            "jabatan_manager" => $jabatan_manager,
+            "nama_manager" => $nama_manager,
+            "title" => "PO-KHS",
+
+        ]);
+        $content = $pdf->download()->getOriginalContent();
+        Storage::put('public/storage/file-pdf-khs/'.$ubah_pdf2.'.pdf',$content);
+
         $updated_prk_terkontrak = 0;
         $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
         foreach ($previous_prk_terkontrak as $prk_terkontrak)
@@ -486,6 +525,9 @@ class RabController extends Controller
         $datetime2 = new DateTime($enddate);
         $interval = $datetime1->diff($datetime2);
         $days = $interval->format('%a');
+
+
+        
 
         // $startdate = Carbon::parse($startdate)->format('l');
         // $enddate = Carbon::parse($enddate)->format('l');

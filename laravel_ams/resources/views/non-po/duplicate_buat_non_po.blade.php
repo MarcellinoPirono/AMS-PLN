@@ -16,7 +16,7 @@
                     </div>
                     <div class="m-auto" style="width:97%;">
                         <div id="smartwizard" dir="rtl-" class="mt-4">
-                        <ul class="nav nav-progress">
+                            <ul class="nav nav-progress">
                                 <li class="nav-item">
                                     <a class="nav-link" href="#informasi_umum">
                                         <div class="num">1</div>
@@ -34,7 +34,7 @@
                                         <span class="num">3</span>
                                         Preview Kontrak Non PO
                                     </a>
-                                </li>
+                                </li>                                
                             </ul>
                             <div class="tab-content mt-3 tab-flex">
                                 <div id="informasi_umum" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
@@ -144,11 +144,11 @@
                                                                         <td><input type="text"
                                                                                 class="form-control uraian" id="uraian[1]"
                                                                                 name="uraian" placeholder="Uraian"
-                                                                                value=""></td>
+                                                                                value="" required></td>
                                                                         <td><input type="text"
                                                                                 class="form-control satuan" id="satuan[1]"
                                                                                 name="satuan" placeholder="Satuan"
-                                                                                value=""></td>
+                                                                                value="" required></td>
                                                                         <td><input type="text"
                                                                                 class="form-control volume" id="volume[1]"
                                                                                 name="volume" placeholder="volume"
@@ -241,7 +241,7 @@
                                     </form>
                                 </div>
                                 <div id="preview_non_po" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
-                                    <form id="form-4" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
+                                    <form id="form-3" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
                                         <div class="row">
                                             <div class="col-xl-12 col-xxl-12">
                                                 <div class="card">
@@ -279,71 +279,56 @@
                                                                 <div class="wrapword" id="firstTable">
                                                                     <table class="" width="100%" border="2" cellspacing="0"
                                                                         cellpadding="0">
-                                                                        <tr class="warna">
-                                                                            <td style="width:4%;" rowspan="2"
-                                                                                align="center" valign="middle">No</td>
-                                                                            <td rowspan="2" align="center"
-                                                                                valign="middle">Uraian Pekerjaan</td>
-                                                                            <td style="width:9%;" rowspan="2"
-                                                                                align="center" valign="middle">Satuan</td>
-                                                                            <td style="width:9%;" rowspan="2"
-                                                                                align="center" valign="middle">Volume</td>
-                                                                            <td style="width:25%;" colspan="2"
-                                                                                align="center" valign="middle">Harga</td>
-                                                                        </tr>
-                                                                        <tr class="warna">
-                                                                            <td style="width:12%;" align="center"
-                                                                                valign="middle">Satuan (RP)</td>
-                                                                            <td style="width:15%;" align="center"
-                                                                                valign="middle">Jumlah (RP)</td>
-                                                                        </tr>
-                                                                        <tr>
-    
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="first" align="center"
-                                                                                valign="middle">1</td>
-                                                                            <!-- <td class="first" align="center" valign="middle"></td> -->
-                                                                            <td class="first" align="left"
-                                                                                valign="middle">
-                                                                                tes</td>
-                                                                            <td class="first" align="center"
-                                                                                valign="middle">tes</td>
-                                                                            <td class="first" align="center"
-                                                                                valign="middle">tes</td>
-                                                                            <td class="first" align="right"
-                                                                                valign="middle">tes</td>
-                                                                            <td class="first" align="right"
-                                                                                valign="middle">tes</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td rowspan="3" colspan="3"></td>
-                                                                            <td colspan="2" align="center"
-                                                                                valign="middle"><b>Jumlah</b></td>
-                                                                            <td align="right"><b>9.999.999</b></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td colspan="2" align="center"
-                                                                                valign="middle"><b>PPN 11%</b></td>
-                                                                            <td align="right"><b>100.000</b></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td colspan="2" align="center"
-                                                                                valign="middle"><b>TOTAL</b></td>
-                                                                            <td align="right"><b>99.999.999</b>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
+                                                                        <thead>
+                                                                            <tr class="warna">
+                                                                                <td style="width:4%;" rowspan="2"
+                                                                                    align="center" valign="middle">No</td>
+                                                                                <td rowspan="2" align="center"
+                                                                                    valign="middle">Uraian Pekerjaan</td>
+                                                                                <td style="width:9%;" rowspan="2"
+                                                                                    align="center" valign="middle">Satuan</td>
+                                                                                <td style="width:9%;" rowspan="2"
+                                                                                    align="center" valign="middle">Volume</td>
+                                                                                <td style="width:25%;" colspan="2"
+                                                                                    align="center" valign="middle">Harga</td>
+                                                                            </tr>
+                                                                            <tr class="warna">
+                                                                                <td style="width:12%;" align="center"
+                                                                                    valign="middle">Satuan (RP)</td>
+                                                                                <td style="width:15%;" align="center"
+                                                                                    valign="middle">Jumlah (RP)</td>
+                                                                            </tr>                                                       
+                                                                        </thead>
+                                                                        <tbody id="uraian_rab">
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <td rowspan="3" colspan="3"></td>
+                                                                                <td colspan="2" align="center"
+                                                                                    valign="middle"><b>Jumlah</b></td>
+                                                                                    <td id="td_jumlah" style="font-weight: bold" align="right"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2" align="center"
+                                                                                    valign="middle"><b>PPN 11%</b></td>
+                                                                                <td id="td_ppn" style="font-weight: bold" align="right"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2" align="center"
+                                                                                    valign="middle"><b>TOTAL</b></td>
+                                                                                    <td id="td_total" style="font-weight: bold" align="right"></td>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="first1"></td>
+                                                                                <td class="first2" rowspan="2" colspan="5" id = "terbilang"
+                                                                                    style="font-weight: bold; font-style:italic;">                                                                                    
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tfoot>                                                                        
+                                                                        <!-- <tr>
                                                                             <td class="first1"></td>
-                                                                            <td class="first2" rowspan="2" colspan="5"
-                                                                                style="font-weight: bold; font-style:italic;">
-                                                                                Terbilang:
-                                                                                sembilan rupiah
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="first1"></td>
-                                                                        </tr>
+                                                                        </tr> -->
                                                                     </table>
                                                                     <div>
                                                                         <button id="prevpdf">Previous</button>
@@ -352,6 +337,10 @@
                                                                         <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
                                                                     </div>
                                                                     <canvas id="pdfViewer"></canvas>
+                                                                    <!-- <object type="application/pdf" id="pdfViewer" type="">
+                                                                        <embed id="pdfViewer2" width="100%" height="600px" >
+                                                                    </object> -->
+                                                                    <embed src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210101201653/PDF.pdf"  type="application/pdf" width="100%" height="600px" />
                                                                 </div>
 
                                                             </div>
@@ -362,7 +351,7 @@
                                             </div>
                                         </div>
                                     </form>
-                                </div>                                
+                                </div>                                                               
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
                                         aria-valuemin="0" aria-valuemax="100"></div>
@@ -396,8 +385,8 @@
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
         <!-- Preview PDF -->
-        <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-        <!-- <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script> -->
+        <!-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> -->
+        <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
 
 
         <!-- Bootrap for the demo page -->
@@ -420,87 +409,87 @@
         <script type="text/javascript">
             const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
 
-            function onCancel() {
-                // Reset wizard
-                $('#smartwizard').smartWizard("reset");
+            // function onCancel() {
+            //     // Reset wizard
+            //     $('#smartwizard').smartWizard("reset");
 
-                // Reset form
-                document.getElementById("form-1").reset();
-                document.getElementById("form-2").reset();
-                document.getElementById("form-3").reset();
-                document.getElementById("form-4").reset();
-            }
+            //     // Reset form
+            //     document.getElementById("form-1").reset();
+            //     document.getElementById("form-2").reset();
+            //     document.getElementById("form-3").reset();
+            //     // document.getElementById("form-4").reset();
+            // }
 
-            function onConfirm() {
-                let form = document.getElementById('form-4');
-                if (form) {
-                    if (!form.checkValidity()) {
-                        form.classList.add('was-validated');
-                        $('#smartwizard').smartWizard("setState", [3], 'error');
-                        $("#smartwizard").smartWizard('fixHeight');
-                        return false;
-                    }
+            // function onConfirm() {
+            //     let form = document.getElementById('form-3');
+            //     if (form) {
+            //         if (!form.checkValidity()) {
+            //             form.classList.add('was-validated');
+            //             $('#smartwizard').smartWizard("setState", [3], 'error');
+            //             $("#smartwizard").smartWizard('fixHeight');
+            //             return false;
+            //         }
 
-                    $('#smartwizard').smartWizard("unsetState", [3], 'error');
-                    myModal.show();
-                }
-            }
+            //         $('#smartwizard').smartWizard("unsetState", [3], 'error');
+            //         myModal.show();
+            //     }
+            // }
 
-            function closeModal() {
-                // Reset wizard
-                $('#smartwizard').smartWizard("reset");
+            // function closeModal() {
+            //     // Reset wizard
+            //     $('#smartwizard').smartWizard("reset");
 
-                // Reset form
-                document.getElementById("form-1").reset();
-                document.getElementById("form-2").reset();
-                document.getElementById("form-3").reset();
-                document.getElementById("form-4").reset();
+            //     // Reset form
+            //     document.getElementById("form-1").reset();
+            //     document.getElementById("form-2").reset();
+            //     document.getElementById("form-3").reset();
+            //     // document.getElementById("form-4").reset();
 
-                myModal.hide();
-            }
+            //     myModal.hide();
+            // }
 
-            function showConfirm() {
-                const name = $('#lokasi').val() + ' ' + $('#lokasi').val();
-                const products = $('#lokasi').val();
-                const shipping = $('#lokasi').val() + ' ' + $('#lokasi').val() + ' ' + $('#lokasi').val();
-                let html = `
-                  <div class="row">
-                    <div class="col">
-                      <h4 class="mb-3-">Customer Details</h4>
-                      <hr class="my-2">
-                      <div class="row g-3 align-items-center">
-                        <div class="col-auto">
-                          <label class="col-form-label">Name</label>
-                        </div>
-                        <div class="col-auto">
-                          <span class="form-text-">${name}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <h4 class="mt-3-">Shipping</h4>
-                      <hr class="my-2">
-                      <div class="row g-3 align-items-center">
-                        <div class="col-auto">
-                          <span class="form-text-">${shipping}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            // function showConfirm() {
+            //     const name = $('#lokasi').val() + ' ' + $('#lokasi').val();
+            //     const products = $('#lokasi').val();
+            //     const shipping = $('#lokasi').val() + ' ' + $('#lokasi').val() + ' ' + $('#lokasi').val();
+            //     let html = `
+            //       <div class="row">
+            //         <div class="col">
+            //           <h4 class="mb-3-">Customer Details</h4>
+            //           <hr class="my-2">
+            //           <div class="row g-3 align-items-center">
+            //             <div class="col-auto">
+            //               <label class="col-form-label">Name</label>
+            //             </div>
+            //             <div class="col-auto">
+            //               <span class="form-text-">${name}</span>
+            //             </div>
+            //           </div>
+            //         </div>
+            //         <div class="col">
+            //           <h4 class="mt-3-">Shipping</h4>
+            //           <hr class="my-2">
+            //           <div class="row g-3 align-items-center">
+            //             <div class="col-auto">
+            //               <span class="form-text-">${shipping}</span>
+            //             </div>
+            //           </div>
+            //         </div>
+            //       </div>
 
 
-                  <h4 class="mt-3">Products</h4>
-                  <hr class="my-2">
-                  <div class="row g-3 align-items-center">
-                    <div class="col-auto">
-                      <span class="form-text-">${products}</span>
-                    </div>
-                  </div>
+            //       <h4 class="mt-3">Products</h4>
+            //       <hr class="my-2">
+            //       <div class="row g-3 align-items-center">
+            //         <div class="col-auto">
+            //           <span class="form-text-">${products}</span>
+            //         </div>
+            //       </div>
 
-                  `;
-                $("#order-details").html(html);
-                $('#smartwizard').smartWizard("fixHeight");
-            }
+            //       `;
+            //     $("#order-details").html(html);
+            //     $('#smartwizard').smartWizard("fixHeight");
+            // }
 
             $(function() {
                 // Leave step event is used for validating the forms
@@ -543,15 +532,32 @@
 
                         for (var i = 0; i < click; i++) {
                             baris[i] = [
-                                $("#item_id[" + (i + 1) + "] option:selected").text(),
-                                $("#kategory_id[" + (i + 1) + "]").val(),
-                                $("#satuan[" + (i + 1) + "]").val(),
-                                $("#volume[" + (i + 1) + "]").val(),
-                                $("#harga_satuan[" + (i + 1) + "]").val(),
-                                $("#harga[" + (i + 1) + "]").val()
+                                // $("#item_id[" + (i + 1) + "] option:selected").text(),
+                                document.getElementById("uraian[" + (i + 1) + "]").value,
+                                document.getElementById("satuan[" + (i + 1) + "]").value,
+                                document.getElementById("volume[" + (i + 1) + "]").value,
+                                document.getElementById("harga_satuan[" + (i + 1) + "]").value,
+                                document.getElementById("harga[" + (i + 1) + "]").value
                             ]
                         }
                         console.log(baris);
+
+                        const result_rab_non_po = baris.filter(element =>{
+                            return element !== null;
+                        })
+
+                        if (result_rab_non_po > 0) {
+                            var html_rab = [""];
+                            var tbody = document.getElementById("uraian_rab");
+                            var array_length = result_rab_non_po.length;
+                            for (var j =0; j < array_length; j++){
+                                html_rab += ("<tr> <td class='first' align='center' valign='middle'>"+ (j + 1) + "</td> <td class='first' align='left' valign='middle'>" + result_rab_non_po[j][0] + "</td> <td class='first' align='center' valign='middle'>" + result_rab_non_po[j][1] + "</td> <td class='first' align='center' valign='middle'>" + result_rab_non_po[j][2] + "</td> <td class='first' align='right' valign='middle'>" + result_rab_non_po[j][3] + "</td> <td class='first' align='right' valign='middle'>" + result_rab_non_po[j][4] + "</td> </tr>")
+                            }
+                            document.getElementById("uraian_rab").innerHTML = "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first' align='left' valign='middle' style='font-weight: bold'>JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" + html_rab;
+                        }
+                        document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah").innerHTML;
+                        document.getElementById("td_ppn").innerHTML = document.getElementById("pajak").innerHTML;
+                        document.getElementById("td_total").innerHTML = document.getElementById("total").innerHTML;
 
                         $("#next-btn").addClass('disabled').prop('disabled', true);
                         // alert(click);
@@ -566,7 +572,7 @@
                     $("#sw-total-step").text(stepInfo.totalSteps);
 
                     if (stepPosition == 'last') {
-                        showConfirm();
+                        onSubmitData();
                         $("#btnFinish").prop('disabled', false);
                     } else {
                         $("#btnFinish").prop('disabled', true);
@@ -639,6 +645,8 @@
 
         </script>
         <script>
+            var url = 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf';
+
             var pdfjsLib = window['pdfjs-dist/build/pdf'];
             pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
             var pdfDoc = null,
@@ -649,7 +657,7 @@
                 canvas = document.getElementById('pdfViewer'),
                 ctx = canvas.getContext('2d');
 
-            var url = document.getElementById('kak').files();        
+            // var url = document.getElementById('kak').files();        
 
             // $("#kak").on("change", function(e){
             //     var file = e.target.files[0]
@@ -750,13 +758,60 @@
             }
             document.getElementById('nextpdf').addEventListener('click', onNextPage);
 
-            pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-                pdfDoc = pdfDoc_;
-                document.getElementById('page_count').textContent = pdfDoc.numPages;
+            $("#kak").on("change", function(e){
+                var file = e.target.files[0]
+                if(file.type == "application/pdf"){
+                    var fileReader = new FileReader();  
+                    fileReader.onload = function() {
+                        var pdfData = new Uint8Array(this.result);
+                        // Using DocumentInitParameters object to load binary data.
+                        var loadingTask = pdfjsLib.getDocument({data: pdfData});
+                        loadingTask.promise.then(function(pdf) {
+                            console.log('PDF loaded');
+                            pdfDoc = pdf;
+                            document.getElementById('page_count').textContent = pdfDoc.numPages;
+                            renderPage(pageNum);
+                        
+                        // Fetch the first page
+                        // var pageNumber = 1;
+                        // pdf.getPage(pageNumber).then(function(page) {
+                        //     console.log('Page loaded');
+                            
+                        //     var scale = 1.5;
+                        //     var viewport = page.getViewport({scale: scale});
 
-                // Initial/first page rendering
-                renderPage(pageNum);
+                        //     // Prepare canvas using PDF page dimensions
+                        //     var canvas = $("#pdfViewer")[0];
+                        //     var context = canvas.getContext('2d');
+                        //     canvas.height = viewport.height;
+                        //     canvas.width = viewport.width;
+
+                        //     // Render PDF page into canvas context
+                        //     var renderContext = {
+                        //     canvasContext: context,
+                        //     viewport: viewport
+                        //     };
+                        //     var renderTask = page.render(renderContext);
+                        //     renderTask.promise.then(function () {
+                        //     console.log('Page rendered');
+                        //     });
+                        // });
+                        }, function (reason) {
+                        // PDF loading error
+                        console.error(reason);
+                        });
+                    };
+                    fileReader.readAsArrayBuffer(file);
+                }
             });
+            
+            // pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+            //     pdfDoc = pdfDoc_;
+            //     document.getElementById('page_count').textContent = pdfDoc.numPages;
+
+            //     // Initial/first page rendering
+            //     renderPage(pageNum);
+            // });
         </script>
         <!-- <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step3_redaksi.js"></script> -->
 @endsection
@@ -1212,35 +1267,34 @@
 
     function onSubmitData() {
         var token = $('#csrf').val();
-        var po = document.getElementById('po').value;
-        var today = new Date();
-        today = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
-        var kontrak_induk = document.getElementById('kontrak_induk').value;
-        var pekerjaan = document.getElementById('pekerjaan').value;
-        var lokasi = document.getElementById('lokasi').value;
-        var start_date = document.getElementById('start_date').value;
-        var end_date = document.getElementById('end_date').value;
-        start_date = new Date(start_date);
-        end_date = new Date(end_date);
-        start_date = new Date(start_date.getTime() - (start_date.getTimezoneOffset() * 60000)).toISOString().split("T")[
-            0];
-        end_date = new Date(end_date.getTime() - (end_date.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
-        var addendum = document.getElementById('addendum').value;
+        var nomor_rpbj = document.getElementById('nomor_rpbj').value;
+        // var today = new Date();
+        // today = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
+        // var kontrak_induk = document.getElementById('kontrak_induk').value;
+        // var pekerjaan = document.getElementById('pekerjaan').value;
+        // var lokasi = document.getElementById('lokasi').value;
+        // var start_date = document.getElementById('start_date').value;
+        // var end_date = document.getElementById('end_date').value;
+        // start_date = new Date(start_date);
+        // end_date = new Date(end_date);
+        // start_date = new Date(start_date.getTime() - (start_date.getTimezoneOffset() * 60000)).toISOString().split("T")[
+            // 0];
+        // end_date = new Date(end_date.getTime() - (end_date.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
+        // var addendum = document.getElementById('addendum').value;
         var skk_id = document.getElementById('skk_id').value;
         var prk_id = document.getElementById('prk_id').value;
-        var pejabat = document.getElementById('pejabat').value;
-        var pengawas = document.getElementById('pengawas').value;
+        var kak = document.getElementById('kak').files;
+        // var pejabat = document.getElementById('pejabat').value;
+        // var pengawas = document.getElementById('pengawas').value;
 
-        var item_id = [];
-        var kategory_id = [];
+        var uraian = [];
         var satuan = [];
         var volume = [];
         var harga_satuan = [];
         var harga = [];
 
         for (var i = 0; i < click; i++) {
-            item_id[i] = document.getElementById("item_id[" + (i + 1) + "]").value;
-            kategory_id[i] = document.getElementById("kategory_id[" + (i + 1) + "]").value;
+            uraian[i] = document.getElementById("uraian[" + (i + 1) + "]").value;            
             satuan[i] = document.getElementById("satuan[" + (i + 1) + "]").value;
             volume[i] = document.getElementById("volume[" + (i + 1) + "]").value;
             volume[i] = parseInt(volume[i]);
@@ -1251,6 +1305,10 @@
             harga[i] = harga[i].replace(/\./g, "");
             harga[i] = parseInt(harga[i]);
         }
+
+        
+
+
 
         const bef_ppn_total_harga = harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
         var ppn = bef_ppn_total_harga * 11 / 100;
@@ -1270,22 +1328,22 @@
                 if (willCreate) {
                     var data = {
                         "_token": token,
-                        "nomor_po": po,
-                        "tanggal_po": today,
+                        "nomor_rpbj": po,
+                        // "tanggal_po": today,
                         "skk_id": skk_id,
                         "prk_id": prk_id,
-                        "pekerjaan": pekerjaan,
-                        "lokasi": lokasi,
-                        "startdate": start_date,
-                        "enddate": end_date,
-                        "nomor_kontrak_induk": kontrak_induk,
-                        "addendum_id": addendum,
-                        "pejabat_id": pejabat,
-                        "pengawas": pengawas,
+                        // "pekerjaan": pekerjaan,
+                        // "lokasi": lokasi,
+                        // "startdate": start_date,
+                        // "enddate": end_date,
+                        // "nomor_kontrak_induk": kontrak_induk,
+                        // "addendum_id": addendum,
+                        // "pejabat_id": pejabat,
+                        "kak": kak,
                         "total_harga": total_harga,
-                        "kategori_order": kategory_id,
-                        "item_order": item_id,
-                        "satuan_id": satuan,
+                        "uraian": uraian,
+                        // "item_order": item_id,
+                        "satuan": satuan,
                         "harga_satuan": harga_satuan,
                         "volume": volume,
                         "jumlah_harga": harga,
@@ -1295,7 +1353,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: "/simpan-po-khs",
+                        url: "/simpan-non-po",
                         data: data,
                         success: function(response) {
                             swal({
@@ -1306,7 +1364,7 @@
                                     buttons: false
                                 })
                                 .then((result) => {
-                                    window.location.href = "/po-khs";
+                                    window.location.href = "/non-po";
                                 });
                         }
                     });

@@ -54347,6 +54347,20 @@ input::-webkit-calendar-picker-indicator {
     border-bottom: none;
 }
 
+.first3 {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-top: 1px solid #C5C6D0;
+    border-bottom: 1px solid #000;
+}
+
+.first4 {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #C5C6D0;
+}
+
 .warna{
     background-color: #C5C6D0;
     font-weight: bold;

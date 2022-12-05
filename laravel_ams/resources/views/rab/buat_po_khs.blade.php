@@ -38,7 +38,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link " href="#isi_kontrak">
                                         <span class="num">4</span>
-                                        Isi Kontrak
+                                        Review Hasil Isi Kontrak
                                     </a>
                                 </li>
 
@@ -99,8 +99,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
-                                             <div class="col-lg-6 mb-2">
+
+                                            <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Input Lokasi</label>
                                                     <textarea type="text" class="form-control" placeholder="Lokasi" name="lokasi" id="lokasi" required autofocus>{{ old('lokasi') }}</textarea>
@@ -113,8 +113,8 @@
                                                 </div>
                                             </div>
 
-                                            
-                                           
+
+
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
@@ -126,7 +126,7 @@
                                                             </span>
                                                         </div>
                                                         <input type="text" name="start_date" id="start_date"
-                                                            class="form-control datepicker-default"required
+                                                            class="form-control datepicker-default2"required
                                                             placeholder="Start Date PO-KHS"
                                                             style="border-radius: 0 20px 20px 0">
                                                         <div class="valid-feedback">
@@ -149,7 +149,7 @@
                                                             </span>
                                                         </div>
                                                         <input type="text" name="end_date" id="end_date"
-                                                            class="form-control datepicker-default"
+                                                            class="form-control datepicker-default2"
                                                             placeholder="End Date PO-KHS" readonly="false" required
                                                             autofocus style="border-radius: 0 20px 20px 0">
                                                         <div class="valid-feedback">
@@ -161,11 +161,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                           
-                                            
-                                           
 
-                                             <div class="col-lg-6 mb-2">
+
+
+
+                                            <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">No. Addendum</label>
                                                     <input type="text" class="form-control" name="addendum"
@@ -174,8 +174,8 @@
                                                 </div>
                                             </div>
 
-                                           
-                                            
+
+
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Pilih Direksi Pekerjaan</label>
@@ -235,9 +235,9 @@
                                                 </div>
                                             </div>
 
-                                             
 
-                                             <div class="col-lg-6 mb-2">
+
+                                            <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Input No. PRK</label>
                                                     <select class="form-control input-default" id="prk_id"
@@ -252,8 +252,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                         
                                         </div>
                                     </form>
                                 </div>
@@ -417,359 +415,309 @@
                                                                                 <option value="" selected disabled
                                                                                     required>Pilih Redaksi</option>
                                                                                 @foreach ($redaksis as $redaksi)
-                                                                                <option value="{{ $redaksi->id }}">{{ $redaksi->nama_redaksi }}</option>
-                                                            
+                                                                                    <option value="{{ $redaksi->id }}">
+                                                                                        {{ $redaksi->nama_redaksi }}
+                                                                                    </option>
                                                                                 @endforeach
                                                                             </select></td>
-                                                                        <td><textarea type="text"
-                                                                                class="form-control deskripsi_id"
-                                                                                id="deskripsi_id[1]" name="deskripsi_id"
-                                                                                placeholder="Deskripsi" value=""
-                                                                                disabled required></textarea></td>
-                                                                         
-                                                                            <td><button onclick="deleteRow1(this)"
-                                                                                    class="btn btn-danger shadow btn-xs sharp"><i
-                                                                                        class='fa fa-trash'></i></button></td>
-                                                                        </tr>
-                                                                    </tbody>
+                                                                        <td>
+                                                                            <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
+                                                                                placeholder="Deskripsi" value="" disabled required></textarea>
+                                                                        </td>
 
-                                                                </table>
-                                                                <div class="col-lg-12 mb-2">
-                                                                    <div
-                                                                        class="position-relative justify-content-end float-left">
-                                                                        <a type="button" id="tambah-pekerjaan"
-                                                                            class="btn btn-primary position-relative justify-content-end"
-                                                                            onclick="updateRedaksi()">Tambah</a>
-                                                                    </div>
+                                                                        <td><button onclick="deleteRow1(this)"
+                                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                                    class='fa fa-trash'></i></button></td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                            <div class="col-lg-12 mb-2">
+                                                                <div
+                                                                    class="position-relative justify-content-end float-left">
+                                                                    <a type="button" id="tambah-pekerjaan"
+                                                                        class="btn btn-primary position-relative justify-content-end"
+                                                                        onclick="updateRedaksi()">Tambah</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div id="isi_kontrak" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
-
-                                        <form id="form-4" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
-                                            <div class="row">
-                                                <div class="col-xl-12 col-xxl-12">
-                                                    <div class="card">
-                                                        <div class="card-header justify-content-center">
-                                                            <h4 class="card-title">Isi Kontrak</h4>
-                                                        </div>
-                                                        <div class="row ml-2 justify-content-start">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="isi_kontrak" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
+                                    <form id="form-4" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-xxl-12">
+                                                <div class="card">
+                                                    <div class="card-header justify-content-center">
+                                                        <h4 class="card-title">Review Hasil Isi Kontrak</h4>
+                                                    </div>
+                                                    <div class="row ml-2 justify-content-start">
                                                         <h5 class="card-title">Step 1: Informasi Umum</h5>
                                                         <table class="uprightTbl noborder" style="width:100%;"
-                                                                id="rincian" cellspacing="3" cellpadding="3">
-                                                                <tr class="noborder">
-                                                                    <td style="width:25%;">No. Purchase Order
-                                                                    </td>
-                                                                    <td style="width:1%">:</td>
-                                                                    <td style="width:79%" id="po_4">
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="noborder">
-                                                                    <td>No. Kontrak Induk</td>
-                                                                    <td>:</td>
-                                                                    <td id="kontrak_induk_4"></td>
-                                                                </tr>
-                                                                <tr class="noborder">
-                                                                    <td>Judul Pekerjaan</td>
-                                                                    <td>:</td>
-                                                                    <td id="judul_pekerjaan_4"></td>
-                                                                </tr>
-                                                                <tr class="noborder">
-                                                                    <td>Lokasi</td>
-                                                                    <td>:</td>
-                                                                    <td id="lokasi_4">
-                                                                        </td>
-                                                                </tr>
-                                                                <tr class="noborder">
-                                                                    <td>Start Date</td>
-                                                                    <td>:</td>
-                                                                    <td id="start_date_4"></td>
-                                                                </tr>
-                                                                <tr class="noborder">
-                                                                    <td>End Date</td>
-                                                                    <td>:</td>
-                                                                    <td id="end_date_4"></td>
-                                                                </tr>
-                                                                <tr class="noborder">
-                                                                    <td>No. Addendum</td>
-                                                                    <td>:</td>
-                                                                    <td id="addendum_4"></td>
-                                                                </tr>
-                                                                <tr class="noborder">
-                                                                    <td>No. SKK</td>
-                                                                    <td>:</td>
-                                                                    <td id="no_skk_4"></td>
-                                                                </tr>
-                                                                <tr class="noborder">
-                                                                    <td>No. PRK</td>
-                                                                    <td>:</td>
-                                                                    <td id="no_prk_4"></td>
-                                                                </tr>
-                                                                <tr class="noborder">
-                                                                    <td>Direksi Pekerjaan</td>
-                                                                    <td>:</td>
-                                                                    <td id="direksi_pekerjaan_4"></td>
-                                                                </tr>
-                                                                <tr class="noborder">
-                                                                    <td>Pengawas Pekerjaan</td>
-                                                                    <td>:</td>
-                                                                    <td id="pengawas_pekerjaan_4"></td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row ml-2 justify-content-start">
-                                                            <h5 class="card-title">Step 2: Daftar RAB</h5>
-                                                            <div class="col-xl-12 col-xxl-12">
-                                                                <div class="table-responsive">
-                                                                    <div class="wrapword" id="firstTable">
-                                                                        <table id="daftar_rabs" class="" width="100%" border="2" cellspacing="0"
-                                                                            cellpadding="0">
+                                                            id="rincian" cellspacing="3" cellpadding="3">
+                                                            <tr class="noborder">
+                                                                <td style="width:20%;">No. Purchase Order
+                                                                </td>
+                                                                <td style="width:1%">:</td>
+                                                                <td style="width:84%" id="po_4">
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>No. Kontrak Induk</td>
+                                                                <td>:</td>
+                                                                <td id="kontrak_induk_4"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Judul Pekerjaan</td>
+                                                                <td>:</td>
+                                                                <td id="judul_pekerjaan_4"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Lokasi</td>
+                                                                <td>:</td>
+                                                                <td id="lokasi_4">
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Start Date</td>
+                                                                <td>:</td>
+                                                                <td id="start_date_4"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>End Date</td>
+                                                                <td>:</td>
+                                                                <td id="end_date_4"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>No. Addendum</td>
+                                                                <td>:</td>
+                                                                <td id="addendum_4"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>No. SKK</td>
+                                                                <td>:</td>
+                                                                <td id="no_skk_4"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>No. PRK</td>
+                                                                <td>:</td>
+                                                                <td id="no_prk_4"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Direksi Pekerjaan</td>
+                                                                <td>:</td>
+                                                                <td id="direksi_pekerjaan_4"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Pengawas Pekerjaan</td>
+                                                                <td>:</td>
+                                                                <td id="pengawas_pekerjaan_4"></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row ml-2 justify-content-start">
+                                                        <h5 class="card-title">Step 2: Daftar RAB</h5>
+                                                        <div class="col-xl-12 col-xxl-12">
+                                                            <div class="table-responsive">
+                                                                <div class="wrapword" id="firstTable">
+                                                                    <table id="daftar_rabs" class="" width="100%"
+                                                                        border="2" cellspacing="0" cellpadding="0">
+                                                                        <thead>
                                                                             <tr class="warna">
-                                                                                <td style="width:4%;" rowspan="2"
+                                                                                <td style="width:4%;" rowspan="3"
                                                                                     align="center" valign="middle">No</td>
-                                                                                <td rowspan="2" align="center"
+                                                                                <td rowspan="3" align="center"
                                                                                     valign="middle">Uraian Pekerjaan</td>
-                                                                                <td style="width:9%;" rowspan="2"
-                                                                                    align="center" valign="middle">Satuan</td>
-                                                                                <td style="width:9%;" rowspan="2"
-                                                                                    align="center" valign="middle">Volume</td>
+                                                                                <td style="width:11%;" rowspan="3"
+                                                                                    align="center" valign="middle">Satuan
+                                                                                </td>
+                                                                                <td style="width:9%;" rowspan="3"
+                                                                                    align="center" valign="middle">Volume
+                                                                                </td>
                                                                                 <td style="width:25%;" colspan="2"
-                                                                                    align="center" valign="middle">Harga</td>
+                                                                                    align="center" valign="middle">Harga
+                                                                                </td>
                                                                             </tr>
-                                                                            <tr class="warna">
-                                                                                <td style="width:12%;" align="center"
-                                                                                    valign="middle">Satuan (RP)</td>
-                                                                                <td style="width:15%;" align="center"
-                                                                                    valign="middle">Jumlah (RP)</td>
+
+                                                                            <tr class="warna first4">
+                                                                                <td style="width:11%;" align="center"
+                                                                                    valign="middle">Satuan</td>
+                                                                                <td style="width:11%;" align="center"
+                                                                                    valign="middle">Jumlah</td>
                                                                             </tr>
-                                                                            <tr>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle">1</td>
-                                                                                <td class="first" align="left"
-                                                                                    valign="middle">2
-                                                                                    </td>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle">3</td>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle">4</td>
-                                                                                <td class="first" align="right"
-                                                                                    valign="middle">5</td>
-                                                                                <td class="first" align="right"
-                                                                                    valign="middle">6</td>
+                                                                            <tr class="warna first3">
+                                                                                <td align="center" valign="middle">(RP)
+                                                                                </td>
+                                                                                <td align="center" valign="middle">(RP)
+                                                                                </td>
                                                                             </tr>
-                                                                            <tr>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle">7</td>
-                                                                                <td class="first" align="left"
-                                                                                    valign="middle">8
-                                                                                    </td>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle">9</td>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle">10</td>
-                                                                                <td class="first" align="right"
-                                                                                    valign="middle">11</td>
-                                                                                <td class="first" align="right"
-                                                                                    valign="middle">12</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle"></td>
-                                                                                <td class="first" align="left"
-                                                                                    valign="middle">13
-                                                                                    </td>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle"></td>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle"></td>
-                                                                                <td class="first" align="right"
-                                                                                    valign="middle"></td>
-                                                                                <td class="first" align="right"
-                                                                                    valign="middle"></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle"></td>
-                                                                                <td class="first" align="left"
-                                                                                    valign="middle">
-                                                                                    </td>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle"></td>
-                                                                                <td class="first" align="center"
-                                                                                    valign="middle"></td>
-                                                                                <td class="first" align="right"
-                                                                                    valign="middle"></td>
-                                                                                <td class="first" align="right"
-                                                                                    valign="middle"></td>
-                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="tbody_jasa">
+                                                                        </tbody>
+                                                                        <tbody id="tbody_material">
+                                                                        </tbody>
+                                                                        <tfoot>
                                                                             <tr>
                                                                                 <td rowspan="3" colspan="3"></td>
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>Jumlah</b></td>
-                                                                                <td align="right"><b>9.999.999</b></td>
+                                                                                <td id="td_jumlah" style="font-weight: bold" align="right"></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>PPN 11%</b></td>
-                                                                                <td align="right"><b>100.000</b></td>
+                                                                                <td id="td_ppn" style="font-weight: bold" align="right"></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>TOTAL</b></td>
-                                                                                <td align="right"><b>99.999.999</b>
-                                                                                </td>
+                                                                                <td id="td_total" style="font-weight: bold" align="right"></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td class="first1"></td>
-                                                                                <td class="first2" rowspan="2" colspan="5"
+                                                                                <td class="first2" rowspan="2"
+                                                                                    colspan="5" id="terbilang"
                                                                                     style="font-weight: bold; font-style:italic;">
-                                                                                    Terbilang:
-                                                                                    sembilan rupiah
                                                                                 </td>
                                                                             </tr>
-                                                                            <tr>
-                                                                                <td class="first1"></td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row ml-2 justify-content-start">
-                                                            <h5 class="card-title">Step 3: Redaksi</h5>
-                                                            <div class="col-xl-12 col-xxl-12">
-                                                                <div class="wrapword" id="firstTable">
-                                                                    <table width="100%" border="2" cellspacing="0"
-                                                                        cellpadding="1">
-                                                                        <tr class="warna">
-                                                                            <td style="width:4%;" align="center"
-                                                                                valign="middle">No</td>
-                                                                            <td style="width:25%;" align="center"
-                                                                                valign="middle">Redaksi</td>
-                                                                            <td align="center" valign="middle">Deskripsi</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="first" align="center"
-                                                                                valign="middle" id="nomor_redaksi"></td>
-                                                                            <td class="first" align="left"
-                                                                                valign="middle" style="padding-left: 8" id="isi_redaksi"></td>
-                                                                            <td class="first" align="left"
-                                                                                valign="middle" style="padding-left: 8" id="isi_deskripsi"></td>
-                                                                        </tr>
+                                                                        </tfoot>
                                                                     </table>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <hr>
+                                                    <div class="row ml-2 justify-content-start">
+                                                        <h5 class="card-title">Step 3: Redaksi</h5>
+                                                        <div class="col-xl-12 col-xxl-12">
+                                                            <div class="wrapword" id="firstTable">
+                                                                <table width="100%" border="2" cellspacing="0"
+                                                                    cellpadding="1">
+                                                                    <thead  align="center"
+                                                                                valign="middle">
+                                                                        <tr class="warna">
+                                                                            <th style="width:4%;" align="center"
+                                                                                valign="middle">No</th>
+                                                                            <th style="width:25%;"  align="center"
+                                                                                valign="middle">Redaksi</th>
+                                                                            <th align="center" valign="middle">Deskripsi
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="tbody_redaksi">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Confirm Modal -->
-        <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmModalLabel">Order Placed</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> X </button>
-                    </div>
-                    <div class="modal-body">
-                        Congratulations! Your order is placed.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="closeModal()">Ok, close and
-                            reset</button>
-                    </div>
+    <!-- Confirm Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Order Placed</h5>
+                    <button type="button" class="btn-close" style="border: none; background-color: #fff;" data-bs-dismiss="modal" aria-label="Close"> &#10006; </button>
+                </div>
+                <div class="modal-body">
+                    Congratulations! Your order is placed.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="closeModal()">Ok, close and
+                        reset</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
-        <!-- Bootrap for the demo page -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-        </script>
+    <!-- Bootrap for the demo page -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
 
-        <!-- Include jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-        <!-- jQuery Slim 3.6  -->
-        <!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-            integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
+    <!-- jQuery Slim 3.6  -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
 
-        <!-- Include SmartWizard JavaScript source -->
-        <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/jquery.smartWizard.min.js"></script>
-        <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/wizard.js"></script>
+    <!-- Include SmartWizard JavaScript source -->
+    <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/jquery.smartWizard.min.js"></script>
+    <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/wizard.js"></script>
 
-        <script type="text/javascript">
-            const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+    <script type="text/javascript">
+        const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
 
-            function onCancel() {
-                // Reset wizard
-                $('#smartwizard').smartWizard("reset");
+        function onCancel() {
+            // Reset wizard
+            $('#smartwizard').smartWizard("reset");
 
-                // Reset form
-                document.getElementById("form-1").reset();
-                document.getElementById("form-2").reset();
-                document.getElementById("form-3").reset();
-                document.getElementById("form-4").reset();
-            }
+            // Reset form
+            document.getElementById("form-1").reset();
+            document.getElementById("form-2").reset();
+            document.getElementById("form-3").reset();
+            document.getElementById("form-4").reset();
+        }
 
-            function onConfirm() {
-                let form = document.getElementById('form-4');
-                if (form) {
-                    if (!form.checkValidity()) {
-                        form.classList.add('was-validated');
-                        $('#smartwizard').smartWizard("setState", [3], 'error');
-                        $("#smartwizard").smartWizard('fixHeight');
-                        return false;
-                    }
-
-                    $('#smartwizard').smartWizard("unsetState", [3], 'error');
-                    myModal.show();
+        function onConfirm() {
+            let form = document.getElementById('form-4');
+            if (form) {
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    $('#smartwizard').smartWizard("setState", [3], 'error');
+                    $("#smartwizard").smartWizard('fixHeight');
+                    return false;
                 }
+
+                $('#smartwizard').smartWizard("unsetState", [3], 'error');
+                myModal.show();
             }
+        }
 
-            function closeModal() {
-                // Reset wizard
-                $('#smartwizard').smartWizard("reset");
+        function closeModal() {
+            // Reset wizard
+            $('#smartwizard').smartWizard("reset");
 
-                // Reset form
-                document.getElementById("form-1").reset();
-                document.getElementById("form-2").reset();
-                document.getElementById("form-3").reset();
-                document.getElementById("form-4").reset();
+            // Reset form
+            document.getElementById("form-1").reset();
+            document.getElementById("form-2").reset();
+            document.getElementById("form-3").reset();
+            document.getElementById("form-4").reset();
 
-                myModal.hide();
-            }
+            myModal.hide();
+        }
 
-            function showConfirm() {
-                const name = $('#lokasi').val() + ' ' + $('#lokasi').val();
-                const products = $('#lokasi').val();
-                const shipping = $('#lokasi').val() + ' ' + $('#lokasi').val() + ' ' + $('#lokasi').val();
-                let html = `
+        function showConfirm() {
+            const name = $('#lokasi').val() + ' ' + $('#lokasi').val();
+            const products = $('#lokasi').val();
+            const shipping = $('#lokasi').val() + ' ' + $('#lokasi').val() + ' ' + $('#lokasi').val();
+            let html = `
                   <div class="row">
                     <div class="col">
                       <h4 class="mb-3-">Customer Details</h4>
@@ -804,187 +752,302 @@
                   </div>
 
                   `;
-                $("#order-details").html(html);
-                $('#smartwizard').smartWizard("fixHeight");
-            }
+            $("#order-details").html(html);
+            $('#smartwizard').smartWizard("fixHeight");
+        }
 
-            $(function() {
-                // Leave step event is used for validating the forms
-                $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIdx, nextStepIdx,
-                    stepDirection) {
-                    // Validate only on forward movement
-                    $('#start_date').removeAttr('readonly');
-                    $('#end_date').removeAttr('readonly');
+        $(function() {
+            // Leave step event is used for validating the forms
+            $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIdx, nextStepIdx,
+                stepDirection) {
+                // Validate only on forward movement
+                $('#start_date').removeAttr('readonly');
+                $('#end_date').removeAttr('readonly');
 
-                    if (stepDirection == 'forward') {
-                        let form = document.getElementById('form-' + (currentStepIdx + 1));
-                        if (form) {
-                            if (!form.checkValidity()) {
-                                form.classList.add('was-validated');
-                                $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
-                                $("#smartwizard").smartWizard('fixHeight');
-                                return false;
-                            }
-                            $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
+                if (stepDirection == 'forward') {
+                    let form = document.getElementById('form-' + (currentStepIdx + 1));
+                    if (form) {
+                        if (!form.checkValidity()) {
+                            form.classList.add('was-validated');
+                            $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
+                            $("#smartwizard").smartWizard('fixHeight');
+                            return false;
+                        }
+                        $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
+                    }
+                }
+            });
+
+            // Step show event
+            $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection, stepPosition) {
+                $("#prev-btn").removeClass('disabled').prop('disabled', false);
+                $("#next-btn").removeClass('disabled').prop('disabled', false);
+                if (stepPosition === 'first') {
+                    $("#prev-btn").addClass('disabled').prop('disabled', true);
+                } else if (stepPosition === 'last') {
+                    var po = $("#po").val();
+                    var kontrak_induk = $("#kontrak_induk option:selected").text();
+                    var pekerjaan = $("#pekerjaan").val();
+                    var lokasi = $("#lokasi").val();
+                    var start_date = $("#start_date").val();
+                    var end_date = $("#end_date").val();
+                    var addendum = $("#addendum").val();
+                    var skk_id = $("#skk_id option:selected").text();
+                    var prk_id = $("#prk_id option:selected").text();
+                    var pejabat = $("#pejabat option:selected").text();
+                    var pengawas = $("#pengawas").val();
+
+                    $("#po_4").html(po);
+                    $("#kontrak_induk_4").html(kontrak_induk);
+                    $("#judul_pekerjaan_4").html(pekerjaan);
+                    $("#lokasi_4").html(lokasi);
+                    $("#start_date_4").html(start_date);
+                    $("#end_date_4").html(end_date);
+                    if (addendum == "") {
+                        $("#addendum_4").html("-");
+                    } else {
+                        $("#addendum_4").html(addendum);
+                    }
+                    $("#no_skk_4").html(skk_id);
+                    $("#no_prk_4").html(prk_id);
+                    $("#direksi_pekerjaan_4").html(pejabat);
+                    $("#pengawas_pekerjaan_4").html(pengawas);
+
+                    baris = [];
+                    baris_jasa = [];
+                    baris_material = [];
+                    
+                    var html_material = [""];
+
+                    for (var i = 0; i < click; i++) {
+                        baris[i] = [
+                            document.getElementById("item_id[" + (i + 1) + "]").options[document
+                                .getElementById("item_id[" + (i + 1) + "]").selectedIndex].text,
+                            document.getElementById("kategory_id[" + (i + 1) + "]").value,
+                            document.getElementById("satuan[" + (i + 1) + "]").value,
+                            document.getElementById("volume[" + (i + 1) + "]").value,
+                            document.getElementById("harga_satuan[" + (i + 1) + "]").value,
+                            document.getElementById("harga[" + (i + 1) + "]").value
+                        ]
+
+                        if (baris[i][1] == "Jasa") {
+                            baris_jasa[i] = [baris[i]];
+                        } else {
+                            baris_material[i] = [baris[i]];
                         }
                     }
-                });
 
-                // Step show event
-                $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection, stepPosition) {
+                    const result_jasa = baris_jasa.filter(element => {
+                        return element !== null;
+                    });
+                    const result_material = baris_material.filter(element => {
+                        return element !== null;
+                    });
+
+                    if (result_jasa.length > 0) {
+                        var html_jasa = [""]
+                        var tbody = document.getElementById("tbody_jasa")
+                        var panjang = result_jasa.length
+                        for(var j = 0; j < panjang; j++) {
+                            html_jasa += ("<tr> <td class='first' align='center' valign='middle'>"+ (j + 1) + "</td> <td class='first' align='left' valign='middle'>" + result_jasa[j][0][0] + "</td> <td class='first' align='center' valign='middle'>" + result_jasa[j][0][2] + "</td> <td class='first' align='center' valign='middle'>" + result_jasa[j][0][3] + "</td> <td class='first' align='right' valign='middle'>" + result_jasa[j][0][4] + "</td> <td class='first' align='right' valign='middle'>" + result_jasa[j][0][5] + "</td> </tr>")
+                        }
+                        document.getElementById("tbody_jasa").innerHTML = "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first' align='left' valign='middle' style='font-weight: bold'>JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" + html_jasa;
+                    }
+
+                    if (result_material.length > 0) {
+                        var html_material = [""]
+                        var tbody = document.getElementById("tbody_material")
+                        var panjang = result_material.length
+                        for(var j = 0; j < panjang; j++) {
+                            html_material += ("<tr> <td class='first' align='center' valign='middle'>"+ (j + 1) + "</td> <td class='first' align='left' valign='middle'>" + result_material[j][0][0] + "</td> <td class='first' align='center' valign='middle'>" + result_material[j][0][2] + "</td> <td class='first' align='center' valign='middle'>" + result_material[j][0][3] + "</td> <td class='first' align='right' valign='middle'>" + result_material[j][0][4] + "</td> <td class='first' align='right' valign='middle'>" + result_material[j][0][5] + "</td> </tr>")
+                        }
+                        document.getElementById("tbody_material").innerHTML = "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first' align='left' valign='middle' style='font-weight: bold'>MATERIAL:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" + html_material;
+                    }
+
+                    document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah").innerHTML;
+                    document.getElementById("td_ppn").innerHTML = document.getElementById("pajak").innerHTML;
+                    document.getElementById("td_total").innerHTML = document.getElementById("total").innerHTML;
+
+                    function terbilang(angka){
+                        var bilne=["","Satu","Dua","Tiga","Empat","Lima","Enam","Tujuh","Delapan","Sembilan","Sepuluh","Sebelas"];
+
+                        if(angka < 12){
+                            return bilne[angka];
+                        }else if(angka < 20){
+                            return terbilang(angka-10)+" Belas";
+                        }else if(angka < 100){
+                            return terbilang(Math.floor(parseInt(angka)/10))+" Puluh "+terbilang(parseInt(angka)%10);
+                        }else if(angka < 200){
+                            return "Seratus "+terbilang(parseInt(angka)-100);
+                        }else if(angka < 1000){
+                            return terbilang(Math.floor(parseInt(angka)/100))+" Ratus "+terbilang(parseInt(angka)%100);
+                        }else if(angka < 2000){
+                            return "Seribu "+terbilang(parseInt(angka)-1000);
+                        }else if(angka < 1000000){
+                            return terbilang(Math.floor(parseInt(angka)/1000))+" Ribu "+terbilang(parseInt(angka)%1000);
+                        }else if(angka < 1000000000){
+                            return terbilang(Math.floor(parseInt(angka)/1000000))+" Juta "+terbilang(parseInt(angka)%1000000);
+                        }else if(angka < 1000000000000){
+                            return terbilang(Math.floor(parseInt(angka)/1000000000))+" Milyar "+terbilang(parseInt(angka)%1000000000);
+                        }else if(angka < 1000000000000000){
+                            return terbilang(Math.floor(parseInt(angka)/1000000000000))+" Trilyun "+terbilang(parseInt(angka)%1000000000000);
+                        }
+                    }
+
+                    var terbilang1 = document.getElementById("total").innerHTML;
+                    terbilang1 = terbilang1.replace(/\Rp. /g, "");
+                    terbilang1 = terbilang1.replace(/\./g, "");
+                    terbilang1 = parseInt(terbilang1);
+                    document.getElementById("terbilang").innerHTML = "Terbilang: " + terbilang(terbilang1) + " Rupiah";
+
+                    redaksi_line = [];
+
+                    for (var i = 0; i<clickredaksi; i++){
+
+                        redaksi_line[i]= [
+                            document.getElementById("redaksi_id["+ (i+1)+"]").options[document.getElementById("redaksi_id["+(i+1)+"]").selectedIndex].text,
+                            document.getElementById("deskripsi_id["+(i+1)+"]").value
+                        ]
+
+                    }
+
+                    // const result_redaksi = redaksi_line.filter(element => {
+                    //     return element !== null;
+                    // });
+
+                    if(redaksi_line.length > 0){
+                        var html_redaksi = [""];
+                        var isi_redaksi = redaksi_line.length;
+                        for (var j = 0; j<isi_redaksi; j++){
+                            html_redaksi +=("<tr> <td class='first' align='center' valign='middle'>"+ (j + 1) +"</td> <td class='first' align='left' valign='middle'>" + redaksi_line[j][0] + "</td> <td class='first' align='left' valign='middle'>" + redaksi_line[j][1] + "</td> </tr>")
+                        }
+                        document.getElementById("tbody_redaksi").innerHTML = html_redaksi;
+                    }
+                    
+
+
+
+                    
+                   
+                    
+
+                    
+
+
+
+
+
+
+                    // console.log(baris[0][1]);
+                    // document.querySelectorAll("#daftar_rabs tr td:nth-child(1)").innerHTML = "Haloo"
+                    //     console.log(document.querySelectorAll("#daftar_rabs tr td:nth-child(1)"));
+                    // console.log("Ini material");
+
+
+
+
+
+
+
+
+                    $("#next-btn").addClass('disabled').prop('disabled', true);
+                    // alert(click);
+                } else {
                     $("#prev-btn").removeClass('disabled').prop('disabled', false);
                     $("#next-btn").removeClass('disabled').prop('disabled', false);
-                    if (stepPosition === 'first') {
-                        $("#prev-btn").addClass('disabled').prop('disabled', true);
-                    } else if (stepPosition === 'last') {
-                        var po = $("#po").val();
-                        var kontrak_induk = $("#kontrak_induk option:selected").text();
-                        var pekerjaan = $("#pekerjaan").val();
-                        var lokasi = $("#lokasi").val();
-                        var start_date = $("#start_date").val();
-                        var end_date = $("#end_date").val();
-                        var addendum = $("#addendum").val();
-                        var skk_id = $("#skk_id option:selected").text();
-                        var prk_id = $("#prk_id option:selected").text();
-                        var pejabat = $("#pejabat option:selected").text();
-                        var pengawas = $("#pengawas").val();
+                }
 
-                        $("#po_4").html(po);
-                        $("#kontrak_induk_4").html(kontrak_induk);
-                        $("#judul_pekerjaan_4").html(pekerjaan);
-                        $("#lokasi_4").html(lokasi);
-                        $("#start_date_4").html(start_date);
-                        $("#end_date_4").html(end_date);
-                        if (addendum == "") {
-                            $("#addendum_4").html("-");
-                        } else {
-                            $("#addendum_4").html(addendum);
-                        }
-                        $("#no_skk_4").html(skk_id);
-                        $("#no_prk_4").html(prk_id);
-                        $("#direksi_pekerjaan_4").html(pejabat);
-                        $("#pengawas_pekerjaan_4").html(pengawas);
+                // Get step info from Smart Wizard
+                let stepInfo = $('#smartwizard').smartWizard("getStepInfo");
+                $("#sw-current-step").text(stepInfo.currentStep + 1);
+                $("#sw-total-step").text(stepInfo.totalSteps);
 
-                        baris = [];
+                if (stepPosition == 'last') {
+                    showConfirm();
+                    $("#btnFinish").prop('disabled', false);
+                } else {
+                    $("#btnFinish").prop('disabled', true);
+                }
 
-                        for (var i = 0; i < click; i++) {
-                            baris[i] = [
-                               document.getElementById("item_id[" + (i + 1) + "]").options[document.getElementById("item_id[" + (i + 1) + "]").selectedIndex].text,
-                               document.getElementById("kategory_id[" + (i + 1) + "]").value,
-                               document.getElementById("satuan[" + (i + 1) + "]").value,
-                               document.getElementById("volume[" + (i + 1) + "]").value,
-                               document.getElementById("harga_satuan[" + (i + 1) + "]").value,
-                               document.getElementById("harga[" + (i + 1) + "]").value
-                            ]
-                            // console.log(baris[0][1]);
-                        }
-                        document.querySelectorAll("#daftar_rabs tr td:nth-child(1)").innerHTML = "Haloo"
-                            console.log(document.querySelectorAll("#daftar_rabs tr td:nth-child(1)"));
-                            // console.log("Ini Jasa");
+                // Focus first name
+                if (stepIndex == 1) {
+                    setTimeout(() => {
+                        $('#first-name').focus();
+                    }, 0);
+                }
+            });
 
-
-                         
-                
-                        
-
-                        $("#next-btn").addClass('disabled').prop('disabled', true);
-                        // alert(click);
-                    } else {
-                        $("#prev-btn").removeClass('disabled').prop('disabled', false);
-                        $("#next-btn").removeClass('disabled').prop('disabled', false);
-                    }
-
-                    // Get step info from Smart Wizard
-                    let stepInfo = $('#smartwizard').smartWizard("getStepInfo");
-                    $("#sw-current-step").text(stepInfo.currentStep + 1);
-                    $("#sw-total-step").text(stepInfo.totalSteps);
-
-                    if (stepPosition == 'last') {
-                        showConfirm();
-                        $("#btnFinish").prop('disabled', false);
-                    } else {
-                        $("#btnFinish").prop('disabled', true);
-                    }
-
-                    // Focus first name
-                    if (stepIndex == 1) {
-                        setTimeout(() => {
-                            $('#first-name').focus();
-                        }, 0);
-                    }
-                });
-
-                // Smart Wizard
-                $('#smartwizard').smartWizard({
-                    selected: 0,
-                    // autoAdjustHeight: false,
-                    theme: 'arrows', // basic, arrows, square, round, dots
-                    transition: {
-                        animation: 'none'
-                    },
-                    toolbar: {
-                        showNextButton: true, // show/hide a Next button
-                        showPreviousButton: true, // show/hide a Previous button
-                        position: 'bottom', // none/ top/ both bottom
-                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onConfirm()">Complete Order</button>
+            // Smart Wizard
+            $('#smartwizard').smartWizard({
+                selected: 0,
+                // autoAdjustHeight: false,
+                theme: 'arrows', // basic, arrows, square, round, dots
+                transition: {
+                    animation: 'none'
+                },
+                toolbar: {
+                    showNextButton: true, // show/hide a Next button
+                    showPreviousButton: true, // show/hide a Previous button
+                    position: 'bottom', // none/ top/ both bottom
+                    extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Complete Order</button>
                               <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
-                    },
-                    anchor: {
-                        enableNavigation: true, // Enable/Disable anchor navigation
-                        enableNavigationAlways: false, // Activates all anchors clickable always
-                        enableDoneState: true, // Add done state on visited steps
-                        markPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
-                        unDoneOnBackNavigation: true, // While navigate back, done state will be cleared
-                        enableDoneStateNavigation: true // Enable/Disable the done state navigation
-                    },
-                });
-
-                $("#state_selector").on("change", function() {
-                    $('#smartwizard').smartWizard("setState", [$('#step_to_style').val()], $(this).val(), !$(
-                        '#is_reset').prop("checked"));
-                    return true;
-                });
-
-                $("#style_selector").on("change", function() {
-                    $('#smartwizard').smartWizard("setStyle", [$('#step_to_style').val()], $(this).val(), !$(
-                        '#is_reset').prop("checked"));
-                    return true;
-                });
-
+                },
+                anchor: {
+                    enableNavigation: true, // Enable/Disable anchor navigation
+                    enableNavigationAlways: false, // Activates all anchors clickable always
+                    enableDoneState: true, // Add done state on visited steps
+                    markPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
+                    unDoneOnBackNavigation: true, // While navigate back, done state will be cleared
+                    enableDoneStateNavigation: true // Enable/Disable the done state navigation
+                },
             });
-        </script>
-        <script>
-            jQuery(document).ready(function() {
-                jQuery('#skk_id').change(function() {
-                    let skk_id = jQuery(this).val();
-                    jQuery.ajax({
-                        url: '/getSKK',
-                        type: 'POST',
-                        data: 'skk_id=' + skk_id + '&_token={{ csrf_token() }}',
-                        success: function(result) {
-                            jQuery('#prk_id').html(result)
-                        }
-                    });
-                })
 
-                jQuery('#kontrak_induk').change(function() {
-                    let kontrak_induk = jQuery(this).val();
-                    jQuery('#addendum').val('');
-                    jQuery.ajax({
-                        url: '/getAddendum',
-                        type: 'POST',
-                        data: 'kontrak_induk=' + kontrak_induk + '&_token={{ csrf_token() }}',
-                        success: function(result) {
-                            if (result.length > 0) {
-                                jQuery('#addendum').val(result[0].nomor_addendum)
-                            }
-                        }
-                    });
-                })
-
+            $("#state_selector").on("change", function() {
+                $('#smartwizard').smartWizard("setState", [$('#step_to_style').val()], $(this).val(), !$(
+                    '#is_reset').prop("checked"));
+                return true;
             });
-        </script>
-        <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step3_redaksi.js"></script>
+
+            $("#style_selector").on("change", function() {
+                $('#smartwizard').smartWizard("setStyle", [$('#step_to_style').val()], $(this).val(), !$(
+                    '#is_reset').prop("checked"));
+                return true;
+            });
+
+        });
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery('#skk_id').change(function() {
+                let skk_id = jQuery(this).val();
+                jQuery.ajax({
+                    url: '/getSKK',
+                    type: 'POST',
+                    data: 'skk_id=' + skk_id + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        jQuery('#prk_id').html(result)
+                    }
+                });
+            })
+
+            jQuery('#kontrak_induk').change(function() {
+                let kontrak_induk = jQuery(this).val();
+                jQuery('#addendum').val('');
+                jQuery.ajax({
+                    url: '/getAddendum',
+                    type: 'POST',
+                    data: 'kontrak_induk=' + kontrak_induk + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        if (result.length > 0) {
+                            jQuery('#addendum').val(result[0].nomor_addendum)
+                        }
+                    }
+                });
+            })
+
+        });
+    </script>
+    <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step3_redaksi.js"></script>
 @endsection
 
 <script>
@@ -1689,8 +1752,8 @@
     }
 </script>
 
-{{-- <script type="text/javascript">
+<script type="text/javascript">
     window.onload = function() {
         window.location.href = "http://127.0.0.1:8000/po-khs/buat-po#informasi_umum"
     }
-</script> --}}
+</script>

@@ -322,7 +322,7 @@
             @foreach ($po_khs as $pokhs)
             <tr>
                 <td colspan="2" align="center" valign="middle"><b>TOTAL</b></td>
-                <td align="right"><b></b>@currency2($pokhs->total_harga)</td>
+                <td align="right"><b>@currency2($pokhs->total_harga)</b></td>
             </tr>                
             <tr>
                 <td class="first1"></td>

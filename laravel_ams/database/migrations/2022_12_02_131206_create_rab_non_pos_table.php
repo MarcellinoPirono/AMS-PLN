@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('rab_non_pos', function (Blueprint $table) {
             $table->id();
             $table->foreignId("non_po_id");
+            $table->string("uraian");
             $table->string("satuan");
             $table->double("volume");
             $table->double("harga_satuan");            
