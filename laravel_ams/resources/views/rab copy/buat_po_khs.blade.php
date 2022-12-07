@@ -38,7 +38,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link " href="#isi_kontrak">
                                         <span class="num">4</span>
-                                        Review PO-KHS
+                                        Review Hasil Isi Kontrak
                                     </a>
                                 </li>
 
@@ -1782,7 +1782,7 @@
                                     buttons: false
                                 });
 
-                                // console.log(response);
+                                console.log(response);
 
                                 window.location.href = '../preview-pdf-khs/'+ response;
                                 // .then((response) => {

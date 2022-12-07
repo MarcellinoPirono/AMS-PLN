@@ -21,6 +21,8 @@ use App\Models\Satuan;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use DateInterval;
+use DatePeriod;
 use Illuminate\Support\Carbon;
 use PhpParser\Node\Expr\Cast\Double;
 use Riskihajar\Terbilang\Facades\Terbilang;
@@ -366,10 +368,27 @@ class RabController extends Controller
         
         $startdate = Rab::where('id', $id)->value('startdate');
         $enddate = Rab::where('id', $id)->value('enddate');
-        $datetime1 = new DateTime($startdate);
+        $datetime1 = new DateTime($startdate); 
         $datetime2 = new DateTime($enddate);
-        $interval = $datetime1->diff($datetime2);
-        $days = $interval->format('%a');
+        $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
+        $d = 0;
+        $days = 0;
+        $datetime2 = 1;
+
+        foreach($interval as $date) {
+            $interval = $date->format("Y-m-d");
+            $datetime = DateTime::createFromFormat('Y-m-d', $interval);
+
+            $day = $datetime->format('D');
+
+            if($day != "Sun" && $day != "Sat") {
+                $days += $datetime2 - $d;
+            }
+
+            $datetime2++;
+            $d++;
+        }
+        // $days = $interval->format('%a');
 
         $rab_id = Rab::where('id', $id)->value('id');
         $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
@@ -385,12 +404,6 @@ class RabController extends Controller
                 $material[$i] = $values_pdf_page2[$i];
             }
         }
-
-        // $kategori_material = OrderKhs::where('rab_id', $rab_id)->orwhere('kategori_order', $material)->get();
-        // $kategori_jasa = OrderKhs::where('rab_id', $rab_id)->where('kategori_order', $jasa)->get();
-
-        // dd(count($material));
-
 
         $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
@@ -439,8 +452,7 @@ class RabController extends Controller
         $skk_terkontrak = Skk::where('id', $request->skk_id)->value('skk_terkontrak');
         $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
         Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
-
-
+        // $id = compact('id');
         return response()->json($id);
     }
 
@@ -461,9 +473,31 @@ class RabController extends Controller
      * @param  \App\Models\Rab  $rab
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rab $rab)
+    public function edit_po_khs(Rab $rab, Request $request)
     {
-        //
+        $id = $request->id;
+
+        return view(
+            'rab.edit_po_khs',
+            [
+                'active1' => 'Edit PO-KHS',
+                'title' => 'Kontrak Harga Satuan (KHS)',
+                'title1' => 'PO-KHS',
+                'active' => 'PO-KHS',
+                'skks' => Skk::all(),
+                'prks' => Prk::all(),
+                'categories' => ItemRincianInduk::all(),
+                'items' => RincianInduk::all(),
+                'kontraks' => KontrakInduk::all(),
+                'pejabats' => Pejabat::all(),
+                'khs' => Khs::all(),
+                'redaksis' => Redaksi::all(),
+                'id' => $id
+            ],
+            compact('id')
+            
+
+        );
     }
 
     /**
@@ -545,6 +579,7 @@ class RabController extends Controller
 
     public function preview_pdf_khs($id)
     {
+
         $document = Rab::find($id);
 
         $filePath = $document->pdf_file;
@@ -580,9 +615,9 @@ class RabController extends Controller
         return view('layouts.preview', [
             'Content-Type'        => $type,
             'Content-Disposition' => 'inline; filename="' . $fileName . '.pdf"',
-            'document' => $document,
+            'id' => $id,
             'filePath' => $filePath,
-            'title' => $fileName,
+            'title' =>'Preview PO-KHS '.$fileName,
             'filename' => $fileName,
             'pdf' => $pdf,
             'active' => $fileName

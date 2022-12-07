@@ -39,10 +39,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [MainController::class, 'index']);
-Route::get('/login', [LoginController::class, 'login']);
+Route::get('/dashboard', [MainController::class, 'index']); 
+Route::get('/login', [LoginController::class, 'login']); 
 
-Route::resource('categories', ItemRincianIndukController::class);
+Route::resource('categories', ItemRincianIndukController::class); 
 Route::get('/search-categories', [ItemRincianIndukController::class, 'searchcategories']);
 
 
@@ -95,6 +95,8 @@ Route::get('deleteitem/{id}', [RincianIndukController::class, 'destroy']);
 
 //PO KHS
 Route::get('po-khs/buat-po', [RabController::class, 'buat_po_khs']);
+Route::get('po-khs/edit-po/{id}', [RabController::class, 'edit_po_khs']);
+Route::put('po-khs/edit-po/{id}', [RabController::class, 'update_po_khs']);
 Route::post('simpan-po-khs', [RabController::class, 'simpan_po_khs']);
 Route::resource('po-khs', RabController::class);
 Route::get('export-pdf-khs/{id}', [RabController::class, 'export_pdf_khs']);

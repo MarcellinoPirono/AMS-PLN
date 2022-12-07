@@ -24,6 +24,7 @@ font-family:verdana, Helvetica;
 #pdfViewer {
     border: 1px solid black;
     direction: ltr;
+    width: 100%;
 }
 
 select.error{

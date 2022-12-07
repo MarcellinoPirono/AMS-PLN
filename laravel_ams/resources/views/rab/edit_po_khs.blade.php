@@ -12,19 +12,19 @@
             <div class="card">
                 <div class="card-dua">
                     <div class="card-header">
-                        <h4 class="card-title">Form step {{ $active }}</h4>
+                        <h4 class="card-title">Edit Form step {{ $active }}</h4>
                     </div>
                     <div class="m-auto" style="width:97%;">
                         <div id="smartwizard" dir="rtl-" class="mt-4">
                             <ul class="nav nav-progress">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#informasi_umum">
+                                    <a class="nav-link default done non-active" href="#daftar_rab">
                                         <div class="num">1</div>
                                         Informasi Umum
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#daftar_rab">
+                                    <a class="nav-link default active" href="#daftar_rab">
                                         <span class="num">2</span>
                                         Daftar RAB
                                     </a>
@@ -45,213 +45,6 @@
                             </ul>
 
                             <div class="tab-content mt-3 tab-flex">
-                                <div id="informasi_umum" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-                                    <form id="form-1" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
-                                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
-                                        <div class="row m-auto">
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label for="first-name" class="form-label">No. Purchase
-                                                        Order(PO)</label>
-                                                    <input type="text" class="form-control" id="po" name="po"
-                                                        value="{{ old('po') }}" placeholder="No. PO" required autofocus>
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan Isi No. PO
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label for="first-name" class="form-label">Pilih No. Kontrak
-                                                        Induk</label>
-                                                    <select class="form-control input-default" id="kontrak_induk"
-                                                        name="kontrak_induk" required onchange="ganti_item()">
-                                                        <option selected disabled value="">Pilih No. Kontrak Induk
-                                                        </option>
-                                                        @foreach ($kontraks as $kontrak)
-                                                            <option value="{{ $kontrak->id }}">
-                                                                {{ $kontrak->khs->jenis_khs }} -
-                                                                {{ $kontrak->nomor_kontrak_induk }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div class="valid-feedback">
-                                                        Data Terpilih
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan Pilih No. Kontrak Induk
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Judul Pekerjaan</label>
-                                                    <textarea type="text" class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan" id="pekerjaan"
-                                                        placeholder="Pekerjaan" required>{{ old('pekerjaan') }}</textarea>
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan isi Judul Pekerjaan
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Input Lokasi</label>
-                                                    <textarea type="text" class="form-control" placeholder="Lokasi" name="lokasi" id="lokasi" required autofocus>{{ old('lokasi') }}</textarea>
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan isi Lokasi
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Start Date</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i
-                                                                    class="bi bi-calendar2-minus"></i>
-                                                            </span>
-                                                        </div>
-                                                        <input type="text" name="start_date" id="start_date"
-                                                            class="form-control datepicker-default2"required
-                                                            placeholder="Start Date PO-KHS"
-                                                            style="border-radius: 0 20px 20px 0">
-                                                        <div class="valid-feedback">
-                                                            Data Terisi
-                                                        </div>
-                                                        <div class="invalid-feedback">
-                                                            Silakan Atur Jadwal Start Date
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">End Date</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i
-                                                                    class="bi bi-calendar2-minus"></i>
-                                                            </span>
-                                                        </div>
-                                                        <input type="text" name="end_date" id="end_date"
-                                                            class="form-control datepicker-default2"
-                                                            placeholder="End Date PO-KHS" readonly="false" required
-                                                            autofocus style="border-radius: 0 20px 20px 0">
-                                                        <div class="valid-feedback">
-                                                            Data Terisi
-                                                        </div>
-                                                        <div class="invalid-feedback">
-                                                            Silakan Atur Jadwal End Date
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">No. Addendum</label>
-                                                    <input type="text" class="form-control" name="addendum"
-                                                        id="addendum" placeholder="No. Addendum Belum Ada" required
-                                                        disabled>
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Pilih Direksi Pekerjaan</label>
-                                                    <select class="form-control input-default" id="pejabat"
-                                                        name="pejabat" required>
-                                                        <option value="" selected disabled>Direksi Pekerjaan
-                                                        </option>
-                                                        @foreach ($pejabats as $pejabat)
-                                                            <option value="{{ $pejabat->id }}">
-                                                                {{ $pejabat->jabatan }} -
-                                                                {{ $pejabat->nama_pejabat }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div class="valid-feedback">
-                                                        Data Terpilih
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan Pilih Direksi
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Input No.SKK</label>
-                                                    <select class="form-control input-default" id="skk_id"
-                                                        name="skk_id" required>
-                                                        <option value="" selected disabled>Pilih No. SKK</option>
-                                                        @foreach ($skks as $skk)
-                                                            <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div class="valid-feedback">
-                                                        Data Terpilih
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan Pilih No. SKK
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Input Pengawas Pekerjaan</label>
-                                                    <input type="text"
-                                                        class="form-control @error('pengawas') is-invalid @enderror"
-                                                        name="pengawas" id="pengawas" placeholder="Pengawas Pekerjaan"
-                                                        required autofocus value="{{ old('pengawas') }}">
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan isi Pengawas Pekerjaan
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Input No. PRK</label>
-                                                    <select class="form-control input-default" id="prk_id"
-                                                        name="prk_id" required>
-                                                        <option value="" selected disabled>Pilih PRK</option>
-                                                    </select>
-                                                    <div class="valid-feedback">
-                                                        Data Terpilih
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan Pilih No. PRK
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
                                 <div id="daftar_rab" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <form id="form-2" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
                                         <div class="row">
@@ -688,7 +481,7 @@
             $('#smartwizard').smartWizard("reset");
 
             // Reset form
-            document.getElementById("form-1").reset();
+            // document.getElementById("form-1").reset();
             document.getElementById("form-2").reset();
             document.getElementById("form-3").reset();
             document.getElementById("form-4").reset();
@@ -714,7 +507,7 @@
             $('#smartwizard').smartWizard("reset");
 
             // Reset form
-            document.getElementById("form-1").reset();
+            // document.getElementById("form-1").reset();
             document.getElementById("form-2").reset();
             document.getElementById("form-3").reset();
             document.getElementById("form-4").reset();
@@ -1782,7 +1575,7 @@
                                     buttons: false
                                 });
 
-                                // console.log(response);
+                                console.log(response);
 
                                 window.location.href = '../preview-pdf-khs/'+ response;
                                 // .then((response) => {
@@ -1889,8 +1682,10 @@
     }
 </script>
 
-<script type="text/javascript">
-    window.onload = function() {
-        window.location.href = "http://127.0.0.1:8000/po-khs/buat-po#informasi_umum"
+{{-- <script type="text/javascript">
+    window.onload = function(id) {
+        var id =  id
+        console.log(id);
+        window.location.href = "http://127.0.0.1:8000/po-khs/edit-po/"+id+"/#daftar_rab"
     }
-</script>
+</script> --}}

@@ -2,7 +2,7 @@
 @section('content')
     <div class="page-titles">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/po-khs">{{ $active }}</a></li>
+            <li class="breadcrumb-item"><a href="/non-po">{{ $active }}</a></li>
             <li class="breadcrumb-item active"><a href="">{{ $active1 }}</a></li>
         </ol>
     </div>
@@ -340,7 +340,7 @@
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
                                                                         <embed id="pdfViewer2" width="100%" height="600px" >
                                                                     </object> -->
-                                                                    <embed src="{{ public_path('/') }}./storage/file-pdf-khs/20-20_A-20-A_B-S2O_22.pdf"  type="application/pdf" width="100%" height="600px" />
+
                                                                 </div>
 
                                                             </div>
@@ -588,7 +588,7 @@
 
                 // Smart Wizard
                 $('#smartwizard').smartWizard({
-                    selected: 1,
+                    selected: 0,
                     // autoAdjustHeight: false,
                     theme: 'arrows', // basic, arrows, square, round, dots
                     transition: {
@@ -1338,10 +1338,11 @@
                         "click": click,
                     }
                     console.log(fd);
+                    console.log(data);
 
                     $.ajax({                        
                         url: "/simpan-non-po",
-                        method: 'post',
+                        method: 'POST',
                         data: fd,
                         contentType: false,
                         processData: false,
@@ -1354,9 +1355,9 @@
                                     timer: 2e3,
                                     buttons: false
                                 })
-                                .then((result) => {
-                                    window.location.href = "/non-po";
-                                });
+                                window.location.href = "/non-po";
+                        //         .then((result) => {
+                        //         });
                         }
                     });
                 } else {

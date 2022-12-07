@@ -17,7 +17,8 @@ class NonPOController extends Controller
     { 
         return view('non-po.index', [
             'title' => 'Non-PO',
-            'title1' => 'Non-PO',  
+            'title1' => 'Non-PO',
+            'nonpos' => NonPO::all()  
             // 'redaksis'=>Redaksi::all(),          
         ]);       
     }
@@ -148,7 +149,7 @@ class NonPOController extends Controller
         Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
 
 
-        return redirect('/non-po')->with('status', 'Non-PO Berhasil Ditambah!');
+        return response()->json($id);
     }
 
 
