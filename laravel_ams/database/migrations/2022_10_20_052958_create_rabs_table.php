@@ -26,7 +26,7 @@ return new class extends Migration
             $table->date('startdate');
             $table->date('enddate');
             $table->foreignId('nomor_kontrak_induk');
-            $table->string('addendum_id')->nullable();
+            $table->foreignId('addendum_id')->nullable();
             $table->foreignId('pejabat_id');
             // $table->foreignId('vendor_id');
             $table->text('pengawas');

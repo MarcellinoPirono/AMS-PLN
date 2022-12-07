@@ -3,7 +3,7 @@
     <div class="page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/po-khs">{{ $active }}</a></li>
-            <li class="breadcrumb-item active"><a href="">{{ $active1 }}</a></li>
+            <li class="breadcrumb-item active"><a  href=""> {{ $active1 }}</a></li>
         </ol>
     </div>
 
@@ -234,9 +234,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
-
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Input No. PRK</label>
@@ -263,20 +260,25 @@
                                                     <div class="card-header justify-content-center">
                                                         <h4 class="card-title">Daftar RAB</h4>
                                                     </div>
+                                                    <div class="card-header justify-content-start">
+                                                        <h5 id="pagu_prk" class="card-title" style="font-size: 14px;"></h5>
+                                                    </div>
                                                     <div class="row ml-2">
                                                         <div class="table-responsive">
                                                             <table class="table table-responsive-sm height-100"
                                                                 id="tabelRAB">
                                                                 <thead>
-                                                                    <tr class="">
-                                                                        <th>No.</th>
-                                                                        <th>Pekerjaan</th>
-                                                                        <th>Kategori Pekerjaan</th>
-                                                                        <th>Satuan</th>
-                                                                        <th>Volume</th>
-                                                                        <th>Harga Satuan</th>
-                                                                        <th>Jumlah</th>
-                                                                        <th>Aksi</th>
+                                                                    <tr align="center" valign="middle" class="">
+                                                                        <th align="center" valign="middle">No.</th>
+                                                                        <th align="center" valign="middle">Pekerjaan</th>
+                                                                        <th align="center" valign="middle">Kategori
+                                                                            Pekerjaan</th>
+                                                                        <th align="center" valign="middle">Satuan</th>
+                                                                        <th align="center" valign="middle">Volume</th>
+                                                                        <th align="center" valign="middle">Harga Satuan
+                                                                        </th>
+                                                                        <th align="center" valign="middle">Jumlah</th>
+                                                                        <th align="center" valign="middle">Aksi</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-kategori">
@@ -397,7 +399,7 @@
                                                             <table class="table table-responsive-sm height-100"
                                                                 id="tabelRedaksi">
                                                                 <thead>
-                                                                    <tr class="">
+                                                                    <tr align="center" valign="middle" class="">
                                                                         <th>No.</th>
                                                                         <th>Redaksi</th>
                                                                         <th>Deskripsi</th>
@@ -406,7 +408,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-redaksi">
-                                                                    <tr>
+                                                                    <tr align="center" valign="middle">
                                                                         <td><strong id="nomor1"
                                                                                 value="1">1</strong></td>
                                                                         <td><select name="redaksi_id" id="redaksi_id[1]"
@@ -526,7 +528,8 @@
                                                             <div class="table-responsive">
                                                                 <div class="wrapword" id="firstTable">
                                                                     <table id="daftar_rabs" class="" width="100%"
-                                                                        border="2" cellspacing="0" cellpadding="0">
+                                                                        border="2" cellspacing="0" cellpadding="0"
+                                                                        style="font-size: 12px;">
                                                                         <thead>
                                                                             <tr class="warna">
                                                                                 <td style="width:4%;" rowspan="3"
@@ -566,17 +569,23 @@
                                                                                 <td rowspan="3" colspan="3"></td>
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>Jumlah</b></td>
-                                                                                <td id="td_jumlah" style="font-weight: bold" align="right"></td>
+                                                                                <td id="td_jumlah"
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>PPN 11%</b></td>
-                                                                                <td id="td_ppn" style="font-weight: bold" align="right"></td>
+                                                                                <td id="td_ppn"
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>TOTAL</b></td>
-                                                                                <td id="td_total" style="font-weight: bold" align="right"></td>
+                                                                                <td id="td_total"
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td class="first1"></td>
@@ -597,13 +606,12 @@
                                                         <div class="col-xl-12 col-xxl-12">
                                                             <div class="wrapword" id="firstTable">
                                                                 <table width="100%" border="2" cellspacing="0"
-                                                                    cellpadding="1">
-                                                                    <thead  align="center"
-                                                                                valign="middle">
+                                                                    cellpadding="1" style="font-size: 12px;">
+                                                                    <thead align="center" valign="middle">
                                                                         <tr class="warna">
                                                                             <th style="width:4%;" align="center"
                                                                                 valign="middle">No</th>
-                                                                            <th style="width:25%;"  align="center"
+                                                                            <th style="width:25%;" align="center"
                                                                                 valign="middle">Redaksi</th>
                                                                             <th align="center" valign="middle">Deskripsi
                                                                             </th>
@@ -638,7 +646,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="confirmModalLabel">Order Placed</h5>
-                    <button type="button" class="btn-close" style="border: none; background-color: #fff;" data-bs-dismiss="modal" aria-label="Close"> &#10006; </button>
+                    <button type="button" class="btn-close" style="border: none; background-color: #fff;"
+                        data-bs-dismiss="modal" aria-label="Close"> &#10006; </button>
                 </div>
                 <div class="modal-body">
                     Congratulations! Your order is placed.
@@ -816,7 +825,7 @@
                     baris = [];
                     baris_jasa = [];
                     baris_material = [];
-                    
+
                     var html_material = [""];
 
                     for (var i = 0; i < click; i++) {
@@ -848,110 +857,119 @@
                         var html_jasa = [""]
                         var tbody = document.getElementById("tbody_jasa")
                         var panjang = result_jasa.length
-                        for(var j = 0; j < panjang; j++) {
-                            html_jasa += ("<tr> <td class='first' align='center' valign='middle'>"+ (j + 1) + "</td> <td class='first' align='left' valign='middle'>" + result_jasa[j][0][0] + "</td> <td class='first' align='center' valign='middle'>" + result_jasa[j][0][2] + "</td> <td class='first' align='center' valign='middle'>" + result_jasa[j][0][3] + "</td> <td class='first' align='right' valign='middle'>" + result_jasa[j][0][4] + "</td> <td class='first' align='right' valign='middle'>" + result_jasa[j][0][5] + "</td> </tr>")
+                        for (var j = 0; j < panjang; j++) {
+                            html_jasa += ("<tr> <td class='first' align='center' valign='middle'>" + (j +
+                                1) + "</td> <td class='first' align='left' valign='middle'>" +
+                                result_jasa[j][0][0] +
+                                "</td> <td class='first' align='center' valign='middle'>" + result_jasa[
+                                    j][0][2].match(/\(([^)]+)\)/)[1] +
+                                "</td> <td class='first' align='center' valign='middle'>" + result_jasa[
+                                    j][0][3] +
+                                "</td> <td class='first' align='right' valign='middle'>" + result_jasa[
+                                    j][0][4] +
+                                "</td> <td class='first' align='right' valign='middle'>" + result_jasa[
+                                    j][0][5] + "</td> </tr>")
                         }
-                        document.getElementById("tbody_jasa").innerHTML = "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first' align='left' valign='middle' style='font-weight: bold'>JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" + html_jasa;
+                        document.getElementById("tbody_jasa").innerHTML =
+                            "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first' align='left' valign='middle' style='font-weight: bold'>JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
+                            html_jasa;
                     }
 
                     if (result_material.length > 0) {
                         var html_material = [""]
                         var tbody = document.getElementById("tbody_material")
                         var panjang = result_material.length
-                        for(var j = 0; j < panjang; j++) {
-                            html_material += ("<tr> <td class='first' align='center' valign='middle'>"+ (j + 1) + "</td> <td class='first' align='left' valign='middle'>" + result_material[j][0][0] + "</td> <td class='first' align='center' valign='middle'>" + result_material[j][0][2] + "</td> <td class='first' align='center' valign='middle'>" + result_material[j][0][3] + "</td> <td class='first' align='right' valign='middle'>" + result_material[j][0][4] + "</td> <td class='first' align='right' valign='middle'>" + result_material[j][0][5] + "</td> </tr>")
+                        for (var j = 0; j < panjang; j++) {
+                            html_material += ("<tr> <td class='first' align='center' valign='middle'>" + (
+                                    j + 1) + "</td> <td class='first' align='left' valign='middle'>" +
+                                result_material[j][0][0] +
+                                "</td> <td class='first' align='center' valign='middle'>" +
+                                result_material[j][0][2] +
+                                "</td> <td class='first' align='center' valign='middle'>" +
+                                result_material[j][0][3] +
+                                "</td> <td class='first' align='right' valign='middle'>" +
+                                result_material[j][0][4] +
+                                "</td> <td class='first' align='right' valign='middle'>" +
+                                result_material[j][0][5] + "</td> </tr>")
                         }
-                        document.getElementById("tbody_material").innerHTML = "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first' align='left' valign='middle' style='font-weight: bold'>MATERIAL:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" + html_material;
+                        document.getElementById("tbody_material").innerHTML =
+                            "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first' align='left' valign='middle' style='font-weight: bold'>MATERIAL:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
+                            html_material;
                     }
 
-                    document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah").innerHTML;
-                    document.getElementById("td_ppn").innerHTML = document.getElementById("pajak").innerHTML;
-                    document.getElementById("td_total").innerHTML = document.getElementById("total").innerHTML;
+                    document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah")
+                        .innerHTML;
+                    document.getElementById("td_ppn").innerHTML = document.getElementById("pajak")
+                    .innerHTML;
+                    document.getElementById("td_total").innerHTML = document.getElementById("total")
+                        .innerHTML;
 
-                    function terbilang(angka){
-                        var bilne=["","Satu","Dua","Tiga","Empat","Lima","Enam","Tujuh","Delapan","Sembilan","Sepuluh","Sebelas"];
+                    function terbilang(angka) {
+                        var bilne = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan",
+                            "Sembilan", "Sepuluh", "Sebelas"
+                        ];
 
-                        if(angka < 12){
+                        if (angka < 12) {
                             return bilne[angka];
-                        }else if(angka < 20){
-                            return terbilang(angka-10)+" Belas";
-                        }else if(angka < 100){
-                            return terbilang(Math.floor(parseInt(angka)/10))+" Puluh "+terbilang(parseInt(angka)%10);
-                        }else if(angka < 200){
-                            return "Seratus "+terbilang(parseInt(angka)-100);
-                        }else if(angka < 1000){
-                            return terbilang(Math.floor(parseInt(angka)/100))+" Ratus "+terbilang(parseInt(angka)%100);
-                        }else if(angka < 2000){
-                            return "Seribu "+terbilang(parseInt(angka)-1000);
-                        }else if(angka < 1000000){
-                            return terbilang(Math.floor(parseInt(angka)/1000))+" Ribu "+terbilang(parseInt(angka)%1000);
-                        }else if(angka < 1000000000){
-                            return terbilang(Math.floor(parseInt(angka)/1000000))+" Juta "+terbilang(parseInt(angka)%1000000);
-                        }else if(angka < 1000000000000){
-                            return terbilang(Math.floor(parseInt(angka)/1000000000))+" Milyar "+terbilang(parseInt(angka)%1000000000);
-                        }else if(angka < 1000000000000000){
-                            return terbilang(Math.floor(parseInt(angka)/1000000000000))+" Trilyun "+terbilang(parseInt(angka)%1000000000000);
+                        } else if (angka < 20) {
+                            return terbilang(angka - 10) + " Belas";
+                        } else if (angka < 100) {
+                            return terbilang(Math.floor(parseInt(angka) / 10)) + " Puluh " + terbilang(
+                                parseInt(angka) % 10);
+                        } else if (angka < 200) {
+                            return "Seratus " + terbilang(parseInt(angka) - 100);
+                        } else if (angka < 1000) {
+                            return terbilang(Math.floor(parseInt(angka) / 100)) + " Ratus " + terbilang(
+                                parseInt(angka) % 100);
+                        } else if (angka < 2000) {
+                            return "Seribu " + terbilang(parseInt(angka) - 1000);
+                        } else if (angka < 1000000) {
+                            return terbilang(Math.floor(parseInt(angka) / 1000)) + " Ribu " + terbilang(
+                                parseInt(angka) % 1000);
+                        } else if (angka < 1000000000) {
+                            return terbilang(Math.floor(parseInt(angka) / 1000000)) + " Juta " + terbilang(
+                                parseInt(angka) % 1000000);
+                        } else if (angka < 1000000000000) {
+                            return terbilang(Math.floor(parseInt(angka) / 1000000000)) + " Milyar " +
+                                terbilang(parseInt(angka) % 1000000000);
+                        } else if (angka < 1000000000000000) {
+                            return terbilang(Math.floor(parseInt(angka) / 1000000000000)) + " Trilyun " +
+                                terbilang(parseInt(angka) % 1000000000000);
                         }
                     }
 
-                    var terbilang1 = document.getElementById("total").innerHTML;
+                    var terbilang1 = document.getElementById("td_total").innerHTML;
                     terbilang1 = terbilang1.replace(/\Rp. /g, "");
                     terbilang1 = terbilang1.replace(/\./g, "");
                     terbilang1 = parseInt(terbilang1);
-                    document.getElementById("terbilang").innerHTML = "Terbilang: " + terbilang(terbilang1) + " Rupiah";
+                    document.getElementById("terbilang").innerHTML = "Terbilang: " + terbilang(terbilang1) +
+                        " Rupiah";
 
                     redaksi_line = [];
 
-                    for (var i = 0; i<clickredaksi; i++){
+                    for (var i = 0; i < clickredaksi; i++) {
 
-                        redaksi_line[i]= [
-                            document.getElementById("redaksi_id["+ (i+1)+"]").options[document.getElementById("redaksi_id["+(i+1)+"]").selectedIndex].text,
-                            document.getElementById("deskripsi_id["+(i+1)+"]").value
+                        redaksi_line[i] = [
+                            document.getElementById("redaksi_id[" + (i + 1) + "]").options[document
+                                .getElementById("redaksi_id[" + (i + 1) + "]").selectedIndex].text,
+                            document.getElementById("deskripsi_id[" + (i + 1) + "]").value
                         ]
 
                     }
 
-                    // const result_redaksi = redaksi_line.filter(element => {
-                    //     return element !== null;
-                    // });
-
-                    if(redaksi_line.length > 0){
+                    if (redaksi_line.length > 0) {
                         var html_redaksi = [""];
                         var isi_redaksi = redaksi_line.length;
-                        for (var j = 0; j<isi_redaksi; j++){
-                            html_redaksi +=("<tr> <td class='first' align='center' valign='middle'>"+ (j + 1) +"</td> <td class='first' align='left' valign='middle'>" + redaksi_line[j][0] + "</td> <td class='first' align='left' valign='middle'>" + redaksi_line[j][1] + "</td> </tr>")
+                        for (var j = 0; j < isi_redaksi; j++) {
+                            html_redaksi += ("<tr> <td class='first' align='center' valign='middle'>" + (j +
+                                    1) + "</td> <td class='first' align='left' valign='middle'>" +
+                                redaksi_line[j][0] +
+                                "</td> <td class='first' align='left' valign='middle'>" + redaksi_line[
+                                    j][1] + "</td> </tr>")
                         }
                         document.getElementById("tbody_redaksi").innerHTML = html_redaksi;
                     }
-                    
-
-
-
-                    
-                   
-                    
-
-                    
-
-
-
-
-
-
-                    // console.log(baris[0][1]);
-                    // document.querySelectorAll("#daftar_rabs tr td:nth-child(1)").innerHTML = "Haloo"
-                    //     console.log(document.querySelectorAll("#daftar_rabs tr td:nth-child(1)"));
-                    // console.log("Ini material");
-
-
-
-
-
-
-
-
                     $("#next-btn").addClass('disabled').prop('disabled', true);
-                    // alert(click);
                 } else {
                     $("#prev-btn").removeClass('disabled').prop('disabled', false);
                     $("#next-btn").removeClass('disabled').prop('disabled', false);
@@ -1026,6 +1044,31 @@
                     data: 'skk_id=' + skk_id + '&_token={{ csrf_token() }}',
                     success: function(result) {
                         jQuery('#prk_id').html(result)
+                    }
+                });
+            })
+
+            jQuery('#prk_id').change(function() {
+                let prk_id = jQuery(this).val();
+                jQuery.ajax({
+                    url: '/getPRK',
+                    type: 'POST',
+                    data: 'prk_id=' + prk_id + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        var pemisah_titik = result;
+                        pemisah_titik = pemisah_titik.toString();
+                        pemisah_titik2 = "";
+                        panjang = pemisah_titik.length;
+                        j = 0;
+                        for (i = panjang; i > 0; i--) {
+                            j = j + 1;
+                            if (((j % 3) == 1) && (j != 1)) {
+                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." + pemisah_titik2;
+                            } else {
+                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + pemisah_titik2;
+                            }
+                        }
+                        jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" + pemisah_titik2 + "</b>")
                     }
                 });
             })
@@ -1210,52 +1253,107 @@
                 total_harga[i] = parseInt(total_harga[i])
             }
 
+            var pagu_prk = document.getElementById("rupiah").innerHTML;
+            pagu_prk = pagu_prk.replace(/\./g, "");
+            pagu_prk = parseInt(pagu_prk);
             var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-            total_harga_all = total_harga_all.toString();
-            total_harga_all_2 = "";
-            panjang_2 = total_harga_all.length;
-            k = 0;
-            for (i = panjang_2; i > 0; i--) {
-                k = k + 1;
-                if (((k % 3) == 1) && (k != 1)) {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                } else {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+
+            if(pagu_prk >= total_harga_all) {
+                total_harga_all = total_harga_all.toString();
+                total_harga_all_2 = "";
+                panjang_2 = total_harga_all.length;
+                k = 0;
+                for (i = panjang_2; i > 0; i--) {
+                    k = k + 1;
+                    if (((k % 3) == 1) && (k != 1)) {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                    } else {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                    }
                 }
-            }
-            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-            total_harga_all = parseInt(total_harga_all);
-            var ppn = total_harga_all * 11 / 100;
-            ppn = Math.round(ppn);
-            ppn = ppn.toString();
-            ppn_2 = ""
-            panjang_3 = ppn.length;
-            l = 0;
-            for (i = panjang_3; i > 0; i--) {
-                l = l + 1;
-                if (((l % 3) == 1) && (l != 1)) {
-                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                } else {
-                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+                total_harga_all = parseInt(total_harga_all);
+                var ppn = total_harga_all * 11 / 100;
+                ppn = Math.round(ppn);
+                ppn = ppn.toString();
+                ppn_2 = ""
+                panjang_3 = ppn.length;
+                l = 0;
+                for (i = panjang_3; i > 0; i--) {
+                    l = l + 1;
+                    if (((l % 3) == 1) && (l != 1)) {
+                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                    } else {
+                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                    }
                 }
-            }
-            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-            ppn = parseInt(ppn);
-            var total = total_harga_all + ppn;
-            total = Math.round(total);
-            total = total.toString();
-            total_2 = "";
-            panjang_4 = total.length;
-            m = 0;
-            for (i = panjang_4; i > 0; i--) {
-                m = m + 1;
-                if (((m % 3) == 1) && (m != 1)) {
-                    total_2 = total.substr(i - 1, 1) + "." + total_2;
-                } else {
-                    total_2 = total.substr(i - 1, 1) + total_2;
+                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+                ppn = parseInt(ppn);
+                var total = total_harga_all + ppn;
+                total = Math.round(total);
+                total = total.toString();
+                total_2 = "";
+                panjang_4 = total.length;
+                m = 0;
+                for (i = panjang_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                    } else {
+                        total_2 = total.substr(i - 1, 1) + total_2;
+                    }
                 }
+                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                document.getElementById("total").style.color = '#7E7E7E';
+            } else {
+                total_harga_all = total_harga_all.toString();
+                total_harga_all_2 = "";
+                panjang_2 = total_harga_all.length;
+                k = 0;
+                for (i = panjang_2; i > 0; i--) {
+                    k = k + 1;
+                    if (((k % 3) == 1) && (k != 1)) {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                    } else {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                    }
+                }
+                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+                total_harga_all = parseInt(total_harga_all);
+                var ppn = total_harga_all * 11 / 100;
+                ppn = Math.round(ppn);
+                ppn = ppn.toString();
+                ppn_2 = ""
+                panjang_3 = ppn.length;
+                l = 0;
+                for (i = panjang_3; i > 0; i--) {
+                    l = l + 1;
+                    if (((l % 3) == 1) && (l != 1)) {
+                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                    } else {
+                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                    }
+                }
+                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+                ppn = parseInt(ppn);
+                var total = total_harga_all + ppn;
+                total = Math.round(total);
+                total = total.toString();
+                total_2 = "";
+                panjang_4 = total.length;
+                m = 0;
+                for (i = panjang_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                    } else {
+                        total_2 = total.substr(i - 1, 1) + total_2;
+                    }
+                }
+                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                document.getElementById("total").style.color = 'red';
             }
-            document.getElementById("total").innerHTML = "Rp. " + total_2;
+
         }
 
         reindex();
@@ -1325,55 +1423,108 @@
                     total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
                     total_harga[i] = total_harga[i].replace(/\./g, "");
                     total_harga[i] = parseInt(total_harga[i])
-                }
+                }              
+                
+                var pagu_prk = document.getElementById("rupiah").innerHTML;
+                pagu_prk = pagu_prk.replace(/\./g, "");
+                pagu_prk = parseInt(pagu_prk);
+                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
 
-                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator +
-                    currentvalue);
-                total_harga_all = total_harga_all.toString();
-                total_harga_all_2 = "";
-                panjang_2 = total_harga_all.length;
-                k = 0;
-                for (i = panjang_2; i > 0; i--) {
-                    k = k + 1;
-                    if (((k % 3) == 1) && (k != 1)) {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                    } else {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                if(pagu_prk >= total_harga_all) {
+                    total_harga_all = total_harga_all.toString();
+                    total_harga_all_2 = "";
+                    panjang_2 = total_harga_all.length;
+                    k = 0;
+                    for (i = panjang_2; i > 0; i--) {
+                        k = k + 1;
+                        if (((k % 3) == 1) && (k != 1)) {
+                            total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                        } else {
+                            total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                        }
                     }
-                }
-                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-                total_harga_all = parseInt(total_harga_all);
-                var ppn = total_harga_all * 11 / 100;
-                ppn = Math.round(ppn);
-                ppn = ppn.toString();
-                ppn_2 = ""
-                panjang_3 = ppn.length;
-                l = 0;
-                for (i = panjang_3; i > 0; i--) {
-                    l = l + 1;
-                    if (((l % 3) == 1) && (l != 1)) {
-                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                    } else {
-                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                    document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+                    total_harga_all = parseInt(total_harga_all);
+                    var ppn = total_harga_all * 11 / 100;
+                    ppn = Math.round(ppn);
+                    ppn = ppn.toString();
+                    ppn_2 = ""
+                    panjang_3 = ppn.length;
+                    l = 0;
+                    for (i = panjang_3; i > 0; i--) {
+                        l = l + 1;
+                        if (((l % 3) == 1) && (l != 1)) {
+                            ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                        } else {
+                            ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                        }
                     }
-                }
-                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-                ppn = parseInt(ppn);
-                var total = total_harga_all + ppn;
-                total = Math.round(total);
-                total = total.toString();
-                total_2 = "";
-                panjang_4 = total.length;
-                m = 0;
-                for (i = panjang_4; i > 0; i--) {
-                    m = m + 1;
-                    if (((m % 3) == 1) && (m != 1)) {
-                        total_2 = total.substr(i - 1, 1) + "." + total_2;
-                    } else {
-                        total_2 = total.substr(i - 1, 1) + total_2;
+                    document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+                    ppn = parseInt(ppn);
+                    var total = total_harga_all + ppn;
+                    total = Math.round(total);
+                    total = total.toString();
+                    total_2 = "";
+                    panjang_4 = total.length;
+                    m = 0;
+                    for (i = panjang_4; i > 0; i--) {
+                        m = m + 1;
+                        if (((m % 3) == 1) && (m != 1)) {
+                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                        } else {
+                            total_2 = total.substr(i - 1, 1) + total_2;
+                        }
                     }
+                    document.getElementById("total").innerHTML = "Rp. " + total_2;
+                    document.getElementById("total").style.color = '#7E7E7E';
+                } else {
+                    total_harga_all = total_harga_all.toString();
+                    total_harga_all_2 = "";
+                    panjang_2 = total_harga_all.length;
+                    k = 0;
+                    for (i = panjang_2; i > 0; i--) {
+                        k = k + 1;
+                        if (((k % 3) == 1) && (k != 1)) {
+                            total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                        } else {
+                            total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                        }
+                    }
+                    document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+                    total_harga_all = parseInt(total_harga_all);
+                    var ppn = total_harga_all * 11 / 100;
+                    ppn = Math.round(ppn);
+                    ppn = ppn.toString();
+                    ppn_2 = ""
+                    panjang_3 = ppn.length;
+                    l = 0;
+                    for (i = panjang_3; i > 0; i--) {
+                        l = l + 1;
+                        if (((l % 3) == 1) && (l != 1)) {
+                            ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                        } else {
+                            ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                        }
+                    }
+                    document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+                    ppn = parseInt(ppn);
+                    var total = total_harga_all + ppn;
+                    total = Math.round(total);
+                    total = total.toString();
+                    total_2 = "";
+                    panjang_4 = total.length;
+                    m = 0;
+                    for (i = panjang_4; i > 0; i--) {
+                        m = m + 1;
+                        if (((m % 3) == 1) && (m != 1)) {
+                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                        } else {
+                            total_2 = total.substr(i - 1, 1) + total_2;
+                        }
+                    }
+                    document.getElementById("total").innerHTML = "Rp. " + total_2;
+                    document.getElementById("total").style.color = 'red';
                 }
-                document.getElementById("total").innerHTML = "Rp. " + total_2;
             }
         })
     }
@@ -1431,106 +1582,107 @@
             total_harga[i] = parseInt(total_harga[i])
         }
 
+        var pagu_prk = document.getElementById("rupiah").innerHTML;
+        pagu_prk = pagu_prk.replace(/\./g, "");
+        pagu_prk = parseInt(pagu_prk);
         var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-        total_harga_all = total_harga_all.toString();
-        total_harga_all_2 = "";
-        panjang_2 = total_harga_all.length;
-        k = 0;
-        for (i = panjang_2; i > 0; i--) {
-            k = k + 1;
-            if (((k % 3) == 1) && (k != 1)) {
-                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-            } else {
-                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+
+        if(pagu_prk >= total_harga_all) {
+            total_harga_all = total_harga_all.toString();
+            total_harga_all_2 = "";
+            panjang_2 = total_harga_all.length;
+            k = 0;
+            for (i = panjang_2; i > 0; i--) {
+                k = k + 1;
+                if (((k % 3) == 1) && (k != 1)) {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                } else {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                }
             }
-        }
-        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-        total_harga_all = parseInt(total_harga_all);
-        var ppn = total_harga_all * 11 / 100;
-        ppn = Math.round(ppn);
-        ppn = ppn.toString();
-        ppn_2 = ""
-        panjang_3 = ppn.length;
-        l = 0;
-        for (i = panjang_3; i > 0; i--) {
-            l = l + 1;
-            if (((l % 3) == 1) && (l != 1)) {
-                ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-            } else {
-                ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+            total_harga_all = parseInt(total_harga_all);
+            var ppn = total_harga_all * 11 / 100;
+            ppn = Math.round(ppn);
+            ppn = ppn.toString();
+            ppn_2 = ""
+            panjang_3 = ppn.length;
+            l = 0;
+            for (i = panjang_3; i > 0; i--) {
+                l = l + 1;
+                if (((l % 3) == 1) && (l != 1)) {
+                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                } else {
+                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                }
             }
-        }
-        document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-        ppn = parseInt(ppn);
-        var total = total_harga_all + ppn;
-        total = Math.round(total);
-        total = total.toString();
-        total_2 = "";
-        panjang_4 = total.length;
-        m = 0;
-        for (i = panjang_4; i > 0; i--) {
-            m = m + 1;
-            if (((m % 3) == 1) && (m != 1)) {
-                total_2 = total.substr(i - 1, 1) + "." + total_2;
-            } else {
-                total_2 = total.substr(i - 1, 1) + total_2;
+            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+            ppn = parseInt(ppn);
+            var total = total_harga_all + ppn;
+            total = Math.round(total);
+            total = total.toString();
+            total_2 = "";
+            panjang_4 = total.length;
+            m = 0;
+            for (i = panjang_4; i > 0; i--) {
+                m = m + 1;
+                if (((m % 3) == 1) && (m != 1)) {
+                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                } else {
+                    total_2 = total.substr(i - 1, 1) + total_2;
+                }
             }
+            document.getElementById("total").innerHTML = "Rp. " + total_2;
+            document.getElementById("total").style.color = '#7E7E7E';
+        } else {
+            total_harga_all = total_harga_all.toString();
+            total_harga_all_2 = "";
+            panjang_2 = total_harga_all.length;
+            k = 0;
+            for (i = panjang_2; i > 0; i--) {
+                k = k + 1;
+                if (((k % 3) == 1) && (k != 1)) {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                } else {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                }
+            }
+            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+            total_harga_all = parseInt(total_harga_all);
+            var ppn = total_harga_all * 11 / 100;
+            ppn = Math.round(ppn);
+            ppn = ppn.toString();
+            ppn_2 = ""
+            panjang_3 = ppn.length;
+            l = 0;
+            for (i = panjang_3; i > 0; i--) {
+                l = l + 1;
+                if (((l % 3) == 1) && (l != 1)) {
+                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                } else {
+                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                }
+            }
+            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+            ppn = parseInt(ppn);
+            var total = total_harga_all + ppn;
+            total = Math.round(total);
+            total = total.toString();
+            total_2 = "";
+            panjang_4 = total.length;
+            m = 0;
+            for (i = panjang_4; i > 0; i--) {
+                m = m + 1;
+                if (((m % 3) == 1) && (m != 1)) {
+                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                } else {
+                    total_2 = total.substr(i - 1, 1) + total_2;
+                }
+            }
+            document.getElementById("total").innerHTML = "Rp. " + total_2;
+            document.getElementById("total").style.color = 'red';
         }
-        document.getElementById("total").innerHTML = "Rp. " + total_2;
-    }
 
-    function next1() {
-        // var elm = 0;
-        // alert("Halo");
-        // window.location.hash =
-        // delete next;
-        // this.main.find('.sw-btn-prev').removeClass("sw-btn-prev");
-        // delete SmartWizard;
-        // _this._showNext().disable();
-        // return false;
-        // alert("HALO AGAIN!!!")
-        // $('[class$="done"],[class*="done "]').each(function(){$(this).removeClass($(this).attr('class').match(/\S+done\b/)[0])})
-        // window.location.href = "#informasi_umum";
-        // $('[class$="done"],[class*="done "]').each(function(){$(this).removeClass(this.className.match(/\S+done\b/))})
-        // $('[class$="valid2"]').each(function(i){$(this).removeClass(this.className)});
-        // console.log($('.valid2'));
-        // $('.valid2').removeClass('active');
-        // console.log($('.valid2')[0].className);
-
-        // reset();
-
-        // event.stopPropagation();
-        // alert("Halo again");
-        btn_next1 = document.getElementById('btnnext1');
-        btn_next1.setAttribute("id", "btnnext2");
-        btn_next1.setAttribute("onclick", "next2()");
-
-        btn_prev1 = document.getElementById('btnprev1');
-        btn_prev1.setAttribute("id", "btnprev2");
-        btn_prev1.setAttribute("onclick", "prev2()");
-    }
-
-    function next2() {
-        btn_next2 = document.getElementById('btnnext2');
-        btn_next2.setAttribute("id", "btnnext3");
-        btn_next2.setAttribute("onclick", "next3()");
-
-        btn_prev2 = document.getElementById('btnprev2');
-        btn_prev2.setAttribute("id", "btnprev3");
-        btn_prev2.setAttribute("onclick", "prev3()");
-
-    }
-
-    function next3() {
-        btn_next3 = document.getElementById('btnnext3');
-        btn_next3.innerText = "Simpan Data";
-        btn_next3.setAttribute("id", "btnnext4");
-        btn_next3.setAttribute("onclick", "next4()");
-        btn_next3.setAttribute("class", "btn btn-success sw-btn-next");
-
-        btn_prev3 = document.getElementById('btnprev3');
-        btn_prev3.setAttribute("id", "btnprev4");
-        btn_prev3.setAttribute("onclick", "prev4()");
     }
 
     function onSubmitData() {
@@ -1565,6 +1717,8 @@
             item_id[i] = document.getElementById("item_id[" + (i + 1) + "]").value;
             kategory_id[i] = document.getElementById("kategory_id[" + (i + 1) + "]").value;
             satuan[i] = document.getElementById("satuan[" + (i + 1) + "]").value;
+            satuan[i] = satuan[i].replace(/\(([^)]+)\)/, "");
+            satuan[i] = satuan[i].replace(/\ /g, "");
             volume[i] = document.getElementById("volume[" + (i + 1) + "]").value;
             volume[i] = parseInt(volume[i]);
             harga_satuan[i] = document.getElementById("harga_satuan[" + (i + 1) + "]").value;
@@ -1587,7 +1741,6 @@
                 text: "Anda tidak dapat mengedit Data ini lagi!",
                 icon: "warning",
                 buttons: true,
-                dangerMode: true,
             })
             .then((willCreate) => {
                 if (willCreate) {
@@ -1629,7 +1782,10 @@
                                     buttons: false
                                 })
                                 .then((result) => {
-                                    window.location.href = "/po-khs";
+                                    console.log(result);
+                                    // var id = result.rab_id;
+
+                                    window.location.href = 'preview-pdf-khs/'+ result;
                                 });
                         }
                     });
@@ -1643,27 +1799,6 @@
                     });
                 }
             })
-    }
-
-    function prev4() {
-        btn_next4 = document.getElementById('btnnext4');
-        btn_next4.innerText = "Next";
-        btn_next4.setAttribute("id", "btnnext3");
-        btn_next4.setAttribute("onclick", "next3()");
-
-        btn_prev4 = document.getElementById('btnprev4');
-        btn_prev4.setAttribute("id", "btnprev3");
-        btn_prev4.setAttribute("onclick", "prev3()");
-    }
-
-    function prev3() {
-        btn_next3 = document.getElementById('btnnext3');
-        btn_next3.setAttribute("id", "btnnext2");
-        btn_next3.setAttribute("onclick", "next2()");
-
-        btn_prev3 = document.getElementById('btnprev3');
-        btn_prev3.setAttribute("id", "btnprev2");
-        btn_prev3.setAttribute("onclick", "prev2()");
     }
 </script>
 

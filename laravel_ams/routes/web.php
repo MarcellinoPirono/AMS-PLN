@@ -110,6 +110,7 @@ Route::get('/search-prk', [PrkController::class, 'searchprk']);
 Route::resource('skk', SkkController::class);
 Route::get('/search-skk', [SkkController::class, 'searchskk']);
 Route::post('getSKK', [SkkController::class, 'getSKK']);
+Route::post('getPRK', [SkkController::class, 'getPRK']);
 Route::post('getCategory', [SkkController::class, 'getCategory']);
 Route::post('getItem', [SkkController::class, 'getItem']);
 Route::post('getKontrakInduk', [SkkController::class, 'getKontrakInduk']);
@@ -125,6 +126,6 @@ Route::resource('surat', PdfkhsController::class);
 // ]);{{  }}
 
 //Non-PO
-Route::resource('non-po', NonPOController::class);
 Route::get('non-po/buat-non-po', [NonPOController::class, 'buat_non_po']);
 Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po']);
+Route::resource('non-po', NonPOController::class);

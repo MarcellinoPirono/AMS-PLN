@@ -33,7 +33,7 @@
                     <div class="table-responsive" id="read">
                         <table id="rincian-table" class="table table-responsive-md">
                             <thead>
-                                <tr>
+                                <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
                                     <th>Nama Vendor</th>
                                     <th>Nama Direktur</th>

@@ -12,7 +12,7 @@
                                         <a class="dropdown-item" href="javascript:void()">Februari</a>
                                     </div>
                                 </div>
-                                <a href="/non-po/create" type="button" class="btn btn-primary mr-auto ml-3 ">Buat KAK & RAB<span
+                                <a href="/non-po/buat-non-po" type="button" class="btn btn-primary mr-auto ml-3 ">Buat Non-PO<span
                                         class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                                 </a>
                                 <div class="input-group search-area position-relative">
@@ -26,7 +26,7 @@
                             <div class="table-responsive">
                                     <table class="table table-responsive-md" id="read">
                                         <thead>
-                                            <tr>
+                                            <tr align="center" valign="middle">
                                                 <th class="width80">No.</th>                                            
                                                 <th>No. RPBJ</th>                                                
                                                 <th>No SKK</th>
@@ -37,7 +37,7 @@
                                         </thead>
                                         <tbody class="alldata">                                            
                                                 <tr>
-                                                    <td><strong>1</strong></td>
+                                                    <td align="center" valign="middle"><strong>1</strong></td>
                                                     <td>0045/RPBJ/UP3MS/TRANSAKSI ENERGI/2022</td>
                                                     <td>01/R/AO-DIST/SULSELRABAR/2022-UP3MS/R-3</td>
                                                     <td>020/DAN.PRK/2020</td>

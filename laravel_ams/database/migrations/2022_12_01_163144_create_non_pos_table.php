@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("nomor_rpbj");
             $table->foreignId("skk_id");
             $table->foreignId("prk_id");
-            $table->text("kak");
+            $table->string("kak");
             $table->double("total_harga");
             $table->timestamps();
         });

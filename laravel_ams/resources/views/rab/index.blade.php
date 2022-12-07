@@ -26,7 +26,7 @@
                             <div class="table-responsive">
                                     <table class="table table-responsive-md" id="read">
                                         <thead>
-                                            <tr>
+                                            <tr align="center" valign="middle">
                                                 <th class="width80">No.</th>
                                                 {{-- <th>Date</th> --}}
                                                 {{-- <th>Nomor Surat</th> --}}
@@ -47,7 +47,7 @@
                                         <tbody class="alldata">
                                             @foreach ($rabs as $rab)
                                                 <tr>
-                                                    <td><strong>{{ $loop->iteration }}</strong></td>
+                                                    <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
                                                     <td>{{ $rab->nomor_po }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($rab->tanggal_po)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>
                                                     <td>{{ $rab->skks->nomor_skk }}</td>

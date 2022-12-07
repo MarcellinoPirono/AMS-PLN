@@ -29,6 +29,12 @@
                                         Daftar RAB
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#preview_non_po">
+                                        <span class="num">3</span>
+                                        Preview Non-PO
+                                    </a>
+                                </li>
                             </ul>
                             <div class="tab-content mt-3 tab-flex">
                                 <div id="kak" class="tab-pane", role="tabpanel" aria-labelledby="step-1">
@@ -325,40 +331,20 @@
             if (stepPosition === 'first') {
                 $("#prev-btn").addClass('disabled').prop('disabled', true);
             } else if (stepPosition === 'last') {
-                var po = $("#po").val();
-                var kontrak_induk = $("#kontrak_induk option:selected").text();
-                var pekerjaan = $("#pekerjaan").val();
-                var lokasi = $("#lokasi").val();
-                var start_date = $("#start_date").val();
-                var end_date = $("#end_date").val();
-                var addendum = $("#addendum").val();
+                var kak = $("#kak").files();                
+                var nomor_rpbj = $("#nomor_rpbj").val();
                 var skk_id = $("#skk_id option:selected").text();
-                var prk_id = $("#prk_id option:selected").text();
-                var pejabat = $("#pejabat option:selected").text();
-                var pengawas = $("#pengawas").val();
-
-                $("#po_4").html(po);
-                $("#kontrak_induk_4").html(kontrak_induk);
-                $("#judul_pekerjaan_4").html(pekerjaan);
-                $("#lokasi_4").html(lokasi);
-                $("#start_date_4").html(start_date);
-                $("#end_date_4").html(end_date);
-                if (addendum == "") {
-                    $("#addendum_4").html("-");
-                } else {
-                    $("#addendum_4").html(addendum);
-                }
-                $("#no_skk_4").html(skk_id);
-                $("#no_prk_4").html(prk_id);
-                $("#direksi_pekerjaan_4").html(pejabat);
-                $("#pengawas_pekerjaan_4").html(pengawas);
+                var prk_id = $("#prk_id option:selected").text();                
+                
+                $("#nomor_rpbj_3").html(nomor_rpbj);                
+                $("#no_skk_3").html(skk_id);
+                $("#no_prk_3").html(prk_id);               
 
                 baris = [];
 
                 for (var i = 0; i < click; i++) {
-                    baris[i] = [
-                        $("#item_id[" + (i + 1) + "] option:selected").text(),
-                        $("#kategory_id[" + (i + 1) + "]").val(),
+                    baris[i] = [                        
+                        $("#uraian[" + (i + 1) + "]").val(),
                         $("#satuan[" + (i + 1) + "]").val(),
                         $("#volume[" + (i + 1) + "]").val(),
                         $("#harga_satuan[" + (i + 1) + "]").val(),
@@ -395,7 +381,7 @@
 
         // Smart Wizard
         $('#smartwizard').smartWizard({
-            selected: 0,
+            selected: 1,
             // autoAdjustHeight: false,
             theme: 'arrows', // basic, arrows, square, round, dots
             transition: {
@@ -405,7 +391,7 @@
                 showNextButton: true, // show/hide a Next button
                 showPreviousButton: true, // show/hide a Previous button
                 position: 'bottom', // none/ top/ both bottom
-                extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onConfirm()">Complete Order</button>
+                extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Complete Order</button>
                         <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
             },
             anchor: {
@@ -730,6 +716,94 @@
         }
         document.getElementById("total").innerHTML = "Rp. " + total_2;
     }
+
+    function onSubmitData() {
+        var token = $('#csrf').val();
+        var kak = document.getElementById('kak').files;
+        var nomor_rpbj = document.getElementById('nomor_rpbj').value;
+        var skk_id = document.getElementById('skk_id').value;
+        var prk_id = document.getElementById('prk_id').value;        
+
+        var uraian = [];        
+        var satuan = [];
+        var volume = [];
+        var harga_satuan = [];
+        var harga = [];
+
+        for (var i = 0; i < click; i++) {
+            uraian[i] = document.getElementById("uraian[" + (i + 1) + "]").value;            
+            satuan[i] = document.getElementById("satuan[" + (i + 1) + "]").value;
+            volume[i] = document.getElementById("volume[" + (i + 1) + "]").value;
+            volume[i] = parseInt(volume[i]);
+            harga_satuan[i] = document.getElementById("harga_satuan[" + (i + 1) + "]").value;
+            harga_satuan[i] = harga_satuan[i].replace(/\./g, "");
+            harga_satuan[i] = parseInt(harga_satuan[i]);
+            harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+            harga[i] = harga[i].replace(/\./g, "");
+            harga[i] = parseInt(harga[i]);
+        }
+
+        const bef_ppn_total_harga = harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+        var ppn = bef_ppn_total_harga * 11 / 100;
+        ppn = Math.round(ppn);
+        var total_harga = bef_ppn_total_harga + ppn;
+        total_harga = Math.round(total_harga);
+
+
+        swal({
+                title: "Apakah anda yakin?",
+                text: "Anda tidak dapat mengedit Data ini lagi!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willCreate) => {
+                if (willCreate) {
+                    var data = {
+                        "_token": token,
+                        "nomor_rpbj": nomor_rpbj,                        
+                        "skk_id": skk_id,
+                        "prk_id": prk_id,
+                        "kak" : kak,                      
+                        "total_harga": total_harga,
+                        "uraian": uraian,                        
+                        "satuan_id": satuan,
+                        "harga_satuan": harga_satuan,
+                        "volume": volume,
+                        "jumlah_harga": harga,
+                        "click": click,
+                    }
+                    console.log(data);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "/simpan-non-po",
+                        data: data,
+                        success: function(response) {
+                            swal({
+                                    title: "Data Ditambah",
+                                    text: "Data Berhasil Ditambah",
+                                    icon: "success",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((result) => {
+                                    window.location.href = "/non-po";
+                                });
+                        }
+                    });
+                } else {
+                    swal({
+                        title: "Data Belum Ditambah",
+                        text: "Silakan Cek Kembali Data Anda",
+                        icon: "error",
+                        timer: 2e3,
+                        buttons: false
+                    });
+                }
+            })
+    }
+    
 
     // function next1() {        
     //     btn_next1 = document.getElementById('btnnext1');

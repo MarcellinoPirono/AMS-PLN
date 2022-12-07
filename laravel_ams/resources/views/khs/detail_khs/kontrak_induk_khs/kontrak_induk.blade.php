@@ -37,7 +37,7 @@
                     <div class="table-responsive" id="read">
                         <table id="rincian-table" class="table table-responsive-md">
                             <thead>
-                                <tr>
+                                <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
                                     <th>Jenis KHS</th>
                                     <th>Nomor Kontrak Induk</th>
@@ -50,8 +50,8 @@
                                 @foreach ($kontrakinduks as $kontrakinduk)
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $kontrakinduk->id }}">
-                                        <td><strong>{{ $loop->iteration }}</strong></td>
-                                        <td>{{ $kontrakinduk->khs->jenis_khs }}</td>
+                                        <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
+                                        <td align="center" valign="middle">{{ $kontrakinduk->khs->jenis_khs }}</td>
                                         <td>{{ $kontrakinduk->nomor_kontrak_induk }}</td>
                                         <td>{{ \Carbon\Carbon::parse($kontrakinduk->tanggal_kontrak_induk)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>                                        
                                         <td>{{ $kontrakinduk->vendors->nama_vendor }}</td>   

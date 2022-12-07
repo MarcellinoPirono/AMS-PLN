@@ -88,9 +88,9 @@
                          <ul aria-expanded="false">
                              <!-- <li><a class="" href="/categories">Kategori</a></li> -->
                              <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
-                                     href="/rincian">Vendor Non KHS</a></li>
+                                     href="/rincian">&ensp; &ensp;Vendor Non KHS</a></li>
                              <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
-                                     href="/rincian">Addendum Non KHS</a></li>
+                                     href="/rincian">&ensp; &ensp;Addendum Non KHS</a></li>
                          </ul>
                      </li>
                  </ul>
@@ -122,9 +122,9 @@
                          <ul aria-expanded="false">
                              <!-- <li><a class="" href="/categories">Kategori</a></li> -->
                              <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
-                                     href="/rincian">Vendor Non PO</a></li>
+                                     href="/rincian">&ensp; &ensp;Vendor Non PO</a></li>
                              <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
-                                     href="/rincian">Addendum Non PO</a></li>
+                                     href="/rincian">&ensp; &ensp;Addendum Non PO</a></li>
                          </ul>
                      </li>
                  </ul>

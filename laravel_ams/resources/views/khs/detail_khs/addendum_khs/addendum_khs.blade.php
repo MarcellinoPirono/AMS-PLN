@@ -41,7 +41,7 @@
                     <div class="table-responsive" id="read">
                         <table id="rincian-table" class="table table-responsive-md">
                             <thead>
-                                <tr>
+                                <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
                                     <th>No. Kontrak Induk</th>
                                     <th>Jenis KHS</th>
@@ -55,7 +55,7 @@
                                 @foreach ($addendums as $addendum)
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $addendum->id }}">
-                                        <td><strong>{{ $loop->iteration }}</strong></td>
+                                        <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
                                         <td>{{ $addendum->kontrak_induks->nomor_kontrak_induk }}</td>
                                         <td>{{ $addendum->kontrak_induks->khs->jenis_khs }}</td>
                                         <td>{{ $addendum->kontrak_induks->khs->nama_pekerjaan }}</td>

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rab;
-use App\Models\ItemRincianInduk;
 use App\Models\Prk;
+use App\Models\ItemRincianInduk;
 use App\Models\Skk;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRabRequest;
@@ -17,6 +17,7 @@ use App\Models\Addendum;
 // use App\Models\OrderedRab;
 use App\Models\OrderKhs;
 use App\Models\Redaksi;
+use App\Models\Satuan;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
@@ -25,6 +26,7 @@ use PhpParser\Node\Expr\Cast\Double;
 use Riskihajar\Terbilang\Facades\Terbilang;
 use DateTime;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 
 // use Carbon\Carbon
@@ -35,6 +37,8 @@ use Illuminate\Support\Str;
 
 class RabController extends Controller
 {
+    // use Storage;
+    // use Response;
     /**
      * Display a listing of the resource.
      *
@@ -111,64 +115,64 @@ class RabController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        // $kategoris = ItemRincianInduk::all();
-        // $data_kategori =[];
-        // foreach ($kategoris as $kategori) {
-        //     $data_kategori =  $kategori->nama_kategori;
-        // }
+    // public function create()
+    // {
+    //     // $kategoris = ItemRincianInduk::all();
+    //     // $data_kategori =[];
+    //     // foreach ($kategoris as $kategori) {
+    //     //     $data_kategori =  $kategori->nama_kategori;
+    //     // }
 
-        // $items = RincianInduk::all();
-        $data_items = RincianInduk::select('id', 'nama_item', 'harga_satuan', 'satuan_id')->get();
-        $data_kategori = ItemRincianInduk::select('id','khs_id','nama_kategori')->get();
-        // $kontrak_induk_id = KontrakInduk::select('id')->get();
-        // $latest_addendum = Addendum::groupBy('kontrak_induk_id')->latest('tanggal_addendum')->get();
-        // $khs =Khs::all();
+    //     // $items = RincianInduk::all();
+    //     $data_items = RincianInduk::select('id', 'nama_item', 'harga_satuan', 'satuan_id')->get();
+    //     $data_kategori = ItemRincianInduk::select('id','khs_id','nama_kategori')->get();
+    //     // $kontrak_induk_id = KontrakInduk::select('id')->get();
+    //     // $latest_addendum = Addendum::groupBy('kontrak_induk_id')->latest('tanggal_addendum')->get();
+    //     // $khs =Khs::all();
 
-        // $data = $data_items->concat($data_kategori);
-        // $data = DB::select('SELECT * FROM item_rincian_induks LEFT JOIN rincian_induks ON item_rincian_induks.id = rincian_induks.kategori_id');
-        // $data = array_merge($data_items->toArray(), $data_kategori->toArray());
+    //     // $data = $data_items->concat($data_kategori);
+    //     // $data = DB::select('SELECT * FROM item_rincian_induks LEFT JOIN rincian_induks ON item_rincian_induks.id = rincian_induks.kategori_id');
+    //     // $data = array_merge($data_items->toArray(), $data_kategori->toArray());
 
-        // foreach ($items as $item) {
-        //     $data_items =  $item->nama_item;
-        // }
+    //     // foreach ($items as $item) {
+    //     //     $data_items =  $item->nama_item;
+    //     // }
 
-        // $data =
-        // [
-        //     'active1' => 'Buat KHS',
-        //     'title' => 'Kontrak Harga Satuan (KHS)',
-        //     'title1' => 'KHS',
-        //     'active' => 'KHS',
-        //     'skks' => Skk::all(),
-        //     'prks' => Prk::all(),
-        //     'categories' => ItemRincianInduk::all(),
-        //     'items' => RincianInduk::all(),
-        //     'kontraks' => KontrakInduk::all(),
-        //     'pejabats' => Pejabat::all(),
-        // ];
+    //     // $data =
+    //     // [
+    //     //     'active1' => 'Buat KHS',
+    //     //     'title' => 'Kontrak Harga Satuan (KHS)',
+    //     //     'title1' => 'KHS',
+    //     //     'active' => 'KHS',
+    //     //     'skks' => Skk::all(),
+    //     //     'prks' => Prk::all(),
+    //     //     'categories' => ItemRincianInduk::all(),
+    //     //     'items' => RincianInduk::all(),
+    //     //     'kontraks' => KontrakInduk::all(),
+    //     //     'pejabats' => Pejabat::all(),
+    //     // ];
 
-        // return view('rab.create')->with($data);
+    //     // return view('rab.create')->with($data);
 
 
-        return view(
-            'rab.create',
-            [
-                'active1' => 'Buat PO-KHS',
-                'title' => 'Kontrak Harga Satuan (KHS)',
-                'title1' => 'PO-KHS',
-                'active' => 'PO-KHS',
-                'skks' => Skk::all(),
-                'prks' => Prk::all(),
-                'categories' => ItemRincianInduk::all(),
-                'items' => RincianInduk::all(),
-                'kontraks' => KontrakInduk::all(),
-                'pejabats' => Pejabat::all(),
-                'khs' => Khs::all(),
-                // 'latest_addendum' => $latest_addendum
-            ], compact('data_kategori', 'data_items')
-        );
-    }
+    //     return view(
+    //         'rab.create',
+    //         [
+    //             'active1' => 'Buat PO-KHS',
+    //             'title' => 'Kontrak Harga Satuan (KHS)',
+    //             'title1' => 'PO-KHS',
+    //             'active' => 'PO-KHS',
+    //             'skks' => Skk::all(),
+    //             'prks' => Prk::all(),
+    //             'categories' => ItemRincianInduk::all(),
+    //             'items' => RincianInduk::all(),
+    //             'kontraks' => KontrakInduk::all(),
+    //             'pejabats' => Pejabat::all(),
+    //             'khs' => Khs::all(),
+    //             // 'latest_addendum' => $latest_addendum
+    //         ], compact('data_kategori', 'data_items')
+    //     );
+    // }
 
 
 
@@ -188,97 +192,97 @@ class RabController extends Controller
      * @param  \App\Http\Requests\StoreRabRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRabRequest $request)
-    {
-        // dd($request);
-        $request->validate([
-            'nomor_po' => 'required|max:250',
-            'tanggal_po' => 'required|max:250',
-            'skk_id' => 'required|max:250',
-            'prk_id' => 'required|max:250',
-            'pekerjaan' => 'required|max:250',
-            'lokasi' => 'required|max:250',
-            'startdate' => 'required|max:250',
-            'enddate' => 'required|max:250',
-            'nomor_kontrak_induk' => 'required|max:250',
-            'addendum_id' => 'required|max:250',
-            'pejabat_id' => 'required|max:250',
-            'pengawas' => 'required|max:250',
-            'total_harga' => 'required|max:250',
-            'kategori_order' => 'required|max:250',
-            'item_order' => 'required|max:250',
-            'satuan_id' => 'required|max:250',
-            'harga_satuan' => 'required|max:250',
-            'volume' => 'required|max:250',
-            'jumlah_harga' => 'required|max:250',
-        ]);
+    // public function store(StoreRabRequest $request)
+    // {
+    //     // dd($request);
+    //     $request->validate([
+    //         'nomor_po' => 'required|max:250',
+    //         'tanggal_po' => 'required|max:250',
+    //         'skk_id' => 'required|max:250',
+    //         'prk_id' => 'required|max:250',
+    //         'pekerjaan' => 'required|max:250',
+    //         'lokasi' => 'required|max:250',
+    //         'startdate' => 'required|max:250',
+    //         'enddate' => 'required|max:250',
+    //         'nomor_kontrak_induk' => 'required|max:250',
+    //         'addendum_id' => 'required|max:250',
+    //         'pejabat_id' => 'required|max:250',
+    //         'pengawas' => 'required|max:250',
+    //         'total_harga' => 'required|max:250',
+    //         'kategori_order' => 'required|max:250',
+    //         'item_order' => 'required|max:250',
+    //         'satuan_id' => 'required|max:250',
+    //         'harga_satuan' => 'required|max:250',
+    //         'volume' => 'required|max:250',
+    //         'jumlah_harga' => 'required|max:250',
+    //     ]);
 
-        $rab = [
-            'nomor_po' => $request->nomor_po,
-            'tanggal_po' => $request->tanggal_po,
-            'skk_id' => $request->skk_id,
-            'prk_id' => $request->prk_id,
-            'pekerjaan' => $request->pekerjaan,
-            'lokasi' => $request->lokasi,
-            'startdate' => $request->startdate,
-            'enddate' => $request->enddate,
-            'nomor_kontrak_induk' => $request->nomor_kontrak_induk,
-            'addendum_id' => $request->addendum_id,
-            'pejabat_id' => $request->pejabat_id,
-            'pengawas' => $request->pengawas,
-            'total_harga' => $request->total_harga,
-        ];
+    //     $rab = [
+    //         'nomor_po' => $request->nomor_po,
+    //         'tanggal_po' => $request->tanggal_po,
+    //         'skk_id' => $request->skk_id,
+    //         'prk_id' => $request->prk_id,
+    //         'pekerjaan' => $request->pekerjaan,
+    //         'lokasi' => $request->lokasi,
+    //         'startdate' => $request->startdate,
+    //         'enddate' => $request->enddate,
+    //         'nomor_kontrak_induk' => $request->nomor_kontrak_induk,
+    //         'addendum_id' => $request->addendum_id,
+    //         'pejabat_id' => $request->pejabat_id,
+    //         'pengawas' => $request->pengawas,
+    //         'total_harga' => $request->total_harga,
+    //     ];
 
-        Rab::create($rab);
+    //     Rab::create($rab);
 
-        $id = Rab::where('nomor_po', $request->nomor_po)->value('id');
+    //     $id = Rab::where('nomor_po', $request->nomor_po)->value('id');
 
-        $total_tabel = $request->click;
+    //     $total_tabel = $request->click;
 
-        $rab_id = [];
+    //     $rab_id = [];
 
-        for($i=0; $i<$total_tabel; $i++)
-        {
-            $rab_id[$i]=$id;
-        }
+    //     for($i=0; $i<$total_tabel; $i++)
+    //     {
+    //         $rab_id[$i]=$id;
+    //     }
 
-        for($j=0; $j<$total_tabel; $j++)
-        {
-            $order_khs = [
-                'rab_id' => $rab_id[$j],
-                'kategori_order' => $request->kategori_order[$j],
-                'item_order' => $request->item_order[$j],
-                'satuan_id' => $request->satuan_id[$j],
-                'harga_satuan' => $request->harga_satuan[$j],
-                'volume' => $request->volume[$j],
-                'jumlah_harga' => $request->jumlah_harga[$j],
-            ];
-            OrderKhs::create($order_khs);
-        }
+    //     for($j=0; $j<$total_tabel; $j++)
+    //     {
+    //         $order_khs = [
+    //             'rab_id' => $rab_id[$j],
+    //             'kategori_order' => $request->kategori_order[$j],
+    //             'item_order' => $request->item_order[$j],
+    //             'satuan_id' => $request->satuan_id[$j],
+    //             'harga_satuan' => $request->harga_satuan[$j],
+    //             'volume' => $request->volume[$j],
+    //             'jumlah_harga' => $request->jumlah_harga[$j],
+    //         ];
+    //         OrderKhs::create($order_khs);
+    //     }
 
-        //Update PRK 1
-        // $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
-        // $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
-        // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
+    //     //Update PRK 1
+    //     // $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
+    //     // $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
+    //     // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
 
-        // Update PRK 2
-        $updated_prk_terkontrak = 0;
-        $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
-        foreach($previous_prk_terkontrak as $prk_terkontrak)
-            $updated_prk_terkontrak += (Double)$prk_terkontrak->total_harga;
-        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
+    //     // Update PRK 2
+    //     $updated_prk_terkontrak = 0;
+    //     $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
+    //     foreach($previous_prk_terkontrak as $prk_terkontrak)
+    //         $updated_prk_terkontrak += (Double)$prk_terkontrak->total_harga;
+    //     Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
 
-        //Update SKK
-        $updated_skk_terkontrak = 0;
-        $previous_skk_terkontrak = Prk::where('no_skk_prk', $request->skk_id)->get('prk_terkontrak');
-        foreach($previous_skk_terkontrak as $skk_terkontrak)
-            $updated_skk_terkontrak += (Double)$skk_terkontrak->prk_terkontrak;
-        Skk::where('id', $request->skk_id)->update(array('skk_terkontrak'=>(Double)$updated_skk_terkontrak));
+    //     //Update SKK
+    //     $updated_skk_terkontrak = 0;
+    //     $previous_skk_terkontrak = Prk::where('no_skk_prk', $request->skk_id)->get('prk_terkontrak');
+    //     foreach($previous_skk_terkontrak as $skk_terkontrak)
+    //         $updated_skk_terkontrak += (Double)$skk_terkontrak->prk_terkontrak;
+    //     Skk::where('id', $request->skk_id)->update(array('skk_terkontrak'=>(Double)$updated_skk_terkontrak));
 
 
-        return redirect('/po-khs')->with('status', 'PO KHS Berhasil Ditambah!');
+    //     return redirect('/po-khs')->with('status', 'PO KHS Berhasil Ditambah!');
 
-    }
+    // }
     public function simpan_po_khs(StoreRabRequest $request)
     {
         // dd($request);
@@ -292,7 +296,7 @@ class RabController extends Controller
             'startdate' => 'required|max:250',
             'enddate' => 'required|max:250',
             'nomor_kontrak_induk' => 'required|max:250',
-            'addendum_id' => 'required|max:250',
+            'addendum_id' => 'nullable|max:250',
             'pejabat_id' => 'required|max:250',
             'pengawas' => 'required|max:250',
             'total_harga' => 'required|max:250',
@@ -303,6 +307,8 @@ class RabController extends Controller
             'volume' => 'required|max:250',
             'jumlah_harga' => 'required|max:250',
         ]);
+
+        $addendum_id = Addendum::where('nomor_addendum', $request->addendum_id)->value('id');
 
         $nama_pdf = $request->nomor_po;
         $ubah_pdf = str_replace('.', '_', $nama_pdf);
@@ -321,7 +327,7 @@ class RabController extends Controller
             'startdate' => $request->startdate,
             'enddate' => $request->enddate,
             'nomor_kontrak_induk' => $request->nomor_kontrak_induk,
-            'addendum_id' => $request->addendum_id,
+            'addendum_id' => $addendum_id,
             'pejabat_id' => $request->pejabat_id,
             'pengawas' => $request->pengawas,
             'total_harga' => $request->total_harga,
@@ -329,23 +335,26 @@ class RabController extends Controller
         ];
 
         Rab::create($rab);
+        // dd($rab);
 
         $id = Rab::where('nomor_po', $request->nomor_po)->value('id');
 
         $total_tabel = $request->click;
 
         $rab_id = [];
+        $satuan_id = [];
 
         for ($i = 0; $i < $total_tabel; $i++) {
             $rab_id[$i] = $id;
-        }
+            $satuan_id[$i] = Satuan::where('kepanjangan', $request->satuan_id[$i])->value('id');
+        }        
 
         for ($j = 0; $j < $total_tabel; $j++) {
             $order_khs = [
                 'rab_id' => $rab_id[$j],
                 'kategori_order' => $request->kategori_order[$j],
                 'item_order' => $request->item_order[$j],
-                'satuan_id' => $request->satuan_id[$j],
+                'satuan_id' => $satuan_id[$j],
                 'harga_satuan' => $request->harga_satuan[$j],
                 'volume' => $request->volume[$j],
                 'jumlah_harga' => $request->jumlah_harga[$j],
@@ -365,24 +374,44 @@ class RabController extends Controller
         $rab_id = Rab::where('id', $id)->value('id');
         $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
 
+        // dd($values_pdf_page2[0]->kategori_order);
+        $jasa = [];
+        $material = [];
+
+        for($i = 0; $i < count($values_pdf_page2); $i++) {
+            if($values_pdf_page2[$i]->kategori_order == "Jasa") {
+                $jasa[$i] = $values_pdf_page2[$i];
+            } else {
+                $material[$i] = $values_pdf_page2[$i];
+            }
+        }
+
+        // $kategori_material = OrderKhs::where('rab_id', $rab_id)->orwhere('kategori_order', $material)->get();
+        // $kategori_jasa = OrderKhs::where('rab_id', $rab_id)->where('kategori_order', $jasa)->get();
+
+        // dd(count($material));
+
 
         $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
         $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
         $ppn = $jumlah * 0.11;
+        
 
         $pdf = Pdf::loadView('layouts.surat',[
             "po_khs" => $values_pdf_page1,
-            "rab_khs" => $values_pdf_page2,
+            "kategori_jasa" => $jasa,
+            "kategori_material" => $material,
             "jumlah" => $jumlah,
             "ppn" => $ppn,
             "days" => $days,
             "jabatan_manager" => $jabatan_manager,
             "nama_manager" => $nama_manager,
-            "title" => "PO-KHS",
+            "title" => $ubah_pdf2,
 
         ]);
+        
         $content = $pdf->download()->getOriginalContent();
         Storage::put('public/storage/file-pdf-khs/'.$ubah_pdf2.'.pdf',$content);
 
@@ -412,7 +441,7 @@ class RabController extends Controller
         Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
 
 
-        return redirect('/po-khs')->with('status', 'PO KHS Berhasil Ditambah!');
+        return response()->json($id);
     }
 
     /**
@@ -506,99 +535,66 @@ class RabController extends Controller
 
     public function export_pdf_khs(Request $request, $id)
     {
-        // dd($id);
-        // $startdate = [];
-        // $enddate = [];
+        $document = Rab::findorFail($id);
 
-        $values_pdf_page1 = Rab::where('id', $id)->get();
-        // $enddate = Rab::select('enddate')->where('id', $id)->get();
-        // $startdate = Rab::select('startdate')->where('id', $id)->get();
+        $filePath = $document->pdf_file;
 
-        // $startdate = DB::table('rabs')->select('startdate')->where('id', $id)->get();
-        $startdate = Rab::where('id', $id)->value('startdate');
-        $enddate = Rab::where('id', $id)->value('enddate');
-        // $enddate = DB::table('rabs')->select('enddate')->where('id', $id)->get();
-        // $startdate = $startdate->toDateTimeString();
-        // $startdate = Carbon::createFromFormat('Y/m/d', $startdate)->format('Y/m/d');
-        $datetime1 = new DateTime($startdate);
-        // $datetime1->setTimestamp();
-        $datetime2 = new DateTime($enddate);
-        $interval = $datetime1->diff($datetime2);
-        $days = $interval->format('%a');
+        return Storage::download($filePath);
 
-
-        
-
-        // $startdate = Carbon::parse($startdate)->format('l');
-        // $enddate = Carbon::parse($enddate)->format('l');
-        // dd($days);
-
-
-        // $day = $enddate - $startdate;
-        // dd($day);
-
-
-        // $enddate = Carbon::createFromFormat('Y-m-d', $values_pdf_page1->enddate)->format('1');
-
-        // $enddate = Carbon::createFromFormat('Y-m-d', $enddate)->format('d-m-Y');
-        // dd($enddate);
-        // $startdate = strtotime($startdate);
-        // $hari = $enddate - $startdate;
-        // dd($hari);
-
-        $rab_id = Rab::where('id', $id)->value('id');
-        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
-        // $rab_now = OrderKhs::where('rab_id', $rab_id)->get();
-
-
-        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
-        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
-
-        $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn = $jumlah * 0.11;
-        $pdf = Pdf::loadView('layouts.surat', [
-            "po_khs" => $values_pdf_page1,
-            "rab_khs" => $values_pdf_page2,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            "days" => $days,
-            "jabatan_manager" => $jabatan_manager,
-            "nama_manager" => $nama_manager,
-            "title" => "PO-KHS",
-
-        ]);
-        return $pdf->download('po_khs.pdf');
     }
 
     public function preview_pdf_khs($id)
     {
-        // dd($id);
-        $values_pdf_page1 = Rab::where('id', $id)->get();
-        $enddate = Rab::select('enddate')->where('id', $id)->first();
-        $startdate = Rab::select('startdate')->where('id', $id)->first();
-        // $startdate = Carbon::createFromFormat('Y-m-d', $values_pdf_page1->startdate)->format('1');
-        // $enddate = Carbon::createFromFormat('Y-m-d', $values_pdf_page1->enddate)->format('1');
+        $document = Rab::find($id);
 
-        // $enddate = Carbon::createFromFormat('Y-m-d', $enddate)->format('d-m-Y');
-        // dd($enddate);
-        // $startdate = strtotime($startdate);
-        // $hari = $enddate - $startdate;
-        // dd($hari);
+        $filePath = $document->pdf_file;
 
-        $rab_id = Rab::where('id', $id)->value('id');
-        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
-        // $pdf = Pdf::loadView('layouts.surat', [
-        //     "po_khs" => $values_pdf_page1,
-        //     "rab_khs" => $values_pdf_page2,
-        //     // "hari" => $hari,
-        //     "title" => "PO-KHS"
-        // ]);
-        // return $pdf->download('po_khs.pdf');
-        return view('layouts.surat',[
-            "po_khs" => $values_pdf_page1,
-            "rab_khs" => $values_pdf_page2,
-            "title" => "PO-KHS",
+        // dd($filePath);
+
+        // file not found
+        // if (!Storage::exists($filePath)) {
+        //     abort(404);
+        // }
+
+        $pdfContent = Storage::get($filePath);
+
+        $fileName = Rab::where('id', $id)->value('nomor_po');
+
+        $fileName = str_replace('/', '-', $fileName);
+        $fileName = str_replace('.', '_', $fileName);
+
+        // dd($fileName);
+        // for pdf, it will be 'application/pdf'
+        $type       = Storage::mimeType($filePath);
+        // $fileName   = Storage::name(''.$fileName.'.pdf');
+
+        $pdf =  Response::make($pdfContent, 200, [
+            'Content-Type'        => $type,
+            'Content-Disposition' => 'inline; filename="' . $fileName . '.pdf"'
         ]);
+
+
+        // dd($pdf);
+        // dd($filePath);
+
+        return view('layouts.preview', [
+            'Content-Type'        => $type,
+            'Content-Disposition' => 'inline; filename="' . $fileName . '.pdf"',
+            'document' => $document,
+            'filePath' => $filePath,
+            'title' => $fileName,
+            'filename' => $fileName,
+            'pdf' => $pdf,
+            'active' => $fileName
+
+        ]);
+
+        // return Storage::response($filePath);
+
+
+        
+    
+        
     }
 
     public function getAddendum(Request $request)

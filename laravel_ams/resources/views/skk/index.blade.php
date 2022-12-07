@@ -32,7 +32,7 @@
                     <div class="table-responsive">
                         <table class="table table-responsive-sm">
                             <thead>
-                                <tr>
+                                <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
                                     <th>No. SKK</th>
                                     <th>Uraian SKK</th>
@@ -48,7 +48,7 @@
                                 @foreach ($skks as $skk)
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $skk->id }}">
-                                        <td><strong>{{ $loop->iteration }}</strong></td>
+                                        <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
                                         <td>{{ $skk->nomor_skk }}</td>
                                         <td>{{ $skk->uraian_skk }}</td>
                                         <td>@currency($skk->pagu_skk)</td>

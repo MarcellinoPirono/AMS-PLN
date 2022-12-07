@@ -66,8 +66,8 @@
                                                     <label class="text-label">Input No. RPBJ</label>
                                                     <input type="text"
                                                         class="form-control"
-                                                        name="no_rpbj" id="no_rpbj" placeholder="Nomor RPBJ" required
-                                                        autofocus value="{{ old('no_rpbj') }}">
+                                                        name="nomor_rpbj" id="nomor_rpbj" placeholder="Nomor RPBJ" required
+                                                        autofocus value="{{ old('nomor_rpbj') }}">
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -240,7 +240,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div id="preview_non_po" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
+                                <div id="preview_non_po" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <form id="form-3" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
                                         <div class="row">
                                             <div class="col-xl-12 col-xxl-12">
@@ -340,7 +340,7 @@
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
                                                                         <embed id="pdfViewer2" width="100%" height="600px" >
                                                                     </object> -->
-                                                                    <embed src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210101201653/PDF.pdf"  type="application/pdf" width="100%" height="600px" />
+                                                                    <embed src="{{ public_path('/') }}./storage/file-pdf-khs/20-20_A-20-A_B-S2O_22.pdf"  type="application/pdf" width="100%" height="600px" />
                                                                 </div>
 
                                                             </div>
@@ -448,48 +448,48 @@
             //     myModal.hide();
             // }
 
-            // function showConfirm() {
-            //     const name = $('#lokasi').val() + ' ' + $('#lokasi').val();
-            //     const products = $('#lokasi').val();
-            //     const shipping = $('#lokasi').val() + ' ' + $('#lokasi').val() + ' ' + $('#lokasi').val();
-            //     let html = `
-            //       <div class="row">
-            //         <div class="col">
-            //           <h4 class="mb-3-">Customer Details</h4>
-            //           <hr class="my-2">
-            //           <div class="row g-3 align-items-center">
-            //             <div class="col-auto">
-            //               <label class="col-form-label">Name</label>
-            //             </div>
-            //             <div class="col-auto">
-            //               <span class="form-text-">${name}</span>
-            //             </div>
-            //           </div>
-            //         </div>
-            //         <div class="col">
-            //           <h4 class="mt-3-">Shipping</h4>
-            //           <hr class="my-2">
-            //           <div class="row g-3 align-items-center">
-            //             <div class="col-auto">
-            //               <span class="form-text-">${shipping}</span>
-            //             </div>
-            //           </div>
-            //         </div>
-            //       </div>
+            function showConfirm() {
+                const name = $('#lokasi').val() + ' ' + $('#lokasi').val();
+                const products = $('#lokasi').val();
+                const shipping = $('#lokasi').val() + ' ' + $('#lokasi').val() + ' ' + $('#lokasi').val();
+                let html = `
+                  <div class="row">
+                    <div class="col">
+                      <h4 class="mb-3-">Customer Details</h4>
+                      <hr class="my-2">
+                      <div class="row g-3 align-items-center">
+                        <div class="col-auto">
+                          <label class="col-form-label">Name</label>
+                        </div>
+                        <div class="col-auto">
+                          <span class="form-text-">${name}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <h4 class="mt-3-">Shipping</h4>
+                      <hr class="my-2">
+                      <div class="row g-3 align-items-center">
+                        <div class="col-auto">
+                          <span class="form-text-">${shipping}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
 
-            //       <h4 class="mt-3">Products</h4>
-            //       <hr class="my-2">
-            //       <div class="row g-3 align-items-center">
-            //         <div class="col-auto">
-            //           <span class="form-text-">${products}</span>
-            //         </div>
-            //       </div>
+                  <h4 class="mt-3">Products</h4>
+                  <hr class="my-2">
+                  <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                      <span class="form-text-">${products}</span>
+                    </div>
+                  </div>
 
-            //       `;
-            //     $("#order-details").html(html);
-            //     $('#smartwizard').smartWizard("fixHeight");
-            // }
+                  `;
+                $("#order-details").html(html);
+                $('#smartwizard').smartWizard("fixHeight");
+            }
 
             $(function() {
                 // Leave step event is used for validating the forms
@@ -520,11 +520,11 @@
                     if (stepPosition === 'first') {
                         $("#prev-btn").addClass('disabled').prop('disabled', true);
                     } else if (stepPosition === 'last') {
-                        var no_rpbj = $("#no_rpbj").val();                       
+                        var nomor_rpbj = $("#nomor_rpbj").val();                       
                         var skk_id = $("#skk_id option:selected").text();
                         var prk_id = $("#prk_id option:selected").text();                        
 
-                        $("#nomor_rpbj_3").html(no_rpbj);                        
+                        $("#nomor_rpbj_3").html(nomor_rpbj);                        
                         $("#no_skk_3").html(skk_id);
                         $("#no_prk_3").html(prk_id);                        
 
@@ -572,7 +572,7 @@
                     $("#sw-total-step").text(stepInfo.totalSteps);
 
                     if (stepPosition == 'last') {
-                        onSubmitData();
+                        showConfirm();
                         $("#btnFinish").prop('disabled', false);
                     } else {
                         $("#btnFinish").prop('disabled', true);
@@ -588,7 +588,7 @@
 
                 // Smart Wizard
                 $('#smartwizard').smartWizard({
-                    selected: 0,
+                    selected: 1,
                     // autoAdjustHeight: false,
                     theme: 'arrows', // basic, arrows, square, round, dots
                     transition: {
@@ -598,7 +598,7 @@
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
                         position: 'bottom', // none/ top/ both bottom
-                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onConfirm()">Complete Order</button>
+                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Complete Order</button>
                               <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
                     },
                     anchor: {
@@ -1267,25 +1267,12 @@
 
     function onSubmitData() {
         var token = $('#csrf').val();
-        var nomor_rpbj = document.getElementById('nomor_rpbj').value;
-        // var today = new Date();
-        // today = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
-        // var kontrak_induk = document.getElementById('kontrak_induk').value;
-        // var pekerjaan = document.getElementById('pekerjaan').value;
-        // var lokasi = document.getElementById('lokasi').value;
-        // var start_date = document.getElementById('start_date').value;
-        // var end_date = document.getElementById('end_date').value;
-        // start_date = new Date(start_date);
-        // end_date = new Date(end_date);
-        // start_date = new Date(start_date.getTime() - (start_date.getTimezoneOffset() * 60000)).toISOString().split("T")[
-            // 0];
-        // end_date = new Date(end_date.getTime() - (end_date.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
-        // var addendum = document.getElementById('addendum').value;
+        var nomor_rpbj = document.getElementById('nomor_rpbj').value;        
         var skk_id = document.getElementById('skk_id').value;
         var prk_id = document.getElementById('prk_id').value;
-        var kak = document.getElementById('kak').files;
-        // var pejabat = document.getElementById('pejabat').value;
-        // var pengawas = document.getElementById('pengawas').value;
+
+        //upload kak
+        var kak = $('#kak')[0].files;
 
         var uraian = [];
         var satuan = [];
@@ -1306,55 +1293,59 @@
             harga[i] = parseInt(harga[i]);
         }
 
-        
-
-
-
         const bef_ppn_total_harga = harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
         var ppn = bef_ppn_total_harga * 11 / 100;
         ppn = Math.round(ppn);
         var total_harga = bef_ppn_total_harga + ppn;
         total_harga = Math.round(total_harga);
 
+        if(kak.length > 0){
+            var fd = new FormData();
+            fd.append("_token", token)            
+            fd.append("nomor_rpbj", nomor_rpbj);
+            fd.append("skk_id", skk_id);
+            fd.append("prk_id", prk_id);
+            fd.append('kak', kak[0]);
+            fd.append("total_harga", total_harga);
+            fd.append("uraian", uraian);
+            fd.append("satuan", satuan);
+            fd.append("harga_satuan", harga_satuan);
+            fd.append("volume", volume);
+            fd.append("jumlah_harga", harga);
+            fd.append("click", click);
+        }
 
         swal({
                 title: "Apakah anda yakin?",
                 text: "Anda tidak dapat mengedit Data ini lagi!",
                 icon: "warning",
-                buttons: true,
-                dangerMode: true,
+                buttons: true,                
             })
             .then((willCreate) => {
                 if (willCreate) {
                     var data = {
                         "_token": token,
-                        "nomor_rpbj": po,
-                        // "tanggal_po": today,
+                        "nomor_rpbj": nomor_rpbj,                        
                         "skk_id": skk_id,
-                        "prk_id": prk_id,
-                        // "pekerjaan": pekerjaan,
-                        // "lokasi": lokasi,
-                        // "startdate": start_date,
-                        // "enddate": end_date,
-                        // "nomor_kontrak_induk": kontrak_induk,
-                        // "addendum_id": addendum,
-                        // "pejabat_id": pejabat,
-                        "kak": kak,
+                        "prk_id": prk_id,                        
+                        "kak": kak[0],
                         "total_harga": total_harga,
-                        "uraian": uraian,
-                        // "item_order": item_id,
+                        "uraian": uraian,                        
                         "satuan": satuan,
                         "harga_satuan": harga_satuan,
                         "volume": volume,
                         "jumlah_harga": harga,
                         "click": click,
                     }
-                    console.log(data);
+                    console.log(fd);
 
-                    $.ajax({
-                        type: 'POST',
+                    $.ajax({                        
                         url: "/simpan-non-po",
-                        data: data,
+                        method: 'post',
+                        data: fd,
+                        contentType: false,
+                        processData: false,
+                        dataType: 'json',
                         success: function(response) {
                             swal({
                                     title: "Data Ditambah",

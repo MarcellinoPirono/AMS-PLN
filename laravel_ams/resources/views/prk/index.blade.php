@@ -38,7 +38,7 @@
                     <div class="table-responsive">
                         <table class="table table-responsive-md" id="read">
                             <thead>
-                                <tr>
+                                <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
                                     <th>No.SKK_PRK</th>
                                     <th>No.PRK</th>
@@ -48,13 +48,14 @@
                                     <th>PRK Realisasi</th>
                                     <th>PRK Terbayar</th>
                                     <th>PRK Sisa</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="alldata">
                                 @foreach ($prks as $prk)
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $prk->id }}">
-                                        <td><strong>{{ $loop->iteration }}</strong></td>
+                                        <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
                                         <td>{{ $prk->skks->nomor_skk }}</td>
                                         <td>{{ $prk->no_prk }}</td>
                                         <td>{{ $prk->uraian_prk }}</td>

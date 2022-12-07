@@ -7,13 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }}</title>
 
+    <!-- CSS only -->
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"> --}}
+
     <link href="{{ public_path('/') }}./asset/frontend/css/surat/postyle.css" rel="stylesheet" />
+
+
 
 </head>
 
 <body>
     <header>
+        <!-- <p>header</p> -->
         <img src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
+        <!-- <div class="header">
+        </div> -->
     </header>
 
     <footer>
@@ -25,6 +33,9 @@
             <link style="color: blue"><u style="color: blue">www.pln.co.id</u>
             <link>
         </div>
+        <!-- <div class="footer-container">
+        </div> -->
+
     </footer>
 
     <main>
@@ -209,8 +220,12 @@
 
     </main>
 
+
+
     <div class="page-break"></div>
 
+  
+    
     @foreach ($po_khs as $pokhs)
     <table class="sub-judul" width="100%">
         <tr>
@@ -244,7 +259,7 @@
             <tr class="warna">
                 <td style="width:4%;" rowspan="2" align="center" valign="middle">No</td>
                 <td rowspan="2" align="center" valign="middle">Uraian Pekerjaan</td>
-                <td style="width:12%;" rowspan="2" align="center" valign="middle">Satuan</td>
+                <td style="width:9%;" rowspan="2" align="center" valign="middle">Satuan</td>
                 <td style="width:9%;" rowspan="2" align="center" valign="middle">Volume</td>
                 <td style="width:25%;" colspan="2" align="center" valign="middle">Harga</td>
             </tr>
@@ -252,70 +267,32 @@
                 <td style="width:12%;" align="center" valign="middle">Satuan (RP)</td>
                 <td style="width:15%;" align="center" valign="middle">Jumlah (RP)</td>
             </tr>
-            <tr id="tr_jasa">
-               <td class="first" align="center" valign="middle"></td>                                       
-               <td class="first" style="font-weight: bold" align="left" valign="middle">JASA:</td>
-               <td class="first" align="center" valign="middle"></td>
-               <td class="first" align="center" valign="middle"></td>
-               <td class="first" align="right" valign="middle"></td>
-               <td class="first" align="right" valign="middle"></td>
-            </tr>
-            @if (count($kategori_jasa) > 0)
-            @foreach ($kategori_jasa as $jasa)
-            <tr>
-                <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>                                       
-                <td class="first" align="left" valign="middle">{{ $jasa->rincian_induks->nama_item }}</td>
-                <td class="first" align="center" valign="middle">{{ $jasa->satuans->singkatan }}</td>
-                <td class="first" align="center" valign="middle">{{ $jasa->volume }}</td>
-                <td class="first" align="right" valign="middle">@currency2($jasa->harga_satuan)</td>
-                <td class="first" align="right" valign="middle">@currency2($jasa->jumlah_harga)</td>
-            </tr>
-            @endforeach
-            @else
-            <tr>
-                <td class="first" align="center" valign="middle"></td>                                       
-                <td class="first" style="font-style: italic" align="left" valign="middle">Kategori Jasa Tidak Ada</td>
-                <td class="first" align="center" valign="middle"></td>
-                <td class="first" align="center" valign="middle"></td>
-                <td class="first" align="right" valign="middle"></td>
-                <td class="first" align="right" valign="middle"></td>
-            </tr>
-            @endif
-            <tr id="tr_material">
-               <td class="first" align="center" valign="middle"></td>                                       
-               <td class="first" style="font-weight: bold" align="left" valign="middle">MATERIAL:</td>
-               <td class="first" align="center" valign="middle"></td>
-               <td class="first" align="center" valign="middle"></td>
-               <td class="first" align="right" valign="middle"></td>
-               <td class="first" align="right" valign="middle"></td>
-            </tr>
-            @if (count($kategori_material) > 0)
-            @foreach ($kategori_material as $material)
-            <tr>
-                <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>                                       
-                <td class="first" align="left" valign="middle">{{ $material->rincian_induks->nama_item }}</td>
-                <td class="first" align="center" valign="middle">{{ $material->satuans->singkatan }}</td>
-                <td class="first" align="center" valign="middle">{{ $material->volume }}</td>
-                <td class="first" align="right" valign="middle">@currency2($material->harga_satuan)</td>
-                <td class="first" align="right" valign="middle">@currency2($material->jumlah_harga)</td>
-            </tr>
-            @endforeach
-            @else
-            <tr>
-                <td class="first" align="center" valign="middle"></td>                                       
-                <td class="first" style="font-style: italic" align="left" valign="middle">Kategori Material Tidak Ada</td>
-                <td class="first" align="center" valign="middle"></td>
-                <td class="first" align="center" valign="middle"></td>
-                <td class="first" align="right" valign="middle"></td>
-                <td class="first" align="right" valign="middle"></td>
-            </tr>
-            @endif
-                {{-- @foreach ($rab_khs as $rabkhs)
+            <!-- <tr>
+        <td align="center" valign="top"></td>
+        <td align="center" valign="top"></td>
+        <td align="center" valign="top"></td>
+        <td align="center" valign="top"></td>
+        <td align="center" valign="top"></td>
+        <td align="center" valign="top"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr> -->
+                @foreach ($rab_khs as $rabkhs)
                 @if ($rabkhs->kategori_order == "Jasa")
                 <tr>
-                   <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>                                       
+                    
+                </tr>
+                <tr>
+                   <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>                    
+                   <!-- <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td> -->
                    <td class="first" align="left" valign="middle">{{ $rabkhs->rincian_induks->nama_item }}</td>
-                   <td class="first" align="center" valign="middle">{{ $rabkhs->satuans->singkatan }}</td>
+                   <td class="first" align="center" valign="middle">{{ $rabkhs->satuan_id }}</td>
                    <td class="first" align="center" valign="middle">{{ $rabkhs->volume }}</td>
                    <td class="first" align="right" valign="middle">@currency2($rabkhs->harga_satuan)</td>
                    <td class="first" align="right" valign="middle">@currency2($rabkhs->jumlah_harga)</td>
@@ -323,7 +300,8 @@
                 @endif
                 @if ($rabkhs->kategori_order == "Material")
                 <tr>
-                   <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>                                       
+                   <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>                    
+                   <!-- <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td> -->
                    <td class="first" align="left" valign="middle">{{ $rabkhs->rincian_induks->nama_item }}</td>
                    <td class="first" align="center" valign="middle">{{ $rabkhs->satuans->singkatan }}</td>
                    <td class="first" align="center" valign="middle">{{ $rabkhs->volume }}</td>
@@ -331,7 +309,7 @@
                    <td class="first" align="right" valign="middle">@currency2($rabkhs->jumlah_harga)</td>
                </tr>  
                 @endif
-                @endforeach --}}
+                @endforeach
             <tr>
                 <td rowspan="3" colspan="3"></td>
                 <td colspan="2" align="center" valign="middle"><b>Jumlah</b></td>
@@ -362,7 +340,7 @@
         <td style="height: 50px;" align="center" valign="bottom">Mengetahui</td>
         <td style="width:35%;" align="center" valign="bottom">Makassar, {{ \Carbon\Carbon::parse($pokhs->tanggal_po)->isoFormat('dddd, DD MMMM YYYY') }}</td>
     </tr>
-    <tr>
+    <tr>{{  }}
         <td align="center" valign="top">{{$jabatan_manager}}</td>
         <td align="center" valign="middle">{{$pokhs->pejabats->jabatan}}</td>
     </tr>
@@ -371,6 +349,9 @@
         <td align="center" valign="bottom">{{$pokhs->pejabats->nama_pejabat}}</td>
     </tr>
     </table>
+
+
+
 </body>
 
 </html>

@@ -8,6 +8,7 @@ use App\Models\Skk;
 use App\Models\Prk;
 use App\Models\RabNonPo;
 use App\Models\Redaksi;
+use Illuminate\Support\Facades\Storage;
 
 class NonPOController extends Controller
 {
@@ -17,128 +18,37 @@ class NonPOController extends Controller
         return view('non-po.index', [
             'title' => 'Non-PO',
             'title1' => 'Non-PO',  
-            'redaksis'=>Redaksi::all(),          
+            // 'redaksis'=>Redaksi::all(),          
         ]);       
     }
 
     public function create()
-    {
-        // $kategoris = ItemRincianInduk::all();
-        // $data_kategori =[];
-        // foreach ($kategoris as $kategori) {            
-        //     $data_kategori =  $kategori->nama_kategori;
-        // }
-
-        // $items = RincianInduk::all();
-        // $data_items = RincianInduk::select('id', 'nama_item', 'harga_satuan', 'satuan_id')->get();
-        // $data_kategori = ItemRincianInduk::select('id','khs_id','nama_kategori')->get();
-        // $kontrak_induk_id = KontrakInduk::select('id')->get();
-        // $latest_addendum = Addendum::groupBy('kontrak_induk_id')->latest('tanggal_addendum')->get();
-        // $khs =Khs::all();
-
-        // $data = $data_items->concat($data_kategori);
-        // $data = DB::select('SELECT * FROM item_rincian_induks LEFT JOIN rincian_induks ON item_rincian_induks.id = rincian_induks.kategori_id');
-        // $data = array_merge($data_items->toArray(), $data_kategori->toArray());
-
-        // foreach ($items as $item) {            
-        //     $data_items =  $item->nama_item;
-        // }
-
-        // $data =
-        // [
-        //     'active1' => 'Buat KHS',
-        //     'title' => 'Kontrak Harga Satuan (KHS)',
-        //     'title1' => 'KHS',
-        //     'active' => 'KHS',
-        //     'skks' => Skk::all(),
-        //     'prks' => Prk::all(),
-        //     'categories' => ItemRincianInduk::all(),
-        //     'items' => RincianInduk::all(),
-        //     'kontraks' => KontrakInduk::all(),
-        //     'pejabats' => Pejabat::all(),
-        // ];
-
-        // return view('rab.create')->with($data);
-
+    {        
 
         return view(
             'non-po.duplicate_buat_non_po',
             [
-                'active1' => 'Buat PO-KHS',
+                'active1' => 'Buat Non-PO',
                 'title' => 'Non Purchase Order',
                 'title1' => 'Non-PO',
                 'active' => 'Non-PO',
                 'skks' => Skk::all(),
                 'prks' => Prk::all(),
-                'redaksis'=>Redaksi::all(),  
-                // 'categories' => ItemRincianInduk::all(),
-                // 'items' => RincianInduk::all(),
-                // 'kontraks' => KontrakInduk::all(),
-                // 'pejabats' => Pejabat::all(),
-                // 'khs' => Khs::all(),
-                // 'latest_addendum' => $latest_addendum
+                'redaksis'=>Redaksi::all(),          
             ]
         );
     }
 
     public function buat_non_po()
-    {
-        // $kategoris = ItemRincianInduk::all();
-        // $data_kategori =[];
-        // foreach ($kategoris as $kategori) {            
-        //     $data_kategori =  $kategori->nama_kategori;
-        // }
-
-        // $items = RincianInduk::all();
-        // $data_items = RincianInduk::select('id', 'nama_item', 'harga_satuan', 'satuan_id')->get();
-        // $data_kategori = ItemRincianInduk::select('id','khs_id','nama_kategori')->get();
-        // $kontrak_induk_id = KontrakInduk::select('id')->get();
-        // $latest_addendum = Addendum::groupBy('kontrak_induk_id')->latest('tanggal_addendum')->get();
-        // $khs =Khs::all();
-
-        // $data = $data_items->concat($data_kategori);
-        // $data = DB::select('SELECT * FROM item_rincian_induks LEFT JOIN rincian_induks ON item_rincian_induks.id = rincian_induks.kategori_id');
-        // $data = array_merge($data_items->toArray(), $data_kategori->toArray());
-
-        // foreach ($items as $item) {            
-        //     $data_items =  $item->nama_item;
-        // }
-
-        // $data =
-        // [
-        //     'active1' => 'Buat KHS',
-        //     'title' => 'Kontrak Harga Satuan (KHS)',
-        //     'title1' => 'KHS',
-        //     'active' => 'KHS',
-        //     'skks' => Skk::all(),
-        //     'prks' => Prk::all(),
-        //     'categories' => ItemRincianInduk::all(),
-        //     'items' => RincianInduk::all(),
-        //     'kontraks' => KontrakInduk::all(),
-        //     'pejabats' => Pejabat::all(),
-        // ];
-
-        // return view('rab.create')->with($data);
-
-
-        return view(
-            'non-po.duplicate_buat_non_po',
-            [
-                'active1' => 'Buat PO-KHS',
+    {        
+        return view('non-po.duplicate_buat_non_po',[
+                'active1' => 'Buat Non-PO ',
                 'title' => 'Non Purchase Order',
                 'title1' => 'Non-PO',
                 'active' => 'Non-PO',
                 'skks' => Skk::all(),
-                'prks' => Prk::all(),
-                'redaksis'=>Redaksi::all(),  
-                // 'categories' => ItemRincianInduk::all(),
-                // 'items' => RincianInduk::all(),
-                // 'kontraks' => KontrakInduk::all(),
-                // 'pejabats' => Pejabat::all(),
-                // 'khs' => Khs::all(),
-                // 'latest_addendum' => $latest_addendum
-            ]
-        );
+                'prks' => Prk::all(),                
+        ]);
     }
 
     public function simpan_non_po(Request $request)
@@ -157,17 +67,34 @@ class NonPOController extends Controller
             'jumlah_harga' => 'required|max:250',
         ]);
 
+        $file = $request->file('kak');
+        // dd($file);
+        $filename = time().'_'.$file->getClientOriginalName();
+        // File extension    
+        $extension = $file->getClientOriginalExtension();    
+
+        // File upload location
+        $location = 'public/storage/non-po/';
+
+        // Upload file
+        $file->move($location,$filename);
+        // $content = $file->getOriginalContent();
+        // Storage::put('public/storage/file-pdf-khs/'.$filename.'.pdf',$content);
+        // File path
+        $filepath = url('public/storage/non-po/'.$filename);
+        // $path = 'public/storage/non-po/'.$filename;
+
         $non_po = [
-            'nomor_rpbj' => $request->nomor_po,            
+            'nomor_rpbj' => $request->nomor_rpbj,            
             'skk_id' => $request->skk_id,
             'prk_id' => $request->prk_id,
-            'kak' => $request->kak,            
+            'kak' => $filepath,            
             'total_harga' => $request->total_harga,
         ];
 
         NonPo::create($non_po);
 
-        $id = RabNonPo::where('nomor_po', $request->nomor_po)->value('id');
+        $id = NonPo::where('nomor_rpbj', $request->nomor_rpbj)->value('id');
 
         $total_tabel = $request->click;
 
@@ -221,7 +148,7 @@ class NonPOController extends Controller
         Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
 
 
-        return redirect('/non-po')->with('status', 'PO KHS Berhasil Ditambah!');
+        return redirect('/non-po')->with('status', 'Non-PO Berhasil Ditambah!');
     }
 
 

@@ -29,7 +29,7 @@ class SKKController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+public function create()
     {
         return view('skk.create', [
             'title' => 'SKK',
@@ -145,6 +145,14 @@ class SKKController extends Controller
         foreach($prk as $prks){
             $html.='<option value="'.$prks->id.'">'.$prks->no_prk.'</option>';
         }
+        echo $html;
+    }
+
+    public function getPRK(Request $request)
+    {
+        $prk_id = $request->post('prk_id');
+        $pagu_prk = DB::table('prks')->where('id',$prk_id)->get();
+        $html = $pagu_prk[0]->pagu_prk;
         echo $html;
     }
 

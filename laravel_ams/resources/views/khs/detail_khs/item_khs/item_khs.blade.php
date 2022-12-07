@@ -44,7 +44,7 @@
                     <div class="table-responsive" id="read">
                         <table id="rincian-table" class="table table-responsive-md">
                             <thead>
-                                <tr>
+                                <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
                                     <th>Rincian Item</th>
                                     <th>Kategori</th>
@@ -58,11 +58,11 @@
                                 @foreach ($items as $item)
                                     <tr style="width: 1135px;">
                                         <input type="hidden" class="delete_id" value="{{ $item->id }}">                                        
-                                        <td><strong>{{ $loop->iteration }}</strong></td>
+                                        <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
                                         <td>{{ $item->nama_item }}</td>
-                                        <td>{{ $item->kategori }}</td>
-                                        <td>{{ $item->khs->jenis_khs }}</td>
-                                        <td>{{ $item->satuans->singkatan }}</td>
+                                        <td align="center" valign="middle">{{ $item->kategori }}</td>
+                                        <td align="center" valign="middle">{{ $item->khs->jenis_khs }}</td>
+                                        <td align="center" valign="middle">{{ $item->satuans->singkatan }}</td>
                                         <td>@currency($item->harga_satuan) </td>
                                         <td style="width:96px">
                                             <div class="d-flex">

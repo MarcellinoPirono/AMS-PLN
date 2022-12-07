@@ -46,8 +46,8 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-responsive-sm">
-                            <thead>
-                                <tr>
+                            <thead> 
+                                <tr align="center" valign="middle">
                                     <th class="width30">No.</th>
                                     <th>Jenis KHS</th>
                                     <th>Nama Pekerjaan</th>
