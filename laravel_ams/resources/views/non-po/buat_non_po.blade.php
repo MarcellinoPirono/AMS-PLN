@@ -57,7 +57,7 @@
                                                         Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silakan Isi No. PO
+                                                        Silakan Upload KAK
                                                     </div>
                                                 </div>
                                             </div>
@@ -65,14 +65,14 @@
                                                 <div class="form-group">
                                                     <label class="text-label">Input No. RPBJ</label>
                                                     <input type="text"
-                                                        class="form-control @error('pengawas') is-invalid @enderror"
+                                                        class="form-control"
                                                         name="no_rpbj" id="no_rpbj" placeholder="Nomor RPBJ" required
                                                         autofocus value="{{ old('no_rpbj') }}">
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silakan isi Pengawas Pekerjaan
+                                                        Silakan isi  No. RPBJ
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,6 +105,43 @@
                                                     </div>
                                                     <div class="invalid-feedback">
                                                         Silakan Pilih No. PRK
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Supervisor</label>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        name="supervisor" id="supervisor" placeholder="Supervisor" required
+                                                        autofocus value="{{ old('supervisor') }}">
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan isi  Supervisor
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Pilih Manager</label>
+                                                    <select class="form-control input-default" id="manager"
+                                                        name="manager" required>
+                                                        <option value="" selected disabled>Manager
+                                                        </option>
+                                                        @foreach ($pejabats as $pejabat)
+                                                            <option value="{{ $pejabat->id }}">
+                                                                {{ $pejabat->jabatan }} -
+                                                                {{ $pejabat->nama_pejabat }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div class="valid-feedback">
+                                                        Data Terpilih
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan Pilih Manager
                                                     </div>
                                                 </div>
                                             </div>

@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\NonPo;
 use App\Models\Skk;
 use App\Models\Prk;
+use App\Models\Pejabat;
 use App\Models\RabNonPo;
 use App\Models\Redaksi;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Riskihajar\Terbilang\Facades\Terbilang;
 use Illuminate\Support\Facades\Storage;
 
 class NonPOController extends Controller
@@ -49,6 +52,7 @@ class NonPOController extends Controller
                 'active' => 'Non-PO',
                 'skks' => Skk::all(),
                 'prks' => Prk::all(),                
+                'pejabats' => Pejabat::all(),                
         ]);
     }
 
@@ -57,8 +61,11 @@ class NonPOController extends Controller
         // dd($request);
         $request->validate([
             'nomor_rpbj' => 'required|max:250',            
+            'pekerjaan' => 'required|max:250',            
             'skk_id' => 'required|max:250',
             'prk_id' => 'required|max:250',            
+            'supervisor' => 'required|max:250',            
+            'pejabat_id' => 'required|max:250',            
             'total_harga' => 'required|max:250',
             'kak' => 'required|mimes:pdf',
             'uraian' => 'required|max:250',
@@ -76,21 +83,34 @@ class NonPOController extends Controller
 
         // File upload location
         $location = 'public/storage/non-po/';
+        Storage::put('public/storage/file-pdf-khs/non-po/'. $filename.'.pdf', $file);
 
         // Upload file
-        $file->move($location,$filename);
+        // $file->move($location,$filename);
         // $content = $file->getOriginalContent();
         // Storage::put('public/storage/file-pdf-khs/'.$filename.'.pdf',$content);
         // File path
-        $filepath = url('public/storage/non-po/'.$filename);
+        $filepath = 'public/storage/non-po/'.$filename;
         // $path = 'public/storage/non-po/'.$filename;
+
+        $nama_pdf = $request->nomor_rpbj;
+        $ubah_pdf = str_replace('.', '_', $nama_pdf);
+        $ubah_pdf2 = str_replace('/','-', $ubah_pdf);
+        
+
+        $mypdf = 'public/storage/file-pdf-khs/non-po/'.$ubah_pdf2.'.pdf';
+
 
         $non_po = [
             'nomor_rpbj' => $request->nomor_rpbj,            
+            'pekerjaan' => $request->pekerjaan,            
             'skk_id' => $request->skk_id,
             'prk_id' => $request->prk_id,
+            'supervisor' => $request->supervisor,
+            'pejabat_id' => $request->pejabat_id,
             'kak' => $filepath,            
             'total_harga' => $request->total_harga,
+            'pdf_file' => $mypdf,
         ];
 
         NonPo::create($non_po);
@@ -105,6 +125,12 @@ class NonPOController extends Controller
             $non_po_id[$i] = $id;
         }
 
+        // for ($j = 0; $j < $total_tabel; $j++) {
+        //     dd($request->uraian[$j]);
+        // }
+        // dd($request->uraian);
+        // dd($non_po_id);
+
         for ($j = 0; $j < $total_tabel; $j++) {
             $rab_non_po = [
                 'non_po_id' => $non_po_id[$j],
@@ -116,6 +142,32 @@ class NonPOController extends Controller
             ];
             RabNonPo::create($rab_non_po);
         }
+
+        // dd($rab_non_po);
+
+        $values_pdf_page1 = NonPo::where('id', $id)->get();
+
+        $non_po_id = NonPo::where('id', $id)->value('id');
+        $values_pdf_page2 = RabNonPo::where('non_po_id', $non_po_id)->get();
+        
+        $jumlah = RabNonPo::where('non_po_id', $non_po_id)->sum('jumlah_harga');
+        $ppn = $jumlah * 0.11;
+        // dd($values_pdf_page1);
+
+        $pdf = Pdf::loadView('layouts.nota_dinas',[
+            "non_po" => $values_pdf_page1,            
+            "rab_non_po" => $values_pdf_page2,            
+            "jumlah" => $jumlah,
+            "ppn" => $ppn,
+            // "days" => $days,
+            // "jabatan_manager" => $jabatan_manager,
+            // "nama_manager" => $nama_manager,
+            "title" => $ubah_pdf2,
+
+        ]);
+
+        $content = $pdf->download()->getOriginalContent();
+        Storage::put('public/storage/file-pdf-khs/non-po/'.$ubah_pdf2.'.pdf',$content);
 
         //Update PRK 1
         // $previous_prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
@@ -150,6 +202,16 @@ class NonPOController extends Controller
 
 
         return response()->json($id);
+    }
+
+    public function export_pdf_khs(Request $request, $id)
+    {
+        $document = NonPo::findorFail($id);
+
+        $filePath = $document->pdf_file;
+
+        return Storage::download($filePath);
+
     }
 
 

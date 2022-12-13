@@ -50,14 +50,14 @@
                                                         </div>
                                                         <div class="custom-file">
                                                             <input id="kak" type="file" class="form-control custom-file-input" required/>
-                                                            <label class="custom-file-label">Choose file</label>
+                                                            <label class="custom-file-label">Choose or Drag file</label>
                                                         </div>
                                                     </div>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silakan Isi No. PO
+                                                        Silakan Upload KAK
                                                     </div>
                                                 </div>
                                             </div>
@@ -72,7 +72,22 @@
                                                         Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silakan isi Pengawas Pekerjaan
+                                                        Silakan isi No. RPBJ
+                                                    </div>
+                                                </div>
+                                            </div>                                            
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Input Pekerjaan</label>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        name="pekerjaan" id="pekerjaan" placeholder="Pekerjaan" required
+                                                        autofocus value="{{ old('pekerjaan') }}">
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan isi Pekerjaan
                                                     </div>
                                                 </div>
                                             </div>                                            
@@ -108,6 +123,44 @@
                                                     </div>
                                                     <div class="invalid-feedback">
                                                         Silakan Pilih No. PRK
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Supervisor</label>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        name="supervisor" id="supervisor" placeholder="Supervisor" required
+                                                        autofocus value="{{ old('supervisor') }}">
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan isi  Supervisor
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Pilih Manager</label>
+                                                    <select class="form-control input-default" id="pejabat_id"
+                                                        name="pejabat_id" required>
+                                                        <option value="" selected disabled>Manager
+                                                        </option>
+                                                        @foreach ($pejabats as $pejabat)
+                                                            <option value="{{ $pejabat->id }}">
+                                                                {{ $pejabat->jabatan }} -
+                                                                {{ $pejabat->nama_pejabat }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div class="valid-feedback">
+                                                        Data Terpilih
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan Pilih Manager
                                                     </div>
                                                 </div>
                                             </div>                                            
@@ -249,26 +302,26 @@
                                                         <h4 class="card-title">Preview Kontrak NON PO</h4>
                                                     </div>
                                                     <div class="row ml-2 justify-content-start">
-                                                    <h5 class="card-title">Step 1: Informasi Umum</h5>
-                                                    <table class="uprightTbl noborder" style="width:100%;"
-                                                            id="rincian" cellspacing="0" cellpadding="0">
-                                                            <tr class="noborder">
-                                                                <td style="width:20%;">No. RPBJ
-                                                                </td>
-                                                                <td style="width:1%">:</td>
-                                                                <td id="nomor_rpbj_3">
-                                                                </td>
-                                                            </tr>                                                            
-                                                            <tr class="noborder">
-                                                                <td>No. SKK</td>
-                                                                <td>:</td>
-                                                                <td id="no_skk_3"></td>
-                                                            </tr>
-                                                            <tr class="noborder">
-                                                                <td>No. PRK</td>
-                                                                <td>:</td>
-                                                                <td id="no_prk_3"></td>
-                                                            </tr>                                                            
+                                                        <h5 class="card-title">Step 1: Informasi Umum</h5>
+                                                        <table class="uprightTbl noborder" style="width:100%;"
+                                                                id="rincian" cellspacing="0" cellpadding="0">
+                                                                <tr class="noborder">
+                                                                    <td style="width:20%;">No. RPBJ
+                                                                    </td>
+                                                                    <td style="width:1%">:</td>
+                                                                    <td id="nomor_rpbj_3">
+                                                                    </td>
+                                                                </tr>                                                            
+                                                                <tr class="noborder">
+                                                                    <td>No. SKK</td>
+                                                                    <td>:</td>
+                                                                    <td id="no_skk_3"></td>
+                                                                </tr>
+                                                                <tr class="noborder">
+                                                                    <td>No. PRK</td>
+                                                                    <td>:</td>
+                                                                    <td id="no_prk_3"></td>
+                                                                </tr>                                                            
                                                         </table>
                                                     </div>
                                                     <hr>
@@ -330,13 +383,15 @@
                                                                             <td class="first1"></td>
                                                                         </tr> -->
                                                                     </table>
-                                                                    <div>
+                                                                    {{-- <div>
                                                                         <button id="prevpdf">Previous</button>
                                                                         <button id="nextpdf">Next</button>
                                                                         &nbsp; &nbsp;
                                                                         <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
                                                                     </div>
-                                                                    <canvas id="pdfViewer"></canvas>
+                                                                    <canvas id="pdfViewer"></canvas> --}}
+                                                                    {{-- <embed width="100%" height="600px" type="application/pdf" id="embedLink"/> --}}
+
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
                                                                         <embed id="pdfViewer2" width="100%" height="600px" >
                                                                     </object> -->
@@ -346,7 +401,22 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <hr>                                                
+                                                    <hr>
+
+                                                    <div class="row ml-2 justify-content-center">
+                                                        <h5 class="card-title">Preview KAK </h5>
+                                                        {{-- <div class="position-relative justify-content-end float-right sweetalert">
+                                                            <button type="button" id="btnPrvw"
+                                                                    class="btn btn-primary position-relative justify-content-end">Preview <i class="bi bi-eye"></i></button>
+                                                        </div> --}}
+
+                                                        
+                                                        
+                                                    </div>
+                                                    
+                                                    <embed width="100%" height="650px" name="plugin" id="embedLink" type="application/pdf" />
+                                                
+
                                                 </div>
                                             </div>
                                         </div>
@@ -386,7 +456,7 @@
 
         <!-- Preview PDF -->
         <!-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> -->
-        <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+        {{-- <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script> --}}
 
 
         <!-- Bootrap for the demo page -->
@@ -407,6 +477,41 @@
         <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/wizard.js"></script>
 
         <script type="text/javascript">
+        //  var srcContent;
+        //         function readURL(input) {
+        //             if (input.files && input.files[0]) {
+        //                 var reader = new FileReader();
+        //                 reader.onload = function (e) {
+        //                     srcContent=  e.target.result;
+        //                 }
+        //                 reader.readAsDataURL(input.files[0]);
+        //             }
+        //         }       
+        //         $(document).ready(function () {        
+        //             $("#kak").change(function () {
+        //                 if (this.files[0].name != "") {
+        //                     readURL(this);                  
+        //                 }                    
+        //             });    
+        //             // $('#btnPrvw').click(function () {              
+        //             //     $('#embdLink').attr('src', srcContent);
+        //             // });
+        //             $('#embedLink').attr('src', srcContent);
+
+        //         });
+
+            $(document).ready(function() {
+                var filename;
+                        $('#kak').change(function() {
+                            if (this.files[0].name != "") {
+                            filename = this.files[0]
+                            $('#embedLink')[0].src = window.URL.createObjectURL(new Blob([filename], {"type":"application/pdf"}));
+                            }
+                        });
+                        // $('#btnPrvw').click(function() {
+                        // });
+                });
+
             const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
 
             // function onCancel() {
@@ -592,7 +697,7 @@
                     // autoAdjustHeight: false,
                     theme: 'arrows', // basic, arrows, square, round, dots
                     transition: {
-                        animation: 'none'
+                        animation: 'slideSwing'
                     },
                     toolbar: {
                         showNextButton: true, // show/hide a Next button
@@ -645,19 +750,118 @@
 
         </script>
         <script>
-            var url = 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf';
+            // var url = 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf';
 
-            var pdfjsLib = window['pdfjs-dist/build/pdf'];
-            pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-            var pdfDoc = null,
-                pageNum = 1,
-                pageRendering = false,
-                pageNumPending = null,
-                scale = 0.8,
-                canvas = document.getElementById('pdfViewer'),
-                ctx = canvas.getContext('2d');
+            // var pdfjsLib = window['pdfjs-dist/build/pdf'];
+            // pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+            // var pdfDoc = null,
+            //     pageNum = 1,
+            //     pageRendering = false,
+            //     pageNumPending = null,
+            //     scale = 0.8,
+            //     canvas = document.getElementById('pdfViewer'),
+            //     ctx = canvas.getContext('2d');
 
-            // var url = document.getElementById('kak').files();        
+            // // var url = document.getElementById('kak').files();        
+
+            // // $("#kak").on("change", function(e){
+            // //     var file = e.target.files[0]
+            // //     if(file.type == "application/pdf"){
+            // //         var fileReader = new FileReader();  
+            // //         fileReader.onload = function() {
+            // //             var pdfData = new Uint8Array(this.result);
+            // //             // Using DocumentInitParameters object to load binary data.
+            // //             var loadingTask = pdfjsLib.getDocument({data: pdfData});
+            // //             loadingTask.promise.then(function(pdf) {
+            // //             console.log('PDF loaded');
+                        
+            // //             // Fetch the first page
+            // //             var pageNumber = 1;
+            // //             pdf.getPage(pageNumber).then(function(page) {
+            // //                 console.log('Page loaded');
+                            
+            // //                 var scale = 1.5;
+            // //                 var viewport = page.getViewport({scale: scale});
+
+            // //                 // Prepare canvas using PDF page dimensions
+            // //                 var canvas = $("#pdfViewer")[0];
+            // //                 var context = canvas.getContext('2d');
+            // //                 canvas.height = viewport.height;
+            // //                 canvas.width = viewport.width;
+
+            // //                 // Render PDF page into canvas context
+            // //                 var renderContext = {
+            // //                 canvasContext: context,
+            // //                 viewport: viewport
+            // //                 };
+            // //                 var renderTask = page.render(renderContext);
+            // //                 renderTask.promise.then(function () {
+            // //                 console.log('Page rendered');
+            // //                 });
+            // //             });
+            // //             }, function (reason) {
+            // //             // PDF loading error
+            // //             console.error(reason);
+            // //             });
+            // //         };
+            // //         fileReader.readAsArrayBuffer(file);
+            // //     }
+            // // });
+            // function renderPage(num) {
+            //     pageRendering = true;
+            //     // Using promise to fetch the page
+            //     pdfDoc.getPage(num).then(function(page) {
+            //         var viewport = page.getViewport({scale: scale});
+            //         canvas.height = viewport.height;
+            //         canvas.width = viewport.width;
+
+            //         // Render PDF page into canvas context
+            //         var renderContext = {
+            //         canvasContext: ctx,
+            //         viewport: viewport
+            //         };
+            //         var renderTask = page.render(renderContext);
+
+            //         // Wait for rendering to finish
+            //         renderTask.promise.then(function() {
+            //         pageRendering = false;
+            //         if (pageNumPending !== null) {
+            //             // New page rendering is pending
+            //             renderPage(pageNumPending);
+            //             pageNumPending = null;
+            //         }
+            //         });
+            //     });
+
+            //     // Update page counters
+            //     document.getElementById('page_num').textContent = num;
+            // }
+
+            // function queueRenderPage(num) {
+            //     if (pageRendering) {
+            //         pageNumPending = num;
+            //     } else {
+            //         renderPage(num);
+            //     }
+            // }
+
+            // function onPrevPage() {
+            //     if (pageNum <= 1) {
+            //         return;
+            //     }
+            //     pageNum--;
+            //     queueRenderPage(pageNum);
+            // }
+            // document.getElementById('prevpdf').addEventListener('click', onPrevPage);
+
+            // function onNextPage() {
+            //     if (pageNum >= pdfDoc.numPages) {
+            //         return;
+            //     }
+            //     pageNum++;
+            //     queueRenderPage(pageNum);
+            // }
+            // document.getElementById('nextpdf').addEventListener('click', onNextPage);
 
             // $("#kak").on("change", function(e){
             //     var file = e.target.files[0]
@@ -668,32 +872,35 @@
             //             // Using DocumentInitParameters object to load binary data.
             //             var loadingTask = pdfjsLib.getDocument({data: pdfData});
             //             loadingTask.promise.then(function(pdf) {
-            //             console.log('PDF loaded');
+            //                 console.log('PDF loaded');
+            //                 pdfDoc = pdf;
+            //                 document.getElementById('page_count').textContent = pdfDoc.numPages;
+            //                 renderPage(pageNum);
                         
             //             // Fetch the first page
-            //             var pageNumber = 1;
-            //             pdf.getPage(pageNumber).then(function(page) {
-            //                 console.log('Page loaded');
+            //             // var pageNumber = 1;
+            //             // pdf.getPage(pageNumber).then(function(page) {
+            //             //     console.log('Page loaded');
                             
-            //                 var scale = 1.5;
-            //                 var viewport = page.getViewport({scale: scale});
+            //             //     var scale = 1.5;
+            //             //     var viewport = page.getViewport({scale: scale});
 
-            //                 // Prepare canvas using PDF page dimensions
-            //                 var canvas = $("#pdfViewer")[0];
-            //                 var context = canvas.getContext('2d');
-            //                 canvas.height = viewport.height;
-            //                 canvas.width = viewport.width;
+            //             //     // Prepare canvas using PDF page dimensions
+            //             //     var canvas = $("#pdfViewer")[0];
+            //             //     var context = canvas.getContext('2d');
+            //             //     canvas.height = viewport.height;
+            //             //     canvas.width = viewport.width;
 
-            //                 // Render PDF page into canvas context
-            //                 var renderContext = {
-            //                 canvasContext: context,
-            //                 viewport: viewport
-            //                 };
-            //                 var renderTask = page.render(renderContext);
-            //                 renderTask.promise.then(function () {
-            //                 console.log('Page rendered');
-            //                 });
-            //             });
+            //             //     // Render PDF page into canvas context
+            //             //     var renderContext = {
+            //             //     canvasContext: context,
+            //             //     viewport: viewport
+            //             //     };
+            //             //     var renderTask = page.render(renderContext);
+            //             //     renderTask.promise.then(function () {
+            //             //     console.log('Page rendered');
+            //             //     });
+            //             // });
             //             }, function (reason) {
             //             // PDF loading error
             //             console.error(reason);
@@ -702,108 +909,6 @@
             //         fileReader.readAsArrayBuffer(file);
             //     }
             // });
-            function renderPage(num) {
-                pageRendering = true;
-                // Using promise to fetch the page
-                pdfDoc.getPage(num).then(function(page) {
-                    var viewport = page.getViewport({scale: scale});
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-
-                    // Render PDF page into canvas context
-                    var renderContext = {
-                    canvasContext: ctx,
-                    viewport: viewport
-                    };
-                    var renderTask = page.render(renderContext);
-
-                    // Wait for rendering to finish
-                    renderTask.promise.then(function() {
-                    pageRendering = false;
-                    if (pageNumPending !== null) {
-                        // New page rendering is pending
-                        renderPage(pageNumPending);
-                        pageNumPending = null;
-                    }
-                    });
-                });
-
-                // Update page counters
-                document.getElementById('page_num').textContent = num;
-            }
-
-            function queueRenderPage(num) {
-                if (pageRendering) {
-                    pageNumPending = num;
-                } else {
-                    renderPage(num);
-                }
-            }
-
-            function onPrevPage() {
-                if (pageNum <= 1) {
-                    return;
-                }
-                pageNum--;
-                queueRenderPage(pageNum);
-            }
-            document.getElementById('prevpdf').addEventListener('click', onPrevPage);
-
-            function onNextPage() {
-                if (pageNum >= pdfDoc.numPages) {
-                    return;
-                }
-                pageNum++;
-                queueRenderPage(pageNum);
-            }
-            document.getElementById('nextpdf').addEventListener('click', onNextPage);
-
-            $("#kak").on("change", function(e){
-                var file = e.target.files[0]
-                if(file.type == "application/pdf"){
-                    var fileReader = new FileReader();  
-                    fileReader.onload = function() {
-                        var pdfData = new Uint8Array(this.result);
-                        // Using DocumentInitParameters object to load binary data.
-                        var loadingTask = pdfjsLib.getDocument({data: pdfData});
-                        loadingTask.promise.then(function(pdf) {
-                            console.log('PDF loaded');
-                            pdfDoc = pdf;
-                            document.getElementById('page_count').textContent = pdfDoc.numPages;
-                            renderPage(pageNum);
-                        
-                        // Fetch the first page
-                        // var pageNumber = 1;
-                        // pdf.getPage(pageNumber).then(function(page) {
-                        //     console.log('Page loaded');
-                            
-                        //     var scale = 1.5;
-                        //     var viewport = page.getViewport({scale: scale});
-
-                        //     // Prepare canvas using PDF page dimensions
-                        //     var canvas = $("#pdfViewer")[0];
-                        //     var context = canvas.getContext('2d');
-                        //     canvas.height = viewport.height;
-                        //     canvas.width = viewport.width;
-
-                        //     // Render PDF page into canvas context
-                        //     var renderContext = {
-                        //     canvasContext: context,
-                        //     viewport: viewport
-                        //     };
-                        //     var renderTask = page.render(renderContext);
-                        //     renderTask.promise.then(function () {
-                        //     console.log('Page rendered');
-                        //     });
-                        // });
-                        }, function (reason) {
-                        // PDF loading error
-                        console.error(reason);
-                        });
-                    };
-                    fileReader.readAsArrayBuffer(file);
-                }
-            });
             
             // pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
             //     pdfDoc = pdfDoc_;
@@ -812,6 +917,8 @@
             //     // Initial/first page rendering
             //     renderPage(pageNum);
             // });
+
+            
         </script>
         <!-- <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step3_redaksi.js"></script> -->
 @endsection
@@ -1268,8 +1375,11 @@
     function onSubmitData() {
         var token = $('#csrf').val();
         var nomor_rpbj = document.getElementById('nomor_rpbj').value;        
+        var pekerjaan = document.getElementById('pekerjaan').value;        
         var skk_id = document.getElementById('skk_id').value;
         var prk_id = document.getElementById('prk_id').value;
+        var supervisor = document.getElementById('supervisor').value;
+        var pejabat_id = document.getElementById('pejabat_id').value;
 
         //upload kak
         var kak = $('#kak')[0].files;
@@ -1280,18 +1390,30 @@
         var harga_satuan = [];
         var harga = [];
 
+        var fd = new FormData();
+
         for (var i = 0; i < click; i++) {
-            uraian[i] = document.getElementById("uraian[" + (i + 1) + "]").value;            
+            uraian[i] = document.getElementById("uraian[" + (i + 1) + "]").value; 
+            fd.append("uraian[]", uraian[i]);           
             satuan[i] = document.getElementById("satuan[" + (i + 1) + "]").value;
+            fd.append("satuan[]", satuan[i]); 
             volume[i] = document.getElementById("volume[" + (i + 1) + "]").value;
             volume[i] = parseInt(volume[i]);
+            fd.append("volume[]", volume[i]); 
             harga_satuan[i] = document.getElementById("harga_satuan[" + (i + 1) + "]").value;
             harga_satuan[i] = harga_satuan[i].replace(/\./g, "");
             harga_satuan[i] = parseInt(harga_satuan[i]);
+            fd.append("harga_satuan[]", harga_satuan[i]); 
             harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
             harga[i] = harga[i].replace(/\./g, "");
             harga[i] = parseInt(harga[i]);
+            fd.append("jumlah_harga[]", harga[i]); 
         }
+        // console.log(uraian);
+        // console.log(satuan);
+        // console.log(volume);
+        // console.log(harga_satuan);
+        // console.log(harga);
 
         const bef_ppn_total_harga = harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
         var ppn = bef_ppn_total_harga * 11 / 100;
@@ -1299,19 +1421,21 @@
         var total_harga = bef_ppn_total_harga + ppn;
         total_harga = Math.round(total_harga);
 
-        if(kak.length > 0){
-            var fd = new FormData();
+        if(kak.length > 0){            
             fd.append("_token", token)            
             fd.append("nomor_rpbj", nomor_rpbj);
+            fd.append("pekerjaan", pekerjaan);
             fd.append("skk_id", skk_id);
             fd.append("prk_id", prk_id);
             fd.append('kak', kak[0]);
-            fd.append("total_harga", total_harga);
-            fd.append("uraian", uraian);
-            fd.append("satuan", satuan);
-            fd.append("harga_satuan", harga_satuan);
-            fd.append("volume", volume);
-            fd.append("jumlah_harga", harga);
+            fd.append("supervisor", supervisor);
+            fd.append("pejabat_id", pejabat_id);
+            fd.append("total_harga", total_harga);            
+            // fd.append("uraian", uraian);
+            // fd.append("satuan", satuan);
+            // fd.append("harga_satuan", harga_satuan);
+            // fd.append("volume", volume);
+            // fd.append("jumlah_harga", harga);
             fd.append("click", click);
         }
 
@@ -1323,22 +1447,22 @@
             })
             .then((willCreate) => {
                 if (willCreate) {
-                    var data = {
-                        "_token": token,
-                        "nomor_rpbj": nomor_rpbj,                        
-                        "skk_id": skk_id,
-                        "prk_id": prk_id,                        
-                        "kak": kak[0],
-                        "total_harga": total_harga,
-                        "uraian": uraian,                        
-                        "satuan": satuan,
-                        "harga_satuan": harga_satuan,
-                        "volume": volume,
-                        "jumlah_harga": harga,
-                        "click": click,
-                    }
+                    // var data = {
+                    //     "_token": token,
+                    //     "nomor_rpbj": nomor_rpbj,                        
+                    //     "skk_id": skk_id,
+                    //     "prk_id": prk_id,                        
+                    //     "kak": kak[0],
+                    //     "total_harga": total_harga,
+                    //     "uraian": uraian,                        
+                    //     "satuan": satuan,
+                    //     "harga_satuan": harga_satuan,
+                    //     "volume": volume,
+                    //     "jumlah_harga": harga,
+                    //     "click": click,
+                    // }
                     console.log(fd);
-                    console.log(data);
+                    // console.log(data);
 
                     $.ajax({                        
                         url: "/simpan-non-po",

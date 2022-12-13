@@ -217,8 +217,17 @@ body{
     text-decoration: underline;
     text-align: center;
     padding-bottom:20px ;
-
 }
+
+.judul1 {
+    font-family: Calibri;
+    font-weight: bold;
+    font-style: normal;
+    font-size: x-large;
+    text-decoration: underline;
+    text-align: center;
+}
+
 .tabulasi2 {
     display: inline-block;
     margin-left: 2.1em;

@@ -275,9 +275,9 @@
                                                                             Pekerjaan</th>
                                                                         <th align="center" valign="middle">Satuan</th>
                                                                         <th align="center" valign="middle">Volume</th>
-                                                                        <th align="center" valign="middle">Harga Satuan
+                                                                        <th align="center" valign="middle">Harga Satuan (Rp.)
                                                                         </th>
-                                                                        <th align="center" valign="middle">Jumlah</th>
+                                                                        <th align="center" valign="middle">Jumlah (Rp.)</th>
                                                                         <th align="center" valign="middle">Aksi</th>
                                                                     </tr>
                                                                 </thead>
@@ -332,7 +332,7 @@
                                                                         onclick="updateform()" required>Tambah</a>
                                                                 </div>
                                                             </div>
-                                                            <table class="table table-responsive-sm height-100"
+                                                           <table class="table table-responsive-sm height-100"
                                                                 id="tabelRAB1">
                                                                 <thead>
                                                                     <tr>
@@ -340,43 +340,30 @@
                                                                         <th></th>
                                                                         <th></th>
                                                                         <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
+                                                                        
                                                                     </tr>
                                                                 </thead>
                                                                 <tfoot>
                                                                     <tr>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th style="width: 204.73px">Jumlah:</th>
-                                                                        <th style="width: 204.73px" id="jumlah"></th>
-                                                                        <th></th>
+                                                                        
+                                                                        <th style="width: 55%"> </th>
+                                                                        <th style="width: 15%">Jumlah</th>
+                                                                        <th style="width: 1%">:</th>
+                                                                        <th style="width: 29%" id="jumlah"></th>
                                                                     </tr>
                                                                     <tr>
                                                                         <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th style="width: 204.73px">PPN 11%:</th>
-                                                                        <th style="width: 204.73px" id="pajak"></th>
-                                                                        <th></th>
+                                                                        <th>PPN</th>
+                                                                        <th>:</th>
+                                                                        <th id="pajak"></th>
                                                                     </tr>
-                                                                    <tr>
+                                                                     <tr>
                                                                         <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th style="width: 204.73px">Total Harga:</th>
-                                                                        <th style="width: 204.73px" id="total"></th>
-                                                                        <th></th>
+                                                                        <th>Total Harga</th>
+                                                                        <th>:</th>
+                                                                        <th id="total"></th>
                                                                     </tr>
+                                                                
                                                                 </tfoot>
                                                             </table>
                                                         </div>
@@ -970,6 +957,10 @@
                         document.getElementById("tbody_redaksi").innerHTML = html_redaksi;
                     }
                     $("#next-btn").addClass('disabled').prop('disabled', true);
+                } else if (stepPosition === 'second') {
+                    // console.log(stepPosition);
+                    $("#prev-btn").removeClass('disabled').prop('disabled', false);
+                    $("#next-btn").removeClass('disabled').prop('disabled', false);
                 } else {
                     $("#prev-btn").removeClass('disabled').prop('disabled', false);
                     $("#next-btn").removeClass('disabled').prop('disabled', false);
@@ -1001,7 +992,7 @@
                 // autoAdjustHeight: false,
                 theme: 'arrows', // basic, arrows, square, round, dots
                 transition: {
-                    animation: 'none'
+                    animation: 'slideSwing'
                 },
                 toolbar: {
                     showNextButton: true, // show/hide a Next button
@@ -1351,7 +1342,7 @@
                     }
                 }
                 document.getElementById("total").innerHTML = "Rp. " + total_2;
-                document.getElementById("total").style.color = 'red';
+                document.getElementById("total").style.color = '#F94687';
             }
 
         }
@@ -1523,7 +1514,7 @@
                         }
                     }
                     document.getElementById("total").innerHTML = "Rp. " + total_2;
-                    document.getElementById("total").style.color = 'red';
+                    document.getElementById("total").style.color = '#F94687';
                 }
             }
         })
@@ -1680,7 +1671,7 @@
                 }
             }
             document.getElementById("total").innerHTML = "Rp. " + total_2;
-            document.getElementById("total").style.color = 'red';
+            document.getElementById("total").style.color = '#F94687';
         }
 
     }

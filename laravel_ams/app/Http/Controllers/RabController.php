@@ -284,7 +284,7 @@ class RabController extends Controller
 
     //     return redirect('/po-khs')->with('status', 'PO KHS Berhasil Ditambah!');
 
-    // }
+    // }{{  }}{{  }}
     public function simpan_po_khs(StoreRabRequest $request)
     {
         // dd($request);
@@ -422,7 +422,6 @@ class RabController extends Controller
             "jabatan_manager" => $jabatan_manager,
             "nama_manager" => $nama_manager,
             "title" => $ubah_pdf2,
-
         ]);
         
         $content = $pdf->download()->getOriginalContent();
@@ -477,6 +476,17 @@ class RabController extends Controller
     {
         $id = $request->id;
 
+        $rabs = Rab::findOrFail($id);
+        $kontrak_induk_id = Rab::where('id', $id)->value('nomor_kontrak_induk');
+        $khs_id = KontrakInduk::where('id', $kontrak_induk_id)->value('khs_id');
+        $nama_item = RincianInduk::where('khs_id', $khs_id)->get();
+        $order_khs = OrderKhs::where('rab_id', $id)->get();
+        // dd($rabs);
+        // $order_khs = OrderKhs::where('rab_id', $id)->get();
+        // dd($order_khs);
+        // dd($rabs);
+        // $item = RincianInduk::where('khs_id', $khs_id)->get();
+
         return view(
             'rab.edit_po_khs',
             [
@@ -492,12 +502,12 @@ class RabController extends Controller
                 'pejabats' => Pejabat::all(),
                 'khs' => Khs::all(),
                 'redaksis' => Redaksi::all(),
+                // 'rabs'=> $rabs,
                 'id' => $id
             ],
-            compact('id')
-            
-
+            compact('order_khs', 'nama_item', 'rabs')
         );
+        
     }
 
     /**

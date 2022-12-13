@@ -13,11 +13,12 @@ class OrderKhs extends Model
 
     public function satuans()
     {
-        return $this->belongsTo(Satuan::class, 'satuan_id', 'id');
+        return $this->belongsTo(Satuan::class, 'satuan_id');
     }
 
     public function rincian_induks()
     {
         return $this->belongsTo(RincianInduk::class, 'item_order');
+        
     }
 }

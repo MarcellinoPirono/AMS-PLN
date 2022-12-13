@@ -22,4 +22,8 @@ class NonPo extends Model
     public function prks(){
         return $this->belongsTo(Prk::class, 'prk_id', 'id');
     }
+
+    public function pejabats(){
+        return $this->belongsTo(Pejabat::class, 'pejabat_id', 'id');
+    }
 }

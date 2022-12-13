@@ -348,7 +348,7 @@
             </tr>                
             <tr>
                 <td class="first1"></td>
-                <td class="first2" rowspan="2" colspan="5" style="font-weight: bold; font-style:italic;">Terbilang: {{Terbilang::make($pokhs->total_harga, ' rupiah', 'Senilai ')}}</td>
+                <td class="first2" rowspan="2" colspan="5" style="font-weight: bold; font-style:italic;">Terbilang: {{Terbilang::make($pokhs->total_harga, ' rupiah')}}</td>
             </tr>
             <tr>
                 <td class="first1"></td>
@@ -366,8 +366,8 @@
         <td align="center" valign="top">{{$jabatan_manager}}</td>
         <td align="center" valign="middle">{{$pokhs->pejabats->jabatan}}</td>
     </tr>
-    <tr style="height: 150px;">
-        <td style="height: 150px;" align="center" valign="bottom">{{$nama_manager}}</td>
+    <tr style="height: 130px;">
+        <td style="height: 130px;" align="center" valign="bottom">{{$nama_manager}}</td>
         <td align="center" valign="bottom">{{$pokhs->pejabats->nama_pejabat}}</td>
     </tr>
     </table>

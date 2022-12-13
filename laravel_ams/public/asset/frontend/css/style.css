@@ -13390,8 +13390,9 @@ a.active {
 
 .nav-header .brand-title {
     margin-left: 10px;
-    max-width: 120px;
+    max-width: 180px;
     margin-top: 0px;
+
 }
 
 [data-theme-version="dark"] .nav-header .brand-title {

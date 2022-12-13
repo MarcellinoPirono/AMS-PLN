@@ -83,12 +83,12 @@
         ***********************************-->
         <div class="nav-header">
             <a href="/dashboard" class="brand-logo">
-                <img class="logo-abbr" src="{{ asset('/') }}./asset/frontend/images/ams-sq.svg" width="500"
+                <img class="logo-abbr" src="{{ asset('/') }}./asset/frontend/images/logo-sq.png" width="700"
                     alt="">
-                <img class="logo-compact" src="{{ asset('/') }}./asset/frontend/images/ams-sq.svg" width="500"
+                <img class="logo-compact" src="{{ asset('/') }}./asset/frontend/images/logo-sq.png" width="700"
                     alt="">
-                <img class="brand-title" src="{{ asset('/') }}./asset/frontend/images/ams-lg2.svg" width="500"
-                    height="200" alt="">
+                <img class="brand-title" src="{{ asset('/') }}./asset/frontend/images/logo-ls2.png" style="height:40px;"
+                     alt="">
             </a>
 
             <div class="nav-control">

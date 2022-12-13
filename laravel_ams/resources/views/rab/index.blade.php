@@ -66,9 +66,9 @@
 															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
 														</button>
 														<div class="dropdown-menu">
-															<a class="dropdown-item" href="preview-pdf-khs/{{$rab->id}}">Preview</a>
-															<a class="dropdown-item" href="export-pdf-khs/{{ $rab->id }}">Export (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
-															<a class="dropdown-item" href="export-excel-khs/{{ $rab->id }}">Export (excel) <i class="bi bi-file-earmark-excel-fill"></i></a>
+															<a class="dropdown-item" href="preview-pdf-khs/{{$rab->id}}">Preview <i class="bi bi-eye"></i></a>
+															<a class="dropdown-item" href="export-pdf-khs/{{ $rab->id }}">Export (pdf) <i class="bi bi-file-earmark-pdf"></i></a>
+															<a class="dropdown-item" href="export-excel-khs/{{ $rab->id }}">Export (excel) <i class="bi bi-file-earmark-excel"></i></a>
 														</div>
 													</div>
 												</td>

@@ -37,26 +37,26 @@
                                         </thead>
                                         <tbody class="alldata">
                                             @foreach ($nonpos as $nonpo)
-                                            <tr>
-                                                <td align="center" valign="middle"><strong>1</strong></td>
-                                                <td>{{$nonpo->nomor_rpbj}}</td>
-                                                <td>{{$nonpo->skks->nomor_skk}}</td>
-                                                <td>{{$nonpo->prks->no_prk}}</td>
-                                                <td>{{$nonpo->total_harga}}</td>                                                                                                       
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
-                                                        <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="preview-pdf-khs">Download KAK</a>
-                                                        <a class="dropdown-item" href="export-pdf-khs">Export (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
-                                                        <a class="dropdown-item" href="export-excel-khs">Export (excel) <i class="bi bi-file-earmark-excel-fill"></i></a>
+                                                <tr>
+                                                    <td align="center" valign="middle"><strong>{{$loop->iteration}}</strong></td>
+                                                    <td>{{$nonpo->nomor_rpbj}}</td>
+                                                    <td>{{$nonpo->skks->nomor_skk}}</td>
+                                                    <td>{{$nonpo->prks->no_prk}}</td>
+                                                    <td>@currency($nonpo->total_harga)</td>                                                                                                       
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
+                                                            <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="preview-pdf-khs">Download KAK</a>
+                                                            <a class="dropdown-item" href="non-po/export-pdf-khs/{{$nonpo->id}}">Export (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
+                                                            <a class="dropdown-item" href="export-excel-khs">Export (excel) <i class="bi bi-file-earmark-excel-fill"></i></a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
+                                                </td>
 
-                                            </tr>                                                                                                
+                                                </tr>                                                                                                
                                             @endforeach                                            
                                         </tbody>
                                         <tbody id="Content" class="searchdata">
