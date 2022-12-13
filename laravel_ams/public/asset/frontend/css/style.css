@@ -34,7 +34,7 @@ select.error{
     background-repeat: no-repeat;
     background-position: right calc(0.975em + 0.1875rem) center;
     background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-    
+
 }
 
 label.error {
@@ -54135,7 +54135,7 @@ html[dir="rtl"]
     overflow: hidden;
     width: 50px;
     height: 50px;
-    
+
     z-index: 9999; */
 
     position: fixed;
@@ -54317,7 +54317,7 @@ input::-webkit-calendar-picker-indicator {
         background-position: 7px;
         background-position-y: 49px;
     }
-}    
+}
 
 .tes1 {
     background: url("../images/kalender.png") no-repeat center;
@@ -54412,7 +54412,7 @@ input::-webkit-calendar-picker-indicator {
 
 .wrapword {
     white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
-    white-space: -webkit-pre-wrap;          /* Chrome & Safari */ 
+    white-space: -webkit-pre-wrap;          /* Chrome & Safari */
     white-space: -pre-wrap;                 /* Opera 4-6 */
     white-space: -o-pre-wrap;               /* Opera 7 */
     white-space: pre-wrap;                  /* CSS3 */
@@ -54453,4 +54453,12 @@ table#rincian {
     border:0px;
     border-collapse:collapse;
     border-spacing:3px;
+}
+
+.tabellkiri {
+    padding-left:3px;
+}
+
+.tabellkanan {
+    padding-right:3px;
 }

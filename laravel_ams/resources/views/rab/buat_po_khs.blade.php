@@ -3,7 +3,7 @@
     <div class="page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/po-khs">{{ $active }}</a></li>
-            <li class="breadcrumb-item active"><a  href=""> {{ $active1 }}</a></li>
+            <li class="breadcrumb-item active"><a href=""> {{ $active1 }}</a></li>
         </ol>
     </div>
 
@@ -102,22 +102,6 @@
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input Lokasi</label>
-                                                    <textarea type="text" class="form-control" placeholder="Lokasi" name="lokasi" id="lokasi" required autofocus>{{ old('lokasi') }}</textarea>
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan isi Lokasi
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
                                                     <label class="text-label">Start Date</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -162,9 +146,6 @@
                                                 </div>
                                             </div>
 
-
-
-
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">No. Addendum</label>
@@ -173,8 +154,6 @@
                                                         disabled>
                                                 </div>
                                             </div>
-
-
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
@@ -218,22 +197,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Input Pengawas Pekerjaan</label>
-                                                    <input type="text"
-                                                        class="form-control @error('pengawas') is-invalid @enderror"
-                                                        name="pengawas" id="pengawas" placeholder="Pengawas Pekerjaan"
-                                                        required autofocus value="{{ old('pengawas') }}">
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan isi Pengawas Pekerjaan
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Input No. PRK</label>
@@ -249,6 +212,63 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Input Pengawas Pekerjaan</label>
+                                                    <input type="text"
+                                                        class="form-control @error('pengawas') is-invalid @enderror"
+                                                        name="pengawas_pekerjaan" id="pengawas_pekerjaan"
+                                                        placeholder="Pengawas Pekerjaan" required autofocus
+                                                        value="{{ old('pengawas_pekerjaan') }}">
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan isi Pengawas Pekerjaan
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Input Pengawas Lapangan</label>
+                                                    <input type="text" class="form-control" name="pengawas_lapangan"
+                                                        id="pengawas_lapangan" placeholder="Pengawas Lapangan" autofocus
+                                                        value="{{ old('pengawas_lapangan') }}">
+                                                    <div class="valid-feedback">
+                                                        Data Boleh Kosong
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="text-label">Input Lokasi</label>
+                                            </div>
+                                        </div>
+                                        <table class="table table-responsive-sm height-100" width="100%"
+                                            id="tabelSPBJ">
+                                            <tr align="center" valign="middle" class="">
+                                                <th style="width:5%;" align="center" valign="middle">No.</th>
+                                                <th align="center" valign="middle">Lokasi</th>
+                                                <th style="width:10%;" align="center" valign="middle">Aksi</th>
+                                            </tr>
+                                            <tr>
+                                                <td><strong id="nomor" value="1">1</strong></td>
+                                                <td>
+                                                    <textarea type="text" class="form-control lokasi" id="lokasi[1]" name="lokasi" placeholder="Lokasi" required>{{ old('lokasi') }}</textarea>
+                                                </td>
+                                                <td><button onclick="deleteRow2(this)"
+                                                        class="btn btn-danger shadow btn-xs sharp"><i
+                                                            class='fa fa-trash'></i></button></td>
+                                            </tr>
+                                        </table>
+                                        <div class="col-lg-12 mb-2">
+                                            <div class="position-relative justify-content-center float-center">
+                                                <a type="button" id="tambah-pekerjaan"
+                                                    class="btn btn-primary position-relative justify-content-end"
+                                                    onclick="updatelokasi()" required>Tambah</a>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -261,7 +281,8 @@
                                                         <h4 class="card-title">Daftar RAB</h4>
                                                     </div>
                                                     <div class="card-header justify-content-start">
-                                                        <h5 id="pagu_prk" class="card-title" style="font-size: 14px;"></h5>
+                                                        <h5 id="pagu_prk" class="card-title" style="font-size: 14px;">
+                                                        </h5>
                                                     </div>
                                                     <div class="row ml-2">
                                                         <div class="table-responsive">
@@ -275,9 +296,11 @@
                                                                             Pekerjaan</th>
                                                                         <th align="center" valign="middle">Satuan</th>
                                                                         <th align="center" valign="middle">Volume</th>
-                                                                        <th align="center" valign="middle">Harga Satuan (Rp.)
+                                                                        <th align="center" valign="middle">Harga Satuan
+                                                                            (Rp.)
                                                                         </th>
-                                                                        <th align="center" valign="middle">Jumlah (Rp.)</th>
+                                                                        <th align="center" valign="middle">Jumlah (Rp.)
+                                                                        </th>
                                                                         <th align="center" valign="middle">Aksi</th>
                                                                     </tr>
                                                                 </thead>
@@ -332,7 +355,7 @@
                                                                         onclick="updateform()" required>Tambah</a>
                                                                 </div>
                                                             </div>
-                                                           <table class="table table-responsive-sm height-100"
+                                                            <table class="table table-responsive-sm height-100"
                                                                 id="tabelRAB1">
                                                                 <thead>
                                                                     <tr>
@@ -340,12 +363,12 @@
                                                                         <th></th>
                                                                         <th></th>
                                                                         <th></th>
-                                                                        
+
                                                                     </tr>
                                                                 </thead>
                                                                 <tfoot>
                                                                     <tr>
-                                                                        
+
                                                                         <th style="width: 55%"> </th>
                                                                         <th style="width: 15%">Jumlah</th>
                                                                         <th style="width: 1%">:</th>
@@ -357,13 +380,13 @@
                                                                         <th>:</th>
                                                                         <th id="pajak"></th>
                                                                     </tr>
-                                                                     <tr>
+                                                                    <tr>
                                                                         <th></th>
                                                                         <th>Total Harga</th>
                                                                         <th>:</th>
                                                                         <th id="total"></th>
                                                                     </tr>
-                                                                
+
                                                                 </tfoot>
                                                             </table>
                                                         </div>
@@ -395,7 +418,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-redaksi">
-                                                                    <tr align="center" valign="middle">
+                                                                    <tr>
                                                                         <td><strong id="nomor1"
                                                                                 value="1">1</strong></td>
                                                                         <td><select name="redaksi_id" id="redaksi_id[1]"
@@ -446,8 +469,9 @@
                                                     </div>
                                                     <div class="row ml-2 justify-content-start">
                                                         <h5 class="card-title">Step 1: Informasi Umum</h5>
-                                                        <table class="uprightTbl noborder" style="width:100%;"
-                                                            id="rincian" cellspacing="3" cellpadding="3">
+                                                        <table id="table_step1" class="uprightTbl noborder"
+                                                            style="width:100%;" id="rincian" cellspacing="3"
+                                                            cellpadding="3">
                                                             <tr class="noborder">
                                                                 <td style="width:20%;">No. Purchase Order
                                                                 </td>
@@ -465,7 +489,7 @@
                                                                 <td>:</td>
                                                                 <td id="judul_pekerjaan_4"></td>
                                                             </tr>
-                                                            <tr class="noborder">
+                                                            <tr id="tr_lokasi1" class="noborder">
                                                                 <td>Lokasi</td>
                                                                 <td>:</td>
                                                                 <td id="lokasi_4">
@@ -781,22 +805,36 @@
                 if (stepPosition === 'first') {
                     $("#prev-btn").addClass('disabled').prop('disabled', true);
                 } else if (stepPosition === 'last') {
+                    // console.log(clicklokasi);
                     var po = $("#po").val();
                     var kontrak_induk = $("#kontrak_induk option:selected").text();
                     var pekerjaan = $("#pekerjaan").val();
-                    var lokasi = $("#lokasi").val();
                     var start_date = $("#start_date").val();
                     var end_date = $("#end_date").val();
                     var addendum = $("#addendum").val();
                     var skk_id = $("#skk_id option:selected").text();
                     var prk_id = $("#prk_id option:selected").text();
                     var pejabat = $("#pejabat option:selected").text();
-                    var pengawas = $("#pengawas").val();
+                    var pengawas = $("#pengawas_pekerjaan").val();
 
+                    for (var i = 0; i < clicklokasi; i++) {
+                        if (i == 0) {
+                            var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
+
+                            $("#lokasi_4").html("1. " + lokasi);
+                        } else {
+                            var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
+                            var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (i +
+                                3) + ')');
+
+                            $('<tr class="noborder"><td></td><td></td><td>' + (i + 1) + '. ' + lokasi +
+                                '</td></tr>').insertAfter(lokasi_tabel);
+                            // console.log(lokasi_tabel);
+                        }
+                    }
                     $("#po_4").html(po);
                     $("#kontrak_induk_4").html(kontrak_induk);
                     $("#judul_pekerjaan_4").html(pekerjaan);
-                    $("#lokasi_4").html(lokasi);
                     $("#start_date_4").html(start_date);
                     $("#end_date_4").html(end_date);
                     if (addendum == "") {
@@ -846,19 +884,22 @@
                         var panjang = result_jasa.length
                         for (var j = 0; j < panjang; j++) {
                             html_jasa += ("<tr> <td class='first' align='center' valign='middle'>" + (j +
-                                1) + "</td> <td class='first' align='left' valign='middle'>" +
+                                    1) +
+                                "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
                                 result_jasa[j][0][0] +
                                 "</td> <td class='first' align='center' valign='middle'>" + result_jasa[
                                     j][0][2].match(/\(([^)]+)\)/)[1] +
                                 "</td> <td class='first' align='center' valign='middle'>" + result_jasa[
                                     j][0][3] +
-                                "</td> <td class='first' align='right' valign='middle'>" + result_jasa[
+                                "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                result_jasa[
                                     j][0][4] +
-                                "</td> <td class='first' align='right' valign='middle'>" + result_jasa[
+                                "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                result_jasa[
                                     j][0][5] + "</td> </tr>")
                         }
                         document.getElementById("tbody_jasa").innerHTML =
-                            "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first' align='left' valign='middle' style='font-weight: bold'>JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
+                            "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>" +
                             html_jasa;
                     }
 
@@ -868,26 +909,27 @@
                         var panjang = result_material.length
                         for (var j = 0; j < panjang; j++) {
                             html_material += ("<tr> <td class='first' align='center' valign='middle'>" + (
-                                    j + 1) + "</td> <td class='first' align='left' valign='middle'>" +
+                                    j + 1) +
+                                "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
                                 result_material[j][0][0] +
                                 "</td> <td class='first' align='center' valign='middle'>" +
                                 result_material[j][0][2] +
                                 "</td> <td class='first' align='center' valign='middle'>" +
                                 result_material[j][0][3] +
-                                "</td> <td class='first' align='right' valign='middle'>" +
+                                "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
                                 result_material[j][0][4] +
-                                "</td> <td class='first' align='right' valign='middle'>" +
+                                "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
                                 result_material[j][0][5] + "</td> </tr>")
                         }
                         document.getElementById("tbody_material").innerHTML =
-                            "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first' align='left' valign='middle' style='font-weight: bold'>MATERIAL:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
+                            "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>MATERIAL:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
                             html_material;
                     }
 
                     document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah")
                         .innerHTML;
                     document.getElementById("td_ppn").innerHTML = document.getElementById("pajak")
-                    .innerHTML;
+                        .innerHTML;
                     document.getElementById("td_total").innerHTML = document.getElementById("total")
                         .innerHTML;
 
@@ -949,9 +991,9 @@
                         var isi_redaksi = redaksi_line.length;
                         for (var j = 0; j < isi_redaksi; j++) {
                             html_redaksi += ("<tr> <td class='first' align='center' valign='middle'>" + (j +
-                                    1) + "</td> <td class='first' align='left' valign='middle'>" +
+                                    1) + "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
                                 redaksi_line[j][0] +
-                                "</td> <td class='first' align='left' valign='middle'>" + redaksi_line[
+                                "</td> <td class='first tabellkiri' align='left' valign='middle'>" + redaksi_line[
                                     j][1] + "</td> </tr>")
                         }
                         document.getElementById("tbody_redaksi").innerHTML = html_redaksi;
@@ -1054,12 +1096,15 @@
                         for (i = panjang; i > 0; i--) {
                             j = j + 1;
                             if (((j % 3) == 1) && (j != 1)) {
-                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." + pemisah_titik2;
+                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." +
+                                    pemisah_titik2;
                             } else {
-                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + pemisah_titik2;
+                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                    pemisah_titik2;
                             }
                         }
-                        jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" + pemisah_titik2 + "</b>")
+                        jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                            pemisah_titik2 + "</b>")
                     }
                 });
             })
@@ -1088,6 +1133,9 @@
     var click = 1
     var nomor_tabel = 1
     var k = 0
+    var clicklokasi = 1
+    var nomor_tabel_lokasi = 1
+    var l = 0
 
     function updateform() {
         var kontrak_induk = document.getElementById('kontrak_induk').value;
@@ -1196,6 +1244,61 @@
         });
     }
 
+    function updatelokasi() {
+        var table_lokasi = document.getElementById('tabelSPBJ');
+        clicklokasi++;
+
+        var input1 = document.createElement("textarea");
+        input1.setAttribute("type", "text");
+        input1.setAttribute("class", "form-control pekerjaan");
+        input1.setAttribute("id", "lokasi[" + clicklokasi + "]");
+        input1.setAttribute("name", "lokasi");
+        input1.setAttribute("placeholder", "Lokasi");
+        input1.setAttribute("required", true);
+
+        var button = document.createElement("button");
+        button.innerHTML = "<i class='fa fa-trash'></i>";
+        button.setAttribute("onclick", "deleteRow2(this)");
+        button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
+
+        var row = table_lokasi.insertRow(-1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+
+        cell1.innerHTML = "1";
+        cell2.appendChild(input1);
+        cell3.appendChild(button);
+
+        reindex2();
+        // alert("HALOOOO");
+    }
+
+    function deleteRow2(r) {
+        var table = r.parentNode.parentNode.rowIndex;
+        document.getElementById("tabelSPBJ").deleteRow(table);
+        clicklokasi--;
+
+        var select_id_lokasi = document.querySelectorAll("#tabelSPBJ tr td:nth-child(2) textarea");
+        for (var i = 0; i < select_id_lokasi.length; i++) {
+            select_id_lokasi[i].id = "lokasi[" + (i + 1) + "]";
+        }
+
+        reindex2();
+
+        if (clicklokasi == 0) {
+            updatelokasi();
+        }
+    }
+
+    function reindex2() {
+        const ids = document.querySelectorAll("#tabelSPBJ tr > td:nth-child(1)");
+        ids.forEach((e, i) => {
+            e.innerHTML = "<strong id=nomor1[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
+            nomor_tabel_lokasi = i + 1;
+        });
+    }
+
     function deleteRow(r) {
         var table = r.parentNode.parentNode.rowIndex;
         document.getElementById("tabelRAB").deleteRow(table);
@@ -1249,7 +1352,7 @@
             pagu_prk = parseInt(pagu_prk);
             var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
 
-            if(pagu_prk >= total_harga_all) {
+            if (pagu_prk >= total_harga_all) {
                 total_harga_all = total_harga_all.toString();
                 total_harga_all_2 = "";
                 panjang_2 = total_harga_all.length;
@@ -1414,14 +1517,15 @@
                     total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
                     total_harga[i] = total_harga[i].replace(/\./g, "");
                     total_harga[i] = parseInt(total_harga[i])
-                }              
-                
+                }
+
                 var pagu_prk = document.getElementById("rupiah").innerHTML;
                 pagu_prk = pagu_prk.replace(/\./g, "");
                 pagu_prk = parseInt(pagu_prk);
-                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator +
+                    currentvalue);
 
-                if(pagu_prk >= total_harga_all) {
+                if (pagu_prk >= total_harga_all) {
                     total_harga_all = total_harga_all.toString();
                     total_harga_all_2 = "";
                     panjang_2 = total_harga_all.length;
@@ -1578,7 +1682,7 @@
         pagu_prk = parseInt(pagu_prk);
         var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
 
-        if(pagu_prk >= total_harga_all) {
+        if (pagu_prk >= total_harga_all) {
             total_harga_all = total_harga_all.toString();
             total_harga_all_2 = "";
             panjang_2 = total_harga_all.length;
@@ -1695,7 +1799,7 @@
         var skk_id = document.getElementById('skk_id').value;
         var prk_id = document.getElementById('prk_id').value;
         var pejabat = document.getElementById('pejabat').value;
-        var pengawas = document.getElementById('pengawas').value;
+        var pengawas = document.getElementById('pengawas_pekerjaan').value;
 
         var item_id = [];
         var kategory_id = [];
@@ -1766,20 +1870,20 @@
                         data: data,
                         success: function(response) {
                             swal({
-                                    title: "Data Ditambah",
-                                    text: "Data Berhasil Ditambah",
-                                    icon: "success",
-                                    timer: 2e3,
-                                    buttons: false
-                                });
+                                title: "Data Ditambah",
+                                text: "Data Berhasil Ditambah",
+                                icon: "success",
+                                timer: 2e3,
+                                buttons: false
+                            });
 
-                                // console.log(response);
+                            // console.log(response);
 
-                                window.location.href = '../preview-pdf-khs/'+ response;
-                                // .then((response) => {
-                                //     console.log(response);
+                            window.location.href = '../preview-pdf-khs/' + response;
+                            // .then((response) => {
+                            //     console.log(response);
 
-                                // });
+                            // });
                         }
                     });
                 } else {
@@ -1880,8 +1984,8 @@
     }
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     window.onload = function() {
         window.location.href = "http://127.0.0.1:8000/po-khs/buat-po#informasi_umum"
     }
-</script>
+</script> -->

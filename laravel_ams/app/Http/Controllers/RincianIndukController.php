@@ -9,27 +9,32 @@ use App\Http\Requests\StoreRincianIndukRequest;
 use App\Http\Requests\UpdateRincianIndukRequest;
 use App\Models\Khs;
 use App\Models\Satuan;
+use App\Imports\ImportItem_SPAPP;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+// use DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class RincianIndukController extends Controller
 {
+    // use Excel;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        $itemRincian  = ItemRincianInduk::get();
-        return view('khs.detail_khs.item_khs.item_khs', [
-            'title' => 'Item KHS',
-            'items' => RincianInduk::orderBy('id', 'DESC')->get(),            
-            'kategori' => $itemRincian, 
-        ]);
-    }
+    // public function index(Request $request)
+    // {
+    //     $itemRincian  = ItemRincianInduk::get();
+    //     return view('khs.detail_khs.item_khs.item_khs', [
+    //         'title' => 'Item KHS',
+    //         'items' => RincianInduk::all()->paginate(10),
+    //         'kategori' => $itemRincian,
+    //     ]);
+    // }
 
      public function jenis_khs(Request $request)
     {
@@ -38,7 +43,7 @@ class RincianIndukController extends Controller
 
         return view('khs.detail_khs.item_khs.item_khs', [
             'title' => 'Item KHS '. $jenis_khs.'',
-            'items' => RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'DESC')->get(),
+            'items' => RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'DESC')->paginate(10),
             'jenis_khs' => $jenis_khs
         ]);
     }
@@ -90,9 +95,57 @@ class RincianIndukController extends Controller
             'harga_satuan' => 'required',
 
         ]);
-        
+
         RincianInduk::create($validatedData);
         return redirect('/menu-item-khs')->with('success', 'Item KHS Berhasil Ditambahkan');
+    }
+
+    function import(Request $request)
+    {
+
+     $this->validate($request, [
+      'select_file'  => 'required|mimes:xls,xlsx'
+     ]);
+
+     $jenis_khs = $request->jenis_khs;
+
+    $file = $request->file('select_file');
+    $nama_file = rand().$file->getClientOriginalName();
+    $file->move('file_itemspapp', $nama_file);
+
+
+    $import = Excel::import(new ImportItem_SPAPP, public_path('/file_itemspapp/'.$nama_file));
+
+    // Session::flash('sukses','Data Siswa Berhasil Diimport!');
+
+    //  dd($import);
+
+    //  dd($data);
+
+    //  if($data->count() > 0)
+    //  {
+    //   foreach($data->toArray() as $key => $value)
+    //   {
+    //    foreach($value as $row)
+    //    {
+    //     $insert_data[] = array(
+    //      'khs_id'  => $row['khs_id'],
+    //      'kategori'   => $row['kategori'],
+    //      'nama_item'   => $row['nama_item'],
+    //      'satuan_id'    => $row['satuan_id'],
+    //      'harga_satuan'  => $row['harga_satuan'],
+    //     );
+    //    }
+    //   }
+
+    //   if(!empty($insert_data))
+    //   {
+    //    DB::table('rincian_induks')->insert($insert_data);
+    //   }
+    //  }
+    //  dd($insert_data);
+    return redirect('item-khs/'.$jenis_khs.'');
+    //  return back()->with('success', 'Excel Data Imported successfully.');
     }
 
     /**
@@ -224,7 +277,7 @@ class RincianIndukController extends Controller
     }
 
     public function filteritem(Request $request)
-    { 
+    {
 
         $kategori= $request->val;
         $jenis_khs= $request->jenis_khs;
@@ -235,7 +288,7 @@ class RincianIndukController extends Controller
         }
         else{
             $items = RincianInduk::where('kategori', $kategori)->where('khs_id', $khs_id)->get();
-        }        
+        }
         return view('khs.detail_khs.item_khs.filter_item_khs', ['items' => $items]);
         // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
     }
@@ -246,19 +299,19 @@ class RincianIndukController extends Controller
         $output = "";
         $nomor = 0;
         $jenis_khs = $request->jenis_khs;
-        $rincianInduk= RincianInduk::where('nama_item', 'LIKE', '%' . $request->search . '%')->orWhere('satuan', 'LIKE', '%' . $request->search . '%')->get();
+        $rincianInduk= RincianInduk::where('nama_item', 'LIKE', '%' . $request->search . '%')->orWhere('satuan_id', 'LIKE', '%' . $request->search . '%')->get();
 
         foreach ($rincianInduk as $rincianInduk) {
             $nomor = $nomor + 1;
             $output .=
-                '<tr>
-            <td>'.$nomor.'</td>
+                '<tr style="width: 1135px;"  >
+            <td align="center" valign="middle">#</td>
             <td>'.$rincianInduk->nama_item. '</td>
-            <td>'.$rincianInduk->kategori.'</td>
-            <td>'.$rincianInduk->khs->jenis_khs.'</td>
-            <td>'.$rincianInduk->satuan. '</td>
-            <td>'.$rincianInduk->harga_satuan.'</td>
-            <td>' . ' 
+            <td align="center" valign="middle">'.$rincianInduk->kategori.'</td>
+            <td align="center" valign="middle">'.$rincianInduk->khs->jenis_khs.'</td>
+            <td align="center" valign="middle">'.$rincianInduk->satuans->singkatan. '</td>
+            <td align="center" valign="middle">'.money($rincianInduk->harga_satuan).'</td>
+            <td>' . '
             <div class="d-flex"><a href="/item-khs/'. $jenis_khs .''."/".'' . $rincianInduk['id'] . '/edit" class="btn btn-primary shadow btn-xs sharp mr-1 tombol-edit"><i class="fa fa-pencil"></i></a> <button onclick="deleteItem(' . $rincianInduk->id . ')" class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button></div>
             ' . '</td>
             </tr>';

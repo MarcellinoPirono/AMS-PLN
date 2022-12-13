@@ -15,11 +15,11 @@
         }
 
     var table = document.getElementById('tabelRedaksi');
-            clickredaksi++;
+    clickredaksi++;
 
     var select1 = document.createElement("select");
-            select1.innerHTML = "<option value='' selected disabled>Pilih Redaksi</option>" + redaksi;
-            select1.setAttribute("id", "redaksi_id[" + clickredaksi + "]");
+    select1.innerHTML = "<option value='' selected disabled>Pilih Redaksi</option>" + redaksi;
+    select1.setAttribute("id", "redaksi_id[" + clickredaksi + "]");
     select1.setAttribute("name", "redaksi_id");
     select1.setAttribute("class", "form-control input-default");
     select1.setAttribute("onchange", "change_redaksi(this)");
@@ -28,7 +28,7 @@
     var input1 = document.createElement("textarea");
     input1.setAttribute("type", "text");
     input1.setAttribute("class", "form-control deskripsi_id");
-            input1.setAttribute("id", "deskripsi_id[" + clickredaksi + "]");
+    input1.setAttribute("id", "deskripsi_id[" + clickredaksi + "]");
     input1.setAttribute("name", "deskripsi_id");
     input1.setAttribute("placeholder", "Deskripsi Redaksi");
     input1.setAttribute("value", "");
@@ -60,7 +60,7 @@
 
 }
 
-    function deleteRow1(r) {
+function deleteRow1(r) {
     var table = r.parentNode.parentNode.rowIndex;
     document.getElementById("tabelRedaksi").deleteRow(table);
         clickredaksi--;
@@ -77,11 +77,11 @@
 
     reindex1();
 
-        if (clickredaksi == 0) {
+    if (clickredaksi == 0) {
         updateRedaksi();
-        }
-
     }
+
+}
 
     function reindex1() {
         const ids = document.querySelectorAll("#tabelRedaksi tr > td:nth-child(1)");

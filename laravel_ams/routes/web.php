@@ -19,6 +19,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AddendumController;
 use App\Http\Controllers\NonPOController;
 use App\Http\Controllers\PejabatController;
+use App\Http\Controllers\ImporExcelController;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 
@@ -39,10 +40,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [MainController::class, 'index']); 
-Route::get('/login', [LoginController::class, 'login']); 
+Route::get('/dashboard', [MainController::class, 'index']);
+Route::get('/login', [LoginController::class, 'login']);
 
-Route::resource('categories', ItemRincianIndukController::class); 
+Route::resource('categories', ItemRincianIndukController::class);
 Route::get('/search-categories', [ItemRincianIndukController::class, 'searchcategories']);
 
 
@@ -50,10 +51,18 @@ Route::get('/search-categories', [ItemRincianIndukController::class, 'searchcate
 Route::get('item-khs/{jenis_khs}', [RincianIndukController::class, 'jenis_khs']);
 Route::get('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'create']);
 Route::post('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'store']);
+Route::post('item-khs/{jenis_khs}/import', [RincianIndukController::class, 'import']);
 Route::get('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'edit'])->name('item-khs.edit');
 Route::get('item-khs/{jenis_khs}/{id}', [RincianIndukController::class, 'destroy']);
 Route::any('item-khs/{jenis_khs}/filter', [RincianIndukController::class, 'filteritem']);
 Route::put('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'update']);
+// Route::get('item-khs/{jenis_khs}', [ImporExcelController::class, 'index']);
+// Route::get('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'create']);
+// Route::post('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'store']);
+// Route::get('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'edit'])->name('item-khs.edit');
+// Route::get('item-khs/{jenis_khs}/{id}', [RincianIndukController::class, 'destroy']);
+// Route::any('item-khs/{jenis_khs}/filter', [RincianIndukController::class, 'filteritem']);
+// Route::put('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'update']);
 
 
 // Route::put('item-khs/{jenis_khs}/{id}/update', [RincianIndukController::class, 'update']);
@@ -65,10 +74,15 @@ Route::resource('jenis-khs', KhsController::class);
 Route::get('/search-jenis-khs', [KhsController::class, 'searchjeniskhs']);
 
 //Vendor KHS
+Route::get('/vendor-khs/create-xlsx', [VendorController::class, 'create_xlsx']);
+Route::post('vendor-khs/import', [VendorController::class, 'import']);
 Route::resource('vendor-khs', VendorController::class);
+// Route::resource('vendor-khs', VendorController::class);
 Route::get('/search-vendor', [VendorController::class, 'searchvendor']);
 
 //Kontrak Induk KHS
+Route::get('/kontrak-induk-khs/create-xlsx', [KontrakIndukController::class, 'create_xlsx']);
+Route::post('kontrak-induk-khs/import', [KontrakIndukController::class, 'import']);
 Route::resource('kontrak-induk-khs', KontrakIndukController::class);
 Route::any('kontrak-induk-khs/filter', [KontrakIndukController::class, 'filterkontrakinduk']);
 Route::get('/search-kontrak-induk', [KontrakIndukController::class, 'searchkontrakinduk']);

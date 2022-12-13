@@ -12,8 +12,7 @@
                                         <a class="dropdown-item" href="javascript:void()">Februari</a>
                                     </div>
                                 </div>
-                                <a href="/po-khs/buat-po" type="button" class="btn btn-primary mr-auto ml-3 ">Buat Kontrak (PO)<span
-                                        class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                                <a href="/po-khs/buat-po" type="button" class="btn btn-primary mr-auto ml-3 ">Buat Kontrak (PO) <i class="bi bi-pencil-square"></i>
                                 </a>
                                 <div class="input-group search-area position-relative">
                                     <div class="input-group-append">
@@ -40,7 +39,7 @@
                                                 <th>End Date</th>
                                                 {{-- <th>Vendor</th> --}}
                                                 <th>Nomor Kontrak Induk</th>
-                                                <th>Total Harga</th>                                                
+                                                <th>Total Harga</th>
                                                 <th> </th>
                                             </tr>
                                         </thead>
@@ -59,7 +58,7 @@
                                                     {{-- <td>{{ $rab->vendors->nama_vendor }}</td> --}}
                                                     <td>{{ $rab->nomor_kontraks->nomor_kontrak_induk }}</td>
                                                     <td>@currency($rab->total_harga) </td>
-                                                   
+
                                                 <td>
 													<div class="dropdown">
 														<button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
@@ -111,7 +110,7 @@
         }
 
     });
-        
+
     });
 </script>
 @endsection
