@@ -49,7 +49,9 @@
                                                             <span class="input-group-text">Upload</span>
                                                         </div>
                                                         <div class="custom-file">
-                                                            <input id="kak" type="file" class="form-control custom-file-input" style="border-radius: 0 20px 20px 0" required/>
+                                                            <input id="kak" type="file"
+                                                                class="form-control custom-file-input"
+                                                                style="border-radius: 0 20px 20px 0" required />
                                                             <label class="custom-file-label">Choose </label>
                                                         </div>
                                                     </div>
@@ -64,22 +66,22 @@
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Input No. RPBJ</label>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        name="no_rpbj" id="no_rpbj" placeholder="Nomor RPBJ" required
-                                                        autofocus value="{{ old('no_rpbj') }}">
+                                                    <input type="text" class="form-control" name="no_rpbj" id="no_rpbj"
+                                                        placeholder="Nomor RPBJ" required autofocus
+                                                        value="{{ old('no_rpbj') }}">
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silakan isi  No. RPBJ
+                                                        Silakan isi No. RPBJ
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Input No.SKK</label>
-                                                    <select class="form-control input-default" id="skk_id" name="skk_id">
+                                                    <select class="form-control input-default" id="skk_id"
+                                                        name="skk_id">
                                                         <option value="0" selected disabled>Pilih No. SKK</option>
                                                         @foreach ($skks as $skk)
                                                             <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}
@@ -97,7 +99,8 @@
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Input No.PRK</label>
-                                                    <select class="form-control input-default" id="prk_id" name="prk_id">
+                                                    <select class="form-control input-default" id="prk_id"
+                                                        name="prk_id">
                                                         <option value="" selected disabled>Pilih PRK</option>
                                                     </select>
                                                     <div class="valid-feedback">
@@ -111,15 +114,14 @@
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Supervisor</label>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        name="supervisor" id="supervisor" placeholder="Supervisor" required
-                                                        autofocus value="{{ old('supervisor') }}">
+                                                    <input type="text" class="form-control" name="supervisor"
+                                                        id="supervisor" placeholder="Supervisor" required autofocus
+                                                        value="{{ old('supervisor') }}">
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silakan isi  Supervisor
+                                                        Silakan isi Supervisor
                                                     </div>
                                                 </div>
                                             </div>
@@ -145,8 +147,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>                                    
-                                    </form>                                    
+                                        </div>
+                                    </form>
                                 </div>
                                 <div id="daftar_rab" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <form id="form-2" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
@@ -173,7 +175,8 @@
                                                                 </thead>
                                                                 <tbody id="tbody-kategori">
                                                                     <tr>
-                                                                        <td><strong id="nomor" value="1">1</strong>
+                                                                        <td><strong id="nomor"
+                                                                                value="1">1</strong>
                                                                         </td>
                                                                         <td><input type="text"
                                                                                 class="form-control uraian" id="uraian[1]"
@@ -188,15 +191,16 @@
                                                                                 name="volume" placeholder="volume"
                                                                                 value=""
                                                                                 onkeydown="return numbersonly(this, event);"
-                                                                                onkeyup="javascript:tandaPemisahTitik(this);"                                                                                                                                                                
+                                                                                onkeyup="javascript:tandaPemisahTitik(this);"
                                                                                 required></td>
                                                                         <td><input type="text"
                                                                                 class="form-control harga_satuan"
                                                                                 id="harga_satuan[1]" name="harga_satuan"
                                                                                 placeholder="Harga Satuan" value=""
-                                                                                onblur="hitung_harga(this)" 
+                                                                                onblur="hitung_harga(this)"
                                                                                 onkeydown="return numbersonly(this, event);"
-                                                                                onkeyup="javascript:tandaPemisahTitik(this);" required>
+                                                                                onkeyup="javascript:tandaPemisahTitik(this);"
+                                                                                required>
                                                                         </td>
                                                                         <td><input type="text"
                                                                                 class="form-control harga" id="harga[1]"
@@ -283,186 +287,185 @@
     </div>
 
 
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-<!-- Bootrap for the demo page -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-</script>
+    <!-- Bootrap for the demo page -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
 
-<!-- Include SmartWizard JavaScript source -->
-<script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/jquery.smartWizard.min.js"></script>
-<script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/wizard.js"></script>
+    <!-- Include SmartWizard JavaScript source -->
+    <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/jquery.smartWizard.min.js"></script>
+    <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/wizard.js"></script>
 
-<script type="text/javascript">
-    const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+    <script type="text/javascript">
+        const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
 
-    function onCancel() {
-        // Reset wizard
-        $('#smartwizard').smartWizard("reset");
+        function onCancel() {
+            // Reset wizard
+            $('#smartwizard').smartWizard("reset");
 
-        // Reset form
-        document.getElementById("form-1").reset();
-        document.getElementById("form-2").reset();
-        document.getElementById("form-3").reset();
-        document.getElementById("form-4").reset();
-    }
-
-    function onConfirm() {
-        let form = document.getElementById('form-4');
-        if (form) {
-            if (!form.checkValidity()) {
-                form.classList.add('was-validated');
-                $('#smartwizard').smartWizard("setState", [3], 'error');
-                $("#smartwizard").smartWizard('fixHeight');
-                return false;
-            }
-
-            $('#smartwizard').smartWizard("unsetState", [3], 'error');
-            myModal.show();
+            // Reset form
+            document.getElementById("form-1").reset();
+            document.getElementById("form-2").reset();
+            document.getElementById("form-3").reset();
+            document.getElementById("form-4").reset();
         }
-    }
 
-    function closeModal() {
-        // Reset wizard
-        $('#smartwizard').smartWizard("reset");
-
-        // Reset form
-        document.getElementById("form-1").reset();
-        document.getElementById("form-2").reset();
-        document.getElementById("form-3").reset();
-        document.getElementById("form-4").reset();
-
-        myModal.hide();
-    }
-
-    $(function() {
-        // Leave step event is used for validating the forms
-        $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIdx, nextStepIdx,
-            stepDirection) {
-            // Validate only on forward movement
-            $('#start_date').removeAttr('readonly');
-            $('#end_date').removeAttr('readonly');
-
-            if (stepDirection == 'forward') {
-                let form = document.getElementById('form-' + (currentStepIdx + 1));
-                if (form) {
-                    if (!form.checkValidity()) {
-                        form.classList.add('was-validated');
-                        $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
-                        $("#smartwizard").smartWizard('fixHeight');
-                        return false;
-                    }
-                    $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
+        function onConfirm() {
+            let form = document.getElementById('form-4');
+            if (form) {
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    $('#smartwizard').smartWizard("setState", [3], 'error');
+                    $("#smartwizard").smartWizard('fixHeight');
+                    return false;
                 }
+
+                $('#smartwizard').smartWizard("unsetState", [3], 'error');
+                myModal.show();
             }
-        });
+        }
 
-        // Step show event
-        $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection, stepPosition) {
-            $("#prev-btn").removeClass('disabled').prop('disabled', false);
-            $("#next-btn").removeClass('disabled').prop('disabled', false);
-            if (stepPosition === 'first') {
-                $("#prev-btn").addClass('disabled').prop('disabled', true);
-            } else if (stepPosition === 'last') {
-                var kak = $("#kak").files();                
-                var nomor_rpbj = $("#nomor_rpbj").val();
-                var skk_id = $("#skk_id option:selected").text();
-                var prk_id = $("#prk_id option:selected").text();                
-                
-                $("#nomor_rpbj_3").html(nomor_rpbj);                
-                $("#no_skk_3").html(skk_id);
-                $("#no_prk_3").html(prk_id);               
+        function closeModal() {
+            // Reset wizard
+            $('#smartwizard').smartWizard("reset");
 
-                baris = [];
+            // Reset form
+            document.getElementById("form-1").reset();
+            document.getElementById("form-2").reset();
+            document.getElementById("form-3").reset();
+            document.getElementById("form-4").reset();
 
-                for (var i = 0; i < click; i++) {
-                    baris[i] = [                        
-                        $("#uraian[" + (i + 1) + "]").val(),
-                        $("#satuan[" + (i + 1) + "]").val(),
-                        $("#volume[" + (i + 1) + "]").val(),
-                        $("#harga_satuan[" + (i + 1) + "]").val(),
-                        $("#harga[" + (i + 1) + "]").val()
-                    ]
+            myModal.hide();
+        }
+
+        $(function() {
+            // Leave step event is used for validating the forms
+            $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIdx, nextStepIdx,
+                stepDirection) {
+                // Validate only on forward movement
+                $('#start_date').removeAttr('readonly');
+                $('#end_date').removeAttr('readonly');
+
+                if (stepDirection == 'forward') {
+                    let form = document.getElementById('form-' + (currentStepIdx + 1));
+                    if (form) {
+                        if (!form.checkValidity()) {
+                            form.classList.add('was-validated');
+                            $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
+                            $("#smartwizard").smartWizard('fixHeight');
+                            return false;
+                        }
+                        $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
+                    }
                 }
+            });
 
-                $("#next-btn").addClass('disabled').prop('disabled', true);
-                // alert(click);
-            } else {
+            // Step show event
+            $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection, stepPosition) {
                 $("#prev-btn").removeClass('disabled').prop('disabled', false);
                 $("#next-btn").removeClass('disabled').prop('disabled', false);
-            }
+                if (stepPosition === 'first') {
+                    $("#prev-btn").addClass('disabled').prop('disabled', true);
+                } else if (stepPosition === 'last') {
+                    var kak = $("#kak").files();
+                    var nomor_rpbj = $("#nomor_rpbj").val();
+                    var skk_id = $("#skk_id option:selected").text();
+                    var prk_id = $("#prk_id option:selected").text();
 
-            // Get step info from Smart Wizard
-            let stepInfo = $('#smartwizard').smartWizard("getStepInfo");
-            $("#sw-current-step").text(stepInfo.currentStep + 1);
-            $("#sw-total-step").text(stepInfo.totalSteps);
+                    $("#nomor_rpbj_3").html(nomor_rpbj);
+                    $("#no_skk_3").html(skk_id);
+                    $("#no_prk_3").html(prk_id);
 
-            if (stepPosition == 'last') {
-                showConfirm();
-                $("#btnFinish").prop('disabled', false);
-            } else {
-                $("#btnFinish").prop('disabled', true);
-            }
+                    baris = [];
 
-            // Focus first name
-            if (stepIndex == 1) {
-                setTimeout(() => {
-                    $('#first-name').focus();
-                }, 0);
-            }
-        });
+                    for (var i = 0; i < click; i++) {
+                        baris[i] = [
+                            $("#uraian[" + (i + 1) + "]").val(),
+                            $("#satuan[" + (i + 1) + "]").val(),
+                            $("#volume[" + (i + 1) + "]").val(),
+                            $("#harga_satuan[" + (i + 1) + "]").val(),
+                            $("#harga[" + (i + 1) + "]").val()
+                        ]
+                    }
 
-        // Smart Wizard
-        $('#smartwizard').smartWizard({
-            selected: 1,
-            // autoAdjustHeight: false,
-            theme: 'arrows', // basic, arrows, square, round, dots
-            transition: {
-                animation: 'none'
-            },
-            toolbar: {
-                showNextButton: true, // show/hide a Next button
-                showPreviousButton: true, // show/hide a Previous button
-                position: 'bottom', // none/ top/ both bottom
-                extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Complete Order</button>
+                    $("#next-btn").addClass('disabled').prop('disabled', true);
+                    // alert(click);
+                } else {
+                    $("#prev-btn").removeClass('disabled').prop('disabled', false);
+                    $("#next-btn").removeClass('disabled').prop('disabled', false);
+                }
+
+                // Get step info from Smart Wizard
+                let stepInfo = $('#smartwizard').smartWizard("getStepInfo");
+                $("#sw-current-step").text(stepInfo.currentStep + 1);
+                $("#sw-total-step").text(stepInfo.totalSteps);
+
+                if (stepPosition == 'last') {
+                    showConfirm();
+                    $("#btnFinish").prop('disabled', false);
+                } else {
+                    $("#btnFinish").prop('disabled', true);
+                }
+
+                // Focus first name
+                if (stepIndex == 1) {
+                    setTimeout(() => {
+                        $('#first-name').focus();
+                    }, 0);
+                }
+            });
+
+            // Smart Wizard
+            $('#smartwizard').smartWizard({
+                selected: 1,
+                // autoAdjustHeight: false,
+                theme: 'arrows', // basic, arrows, square, round, dots
+                transition: {
+                    animation: 'none'
+                },
+                toolbar: {
+                    showNextButton: true, // show/hide a Next button
+                    showPreviousButton: true, // show/hide a Previous button
+                    position: 'bottom', // none/ top/ both bottom
+                    extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Complete Order</button>
                         <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
-            },
-            anchor: {
-                enableNavigation: true, // Enable/Disable anchor navigation
-                enableNavigationAlways: false, // Activates all anchors clickable always
-                enableDoneState: true, // Add done state on visited steps
-                markPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
-                unDoneOnBackNavigation: true, // While navigate back, done state will be cleared
-                enableDoneStateNavigation: true // Enable/Disable the done state navigation
-            },
+                },
+                anchor: {
+                    enableNavigation: true, // Enable/Disable anchor navigation
+                    enableNavigationAlways: false, // Activates all anchors clickable always
+                    enableDoneState: true, // Add done state on visited steps
+                    markPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
+                    unDoneOnBackNavigation: true, // While navigate back, done state will be cleared
+                    enableDoneStateNavigation: true // Enable/Disable the done state navigation
+                },
+            });
+
+            $("#state_selector").on("change", function() {
+                $('#smartwizard').smartWizard("setState", [$('#step_to_style').val()], $(this).val(), !$(
+                    '#is_reset').prop("checked"));
+                return true;
+            });
+
+            $("#style_selector").on("change", function() {
+                $('#smartwizard').smartWizard("setStyle", [$('#step_to_style').val()], $(this).val(), !$(
+                    '#is_reset').prop("checked"));
+                return true;
+            });
+
         });
-
-        $("#state_selector").on("change", function() {
-            $('#smartwizard').smartWizard("setState", [$('#step_to_style').val()], $(this).val(), !$(
-                '#is_reset').prop("checked"));
-            return true;
-        });
-
-        $("#style_selector").on("change", function() {
-            $('#smartwizard').smartWizard("setStyle", [$('#step_to_style').val()], $(this).val(), !$(
-                '#is_reset').prop("checked"));
-            return true;
-        });
-
-    });
-</script>
-
+    </script>
 @endsection
 <script>
     var click = 1
     var nomor_tabel = 1
     var k = 0
 
-    
+
 
     function reindex() {
         const ids = document.querySelectorAll("#tabelNonPO tr > td:nth-child(1)");
@@ -471,7 +474,7 @@
             nomor_tabel = i + 1;
         });
     }
-    
+
 
     function updateform() {
         // var kontrak_induk = document.getElementById('kontrak_induk').value;
@@ -584,7 +587,7 @@
         var select_id_harga = document.querySelectorAll("#tabelNonPO tr td:nth-child(6) input");
         for (var i = 0; i < select_id_harga.length; i++) {
             select_id_harga[i].id = "harga[" + (i + 1) + "]";
-        }        
+        }
 
         reindex();
 
@@ -759,16 +762,16 @@
         var kak = document.getElementById('kak').files;
         var nomor_rpbj = document.getElementById('nomor_rpbj').value;
         var skk_id = document.getElementById('skk_id').value;
-        var prk_id = document.getElementById('prk_id').value;        
+        var prk_id = document.getElementById('prk_id').value;
 
-        var uraian = [];        
+        var uraian = [];
         var satuan = [];
         var volume = [];
         var harga_satuan = [];
         var harga = [];
 
         for (var i = 0; i < click; i++) {
-            uraian[i] = document.getElementById("uraian[" + (i + 1) + "]").value;            
+            uraian[i] = document.getElementById("uraian[" + (i + 1) + "]").value;
             satuan[i] = document.getElementById("satuan[" + (i + 1) + "]").value;
             volume[i] = document.getElementById("volume[" + (i + 1) + "]").value;
             volume[i] = parseInt(volume[i]);
@@ -789,7 +792,7 @@
 
         swal({
                 title: "Apakah anda yakin?",
-                text: "Anda tidak dapat mengedit Data ini lagi!",
+                text: "Silakan cek kembali apabila data masih keliru",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -798,12 +801,12 @@
                 if (willCreate) {
                     var data = {
                         "_token": token,
-                        "nomor_rpbj": nomor_rpbj,                        
+                        "nomor_rpbj": nomor_rpbj,
                         "skk_id": skk_id,
                         "prk_id": prk_id,
-                        "kak" : kak,                      
+                        "kak": kak,
                         "total_harga": total_harga,
-                        "uraian": uraian,                        
+                        "uraian": uraian,
                         "satuan_id": satuan,
                         "harga_satuan": harga_satuan,
                         "volume": volume,
@@ -840,9 +843,9 @@
                 }
             })
     }
-    
 
-    // function next1() {        
+
+    // function next1() {
     //     btn_next1 = document.getElementById('btnnext1');
     //     btn_next1.setAttribute("id", "btnnext2");
     //     btn_next1.setAttribute("onclick", "next2()");
@@ -885,14 +888,14 @@
     //     // var prk_id = document.getElementById('prk_id').value;
     //     // var pejabat = document.getElementById('pejabat').value;
     //     // var pengawas = document.getElementById('pengawas').value;
-        
+
     //     var uraian = [];
     //     // var kategory_id = [];
     //     var satuan = [];
     //     var volume = [];
     //     var harga_satuan = [];
     //     var harga = [];
-        
+
     //     for(var i = 0; i < click; i++)
     //     {
     //         uraian[i] = document.getElementById("uraian["+ (i + 1) +"]").value;
@@ -905,16 +908,16 @@
     //         harga[i] = document.getElementById("harga["+ (i + 1) +"]").value;
     //         harga[i] = parseInt(harga[i]);
     //     }
-        
+
     //     const bef_ppn_total_harga = harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
     //     var ppn = bef_ppn_total_harga * 11 / 100;
     //     ppn = Math.round(ppn);
     //     var total_harga = bef_ppn_total_harga + ppn;
     //     total_harga = Math.round(total_harga);
-        
+
     //     swal({
     //         title: "Apakah anda yakin?",
-    //         text: "Anda tidak dapat mengedit Data ini lagi!",
+    //         text: "Silakan cek kembali apabila data masih keliru",
     //         icon: "warning",
     //         buttons: true,
     //         dangerMode: true,
@@ -984,7 +987,6 @@
     //     btn_prev3.setAttribute("id", "btnprev2");
     //     btn_prev3.setAttribute("onclick", "prev2()");
     // }
-
 </script>
 
 <script>
@@ -1087,5 +1089,3 @@
         }
     }
 </script>
-
-

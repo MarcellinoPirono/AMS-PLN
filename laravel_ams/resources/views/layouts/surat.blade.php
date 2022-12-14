@@ -13,7 +13,7 @@
 
 <body>
     <header class="mt-1">
-        <img src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
+        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
     </header>
 
     <footer>
@@ -21,7 +21,7 @@
             Paraf________________
         </div>
         <div class="footer-1">
-            Jl. Jend. Sudirman No.99 Tamalate, Kec.Rappocini, Kota Makassar Telp 0411 886245 - 882707W
+            Jl. Jend. Hertasning No.99 Tamalate, Kec.Rappocini, Kota Makassar Telp 0411 886245 - 882707W
             <link style="color: blue"><u style="color: blue">www.pln.co.id</u>
             <link>
         </div>
@@ -31,8 +31,8 @@
 
         @foreach ($po_khs as $pokhs)
             <div class="contents">
-                <table class="uprightTbl noborder ml-2" style="width:100%;" id="rincian" cellspacing="0"
-                    cellpadding="0">
+                <table class="uprightTbl noborder ml-2" style="width:95%;" id="rincian" cellspacing="0"
+                    cellpadding="0" align="center">
                     <tr class="noborder">
                         <td style="width:6%;">Nomor
                         </td>
@@ -107,8 +107,8 @@
                     </tr>
                 </table>
             </div>
-            <div class="content3" style="margin-left: 40px;">
-                <ol type="1">
+            <div class="content3" style="margin-left: 40px; margin-right: -20px;">
+                <ol type="1" style="justify-content: space-between">
                     <li>Harga Borongan Pekerjaan <b>@currency($pokhs->total_harga),-</b> (Termasuk PPN 11%)</li>
                     <li>Rincian Pekerjaan diterbitkan dengan Perintah Kerja dari Manager Unit Layanan Pelanggan
                     </li>
@@ -129,108 +129,81 @@
                         Hertasning
                         No.99
                         Rappocini - Makassar dilengkapi dengan realisasi perintah kerja yang sudah selesai
-                        dilaksanakan
+                        dilaksanakan.
                     </li>
-                    <li>Surat Perjanjian/Kontrak Rinci jenis Pengadaan Jasa/Pengadaan Jasa dan Material/Supply
-                        Erect,
-                        pembayaran dilaksanakan sebanyak 2 (dua) tahap, Pembayaran Tahap I sebesar 95% (sembilan
-                        puluh
-                        lima persen) dari nilai Surat Perjanjian/Kontrak Rinci akan dilakukan setelah semua
-                        pekerjaan
-                        100%dilaksanakan dengan cara PIHAK KEDUA mengajukan surat permohonan pembayaran dengan
-                        melampirkan dokumen-dokumen sebagai berikut:
-                        <ol type="a">
-                            <li>Kwitansi bermaterai Cukup;</li>
-                            <li>Surat Perjanjian/Kontrak Rinci;</li>
-                            <li>Faktur Pajak, SSP, Copy NPWP, Copy PKP, Copy surat pemberian nomor seri Faktur
-                                Pajak
-                            </li>
-                            <li>Berita Acara Serah Terima Pekerjaan (BASTP 1) yang ditandatangani oleh Para
-                                Pihak
-                                yang
-                                dilampiri dengan Laporan Pemeriksaan Pekerjaan;</li>
-                            <li>Asli bermaterai Surat Pernyataan Keaslian Barang;</li>
-                            <li>Asli bermaterai Surat Pernyataan Jaminan Garansi dari PIHAK KEDUA;</li>
-                            <li>Copy Surat Perjanjian/Kontrak;</li>
-                            <li>Berita acara khusus apabila ada pekerjaan yang dilaksanakan diluar jam kerja;
-                            </li>
-                            <li>Bukti pembayaran iuran BPJS Ketenagakerjaan.</li>
-                            <li>Kwitansi bermaterai Cukup;</li>
-                            <li>Surat Perjanjian/Kontrak Rinci;</li>
-                            <li>Faktur Pajak, SSP, Copy NPWP, Copy PKP, Copy surat pemberian nomor seri Faktur
-                                Pajak
-                            </li>
-                            <li>Berita Acara Serah Terima Pekerjaan (BASTP 1) yang ditandatangani oleh Para
-                                Pihak
-                                yang
-                                dilampiri dengan Laporan Pemeriksaan Pekerjaan;</li>
-                            <li>Asli bermaterai Surat Pernyataan Keaslian Barang;</li>
-                            <li>Asli bermaterai Surat Pernyataan Jaminan Garansi dari PIHAK KEDUA;</li>
-                            <li>Copy Surat Perjanjian/Kontrak;</li>
-                            <li>Berita acara khusus apabila ada pekerjaan yang dilaksanakan diluar jam kerja;
-                            </li>
-                            <li>Bukti pembayaran iuran BPJS Ketenagakerjaan.</li>
-                            <li>Kwitansi bermaterai Cukup;</li>
-                            <li>Surat Perjanjian/Kontrak Rinci;</li>
-                            <li>Faktur Pajak, SSP, Copy NPWP, Copy PKP, Copy surat pemberian nomor seri Faktur
-                                Pajak
-                            </li>
-                            <li>Berita Acara Serah Terima Pekerjaan (BASTP 1) yang ditandatangani oleh Para
-                                Pihak
-                                yang
-                                dilampiri dengan Laporan Pemeriksaan Pekerjaan;</li>
-                            <li>Asli bermaterai Surat Pernyataan Keaslian Barang;</li>
-                            <li>Asli bermaterai Surat Pernyataan Jaminan Garansi dari PIHAK KEDUA;</li>
-                            <li>Copy Surat Perjanjian/Kontrak;</li>
-                            <li>Berita acara khusus apabila ada pekerjaan yang dilaksanakan diluar jam kerja;
-                            </li>
-                            <li>Bukti pembayaran iuran BPJS Ketenagakerjaan.</li>
-                        </ol>
-                    </li>
+                    @foreach ($redaksis as $redaksi)
+                        <li>
+                            {{ $redaksi->redaksi->deskripsi_redaksi }}
+                            @if ($redaksi->sub_deskripsi_id != '')
+                                @foreach (explode(';', $redaksi->sub_deskripsi_id) as $poin)
+                                    <ul type="none" style="list-style-position: inside; padding-left: 0;">
+
+                                        <li>{{ $poin }}</li>
+                                    </ul>
+                                @endforeach
+                            @endif
+                        </li>
+                    @endforeach
+
+
+
                 </ol>
+
+                <p>
+                    Apabila SPBJ/PO ini saudara(i) setuju dan sanggup melaksanakan, harap menandatangani SPBJ/PO ini
+                    dan dikembalikan kepada kami untuk proses lebih lanjut.
+                    <br>
+                    SPBJ/PO ini dibuat dalam 3 (tiga) rangkap, asli dan 1 (satu) turunannya dibubuhi materai
+                    secukupnya dan mempunyai kekuatan hukum yang sama.
+                </p>
+
+                <p>Demikian SPBJ/PO ini dibuat untuk dilaksanakan dan dapat diselesaikan dengan sebaik-baiknya.</p>
+
             </div>
             </div>
+            <table width="90%" border="0" cellspacing="0" cellpadding="0" align="left">
+                <tr>
+                    <td style="height: 50px;" align="center" valign="bottom">SETUJU MELAKSANAKAN</td>
+                    <td style="width:45%;" align="center" valign="bottom">PT PLN (PERSERO) UIW SULSELRABAR</td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top">{{ $pokhs->nomor_kontraks->vendors->nama_vendor }}</td>
+                    <td align="center" valign="middle">UP3 MAKASSAR SELATAN</td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top">Direktur</td>
+                    <td align="center" valign="middle">{{ $jabatan_manager }}</td>
+                </tr>
+                <tr style="height: 120px;">
+                    <td style="height: 120px;" align="center" valign="bottom">
+                        {{ $pokhs->nomor_kontraks->vendors->nama_direktur }}</td>
+                    <td align="center" valign="bottom">{{ $nama_manager }}</td>
+                </tr>
+            </table>
         @endforeach
 
-        <div class="page-break"></div>
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-                <td style="height: 50px;" align="center" valign="bottom">SETUJU MELAKSANAKAN</td>
-                <td style="width:35%;" align="center" valign="bottom">PT PLN (PERSERO) UIW SULSELRABAR</td>
-            </tr>
-            <tr>
-                <td align="center" valign="top">{{ $pokhs->nomor_kontraks->vendors->nama_vendor }}</td>
-                <td align="center" valign="middle">UP3 MAKASSAR SELATAN</td>
-            </tr>
-            <tr>
-                <td align="center" valign="top">Direktur</td>
-                <td align="center" valign="middle">{{ $jabatan_manager }}</td>
-            </tr>
-            <tr style="height: 150px;">
-                <td style="height: 150px;" align="center" valign="bottom">
-                    {{ $pokhs->nomor_kontraks->vendors->nama_direktur }}</td>
-                <td align="center" valign="bottom">{{ $nama_manager }}</td>
-            </tr>
-        </table>
+
+        {{-- <div class="page-break"></div> --}}
+
 
     </main>
 
     <div class="page-break"></div>
 
     @foreach ($po_khs as $pokhs)
-        <table class="sub-judul" width="100%">
+        <table class="sub-judul" width="95%" cellspacing="0" cellpadding="0" align="center">
             <tr>
                 <td colspan="3" class="judul">RINCIAN ANGGARAN BIAYA</td>
             </tr>
             <tr>
-                <td width="18%">PEKERJAAN</td>
-                <td width="2%">:</td>
-                <td width="80%">{{ $pokhs->pekerjaan }}</td>
+                <td width="18%" style="height: 4px;">PEKERJAAN</td>
+                <td width="2%" style="height: 4px;">:</td>
+                <td width="80%" style="height: 4px;">{{ $pokhs->pekerjaan }}</td>
             </tr>
             <tr>
                 <td>LOKASI</td>
                 <td>:</td>
-                <td>{{ $pokhs->lokasi }}</td>
+                {{-- <td>{{ $pokhs->lokasi }}</td> --}}
             </tr>
             <tr>
                 <td>SUMBER DANA</td>
@@ -245,7 +218,7 @@
         </table>
     @endforeach
     <div class="wrapword" id="firstTable">
-        <table width="100%" border="2" cellspacing="0" cellpadding="0">
+        <table width="95%" border="2" cellspacing="0" cellpadding="0" align="center">
             <tr class="warna">
                 <td style="width:4%;" rowspan="2" align="center" valign="middle">No</td>
                 <td rowspan="2" align="center" valign="middle">Uraian Pekerjaan</td>
@@ -255,7 +228,7 @@
             </tr>
             <tr class="warna">
                 <td style="width:12%;" align="center" valign="middle">Satuan (RP)</td>
-                <td style="width:15%;" align="center" valign="middle">Jumlah (RP)</td>
+                <td style="width:12%;" align="center" valign="middle">Jumlah (RP)</td>
             </tr>
             <tr id="tr_jasa">
                 <td class="first" align="center" valign="middle"></td>
@@ -292,7 +265,8 @@
             @endif
             <tr id="tr_material">
                 <td class="first" align="center" valign="middle"></td>
-                <td class="first tabellkiri" style="font-weight: bold" align="left" valign="middle">MATERIAL:</td>
+                <td class="first tabellkiri" style="font-weight: bold" align="left" valign="middle"><br>MATERIAL:
+                </td>
                 <td class="first" align="center" valign="middle"></td>
                 <td class="first" align="center" valign="middle"></td>
                 <td class="first tabellkanan" align="right" valign="middle"></td>
@@ -348,16 +322,16 @@
             <tr>
                 <td rowspan="3" colspan="3"></td>
                 <td colspan="2" align="center" valign="middle"><b>Jumlah</b></td>
-                <td align="right"><b>@currency2($jumlah)</b></td>
+                <td class="tabellkanan" align="right"><b>@currency2($jumlah)</b></td>
             </tr>
             <tr>
                 <td colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
-                <td align="right"><b>@currency2($ppn)</b></td>
+                <td class="tabellkanan" align="right"><b>@currency2($ppn)</b></td>
             </tr>
             @foreach ($po_khs as $pokhs)
                 <tr>
                     <td colspan="2" align="center" valign="middle"><b>TOTAL</b></td>
-                    <td align="right"><b>@currency2($pokhs->total_harga)</b></td>
+                    <td class="tabellkanan" align="right"><b>@currency2($pokhs->total_harga)</b></td>
                 </tr>
                 <tr>
                     <td class="first1"></td>
@@ -371,18 +345,18 @@
         </table>
     </div>
 
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <table class="wrapword" width="95%" border="0   " cellspacing="0" cellpadding="0" align="center">
         <tr>
             <td style="height: 50px;" align="center" valign="bottom">Mengetahui</td>
-            <td style="width:35%;" align="center" valign="bottom">Makassar,
+            <td style="width:36%;" align="center" valign="bottom">Makassar,
                 {{ \Carbon\Carbon::parse($pokhs->tanggal_po)->isoFormat('dddd, DD MMMM YYYY') }}</td>
         </tr>
         <tr>
             <td align="center" valign="top">{{ $jabatan_manager }}</td>
             <td align="center" valign="middle">{{ $pokhs->pejabats->jabatan }}</td>
         </tr>
-        <tr style="height: 110px;">
-            <td style="height: 110px;" align="center" valign="bottom">{{ $nama_manager }}</td>
+        <tr style="height: 85px;">
+            <td style="height: 85px;" align="center" valign="bottom">{{ $nama_manager }}</td>
             <td align="center" valign="bottom">{{ $pokhs->pejabats->nama_pejabat }}</td>
         </tr>
     </table>

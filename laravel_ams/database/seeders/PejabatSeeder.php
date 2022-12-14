@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Vendor;
+use App\Models\Pejabat;
 
 class PejabatSeeder extends Seeder
 {

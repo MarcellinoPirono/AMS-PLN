@@ -88,6 +88,8 @@ Route::any('kontrak-induk-khs/filter', [KontrakIndukController::class, 'filterko
 Route::get('/search-kontrak-induk', [KontrakIndukController::class, 'searchkontrakinduk']);
 
 //Addendum KHS
+Route::get('/addendum-khs/create-xlsx', [AddendumController::class, 'create_xlsx']);
+Route::post('addendum-khs/import', [AddendumController::class, 'import']);
 Route::resource('addendum-khs', AddendumController::class);
 Route::any('addendum-khs/filter', [AddendumController::class, 'filteraddendum']);
 Route::get('/search-addendum-khs', [AddendumController::class, 'searchaddendumkhs']);

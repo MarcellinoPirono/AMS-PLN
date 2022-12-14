@@ -3,7 +3,7 @@
     <div class="page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/po-khs">{{ $active }}</a></li>
-            <li class="breadcrumb-item active"><a  href=""> {{ $active1 }}</a></li>
+            <li class="breadcrumb-item active"><a href=""> {{ $active1 }}</a></li>
         </ol>
     </div>
 
@@ -261,7 +261,8 @@
                                                         <h4 class="card-title">Daftar RAB</h4>
                                                     </div>
                                                     <div class="card-header justify-content-start">
-                                                        <h5 id="pagu_prk" class="card-title" style="font-size: 14px;"></h5>
+                                                        <h5 id="pagu_prk" class="card-title" style="font-size: 14px;">
+                                                        </h5>
                                                     </div>
                                                     <div class="row ml-2">
                                                         <div class="table-responsive">
@@ -859,7 +860,7 @@
                         var panjang = result_jasa.length
                         for (var j = 0; j < panjang; j++) {
                             html_jasa += ("<tr> <td class='first' align='center' valign='middle'>" + (j +
-                                1) + "</td> <td class='first' align='left' valign='middle'>" +
+                                    1) + "</td> <td class='first' align='left' valign='middle'>" +
                                 result_jasa[j][0][0] +
                                 "</td> <td class='first' align='center' valign='middle'>" + result_jasa[
                                     j][0][2].match(/\(([^)]+)\)/)[1] +
@@ -900,7 +901,7 @@
                     document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah")
                         .innerHTML;
                     document.getElementById("td_ppn").innerHTML = document.getElementById("pajak")
-                    .innerHTML;
+                        .innerHTML;
                     document.getElementById("td_total").innerHTML = document.getElementById("total")
                         .innerHTML;
 
@@ -1063,12 +1064,15 @@
                         for (i = panjang; i > 0; i--) {
                             j = j + 1;
                             if (((j % 3) == 1) && (j != 1)) {
-                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." + pemisah_titik2;
+                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." +
+                                    pemisah_titik2;
                             } else {
-                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + pemisah_titik2;
+                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                pemisah_titik2;
                             }
                         }
-                        jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" + pemisah_titik2 + "</b>")
+                        jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                            pemisah_titik2 + "</b>")
                     }
                 });
             })
@@ -1258,7 +1262,7 @@
             pagu_prk = parseInt(pagu_prk);
             var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
 
-            if(pagu_prk >= total_harga_all) {
+            if (pagu_prk >= total_harga_all) {
                 total_harga_all = total_harga_all.toString();
                 total_harga_all_2 = "";
                 panjang_2 = total_harga_all.length;
@@ -1423,14 +1427,15 @@
                     total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
                     total_harga[i] = total_harga[i].replace(/\./g, "");
                     total_harga[i] = parseInt(total_harga[i])
-                }              
-                
+                }
+
                 var pagu_prk = document.getElementById("rupiah").innerHTML;
                 pagu_prk = pagu_prk.replace(/\./g, "");
                 pagu_prk = parseInt(pagu_prk);
-                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator +
+                    currentvalue);
 
-                if(pagu_prk >= total_harga_all) {
+                if (pagu_prk >= total_harga_all) {
                     total_harga_all = total_harga_all.toString();
                     total_harga_all_2 = "";
                     panjang_2 = total_harga_all.length;
@@ -1587,7 +1592,7 @@
         pagu_prk = parseInt(pagu_prk);
         var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
 
-        if(pagu_prk >= total_harga_all) {
+        if (pagu_prk >= total_harga_all) {
             total_harga_all = total_harga_all.toString();
             total_harga_all_2 = "";
             panjang_2 = total_harga_all.length;
@@ -1738,7 +1743,7 @@
 
         swal({
                 title: "Apakah anda yakin?",
-                text: "Anda tidak dapat mengedit Data ini lagi!",
+                text: "Silakan cek kembali apabila data masih keliru",
                 icon: "warning",
                 buttons: true,
             })
@@ -1775,20 +1780,20 @@
                         data: data,
                         success: function(response) {
                             swal({
-                                    title: "Data Ditambah",
-                                    text: "Data Berhasil Ditambah",
-                                    icon: "success",
-                                    timer: 2e3,
-                                    buttons: false
-                                });
+                                title: "Data Ditambah",
+                                text: "Data Berhasil Ditambah",
+                                icon: "success",
+                                timer: 2e3,
+                                buttons: false
+                            });
 
-                                console.log(response);
+                            console.log(response);
 
-                                window.location.href = '../preview-pdf-khs/'+ response;
-                                // .then((response) => {
-                                //     console.log(response);
+                            window.location.href = '../preview-pdf-khs/' + response;
+                            // .then((response) => {
+                            //     console.log(response);
 
-                                // });
+                            // });
                         }
                     });
                 } else {

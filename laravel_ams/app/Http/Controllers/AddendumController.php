@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Addendum;
+use App\Imports\AddendumImport;
 use App\Models\KontrakInduk;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AddendumController extends Controller
 {
@@ -32,6 +34,66 @@ class AddendumController extends Controller
             'kontrakinduks' => KontrakInduk::all()
         ]);
     }
+
+    public function create_xlsx()
+    {
+
+        return view(
+            'khs.detail_khs.addendum_khs.buat_addendum_via_excel',
+            [
+                'title' => 'Addendum',
+                'active' => 'Tambah Addendum',
+                'active1' => 'Tambah Addendum KHS',
+                // 'items' => ItemRincianInduk::all(),
+            ]
+        );
+    }
+    function import(Request $request)
+    {
+        // dd($request);
+     $this->validate($request, [
+      'select_file'  => 'required|mimes:xls,xlsx'
+     ]);
+
+    $file = $request->file('select_file');
+    $nama_file = rand().$file->getClientOriginalName();
+    $file->move('file_addendum', $nama_file);
+
+
+    $import = Excel::import(new AddendumImport, public_path('/file_addendum/'.$nama_file));
+
+    // Session::flash('sukses','Data Siswa Berhasil Diimport!');
+
+    //  dd($import);
+
+    //  dd($data);
+
+    //  if($data->count() > 0)
+    //  {
+    //   foreach($data->toArray() as $key => $value)
+    //   {
+    //    foreach($value as $row)
+    //    {
+    //     $insert_data[] = array(
+    //      'khs_id'  => $row['khs_id'],
+    //      'kategori'   => $row['kategori'],
+    //      'nama_item'   => $row['nama_item'],
+    //      'satuan_id'    => $row['satuan_id'],
+    //      'harga_satuan'  => $row['harga_satuan'],
+    //     );
+    //    }
+    //   }
+
+    //   if(!empty($insert_data))
+    //   {
+    //    DB::table('rincian_induks')->insert($insert_data);
+    //   }
+    //  }
+    //  dd($insert_data);
+    return redirect('/addendum-khs');
+    //  return back()->with('success', 'Excel Data Imported successfully.');
+    }
+
 
     public function store(Request $request)
     {

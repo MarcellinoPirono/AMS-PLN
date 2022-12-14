@@ -80,5 +80,9 @@ class SatuanSeeder extends Seeder
             'singkatan' => 'gr',
             'kepanjangan' => 'Gram',
         ]);
+        Satuan::create([
+            'singkatan' => 'roll',
+            'kepanjangan' => 'Roll',
+        ]);
     }
 }

@@ -364,12 +364,12 @@
                                                                         <th></th>
                                                                         <th></th>
                                                                         <th></th>
-                                                                        
+
                                                                     </tr>
                                                                 </thead>
                                                                 <tfoot>
                                                                     <tr>
-                                                                        
+
                                                                         <th style="width: 55%"> </th>
                                                                         <th style="width: 15%">Jumlah</th>
                                                                         <th style="width: 1%">:</th>
@@ -381,13 +381,13 @@
                                                                         <th>:</th>
                                                                         <th id="pajak"></th>
                                                                     </tr>
-                                                                     <tr>
+                                                                    <tr>
                                                                         <th></th>
                                                                         <th>Total Harga</th>
                                                                         <th>:</th>
                                                                         <th id="total">@currency($rabs->total_harga)</th>
                                                                     </tr>
-                                                                
+
                                                                 </tfoot>
                                                             </table>
                                                         </div>
@@ -1089,7 +1089,7 @@
                                     pemisah_titik2;
                             } else {
                                 pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
-                                pemisah_titik2;
+                                    pemisah_titik2;
                             }
                         }
                         jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
@@ -1770,7 +1770,7 @@
 
             swal({
                     title: "Apakah anda yakin?",
-                    text: "Anda tidak dapat mengedit Data ini lagi!",
+                    text: "Silakan cek kembali apabila data masih keliru",
                     icon: "warning",
                     buttons: true,
                 })
@@ -1922,10 +1922,9 @@
     </script>
     <script type="text/javascript">
         window.onload = function(id) {
-            var id =  document.getElementById('id').value;
+            var id = document.getElementById('id').value;
             console.log(id);
-            window.location.href = "http://127.0.0.1:8000/po-khs/edit-po/"+id+"/#daftar_rab"
+            window.location.href = "http://127.0.0.1:8000/po-khs/edit-po/" + id + "/#daftar_rab"
         }
     </script>
 @endsection
-

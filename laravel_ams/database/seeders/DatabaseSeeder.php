@@ -41,7 +41,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SatuanSeeder::class,
             RedaksiSeeder::class,
-            VendorSeeder::class,
             PejabatSeeder::class,
         ]);
 
@@ -163,89 +162,89 @@ class DatabaseSeeder extends Seeder
         //     'harga_satuan' => '63132'
         // ]);
 
-        KontrakInduk::create([
-            'khs_id' => '1',
-            'nomor_kontrak_induk' => '0029.PJ/DAN.01.04/161000/2020',
-            'tanggal_kontrak_induk' => '2020-04-01',
-            'vendor_id' => '1'
-        ]);
-        KontrakInduk::create([
-            'khs_id' => '2',
-            'nomor_kontrak_induk' => '0030.PJ/DAN.02.05/171000/2021',
-            'tanggal_kontrak_induk' => '2021-05-09',
-            'vendor_id' => '2'
-        ]);
+        // KontrakInduk::create([
+        //     'khs_id' => '1',
+        //     'nomor_kontrak_induk' => '0029.PJ/DAN.01.04/161000/2020',
+        //     'tanggal_kontrak_induk' => '2020-04-01',
+        //     'vendor_id' => '1'
+        // ]);
+        // KontrakInduk::create([
+        //     'khs_id' => '2',
+        //     'nomor_kontrak_induk' => '0030.PJ/DAN.02.05/171000/2021',
+        //     'tanggal_kontrak_induk' => '2021-05-09',
+        //     'vendor_id' => '2'
+        // ]);
 
-        Pejabat::create([
-            'nama_pejabat' => 'ARI TIRTAPRAWITA',
-            'jabatan' => 'MANAGER UP3',
-            'unit_up3' => 'UP3 MAKASSAR SELATAN',
-            'unit_ulp' => '-',
-        ]);
-        Pejabat::create([
-            'nama_pejabat' => 'PRADIKTA CENDIKA',
-            'jabatan' => 'ASISTANT MANAGER TRANSAKSI ENERGI LISTRIK',
-            'unit_up3' => 'UP3 MAKASSAR SELATAN',
-            'unit_ulp' => '-',
-        ]);
-        Pejabat::create([
-            'nama_pejabat' => 'YANUARDHI AB',
-            'jabatan' => 'ASISTANT MANAGER PERENCANAAN',
-            'unit_up3' => 'UP3 MAKASSAR SELATAN',
-            'unit_ulp' => '-',
-        ]);
-        Pejabat::create([
-            'nama_pejabat' => 'RAMLI',
-            'jabatan' => 'ASISTANT MANAGER KONSTRUKSI',
-            'unit_up3' => 'UP3 MAKASSAR SELATAN',
-            'unit_ulp' => '-',
-        ]);
-        Pejabat::create([
-            'nama_pejabat' => 'KHALID HUSAIN',
-            'jabatan' => 'ASISTANT MANAGER JARINGAN',
-            'unit_up3' => 'UP3 MAKASSAR SELATAN',
-            'unit_ulp' => '-',
-        ]);
-        Pejabat::create([
-            'nama_pejabat' => 'LATIF PRASETYOHADI',
-            'jabatan' => 'ASISTANT MANAGER PEMASARAN DAN PELAYANAN PELANGGAN',
-            'unit_up3' => 'UP3 MAKASSAR SELATAN',
-            'unit_ulp' => '-',
-        ]);
-        Pejabat::create([
-            'nama_pejabat' => 'JOHAN PRASETYA YUDHA PRAMUKTI',
-            'jabatan' => 'ASISTANT MANAGER KEUANGAN ADMINISTRASI DAN UMUM',
-            'unit_up3' => 'UP3 MAKASSAR SELATAN',
-            'unit_ulp' => '-',
-        ]);
-        Pejabat::create([
-            'nama_pejabat' => 'SYAHRUDDIN NUR',
-            'jabatan' => 'TEAM LEADER KESELAMATAN, KESEHATAN KERJA, LINGKUNGAN DAN KEAMANAN',
-            'unit_up3' => 'UP3 MAKASSAR SELATAN',
-            'unit_ulp' => '-',
-        ]);
-        Pejabat::create([
-            'nama_pejabat' => 'MUSTOFA KAMIL',
-            'jabatan' => 'TEAM LEADER PELAKSANA PENGADAAN',
-            'unit_up3' => 'UP3 MAKASSAR SELATAN',
-            'unit_ulp' => '-',
-        ]);
+        // Pejabat::create([
+        //     'nama_pejabat' => 'ARI TIRTAPRAWITA',
+        //     'jabatan' => 'MANAGER UP3',
+        //     'unit_up3' => 'UP3 MAKASSAR SELATAN',
+        //     'unit_ulp' => '-',
+        // ]);
+        // Pejabat::create([
+        //     'nama_pejabat' => 'PRADIKTA CENDIKA',
+        //     'jabatan' => 'ASISTANT MANAGER TRANSAKSI ENERGI LISTRIK',
+        //     'unit_up3' => 'UP3 MAKASSAR SELATAN',
+        //     'unit_ulp' => '-',
+        // ]);
+        // Pejabat::create([
+        //     'nama_pejabat' => 'YANUARDHI AB',
+        //     'jabatan' => 'ASISTANT MANAGER PERENCANAAN',
+        //     'unit_up3' => 'UP3 MAKASSAR SELATAN',
+        //     'unit_ulp' => '-',
+        // ]);
+        // Pejabat::create([
+        //     'nama_pejabat' => 'RAMLI',
+        //     'jabatan' => 'ASISTANT MANAGER KONSTRUKSI',
+        //     'unit_up3' => 'UP3 MAKASSAR SELATAN',
+        //     'unit_ulp' => '-',
+        // ]);
+        // Pejabat::create([
+        //     'nama_pejabat' => 'KHALID HUSAIN',
+        //     'jabatan' => 'ASISTANT MANAGER JARINGAN',
+        //     'unit_up3' => 'UP3 MAKASSAR SELATAN',
+        //     'unit_ulp' => '-',
+        // ]);
+        // Pejabat::create([
+        //     'nama_pejabat' => 'LATIF PRASETYOHADI',
+        //     'jabatan' => 'ASISTANT MANAGER PEMASARAN DAN PELAYANAN PELANGGAN',
+        //     'unit_up3' => 'UP3 MAKASSAR SELATAN',
+        //     'unit_ulp' => '-',
+        // ]);
+        // Pejabat::create([
+        //     'nama_pejabat' => 'JOHAN PRASETYA YUDHA PRAMUKTI',
+        //     'jabatan' => 'ASISTANT MANAGER KEUANGAN ADMINISTRASI DAN UMUM',
+        //     'unit_up3' => 'UP3 MAKASSAR SELATAN',
+        //     'unit_ulp' => '-',
+        // ]);
+        // Pejabat::create([
+        //     'nama_pejabat' => 'SYAHRUDDIN NUR',
+        //     'jabatan' => 'TEAM LEADER KESELAMATAN, KESEHATAN KERJA, LINGKUNGAN DAN KEAMANAN',
+        //     'unit_up3' => 'UP3 MAKASSAR SELATAN',
+        //     'unit_ulp' => '-',
+        // ]);
+        // Pejabat::create([
+        //     'nama_pejabat' => 'MUSTOFA KAMIL',
+        //     'jabatan' => 'TEAM LEADER PELAKSANA PENGADAAN',
+        //     'unit_up3' => 'UP3 MAKASSAR SELATAN',
+        //     'unit_ulp' => '-',
+        // ]);
 
-        Addendum::create([
-            'kontrak_induk_id' => '1',
-            'nomor_addendum' => '023/DAN/2020',
-            'tanggal_addendum' => '2022-11-15'
-        ]);
-        Addendum::create([
-            'kontrak_induk_id' => '1',
-            'nomor_addendum' => '024/DAN/2020',
-            'tanggal_addendum' => '2022-11-16'
-        ]);
-        Addendum::create([
-            'kontrak_induk_id' => '1',
-            'nomor_addendum' => '025/DAN/2020',
-            'tanggal_addendum' => '2022-11-17'
-        ]);
+        // Addendum::create([
+        //     'kontrak_induk_id' => '1',
+        //     'nomor_addendum' => '023/DAN/2020',
+        //     'tanggal_addendum' => '2022-11-15'
+        // ]);
+        // Addendum::create([
+        //     'kontrak_induk_id' => '1',
+        //     'nomor_addendum' => '024/DAN/2020',
+        //     'tanggal_addendum' => '2022-11-16'
+        // ]);
+        // Addendum::create([
+        //     'kontrak_induk_id' => '1',
+        //     'nomor_addendum' => '025/DAN/2020',
+        //     'tanggal_addendum' => '2022-11-17'
+        // ]);
 
         // Satuan::create([
         //     'singkatan' => 'm',

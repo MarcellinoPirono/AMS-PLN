@@ -16,6 +16,7 @@ use App\Models\Pejabat;
 use App\Models\Addendum;
 // use App\Models\OrderedRab;
 use App\Models\OrderKhs;
+use App\Models\OrderRedaksiKHS;
 use App\Models\Redaksi;
 use App\Models\Satuan;
 use Illuminate\Support\Facades\DB;
@@ -294,7 +295,7 @@ class RabController extends Controller
             'skk_id' => 'required|max:250',
             'prk_id' => 'required|max:250',
             'pekerjaan' => 'required|max:250',
-            'lokasi' => 'required|max:250',
+            'lokasi' => 'nullable|max:250',
             'startdate' => 'required|max:250',
             'enddate' => 'required|max:250',
             'nomor_kontrak_induk' => 'required|max:250',
@@ -308,14 +309,17 @@ class RabController extends Controller
             'harga_satuan' => 'required|max:250',
             'volume' => 'required|max:250',
             'jumlah_harga' => 'required|max:250',
+            // 'jumlah_harga' => 'required',
         ]);
+
+
 
         $addendum_id = Addendum::where('nomor_addendum', $request->addendum_id)->value('id');
 
         $nama_pdf = $request->nomor_po;
         $ubah_pdf = str_replace('.', '_', $nama_pdf);
         $ubah_pdf2 = str_replace('/','-', $ubah_pdf);
-        
+
 
         $mypdf = 'public/storage/file-pdf-khs/'.$ubah_pdf2.'.pdf';
 
@@ -325,13 +329,13 @@ class RabController extends Controller
             'skk_id' => $request->skk_id,
             'prk_id' => $request->prk_id,
             'pekerjaan' => $request->pekerjaan,
-            'lokasi' => $request->lokasi,
+            // 'lokasi' => $request->lokasi,
             'startdate' => $request->startdate,
             'enddate' => $request->enddate,
             'nomor_kontrak_induk' => $request->nomor_kontrak_induk,
             'addendum_id' => $addendum_id,
             'pejabat_id' => $request->pejabat_id,
-            'pengawas' => $request->pengawas,
+            'pengawas_pekerjaan' => $request->pengawas,
             'total_harga' => $request->total_harga,
             'pdf_file' =>$mypdf,
         ];
@@ -349,7 +353,7 @@ class RabController extends Controller
         for ($i = 0; $i < $total_tabel; $i++) {
             $rab_id[$i] = $id;
             $satuan_id[$i] = Satuan::where('kepanjangan', $request->satuan_id[$i])->value('id');
-        }        
+        }
 
         for ($j = 0; $j < $total_tabel; $j++) {
             $order_khs = [
@@ -364,11 +368,24 @@ class RabController extends Controller
             OrderKhs::create($order_khs);
         }
 
+        for ($j = 0; $j < $total_tabel; $j++) {
+            $order_redaksi = [
+                'rab_id' => $rab_id[$j],
+                'redaksi_id' => $request->redaksi_id[$j],
+                'deskripsi_id' => $request->deskripsi_id[$j],
+                'sub_deskripsi_id' => $request->sub_deskripsi_id[$j],
+            ];
+            OrderRedaksiKHS::create($order_redaksi);
+        }
+
+        $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
+        // dd($redaksis);
+
         $values_pdf_page1 = Rab::where('id', $id)->get();
-        
+
         $startdate = Rab::where('id', $id)->value('startdate');
         $enddate = Rab::where('id', $id)->value('enddate');
-        $datetime1 = new DateTime($startdate); 
+        $datetime1 = new DateTime($startdate);
         $datetime2 = new DateTime($enddate);
         $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
         $d = 0;
@@ -405,12 +422,14 @@ class RabController extends Controller
             }
         }
 
+        $jabatan = Pejabat::select('jabatan');
+
         $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
         $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
         $ppn = $jumlah * 0.11;
-        
+
 
         $pdf = Pdf::loadView('layouts.surat',[
             "po_khs" => $values_pdf_page1,
@@ -422,8 +441,9 @@ class RabController extends Controller
             "jabatan_manager" => $jabatan_manager,
             "nama_manager" => $nama_manager,
             "title" => $ubah_pdf2,
+            "redaksis" => $redaksis
         ]);
-        
+
         $content = $pdf->download()->getOriginalContent();
         Storage::put('public/storage/file-pdf-khs/'.$ubah_pdf2.'.pdf',$content);
 
@@ -507,7 +527,7 @@ class RabController extends Controller
             ],
             compact('order_khs', 'nama_item', 'rabs')
         );
-        
+
     }
 
     /**
@@ -579,11 +599,73 @@ class RabController extends Controller
 
     public function export_pdf_khs(Request $request, $id)
     {
-        $document = Rab::findorFail($id);
+        // $document = Rab::findorFail($id);
 
-        $filePath = $document->pdf_file;
+        // $filePath = $document->pdf_file;
 
-        return Storage::download($filePath);
+        // return Storage::download($filePath);
+
+      $values_pdf_page1 = Rab::where('id', $id)->get();
+
+        $startdate = Rab::where('id', $id)->value('startdate');
+        $enddate = Rab::where('id', $id)->value('enddate');
+        $datetime1 = new DateTime($startdate);
+        $datetime2 = new DateTime($enddate);
+        $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
+        $d = 0;
+        $days = 0;
+        $datetime2 = 1;
+
+        foreach($interval as $date) {
+            $interval = $date->format("Y-m-d");
+            $datetime = DateTime::createFromFormat('Y-m-d', $interval);
+
+            $day = $datetime->format('D');
+
+            if($day != "Sun" && $day != "Sat") {
+                $days += $datetime2 - $d;
+            }
+
+            $datetime2++;
+            $d++;
+        }
+        // $days = $interval->format('%a');
+
+        $rab_id = Rab::where('id', $id)->value('id');
+        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+
+        // dd($values_pdf_page2[0]->kategori_order);
+        $jasa = [];
+        $material = [];
+
+        for($i = 0; $i < count($values_pdf_page2); $i++) {
+            if($values_pdf_page2[$i]->kategori_order == "Jasa") {
+                $jasa[$i] = $values_pdf_page2[$i];
+            } else {
+                $material[$i] = $values_pdf_page2[$i];
+            }
+        }
+
+        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
+        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
+
+        $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
+        $ppn = $jumlah * 0.11;
+
+
+        $pdf = Pdf::loadView('layouts.surat',[
+            "po_khs" => $values_pdf_page1,
+            "kategori_jasa" => $jasa,
+            "kategori_material" => $material,
+            "jumlah" => $jumlah,
+            "ppn" => $ppn,
+            "days" => $days,
+            "jabatan_manager" => $jabatan_manager,
+            "nama_manager" => $nama_manager,
+            "title" => 'PO-KHS (SP-APP)',
+        ]);
+
+        return $pdf->download('po_khs.pdf');
 
     }
 
@@ -637,9 +719,9 @@ class RabController extends Controller
         // return Storage::response($filePath);
 
 
-        
-    
-        
+
+
+
     }
 
     public function getAddendum(Request $request)
@@ -661,10 +743,10 @@ class RabController extends Controller
         // dd($redaksi_id);
         $deskripsi_redaksi = Redaksi::where('id', $redaksi_id)->value('deskripsi_redaksi');
 
-        
+
         $deskripsi = DB::table('redaksis')->where('deskripsi_redaksi', $deskripsi_redaksi)->first();
         // dd($deskripsi);
-        
+
         return response()->json($deskripsi);
     }
 }

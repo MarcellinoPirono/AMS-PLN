@@ -33,15 +33,14 @@
                         </ul>
                         <div class="tab-content tab-flex">
                             <div id="informasi_umum" class="tab-pane" role="tabpanel">
-                                <div enctype="multipart/form-data"
-                                    class="basic-form">
+                                <div enctype="multipart/form-data" class="basic-form">
                                     <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                                     <div class="row">
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">No. Purchase Order(PO)</label>
-                                                <input type="text" class="form-control validate0"
-                                                    name="po" id="po" placeholder="No. PO" required autofocus
+                                                <input type="text" class="form-control validate0" name="po"
+                                                    id="po" placeholder="No. PO" required autofocus
                                                     value="{{ old('po') }}">
                                                 <div class="invalid-feedback validate_rab0">
                                                 </div>
@@ -52,7 +51,8 @@
                                                 <label class="text-label">Pilih No. Kontrak Induk</label>
                                                 <select class="form-control input-default validate1" id="kontrak_induk"
                                                     name="kontrak_induk">
-                                                    <option value="0" selected disabled>Pilih No. Kontrak Induk</option>
+                                                    <option value="0" selected disabled>Pilih No. Kontrak Induk
+                                                    </option>
                                                     @foreach ($kontraks as $kontrak)
                                                         <option value="{{ $kontrak->khs_id }}">
                                                             {{ $kontrak->khs->jenis_khs }} -
@@ -90,8 +90,10 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group tes">
                                                 <label class="text-label">Start Date</label>
-                                                <input name="start_date" id="start_date" class="icon1 datepicker-default form-control @error('start_date') is-invalid @enderror"
-                                                placeholder="Start Date PO-KHS" value="{{ old('start_date') }}" required > 
+                                                <input name="start_date" id="start_date"
+                                                    class="icon1 datepicker-default form-control @error('start_date') is-invalid @enderror"
+                                                    placeholder="Start Date PO-KHS" value="{{ old('start_date') }}"
+                                                    required>
                                                 @error('start_date')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -102,8 +104,9 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group tes">
                                                 <label class="text-label">End Date</label>
-                                                <input name="end_date" id="end_date" class="icon1 datepicker-default form-control @error('end_date') is-invalid @enderror"
-                                                placeholder="End Date PO-KHS" value="{{ old('end_date') }}" required >
+                                                <input name="end_date" id="end_date"
+                                                    class="icon1 datepicker-default form-control @error('end_date') is-invalid @enderror"
+                                                    placeholder="End Date PO-KHS" value="{{ old('end_date') }}" required>
                                                 @error('end_date')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -114,9 +117,10 @@
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
                                                 <label class="text-label">No. Addendum</label>
-                                                <input type="text" class="form-control @error('addendum') is-invalid @enderror"
-                                                    name="addendum" id="addendum" placeholder="No. Addendum" required autofocus
-                                                    value="{{ old('addendum') }}">
+                                                <input type="text"
+                                                    class="form-control @error('addendum') is-invalid @enderror"
+                                                    name="addendum" id="addendum" placeholder="No. Addendum" required
+                                                    autofocus value="{{ old('addendum') }}">
                                                 @error('addendum')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -125,8 +129,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control input-default" name="latest_addendum"
-                                                id="latest_addendum" placeholder="Latest Addendum" readonly disabled>
+                                            <input type="text" class="form-control input-default"
+                                                name="latest_addendum" id="latest_addendum" placeholder="Latest Addendum"
+                                                readonly disabled>
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <div class="form-group">
@@ -278,9 +283,9 @@
                                                                 <th>Redaksi</th>
                                                                 <th>Deskripsi</th>
                                                                 <!-- <th>Satuan</th>
-                                                                    <th>Volume</th>
-                                                                    <th>Harga Satuan</th>
-                                                                    <th>Harga Total</th> -->
+                                                                        <th>Volume</th>
+                                                                        <th>Harga Satuan</th>
+                                                                        <th>Harga Total</th> -->
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
@@ -408,10 +413,8 @@
                     jQuery('#prk_id').html(result)
                 }
             });
-        });       
+        });
     });
-
-    
 </script>
 
 <script>
@@ -654,7 +657,7 @@
         btn_prev2 = document.getElementById('btnprev2');
         btn_prev2.setAttribute("id", "btnprev3");
         btn_prev2.setAttribute("onclick", "prev3()");
-        
+
     }
 
     function next3() {
@@ -673,7 +676,7 @@
         var token = $('#csrf').val();
         var po = document.getElementById('po').value;
         var today = new Date();
-        today = new Date(today.getTime() - (today.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+        today = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
         var kontrak_induk = document.getElementById('kontrak_induk').value;
         var pekerjaan = document.getElementById('pekerjaan').value;
         var lokasi = document.getElementById('lokasi').value;
@@ -681,101 +684,101 @@
         var end_date = document.getElementById('end_date').value;
         start_date = new Date(start_date);
         end_date = new Date(end_date);
-        start_date = new Date(start_date.getTime() - (start_date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
-        end_date = new Date(end_date.getTime() - (end_date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+        start_date = new Date(start_date.getTime() - (start_date.getTimezoneOffset() * 60000)).toISOString().split("T")[
+            0];
+        end_date = new Date(end_date.getTime() - (end_date.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
         var addendum = document.getElementById('addendum').value;
         var skk_id = document.getElementById('skk_id').value;
         var prk_id = document.getElementById('prk_id').value;
         var pejabat = document.getElementById('pejabat').value;
         var pengawas = document.getElementById('pengawas').value;
-        
+
         var item_id = [];
         var kategory_id = [];
         var satuan = [];
         var volume = [];
         var harga_satuan = [];
         var harga = [];
-        
-        for(var i = 0; i < click; i++)
-        {
-            item_id[i] = document.getElementById("item_id["+ (i + 1) +"]").value;
-            kategory_id[i] = document.getElementById("kategory_id["+ (i + 1) +"]").value;
-            satuan[i] = document.getElementById("satuan["+ (i + 1) +"]").value;
-            volume[i] = document.getElementById("volume["+ (i + 1) +"]").value;
+
+        for (var i = 0; i < click; i++) {
+            item_id[i] = document.getElementById("item_id[" + (i + 1) + "]").value;
+            kategory_id[i] = document.getElementById("kategory_id[" + (i + 1) + "]").value;
+            satuan[i] = document.getElementById("satuan[" + (i + 1) + "]").value;
+            volume[i] = document.getElementById("volume[" + (i + 1) + "]").value;
             volume[i] = parseInt(volume[i]);
-            harga_satuan[i] = document.getElementById("harga_satuan["+ (i + 1) +"]").value;
+            harga_satuan[i] = document.getElementById("harga_satuan[" + (i + 1) + "]").value;
             harga_satuan[i] = parseInt(harga_satuan[i]);
-            harga[i] = document.getElementById("harga["+ (i + 1) +"]").value;
+            harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
             harga[i] = parseInt(harga[i]);
         }
-        
+
         const bef_ppn_total_harga = harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
         var ppn = bef_ppn_total_harga * 11 / 100;
         ppn = Math.round(ppn);
         var total_harga = bef_ppn_total_harga + ppn;
         total_harga = Math.round(total_harga);
-        
-        swal({
-            title: "Apakah anda yakin?",
-            text: "Anda tidak dapat mengedit Data ini lagi!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willCreate) => {
-            if (willCreate) {
-                var data = {
-                    "_token": token,
-                    "nomor_po": po,
-                    "tanggal_po": today,
-                    "skk_id": skk_id,
-                    "prk_id": prk_id,
-                    "pekerjaan": pekerjaan,
-                    "lokasi": lokasi,
-                    "startdate": start_date,
-                    "enddate": end_date,
-                    "nomor_kontrak_induk": kontrak_induk,
-                    "addendum_id": addendum,
-                    "pejabat_id": pejabat,
-                    "pengawas": pengawas,
-                    "total_harga": total_harga,
-                    "kategori_order": kategory_id,
-                    "item_order": item_id,
-                    "satuan_id": satuan,
-                    "harga_satuan": harga_satuan,
-                    "volume": volume,
-                    "jumlah_harga": harga,
-                    "click": click,
-                }
-                console.log(data);
 
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ url('po-khs') }}",
-                    data: data,
-                    success: function(response) {
-                        swal({
-                            title: "Data Ditambah",
-                            text: "Data Berhasil Ditambah",
-                            icon: "success",
-                            timer: 2e3,
-                            buttons: false
-                        })
-                        .then((result) => {
-                            window.location.href = "/po-khs";
-                        });
+        swal({
+                title: "Apakah anda yakin?",
+                text: "Silakan cek kembali apabila data masih keliru",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willCreate) => {
+                if (willCreate) {
+                    var data = {
+                        "_token": token,
+                        "nomor_po": po,
+                        "tanggal_po": today,
+                        "skk_id": skk_id,
+                        "prk_id": prk_id,
+                        "pekerjaan": pekerjaan,
+                        "lokasi": lokasi,
+                        "startdate": start_date,
+                        "enddate": end_date,
+                        "nomor_kontrak_induk": kontrak_induk,
+                        "addendum_id": addendum,
+                        "pejabat_id": pejabat,
+                        "pengawas": pengawas,
+                        "total_harga": total_harga,
+                        "kategori_order": kategory_id,
+                        "item_order": item_id,
+                        "satuan_id": satuan,
+                        "harga_satuan": harga_satuan,
+                        "volume": volume,
+                        "jumlah_harga": harga,
+                        "click": click,
                     }
-                });
-            } else {
-                swal({
-                    title: "Data Belum Ditambah",
-                    text: "Silakan Cek Kembali Data Anda",
-                    icon: "error",
-                    timer: 2e3,
-                    buttons: false
-                });
-            }
-        })
+                    console.log(data);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('po-khs') }}",
+                        data: data,
+                        success: function(response) {
+                            swal({
+                                    title: "Data Ditambah",
+                                    text: "Data Berhasil Ditambah",
+                                    icon: "success",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((result) => {
+                                    window.location.href = "/po-khs";
+                                });
+                        }
+                    });
+                } else {
+                    swal({
+                        title: "Data Belum Ditambah",
+                        text: "Silakan Cek Kembali Data Anda",
+                        icon: "error",
+                        timer: 2e3,
+                        buttons: false
+                    });
+                }
+            })
     }
 
     function prev4() {

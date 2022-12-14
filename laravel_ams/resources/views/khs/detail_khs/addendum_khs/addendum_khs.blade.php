@@ -25,10 +25,15 @@
                     <a href="/addendum-khs/create" class="btn btn-primary mr-auto ml-3">Tambah Addendum<span
                             class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                     </a>
+                    <a href="/addendum-khs/create-xlsx" class="btn btn-primary mr-auto ml-3">Tambah Addendum Via Excel<span
+                            class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                    </a>
                     <div class="input-group search-area position-relative">
                         <div class="input-group-append">
-                            <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
-                            <input type="search" id="search" name="search" class="form-control" placeholder="Search here..." />
+                            <span class="input-group-text"><a href="javascript:void(0)"><i
+                                        class="flaticon-381-search-2"></i></a></span>
+                            <input type="search" id="search" name="search" class="form-control"
+                                placeholder="Search here..." />
                         </div>
                     </div>
                 </div>
@@ -60,7 +65,8 @@
                                         <td>{{ $addendum->kontrak_induks->khs->jenis_khs }}</td>
                                         <td>{{ $addendum->kontrak_induks->khs->nama_pekerjaan }}</td>
                                         <td>{{ $addendum->nomor_addendum }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($addendum->tanggal_addendum)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>
+                                        <td>{{ \Carbon\Carbon::parse($addendum->tanggal_addendum)->isoFormat('dddd, DD-MMMM-YYYY') }}
+                                        </td>
                                         <td>
 
                                             <div class="d-flex">
@@ -109,35 +115,35 @@
     </script> -->
 
     <script type="text/javascript">
-    $('#search').on('keyup',function(){
-        $value=$(this).val();
+        $('#search').on('keyup', function() {
+            $value = $(this).val();
 
-        if($value){
-            $('.alldata').hide();
-            $('.searchdata').show();
-        }
+            if ($value) {
+                $('.alldata').hide();
+                $('.searchdata').show();
+            } else {
+                $('.alldata').show();
+                $('.searchdata').hide();
 
-        else{
-            $('.alldata').show();
-            $('.searchdata').hide();
+            }
 
-        }
+            $.ajax({
 
-    $.ajax({
+                type: 'get',
+                url: '{{ URL::to('search-addendum-khs') }}',
+                data: {
+                    'search': $value
+                },
 
-        type: 'get',
-        url:'{{URL::to('search-addendum-khs') }}',
-        data:{'search':$value},
+                success: function(data) {
+                    console.log(data);
+                    $('#Content').html(data);
+                }
 
-        success:function(data){
-            console.log(data);
-            $('#Content').html(data);
-        }
+            });
 
-    });
-
-    });
-</script>
+        });
+    </script>
 @endsection
 
 
@@ -145,7 +151,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
-<script data-require="jquery@2.1.1" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script data-require="jquery@2.1.1" data-semver="2.1.1"
+    src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
 <script>
@@ -171,7 +178,7 @@
                         };
                         $.ajax({
                             type: "DELETE",
-                            url: "{{ url('addendum-khs') }}"+'/'+deleteid,
+                            url: "{{ url('addendum-khs') }}" + '/' + deleteid,
                             data: data,
                             success: function(response) {
                                 swal({
@@ -201,20 +208,17 @@
 </script>
 
 <script>
-    function displayVals(data)
-    {
+    function displayVals(data) {
         var val = data;
         $.ajax({
-        type: "POST",
-        url: "{{URL::to('addendum-khs/filter') }}",
-        data: { kontrak_induk_id : val },
-            success:function(campaigns)
-            {
+            type: "POST",
+            url: "{{ URL::to('addendum-khs/filter') }}",
+            data: {
+                kontrak_induk_id: val
+            },
+            success: function(campaigns) {
                 $("#read").html(campaigns);
             }
         });
     }
 </script>
-
-
-

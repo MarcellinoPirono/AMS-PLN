@@ -13,10 +13,12 @@
 
  header {
      position: fixed;
+     margin-top: 20px;
      top: -182px;
      left: -22px;
      /* right: -20px; */
-     width: 100%;
+     width: 94%;
+     margin-left: 15px;
      /* height: 3cm; */
      /* height: 100%; */
      /* background-color: yellowgreen; */
@@ -146,7 +148,7 @@
  body {
      font-family: Calibri;
      font-size: 14px;
-     line-height: 1.15;
+     line-height: 1;
  }
 
  .page-break {
@@ -223,7 +225,7 @@
      font-family: Calibri;
      font-weight: bold;
      font-style: normal;
-     font-size: x-large;
+     font-size: 14px;
      text-decoration: underline;
      text-align: center;
      padding-bottom: 20px;
@@ -280,6 +282,7 @@
      /* Internet Explorer 5.5+ */
      word-break: break-all;
      white-space: normal;
+     font-size: 11px;
  }
 
  .coba {
@@ -322,4 +325,24 @@
 
  .tabellkanan {
      padding-right: 4px;
+ }
+
+ /* ul {
+     text-align: justify
+ }
+
+ ul::after {
+     width: 100%;
+     display: inline-block;
+     content: ".";
+     visibility: hidden
+ }
+
+ li {
+     display: inline-block
+ } */
+
+ ol {
+     text-align: justify;
+     text-justify: inter-word;
  }

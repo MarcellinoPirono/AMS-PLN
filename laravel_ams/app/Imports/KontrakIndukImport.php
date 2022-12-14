@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\KontrakInduk;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Carbon\Carbon;
 
 class KontrakIndukImport implements ToModel
 {
@@ -17,7 +18,8 @@ class KontrakIndukImport implements ToModel
         return new KontrakInduk([
             'khs_id'  => $row[1],
             'nomor_kontrak_induk' => $row[2],
-            'tanggal_kontrak_induk' => $row[3],
+            'tanggal_kontrak_induk' => '2020-04-01',
+            // 'tanggal_kontrak_induk' => $row[3],
             'vendor_id' => $row[4],
         ]);
     }

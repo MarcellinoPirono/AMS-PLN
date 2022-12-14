@@ -9,6 +9,7 @@ use App\Imports\KontrakIndukImport;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class KontrakIndukController extends Controller
