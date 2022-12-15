@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_redaksi');
             $table->text('deskripsi_redaksi');
-            $table->text('sub_deskripsi')->nullable();
+            $table->foreignId('sub_deskripsi_id')->nullable();
             // $table->id();
             $table->timestamps();
         });

@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class lokasi extends Model
+class SubDeskripsiKhs extends Model
 {
     use HasFactory;
-    protected $guarded = [''];
-
-    
-
 }

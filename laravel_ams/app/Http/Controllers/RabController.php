@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rab;
+use App\Models\lokasi;
 use App\Models\Prk;
 use App\Models\ItemRincianInduk;
 use App\Models\Skk;
@@ -290,7 +291,7 @@ class RabController extends Controller
     {
         // dd($request);
         $request->validate([
-            'nomor_po' => 'required|max:250',
+            'nomor_po' => 'required|unique:rabs|max:250',
             'tanggal_po' => 'required|max:250',
             'skk_id' => 'required|max:250',
             'prk_id' => 'required|max:250',
@@ -346,6 +347,7 @@ class RabController extends Controller
         $id = Rab::where('nomor_po', $request->nomor_po)->value('id');
 
         $total_tabel = $request->click;
+       
 
         $rab_id = [];
         $satuan_id = [];
@@ -368,7 +370,12 @@ class RabController extends Controller
             OrderKhs::create($order_khs);
         }
 
-        for ($j = 0; $j < $total_tabel; $j++) {
+
+        $redaksi_click = $request->clickredaksi;
+        for ($i = 0; $i < $redaksi_click; $i++) {
+            $rab_id[$i] = $id;
+        }
+        for ($j = 0; $j < $redaksi_click; $j++) {
             $order_redaksi = [
                 'rab_id' => $rab_id[$j],
                 'redaksi_id' => $request->redaksi_id[$j],
@@ -377,8 +384,24 @@ class RabController extends Controller
             ];
             OrderRedaksiKHS::create($order_redaksi);
         }
+        
+        $lokasi_click = $request->clicklokasi;
+        for ($i = 0; $i < $lokasi_click; $i++) {
+            $rab_id[$i] = $id;
+        }
+        for ($j = 0; $j < $lokasi_click; $j++) {
+            $order_lokasi = [
+                'rab_id' => $rab_id[$j],
+                'nama_lokasi' => $request->lokasi[$j],
+                
+            ];
+            lokasi::create($order_lokasi);
+        }
+
+
 
         $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
+        $lokasis = lokasi::where('rab_id', $rab_id)->get();
         // dd($redaksis);
 
         $values_pdf_page1 = Rab::where('id', $id)->get();
@@ -441,7 +464,8 @@ class RabController extends Controller
             "jabatan_manager" => $jabatan_manager,
             "nama_manager" => $nama_manager,
             "title" => $ubah_pdf2,
-            "redaksis" => $redaksis
+            "redaksis" => $redaksis,
+            "lokasis" => $lokasis,
         ]);
 
         $content = $pdf->download()->getOriginalContent();
@@ -633,6 +657,8 @@ class RabController extends Controller
 
         $rab_id = Rab::where('id', $id)->value('id');
         $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+        $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
+        $lokasis = lokasi::where('rab_id', $rab_id)->get();
 
         // dd($values_pdf_page2[0]->kategori_order);
         $jasa = [];
@@ -662,6 +688,8 @@ class RabController extends Controller
             "days" => $days,
             "jabatan_manager" => $jabatan_manager,
             "nama_manager" => $nama_manager,
+            "redaksis" => $redaksis,
+            "lokasis" => $lokasis,
             "title" => 'PO-KHS (SP-APP)',
         ]);
 

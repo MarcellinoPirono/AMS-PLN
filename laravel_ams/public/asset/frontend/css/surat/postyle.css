@@ -18,7 +18,7 @@
      left: -22px;
      /* right: -20px; */
      width: 94%;
-     margin-left: 15px;
+     margin-left: 20px;
      /* height: 3cm; */
      /* height: 100%; */
      /* background-color: yellowgreen; */
@@ -65,7 +65,7 @@
     font-size: 20px !important; */
      position: fixed;
      bottom: -1cm;
-     left: 0px;
+     left: 20px;
      /* width: 100%;  */
      /* right: 0cm; */
      /* height: 1cm; */
@@ -92,7 +92,7 @@
 
  .footer-1 {
      /* float: left;  */
-     margin-right: 250px;
+     margin-right: 240px;
      width: 100%;
      /* height: 80%; */
  }
@@ -147,7 +147,7 @@
 
  body {
      font-family: Calibri;
-     font-size: 14px;
+     font-size: 12px;
      line-height: 1;
  }
 
@@ -174,13 +174,26 @@
  }
 
  #firstTable table {
-     border: 3px solid black;
      margin-top: 25px;
  }
 
  .first {
      border-left: 1px solid #000;
      border-right: 1px solid #000;
+     border-top: none;
+     border-bottom: none;
+ }
+
+ .firstkiri {
+     border-left: 3px solid #000;
+     border-right: 1px solid #000;
+     border-top: none;
+     border-bottom: none;
+ }
+
+ .firstkanan {
+     border-left: 1px solid #000;
+     border-right: 3px solid #000;
      border-top: none;
      border-bottom: none;
  }
@@ -327,6 +340,10 @@
      padding-right: 4px;
  }
 
+ .tabellkanan1 {
+     padding-right: 43px;
+ }
+
  /* ul {
      text-align: justify
  }
@@ -346,3 +363,125 @@
      text-align: justify;
      text-justify: inter-word;
  }
+
+ /* table {
+     page-break-inside: auto
+ }
+
+ tr {
+     page-break-inside: avoid;
+     page-break-after: auto
+ } */
+
+ @media print {
+     .pagebreak {
+         page-break-before: always;
+     }
+
+     /* page-break-after works, as well */
+ }
+
+ .first10 {
+     border-left: none;
+     border-right: none;
+     border-top: 1px solid #000;
+     border-bottom: none;
+ }
+
+ .tabelkiri {
+     border-left: 3px solid black;
+     border-right: none;
+     border-top: none;
+     border-bottom: none;
+ }
+
+ .tabelatas {
+     border-left: 1px solid black;
+     border-right: 1px solid black;
+     border-top: 3px solid black;
+     border-bottom: 1px solid black;
+ }
+
+ .tabelbawah {
+     border-left: none;
+     border-right: none;
+     border-top: none;
+     border-bottom: 3px solid black;
+ }
+
+ .tabelkanan {
+     border-left: none;
+     border-right: 3px solid black;
+     border-top: none;
+     border-bottom: none;
+ }
+
+ .tabelataskiri {
+     border-left: 3px solid black;
+     border-right: 1px solid black;
+     border-top: 3px solid black;
+     border-bottom: 1px solid black;
+ }
+
+ .tabelataskanan {
+     border-left: none;
+     border-right: 3px solid black;
+     border-top: 3px solid black;
+     border-bottom: none;
+ }
+
+ .tabelbawahkiri {
+     border-left: 3px solid black;
+     border-right: none;
+     border-top: none;
+     border-bottom: 3px solid black;
+ }
+
+ .tabelbawahkanan {
+     border-left: none;
+     border-right: 3px solid black;
+     border-top: none;
+     border-bottom: 3px solid black;
+ }
+
+ .tabelnormal {
+     border-left: 1px solid black;
+     border-right: 1px solid black;
+     border-top: 1px solid black;
+     border-bottom: 1px solid black;
+ }
+
+ .tabelnormalkanan {
+     border-left: 1px solid black;
+     border-right: 3px solid black;
+     border-top: 1px solid black;
+     border-bottom: 1px solid black;
+ }
+
+ .tabelnormalkiri {
+     border-left: 3px solid black;
+     border-right: 1px solid black;
+     border-top: 1px solid black;
+     border-bottom: 1px solid black;
+ }
+
+ .tabelkirikanan {
+     border-left: 3px solid black;
+     border-right: 3px solid black;
+     border-top: 1px solid black;
+     border-bottom: 1px solid black;
+ }
+
+ .tabelnormalkanan1 {
+     border-left: none;
+     border-right: 3px solid black;
+     border-top: 1px solid black;
+     border-bottom: 1px solid black;
+ }
+
+ .tabelnormalkanan2 {
+    border-left: none;
+    border-right: 3px solid black;
+    border-top: 1px solid black;
+    border-bottom: 3px solid black;
+}

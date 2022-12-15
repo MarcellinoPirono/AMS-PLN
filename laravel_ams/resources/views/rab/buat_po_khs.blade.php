@@ -163,11 +163,14 @@
                                                         <option value="" selected disabled>Direksi Pekerjaan
                                                         </option>
                                                         @foreach ($pejabats as $pejabat)
-                                                            <option value="{{ $pejabat->id }}">
-                                                                {{ $pejabat->jabatan }} -
-                                                                {{ $pejabat->nama_pejabat }}
-                                                            </option>
+                                                            @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                                <option value="{{ $pejabat->id }}">
+                                                                    {{ $pejabat->jabatan }} -
+                                                                    {{ $pejabat->nama_pejabat }}
+                                                                </option>
+                                                            @endif
                                                         @endforeach
+
                                                     </select>
                                                     <div class="valid-feedback">
                                                         Data Terpilih
@@ -329,7 +332,7 @@
                                                                                 class="form-control volume" id="volume[1]"
                                                                                 name="volume" placeholder="volume"
                                                                                 value=""
-                                                                                onblur="blur_volume(this)"onkeydown="return numbersonly2(this, event);"
+                                                                                onblur="blur_volume(this)"onkeypress="return numbersonly2(this, event);"
                                                                                 onkeyup="format(this)" required></td>
                                                                         <td><input type="text"
                                                                                 class="form-control harga_satuan"
@@ -1002,14 +1005,14 @@
                         var html_redaksi = [""];
                         var isi_redaksi = redaksi_line.length;
                         for (var j = 0; j < isi_redaksi; j++) {
-                            html_redaksi += ("<tr> <td class='first' align='center' valign='middle'>" + (j +
+                            html_redaksi += ("<tr> <td class='first' align='center' valign='top'>" + (j +
                                     1) +
-                                "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
+                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
                                 redaksi_line[j][0] +
-                                "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
+                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
                                 redaksi_line[
                                     j][1] +
-                                "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
+                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
                                 redaksi_line[
                                     j][2] + "</td> </tr>")
                         }
@@ -1206,7 +1209,7 @@
                     input3.setAttribute("placeholder", "Volume");
                     input3.setAttribute("value", "");
                     input3.setAttribute("onblur", "blur_volume(this)");
-                    input3.setAttribute("onkeydown", "return numbersonly2(this, event);");
+                    input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
                     input3.setAttribute("onkeyup", "format(this)");
                     input3.setAttribute("required", true);
 
@@ -1846,6 +1849,8 @@
                 harga[i] = parseInt(harga[i]);
             }
 
+            // console.log(volume);
+
             var redaksi_id = [];
             var deskripsi_id = [];
             var sub_deskripsi_id = [];
@@ -1877,7 +1882,7 @@
                             "skk_id": skk_id,
                             "prk_id": prk_id,
                             "pekerjaan": pekerjaan,
-                            // "lokasi": lokasi,
+                            "lokasi": nama_lokasi,
                             "startdate": start_date,
                             "enddate": end_date,
                             "nomor_kontrak_induk": kontrak_induk,
@@ -1893,6 +1898,7 @@
                             "jumlah_harga": harga,
                             "click": click,
                             "clickredaksi": clickredaksi,
+                            "clicklokasi": clicklokasi,
                             "redaksi_id": redaksi_id,
                             "deskripsi_id": deskripsi_id,
                             "sub_deskripsi_id": sub_deskripsi_id,
@@ -1975,6 +1981,7 @@
         if (e.keyCode >= 49) {
             if (e.keyCode <= 57) {
                 a = ini.value.toString().replace(".", "");
+                console.log(a);
                 b = a.replace(/[^\d]/g, "");
                 b = (b == "0") ? String.fromCharCode(e.keyCode) : b + String.fromCharCode(e.keyCode);
                 ini.value = tandaPemisahTitik(b);
@@ -2034,37 +2041,20 @@
     }
 
     function numbersonly2(ini, e) {
-        if(e.keyCode >= 65) {
-            if(e.keyCode <= 90) {
-                return false;
-            }
-        }
 
-        if(e.keyCode >= 186) {
-            if(e.keyCode <= 223) {
-                if(e.keyCode == 188) {
-                    if(ini.value == "") {
-                        return false;
-                    } else {
-                        return true;
+        var txt = String.fromCharCode(e.which);
+        if(!txt.match(/[0-9.,]/)) {
+            return false;
+        } else {
+            if (e.keyCode >= 48) {
+                if (e.keyCode <= 57) {
+                    console.log(e);
+                    if (ini.value == "0") {
+                        ini.value = ""
                     }
-                } else {
-                    return false;
                 }
             }
-        }
-
-        if(e.keyCode == 48) {
-            if(ini.value == "") {
-                return false;
-            } else {
-                return true;
-            }
-            // console.log(ini.value);
-        }
-
-        if(e.keyCode == "!") {
-            alert("Haloo");
+            
         }
     }
 </script>
