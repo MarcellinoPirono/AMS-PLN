@@ -91,9 +91,9 @@ class RedaksiController extends Controller
 
         $redaksi->update($input);
 
-        $sub_redaksi_id = SubRedaksi::where('redaksi_id', $id)->get();
+        $sub_redaksi_id = SubRedaksi::where('redaksi_id', $id);
 
-        dd($sub_redaksi_id);
+        // dd($sub_redaksi_id);
 
         for($j=0; $j < $request->clicksubdeskripsi; $j++){
             $sub_redaksi = [
