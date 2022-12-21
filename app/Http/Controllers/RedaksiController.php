@@ -81,7 +81,7 @@ class RedaksiController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request);
+        // // dd($request);
         $input = $request->validate([
             'nama_redaksi' => 'required',
             'deskripsi_redaksi' => 'required',
