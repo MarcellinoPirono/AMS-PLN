@@ -138,15 +138,8 @@ function numbersonly2(ini, e) {
 function blur_volume(c){
     var change = c.parentNode.parentNode.rowIndex;
     var volume = document.getElementById("volume[" + change + "]").value;
-    if(volume.charAt(volume.length - 1) == ",") {
-        document.getElementById("volume[" + change + "]").value = volume + "0";
-    }
-    if(volume.charAt(0) == ",") {
-        document.getElementById("volume[" + change + "]").value = "0" + volume;
-    }
     volume = volume.replace(/\./g, "");
-    volume = volume.replace(/\,/g, ".");
-    volume = parseFloat(volume);
+    volume = parseInt(volume);
     var harga_satuan = document.getElementById("harga_satuan[" + change + "]").value;
     harga_satuan = harga_satuan.replace(/\./g, "");
     harga_satuan = parseInt(harga_satuan);
@@ -186,7 +179,8 @@ function check(ini) {
                 volume[i].removeAttribute('required')
                 volume[i].removeAttribute('autofocus')
                 volume[i].setAttribute('disabled', '')
-                document.getElementById()
+                document.getElementById("volume["+(i+1)+"]").value = ""
+                document.getElementById("harga["+(i+1)+"]").value = ""
             }
         }
     }
