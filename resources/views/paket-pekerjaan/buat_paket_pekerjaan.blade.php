@@ -138,8 +138,10 @@ function numbersonly2(ini, e) {
 function blur_volume(c){
     var change = c.parentNode.parentNode.rowIndex;
     var volume = document.getElementById("volume[" + change + "]").value;
+    console.log(volume);
     volume = volume.replace(/\./g, "");
-    volume = parseInt(volume);
+    volume = parseFloat(volume);
+    console.log(volume);
     var harga_satuan = document.getElementById("harga_satuan[" + change + "]").value;
     harga_satuan = harga_satuan.replace(/\./g, "");
     harga_satuan = parseInt(harga_satuan);

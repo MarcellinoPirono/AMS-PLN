@@ -81,7 +81,7 @@ class RedaksiController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request);
+        // dd($request);
         $input = $request->validate([
             'nama_redaksi' => 'required',
             'deskripsi_redaksi' => 'required',
@@ -92,6 +92,8 @@ class RedaksiController extends Controller
         $redaksi->update($input);
 
         $sub_redaksi_id = SubRedaksi::where('redaksi_id', $id)->get();
+
+        dd($sub_redaksi_id);
 
         for($j=0; $j < $request->clicksubdeskripsi; $j++){
             $sub_redaksi = [

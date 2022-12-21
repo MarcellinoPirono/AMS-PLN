@@ -492,7 +492,7 @@
           var change = c.parentNode.parentNode.rowIndex;
           var volume = document.getElementById("volume[" + change + "]").value;
           volume = volume.replace(/\./g, "");
-          volume = parseInt(volume);
+          volume = parseFloat(volume);
           var harga_satuan = document.getElementById("harga_satuan[" + change + "]").value;
           harga_satuan = harga_satuan.replace(/\./g, "");
           harga_satuan = parseInt(harga_satuan);
