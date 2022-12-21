@@ -169,15 +169,18 @@
     border: 1px solid #a6a6a6 !important;
     border-radius: 20px !important;
     color: #000;
-    height: 40px !important;
-    word-wrap: normal !important;
+    height: 60px !important;
+    word-wrap: break-word !important;
     white-space: normal !important;
-
+    width: 300px !important;
+    word-break: break-all !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #444;
-    line-height: 38px !important;
+    line-height: 20px !important;
+    white-space: normal !important;
+    font-size: 12px !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__clear {

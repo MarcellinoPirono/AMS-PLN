@@ -138,13 +138,21 @@ function numbersonly2(ini, e) {
 function blur_volume(c){
     var change = c.parentNode.parentNode.rowIndex;
     var volume = document.getElementById("volume[" + change + "]").value;
+    if(volume.charAt(volume.length-1) == ",") {
+        document.getElementById("volume[" + change + "]").value = volume + "0"
+    }
+    if(volume.charAt(volume.length-1) == ",") {
+        document.getElementById("volume[" + change + "]").value = volume + "0"
+    }
     volume = volume.replace(/\./g, "");
-    volume = parseInt(volume);
+    volume = volume.replace(/\,/g, ".");
+    volume = parseFloat(volume);
     var harga_satuan = document.getElementById("harga_satuan[" + change + "]").value;
     harga_satuan = harga_satuan.replace(/\./g, "");
     harga_satuan = parseInt(harga_satuan);
     var harga = volume * harga_satuan;
-    harga = Math.round(harga);
+    harga_satuan = harga_satuan.replace(/\./g, "");
+    console.log(harga);
     harga = harga.toString();
     harga_2 = "";
     panjang = harga.length;
@@ -211,14 +219,14 @@ $(document).ready(function() {
         },
 
         errorPlacement: function(error, element){
-                if ( element.attr("name") == "letter" )
-                {
-                    error.appendTo("#checkboxerror");
-                }
-                else
-                { // This is the default behavior
-                    error.insertAfter( element );
-                }
+            if ( element.attr("name") == "letter" )
+            {
+                error.appendTo("#checkboxerror");
+            }
+            else
+            { // This is the default behavior
+                error.insertAfter( element );
+            }
         },
         submitHandler: function(form) {
             var token = $('#csrf').val();
@@ -228,9 +236,6 @@ $(document).ready(function() {
             var item_id = $('input[name="letter"]:checked').map(function(){
                                 return this.value;
                             }).get();
-            console.log(item_id);
-
-
             var data = {
                 "_token": token,
                 "nama_paket": nama_paket,

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama_paket')->nullable();
             $table->foreignId('item_id')->nullable();
+            
+            $table->double('volume');
+            $table->string('jumlah_harga');
             $table->timestamps();
         });
     }

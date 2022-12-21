@@ -31,7 +31,7 @@ return new class extends Migration
             // $table->foreignId('vendor_id');
             $table->text('pengawas_pekerjaan');
             $table->text('pengawas_lapangan')->nullable();
-            $table->integer('total_harga');
+            $table->string('total_harga');
             $table->string('pdf_file');
 
 

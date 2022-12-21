@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('satuan_id');
             $table->double('harga_satuan');
             $table->double('volume');
-            $table->double('jumlah_harga');
+            $table->string('jumlah_harga');
             $table->timestamps();
         });
     }

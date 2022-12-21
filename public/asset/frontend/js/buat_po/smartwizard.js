@@ -324,27 +324,29 @@ const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
                             "</option>")
                     }
                     // document.getElementById('lokasi_id[1]').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
-                    // console.log(lokasi_2);
-                    for (var i = 0; i < new_click; i++) {
-                        document.getElementById('location' + (i + 1)).remove();
-                    }
+                    // // console.log(lokasi_2);
+                    // for (var i = 0; i < new_click; i++) {
+                    //     document.getElementById('location' + (i + 1)).remove();
+                    // }
                     $("#prev-btn").removeClass('disabled').prop('disabled', false);
                     $("#next-btn").removeClass('disabled').prop('disabled', false);
                 } else if (stepPosition === 'third') {
-                    var new_click = clicklokasi - 1;
-                    for (var i = 0; i < new_click; i++) {
-                        document.getElementById('location' + (i + 1)).remove();
-                    }
+                    // var new_click = clicklokasi - 1;
+                    // for (var i = 0; i < new_click; i++) {
+                    //     document.getElementById('location' + (i + 1)).remove();
+                    // }
                     $("#prev-btn").removeClass('disabled').prop('disabled', false);
                     $("#next-btn").removeClass('disabled').prop('disabled', false);
                 } else {
-                    var new_click = clicklokasi - 1;
-                    for (var i = 0; i < new_click; i++) {
-                        document.getElementById('location' + (i + 1)).remove();
-                    }
+                    // var new_click = clicklokasi - 1;
+                    // for (var i = 0; i < new_click; i++) {
+                    //     document.getElementById('location' + (i + 1)).remove();
+                    // }
                     $("#prev-btn").removeClass('disabled').prop('disabled', false);
                     $("#next-btn").removeClass('disabled').prop('disabled', false);
                 }
+
+            
 
                 // Get step info from Smart Wizard
                 let stepInfo = $('#smartwizard').smartWizard("getStepInfo");
