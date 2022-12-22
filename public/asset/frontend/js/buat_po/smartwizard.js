@@ -346,7 +346,7 @@ const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
                     $("#next-btn").removeClass('disabled').prop('disabled', false);
                 }
 
-            
+
 
                 // Get step info from Smart Wizard
                 let stepInfo = $('#smartwizard').smartWizard("getStepInfo");

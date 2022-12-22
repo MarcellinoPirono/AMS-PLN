@@ -110,9 +110,13 @@ class RedaksiController extends Controller
                 'sub_deskripsi' => $request->sub_deskripsi[$j][0]
             ];
 
+            $isi_awal_sub_redaksi = SubRedaksi::where('redaksi_id', $id)->get();
+
+            dd($isi_awal_sub_redaksi[$j]);
+
             // dd($sub_redaksi);
-            // SubRedaksi::where('id', $sub_redaksi_id[$j])->updateOrCreate($sub_redaksi);
-            SubRedaksi::where('redaksi_id', $id)->updateOrCreate($sub_redaksi);
+            SubRedaksi::where('id', $sub_redaksi_id[$j])->updateOrCreate($sub_redaksi);
+            // SubRedaksi::where('redaksi_id', $id)->updateOrCreate($sub_redaksi);
             // SubRedaksi::create($sub_redaksi);
         }
 

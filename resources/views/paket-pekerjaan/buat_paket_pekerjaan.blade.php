@@ -179,6 +179,7 @@ function check(ini) {
     for(var i = 0; i < jumlah_item; i++) {
         if(ini.value-1 == i) {
             var volume = document.getElementsByClassName("volume_id");
+            console.log(volume);
             if($("input[type=checkbox]").is(":checked")) {
                 volume[i].id = "volume["+(i+1)+"]";
                 volume[i].name = "volume["+(i+1)+"]";
