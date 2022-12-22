@@ -491,11 +491,11 @@ function ganti_item() {
 function blur_volume(c) {
     var change = c.parentNode.parentNode.rowIndex;
     var volume = document.getElementById("volume[" + change + "]").value;
+    if(volume.charAt(volume.length-1) == ",") {
+        document.getElementById("volume[" + change + "]").value = volume + "0";
+    }
     if(volume.charAt(0) == ",") {
         document.getElementById("volume[" + change + "]").value = "0" + volume;
-    }
-    if(volume.charAt(volume.length-1) == ",") {
-        document.getElementById("volume[" + change + "]").value = volume + "0"
     }
     volume = volume.replace(/\./g, "");
     volume = volume.replace(/\,/g, ".");
@@ -504,8 +504,9 @@ function blur_volume(c) {
     harga_satuan = harga_satuan.replace(/\./g, "");
     harga_satuan = parseInt(harga_satuan);
     var harga = volume * harga_satuan;
-    harga = Math.round(harga)
+    harga = Math.round(harga);
     harga = harga.toString();
+    harga = harga.replace(/\./g, "");
     harga_2 = "";
     panjang = harga.length;
     j = 0;

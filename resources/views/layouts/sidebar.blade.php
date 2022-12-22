@@ -145,7 +145,7 @@
                             href="/pejabat"><strong>Data Pejabat</strong></a>
                     </li>
                     <li><a class="nav-link {{ Request::is('redaksi*') ? 'active' : '' }}"
-                            href="/redaksi"><strong>Data Redaksi</strong></a>
+                            href="/redaksi-khs"><strong>Data Redaksi</strong></a>
                     </li>
                     <li><a class="nav-link {{ Request::is('paket-pekerjaan*') ? 'active' : '' }}"
                             href="/menu-paket-pekerjaan"><strong>Data Paket Pekerjaan</strong></a>

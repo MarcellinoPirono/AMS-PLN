@@ -93,7 +93,6 @@ class RedaksiController extends Controller
 
         $sub_redaksi_id = [];
 
-
         $clicksubdeskripsi = $request->clicksubdeskripsi;
 
         $sub_redaksi_all_id = SubRedaksi::where('redaksi_id', $id)->get('id');
@@ -102,7 +101,7 @@ class RedaksiController extends Controller
             $sub_redaksi_id[$i] = $sub_redaksi_all_id[$i]->id;
         }
 
-        dd($sub_redaksi_id);
+        // dd($sub_redaksi_id);
 
 
         for($j=0; $j < $clicksubdeskripsi; $j++){
@@ -112,8 +111,8 @@ class RedaksiController extends Controller
             ];
 
             // dd($sub_redaksi);
-            SubRedaksi::where('id', $sub_redaksi_id[$j])->updateOrCreate($sub_redaksi);
-            // SubRedaksi::where('redaksi_id', $id)->updateOrCreate($sub_redaksi);
+            // SubRedaksi::where('id', $sub_redaksi_id[$j])->updateOrCreate($sub_redaksi);
+            SubRedaksi::where('redaksi_id', $id)->updateOrCreate($sub_redaksi);
             // SubRedaksi::create($sub_redaksi);
         }
 

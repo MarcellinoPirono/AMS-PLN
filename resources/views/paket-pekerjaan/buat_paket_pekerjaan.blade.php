@@ -145,7 +145,7 @@ function blur_volume(c){
     if(volume.charAt(0) == ",") {
         document.getElementById("volume[" + change + "]").value = "0" + volume;
     }
-    
+
     volume = volume.replace(/\./g, "");
     volume = volume.replace(/\,/g, ".");
     volume = parseFloat(volume);
@@ -153,9 +153,9 @@ function blur_volume(c){
     harga_satuan = harga_satuan.replace(/\./g, "");
     harga_satuan = parseInt(harga_satuan);
     var harga = volume * harga_satuan;
-    harga_satuan = harga_satuan.replace(/\./g, "");
-    console.log(harga);
+    harga = Math.round(harga);
     harga = harga.toString();
+    harga = harga.replace(/\./g, "");
     harga_2 = "";
     panjang = harga.length;
     j = 0;
@@ -174,15 +174,11 @@ function check(ini) {
     var jumlah_item = document.getElementById('jumlah_item').value;
     jumlah_item = parseInt(jumlah_item);
     console.log(jumlah_item);
+    console.log(ini);
 
-<<<<<<< HEAD
-=======
-    console.log(ini.value);
->>>>>>> ccecee5 (22-12-2022)
     for(var i = 0; i < jumlah_item; i++) {
-        if(ini.value == i) {
+        if(ini.value-1 == i) {
             var volume = document.getElementsByClassName("volume_id");
-            console.log(volume);
             if($("input[type=checkbox]").is(":checked")) {
                 volume[i].id = "volume["+(i+1)+"]";
                 volume[i].name = "volume["+(i+1)+"]";
@@ -197,8 +193,6 @@ function check(ini) {
                 volume[i].removeAttribute('required')
                 volume[i].removeAttribute('autofocus')
                 volume[i].setAttribute('disabled', '')
-                document.getElementById("volume["+(i+1)+"]").value = ""
-                document.getElementById("harga["+(i+1)+"]").value = ""
             }
         }
     }
