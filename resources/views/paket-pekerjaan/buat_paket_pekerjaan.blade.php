@@ -174,7 +174,7 @@ function check(ini) {
     var jumlah_item = document.getElementById('jumlah_item').value;
     jumlah_item = parseInt(jumlah_item);
     console.log(jumlah_item);
-    console.log(ini);
+    console.log(ini.value);
 
     for(var i = 0; i < jumlah_item; i++) {
         if(ini.value-1 == i) {
