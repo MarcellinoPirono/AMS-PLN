@@ -127,21 +127,25 @@ const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
                     var pejabat = $("#pejabat option:selected").text();
                     var pengawas = $("#pengawas_pekerjaan").val();
 
+                    var nomor = 1;
                     for (var i = 0; i < clicklokasi; i++) {
-                        if (i == 0) {
+                        // if (i == 0) {
                             var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
 
-                            $("#lokasi_4").html("1. " + lokasi);
-                        } else {
-                            var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
-                            var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (i +
-                                3) + ')');
+                            lokasi.html(lokasi + ",");
+                            // } else {
+                                //     var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
+                                //     var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (i +
+                                //         3) + ')');
 
-                            $('<tr id="location' + i + '" class="noborder"><td></td><td></td><td>' + (i +
-                                    1) + '. ' + lokasi +
-                                '</td></tr>').insertAfter(lokasi_tabel);
-                        }
+                                //     $('<tr id="location' + i + '" class="noborder"><td></td><td></td><td>' + (i +
+                                //             1) + '. ' + lokasi +
+                                //         '</td></tr>').insertAfter(lokasi_tabel);
+                                // }
+                            nomor++;
                     }
+
+                    $("#lokasi_4").html(nomor + "." + lokasi);
                     $("#po_4").html(po);
                     $("#kontrak_induk_4").html(kontrak_induk);
                     $("#judul_pekerjaan_4").html(pekerjaan);

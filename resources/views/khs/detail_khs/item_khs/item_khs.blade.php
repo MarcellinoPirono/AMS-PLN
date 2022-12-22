@@ -15,13 +15,13 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
-                        <select id="filter-kategori" class="form-control filter-kategori">
+                        <select id="filter-kategori" class="form-control filter-kategori" onchange="filter()">
                             <option value="">Pilih Kategori</option>
-                            <option value="Material">Material</option>
-                            <option value="Jasa">Jasa</option>
+                            <option value="1">Material</option>
+                            <option value="2">Jasa</option>
                         </select>
                     </div>
-                    <a href="/item-khs/{{ $jenis_khs }}/create" class="btn btn-primary">Tambah Item  <i
+                    <a href="/item-khs/{{ $jenis_khs }}/create" class="btn btn-primary">Tambah Item <i
                             class="bi bi-plus-circle"></i>
                     </a>
 
@@ -77,7 +77,8 @@
                                                 <a href="{{ route('item-khs.edit', ['jenis_khs' => $item->khs->jenis_khs, 'id' => $item->id]) }}"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button value="{{$item->id}}" class="btn btn-danger shadow btn-xs sharp" onclick="deleteItem(this)"><i
+                                                <button value="{{ $item->id }}"
+                                                    class="btn btn-danger shadow btn-xs sharp" onclick="deleteItem(this)"><i
                                                         class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
@@ -132,7 +133,7 @@
     <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <form method="post" action="{{ url('item-khs/'.$jenis_khs.'/import') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ url('item-khs/' . $jenis_khs . '/import') }}" enctype="multipart/form-data">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
@@ -169,123 +170,141 @@
         src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
+    <!-- <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script> -->
+
+    <script>
+        var tableItem = $('#tableItem').DataTable({
+            createdRow: function(row, data, index) {
+                $(row).addClass('selected')
+            }
+        "ajax":{
+            url:
+            type" POST"
+            data:function(4)
+        }
+
+        });
+    </script>
+
+    <script>
+        script type = "text/javascript" >
+            $(document).ready(function() {
+
+                $('.btndelete').click(function(e) {
+                    e.preventDefault();
+
+                    var deleteid = $(this).closest("tr").find('.delete_id').val();
+
+                    swal({
+                            title: "Apakah anda yakin?",
+                            text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+
+                                var data = {
+                                    "_token": $('input[name=_token]').val(),
+                                    'id': deleteid,
+                                };
+                                $.ajax({
+                                    type: "GET",
+                                    url: "{{ url('item-khs/' . $jenis_khs . '') }}" + '/' +
+                                        deleteid,
+                                    data: data,
+                                    success: function(response) {
+                                        swal({
+                                                title: "Data Dihapus",
+                                                text: "Data Berhasil Dihapus",
+                                                icon: "success",
+                                                timer: 2e3,
+                                                buttons: false
+                                            })
+                                            .then((result) => {
+                                                window.location.href =
+                                                    "{{ url('item-khs/' . $jenis_khs . '') }}";
+                                            });
+                                    }
+                                });
+                            } else {
+                                swal({
+                                    title: "Data Tidak Dihapus",
+                                    text: "Data Batal Dihapus",
+                                    icon: "error",
+                                    timer: 2e3,
+                                    buttons: false
+                                });
+                            }
+                        });
+                });
+
+                // $('.import-excel').click(function(e) {
+                //     $('#import_excel').modal('show');
+
+                //     // var id = $(this).data('id');
 
 
-    <script type="text/javascript">
-        $(document).ready(function() {
+                //     // $.ajax({
+                //     //     success: function(response) {
+                //     //         $('#import_excel').modal('show');
+                //     //         $('#edit_jenis_khs').val(response.result.jenis_khs);
+                //     //         $('#edit_nama_pekerjaan').val(response.result.nama_pekerjaan);
+                //     //         console.log("test");
+                //     //         $('#edit_valid_khs').validate({
+                //     //             rules: {
+                //     //                 edit_jenis_khs: {
+                //     //                     required: true
+                //     //                 },
+                //     //                 edit_nama_pekerjaan: {
+                //     //                     required: true
+                //     //                 }
+                //     //             },
+                //     //             messages: {
+                //     //                 edit_jenis_khs: {
+                //     //                     required: "Silakan Isi Jenis KHS"
+                //     //                 },
+                //     //                 edit_nama_pekerjaan: {
+                //     //                     required: "Silakan Isi Nama Pekerjaan"
+                //     //                 }
+                //     //             },
 
-            $('.btndelete').click(function(e) {
-                e.preventDefault();
+                //     //             // console.log();
+                //     //             submitHandler: function(form) {
+                //     //                 $.ajax({
+                //     //                     url: 'jenis-khs/' + id,
+                //     //                     type: 'PUT',
+                //     //                     data: {
+                //     //                         jenis_khs: $('#edit_jenis_khs')
+                //     //                             .val(),
+                //     //                         nama_pekerjaan: $(
+                //     //                                 '#edit_nama_pekerjaan')
+                //     //                             .val(),
+                //     //                     },
+                //     //                     success: function(response) {
+                //     //                         swal({
+                //     //                             title: "Data Diedit",
+                //     //                             text: "Data Berhasil Diedit",
+                //     //                             icon: "success",
+                //     //                             timer: 2e3,
+                //     //                             buttons: false
+                //     //                         }).then((result) => {
+                //     //                             location.reload();
+                //     //                         });
+                //     //                     }
+                //     //                 })
+                //     //             }
+                //     //         });
 
-                var deleteid = $(this).closest("tr").find('.delete_id').val();
-
-                swal({
-                        title: "Apakah anda yakin?",
-                        text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-
-                            var data = {
-                                "_token": $('input[name=_token]').val(),
-                                'id': deleteid,
-                            };
-                            $.ajax({
-                                type: "GET",
-                                url: "{{ url('item-khs/' . $jenis_khs . '') }}" + '/' +
-                                    deleteid,
-                                data: data,
-                                success: function(response) {
-                                    swal({
-                                            title: "Data Dihapus",
-                                            text: "Data Berhasil Dihapus",
-                                            icon: "success",
-                                            timer: 2e3,
-                                            buttons: false
-                                        })
-                                        .then((result) => {
-                                            window.location.href =
-                                                "{{ url('item-khs/' . $jenis_khs . '') }}";
-                                        });
-                                }
-                            });
-                        } else {
-                            swal({
-                                title: "Data Tidak Dihapus",
-                                text: "Data Batal Dihapus",
-                                icon: "error",
-                                timer: 2e3,
-                                buttons: false
-                            });
-                        }
-                    });
+                //     //     }
+                //     // });
+                // });
             });
 
-            // $('.import-excel').click(function(e) {
-            //     $('#import_excel').modal('show');
-
-            //     // var id = $(this).data('id');
-
-
-            //     // $.ajax({
-            //     //     success: function(response) {
-            //     //         $('#import_excel').modal('show');
-            //     //         $('#edit_jenis_khs').val(response.result.jenis_khs);
-            //     //         $('#edit_nama_pekerjaan').val(response.result.nama_pekerjaan);
-            //     //         console.log("test");
-            //     //         $('#edit_valid_khs').validate({
-            //     //             rules: {
-            //     //                 edit_jenis_khs: {
-            //     //                     required: true
-            //     //                 },
-            //     //                 edit_nama_pekerjaan: {
-            //     //                     required: true
-            //     //                 }
-            //     //             },
-            //     //             messages: {
-            //     //                 edit_jenis_khs: {
-            //     //                     required: "Silakan Isi Jenis KHS"
-            //     //                 },
-            //     //                 edit_nama_pekerjaan: {
-            //     //                     required: "Silakan Isi Nama Pekerjaan"
-            //     //                 }
-            //     //             },
-
-            //     //             // console.log();
-            //     //             submitHandler: function(form) {
-            //     //                 $.ajax({
-            //     //                     url: 'jenis-khs/' + id,
-            //     //                     type: 'PUT',
-            //     //                     data: {
-            //     //                         jenis_khs: $('#edit_jenis_khs')
-            //     //                             .val(),
-            //     //                         nama_pekerjaan: $(
-            //     //                                 '#edit_nama_pekerjaan')
-            //     //                             .val(),
-            //     //                     },
-            //     //                     success: function(response) {
-            //     //                         swal({
-            //     //                             title: "Data Diedit",
-            //     //                             text: "Data Berhasil Diedit",
-            //     //                             icon: "success",
-            //     //                             timer: 2e3,
-            //     //                             buttons: false
-            //     //                         }).then((result) => {
-            //     //                             location.reload();
-            //     //                         });
-            //     //                     }
-            //     //                 })
-            //     //             }
-            //     //         });
-
-            //     //     }
-            //     // });
-            // });
-        });
+        function filter() {
+            table.ajax.reload(null, false)
+        }
 
         function deleteItem(id) {
             var deleteid = id.value

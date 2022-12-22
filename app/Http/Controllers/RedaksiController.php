@@ -81,7 +81,6 @@ class RedaksiController extends Controller
 
     public function update(Request $request, $id)
     {
-        // // dd($request);
         $input = $request->validate([
             'nama_redaksi' => 'required',
             'deskripsi_redaksi' => 'required',
@@ -96,31 +95,32 @@ class RedaksiController extends Controller
         $clicksubdeskripsi = $request->clicksubdeskripsi;
 
         $sub_redaksi_all_id = SubRedaksi::where('redaksi_id', $id)->get('id');
+        // dd($sub_redaksi_all_id);
+        $sub_redaksi_all_id_length = count($sub_redaksi_all_id);
 
 
-
-        for($i=0; $i<$clicksubdeskripsi; $i++){
+        for($i=0; $i<$sub_redaksi_all_id_length; $i++){
             $sub_redaksi_id[$i] = $sub_redaksi_all_id[$i]->id;
         }
 
         // dd($sub_redaksi_id);
 
+        for($j=0; $j < $sub_redaksi_all_id_length; $j++){
+            // $isi_awal_sub_redaksi = SubRedaksi::where('redaksi_id', $id)->get();
+            SubRedaksi::where('id', $sub_redaksi_id[$j])->delete();
 
-        for($j=0; $j < $clicksubdeskripsi; $j++){
+            // SubRedaksi::where('id', $sub_redaksi_id[$j])->updateOrCreate($sub_redaksi);
+            // SubRedaksi::where('redaksi_id', $id)->updateOrCreate($isi_awal_sub_redaksi[$j]->toArray(), $sub_redaksi);
+            // SubRedaksi::create($sub_redaksi);
+        }
+
+        for($k=0; $k < $clicksubdeskripsi; $k++){
             $sub_redaksi = [
                 'redaksi_id' => $id,
-                'sub_deskripsi' => $request->sub_deskripsi[$j][0]
+                'sub_deskripsi' => $request->sub_deskripsi[$k][0]
             ];
-
-            $isi_awal_sub_redaksi = SubRedaksi::where('redaksi_id', $id)->getAttributes();
-
-
-
-            dd($isi_awal_sub_redaksi);
             // dd($sub_redaksi);
-            // SubRedaksi::where('id', $sub_redaksi_id[$j])->updateOrCreate($sub_redaksi);
-            SubRedaksi::where('redaksi_id', $id)->updateOrCreate($sub_redaksi);
-            // SubRedaksi::create($sub_redaksi);
+            SubRedaksi::create($sub_redaksi);
         }
 
     }

@@ -19,45 +19,45 @@
                         <form name="valid_item_khs" id="valid_item_khs" action="#">
                             <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                            <div class="form-group col-md-6">
                                     <label class="text-label">Jenis Kontrak :</label>
                                     <input type="text" class="form-control input-default" placeholder="Jenis Kontrak"
                                         name="khs_id" id="khs_id" readonly disabled required autofocus
                                         value="{{ old('khs_id', $jenis_khs) }}">
                                 </div>
                                 <div class="form-group col-lg-6 mb-2">
-                                    <label class="text-label">Kategori :</label>                          
+                                    <label class="text-label">Kategori :</label>
                                     <div class="form-group mt-lg-2">
                                         <label class="radio-inline">
                                             <input type="radio" name="kategori" class="kategori"                                               value="Jasa">Jasa &ensp; &ensp;
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="kategori" 
+                                            <input type="radio" name="kategori"
                                             class="kategori" value="Material">Material
                                         </label>
-                                        <div id="radioerror"></div>                                        
-                                    </div>                                    
+                                        <div id="radioerror"></div>
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Nama Item :</label>
                                     <input type="text" class="form-control input-default" placeholder="Nama Item"
-                                        name="nama_item" id="nama_item" required autofocus value="{{ old('nama_item') }}">                                
+                                        name="nama_item" id="nama_item" required autofocus value="{{ old('nama_item') }}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Satuan :</label>
-                                    <select class="form-control input-default" id="satuan_id" name="satuan_id"> 
-                                        <option value="0" selected disabled>Satuan</option>                                   
+                                    <select class="form-control input-default" id="satuan_id" name="satuan_id">
+                                        <option value="0" selected disabled>Satuan</option>
                                         @foreach ($satuans as $satuan)
                                         <option value="{{ $satuan->id }}">{{ $satuan->singkatan}}</option>
-                                        @endforeach                                    
-                                    </select>  
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Harga Satuan (Rp) :</label>
                                     <input onkeydown="return numbersonly(this, event);"
                                         onkeyup="javascript:tandaPemisahTitik(this);" type="text"
                                         class="form-control input-default validate2"
-                                        placeholder="Harga Satuan" name="harga_satuan" id="harga_satuan" required autofocus>                                    
+                                        placeholder="Harga Satuan" name="harga_satuan" id="harga_satuan" required autofocus>
                                 </div>
                             </div>
                             <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Tambah</button>
@@ -155,19 +155,19 @@
             //alert (e.keyCode);
             return false;
         }
-    }            
+    }
 </script>
 
 <script>
     $(document).ready(function() {
         $('#valid_item_khs').validate({
-            rules:{  
+            rules:{
                 khs_id:{
                     required:true
-                },       
+                },
                 kategori:{
                     required:true
-                },       
+                },
                 nama_item:{
                     required:true
                 },
@@ -178,13 +178,13 @@
                     required:true
                 }
             },
-            messages:{ 
+            messages:{
                 khs_id:{
                     required: "Silakan Pilih Jenis KHS"
-                },               
+                },
                 kategori:{
                     required: "Silakan Pilih Kategori"
-                },                
+                },
                 nama_item:{
                     required: "Silakan Isi Nama Item"
                 },
@@ -195,28 +195,28 @@
                     required: "Silakan Isi Harga Satuan"
                 }
             },
-            
-            errorPlacement: function(error, element) 
-            {                
-                if ( element.attr("name") == "kategori" ) 
+
+            errorPlacement: function(error, element)
+            {
+                if ( element.attr("name") == "kategori" )
                 {
                     error.appendTo("#radioerror");
                 }
-                else 
-                { // This is the default behavior 
+                else
+                { // This is the default behavior
                     error.insertAfter( element );
                 }
             },
-            
+
             submitHandler: function(form) {
                 var token = $('#csrf').val();
                 var khs_id = $("#khs_id").val();
                 var kategori = $(".kategori:checked").val();
                 var nama_item = $("#nama_item").val();
                 var satuan_id = $("#satuan_id").val();
-                var harga_satuan = $("#harga_satuan").val(); 
-                harga_satuan = harga_satuan.replace(/\./g, ""); 
-                harga_satuan = parseInt(harga_satuan);            
+                var harga_satuan = $("#harga_satuan").val();
+                harga_satuan = harga_satuan.replace(/\./g, "");
+                harga_satuan = parseInt(harga_satuan);
 
                 var data = {
                     "_token": token,
@@ -224,7 +224,7 @@
                     "kategori": kategori,
                     "nama_item": nama_item,
                     "satuan_id": satuan_id,
-                    "harga_satuan": harga_satuan,                      
+                    "harga_satuan": harga_satuan,
                 };
                 $.ajax({
                     type: 'POST',
@@ -242,7 +242,7 @@
                         });
                     }
                 });
-            } 
+            }
         });
     });
 </script>

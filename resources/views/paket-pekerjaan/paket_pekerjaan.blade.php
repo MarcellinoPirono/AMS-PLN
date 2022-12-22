@@ -14,8 +14,8 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="/paket-pekerjaan/{{$jenis_khs}}/create" class="btn btn-primary mr-auto ml-3">Tambah Paket Pekerjaan<span
-                            class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                    <a href="/paket-pekerjaan/{{ $jenis_khs }}/create" class="btn btn-primary mr-auto ml-3">Tambah Paket
+                        Pekerjaan<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                     </a>
                     <a href="/kontrak-induk-khs/create-xlsx" class="btn btn-primary mr-auto ml-3">Tambah Paket Via
                         Excel<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
@@ -36,20 +36,30 @@
                             <thead>
                                 <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
-                                    <th>Nama Redaksi</th>
-                                    <th>Deskripsi Redaksi</th>
-                                    <th>Sub Deskripsi Redaksi</th>
+                                    <th>Nama Paket</th>
+                                    <th>Uraian Pekerjaan</th>
+
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="alldata">
-                                @foreach ($pakets as $paket)
+                                @foreach ($nama_paket as $paket)
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $paket->id }}">
                                         <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
-                                        <td align="center" valign="middle">{{ $paket->pekerjaans->nama_item }}</td>
-
-                                        <td>
+                                        <td>{{ $paket->nama_paket }}</td>
+                                        <td align="center" valign="middle">
+                                            @foreach ($pakets as $paket2)
+                                                @if ($paket2->nama_paket == $paket->nama_paket)
+                                                    <ol type="1">
+                                                        <li>
+                                                            {{ $paket2->rincian_induks->nama_item }}
+                                                        </li>
+                                                    </ol>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        {{-- <td>
                                             <div class="d-flex">
                                                 <a href="/redaksi-khs/{{ $paket->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
@@ -57,7 +67,7 @@
                                                 <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
                                                         class="fa fa-trash"></i></button>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
 

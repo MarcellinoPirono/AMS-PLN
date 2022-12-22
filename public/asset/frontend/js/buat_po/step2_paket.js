@@ -27,7 +27,7 @@ function updatePaket() {
 // alert(clickpaket)
 
     var select1 = document.createElement("select");
-    select1.innerHTML = "<option value='' selected disabled>Pilih Paket</option>" + lokasi_2;
+    select1.innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
     select1.setAttribute("id", "lokasi_id[" + clickpaket + "]");
     select1.setAttribute("name", "lokasi_id");
     select1.setAttribute("class", "form-control input-default");

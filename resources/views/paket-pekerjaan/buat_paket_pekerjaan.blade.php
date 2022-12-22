@@ -22,6 +22,7 @@
                     <form name="valid_paket" id="valid_paket" action="#">
                         <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                         <input type="hidden" name="jumlah_item" id="jumlah_item" value="{{count($items)}}">
+                        <input type="hidden" name="jenis_khs" id="jenis_khs" value="{{$jenis_khs}}">
                         <div class="row m-auto">
                             <div class="col-lg-6 mb-2">
                                 <div class="form-group">
@@ -44,7 +45,7 @@
                                         <tr>
                                             <th>
                                                 <div class="custom-control custom-checkbox">
-                                                    <input onclick="checkall()" type="checkbox" class="custom-control-input input-default" id="checkAll" name="letter" required autofocus>
+                                                    <input onclick="checkall()" type="checkbox" class="custom-control-input input-default" id="checkAll" name="letter"  autofocus>
                                                     <label name="letter" class="custom-control-label" for="checkAll"></label>
                                                 </div>
                                             </th>
@@ -57,28 +58,27 @@
                                             <th>Harga (Rp.)</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody >
                                     @foreach ($items as $item)
                                         <input type="hidden" name="loop_iterasi" id="loop_iterasi" value="{{$loop->iteration}}">
                                         <tr>
                                             <td>
                                                 <div class="custom-control custom-checkbox checkbox check-lg mr-3">
-                                                    <input type="checkbox" class="custom-control-input" id="checkBox2[{{$loop->iteration}}]" name="letter" value="{{ $loop->iteration }}" required autofocus onclick="check(this)">
+                                                    <input data-tagname={{ $loop->iteration }} type="checkbox" class="custom-control-input" id="checkBox2[{{$loop->iteration}}]" name="letter" value="{{ $item->id }}" required autofocus onclick="check(this)">
                                                     <label name="letter" class="custom-control-label" for="checkBox2[{{$loop->iteration}}]" value="{{$loop->iteration}}"></label>
                                                 </div>
                                             </td>
-
                                             <td align="center"><strong>{{$loop->iteration}}</strong></td>
                                             <td>{{$item->kategori}}	</td>
                                             <td>{{$item->nama_item}}</td>
-                                            <td><input onblur="blur_volume(this)" onkeypress="return numbersonly2(this, event);" onkeyup="format(this)" type="text" class="form-control volume_id" id="volume[{{ $loop->iteration }}" name="" value="" disabled placeholder="Volume"></td>
+                                            <td><input data-tagname="{{ $item->id }}" onblur="blur_volume(this)" onkeypress="return numbersonly2(this, event);" onkeyup="format(this)" type="text" class="form-control volume_id" id="volume[{{ $item->id }}]" name="volume[{{ $item->id }}]" value="" required disabled autofocus placeholder="Volume"></td>
                                             <td align="center">{{$item->satuans->singkatan}}</td>
                                             <td><input type="text"
-                                                class="form-control harga_satuan" id="harga_satuan[{{ $loop->iteration }}]" name="harga_satuan"
+                                                class="form-control harga_satuan" id="harga_satuan[{{ $item->id }}]" name="harga_satuan"
                                                 placeholder="Harga Satuan" value="@currency2($item->harga_satuan)"
                                                 disabled readonly required></td>
                                             <td><input type="text"
-                                                class="form-control harga" id="harga[{{$loop->iteration}}]"
+                                                class="form-control harga" id="harga[{{$item->id}}]"
                                                 name="harga" placeholder="Harga"
                                                 value="" disabled readonly required></td>
                                         </tr>
@@ -97,7 +97,95 @@
 
 
 <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
+
+<script type="text/javascript">
+
+var tabelTambahPaket = $('#tabelTambahPaket').DataTable({
+    createdRow: function ( row, data, index ) {
+       $(row).addClass('selected')
+    },
+
+    "scrollY":        "42vh",
+    "scrollCollapse": true,
+    "paging":         false
+});
+
+    // $(document).ready(function() {
+    //     $('#valid_paket').validate({
+    //         rules:{
+    //             nama_paket:{
+    //                 required: true
+    //             },
+    //             letter:{
+    //                 required: true
+    //             },
+    //             volume:{
+    //                 required: 'letter:checked'
+    //             }
+    //         },
+    //         messages:{
+    //             nama_paket:{
+    //                 required: "Silakan Isi Nama Paket"
+    //             },
+    //             letter:{
+    //                 required: "Silakan Pilih Minimal 1 Item"
+    //             },
+    //             volume:{
+    //                 required: "Silakan Isi Volume"
+    //             }
+    //         },
+
+    //         errorPlacement: function(error, element){
+    //             if ( element.attr("name") == "letter" )
+    //             {
+    //                 error.appendTo("#checkboxerror");
+    //             }
+    //             else
+    //             { // This is the default behavior
+    //                 error.insertAfter( element );
+    //             }
+    //         },
+    //         submitHandler: function(form) {
+    //             var token = $('#csrf').val();
+    //             // console.log(token);
+    //             var nama_paket = $("#nama_paket").val();
+    //             var item_id = $('input["type=checkbox"]:checked').map(function () {
+    //                 return this.value;
+    //             }).get();
+
+    //             console.log(item_id);
+    //             var data = {
+    //                 "_token": token,
+    //                 "nama_paket": nama_paket,
+    //                 "item_id" : item_id
+    //             };
+
+    //             $.ajax({
+    //                 type: 'POST',
+    //                 url: '{{url('paket-pekerjaan/' . $jenis_khs . '/create')}}',
+    //                 data: data,
+
+    //                 success: function(response) {
+
+    //                     swal({
+    //                             title: "Data Ditambah",
+    //                             text: "Data Berhasil Ditambah",
+    //                             icon: "success",
+    //                             timer: 2e3,
+    //                             buttons: false
+    //                         }).then((result) => {
+    //                             window.location.href = "{{ url('paket-pekerjaan/' . $jenis_khs . '') }}";
+    //                         });
+    //                 }
+    //             });
+    //         }
+    //     });
+    // });
+
+
+
+</script>
+{{-- <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script> --}}
 @endsection
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -106,6 +194,7 @@
 
 
 <script type="text/javascript">
+
 function format(input) {
     var nStr = input.value + '';
     nStr = nStr.replace(/\./g, "");
@@ -137,7 +226,8 @@ function numbersonly2(ini, e) {
 }
 
 function blur_volume(c){
-    var change = c.parentNode.parentNode.rowIndex;
+    var change = c.dataset.tagname;
+    console.log(change);
     var volume = document.getElementById("volume[" + change + "]").value;
     if(volume.charAt(volume.length-1) == ",") {
         document.getElementById("volume[" + change + "]").value = volume + "0";
@@ -170,32 +260,37 @@ function blur_volume(c){
     document.getElementById("harga[" + change + "]").value = harga_2;
 }
 
-function check(ini) {
-    var jumlah_item = document.getElementById('jumlah_item').value;
-    jumlah_item = parseInt(jumlah_item);
-    console.log(jumlah_item);
-    console.log(ini.value);
-
-    for(var i = 0; i < jumlah_item; i++) {
-        if(ini.value-1 == i) {
-            var volume = document.getElementsByClassName("volume_id");
-            console.log(volume);
-            if($("input[type=checkbox]").is(":checked")) {
-                // volume[i].id = "volume["+(i+1)+"]";
-                // volume[i].name = "volume["+(i+1)+"]";
-                volume[i].setAttribute('required', '')
-                volume[i].setAttribute('autofocus', '')
-                volume[i].removeAttribute('disabled')
-            } else {
-                document.getElementById("volume["+(i+1)+"]").value = "";
-                document.getElementById("harga["+(i+1)+"]").value = "";
-                // volume[i].id = "";
-                // volume[i].name = "";
-                volume[i].removeAttribute('required')
-                volume[i].removeAttribute('autofocus')
-                volume[i].setAttribute('disabled', '')
-            }
+function checkall() {
+    // $("input[name='volume']").attr("checked", this.checked);
+    var total_item = document.getElementById("jumlah_item").value;
+    if($("input[id=checkAll]").is(":checked")) {
+        for(var i = 0; i < total_item; i++) {
+            document.getElementById("volume["+(i+1)+"]").setAttribute('required', '')
+            document.getElementById("volume["+(i+1)+"]").setAttribute('autofocus', '')
+            document.getElementById("volume["+(i+1)+"]").removeAttribute('disabled')
         }
+    } else {
+        for(var i = 0; i < total_item; i++) {
+            document.getElementById("volume["+(i+1)+"]").value = "";
+            document.getElementById("harga["+(i+1)+"]").value = "";
+            document.getElementById("volume["+(i+1)+"]").removeAttribute('required')
+            document.getElementById("volume["+(i+1)+"]").removeAttribute('autofocus')
+            document.getElementById("volume["+(i+1)+"]").setAttribute('disabled', '')
+        }
+    }
+}
+
+function check(ini) {
+    if($("input[type=checkbox]").is(":checked")) {
+        document.getElementById("volume["+ini.value+"]").setAttribute('required', '')
+        document.getElementById("volume["+ini.value+"]").setAttribute('autofocus', '')
+        document.getElementById("volume["+ini.value+"]").removeAttribute('disabled')
+    } else {
+        document.getElementById("volume["+ini.value+"]").value = "";
+        document.getElementById("harga["+ini.value+"]").value = "";
+        document.getElementById("volume["+ini.value+"]").removeAttribute('required')
+        document.getElementById("volume["+ini.value+"]").removeAttribute('autofocus')
+        document.getElementById("volume["+ini.value+"]").setAttribute('disabled', '')
     }
 }
 $(document).ready(function() {
@@ -235,16 +330,33 @@ $(document).ready(function() {
         },
         submitHandler: function(form) {
             var token = $('#csrf').val();
-            console.log(token);
             var nama_paket = $("#nama_paket").val();
-            console.log(nama_paket);
-            var item_id = $('input[name="letter"]:checked').map(function(){
-                                return this.value;
-                            }).get();
+            var jenis_khs = $("#jenis_khs").val();
+            var item_id = $('input[type=checkbox]:checked').map(function () {
+                return this.value;
+            }).get();
+            // console.log(item_id);
+
+            var volume = [];
+            var harga = []
+            for(var i=0; i < item_id.length; i++){
+                volume[i] = document.getElementById("volume["+item_id[i]+"]").value;
+                volume[i] = volume[i].replace(/\./g, "");
+                volume[i] = volume[i].replace(/\,/g, ".");
+                volume[i] = parseFloat(volume[i]);
+                harga[i] = document.getElementById("harga["+item_id[i]+"]").value;
+                harga[i] = harga[i].replace(/\./g, "");;
+            }
+
+            // console.log(volume);
+            // console.log(harga);
             var data = {
                 "_token": token,
                 "nama_paket": nama_paket,
-                "item_id" : item_id
+                "item_id" : item_id,
+                "khs_id" : jenis_khs,
+                "volume" : volume,
+                "jumlah_harga" : harga,
             };
 
             $.ajax({

@@ -43,33 +43,36 @@
 (function($) {
     "use strict"
     //example 1
-    var table = $('#tabelTambahPaket').DataTable({
-        createdRow: function ( row, data, index ) {
-           $(row).addClass('selected')
-        }
-    });
+    // var table = $('#tabelTambahPaket').DataTable({
+    // }).data();
+	// $('#tbody-tabelTambahPaket').on('click', 'tr', function () {
+	// 	var data = table.row( this ).data();
+	// });
 
-    table.on('click', 'tbody tr', function() {
-    var $row = table.row(this).nodes().to$();
-    var hasClass = $row.hasClass('selected');
-    if (hasClass) {
-        $row.removeClass('selected')
-    } else {
-        $row.addClass('selected')
-    }
-    })
+    // table.rows((idx, data, node) => {
+    // return $('input[type=checkbox]').is(':checked');})
 
-    table.rows().every(function() {
-    this.nodes().to$().removeClass('selected')
-    });
+    // table.on('click', 'tbody tr', function() {
+    // var $row = table.row(this).nodes().to$();
+    // var hasClass = $row.hasClass('selected');
+    // if (hasClass) {
+    //     $row.removeClass('selected')
+    // } else {
+    //     $row.addClass('selected')
+    // }
+    // })
+
+    // table.rows().every(function() {
+    // this.nodes().to$().removeClass('selected')
+    // });
 
     //tableItem
 
-    var tableItem = $('#tableItem').DataTable({
-        createdRow: function ( row, data, index ) {
-           $(row).addClass('selected')
-        }
-    });
+    // var tableItem = $('#tableItem').DataTable({
+    //     createdRow: function ( row, data, index ) {
+    //        $(row).addClass('selected')
+    //     }
+    // });
 
     tableItem.on('click', 'tbody tr', function() {
     var $row = tableItem.row(this).nodes().to$();

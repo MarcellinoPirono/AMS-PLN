@@ -18,8 +18,8 @@
                             class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                     </a>
                     <!-- <a href="/kontrak-induk-khs/create-xlsx" class="btn btn-primary mr-auto ml-3">Tambah Kontrak Induk Via
-                        Excel<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
-                    </a> -->
+                                            Excel<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                                        </a> -->
                     <div class="input-group search-area position-relative">
                         <div class="input-group-append">
                             <span class="input-group-text"><a href="javascript:void(0)"><i
@@ -30,7 +30,6 @@
                     </div>
                 </div>
                 <div class="card-body">
-
                     <div class="table-responsive" id="read">
                         <table id="rincian-table" class="table table-responsive-md">
                             <thead>
@@ -44,21 +43,27 @@
                             </thead>
                             <tbody class="alldata">
                                 @foreach ($redaksis as $redaksi)
-                                    <tr>
+                                    <tr style="text-align: justify; vertical-align:top;">
                                         <input type="hidden" class="delete_id" value="{{ $redaksi->id }}">
-                                        <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
-                                        <td align="center" valign="middle">{{ $redaksi->nama_redaksi }}</td>
-                                        <td>{{ $redaksi->deskripsi_redaksi }}</td>
-                                        <td>
-                                            @foreach ($redaksi->sub_redaksis as $sub_redaksi)
-                                            <ol type="1">
-                                                <li>
-                                                    {{$sub_redaksi->sub_deskripsi}}
-                                                </li>
-                                            </ol>
-                                            @endforeach
+                                        <td align="center" valign="top" style="text-align: justify; vertical-align:top;">
+                                            <strong>{{ $loop->iteration }}</strong>
                                         </td>
+                                        <td align="center" valign="top" style="text-align: justify; vertical-align:top;">
+                                            {{ $redaksi->nama_redaksi }}</td>
+                                        <td align="center" valign="top" style="text-align: justify; vertical-align:top;">
+                                            {{ $redaksi->deskripsi_redaksi }}</td>
                                         <td>
+                                            @if (count($redaksi->sub_redaksis) != null)
+                                                @foreach ($redaksi->sub_redaksis as $sub_redaksi)
+                                                    <ol>
+                                                        <li>
+                                                            {{ $loop->iteration }}. {{ $sub_redaksi->sub_deskripsi }}
+                                                        </li>
+                                                    </ol>
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        <td align="center" valign="top" style="text-align: justify; vertical-align:top;">
                                             <div class="d-flex">
                                                 <a href="/redaksi-khs/{{ $redaksi->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i

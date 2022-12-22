@@ -25,11 +25,20 @@ class PaketPekerjaanController extends Controller
         $jenis_khs = $request->jenis_khs;
         // dd($jenis_khs);
         $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
+        $nama_paket = PaketPekerjaan::select('nama_paket')->where('khs_id', $khs_id)->groupBy('nama_paket')->get();
+
+
+
+        // $sasa = PaketPekerjaan::where('khs_id', $khs_id)->get();
+        // dd($sasa);
+
+
 
         return view('paket-pekerjaan.paket_pekerjaan', [
             'title' => 'Paket Pekerjaan KHS '.$jenis_khs.'',
-            'pakets' => PaketPekerjaan::all(),
-            'jenis_khs' => $jenis_khs
+            'pakets' => PaketPekerjaan::where('khs_id', $khs_id)->get(),
+            'jenis_khs' => $jenis_khs,
+            'nama_paket' => $nama_paket
         ]);
     }
 
@@ -38,7 +47,7 @@ class PaketPekerjaanController extends Controller
     {
         $jenis_khs = $request->jenis_khs;
         $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
-        $items = RincianInduk::where('khs_id', $khs_id)->get();
+        $items = RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'DESC')->get();
         // $count_item =;
 
         // if ($request->ajax()) {
@@ -67,7 +76,7 @@ class PaketPekerjaanController extends Controller
                 'title' => 'Buat Paket Pekerjaan ',
                 'active' => 'Paket-Pekerjaan',
                 'active1' => 'Tambah Paket Pekerjaan ',
-                'jenis_khs' => $jenis_khs,
+                'jenis_khs' => $khs_id,
                 'items' => $items
             ],
         );
@@ -107,9 +116,35 @@ class PaketPekerjaanController extends Controller
     public function store(StorePaketPekerjaanRequest $request)
     {
         // $jenis_khs = $request->jenis_khs;
-        dd($request);
+        // dd($request);
+
+        $request->validate([
+
+            'nama_paket' => 'required|max:250',
+            'item_id' => 'required',
+            'khs_id' => 'required',
+            'volume' => 'required',
+            'jumlah_harga' => 'required',
 
 
+        ]);
+
+        $banyak_item = count($request->item_id);
+
+
+        for($j=0; $j < $banyak_item; $j++){
+            $paket_pekerjaan_data = [
+                "nama_paket"=>$request->nama_paket,
+                "khs_id"=>$request->khs_id,
+                "item_id"=>$request->item_id[$j],
+                "volume"=>$request->volume[$j],
+                "jumlah_harga"=>$request->jumlah_harga[$j]
+            ];
+            PaketPekerjaan::create($paket_pekerjaan_data);
+        }
+
+
+        return response()->json();
 
     }
 

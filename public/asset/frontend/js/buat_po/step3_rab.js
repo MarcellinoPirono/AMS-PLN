@@ -61,8 +61,8 @@ function updateform() {
             input3.setAttribute("placeholder", "Volume");
             input3.setAttribute("value", "");
             input3.setAttribute("onblur", "blur_volume(this)");
-            input3.setAttribute("onkeydown", "return numbersonly(this, event);");
-            input3.setAttribute("onkeyup", "javascript:tandaPemisahTitik(this);");
+            input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
+            input3.setAttribute("onkeyup", "format(this)");
             input3.setAttribute("required", true);
             var input4 = document.createElement("input");
             input4.setAttribute("type", "text");
@@ -658,7 +658,9 @@ function onSubmitData() {
         satuan[i] = satuan[i].replace(/\(([^)]+)\)/, "");
         satuan[i] = satuan[i].replace(/\ /g, "");
         volume[i] = document.getElementById("volume[" + (i + 1) + "]").value;
-        volume[i] = parseInt(volume[i]);
+        volume[i] = volume[i].replace(/\./g, "");
+        volume[i] = volume[i].replace(/\,/g, ".");
+        volume[i] = parseFloat(volume[i]);
         harga_satuan[i] = document.getElementById("harga_satuan[" + (i + 1) + "]").value;
         harga_satuan[i] = harga_satuan[i].replace(/\./g, "");
         harga_satuan[i] = parseInt(harga_satuan[i]);

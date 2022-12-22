@@ -91,7 +91,7 @@
                         <div class="col-lg-12 mb-2">
                             <div class="position-relative float-right" style="float: right !important">
                                 <button type="submit" id="btntambah"
-                                    class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
+                                    class="btn btn-primary position-relative justify-content-end">Edit Data</button>
                             </div>
                         </div>
                     </form>

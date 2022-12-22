@@ -10,9 +10,9 @@ class PaketPekerjaan extends Model
     use HasFactory;
     protected $guarded = [''];
 
-    public function items()
+    public function rincian_induks()
     {
-        return $this->belongsTo(RincianInduk::class, 'pakerjaan_id', 'id');
+        return $this->belongsTo(RincianInduk::class, 'id');
     }
 
 

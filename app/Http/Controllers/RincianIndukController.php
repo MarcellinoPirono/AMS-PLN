@@ -276,21 +276,29 @@ class RincianIndukController extends Controller
         // return redirect('/rincian')->with('success', 'post has been deleted');
     }
 
-    public function filteritem(Request $request)
+    public function filteritem($q)
     {
 
-        $kategori= $request->val;
-        $jenis_khs= $request->jenis_khs;
-        $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
+        // $kategori= $request->val;
+        // $jenis_khs= $request->jenis_khs;
+        // $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
 
-        if($kategori == ""){
-            $items = RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'ASC')->get();
-        }
-        else{
-            $items = RincianInduk::where('kategori', $kategori)->where('khs_id', $khs_id)->get();
-        }
-        return view('khs.detail_khs.item_khs.filter_item_khs', ['items' => $items]);
+        // if($kategori == ""){
+        //     $items = RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'ASC')->get();
+        // }
+        // else{
+        //     $items = RincianInduk::where('kategori', $kategori)->where('khs_id', $khs_id)->get();
+        // }
+        // return view('khs.detail_khs.item_khs.filter_item_khs', ['items' => $items]);
         // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
+
+        if (request('kategori')) {
+            $q->where('kategori', '=', request('kategori'));
+        }
+        return $q;
+
+        Product::filter()->paginate(20);
+
     }
 
     public function searchRincian(Request $request)

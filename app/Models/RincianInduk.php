@@ -15,14 +15,14 @@ class RincianInduk extends Model
     {
         return $this->belongsTo(ItemRincianInduk::class, 'kategori_id', 'id')->withDefault([
             'nama_kategori'=> ' ',
-         
+
     ]);
     }
     public function rabs()
     {
         return $this->hasMany(Rab::class, 'item_id', 'id');
     }
-  
+
     public function khs()
     {
         return $this->belongsTo(Khs::class, 'khs_id');
@@ -33,8 +33,15 @@ class RincianInduk extends Model
         return $this->belongsTo(Satuan::class, 'satuan_id', 'id');
     }
 
+    public function paket_pekerjaans()
+    {
+        return $this->belongsTo(PaketPekerjaan::class, 'item_id', 'id');
+    }
+
     public function order_khs()
     {
         return $this->hasMany(OrderKhs::class, 'item_order');
     }
+
+
 }
