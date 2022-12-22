@@ -71,7 +71,7 @@
                                             <td align="center"><strong>{{$loop->iteration}}</strong></td>
                                             <td>{{$item->kategori}}	</td>
                                             <td>{{$item->nama_item}}</td>
-                                            <td><input onblur="blur_volume(this)" onkeypress="return numbersonly2(this, event);" onkeyup="format(this)" type="text" class="form-control volume_id" id="" name="" value="" disabled placeholder="Volume"></td>
+                                            <td><input onblur="blur_volume(this)" onkeypress="return numbersonly2(this, event);" onkeyup="format(this)" type="text" class="form-control volume_id" id="volume[{{ $loop->iteration }}" name="" value="" disabled placeholder="Volume"></td>
                                             <td align="center">{{$item->satuans->singkatan}}</td>
                                             <td><input type="text"
                                                 class="form-control harga_satuan" id="harga_satuan[{{ $loop->iteration }}]" name="harga_satuan"
@@ -181,16 +181,16 @@ function check(ini) {
             var volume = document.getElementsByClassName("volume_id");
             console.log(volume);
             if($("input[type=checkbox]").is(":checked")) {
-                volume[i].id = "volume["+(i+1)+"]";
-                volume[i].name = "volume["+(i+1)+"]";
+                // volume[i].id = "volume["+(i+1)+"]";
+                // volume[i].name = "volume["+(i+1)+"]";
                 volume[i].setAttribute('required', '')
                 volume[i].setAttribute('autofocus', '')
                 volume[i].removeAttribute('disabled')
             } else {
                 document.getElementById("volume["+(i+1)+"]").value = "";
                 document.getElementById("harga["+(i+1)+"]").value = "";
-                volume[i].id = "";
-                volume[i].name = "";
+                // volume[i].id = "";
+                // volume[i].name = "";
                 volume[i].removeAttribute('required')
                 volume[i].removeAttribute('autofocus')
                 volume[i].setAttribute('disabled', '')

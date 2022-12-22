@@ -112,7 +112,7 @@ class RedaksiController extends Controller
                 'sub_deskripsi' => $request->sub_deskripsi[$j][0]
             ];
 
-            $isi_awal_sub_redaksi = SubRedaksi::where('redaksi_id', $id)->get('sub_deskripsi');
+            $isi_awal_sub_redaksi = SubRedaksi::where('redaksi_id', $id)->getAttributes();
 
 
 

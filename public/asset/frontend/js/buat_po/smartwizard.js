@@ -7,7 +7,7 @@ const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
             document.getElementById("form-1").reset();
             document.getElementById("form-2").reset();
             document.getElementById("form-3").reset();
-            document.getElementById("form-4").reset();
+            document.getElementById("form-423").reset();
         }
 
         function onConfirm() {
