@@ -63,6 +63,32 @@
     this.nodes().to$().removeClass('selected')
     });
 
+    //tableItem
+
+    var tableItem = $('#tableItem').DataTable({
+        createdRow: function ( row, data, index ) {
+           $(row).addClass('selected')
+        }
+    });
+
+    tableItem.on('click', 'tbody tr', function() {
+    var $row = tableItem.row(this).nodes().to$();
+    var hasClass = $row.hasClass('selected');
+    if (hasClass) {
+        $row.removeClass('selected')
+    } else {
+        $row.addClass('selected')
+    }
+    })
+
+    tableItem.rows().every(function() {
+    this.nodes().to$().removeClass('selected')
+    });
+
+    $('#filter-kategori').change(function(){
+        tableItem.draw();
+    });
+
 
 
     //example 2

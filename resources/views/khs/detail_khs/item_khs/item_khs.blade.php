@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
-                        <select id="filter-kategori" class="form-control filter-kategori" onchange=displayVals(this.value)>
+                        <select id="filter-kategori" class="form-control filter-kategori">
                             <option value="">Pilih Kategori</option>
                             <option value="Material">Material</option>
                             <option value="Jasa">Jasa</option>
@@ -29,8 +29,11 @@
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importExcel">
                         Import Data (Excel) <i class="bi bi-upload"></i>
                     </button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importExcel">
+                        Export Data (Excel) <i class="bi bi-download"></i>
+                    </button>
                     <input type="hidden" name="jenis_khs" id="jenis_khs" value="{{ $jenis_khs }}">
-                    <div class="input-group search-area position-relative">
+                    {{-- <div class="input-group search-area position-relative">
                         <div class="input-group-append">
                             <span class="input-group-text"><a href="javascript:void(0)"><i
                                         class="flaticon-381-search-2"></i></a></span>
@@ -38,7 +41,7 @@
                                 placeholder="Search here..." />
                         </div>
 
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="card-body">
                     @if (session('success'))
@@ -47,7 +50,7 @@
                         </div>
                     @endif
                     <div class="table-responsive" id="read">
-                        <table id="rincian-table" class="table table-responsive-md">
+                        <table id="tableItem" class="table table-responsive-md">
                             <thead>
                                 <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
@@ -59,7 +62,7 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody class="alldata">
+                            <tbody>
                                 @foreach ($items as $item)
                                     <tr style="width: 1135px;">
                                         <input type="hidden" class="delete_id" value="{{ $item->id }}">
@@ -74,7 +77,7 @@
                                                 <a href="{{ route('item-khs.edit', ['jenis_khs' => $item->khs->jenis_khs, 'id' => $item->id]) }}"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                <button value="{{$item->id}}" class="btn btn-danger shadow btn-xs sharp" onclick="deleteItem(this)"><i
                                                         class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
@@ -82,14 +85,9 @@
                                 @endforeach
 
                             </tbody>
-                            </tbody>
-                            <tbody id="Content" class="searchdata">
 
-                            </tbody>
                         </table>
-                        <div class="d-flex justify-content-center">
-                            {{ $items->links() }}
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -169,6 +167,9 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
     <script data-require="jquery@2.1.1" data-semver="2.1.1"
         src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
 
 
     <script type="text/javascript">
@@ -287,6 +288,9 @@
         });
 
         function deleteItem(id) {
+            var deleteid = id.value
+            // console.log(id.value);
+            // var deleteid = $(this).closest("tr").find('.delete_id').val();
             swal({
                     title: "Apakah anda yakin?",
                     text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
@@ -299,11 +303,11 @@
 
                         var data = {
                             "_token": $('input[name=_token]').val(),
-                            'id': id,
+                            'id': deleteid,
                         };
                         $.ajax({
                             type: "GET",
-                            url: "{{ url('item-khs/' . $jenis_khs . '') }}" + '/' + id,
+                            url: "{{ url('item-khs/' . $jenis_khs . '') }}" + '/' + deleteid,
                             data: data,
                             success: function(response) {
                                 swal({
@@ -330,39 +334,39 @@
                     }
                 });
         }
-        $('#search').on('keyup', function() {
-            $value = $(this).val();
-            var jenis_khs = $("#jenis_khs").val();
+        // $('#search').on('keyup', function() {
+        //     $value = $(this).val();
+        //     var jenis_khs = $("#jenis_khs").val();
 
-            if ($value) {
-                $('.alldata').hide();
-                $('.searchdata').show();
-            } else {
-                $('.alldata').show();
-                $('.searchdata').hide();
+        //     if ($value) {
+        //         $('.alldata').hide();
+        //         $('.searchdata').show();
+        //     } else {
+        //         $('.alldata').show();
+        //         $('.searchdata').hide();
 
-            }
+        //     }
 
-            $.ajax({
+        //     $.ajax({
 
-                type: 'get',
-                url: '{{ URL::to('search-rincian') }}',
-                data: {
-                    'search': $value,
-                    'jenis_khs': jenis_khs
-                },
+        //         type: 'get',
+        //         url: '{{ URL::to('search-rincian') }}',
+        //         data: {
+        //             'search': $value,
+        //             'jenis_khs': jenis_khs
+        //         },
 
-                success: function(data) {
-                    console.log(data);
-                    $('#Content').html(data);
-                }
+        //         success: function(data) {
+        //             console.log(data);
+        //             $('#Content').html(data);
+        //         }
 
-            });
+        //     });
 
-        });
+        // });
     </script>
 @endsection
-<script>
+{{-- <script>
     function displayVals(data) {
         var val = data;
         var jenis_khs = jenis_khs;
@@ -378,4 +382,4 @@
             }
         });
     }
-</script>
+</script> --}}

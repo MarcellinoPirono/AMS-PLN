@@ -59,11 +59,12 @@
                                     </thead>
                                     <tbody>
                                     @foreach ($items as $item)
+                                        <input type="hidden" name="loop_iterasi" id="loop_iterasi" value="{{$loop->iteration}}">
                                         <tr>
                                             <td>
                                                 <div class="custom-control custom-checkbox checkbox check-lg mr-3">
-                                                    <input type="checkbox" class="custom-control-input" id="checkBox2[{{$loop->iteration}}]" name="letter" value="{{ $item->id }}" required autofocus onclick="check(this)">
-                                                    <label name="letter" class="custom-control-label" for="checkBox2[{{$loop->iteration}}]" value="{{$item->id}}"></label>
+                                                    <input type="checkbox" class="custom-control-input" id="checkBox2[{{$loop->iteration}}]" name="letter" value="{{ $loop->iteration }}" required autofocus onclick="check(this)">
+                                                    <label name="letter" class="custom-control-label" for="checkBox2[{{$loop->iteration}}]" value="{{$loop->iteration}}"></label>
                                                 </div>
                                             </td>
 
@@ -139,11 +140,12 @@ function blur_volume(c){
     var change = c.parentNode.parentNode.rowIndex;
     var volume = document.getElementById("volume[" + change + "]").value;
     if(volume.charAt(volume.length-1) == ",") {
-        document.getElementById("volume[" + change + "]").value = volume + "0"
+        document.getElementById("volume[" + change + "]").value = volume + "0";
     }
-    if(volume.charAt(volume.length-1) == ",") {
-        document.getElementById("volume[" + change + "]").value = volume + "0"
+    if(volume.charAt(0) == ",") {
+        document.getElementById("volume[" + change + "]").value = "0" + volume;
     }
+    
     volume = volume.replace(/\./g, "");
     volume = volume.replace(/\,/g, ".");
     volume = parseFloat(volume);
@@ -171,10 +173,16 @@ function blur_volume(c){
 function check(ini) {
     var jumlah_item = document.getElementById('jumlah_item').value;
     jumlah_item = parseInt(jumlah_item);
+    console.log(jumlah_item);
 
+<<<<<<< HEAD
+=======
+    console.log(ini.value);
+>>>>>>> ccecee5 (22-12-2022)
     for(var i = 0; i < jumlah_item; i++) {
-        if(ini.value-1 == i) {
+        if(ini.value == i) {
             var volume = document.getElementsByClassName("volume_id");
+            console.log(volume);
             if($("input[type=checkbox]").is(":checked")) {
                 volume[i].id = "volume["+(i+1)+"]";
                 volume[i].name = "volume["+(i+1)+"]";
@@ -182,6 +190,8 @@ function check(ini) {
                 volume[i].setAttribute('autofocus', '')
                 volume[i].removeAttribute('disabled')
             } else {
+                document.getElementById("volume["+(i+1)+"]").value = "";
+                document.getElementById("harga["+(i+1)+"]").value = "";
                 volume[i].id = "";
                 volume[i].name = "";
                 volume[i].removeAttribute('required')
