@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Addendum;
 use App\Imports\AddendumImport;
 use App\Models\KontrakInduk;
+use App\Models\Khs;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -22,6 +23,7 @@ class AddendumController extends Controller
             'active1' => 'Addendum KHS',
             'addendums' => Addendum::orderby('id', 'DESC')->get(),
             'kontrakinduks' => KontrakInduk::all(),
+            'khss' => Khs::all(),
         ]);
     }
 

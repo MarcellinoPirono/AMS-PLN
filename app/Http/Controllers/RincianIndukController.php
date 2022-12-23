@@ -40,11 +40,15 @@ class RincianIndukController extends Controller
     {
         $jenis_khs = $request->jenis_khs;
         $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
+        $kategori_item = DB::table('rincian_induks')->select('kategori')->distinct()->get();
+
+        // dd($kategori_item);
 
         return view('khs.detail_khs.item_khs.item_khs', [
             'title' => 'Item KHS '. $jenis_khs.'',
             'items' => RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'DESC')->get(),
-            'jenis_khs' => $jenis_khs
+            'jenis_khs' => $jenis_khs,
+            'kategori_item' => $kategori_item
         ]);
     }
 
@@ -168,6 +172,7 @@ class RincianIndukController extends Controller
     public function edit(Request $request, $id)
 
     {
+        // dd($request);
         $jenis_khs = $request->jenis_khs;
         $id_item = $request->id;
 

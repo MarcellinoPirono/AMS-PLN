@@ -15,6 +15,7 @@ use App\Http\Controllers\KontrakIndukController;
 use App\Http\Controllers\KhsController;
 use App\Http\Controllers\PdfkhsController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\KlasifikasiPaketController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AddendumController;
 use App\Http\Controllers\RedaksiController;
@@ -108,6 +109,7 @@ Route::get('/search-pejabat', [PejabatController::class, 'searchpejabat']);
 //MENU
 Route::get('/menu-item-khs', [MenuController::class, 'MenuItemKHS']);
 Route::get('/menu-paket-pekerjaan', [MenuController::class, 'PaketPekerjaan']);
+Route::get('/menu-klasifikasi-paket-pekerjaan', [MenuController::class, 'KlasifikasiPaketPekerjaan']);
 
 
 Route::any('rincian/filter', [RincianIndukController::class, 'filter']);
@@ -148,12 +150,26 @@ Route::get('paket-pekerjaan/{jenis_khs}', [PaketPekerjaanController::class, 'jen
 Route::get('paket-pekerjaan/{jenis_khs}/create', [PaketPekerjaanController::class, 'DataTable'])->name('paket-pekerjaan.data');
 Route::post('paket-pekerjaan/{jenis_khs}/create', [PaketPekerjaanController::class, 'store']);
 Route::post('paket-pekerjaan/{jenis_khs}/import', [PaketPekerjaanController::class, 'import']);
-Route::get('paket-pekerjaan/{jenis_khs}/{id}/edit', [PaketPekerjaanController::class, 'edit'])->name('paket-pekerjaan.edit');
+Route::get('paket-pekerjaan/{jenis_khs}/{slug}/edit', [PaketPekerjaanController::class, 'edit'])->name('paket-pekerjaan.edit');
 Route::get('paket-pekerjaan/{jenis_khs}/{id}', [PaketPekerjaanController::class, 'destroy']);
 Route::any('paket-pekerjaan/{jenis_khs}/filter', [PaketPekerjaanController::class, 'filterPaket']);
 Route::put('paket-pekerjaan/{jenis_khs}/{id}/edit', [PaketPekerjaanController::class, 'update']);
 
 Route::get('/getPaket', [PaketPekerjaanController::class, 'getPaketPekerjaan']);
+// Route::get('/paket-pekerjaan/createSlug', [PaketPekerjaanController::class, 'checkSlug']);
+
+//Paket Pekerjaan
+Route::get('klasifikasi-paket-pekerjaan/{jenis_khs}', [KlasifikasiPaketController::class, 'index']);
+// Route::get('klasifikasi-paket-pekerjaan/{jenis_khs}/create', [KlasifikasiPaketController::class, 'create']);
+Route::get('klasifikasi-paket-pekerjaan/{jenis_khs}/create', [KlasifikasiPaketController::class, 'create']);
+Route::post('klasifikasi-paket-pekerjaan/{jenis_khs}/create', [KlasifikasiPaketController::class, 'store']);
+Route::post('klasifikasi-paket-pekerjaan/{jenis_khs}/import', [KlasifikasiPaketController::class, 'import']);
+Route::get('klasifikasi-paket-pekerjaan/{jenis_khs}/{id}/edit', [KlasifikasiPaketController::class, 'edit'])->name('klasifikasi-paket-pekerjaan.edit');
+Route::get('klasifikasi-paket-pekerjaan/{jenis_khs}/{id}', [KlasifikasiPaketController::class, 'destroy']);
+Route::any('klasifikasi-paket-pekerjaan/{jenis_khs}/filter', [KlasifikasiPaketController::class, 'filterPaket']);
+Route::put('klasifikasi-paket-pekerjaan/{jenis_khs}/{id}/edit', [KlasifikasiPaketController::class, 'update']);
+
+Route::get('/getPaket', [KlasifikasiPaketController::class, 'getPaketPekerjaan']);
 
 
 

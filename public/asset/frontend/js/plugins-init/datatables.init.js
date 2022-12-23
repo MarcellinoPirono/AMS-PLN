@@ -40,14 +40,14 @@
 
 
 
-(function($) {
+(function ($) {
     "use strict"
     //example 1
     // var table = $('#tabelTambahPaket').DataTable({
     // }).data();
-	// $('#tbody-tabelTambahPaket').on('click', 'tr', function () {
-	// 	var data = table.row( this ).data();
-	// });
+    // $('#tbody-tabelTambahPaket').on('click', 'tr', function () {
+    // 	var data = table.row( this ).data();
+    // });
 
     // table.rows((idx, data, node) => {
     // return $('input[type=checkbox]').is(':checked');})
@@ -74,38 +74,81 @@
     //     }
     // });
 
-    tableItem.on('click', 'tbody tr', function() {
-    var $row = tableItem.row(this).nodes().to$();
-    var hasClass = $row.hasClass('selected');
-    if (hasClass) {
-        $row.removeClass('selected')
-    } else {
-        $row.addClass('selected')
-    }
-    })
-
-    tableItem.rows().every(function() {
-    this.nodes().to$().removeClass('selected')
+    //kontrakinduk
+    var tableKontrak = $('#tableKontrak').DataTable({
+        createdRow: function (row, data, index) {
+            $(row).addClass('selected')
+        }
     });
 
-    $('#filter-kategori').change(function(){
+    $('#filter-kontrak-induk-khs').on("change", function (event) {
+        var jenis = $('#filter-kontrak-induk-khs').val();
+        // console.log(category);
+        // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
+        tableKontrak.columns(1).search(jenis).draw();
+    });
+
+    $('#filter-kontrak-induk-vendor').on("change", function (event) {
+        var nama = $('#filter-kontrak-induk-vendor').val();
+        // console.log(category);
+        // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
+        tableKontrak.columns(4).search(nama).draw();
+    });
+
+    tableKontrakInduk.on('click', 'tbody tr', function () {
+        var $row = tableKontrakInduk.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
+    })
+
+    tableKontrakInduk.rows().every(function () {
+        this.nodes().to$().removeClass('selected')
+    });
+
+    $('#filter-kontrak').change(function () {
+        tableKontrakInduk.draw();
+    });
+
+
+    //item
+
+    tableItem.on('click', 'tbody tr', function () {
+        var $row = tableItem.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
+    })
+
+    tableItem.rows().every(function () {
+        this.nodes().to$().removeClass('selected')
+    });
+
+    $('#filter-kategori').change(function () {
         tableItem.draw();
     });
 
 
 
+
     //example 2
-    var table2 = $('#example2').DataTable( {
-        createdRow: function ( row, data, index ) {
+    var table2 = $('#example2').DataTable({
+        createdRow: function (row, data, index) {
             $(row).addClass('selected')
         },
 
-        "scrollY":        "42vh",
+        "scrollY": "42vh",
         "scrollCollapse": true,
-        "paging":         false
+        "paging": false
     });
 
-    table2.on('click', 'tbody tr', function() {
+    table2.on('click', 'tbody tr', function () {
         var $row = table2.row(this).nodes().to$();
         var hasClass = $row.hasClass('selected');
         if (hasClass) {
@@ -115,12 +158,12 @@
         }
     })
 
-    table2.rows().every(function() {
+    table2.rows().every(function () {
         this.nodes().to$().removeClass('selected')
     });
 
-	//
-	// var table = $('#tabelPaket').DataTable();
+    //
+    // var table = $('#tabelPaket').DataTable();
 
     // var tablepaket = $('#tabelTambahPaket').DataTable({
     //     processing: true,

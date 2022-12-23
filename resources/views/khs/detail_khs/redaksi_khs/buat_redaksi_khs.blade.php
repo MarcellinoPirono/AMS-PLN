@@ -29,12 +29,6 @@
                                     <label for="first-name" class="form-label">Input Nama Redaksi</label>
                                     <input type="text" class="form-control" id="nama_redaksi" name="nama_redaksi"
                                         value="{{ old('nama_redaksi') }}" placeholder="Nama Redaksi" required autofocus>
-                                    <div class="valid-feedback">
-                                        Data Terisi
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Silakan Isi Nama Redaksi
-                                    </div>
                                 </div>
                             </div>
 
@@ -42,16 +36,10 @@
                                 <div class="form-group">
                                     <label class="text-label">Input Deskripsi Redaksi</label>
                                     <textarea type="text"
-                                        class="form-control @error('deskripsi_redaksi') is-invalid @enderror"
+                                        class="form-control"
                                         name="deskripsi_redaksi" id="deskripsi_redaksi"
                                         placeholder="Deskripsi Redaksi" required autofocus
                                         value="{{ old('deskripsi_redaksi') }}"></textarea>
-                                    <div class="valid-feedback">
-                                        Data Terisi
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Silakan isi Deskripsi Redaksi
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -61,8 +49,8 @@
                             </div>
                         </div>
                         <table class="table table-responsive-sm height-100" width="100%"
-                            id="tabelSPBJ">
-                            <tr align="center" valign="middle" class="">
+                            id="tabel_sub_deskripsi">
+                            <!-- <tr align="center" valign="middle" class="">
                                 <th style="width:5%;" align="center" valign="middle">No.</th>
                                 <th align="center" valign="middle">Sub Deskripsi</th>
                                 <th style="width:10%;" align="center" valign="middle">Aksi</th>
@@ -75,7 +63,7 @@
                                 <td><button onclick="deleteRow2(this)"
                                         class="btn btn-danger shadow btn-xs sharp"><i
                                             class='fa fa-trash'></i></button></td>
-                            </tr>
+                            </tr> -->
                         </table>
                         <div class="col-lg-12 mb-2">
                             <div class="position-relative justify-content-center float-center">
@@ -106,6 +94,81 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 
 <script>
+    var clicksubdeskripsi = 0;
+
+function updatelokasi() {
+    var tabel_sub_deskripsi = document.getElementById('tabel_sub_deskripsi');
+    clicksubdeskripsi++;
+
+    var input1 = document.createElement("textarea");
+    input1.setAttribute("type", "text");
+    input1.setAttribute("class", "form-control pekerjaan");
+    input1.setAttribute("id", "sub_deskripsi_id[" + clicksubdeskripsi + "]");
+    input1.setAttribute("name", "sub_deskripsi_id["+ clicksubdeskripsi +"]");
+    input1.setAttribute("placeholder", "Sub Deskripsi");
+    input1.setAttribute("required", true);
+    input1.setAttribute("data-rule-required", true);
+
+    var button = document.createElement("button");
+    button.innerHTML = "<i class='fa fa-trash'></i>";
+    button.setAttribute("onclick", "deleteRow2(this)");
+    button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
+
+    var row = tabel_sub_deskripsi.insertRow(-1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+
+    cell1.innerHTML = "1";
+    cell2.appendChild(input1);
+    cell3.appendChild(button);
+
+    reindex2();
+// alert("HALOOOO");
+}
+
+// function deleteRow2(r) {
+//     var table = r.parentNode.parentNode.rowIndex;
+//     document.getElementById("tabel_sub_deskripsi").deleteRow(table);
+//     clicksubdeskripsi--;
+
+//     var select_id_sub_deskripsi = document.querySelectorAll("#tabel_sub_deskripsi tr td:nth-child(2) textarea");
+//     for (var i = 0; i < select_id_sub_deskripsi.length; i++) {
+//         select_id_sub_deskripsi[i].id = "sub_deskripsi_id[" + (i + 1) + "]";
+// }
+
+// reindex2();
+
+function deleteRow2(r) {
+    var table = r.parentNode.parentNode.rowIndex;
+    document.getElementById("tabel_sub_deskripsi").deleteRow(table);
+    clicksubdeskripsi--;
+
+    var select_id_sub_deskripsi = document.querySelectorAll("#tabel_sub_deskripsi tr td:nth-child(2) textarea");
+    for (var i = 0; i < select_id_sub_deskripsi.length; i++) {
+        select_id_sub_deskripsi[i].id = "sub_deskripsi_id[" + (i + 1) + "]";
+
+    reindex2();
+
+    // if (clickpaket == 0) {
+    //     updatePaket();
+    // }
+
+}
+
+// if (clicksubdeskripsi == 0) {
+//     updatelokasi();
+// }
+}
+
+function reindex2() {
+    const ids = document.querySelectorAll("#tabel_sub_deskripsi tr > td:nth-child(1)");
+    ids.forEach((e, i) => {
+        e.innerHTML = "<strong id=nomor1[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
+        nomor_tabel_sub_deskripsi = i + 1;
+    });
+}
+
     $(document).ready(function() {
 
         $('#valid_redaksi').validate({
@@ -115,7 +178,10 @@
                 },
                 deskripsi_redaksi:{
                     required:true
-                }
+                },
+                'sub_deskripsi_id[]':{
+                    required:true
+                },
             },
             messages:{
                 nama_redaksi:{
@@ -123,6 +189,9 @@
                 },
                 deskripsi_redaksi:{
                     required: "Silakan Isi Deskripsi Redaksi"
+                },
+                'sub_deskripsi_id[]':{
+                    required: "Silakan Isi Atau Hapus Sub Deskripsi"
                 }
             },
             submitHandler: function(form) {
@@ -134,19 +203,6 @@
 
                     for (var i = 0; i < clicksubdeskripsi; i++) {
                         sub_deskripsi[i] = [document.getElementById('sub_deskripsi_id[' + (i + 1) + ']').value];
-                        // if (i == 0) {
-                        //     var sub_deskripsi = document.getElementById('sub_deskripsi_id[' + (i + 1) + ']').value;
-
-                        //     $("#lokasi_4").html("1. " + lokasi);
-                        // } else {
-                        //     var lokasi = document.getElementById('sub_deskripsi_id[' + (i + 1) + ']').value;
-                        //     var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (i +
-                        //         3) + ')');
-
-                        //     $('<tr id="location' + i + '" class="noborder"><td></td><td></td><td>' + (i +
-                        //             1) + '. ' + lokasi +
-                        //         '</td></tr>').insertAfter(lokasi_tabel);
-                        // }
                     }
 
 
@@ -180,63 +236,4 @@
                 }
         });
     });
-</script>
-
-<script>
-    var clicksubdeskripsi = 1;
-
-function updatelokasi() {
-    var tabel_sub_deskripsi = document.getElementById('tabelSPBJ');
-    clicksubdeskripsi++;
-
-    var input1 = document.createElement("textarea");
-    input1.setAttribute("type", "text");
-    input1.setAttribute("class", "form-control pekerjaan");
-    input1.setAttribute("id", "sub_deskripsi_id[" + clicksubdeskripsi + "]");
-    input1.setAttribute("name", "sub_deskripsi_id");
-    input1.setAttribute("placeholder", "Sub Deskripsi");
-    input1.setAttribute("required", true);
-
-    var button = document.createElement("button");
-    button.innerHTML = "<i class='fa fa-trash'></i>";
-    button.setAttribute("onclick", "deleteRow2(this)");
-    button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
-
-    var row = tabel_sub_deskripsi.insertRow(-1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-
-    cell1.innerHTML = "1";
-    cell2.appendChild(input1);
-    cell3.appendChild(button);
-
-    reindex2();
-// alert("HALOOOO");
-}
-
-function deleteRow2(r) {
-    var table = r.parentNode.parentNode.rowIndex;
-    document.getElementById("tabelSPBJ").deleteRow(table);
-    clicksubdeskripsi--;
-
-    var select_id_sub_deskripsi = document.querySelectorAll("#tabelSPBJ tr td:nth-child(2) textarea");
-    for (var i = 0; i < select_id_sub_deskripsi.length; i++) {
-        select_id_sub_deskripsi[i].id = "sub_deskripsi_id[" + (i + 1) + "]";
-}
-
-reindex2();
-
-if (clicksubdeskripsi == 0) {
-    updatelokasi();
-}
-}
-
-function reindex2() {
-    const ids = document.querySelectorAll("#tabelSPBJ tr > td:nth-child(1)");
-    ids.forEach((e, i) => {
-        e.innerHTML = "<strong id=nomor1[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
-        nomor_tabel_sub_deskripsi = i + 1;
-    });
-}
 </script>

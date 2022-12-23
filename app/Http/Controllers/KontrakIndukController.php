@@ -20,6 +20,7 @@ class KontrakIndukController extends Controller
             'title' => 'Kontrak Induk KHS',
             'khss' => Khs::all(),
             'kontrakinduks' => KontrakInduk::all(),
+            'vendors' => Vendor::all()
         ]);
 
     }

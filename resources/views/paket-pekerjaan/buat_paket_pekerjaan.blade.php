@@ -4,7 +4,7 @@
 
 <div class="page-titles">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/vendor-khs">{{$active}}</a></li>
+        <li class="breadcrumb-item"><a href="/paket-pekerjaan/{{$jenis_khs}}">{{$active}}</a></li>
         <li class="breadcrumb-item active"><a href="javascript:void(0)">{{$active1}}</a></li>
     </ol>
 </div>
@@ -22,15 +22,24 @@
                     <form name="valid_paket" id="valid_paket" action="#">
                         <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                         <input type="hidden" name="jumlah_item" id="jumlah_item" value="{{count($items)}}">
-                        <input type="hidden" name="jenis_khs" id="jenis_khs" value="{{$jenis_khs}}">
+                        <input type="hidden" name="jenis_khs" id="jenis_khs" value="{{$jenis_khs }}">
                         <div class="row m-auto">
                             <div class="col-lg-6 mb-2">
                                 <div class="form-group">
                                     <label for="first-name" class="form-label">Input Nama Paket</label>
                                     <input type="text" class="form-control input-default" id="nama_paket" name="nama_paket"
-                                        value="{{ old('nama_paket') }}" placeholder="Nama Paket" required autofocus>
+                                        value="{{  old('nama_paket') }}" placeholder="Nama Paket" required autofocus>
+
                                 </div>
                             </div>
+                            {{-- <div class="col-lg-6 mb-2">
+                                <div class="form-group">
+                                    <label for="first-name" class="form-label">Slug</label>
+                                    <input type="text" class="form-control input-default" id="slug" name="slug"
+                                         placeholder="Slug" required autofocus>
+
+                                </div>
+                            </div> --}}
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
@@ -95,6 +104,18 @@
     </div>
 </div>
 
+{{-- <script>
+const nama_paket = document.querySelector('#nama_paket');
+const slug = document.querySelector('#slug');
+
+nama_paket.addEventListener('change', function(){
+
+    fetch('/paket-pekerjaan/createSlug?nama_paket=' + nama_paket.value)
+      .then((response) => response.json())
+      .then((data) => slug.value = data.slug);
+});
+</script> --}}
+
 
 <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
 
@@ -109,80 +130,6 @@ var tabelTambahPaket = $('#tabelTambahPaket').DataTable({
     "scrollCollapse": true,
     "paging":         false
 });
-
-    // $(document).ready(function() {
-    //     $('#valid_paket').validate({
-    //         rules:{
-    //             nama_paket:{
-    //                 required: true
-    //             },
-    //             letter:{
-    //                 required: true
-    //             },
-    //             volume:{
-    //                 required: 'letter:checked'
-    //             }
-    //         },
-    //         messages:{
-    //             nama_paket:{
-    //                 required: "Silakan Isi Nama Paket"
-    //             },
-    //             letter:{
-    //                 required: "Silakan Pilih Minimal 1 Item"
-    //             },
-    //             volume:{
-    //                 required: "Silakan Isi Volume"
-    //             }
-    //         },
-
-    //         errorPlacement: function(error, element){
-    //             if ( element.attr("name") == "letter" )
-    //             {
-    //                 error.appendTo("#checkboxerror");
-    //             }
-    //             else
-    //             { // This is the default behavior
-    //                 error.insertAfter( element );
-    //             }
-    //         },
-    //         submitHandler: function(form) {
-    //             var token = $('#csrf').val();
-    //             // console.log(token);
-    //             var nama_paket = $("#nama_paket").val();
-    //             var item_id = $('input["type=checkbox"]:checked').map(function () {
-    //                 return this.value;
-    //             }).get();
-
-    //             console.log(item_id);
-    //             var data = {
-    //                 "_token": token,
-    //                 "nama_paket": nama_paket,
-    //                 "item_id" : item_id
-    //             };
-
-    //             $.ajax({
-    //                 type: 'POST',
-    //                 url: '{{url('paket-pekerjaan/' . $jenis_khs . '/create')}}',
-    //                 data: data,
-
-    //                 success: function(response) {
-
-    //                     swal({
-    //                             title: "Data Ditambah",
-    //                             text: "Data Berhasil Ditambah",
-    //                             icon: "success",
-    //                             timer: 2e3,
-    //                             buttons: false
-    //                         }).then((result) => {
-    //                             window.location.href = "{{ url('paket-pekerjaan/' . $jenis_khs . '') }}";
-    //                         });
-    //                 }
-    //             });
-    //         }
-    //     });
-    // });
-
-
 
 </script>
 {{-- <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script> --}}
@@ -226,6 +173,8 @@ function numbersonly2(ini, e) {
 }
 
 function blur_volume(c){
+    // var search = document.getElementsByClassName('valid')[0]
+    // console.log(search);
     var change = c.dataset.tagname;
     console.log(change);
     var volume = document.getElementById("volume[" + change + "]").value;
@@ -329,14 +278,16 @@ $(document).ready(function() {
             }
         },
         submitHandler: function(form) {
+            var search = "";
+            tabelTambahPaket.search(search).draw();
             var token = $('#csrf').val();
             var nama_paket = $("#nama_paket").val();
+            var slug = nama_paket.replace(/\ /g, "-");
+            slug = slug.replace(/\//g, "_");
             var jenis_khs = $("#jenis_khs").val();
             var item_id = $('input[type=checkbox]:checked').map(function () {
                 return this.value;
             }).get();
-            // console.log(item_id);
-
             var volume = [];
             var harga = []
             for(var i=0; i < item_id.length; i++){
@@ -346,6 +297,11 @@ $(document).ready(function() {
                 volume[i] = parseFloat(volume[i]);
                 harga[i] = document.getElementById("harga["+item_id[i]+"]").value;
                 harga[i] = harga[i].replace(/\./g, "");;
+            }
+            for(var j=0; j < item_id.length; j++) {
+                if(volume[j] == "") {
+                    form.stpPropagation();
+                }
             }
 
             // console.log(volume);
@@ -357,6 +313,7 @@ $(document).ready(function() {
                 "khs_id" : jenis_khs,
                 "volume" : volume,
                 "jumlah_harga" : harga,
+                "slug" : slug
             };
 
             $.ajax({
@@ -365,6 +322,7 @@ $(document).ready(function() {
                 data: data,
 
                 success: function(response) {
+                    // console.log(response);
 
                     swal({
                             title: "Data Ditambah",

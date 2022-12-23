@@ -15,10 +15,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
-                        <select id="filter-kategori" class="form-control filter-kategori" onchange="filter()">
+                        <select id="filter-kategori" class="form-control filter-kategori">
                             <option value="">Pilih Kategori</option>
-                            <option value="1">Material</option>
-                            <option value="2">Jasa</option>
+                            @foreach ($kategori_item as $kategori_item)
+                            <option value="{{$kategori_item->kategori}}">{{$kategori_item->kategori}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <a href="/item-khs/{{ $jenis_khs }}/create" class="btn btn-primary">Tambah Item <i
@@ -177,17 +178,25 @@
             createdRow: function(row, data, index) {
                 $(row).addClass('selected')
             }
-        "ajax":{
-            url:
-            type" POST"
-            data:function(4)
-        }
 
+        // "ajax":{
+        //     url:
+        //     type:"POST"
+        //     data:function(d){
+        //         d._token ="{{csrf_token()}}",
+        //         d.filter =$("#filter-kategori").val()
+        //     }
+        // }
+        });
+        $('#filter-kategori').on("change", function(event){
+            var categor = $('#filter-kategori').val();
+            // console.log(category);
+            // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
+            tableItem.columns(2).search(categor).draw();
         });
     </script>
 
-    <script>
-        script type = "text/javascript" >
+    <script type = "text/javascript" >
             $(document).ready(function() {
 
                 $('.btndelete').click(function(e) {

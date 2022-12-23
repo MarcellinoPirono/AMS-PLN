@@ -10,7 +10,7 @@
                         <select id="filter-skk" class="form-control filter">
                             <option value="">Pilih SKK</option>
                             @foreach ($skks as $skk)
-                                <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}</option>
+                                <option value="{{ $skk->nomor_skk }}">{{ $skk->nomor_skk }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-responsive-sm">
+                        <table id="tableSKK" class="table table-responsive-sm">
                             <thead>
                                 <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
@@ -85,11 +85,29 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
 
     <script>
-        $(".filter").on('change', function() {
-            let skk = $("#filter-skk").val()
+        var tableSKK = $('#tableSKK').DataTable({
+            createdRow: function(row, data, index) {
+                $(row).addClass('selected')
+            }
         });
+
+        $('#filter-skk').on("change", function(event){
+            var category = $('#filter-skk').val();
+            // console.log(category);
+            // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
+            tableSKK.columns(1).search(category).draw();
+        });
+
+
+    </script>
+
+    <script>
+        // $(".filter").on('change', function() {
+        //     let skk = $("#filter-skk").val()
+        // });
 
         $(document).ready(function() {
             $('.btndelete').click(function(e) {
@@ -155,7 +173,7 @@
             $('.searchdata').hide();
 
         }
-        
+
         $.ajax({
 
             type: 'get',
@@ -166,9 +184,9 @@
                 console.log(data);
                 $('#Content').html(data);
             }
-            
+
         });
-        
+
     });
 </script>
 @endsection

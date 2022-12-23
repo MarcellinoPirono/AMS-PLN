@@ -9,12 +9,16 @@ use App\Http\Requests\StorePaketPekerjaanRequest;
 use App\Http\Requests\UpdatePaketPekerjaanRequest;
 use Illuminate\Http\Request;
 // use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\DB;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+
 
 use Yajra\DataTables\Facades\DataTables;
 // use DataTables;
 
 class PaketPekerjaanController extends Controller
 {
+    // use SlugService;{{  }}{{  }}{{  }}{{  }}
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +29,15 @@ class PaketPekerjaanController extends Controller
         $jenis_khs = $request->jenis_khs;
         // dd($jenis_khs);
         $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
-        $nama_paket = PaketPekerjaan::select('nama_paket')->where('khs_id', $khs_id)->groupBy('nama_paket')->get();
+
+        // dd($khs_id);
+
+        // $paket_pekerjaans= PaketPekerjaan::orderBy('id', 'ASC');
+
+        // $nama_paket = DB::table(DB::raw("({$paket_pekerjaans->toSql()}) as paket_pekerjaans"))->select('nama_paket')->where('khs_id', $khs_id)->groupBy('nama_paket')->get();
+        $nama_paket = PaketPekerjaan::select('created_at','nama_paket', 'slug')->where('khs_id', $khs_id)->orderBy('created_at', 'DESC')->groupBy('created_at', 'nama_paket', 'slug')->get();
+        // $paket = PaketPekerjaan::where('khs_id', $khs_id)->get();
+        // dd($paket);
 
 
 
@@ -76,7 +88,7 @@ class PaketPekerjaanController extends Controller
                 'title' => 'Buat Paket Pekerjaan ',
                 'active' => 'Paket-Pekerjaan',
                 'active1' => 'Tambah Paket Pekerjaan ',
-                'jenis_khs' => $khs_id,
+                'jenis_khs' => $jenis_khs,
                 'items' => $items
             ],
         );
@@ -115,8 +127,13 @@ class PaketPekerjaanController extends Controller
      */
     public function store(StorePaketPekerjaanRequest $request)
     {
-        // $jenis_khs = $request->jenis_khs;
         // dd($request);
+        // $jenis_khs = $request->jenis_khs;
+        $jenis_khs = $request->khs_id;
+        // dd($jenis_khs);
+        $khs_id = Khs::select('id')->where('jenis_khs', $jenis_khs)->get();
+        // dd($khs_id);
+
 
         $request->validate([
 
@@ -135,7 +152,8 @@ class PaketPekerjaanController extends Controller
         for($j=0; $j < $banyak_item; $j++){
             $paket_pekerjaan_data = [
                 "nama_paket"=>$request->nama_paket,
-                "khs_id"=>$request->khs_id,
+                "slug"=>$request->slug,
+                "khs_id"=>$request["khs_id"] = $khs_id[0]->id,
                 "item_id"=>$request->item_id[$j],
                 "volume"=>$request->volume[$j],
                 "jumlah_harga"=>$request->jumlah_harga[$j]
@@ -144,7 +162,7 @@ class PaketPekerjaanController extends Controller
         }
 
 
-        return response()->json();
+        return response()->json($jenis_khs);
 
     }
 
@@ -165,9 +183,29 @@ class PaketPekerjaanController extends Controller
      * @param  \App\Models\PaketPekerjaan  $paketPekerjaan
      * @return \Illuminate\Http\Response
      */
-    public function edit(PaketPekerjaan $paketPekerjaan)
+    public function edit(Request $request)
+
     {
-        //
+        // dd($request->all);
+        $jenis_khs = $request->jenis_khs;
+        $slug = $request->slug;
+        // dd($slug);
+        $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
+        $items = RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'DESC')->get();
+
+        $nama_paket = PaketPekerjaan::where('slug', $slug)->value('nama_paket');
+
+        // dd($nama_paket);
+
+        $data = [
+            'title' => 'Edit Paket Pekerjaan KHS ' .$jenis_khs. '',
+            'active' => 'Paket Pekerjaan',
+            'active1' => 'Edit ' . $jenis_khs . '',
+            'jenis_khs' => $jenis_khs,
+            'items' => $items,
+            'nama_paket' => $nama_paket
+        ];
+        return view('paket-pekerjaan.edit_paket_pekerjaan', $data);
     }
 
     /**
@@ -198,6 +236,18 @@ class PaketPekerjaanController extends Controller
 
         return response()->json($paketPekerjaan);
     }
+
+    // public function checkSlug(Request $request){
+
+    //     dd($request);
+
+    //     $slug = SlugService::createSlug(PaketPekerjaan::class, 'slug', $request->nama_paket);
+    //     return response()->json([
+    //         'slug' => $slug
+
+    //     ]);
+
+    // }
 
 
 

@@ -15,10 +15,18 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
-                        <select id="filter-addendum" class="form-control filter" onchange="displayVals(this.value)">
+                        <select id="filter-addendum-kontrak-induk" class="form-control filter">
                             <option value="">Pilih Nomor Kontrak Induk</option>
                             @foreach ($kontrakinduks as $kontrakinduk)
-                                <option value="{{ $kontrakinduk->id }}">{{ $kontrakinduk->nomor_kontrak_induk }}</option>
+                                <option value="{{ $kontrakinduk->nomor_kontrak_induk }}">{{ $kontrakinduk->nomor_kontrak_induk }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-xl-3 col-l-3col-m-3 col-sm-2">
+                        <select id="filter-addendum-khs" class="form-control filter">
+                            <option value="">Pilih Jenis KHS</option>
+                            @foreach ($khss as $khs)
+                                <option value="{{ $khs->jenis_khs }}">{{ $khs->jenis_khs }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -28,23 +36,23 @@
                     <a href="/addendum-khs/create-xlsx" class="btn btn-primary mr-auto ml-3">Tambah Addendum Via Excel<span
                             class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                     </a>
-                    <div class="input-group search-area position-relative">
+                    <!-- <div class="input-group search-area position-relative">
                         <div class="input-group-append">
                             <span class="input-group-text"><a href="javascript:void(0)"><i
                                         class="flaticon-381-search-2"></i></a></span>
                             <input type="search" id="search" name="search" class="form-control"
                                 placeholder="Search here..." />
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="card-body">
-                    @if (session('success'))
+                    <!-- @if (session('success'))
                         <div class="sweetalert sweet-success">
                             {{ session('success') }}
                         </div>
-                    @endif
+                    @endif -->
                     <div class="table-responsive" id="read">
-                        <table id="rincian-table" class="table table-responsive-md">
+                        <table id="tableAddendum" class="table table-responsive-md">
                             <thead>
                                 <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
@@ -114,7 +122,7 @@
         });
     </script> -->
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $('#search').on('keyup', function() {
             $value = $(this).val();
 
@@ -143,8 +151,7 @@
             });
 
         });
-    </script>
-@endsection
+    </script> -->
 
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -153,7 +160,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script data-require="jquery@2.1.1" data-semver="2.1.1"
     src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
 
+<script>
+    var tableAddendum = $('#tableAddendum').DataTable({
+        createdRow: function(row, data, index) {
+            $(row).addClass('selected')
+        }
+    });
+
+    $('#filter-addendum-kontrak-induk').on("change", function(event){
+        var kontrak_induk = $('#filter-addendum-kontrak-induk').val();
+        tableAddendum.columns(1).search(kontrak_induk).draw();
+    });
+
+    $('#filter-addendum-khs').on("change", function(event){
+        var jenis_khs = $('#filter-addendum-khs').val();
+        tableAddendum.columns(2).search(jenis_khs).draw();
+    });
+
+</script>
+@endsection
 
 <script>
     $(document).ready(function() {
@@ -207,7 +235,7 @@
     });
 </script>
 
-<script>
+<!-- <script>
     function displayVals(data) {
         var val = data;
         $.ajax({
@@ -221,4 +249,4 @@
             }
         });
     }
-</script>
+</script> -->

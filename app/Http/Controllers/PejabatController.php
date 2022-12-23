@@ -4,14 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pejabat;
+use Illuminate\Support\Facades\DB;
 
 class PejabatController extends Controller
 {
     public function index()
     {
+        // $test = Pejabat::get('unit_up3');
+        // $test1 =$test->distinct();
+
+        $unit_up3 = DB::table('pejabats')->select('unit_up3')->distinct()->get();
+        // dd($unit_up3);
         return view('khs.detail_khs.pejabat.pejabat', [
             'title' => 'Pejabat',
-            'pejabats' => Pejabat::all()
+            'pejabats' => Pejabat::all(),
+            'unit_up3' => $unit_up3
             // 'khss' => Khs::all(),
             // 'kontrakinduks' => KontrakInduk::all(),
         ]);

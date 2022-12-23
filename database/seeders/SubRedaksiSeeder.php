@@ -17,7 +17,7 @@ class SubRedaksiSeeder extends Seeder
     {
         SubRedaksi::create([
             'redaksi_id' => 1,
-            'sub_deskripsi' =>''
+            // 'sub_deskripsi' =>''
 
         ]);
         SubRedaksi::create([
@@ -96,12 +96,12 @@ class SubRedaksiSeeder extends Seeder
         ]);
         SubRedaksi::create([
             'redaksi_id' => 4,
-            'sub_deskripsi' =>''
+            // 'sub_deskripsi' =>''
 
         ]);
         SubRedaksi::create([
             'redaksi_id' => 5,
-            'sub_deskripsi' =>''
+            // 'sub_deskripsi' =>''
 
         ]);
 

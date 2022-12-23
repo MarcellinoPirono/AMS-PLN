@@ -38,17 +38,19 @@
                                     <th class="width80">No.</th>
                                     <th>Nama Paket</th>
                                     <th>Uraian Pekerjaan</th>
-
+                                    <th>Volume</th>
+                                    <th>Harga Satuan</th>
+                                    <th>Harga</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="alldata">
                                 @foreach ($nama_paket as $paket)
                                     <tr>
-                                        <input type="hidden" class="delete_id" value="{{ $paket->id }}">
-                                        <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
-                                        <td>{{ $paket->nama_paket }}</td>
-                                        <td align="center" valign="middle">
+                                        {{-- <input type="hidden" class="delete_id" value="{{ $paket->id }}"> --}}
+                                        <td align="center" valign="top" style="vertical-align: top;"><strong>{{ $loop->iteration }}</strong></td>
+                                        <td valign="top" style="vertical-align: top;">{{ $paket->nama_paket }}</td>
+                                        <td align="left" valign="top" style="vertical-align: top;">
                                             @foreach ($pakets as $paket2)
                                                 @if ($paket2->nama_paket == $paket->nama_paket)
                                                     <ol type="1">
@@ -59,15 +61,48 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        {{-- <td>
+                                        <td align="left" valign="top" style="vertical-align: top;">
+                                            @foreach ($pakets as $paket2)
+                                                @if ($paket2->nama_paket == $paket->nama_paket)
+                                                    <ol type="1">
+                                                        <li>
+                                                            @currency3($paket2->volume)<br>
+                                                        </li>
+                                                    </ol>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td align="left" valign="top" style="vertical-align: top;">
+                                            @foreach ($pakets as $paket2)
+                                                @if ($paket2->nama_paket == $paket->nama_paket)
+                                                    <ol type="1">
+                                                        <li>
+                                                            @currency($paket2->rincian_induks->harga_satuan)
+                                                        </li>
+                                                    </ol>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td align="left" valign="top" style="vertical-align: top;">
+                                            @foreach ($pakets as $paket2)
+                                                @if ($paket2->nama_paket == $paket->nama_paket)
+                                                    <ol type="1">
+                                                        <li>
+                                                            @currency($paket2->jumlah_harga)
+                                                        </li>
+                                                    </ol>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td align="left" valign="top" style="vertical-align: top;">
                                             <div class="d-flex">
-                                                <a href="/redaksi-khs/{{ $paket->id }}/edit"
+                                                <a href="{{ route('paket-pekerjaan.edit', ['jenis_khs' => $jenis_khs, 'slug' => $paket->slug]) }}"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
                                                 <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
                                                         class="fa fa-trash"></i></button>
                                             </div>
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                 @endforeach
 

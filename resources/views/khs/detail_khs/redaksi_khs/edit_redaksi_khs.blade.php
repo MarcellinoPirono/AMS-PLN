@@ -63,21 +63,24 @@
                         </div>
                         <table class="table table-responsive-sm height-100" width="100%"
                             id="tabelSPBJ">
+
                             <tr align="center" valign="middle" class="">
                                 <th style="width:5%;" align="center" valign="middle">No.</th>
                                 <th align="center" valign="middle">Sub Deskripsi</th>
                                 <th style="width:10%;" align="center" valign="middle">Aksi</th>
                             </tr>
                             @foreach ($sub_deskripsis as $sub_deskripsi)
-                            <tr>
-                                <td><strong id="nomor">{{$loop->iteration}}</strong></td>
-                                <td>
-                                    <textarea type="text" class="form-control lokasi" id="sub_deskripsi_id[{{ $loop->iteration }}]" name="sub_deskripsi_id[{{ $loop->iteration }}]" placeholder="Sub Deskripsi" required>{{$sub_deskripsi->sub_deskripsi}}</textarea>
-                                </td>
-                                <td><button onclick="deleteRow2(this)"
-                                class="btn btn-danger shadow btn-xs sharp"><i
-                                class='fa fa-trash'></i></button></td>
-                            </tr>
+                                @if ($sub_deskripsi->sub_deskripsi !== null)
+                                <tr>
+                                    <td><strong id="nomor">{{$loop->iteration}}</strong></td>
+                                    <td>
+                                        <textarea type="text" class="form-control lokasi" id="sub_deskripsi_id[{{ $loop->iteration }}]" name="sub_deskripsi_id[{{ $loop->iteration }}]" placeholder="Sub Deskripsi" required>{{$sub_deskripsi->sub_deskripsi}}</textarea>
+                                    </td>
+                                    <td><button onclick="deleteRow2(this)"
+                                    class="btn btn-danger shadow btn-xs sharp"><i
+                                    class='fa fa-trash'></i></button></td>
+                                </tr>
+                                @endif
                             @endforeach
                         </table>
                         <div class="col-lg-12 mb-2">
@@ -187,7 +190,7 @@ function updatelokasi() {
     input1.setAttribute("type", "text");
     input1.setAttribute("class", "form-control pekerjaan");
     input1.setAttribute("id", "sub_deskripsi_id[" + clicksubdeskripsi + "]");
-    input1.setAttribute("name", "sub_deskripsi_id");
+    input1.setAttribute("name", "sub_deskripsi_id[" + clicksubdeskripsi + "]");
     input1.setAttribute("placeholder", "Sub Deskripsi");
     input1.setAttribute("required", true);
 

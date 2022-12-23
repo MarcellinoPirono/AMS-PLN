@@ -48,7 +48,8 @@
                                     </a>
                                 </li>
                             </ul>
-                            <div class="tab-content mt-3 tab-flex" style="height: auto !important; display: flex !important; flex-direction: column !important;">
+                            <div class="tab-content mt-3 tab-flex"
+                                style="height: auto !important; display: flex !important; flex-direction: column !important;">
                                 <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                                 <div id="spbj" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <form id="form-1" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
@@ -253,26 +254,28 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 mb-2">
-                                            <div class="form-group">
-                                                <label class="text-label">Upload Lampiran</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">Upload</span>
+                                                <div class="form-group">
+                                                    <label class="text-label">Upload Lampiran</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Upload</span>
+                                                        </div>
+                                                        <div class="custom-file">
+                                                            <input id="lampiran" type="file" name="lampiran"
+                                                                class="form-control custom-file-input"
+                                                                onchange="previewImage()" required />
+                                                            <label class="custom-file-label">Choose or Drag file</label>
+                                                        </div>
                                                     </div>
-                                                    <div class="custom-file">
-                                                        <input id="lampiran" type="file"
-                                                            class="form-control custom-file-input" required />
-                                                        <label class="custom-file-label">Choose or Drag file</label>
+                                                    <img class="ml-3" src="#" id="img-lampiran" width="300px" />
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
                                                     </div>
-                                                </div>
-                                                <div class="valid-feedback">
-                                                    Data Terisi
-                                                </div>
-                                                <div class="invalid-feedback">
-                                                    Silakan Upload Lampiran
+                                                    <div class="invalid-feedback">
+                                                        Silakan Upload Lampiran
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -306,7 +309,8 @@
 
                                     </form>
                                 </div>
-                                <div id="paket_rab" class="tab-pane" role="tabpanel" aria-labelledby="step-2" style="height: auto !important; display: flex !important; flex-direction: column !important;">
+                                <div id="paket_rab" class="tab-pane" role="tabpanel" aria-labelledby="step-2"
+                                    style="height: auto !important; display: flex !important; flex-direction: column !important;">
                                     <form id="form-2" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
                                         <div class="row">
                                             <div class="col-xl-12 col-xxl-12">
@@ -374,12 +378,16 @@
                                                                         <th align="center" valign="middle">Pekerjaan</th>
                                                                         <th align="center" valign="middle">Kategori
                                                                             Pekerjaan</th>
-                                                                        <th align="center" valign="middle" style="width: 200px;">Satuan</th>
-                                                                        <th align="center" valign="middle" style="width: 200px;">Volume</th>
-                                                                        <th align="center" valign="middle" style="width: 200px;">Harga Satuan
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 200px;">Satuan</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 200px;">Volume</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 200px;">Harga Satuan
                                                                             (Rp.)
                                                                         </th>
-                                                                        <th align="center" valign="middle" style="width: 200px;">Jumlah (Rp.)
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 200px;">Jumlah (Rp.)
                                                                         </th>
                                                                         <th align="center" valign="middle">Aksi</th>
                                                                     </tr>
@@ -392,16 +400,20 @@
 
 
 
-                                                                            <select required onchange="change_item(this)" name="item_id" id="item_id[1]" class="multi-select form-control input-default" style="border-radius: 40px;">
-                                                                                <option value="" selected disabled required>Pilih Pekerjaan</option>
+                                                                            <select required onchange="change_item(this)"
+                                                                                name="item_id" id="item_id[1]"
+                                                                                class="multi-select form-control input-default"
+                                                                                style="border-radius: 40px;">
+                                                                                <option value="" selected disabled
+                                                                                    required>Pilih Pekerjaan</option>
                                                                             </select>
                                                                         </td>
                                                                         <!-- <td><select name="item_id" id="item_id[1]"
-                                                                                                                        class="form-control input-default"
-                                                                                                                        onchange="change_item(this)" required>
-                                                                                                                        <option value="" selected disabled
-                                                                                                                            required>Pilih Pekerjaan</option>
-                                                                                                                    </select></td> -->
+                                                                                                                                    class="form-control input-default"
+                                                                                                                                    onchange="change_item(this)" required>
+                                                                                                                                    <option value="" selected disabled
+                                                                                                                                        required>Pilih Pekerjaan</option>
+                                                                                                                                </select></td> -->
                                                                         <td><input type="text"
                                                                                 class="form-control kategory_id"
                                                                                 id="kategory_id[1]" name="kategory_id"
@@ -414,7 +426,7 @@
                                                                         </td>
                                                                         <td><input type="text"
                                                                                 class="form-control volume" id="volume[1]"
-                                                                                name="volume" placeholder ="volume"
+                                                                                name="volume" placeholder="volume"
                                                                                 value=""
                                                                                 onblur="blur_volume(this)"onkeypress="return numbersonly2(this, event);"
                                                                                 onkeyup="format(this)" required></td>
@@ -790,9 +802,9 @@
 
     <!-- Search and Select -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
-                integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+                            integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
             <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
@@ -817,8 +829,21 @@
     <script src="{{ asset('/') }}./asset/frontend/js/custom.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/deznav-init.js"></script>
 
+    <script>
+        function previewImage() {
+            const image = document.querySelector('#lampiran');
+            const imgPreview = document.querySelector('#img-lampiran');
 
+            imgPreview.style.display = 'block';
 
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
 @endsection
 
 

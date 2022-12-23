@@ -14,22 +14,30 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
+                    <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
+                        <select id="filter-pejabat" class="form-control filter-kategori">
+                            <option value="">Pilih Kategori</option>
+                            @foreach ($unit_up3 as $unit_up3)
+                            <option value="{{$unit_up3->unit_up3}}">{{$unit_up3->unit_up3}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <a href="/pejabat/create" class="btn btn-primary mr-auto ml-3">Tambah Pejabat<span
                             class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                     </a>
-                    <div class="input-group search-area position-relative">
+                    <!-- <div class="input-group search-area position-relative">
                         <div class="input-group-append">
                             <span class="input-group-text"><a href="javascript:void(0)"><i
                                         class="flaticon-381-search-2"></i></a></span>
                             <input type="search" id="search" name="search" class="form-control"
                                 placeholder="Search here..." />
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="card-body">
 
                     <div class="table-responsive" id="read">
-                        <table id="rincian-table" class="table table-responsive-md">
+                        <table id="tablePejabat" class="table table-responsive-md">
                             <thead>
                                 <tr>
                                     <th class="width80">No.</th>
@@ -102,7 +110,7 @@
         });
     </script> -->
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $('#search').on('keyup', function() {
             $value = $(this).val();
 
@@ -131,8 +139,7 @@
             });
 
         });
-    </script>
-@endsection
+    </script> -->
 
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -141,6 +148,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script data-require="jquery@2.1.1" data-semver="2.1.1"
     src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
+
+<script>
+    var tablePejabat = $('#tablePejabat').DataTable({
+        createdRow: function(row, data, index) {
+            $(row).addClass('selected')
+        }
+    });
+
+    $('#filter-kontrak-induk-khs').on("change", function(event){
+        var jenis_khs = $('#filter-kontrak-induk-khs').val();
+        // console.log(category);
+        // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
+        tablePejabat.columns(3).search(jenis_khs).draw();
+    });
+
+</script>
+@endsection
 
 
 <script>
@@ -195,7 +221,7 @@
     });
 </script>
 
-<script>
+<!-- <script>
     function displayVals(data) {
         var val = data;
         $.ajax({
@@ -209,4 +235,4 @@
             }
         });
     }
-</script>
+</script> -->

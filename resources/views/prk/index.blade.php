@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">                    
+                <div class="card-header">
                     <!-- <div class="btn-group" role="group">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih
                             SKK</button>
@@ -13,14 +13,14 @@
                                 @foreach ($skks as $skk)
                                     <option value="{{$skk->id}}">{{$skk->nomor_skk}}</option>
                                 @endforeach
-                            </select>                                
+                            </select>
                         </div>
                     </div> -->
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
-                        <select id="filter-skk" class="form-control filter-skk" onchange="displayVals(this.value)">
+                        <select id="filter-prk" class="form-control filter-skk">
                             <option value="">Pilih SKK</option>
                             @foreach ($skks as $skk)
-                                <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}</option>
+                                <option value="{{ $skk->nomor_skk }}">{{ $skk->nomor_skk }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-responsive-md" id="read">
+                        <table class="table table-responsive-md" id="tablePRK">
                             <thead>
                                 <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
@@ -85,8 +85,10 @@
             </div>
         </div>
     </div>
-    
-<script type="text/javascript">
+
+
+
+<!-- <script type="text/javascript">
     $('#search').on('keyup',function(){
         $value=$(this).val();
 
@@ -100,7 +102,7 @@
             $('.searchdata').hide();
 
         }
-        
+
         $.ajax({
 
             type: 'get',
@@ -111,25 +113,42 @@
                 console.log(data);
                 $('#Content').html(data);
             }
-            
+
         });
-        
+
     });
-</script>
-@endsection
+</script> -->
+
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script data-require="jquery@2.1.1" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
 
+<script>
+    var tablePRK = $('#tablePRK').DataTable({
+        createdRow: function(row, data, index) {
+            $(row).addClass('selected')
+        }
+    });
+
+    $('#filter-prk').on("change", function(event){
+        var category = $('#filter-prk').val();
+        // console.log(category);
+        // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
+        tablePRK.columns(1).search(category).draw();
+    });
+
+
+</script>
 
 <script>
     $(document).ready(function() {
         $('.btndelete').click(function(e) {
             e.preventDefault();
-            
+
             var deleteid = $(this).closest("tr").find('.delete_id').val();
 
             swal({
@@ -176,8 +195,9 @@
         });
     });
 </script>
+@endsection
 
-<script>
+<!-- <script>
     function displayVals(data)
     {
         var val = data;
@@ -191,5 +211,5 @@
             }
         });
     }
-</script>
+</script> -->
 

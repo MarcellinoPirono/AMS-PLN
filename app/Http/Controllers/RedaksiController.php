@@ -44,23 +44,41 @@ class RedaksiController extends Controller
 
         $id_redaksi = Redaksi::where('nama_redaksi', $request->nama_redaksi)->value('id');
         $redaksi_id = [];
+        $clicksubdeskripsi = $request->clicksubdeskripsi;
 
-        for ($i = 0; $i < $request->clicksubdeskripsi; $i++) {
-            $redaksi_id[$i] = $id_redaksi;
-        }
+        // dd($clicksubdeskripsi);
 
-        for($j=0; $j < $request->clicksubdeskripsi; $j++){
+        if($clicksubdeskripsi == 0){
             $sub_redaksi = [
-                'redaksi_id' => $redaksi_id[$j],
-                'sub_deskripsi' => $request->sub_deskripsi[$j][0]
+                'redaksi_id' => $id_redaksi,
             ];
 
             // dd($sub_redaksi);
             SubRedaksi::create($sub_redaksi);
+            return redirect('/redaksi-khs')->with('success', 'Redaksi Berhasil Ditambahkan');
         }
+
+        else{
+            for ($i = 0; $i < $clicksubdeskripsi; $i++) {
+                $redaksi_id[$i] = $id_redaksi;
+            }
+
+            for($j=0; $j < $clicksubdeskripsi; $j++){
+
+                $sub_redaksi = [
+                    'redaksi_id' => $redaksi_id[$j],
+                    'sub_deskripsi' => $request->sub_deskripsi[$j][0]
+                ];
+
+                // dd($sub_redaksi);
+                SubRedaksi::create($sub_redaksi);
+            }
+            return redirect('/redaksi-khs')->with('success', 'Redaksi Berhasil Ditambahkan');
+        }
+
         // dd($sub_redaksi);
 
-        return redirect('/redaksi-khs')->with('success', 'Redaksi Berhasil Ditambahkan');
+
     }
 
     public function edit($id)

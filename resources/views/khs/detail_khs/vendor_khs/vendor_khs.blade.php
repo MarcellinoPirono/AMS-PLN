@@ -34,7 +34,7 @@
                         </div>
                     @endif
                     <div class="table-responsive" id="read">
-                        <table id="rincian-table" class="table table-responsive-md">
+                        <table id="tableVendor" class="table table-responsive-md">
                             <thead>
                                 <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
@@ -89,7 +89,7 @@
         </div>
     </div>
 
-     <script type="text/javascript">
+     <!-- <script type="text/javascript">
     $('#search').on('keyup',function(){
         $value=$(this).val();
 
@@ -118,16 +118,24 @@
     });
 
     });
-</script>
+</script> -->
 
-@endsection
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+<script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
 
+<script>
+    var tableVendor = $('#tableVendor').DataTable({
+        createdRow: function(row, data, index) {
+            $(row).addClass('selected')
+        }
+    });
+</script>
 
+@endsection
 <script>
     $(document).ready(function() {
         $('.btndelete').click(function(e) {

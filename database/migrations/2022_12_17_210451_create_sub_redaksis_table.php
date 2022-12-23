@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('sub_redaksis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('redaksi_id')->nullable();
-            $table->text('sub_deskripsi');
+            $table->text('sub_deskripsi')->nullable();
             $table->timestamps();
         });
     }

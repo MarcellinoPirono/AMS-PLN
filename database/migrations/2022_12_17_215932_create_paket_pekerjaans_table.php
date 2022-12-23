@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('paket_pekerjaans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_paket')->nullable();
-            $table->foreignId('khs_id')->nullable();
+            $table->string('nama_paket');
+            $table->string('slug');
+            $table->foreignId('khs_id');
             $table->foreignId('item_id')->nullable();
 
             $table->double('volume');

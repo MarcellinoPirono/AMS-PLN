@@ -46,12 +46,12 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-responsive-sm">
-                            <thead> 
+                            <thead>
                                 <tr align="center" valign="middle">
-                                    <th class="width30">No.</th>
-                                    <th>Jenis KHS</th>
-                                    <th>Nama Pekerjaan</th>
-                                    <th>Aksi</th>
+                                    <th class="width30" style="vertical-align: middle">No.</th>
+                                    <th style="vertical-align: middle">Jenis KHS</th>
+                                    <th style="vertical-align: middle">Nama Pekerjaan</th>
+                                    <th style="vertical-align: middle">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="alldata">
@@ -60,7 +60,7 @@
                                         <input type="hidden" class="delete_id" value="{{ $khs->id }}">
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $khs->jenis_khs }}</td>
-                                        <td>{{ $khs->nama_pekerjaan }}</td>
+                                        <td style="text-align: justify;">{{ $khs->nama_pekerjaan }}</td>
                                         <td>
                                             <div class="d-flex">
                                                 <a href="#" data-id="{{ $khs->id }}"
@@ -76,9 +76,9 @@
                             <tbody id="Content" class="searchdata">
                             </tbody>
                         </table>
-                        <div class="pagination pagination-gutter pagination-primary no-bg d-flex float-right">
+                        {{-- <div class="pagination pagination-gutter pagination-primary no-bg d-flex float-right">
                             {{ $khss->links() }}
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -97,18 +97,18 @@
                 </div>
                 <form name="edit_valid_khs" id="edit_valid_khs" action="#">
                     <div class="modal-body">
-                        <input type="hidden" class="edit_id" value="{{ $khs->jenis_khs }}">
+                        {{-- <input type="hidden" class="edit_id" value="{{ $khs->jenis_khs }}"> --}}
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Jenis KHS:</label>
                             <input type="text" class="form-control input-rounded edit_data" placeholder="Jenis KHS"
                                 id="edit_jenis_khs" name="edit_jenis_khs" onkeydown="change_backslash2(event)"
-                                value="{{ old('edit_jenis_khs', $khs->jenis_khs) }}">
+                                value="">
                         </div>
-                        <input type="hidden" class="edit_id" value="{{ $khs->nama_pekerjaan }}">
+                        {{-- <input type="hidden" class="edit_id" value="{{ $khs->nama_pekerjaan }}"> --}}
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nama Pekerjaan:</label>
                             <textarea type="text" class="form-control edit_data" placeholder="Nama Pekerjaan" id="edit_nama_pekerjaan"
-                                name="edit_nama_pekerjaan" value="{{ old('edit_nama_pekerjaan', $khs->nama_pekerjaan) }}"></textarea>
+                                name="edit_nama_pekerjaan" value=""></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -226,6 +226,7 @@
 
             $('.tombol-edit').click(function(e) {
                 var id = $(this).data('id');
+                var token = $('#csrf').val();
 
                 $.ajax({
                     url: 'jenis-khs/' + id + '/edit',
@@ -264,6 +265,7 @@
                                         nama_pekerjaan: $(
                                                 '#edit_nama_pekerjaan')
                                             .val(),
+
                                     },
                                     success: function(response) {
                                         swal({

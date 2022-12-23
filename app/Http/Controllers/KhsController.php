@@ -17,9 +17,9 @@ class KhsController extends Controller
     {
         return view('khs.detail_khs.jenis_khs.jenis_khs', [
             'title' => 'Jenis KHS',
-            'khss' => Khs::paginate(10),
+            'khss' => Khs::orderBy('id', 'DESC')->get(),
         ]);
-        
+
     }
     // public function index()
     // {
@@ -27,7 +27,7 @@ class KhsController extends Controller
     //         'title' => 'Jenis KHS',
     //         'khss' => Khs::all(),
     //     ]);
-        
+
     // }
 
     /**
@@ -37,7 +37,7 @@ class KhsController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -102,7 +102,7 @@ class KhsController extends Controller
 
         $request->validate([
 
-            
+
             'jenis_khs' => 'required',
             'nama_pekerjaan' => 'required',
 
@@ -130,7 +130,7 @@ class KhsController extends Controller
         return response()->json([
             'success'   => true
         ]);
-        
+
     }
     public function searchjeniskhs(Request $request)
     {
@@ -149,7 +149,7 @@ class KhsController extends Controller
             <td>'. $nomor.'</td>
             <td>'. $khs->jenis_khs.' </td>
             <td>'. $khs->nama_pekerjaan.' </td>
-            <td>'. ' 
+            <td>'. '
             <div class="d-flex">
             <button onclick="editCategories(' . $khs->id . ')" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></button>
             <button onclick="deleteCategories(' . $khs->id . ')" class="btn btn-danger shadow btn-xs sharp btndelete"><i class="fa fa-trash"></i></button></div>

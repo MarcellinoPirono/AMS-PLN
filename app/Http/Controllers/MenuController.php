@@ -29,5 +29,16 @@ class MenuController extends Controller
         ]);
     }
 
+    public function KlasifikasiPaketPekerjaan()
+    {
+
+        return view('paket-pekerjaan.menu_klasifikasi', [
+            'title' => 'Pilih Menu Klasifikasi Paket Pekerjaan KHS',
+            'title1' => 'Klasifikasi Paket Pekerjaan KHS',
+            'jenis_khs' => Khs::all(),
+
+        ]);
+    }
+
 
 }

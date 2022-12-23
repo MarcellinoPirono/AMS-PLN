@@ -10,6 +10,8 @@ class Khs extends Model
     use HasFactory;
     protected $guarded = [''];
 
+    
+
     public function kontrak_induks()
     {
         return $this->hasMany(KontrakInduk::class, 'khs_id');
@@ -28,5 +30,10 @@ class Khs extends Model
     public function rincian_induks()
     {
         return $this->hasMany(RincianInduk::class, 'kategori_id');
+    }
+
+    public function klasifikasi_pakets()
+    {
+        return $this->hasMany(KlasifikasiPaket::class, 'khs_id', 'id');
     }
 }

@@ -18,8 +18,8 @@
                             class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                     </a>
                     <!-- <a href="/kontrak-induk-khs/create-xlsx" class="btn btn-primary mr-auto ml-3">Tambah Kontrak Induk Via
-                                            Excel<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
-                                        </a> -->
+                                                Excel<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                                            </a> -->
                     <div class="input-group search-area position-relative">
                         <div class="input-group-append">
                             <span class="input-group-text"><a href="javascript:void(0)"><i
@@ -31,7 +31,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive" id="read">
-                        <table id="rincian-table" class="table table-responsive-md">
+                        <table id="tableRedaksi" class="table table-responsive-md">
                             <thead>
                                 <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
@@ -53,15 +53,21 @@
                                         <td align="center" valign="top" style="text-align: justify; vertical-align:top;">
                                             {{ $redaksi->deskripsi_redaksi }}</td>
                                         <td>
-                                            @if (count($redaksi->sub_redaksis) != null)
-                                                @foreach ($redaksi->sub_redaksis as $sub_redaksi)
+                                            @foreach ($redaksi->sub_redaksis as $sub_redaksi)
+                                                @if ($sub_redaksi->sub_deskripsi !== null)
                                                     <ol>
                                                         <li>
                                                             {{ $loop->iteration }}. {{ $sub_redaksi->sub_deskripsi }}
                                                         </li>
                                                     </ol>
-                                                @endforeach
-                                            @endif
+                                                @else
+                                                    <ol>
+                                                        <li>
+                                                            <i>Tidak ada Sub-Deskripsi
+                                                        </li>
+                                                    </ol>
+                                                @endif
+                                            @endforeach
                                         </td>
                                         <td align="center" valign="top" style="text-align: justify; vertical-align:top;">
                                             <div class="d-flex">
@@ -147,7 +153,6 @@
 
         });
     </script>
-@endsection
 
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -156,6 +161,33 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script data-require="jquery@2.1.1" data-semver="2.1.1"
     src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
+
+<script>
+    var tableRedaksi = $('#tableRedaksi').DataTable({
+        createdRow: function(row, data, index) {
+            $(row).addClass('selected')
+        }
+    });
+
+    // $('#filter-kontrak-induk-khs').on("change", function(event){
+    //     var jenis_khs = $('#filter-kontrak-induk-khs').val();
+    //     // console.log(category);
+    //     // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
+    //     tableKontrakInduk.columns(1).search(jenis_khs).draw();
+    // });
+
+    // $('#filter-kontrak-induk-vendor').on("change", function(event){
+    //     var nama_vendor = $('#filter-kontrak-induk-vendor').val();
+    //     // console.log(category);
+    //     // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
+    //     tableKontrakInduk.columns(4).search(nama_vendor).draw();
+    // });
+
+
+</script>
+@endsection
 
 
 <script>

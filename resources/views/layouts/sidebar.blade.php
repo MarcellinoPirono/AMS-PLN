@@ -63,6 +63,8 @@
                                      href="/addendum-khs">&ensp; &ensp; Addendum KHS</a></li>
                              <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
                                      href="/menu-paket-pekerjaan">&ensp; &ensp; Paket Pekerjaan </a></li>
+                             <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
+                                     href="/menu-klasifikasi-paket-pekerjaan">&ensp; &ensp; Klasifikasi Paket </a></li>
                          </ul>
                      </li>
                  </ul>
