@@ -27,12 +27,12 @@
                     </a>
 
 
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importExcel">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#importExcel">
                         Import Data (Excel) <i class="bi bi-upload"></i>
                     </button>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importExcel">
-                        Export Data (Excel) <i class="bi bi-download"></i>
-                    </button>
+                    <a href="/item-khs/{{ $jenis_khs }}/export" class="btn btn-success">Export Data (Excel) <i
+                        class="bi bi-plus-circle"></i>
+                    </a>
                     <input type="hidden" name="jenis_khs" id="jenis_khs" value="{{ $jenis_khs }}">
                     {{-- <div class="input-group search-area position-relative">
                         <div class="input-group-append">

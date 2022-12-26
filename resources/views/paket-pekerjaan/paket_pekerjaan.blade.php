@@ -26,6 +26,7 @@
                                         class="flaticon-381-search-2"></i></a></span>
                             <input type="search" id="search" name="search" class="form-control"
                                 placeholder="Search here..." />
+
                         </div>
                     </div>
                 </div>
@@ -34,20 +35,20 @@
                     <div class="table-responsive" id="read">
                         <table id="rincian-table" class="table table-responsive-md">
                             <thead>
-                                <tr align="center" valign="middle">
-                                    <th class="width80">No.</th>
-                                    <th>Nama Paket</th>
-                                    <th>Uraian Pekerjaan</th>
-                                    <th>Volume</th>
-                                    <th>Harga Satuan</th>
-                                    <th>Harga</th>
-                                    <th>Aksi</th>
+                                <tr align="center" valign="middle" style="vertical-align: middle">
+                                    <th class="width70" style="vertical-align: middle">No.</th>
+                                    <th style="vertical-align: middle">Nama Paket</th>
+                                    <th style="vertical-align: middle">Uraian Pekerjaan</th>
+                                    <th style="vertical-align: middle">Volume</th>
+                                    <th style="vertical-align: middle">Harga Satuan</th>
+                                    <th style="vertical-align: middle">Harga</th>
+                                    <th class="width70" style="vertical-align: middle">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="alldata">
                                 @foreach ($nama_paket as $paket)
-                                    <tr>
-                                        {{-- <input type="hidden" class="delete_id" value="{{ $paket->id }}"> --}}
+                                <tr>
+                                        <input type="hidden" id="slug" name="slug" class="slug" value="{{$paket->slug}}"/>
                                         <td align="center" valign="top" style="vertical-align: top;"><strong>{{ $loop->iteration }}</strong></td>
                                         <td valign="top" style="vertical-align: top;">{{ $paket->nama_paket }}</td>
                                         <td align="left" valign="top" style="vertical-align: top;">
@@ -194,7 +195,7 @@
         $('.btndelete').click(function(e) {
             e.preventDefault();
 
-            var deleteid = $(this).closest("tr").find('.delete_id').val();
+            var slug = $(this).closest("tr").find('.slug').val();
 
             swal({
                     title: "Apakah anda yakin?",
@@ -208,11 +209,12 @@
 
                         var data = {
                             "_token": $('input[name=_token]').val(),
-                            'id': deleteid,
+                            'slug': slug,
                         };
                         $.ajax({
                             type: "DELETE",
-                            url: "{{ url('kontrak-induk-khs') }}" + '/' + deleteid,
+                            url: "{{ url('paket-pekerjaan/' . $jenis_khs . '') }}" + '/' +
+                                        slug,
                             data: data,
                             success: function(response) {
                                 swal({
@@ -223,7 +225,8 @@
                                         buttons: false
                                     })
                                     .then((result) => {
-                                        location.reload();
+                                        window.location.href =
+                                                    "{{ url('paket-pekerjaan/' . $jenis_khs . '') }}";
                                     });
                             }
                         });

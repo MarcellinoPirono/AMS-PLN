@@ -186,7 +186,7 @@ class PaketPekerjaanController extends Controller
     public function edit(Request $request)
 
     {
-        // dd($request->all);
+        // dd($request['letter']);
         $jenis_khs = $request->jenis_khs;
         $slug = $request->slug;
         // dd($slug);
@@ -194,8 +194,23 @@ class PaketPekerjaanController extends Controller
         $items = RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'DESC')->get();
 
         $nama_paket = PaketPekerjaan::where('slug', $slug)->value('nama_paket');
+        $item_id = PaketPekerjaan::where('slug', $slug)->get();
+        $item_volumes = PaketPekerjaan::where('slug', $slug)->get('volume');
+        // dd($item_volumes);
 
+
+        $item_array = [];
+        // $volume_item_array = [];
+
+        for($i=0; $i < count($item_id); $i++){
+            $item_array[$i] = $item_id[$i]->item_id;
+            $volume_item_array[$i] = PaketPekerjaan::where('slug', $item_id[$i]->slug)->value('volume');
+        }
+
+        // dd($items);
+        // dd($volume_item_array);
         // dd($nama_paket);
+        // dd($item_id);
 
         $data = [
             'title' => 'Edit Paket Pekerjaan KHS ' .$jenis_khs. '',
@@ -203,7 +218,10 @@ class PaketPekerjaanController extends Controller
             'active1' => 'Edit ' . $jenis_khs . '',
             'jenis_khs' => $jenis_khs,
             'items' => $items,
-            'nama_paket' => $nama_paket
+            'nama_paket' => $nama_paket,
+            'item_ids' => $item_array,
+            // 'item_volumes' => $volume_item_array
+            'item_volumes' => $item_id
         ];
         return view('paket-pekerjaan.edit_paket_pekerjaan', $data);
     }
@@ -217,7 +235,54 @@ class PaketPekerjaanController extends Controller
      */
     public function update(UpdatePaketPekerjaanRequest $request, PaketPekerjaan $paketPekerjaan)
     {
-        //
+        // dd($request);
+
+        $slug = $request->slug;
+// dd($slug);
+        $jenis_khs = $request->khs_id;
+        $khs_id = Khs::select('id')->where('jenis_khs', $jenis_khs)->get();
+        // $request["khs_id"] = $khs_id[0]->id;
+
+        $request->validate([
+
+            'nama_paket' => 'required|max:250',
+            'item_id' => 'required',
+            'khs_id' => 'required',
+            'volume' => 'required',
+            'jumlah_harga' => 'required',
+
+        ]);
+
+        // dd($validate);
+
+        $banyak_item = count($request->item_id);
+
+        $paketPekerjaan = PaketPekerjaan::where('slug', $slug)->delete();
+
+
+        for($j=0; $j < $banyak_item; $j++){
+            $paket_pekerjaan_data = [
+                "nama_paket"=>$request->nama_paket,
+                "slug"=>$request->slug,
+                "khs_id"=>$request["khs_id"] = $khs_id[0]->id,
+                "item_id"=>$request->item_id[$j],
+                "volume"=>$request->volume[$j],
+                "jumlah_harga"=>$request->jumlah_harga[$j]
+            ];
+            PaketPekerjaan::create($paket_pekerjaan_data);
+        }
+
+        return response()->json($jenis_khs);
+
+
+        // $input = $request->all();
+        // $paket->update($input);
+
+
+
+
+
+
     }
 
     /**
@@ -226,9 +291,18 @@ class PaketPekerjaanController extends Controller
      * @param  \App\Models\PaketPekerjaan  $paketPekerjaan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PaketPekerjaan $paketPekerjaan)
+    public function destroy(Request $request, $slug)
     {
-        //
+        // dd($request);
+
+        $slug = $request->slug;
+
+        $paketPekerjaan = PaketPekerjaan::where('slug', $slug)->delete();
+
+        // dd($paketPekerjaan);
+
+        // $paketPekerjaan->delete();
+
     }
 
     public function getPaketPekerjaan(Request $request){

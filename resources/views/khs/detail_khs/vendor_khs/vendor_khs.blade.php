@@ -14,8 +14,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="/vendor-khs/create" class="btn btn-primary mr-auto ml-3">Tambah Vendor<span
-                            class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                    <a href="/vendor-khs/create" class="btn btn-primary mr-auto ml-3">Tambah Vendor <i class="fa fa-plus-circle"></i>
                     </a>
                     <a href="/vendor-khs/create-xlsx" class="btn btn-primary mr-auto ml-3">Tambah Vendor Via Excel<span
                             class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>

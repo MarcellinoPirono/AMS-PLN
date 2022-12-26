@@ -30,11 +30,11 @@
                             @endforeach
                         </select>
                     </div>
-                    <a href="/kontrak-induk-khs/create" class="btn btn-primary mr-auto ml-3">Tambah Kontrak Induk<span
-                            class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                    <a href="/kontrak-induk-khs/create" class="btn btn-primary mr-auto ml-3" style="font-size: 13px">Tambah Kontrak Induk <i class="fa fa-plus-circle"></i>
+
                     </a>
-                    <a href="/kontrak-induk-khs/create-xlsx" class="btn btn-primary mr-auto ml-3">Tambah Kontrak Induk Via
-                        Excel<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                    <a href="/kontrak-induk-khs/create-xlsx" class="btn btn-primary mr-auto ml-3" style="font-size: 13px">Tambah Kontrak Induk Via
+                        Excel <i class="fa fa-plus-circle"></i></span>
                     </a>
                     <!-- <div class="input-group search-area position-relative">
                         <div class="input-group-append">

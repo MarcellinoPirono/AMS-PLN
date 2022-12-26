@@ -4,8 +4,10 @@ namespace App\Imports;
 
 use App\Models\RincianInduk;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class ImportItem_SPAPP implements ToModel
+
+class ImportItem_SPAPP implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -15,11 +17,11 @@ class ImportItem_SPAPP implements ToModel
     public function model(array $row)
     {
         return new RincianInduk([
-         'khs_id'  => $row[1],
-         'kategori'   => $row[2],
-         'nama_item'   => $row[3],
-         'satuan_id'    => $row[4],
-         'harga_satuan'  => $row[5],
+         'khs_id'  => $row['khs_id'],
+         'kategori'   => $row['kategori'],
+         'nama_item'   => $row['nama_item'],
+         'satuan_id'    => $row['satuan'],
+         'harga_satuan'  => $row['harga_satuan'],
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RincianInduk;
+use App\Models\PaketPekerjaan;
 use App\Models\ItemRincianInduk;
 use \Http\Resources\RincianIndukResource;
 use App\Http\Requests\StoreRincianIndukRequest;
@@ -10,6 +11,7 @@ use App\Http\Requests\UpdateRincianIndukRequest;
 use App\Models\Khs;
 use App\Models\Satuan;
 use App\Imports\ImportItem_SPAPP;
+use App\Exports\RincianIndukExport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -152,6 +154,17 @@ class RincianIndukController extends Controller
     //  return back()->with('success', 'Excel Data Imported successfully.');
     }
 
+    public function export(Request $request)
+    {
+        $jenis_khs = $request->jenis_khs;
+        $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
+        // dd($khs_id);
+
+        return Excel::download(new RincianIndukExport($khs_id), 'Rincian Pekerjaan '.$jenis_khs.'.xlsx');
+
+
+    }
+
     /**
      * Display the specified resource.
      *
@@ -266,6 +279,8 @@ class RincianIndukController extends Controller
         // dd($request->id);
 
         $id=$request->id;
+        $paket = PaketPekerjaan::where('item_id', $id);
+// $paket
         // $rincianInduk = RincianInduk::find($id);
         // $rincianInduk->delete();
 
@@ -274,6 +289,7 @@ class RincianIndukController extends Controller
         // RincianInduk::where('nama_item', $nama_item)->delete();
         $rincianInduk = RincianInduk::find($id);
         // $sKK->prk()->delete();
+        $paket->delete();
         $rincianInduk->delete();
 
         // return redirect('/rincian')->with('success', 'Data berhasil dihapus!');

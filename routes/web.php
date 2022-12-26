@@ -55,6 +55,7 @@ Route::get('item-khs/{jenis_khs}', [RincianIndukController::class, 'jenis_khs'])
 Route::get('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'create']);
 Route::post('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'store']);
 Route::post('item-khs/{jenis_khs}/import', [RincianIndukController::class, 'import']);
+Route::get('item-khs/{jenis_khs}/export', [RincianIndukController::class, 'export']);
 Route::get('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'edit'])->name('item-khs.edit');
 Route::get('item-khs/{jenis_khs}/{id}', [RincianIndukController::class, 'destroy']);
 Route::any('item-khs/{jenis_khs}/filter', [RincianIndukController::class, 'filteritem']);
@@ -151,9 +152,9 @@ Route::get('paket-pekerjaan/{jenis_khs}/create', [PaketPekerjaanController::clas
 Route::post('paket-pekerjaan/{jenis_khs}/create', [PaketPekerjaanController::class, 'store']);
 Route::post('paket-pekerjaan/{jenis_khs}/import', [PaketPekerjaanController::class, 'import']);
 Route::get('paket-pekerjaan/{jenis_khs}/{slug}/edit', [PaketPekerjaanController::class, 'edit'])->name('paket-pekerjaan.edit');
-Route::get('paket-pekerjaan/{jenis_khs}/{id}', [PaketPekerjaanController::class, 'destroy']);
+Route::delete('paket-pekerjaan/{jenis_khs}/{slug}', [PaketPekerjaanController::class, 'destroy']);
 Route::any('paket-pekerjaan/{jenis_khs}/filter', [PaketPekerjaanController::class, 'filterPaket']);
-Route::put('paket-pekerjaan/{jenis_khs}/{id}/edit', [PaketPekerjaanController::class, 'update']);
+Route::put('paket-pekerjaan/{jenis_khs}/{slug}/edit', [PaketPekerjaanController::class, 'update']);
 
 Route::get('/getPaket', [PaketPekerjaanController::class, 'getPaketPekerjaan']);
 // Route::get('/paket-pekerjaan/createSlug', [PaketPekerjaanController::class, 'checkSlug']);
