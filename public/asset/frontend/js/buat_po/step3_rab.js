@@ -134,6 +134,20 @@ function updatelokasi() {
     cell2.appendChild(input1);
     cell3.appendChild(button);
     reindex2();
+    var lokasi_2 = [""];
+    for (var i = 0; i < clicklokasi; i++){
+        value_lokasi = document.getElementById('lokasi['+ (i + 1) +']').value
+        lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
+        "</option>")
+    }
+    console.log(clickpaket);
+    console.log(lokasi_2);
+    if(clickpaket != 0) {
+        for(var j = 0; j < clicklokasi; j++) {
+            document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+        }
+    }
+
     // alert("HALOOOO");
 }
 function deleteRow2(r) {

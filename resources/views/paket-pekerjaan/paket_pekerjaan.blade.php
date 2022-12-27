@@ -33,7 +33,7 @@
                 <div class="card-body">
 
                     <div class="table-responsive" id="read">
-                        <table id="rincian-table" class="table table-responsive-md">
+                        <table id="TabelListPaket" class="table table-responsive-md">
                             <thead>
                                 <tr align="center" valign="middle" style="vertical-align: middle">
                                     <th class="width70" style="vertical-align: middle">No.</th>
@@ -45,7 +45,7 @@
                                     <th class="width70" style="vertical-align: middle">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody class="alldata">
+                            <tbody>
                                 @foreach ($nama_paket as $paket)
                                 <tr>
                                         <input type="hidden" id="slug" name="slug" class="slug" value="{{$paket->slug}}"/>
@@ -62,7 +62,7 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td align="left" valign="top" style="vertical-align: top;">
+                                        <td align="center" valign="top" style="vertical-align: top;">
                                             @foreach ($pakets as $paket2)
                                                 @if ($paket2->nama_paket == $paket->nama_paket)
                                                     <ol type="1">
@@ -95,12 +95,12 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td align="left" valign="top" style="vertical-align: top;">
+                                        <td align="center" valign="top" style="vertical-align: top;">
                                             <div class="d-flex">
                                                 <a href="{{ route('paket-pekerjaan.edit', ['jenis_khs' => $jenis_khs, 'slug' => $paket->slug]) }}"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                <button class="btn btn-danger shadow btn-xs sharp btndelete" ><i
                                                         class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
@@ -109,9 +109,7 @@
 
                             </tbody>
                             </tbody>
-                            <tbody id="Content" class="searchdata">
 
-                            </tbody>
                         </table>
                         <div class="d-flex justify-content-center">
                             {{-- {{ $items->links() }} --}}
@@ -122,72 +120,26 @@
         </div>
     </div>
 
-    <!-- <script type="text/javascript">
-        $(".filter-kontrak-induk").on('change', function() {
-            let filter = this.value;
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                url: '{{ URL::to('kontrak-induk-khs/filter') }}',
-                method: "POST",
-                data: JSON.stringify({
-                    filter: filter,
-                    // '_token': token,
-                }),
-                headers: {
-                    'Accept': 'application/json',
-                    'content-Type': 'application/json'
-                },
-                success: function(data) {
-                    $('#read').html(data)
-                }
-            })
-        });
-    </script> -->
-
-    <script type="text/javascript">
-        $('#search').on('keyup', function() {
-            $value = $(this).val();
-
-            if ($value) {
-                $('.alldata').hide();
-                $('.searchdata').show();
-            } else {
-                $('.alldata').show();
-                $('.searchdata').hide();
-
-            }
-
-            $.ajax({
-
-                type: 'get',
-                url: '{{ URL::to('search-kontrak-induk') }}',
-                data: {
-                    'search': $value
-                },
-
-                success: function(data) {
-                    console.log(data);
-                    $('#Content').html(data);
-                }
-
-            });
-
-        });
-    </script>
-@endsection
-
-
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script data-require="jquery@2.1.1" data-semver="2.1.1"
     src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        var TabelListPaket = $('#TabelListPaket').DataTable({
+            createdRow: function(row, data, index) {
+                $(row).addClass('selected')
+            }
+        });
+        $('#filter-kategori').on("change", function(event) {
+            var categor = $('#filter-kategori').val();
+            tableItem.columns(2).search(categor).draw();
+        });
+    </script>
 
 
 <script>
@@ -244,18 +196,4 @@
     });
 </script>
 
-<script>
-    function displayVals(data) {
-        var val = data;
-        $.ajax({
-            type: "POST",
-            url: "{{ URL::to('kontrak-induk-khs/filter') }}",
-            data: {
-                khs_id: val
-            },
-            success: function(campaigns) {
-                $("#read").html(campaigns);
-            }
-        });
-    }
-</script>
+@endsection

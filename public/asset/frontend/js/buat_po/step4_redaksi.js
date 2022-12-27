@@ -130,7 +130,35 @@ function change_redaksi(c) {
 
         },
         success: function (response) {
-            document.getElementById("deskripsi_id[" + change + "]").value = response.deskripsi_redaksi;
+            document.getElementById("deskripsi_id[" + change + "]").innerHTML = response.deskripsi_redaksi;
+            // document.getElementById("sub_deskripsi_id[" + change + "]").value = response.sub_deskripsi;
+
+
+        }
+    })
+    $.ajax({
+        url: '/getSubDeskripsi',
+        type: "POST",
+
+        // "headers": { 'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content') },
+        data: {
+            'redaksi_id':  redaksi_id,
+            '_token' : token,
+
+                //   headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content'), '_method': 'patch'},
+
+        },
+        success: function (response) {
+            var sub_deskripsi = [""];
+            // document.getElementById("deskripsi_id[" + change + "]").innerHTML = response.deskripsi_redaksi;
+            for (i = 0; i < response['sub_deskripsi'].length; i++) {
+                sub_deskripsi += ("<li>" + response['sub_deskripsi'][i].
+
+
+
+                +
+                    "</li>")
+            }
             document.getElementById("sub_deskripsi_id[" + change + "]").value = response.sub_deskripsi;
 
 

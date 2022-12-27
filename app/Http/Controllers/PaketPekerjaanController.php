@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaketPekerjaan;
+use App\Models\KontrakInduk;
 use App\Models\RincianInduk;
 use App\Models\Khs;
 use App\Http\Requests\StorePaketPekerjaanRequest;
@@ -306,9 +307,26 @@ class PaketPekerjaanController extends Controller
     }
 
     public function getPaketPekerjaan(Request $request){
-        $paketPekerjaan = PaketPekerjaan::all();
+        $kontrak_induk_id = $request->post('kontrak_induk');
+        $khs_id = KontrakInduk::where('id', $kontrak_induk_id)->value('khs_id');
 
-        return response()->json($paketPekerjaan);
+        $klasifikasipaket = DB::table('klasifikasi_pakets')->where('khs_id', $khs_id)->get();
+
+        $paket_pekerjaan = PaketPekerjaan::select('nama_paket')->where('khs_id', $khs_id)->groupBy('nama_paket')->get();
+
+
+        $data = [
+            'klasifikasis' => $klasifikasipaket,
+            'paket_pekerjaan' => $paket_pekerjaan,
+
+        ];
+
+        // dd($data);
+
+
+
+
+        return response()->json($data);
     }
 
     // public function checkSlug(Request $request){

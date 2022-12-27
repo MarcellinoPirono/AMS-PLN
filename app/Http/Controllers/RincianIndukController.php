@@ -11,7 +11,9 @@ use App\Http\Requests\UpdateRincianIndukRequest;
 use App\Models\Khs;
 use App\Models\Satuan;
 use App\Imports\ImportItem_SPAPP;
+use App\Imports\MultiSheetImport;
 use App\Exports\RincianIndukExport;
+use App\Exports\MultiSheetExport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -91,16 +93,17 @@ class RincianIndukController extends Controller
         $jenis_khs = $request->khs_id;
         $khs_id = Khs::select('id')->where('jenis_khs', $jenis_khs)->get();
         $request["khs_id"] = $khs_id[0]->id;
+        // dd($request);
 
         $validatedData = $request->validate([
-
             'nama_item' => 'required|max:250',
             'kategori' => 'required',
             'khs_id' => 'required',
             'satuan_id' => 'required',
             'harga_satuan' => 'required',
-
+            'tkdn' => 'required'
         ]);
+        // dd($validatedData);
 
         RincianInduk::create($validatedData);
         return redirect('/menu-item-khs')->with('success', 'Item KHS Berhasil Ditambahkan');
@@ -108,8 +111,10 @@ class RincianIndukController extends Controller
 
     function import(Request $request)
     {
+    // dd($request);
 
-     $this->validate($request, [
+
+     $request->validate([
       'select_file'  => 'required|mimes:xls,xlsx'
      ]);
 
@@ -120,7 +125,9 @@ class RincianIndukController extends Controller
     $file->move('file_itemspapp', $nama_file);
 
 
-    $import = Excel::import(new ImportItem_SPAPP, public_path('/file_itemspapp/'.$nama_file));
+    $import = new MultiSheetImport();
+    $import->onlySheets(0);
+    Excel::import($import, public_path('/file_itemspapp/'.$nama_file));
 
     // Session::flash('sukses','Data Siswa Berhasil Diimport!');
 
@@ -159,8 +166,10 @@ class RincianIndukController extends Controller
         $jenis_khs = $request->jenis_khs;
         $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
         // dd($khs_id);
+        $sheets = ['Item KHS', 'Satuan'];
+        // dd($khs_id);
 
-        return Excel::download(new RincianIndukExport($khs_id), 'Rincian Pekerjaan '.$jenis_khs.'.xlsx');
+        return Excel::download(new MultiSheetExport($sheets, $khs_id), 'Template Import '.$jenis_khs.'.xlsx');
 
 
     }
@@ -203,19 +212,6 @@ class RincianIndukController extends Controller
             'id_item' => $id_item
         ];
         return view('khs.detail_khs.item_khs.edit_item_khs', $data);
-
-        // // return $rincianInduk;
-        // $items = RincianInduk::findOrFail($id);
-
-        // // return $items;
-
-        // return view('rincian.edit', [
-        //     'title' => 'Item Kontrak Induk',
-        //     'active' => 'Rincian Item',
-        //     'active1' => 'Edit Rincian Item',
-        //     // 'kontraks' => ItemRincianInduk::all(),
-        //     'items' => $items,
-        // ]);
     }
 
     /**
@@ -240,6 +236,7 @@ class RincianIndukController extends Controller
             'khs_id' => 'required',
             'satuan_id' => 'required',
             'harga_satuan' => 'required',
+            'tkdn' => 'required'
 
         ]);
 

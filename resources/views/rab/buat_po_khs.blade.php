@@ -263,11 +263,11 @@
                                                         <div class="custom-file">
                                                             <input id="lampiran" type="file" name="lampiran"
                                                                 class="form-control custom-file-input"
-                                                                onchange="previewImage()" required />
+                                                                onchange="previewImage()" />
                                                             <label class="custom-file-label">Choose or Drag file</label>
                                                         </div>
                                                     </div>
-                                                    <img class="ml-3" src="#" id="img-lampiran" width="300px" />
+                                                    <img class="m-auto justify-content-center" src="#" id="img-lampiran" width="300px" />
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -510,7 +510,6 @@
                                                                         <th>Redaksi</th>
                                                                         <th>Deskripsi</th>
                                                                         <th>Sub Deskripsi</th>
-
                                                                         <th>Aksi</th>
                                                                     </tr>
                                                                 </thead>
@@ -521,7 +520,7 @@
                                                                         <td><select name="redaksi_id" id="redaksi_id[1]"
                                                                                 class="form-control input-default"
                                                                                 onchange="change_redaksi(this)"
-                                                                                style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                                                style="height: 60px !important ; width: 200px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
                                                                                 required>
                                                                                 <option value="" selected disabled
                                                                                     required>Pilih Redaksi</option>
@@ -532,13 +531,20 @@
                                                                                 @endforeach
                                                                             </select></td>
                                                                         <td>
+                                                                            <p id="deskripsi_id[1]" name="deskripsi_id">Pilih Redaksi Terlebih Dahulu</p>
+                                                                        </td>
+                                                                        <!-- <td>
                                                                             <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
                                                                                 placeholder="Deskripsi" value="" disabled required></textarea>
-                                                                        </td>
+                                                                        </td> -->
                                                                         <td>
-                                                                            <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
-                                                                                placeholder="Su" value="" disabled required></textarea>
+                                                                            <ol type="a" id="sub_deskripsi_id[1]">
+                                                                            </ol>
                                                                         </td>
+                                                                        <!-- <td>
+                                                                            <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
+                                                                                placeholder="Sub Deskripsi" value="" disabled required></textarea>
+                                                                        </td> -->
 
                                                                         <td><button onclick="deleteRow1(this)"
                                                                                 class="btn btn-danger shadow btn-xs sharp"><i

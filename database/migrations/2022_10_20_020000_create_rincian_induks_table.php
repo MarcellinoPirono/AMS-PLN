@@ -26,6 +26,7 @@ return new class extends Migration
             // $table->string('satuan');
             $table->foreignId('satuan_id');
             $table->double('harga_satuan');
+            $table->double('tkdn')->nullable();
             $table->timestamps();
         });
     }

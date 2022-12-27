@@ -20,8 +20,9 @@ class ImportItem_SPAPP implements ToModel, WithHeadingRow
          'khs_id'  => $row['khs_id'],
          'kategori'   => $row['kategori'],
          'nama_item'   => $row['nama_item'],
-         'satuan_id'    => $row['satuan'],
+         'satuan_id'    => $row['satuan_id'],
          'harga_satuan'  => $row['harga_satuan'],
+         'tkdn'  => $row['tkdn'],
         ]);
     }
 }

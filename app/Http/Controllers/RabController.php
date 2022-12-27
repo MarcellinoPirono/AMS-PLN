@@ -20,6 +20,7 @@ use App\Models\Vendor;
 use App\Models\OrderKhs;
 use App\Models\OrderRedaksiKHS;
 use App\Models\Redaksi;
+use App\Models\SubRedaksi;
 use App\Models\Satuan;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -799,5 +800,17 @@ class RabController extends Controller
         // dd($deskripsi);
 
         return response()->json($deskripsi);
+    }
+    public function getSubDeskripsi(Request $request){
+        $redaksi_id = $request->post('redaksi_id');
+
+        // dd($redaksi_id);
+        $sub_deskripsi = SubRedaksi::where('redaksi_id', $redaksi_id)->get('sub_deskripsi');
+
+
+        // $sub_redaksi = DB::table('sub_redaksis')->where('sub_deskripsi', $sub_deskripsi)->get();
+        // dd($sub_deskripsi);
+
+        return response()->json($sub_deskripsi);
     }
 }

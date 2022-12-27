@@ -59,6 +59,12 @@
                                         class="form-control input-default validate2"
                                         placeholder="Harga Satuan" name="harga_satuan" id="harga_satuan" required autofocus>
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label class="text-label">TKDN (%) :</label>
+                                    <input type="text"
+                                        class="form-control input-default validate2"
+                                        placeholder="TKDN" name="TKDN" id="TKDN">
+                                </div>
                             </div>
                             <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Tambah</button>
                         </form>
@@ -67,6 +73,53 @@
             </div>
         </div>
     </div>
+    <script>
+        var tkdn = document.getElementById('TKDN');
+
+        tkdn.addEventListener('input', function (prev) {
+            return function (evt) {
+                if(this.value.charAt(0) == "1") {
+                    if(this.value.charAt(1) == "0") {
+                        if(this.value.charAt(2) == "0") {
+                            if(this.value.charAt(3) == ",") {
+                                this.value = prev;
+                            } else {
+                                if (!/^\d{0,3}(?:\,\d{0,2})?$/.test(this.value)) {
+                                    this.value = prev;
+                                }
+                                else {
+                                    prev = this.value;
+                                }
+                            }
+                        } else {
+                            if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                                this.value = prev;
+                            }
+                            else {
+                                prev = this.value;
+                            }
+                        }
+                    } else {
+                        if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                            this.value = prev;
+                        }
+                        else {
+                            prev = this.value;
+                        }
+                    }
+                } else if (this.value.charAt(0) == "," || this.value.charAt(0) == "0"){
+                    this.value = "";
+                } else {
+                    if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                        this.value = prev;
+                    }
+                    else {
+                        prev = this.value;
+                    }
+                }
+            };
+        }(tkdn.value), false);
+    </script>
 @endsection
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -196,14 +249,11 @@
                 }
             },
 
-            errorPlacement: function(error, element)
-            {
-                if ( element.attr("name") == "kategori" )
-                {
+            errorPlacement: function(error, element) {
+                if ( element.attr("name") == "kategori" ) {
                     error.appendTo("#radioerror");
                 }
-                else
-                { // This is the default behavior
+                else { // This is the default behavior
                     error.insertAfter( element );
                 }
             },
@@ -215,8 +265,11 @@
                 var nama_item = $("#nama_item").val();
                 var satuan_id = $("#satuan_id").val();
                 var harga_satuan = $("#harga_satuan").val();
+                var tkdn = $("#TKDN").val();
                 harga_satuan = harga_satuan.replace(/\./g, "");
                 harga_satuan = parseInt(harga_satuan);
+                tkdn = tkdn.replace(/\,/g, ".");
+                tkdn = parseFloat(tkdn);
 
                 var data = {
                     "_token": token,
@@ -225,6 +278,7 @@
                     "nama_item": nama_item,
                     "satuan_id": satuan_id,
                     "harga_satuan": harga_satuan,
+                    "tkdn": tkdn,
                 };
                 $.ajax({
                     type: 'POST',

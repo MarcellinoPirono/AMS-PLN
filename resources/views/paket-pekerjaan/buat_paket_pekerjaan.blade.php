@@ -16,7 +16,7 @@
                 </div>
                 <div class="m-auto" style="width:97%;">
                     <!-- <div class="tab-content mt-3 tab-flex">
-                    </div> -->
+                        </div> -->
                     <div id="informasi_umum" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                         <form name="valid_paket" id="valid_paket" action="#">
                             <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
@@ -25,7 +25,8 @@
                             <div class="row m-auto">
                                 <div class="col-lg-6 mb-2">
                                     <div class="form-group">
-                                        <label for="first-name" class="form-label mt-2" style="color: black">Input Nama Paket</label>
+                                        <label for="first-name" class="form-label mt-2" style="color: black">Input Nama
+                                            Paket</label>
                                         <input type="text" class="form-control input-default" id="nama_paket"
                                             name="nama_paket" value="{{ old('nama_paket') }}" placeholder="Nama Paket"
                                             required autofocus>
@@ -43,7 +44,8 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label class="text-label" style="color: black; margin-bottom: -10px">Pilih Item Pekerjaan <br></label>
+                                    <label class="text-label" style="color: black; margin-bottom: -10px">Pilih Item
+                                        Pekerjaan <br></label>
                                 </div>
                                 <div id="checkboxerror"></div>
                             </div>

@@ -108,10 +108,10 @@ const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
                 $("#next-btn").removeClass('disabled').prop('disabled', false);
                 if (stepPosition === 'first') {
                     // alert(clicklokasi);
-                    var new_click = clicklokasi - 1;
-                    for (var i = 0; i < new_click; i++) {
-                        document.getElementById('location' + (i + 1)).remove();
-                    }
+                    // var new_click = clicklokasi - 1;
+                    // for (var i = 0; i < new_click; i++) {
+                    //     document.getElementById('location' + (i + 1)).remove();
+                    // }
 
 
                     $("#prev-btn").addClass('disabled').prop('disabled', true);
@@ -327,6 +327,10 @@ const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
                         lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
                             "</option>")
                     }
+                    // for(var j = 0; j < clicklokasi; j++) {
+                    //     document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+                    // }
+                    // console.log(lokasi_2);
                     // document.getElementById('lokasi_id[1]').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
                     // // console.log(lokasi_2);
                     // for (var i = 0; i < new_click; i++) {

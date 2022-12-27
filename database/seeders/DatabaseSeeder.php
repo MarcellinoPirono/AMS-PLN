@@ -42,7 +42,8 @@ class DatabaseSeeder extends Seeder
             SatuanSeeder::class,
             RedaksiSeeder::class,
             PejabatSeeder::class,
-            SubRedaksiSeeder::class
+            SubRedaksiSeeder::class,
+            KlasifikasiSeeder::class
         ]);
 
 

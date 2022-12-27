@@ -121,10 +121,8 @@ function change_redaksi(c) {
         "headers": { 'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content') },
         data: 'redaksi_id=' + redaksi_id,
         success: function (response) {
-            document.getElementById("deskripsi_id[" + change + "]").value = response.deskripsi_redaksi;
+            document.getElementById("deskripsi_id[" + change + "]").innerHTML = response.deskripsi_redaksi;
             document.getElementById("sub_deskripsi_id[" + change + "]").value = response.sub_deskripsi;
-
-
         }
     })
 }

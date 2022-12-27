@@ -131,6 +131,7 @@ Route::post('/getAddendum', [RabController::class, 'getAddendum']);
 Route::post('/getVendor', [RabController::class, 'getVendor']);
 Route::get('/getRedaksi', [RabController::class, 'getRedaksi']);
 Route::post('/getDeskripsi', [RabController::class, 'getDeskripsi']);
+Route::post('/getSubDeskripsi', [RabController::class, 'getSubDeskripsi']);
 
 Route::resource('prk', PrkController::class);
 Route::any('prk/filter', [PrkController::class, 'filterprk']);
@@ -156,7 +157,7 @@ Route::delete('paket-pekerjaan/{jenis_khs}/{slug}', [PaketPekerjaanController::c
 Route::any('paket-pekerjaan/{jenis_khs}/filter', [PaketPekerjaanController::class, 'filterPaket']);
 Route::put('paket-pekerjaan/{jenis_khs}/{slug}/edit', [PaketPekerjaanController::class, 'update']);
 
-Route::get('/getPaket', [PaketPekerjaanController::class, 'getPaketPekerjaan']);
+Route::post('/getPaket', [PaketPekerjaanController::class, 'getPaketPekerjaan']);
 // Route::get('/paket-pekerjaan/createSlug', [PaketPekerjaanController::class, 'checkSlug']);
 
 //Paket Pekerjaan
@@ -170,7 +171,7 @@ Route::get('klasifikasi-paket-pekerjaan/{jenis_khs}/{id}', [KlasifikasiPaketCont
 Route::any('klasifikasi-paket-pekerjaan/{jenis_khs}/filter', [KlasifikasiPaketController::class, 'filterPaket']);
 Route::put('klasifikasi-paket-pekerjaan/{jenis_khs}/{id}/edit', [KlasifikasiPaketController::class, 'update']);
 
-Route::get('/getPaket', [KlasifikasiPaketController::class, 'getPaketPekerjaan']);
+// Route::get('/getPaket', [KlasifikasiPaketController::class, 'getPaketPekerjaan']);
 
 
 

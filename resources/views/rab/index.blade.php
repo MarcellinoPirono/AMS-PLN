@@ -12,18 +12,13 @@
                                         <a class="dropdown-item" href="javascript:void()">Februari</a>
                                     </div>
                                 </div>
-                                <a href="/po-khs/buat-po" type="button" class="btn btn-primary mr-auto ml-3 ">Buat Kontrak (PO) <i class="bi bi-pencil-square"></i>
+                                <a href="/po-khs/buat-po" type="button" class="btn btn-primary mr-auto ml-3">Buat Kontrak (PO) <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <div class="input-group search-area position-relative">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
-                                    </div>
-                                    <input id="search" type="search" name="search" class="form-control" placeholder="Search here..." />
-                                </div>
+
                             </div>
                             <div id="" class="card-body">
                             <div class="table-responsive">
-                                    <table class="table table-responsive-md" id="read">
+                                    <table class="table table-responsive-md" id="ListTabelRab">
                                         <thead>
                                             <tr align="center" valign="middle">
                                                 <th class="width80">No.</th>
@@ -83,35 +78,27 @@
                         </div>
                     </div>
 </div>
-<script type="text/javascript">
-    $('#search').on('keyup',function(){
-        $value=$(this).val();
 
-        if($value){
-            $('.alldata').hide();
-            $('.searchdata').show();
-        }
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+<script data-require="jquery@2.1.1" data-semver="2.1.1"
+    src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-        else{
-            $('.alldata').show();
-            $('.searchdata').hide();
+    <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
 
-        }
+    <script>
+        var ListTabelRab = $('#ListTabelRab').DataTable({
+            createdRow: function(row, data, index) {
+                $(row).addClass('selected')
+            }
+        });
+        $('#filter-kategori').on("change", function(event) {
+            var categor = $('#filter-kategori').val();
+            tableItem.columns(2).search(categor).draw();
+        });
+    </script>
 
-    $.ajax({
-
-        type: 'get',
-        url:'{{URL::to('search-pokhs') }}',
-        data:{'search':$value},
-
-        success:function(data){
-            console.log(data);
-            $('#Content').html(data);
-        }
-
-    });
-
-    });
-</script>
 @endsection
 
