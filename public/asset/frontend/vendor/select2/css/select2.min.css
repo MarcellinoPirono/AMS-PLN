@@ -172,7 +172,7 @@
     height: 60px !important;
     word-wrap: break-word !important;
     white-space: normal !important;
-    width: 300px !important;
+    width: 100% !important;
     word-break: break-all !important;
 }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ItemRincianInduk;
 use App\Models\KontrakInduk;
 use App\Models\RincianInduk;
+use App\Models\PaketPekerjaan;
 use App\Models\Skk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -137,7 +138,7 @@ public function create()
         $sKK = SKK::find($id);
         $sKK->prks()->delete();
         $sKK->delete();
-        
+
         return response()->json([
             'success'   => true
         ]);
@@ -176,9 +177,16 @@ public function create()
         $kontrak_induk_id = $request->post('kontrak_induk');
         $kontrak_induk = KontrakInduk::where('id', $kontrak_induk_id)->value('khs_id');
         $nama_item = DB::table('rincian_induks')->where('khs_id',$kontrak_induk)->get();
-        return response()->json($nama_item);
+        // $klasifikasis = DB::table('klasifikasi_pakets')->where('khs_id',$kontrak_induk)->get();
+        $paket = PaketPekerjaan::select('nama_paket', 'slug')->where('khs_id', $kontrak_induk)->groupBy('nama_paket', 'slug')->get();
+
+        $data = [
+            "items" => $nama_item,
+            "pakets" => $paket,
+        ];
+        return response()->json($data);
     }
-    
+
     public function getCategory(Request $request)
     {
         $kategory_id = $request->post('kategory_id');
@@ -222,8 +230,8 @@ public function create()
             <td>'. $skk->skk_terkontrak.' </td>
             <td>'. $skk->skk_realisasi.' </td>
             <td>'. $skk->skk_terbayar.' </td>
-            <td>'. $skk->skk_sisa.' </td>                     
-            <td>'. ' 
+            <td>'. $skk->skk_sisa.' </td>
+            <td>'. '
             <div class="d-flex">
             <a href="/skk/'.$skk->id.'/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
             <a href="#" data-toggle="modal" data-target="#deleteModal{{ $skk->id }}"><i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>

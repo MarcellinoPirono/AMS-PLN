@@ -1,4 +1,4 @@
-@import url("./../icons/simple-line-icons/css/simple-line-icons.css");
+    @import url("./../icons/simple-line-icons/css/simple-line-icons.css");
 @import url("./../icons/font-awesome-old/css/font-awesome.min.css");
 @import url("./../icons/material-design-iconic-font/css/materialdesignicons.min.css");
 @import url("./../icons/themify-icons/css/themify-icons.css");
@@ -54494,4 +54494,16 @@ table#rincian {
 
 #img-lampiran {
     display:none;
+}
+
+.tabel-daftar{
+    display: block;
+    overflow: auto;
+    width: 1600px;
+}
+
+.tabel-daftar1{
+    display: block;
+    width: 1600px;
+    overflow: hidden;
 }

@@ -16,9 +16,10 @@ let token = $('#csrf').val();;
 
         },
         success: function (response) {
-        console.log(response['klasifikasis']);
+        // console.log(response);
+        // console.log(response['klasifikasis']);
         var paket = [""];
-        var Klasifikasi = [""];
+        // var Klasifikasi = [""];
 
         var lokasi_2 = [""];
         // var new_click = clicklokasi - 1;
@@ -29,13 +30,13 @@ let token = $('#csrf').val();;
             "</option>")
         }
         for (i = 0; i < response['paket_pekerjaan'].length; i++) {
-            paket += ("<option value='" + response['paket_pekerjaan'][i].id + "'>" + response['paket_pekerjaan'][i].nama_paket +
+            paket += ("<option value='" + response['paket_pekerjaan'][i].slug + "'>" + response['paket_pekerjaan'][i].nama_paket +
                 "</option>")
         }
-        for (i = 0; i < response['klasifikasis'].length; i++) {
-            Klasifikasi += ("<option value='" + response['klasifikasis'][i].id + "'>" + response['klasifikasis'][i].nama_klasifikasi +
-                "</option>")
-        }
+        // for (i = 0; i < response['klasifikasis'].length; i++) {
+        //     Klasifikasi += ("<option value='" + response['klasifikasis'][i].id + "'>" + response['klasifikasis'][i].nama_klasifikasi +
+        //         "</option>")
+        // }
     // alert(lokasi_2)
         // document.getElementById('lokasi_id[1]').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
 
@@ -56,7 +57,7 @@ let token = $('#csrf').val();;
         select1.setAttribute("name", "lokasi_id");
         select1.setAttribute("class", "form-control input-default");
         // select1.setAttribute("onchange", "change_redaksi(this)");
-        // select1.setAttribute("required", true);
+        select1.setAttribute("required", true);
 
 
         var select2 = document.createElement("select");
@@ -64,21 +65,28 @@ let token = $('#csrf').val();;
         select2.setAttribute("id", "paket_id[" + clickpaket + "]");
         select2.setAttribute("name", "paket_id");
         select2.setAttribute("class", "form-control input-default");
-        // select2.setAttribute("onchange", "change_redaksi(this)");
-        // select2.setAttribute("required", true);
+        select2.setAttribute("onchange", "change_paket(this)");
+        select2.setAttribute("required", true);
 
-        var select3 = document.createElement("select");
-        select3.innerHTML = "<option value='' selected disabled>Pilih Klasifikasi</option>" + Klasifikasi;
-        select3.setAttribute("id", "klasifikasi_id[" + clickpaket + "]");
-        select3.setAttribute("name", "klasifikasi_id");
-        select3.setAttribute("class", "form-control input-default");
+        var input3 = document.createElement("input");
+        input3.setAttribute("type", "text");
+        input3.setAttribute("class", "form-control volume_paket");
+        input3.setAttribute("id", "volume_paket[" + clickpaket + "]");
+        input3.setAttribute("name", "volume_paket");
+        input3.setAttribute("placeholder", "Volume");
+        input3.setAttribute("value", "");
+        input3.setAttribute("onblur", "blur_volume_paket(this)");
+        input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
+        input3.setAttribute("onkeyup", "format(this)");
+        input3.setAttribute("required", true);
         // select3.setAttribute("onchange", "change_redaksi(this)");
         // select3.setAttribute("required", true);
 
         var button = document.createElement("button");
         button.innerHTML = "<i class='fa fa-trash'></i>";
         button.setAttribute("onclick", "deletePaket(this)");
-        button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
+        button.setAttribute("class", "btn btn-danger shadow btn-xs sharp m-auto");
+        // button.setAttribute("style", "align: center;");
 
     // console.log(select1);
 
@@ -92,7 +100,7 @@ let token = $('#csrf').val();;
         cell1.innerHTML = "1";
         cell2.appendChild(select1);
         cell3.appendChild(select2);
-        cell4.appendChild(select3);
+        cell4.appendChild(input3);
         cell5.appendChild(button);
 
         reindexPaket();
@@ -118,9 +126,9 @@ function deletePaket(r) {
         select_paket_id[i].id = "paket_id[" + (i + 1) + "]";
     }
 
-    var select_klasifikasi_id = document.querySelectorAll("#tabelPaket tr td:nth-child(4) select");
-    for (var i = 0; i < select_klasifikasi_id.length; i++) {
-        select_klasifikasi_id[i].id = "klasifikasi_id[" + (i + 1) + "]";
+    var input_volume = document.querySelectorAll("#tabelPaket tr td:nth-child(4) input");
+    for (var i = 0; i < input_volume.length; i++) {
+        input_volume[i].id = "volume[" + (i + 1) + "]";
     }
 
     reindexPaket();
@@ -139,6 +147,45 @@ function reindexPaket() {
     });
 }
 
+function change_paket(c) {
+    var change = c.parentNode.parentNode.rowIndex;
+    var nama_paket = document.getElementById("paket_id[" + change + "]").value;
+    let token = $('#csrf').val()
+    console.log(nama_paket);
+
+    $.ajax({
+        url: '/change-paket',
+        type: "POST",
+        data: {
+            'nama_paket': nama_paket,
+            '_token': token,
+        },
+        success: function (response) {
+            console.log(response);
+            // for(var i = 0; i < clickpaket; i++) {
+            // }
+            // table=document.getElementById("tabelRAB");
+            // tbody = document.createElement("tbody");
+            // for(var i = 0; i < response["items"].length; i++){
+            //     tr = document.createElement("tr");
+            //     for(var j = 0; j < 8; j++){
+            //         td = document.createElement("td");
+            //         input1 = document.create
+            //     }
+            // }
+// for(var i = 0; i < )
+//             }
+
+            // console.log(response);
+
+            // alert("Halo")
+        }
+    })
+
+
+
+
+}
 // function change_redaksi(c) {
 
 

@@ -23,6 +23,73 @@ class PaketPekerjaanSeeder extends Seeder
             'volume' => '1',
             'jumlah_harga' => '170300',
         ]);
+        PaketPekerjaan::create([
+            'nama_paket' => 'Tiang Besi 11 Meter / 200 daN',
+            'slug' => '-',
+            'khs_id' => '2',
+            'item_id' => '768',
+            'volume' => '1',
+            'jumlah_harga' => '243890',
+        ]);
+        PaketPekerjaan::create([
+            'nama_paket' => 'Tiang Besi 11 Meter / 200 daN',
+            'slug' => '-',
+            'khs_id' => '2',
+            'item_id' => '768',
+            'volume' => '1',
+            'jumlah_harga' => '267900',
+        ]);
+        PaketPekerjaan::create([
+            'nama_paket' => 'Tiang Besi 11 Meter / 200 daN',
+            'slug' => '-',
+            'khs_id' => '2',
+            'item_id' => '768',
+            'volume' => '1',
+            'jumlah_harga' => ' 1076490',
+        ]);
+        PaketPekerjaan::create([
+            'nama_paket' => 'Penarikan kawat JTM 3 phasa ( HIC 150 mm2)',
+            'slug' => '-',
+            'khs_id' => '2',
+            'item_id' => '768',
+            'volume' => '6',
+            'jumlah_harga' => ' 109390',
+        ]);
+        PaketPekerjaan::create([
+            'nama_paket' => 'Penarikan kawat JTM 3 phasa ( HIC 150 mm2)',
+            'slug' => '-',
+            'khs_id' => '2',
+            'item_id' => '768',
+            'volume' => '1',
+            'jumlah_harga' => '7768140',
+        ]);
+        PaketPekerjaan::create([
+            'nama_paket' => 'Penarikan kawat JTM 3 phasa ( HIC 150 mm2)',
+            'slug' => '-',
+            'khs_id' => '2',
+            'item_id' => '768',
+            'volume' => '6',
+            'jumlah_harga' => '157920',
+        ]);
+
+        PaketPekerjaan::create([
+            'nama_paket' => 'Penarikan kawat JTM 3 phasa ( HIC 70 mm2)',
+            'slug' => '-',
+            'khs_id' => '2',
+            'item_id' => '768',
+            'volume' => '6',
+            'jumlah_harga' => '854520',
+        ]);
+        PaketPekerjaan::create([
+            'nama_paket' => 'Penarikan kawat JTM 3 phasa ( HIC 70 mm2)',
+            'slug' => '-',
+            'khs_id' => '2',
+            'item_id' => '768',
+            'volume' => '1',
+            'jumlah_harga' => ' 6473450
+            ',
+        ]);
+
 
     //     public function up()
     // {

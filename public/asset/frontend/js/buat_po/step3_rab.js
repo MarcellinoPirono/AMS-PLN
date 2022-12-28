@@ -84,6 +84,16 @@ function updateform() {
             input5.setAttribute("readonly", true);
             input5.setAttribute("disabled", true);
             input5.setAttribute("required", true);
+            var input6 = document.createElement("input");
+            input6.setAttribute("type", "text");
+            input6.setAttribute("class", "form-control tkdn");
+            input6.setAttribute("id", "tkdn[" + click + "]");
+            input6.setAttribute("name", "tkdn");
+            input6.setAttribute("placeholder", "TKDN");
+            input6.setAttribute("value", "");
+            input6.setAttribute("readonly", true);
+            input6.setAttribute("disabled", true);
+            input6.setAttribute("required", true);
             var button = document.createElement("button");
             button.innerHTML = "<i class='fa fa-trash'></i>";
             button.setAttribute("onclick", "deleteRow(this)");
@@ -97,6 +107,7 @@ function updateform() {
             var cell6 = row.insertCell(5);
             var cell7 = row.insertCell(6);
             var cell8 = row.insertCell(7);
+            var cell9 = row.insertCell(8);
             cell1.innerHTML = "1";
             cell2.appendChild(select1);
             cell3.appendChild(input1);
@@ -104,7 +115,8 @@ function updateform() {
             cell5.appendChild(input3);
             cell6.appendChild(input4);
             cell7.appendChild(input5);
-            cell8.appendChild(button);
+            cell8.appendChild(input6);
+            cell9.appendChild(button);
 
             $('.multi-select').select2()
 
@@ -122,6 +134,7 @@ function updatelokasi() {
     input1.setAttribute("name", "lokasi");
     input1.setAttribute("placeholder", "Lokasi");
     input1.setAttribute("required", true);
+    input1.setAttribute("onblur", 'blur_lokasi(this)');
     var button = document.createElement("button");
     button.innerHTML = "<i class='fa fa-trash'></i>";
     button.setAttribute("onclick", "deleteRow2(this)");
@@ -134,19 +147,19 @@ function updatelokasi() {
     cell2.appendChild(input1);
     cell3.appendChild(button);
     reindex2();
-    var lokasi_2 = [""];
-    for (var i = 0; i < clicklokasi; i++){
-        value_lokasi = document.getElementById('lokasi['+ (i + 1) +']').value
-        lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
-        "</option>")
-    }
-    console.log(clickpaket);
-    console.log(lokasi_2);
-    if(clickpaket != 0) {
-        for(var j = 0; j < clicklokasi; j++) {
-            document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
-        }
-    }
+    // var lokasi_2 = [""];
+    // for (var i = 0; i < clicklokasi; i++){
+    //     value_lokasi = document.getElementById('lokasi['+ (i + 1) +']').value
+    //     lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
+    //     "</option>")
+    // }
+    // // console.log(clickpaket);
+    // // console.log(lokasi_2);
+    // if(clickpaket != 0) {
+    //     for(var j = 0; j < clicklokasi; j++) {
+    //         document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+    //     }
+    // }
 
     // alert("HALOOOO");
 }
@@ -197,6 +210,10 @@ function deleteRow(r) {
     var select_id_harga = document.querySelectorAll("#tabelRAB tr td:nth-child(7) input");
     for (var i = 0; i < select_id_harga.length; i++) {
         select_id_harga[i].id = "harga[" + (i + 1) + "]";
+    }
+    var input_tkdn = document.querySelectorAll("#tabelRAB tr td:nth-child(8) input");
+    for (var i = 0; i < input_tkdn.length; i++) {
+        input_tkdn[i].id = "tkdn[" + (i + 1) + "]";
     }
     if (click == 0) {
         document.getElementById("jumlah").innerHTML = "";
@@ -324,7 +341,7 @@ function reindex() {
 function change_item(c) {
     var change = c.parentNode.parentNode.rowIndex;
     var item_id = document.getElementById("item_id[" + change + "]").value;
-    let token = $('#csrf').val();;
+    let token = $('#csrf').val();
     $.ajax({
         url: '/getItem',
         type: "POST",
@@ -480,7 +497,7 @@ function change_item(c) {
 }
 function ganti_item() {
     var kontrak_induk = document.getElementById('kontrak_induk').value;
-    let token = $('#csrf').val();;
+    let token = $('#csrf').val();
     $.ajax({
         url: '/getKontrak_Induk',
         type: 'POST',
@@ -491,13 +508,25 @@ function ganti_item() {
         },
         success: function (result) {
             var item = [""]
-            for (i = 0; i < result.length; i++) {
-                item += ("<option value='" + result[i].id + "'>" + result[i].nama_item +
+            for (i = 0; i < result['items'].length; i++) {
+                item += ("<option value='" + result['items'][i].id + "'>" + result['items'][i].nama_item +
                     "</option>")
             }
             for (var i = 0; i < click; i++) {
                 document.getElementById("item_id[" + (i + 1) + "]").innerHTML =
                     "<option value='' selected disabled>Pilih Pekerjaan</option>" + item;
+            }
+
+            var paket = [""];
+            for(var i = 0; i < result['pakets'].length; i++) {
+                paket += ("<option value='" + result['pakets'][i].slug + "'>" + result['pakets'][i].nama_paket +
+                "</option>")
+            }
+
+            if(clickpaket != 0) {
+                for(var j = 0; j < clickpaket; j++) {
+                    document.getElementById('paket_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Paket</option>" + paket;
+                }
             }
         }
     })
@@ -639,6 +668,23 @@ function blur_volume(c) {
         document.getElementById("total").style.color = '#F94687';
     }
 }
+
+function blur_lokasi(ini) {
+    var lokasi_2 = [""];
+    for (var i = 0; i < clicklokasi; i++){
+        value_lokasi = document.getElementById('lokasi['+ (i + 1) +']').value
+        lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
+        "</option>")
+    }
+    // console.log(clickpaket);
+    // console.log(lokasi_2);
+    if(clickpaket != 0) {
+        for(var j = 0; j < clickpaket; j++) {
+            document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+        }
+    }
+}
+
 function onSubmitData() {
     var token = $('#csrf').val();
     var po = document.getElementById('po').value;

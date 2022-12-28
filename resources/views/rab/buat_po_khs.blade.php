@@ -267,7 +267,8 @@
                                                             <label class="custom-file-label">Choose or Drag file</label>
                                                         </div>
                                                     </div>
-                                                    <img class="m-auto justify-content-center" src="#" id="img-lampiran" width="300px" />
+                                                    <img class="m-auto justify-content-center" src="#"
+                                                        id="img-lampiran" width="300px" />
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -292,7 +293,8 @@
                                             <tr>
                                                 <td><strong id="nomor" value="1">1</strong></td>
                                                 <td>
-                                                    <textarea type="text" class="form-control lokasi" id="lokasi[1]" name="lokasi" placeholder="Lokasi" required>{{ old('lokasi') }}</textarea>
+                                                    <textarea type="text" class="form-control lokasi" id="lokasi[1]" name="lokasi" placeholder="Lokasi" required
+                                                        onblur="blur_lokasi(this)">{{ old('lokasi') }}</textarea>
                                                 </td>
                                                 <td><button onclick="deleteRow2(this)"
                                                         class="btn btn-danger shadow btn-xs sharp"><i
@@ -319,19 +321,23 @@
                                                         <h4 class="card-title">Paket RAB (Opsional)</h4>
                                                     </div>
                                                     <div class="row ml-2">
-                                                        <div class="table-responsive">
+                                                        <div class="table-responsive" id="tambah_tabel">
+
                                                             <table class="table table-responsive-sm height-100"
                                                                 id="tabelPaket">
                                                                 <thead>
                                                                     <tr align="center" valign="middle" class="">
                                                                         <th align="center" valign="middle"
                                                                             style="width: 10px;">No.</th>
-                                                                        <th align="center" valign="middle">Lokasi</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 35%;">Lokasi</th>
                                                                         <th align="center" valign="middle">Paket Pekerjaan
                                                                         </th>
-                                                                        <th align="center" valign="middle">Klasifikasi
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 15%">Volume
                                                                         </th>
-                                                                        <th align="center" valign="middle">Aksi</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 5%">Aksi</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-paket">
@@ -368,123 +374,169 @@
                                                         </h5>
                                                     </div>
                                                     <div class="row ml-2">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-responsive-sm height-100 width-100"
-                                                                id="tabelRAB">
-                                                                <thead>
-                                                                    <tr align="center" valign="middle" class="">
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 10px;">No.</th>
-                                                                        <th align="center" valign="middle">Pekerjaan</th>
-                                                                        <th align="center" valign="middle">Kategori
-                                                                            Pekerjaan</th>
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 200px;">Satuan</th>
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 200px;">Volume</th>
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 200px;">Harga Satuan
-                                                                            (Rp.)
-                                                                        </th>
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 200px;">Jumlah (Rp.)
-                                                                        </th>
-                                                                        <th align="center" valign="middle">Aksi</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody id="tbody-kategori">
-                                                                    <tr>
-                                                                        <td><strong id="nomor"
-                                                                                value="1">1</strong></td>
-                                                                        <td>
+                                                        <div class="table-responsive" id="tambah_tabel">
+                                                            <div id="thead_RAB">
+                                                                <table class="table table-responsive-lg tabel-daftar1"
+                                                                    style="width: 1610px">
+                                                                    <thead>
+                                                                        <tr align="center" valign="middle"
+                                                                            class="">
+                                                                            <th align="center"
+                                                                                valign="middle" style="width: 50px">No</th>
+                                                                            <th align="center"
+                                                                                valign="middle" style="width: 400px">Pekerjaan</th>
+                                                                            <th align="center"
+                                                                                valign="middle" style="width: 200px">Kategori
+                                                                                Pekerjaan</th>
+                                                                            <th align="center"
+                                                                                valign="middle" style="width: 130px">
+                                                                                Satuan</th>
+                                                                            <th align="center" style="width: 130px"
+                                                                                valign="middle">
+                                                                                Volume</th>
+                                                                            <th align="center"
+                                                                                valign="middle" style="width: 200px">
+                                                                                Harga Satuan
+                                                                                (Rp.)
+                                                                            </th>
+                                                                            <th align="center"
+                                                                                valign="middle" style="width: 250px">
+                                                                                Jumlah (Rp.)
+                                                                            </th>
+                                                                            <th align="center"
+                                                                                valign="middle" style="width: 150px">TKDN
+                                                                                (%)
+                                                                            </th>
+                                                                            <th align="center"
+                                                                                valign="middle" style="width: 100px">Aksi</th>
+                                                                        </tr>
+                                                                        {{-- <tr><th>Headinnn</th></tr> --}}
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+                                                            <div class="table-resposive" id="tbody_RAB">
+                                                                <label style="font-weight: bold; color:rgb(38, 13, 93)">Nama Lokasi</label>
+                                                                <table class="table table-responsive-lg tabel-daftar"
+                                                                    style="width: 1610px" id="tabelRAB">
+                                                                    <!-- <caption style="caption-side:top; text-align:middle;">Lokasi : PLN ULP Panakukkang</caption>
+                                                                    <caption style="caption-side:top; text-align:middle;">Paket : Besi Timah 12 Gram</caption> -->
+                                                                    <thead>
+                                                                        <th style="width: 50px"></th>
+                                                                        <th style="width: 400px">Nama Paket</th>
+                                                                        <th style="width: 200px"></th>
+                                                                        <th style="width: 130px"></th>
+                                                                        <th style="width: 130px"></th>
+                                                                        <th style="width: 200px"></th>
+                                                                        <th style="width: 250px"></th>
+                                                                        <th style="width: 150px"></th>
+                                                                        <th style="width: 100px"></th>
+                                                                    </thead>
 
+                                                                    <tbody id="tbody-kategori">
 
+                                                                        <tr>
+                                                                            <td><strong id="nomor"
+                                                                                    value="1">1</strong></td>
 
-                                                                            <select required onchange="change_item(this)"
-                                                                                name="item_id" id="item_id[1]"
-                                                                                class="multi-select form-control input-default"
-                                                                                style="border-radius: 40px;">
-                                                                                <option value="" selected disabled
-                                                                                    required>Pilih Pekerjaan</option>
-                                                                            </select>
-                                                                        </td>
-                                                                        <!-- <td><select name="item_id" id="item_id[1]"
-                                                                                                                                    class="form-control input-default"
-                                                                                                                                    onchange="change_item(this)" required>
-                                                                                                                                    <option value="" selected disabled
-                                                                                                                                        required>Pilih Pekerjaan</option>
-                                                                                                                                </select></td> -->
-                                                                        <td><input type="text"
-                                                                                class="form-control kategory_id"
-                                                                                id="kategory_id[1]" name="kategory_id"
-                                                                                placeholder="Kategori" value=""
-                                                                                disabled readonly required></td>
-                                                                        <td><input type="text"
-                                                                                class="form-control satuan" id="satuan[1]"
-                                                                                name="satuan" placeholder="Satuan"
-                                                                                value="" disabled readonly required>
-                                                                        </td>
-                                                                        <td><input type="text"
-                                                                                class="form-control volume" id="volume[1]"
-                                                                                name="volume" placeholder="volume"
-                                                                                value=""
-                                                                                onblur="blur_volume(this)"onkeypress="return numbersonly2(this, event);"
-                                                                                onkeyup="format(this)" required></td>
-                                                                        <td><input type="text"
-                                                                                class="form-control harga_satuan"
-                                                                                id="harga_satuan[1]" name="harga_satuan"
-                                                                                placeholder="Harga Satuan" value=""
-                                                                                disabled readonly required></td>
-                                                                        <td><input type="text"
-                                                                                class="form-control harga" id="harga[1]"
-                                                                                name="harga" placeholder="Jumlah"
-                                                                                value="" disabled readonly required>
-                                                                        </td>
-                                                                        <td><button onclick="deleteRow(this)"
-                                                                                class="btn btn-danger shadow btn-xs sharp"><i
-                                                                                    class='fa fa-trash'></i></button></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            <div class="col-lg-12 mb-2">
-                                                                <div
-                                                                    class="position-relative justify-content-end float-left">
-                                                                    <a type="button" id="tambah-pekerjaan"
-                                                                        class="btn btn-primary position-relative justify-content-end"
-                                                                        onclick="updateform()" required>Tambah</a>
+                                                                            <td>
+                                                                                <select required
+                                                                                    onchange="change_item(this)"
+                                                                                    name="item_id" id="item_id[1]"
+                                                                                    class="multi-select form-control input-default"
+                                                                                    style="border-radius: 40px;">
+                                                                                    <option value="" selected
+                                                                                        disabled required>Pilih Pekerjaan
+                                                                                    </option>
+                                                                                </select>
+                                                                            </td>
+
+                                                                            <td><input type="text"
+                                                                                    class="form-control kategory_id"
+                                                                                    id="kategory_id[1]" name="kategory_id"
+                                                                                    placeholder="Kategori" value=""
+                                                                                    disabled readonly required></td>
+                                                                            <td><input type="text"
+                                                                                    class="form-control satuan"
+                                                                                    id="satuan[1]" name="satuan"
+                                                                                    placeholder="Satuan" value=""
+                                                                                    disabled readonly required>
+                                                                            </td>
+                                                                            <td><input type="text"
+                                                                                    class="form-control volume"
+                                                                                    id="volume[1]" name="volume"
+                                                                                    placeholder="volume" value=""
+                                                                                    onblur="blur_volume(this)"onkeypress="return numbersonly2(this, event);"
+                                                                                    onkeyup="format(this)" required></td>
+                                                                            <td><input type="text"
+                                                                                    class="form-control harga_satuan"
+                                                                                    id="harga_satuan[1]"
+                                                                                    name="harga_satuan"
+                                                                                    placeholder="Harga Satuan"
+                                                                                    value="" disabled readonly
+                                                                                    required></td>
+                                                                            <td><input type="text"
+                                                                                    class="form-control harga"
+                                                                                    id="harga[1]" name="harga"
+                                                                                    placeholder="Jumlah" value=""
+                                                                                    disabled readonly required>
+                                                                            </td>
+                                                                            <td><input type="text"
+                                                                                    class="form-control tkdn"
+                                                                                    id="tkdn[1]" name="tkdn"
+                                                                                    placeholder="TKDN" value=""
+                                                                                    disabled readonly required>
+                                                                            </td>
+                                                                            <td><button
+                                                                                    onclick="deleteRow(this)"
+                                                                                    class="btn btn-danger shadow btn-xs sharp"><i
+                                                                                        class='fa fa-trash'></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+
+                                                                <div class="col-lg-12 mb-2">
+                                                                    <div
+                                                                        class="position-relative justify-content-end float-left">
+                                                                        <a type="button" id="tambah-pekerjaan"
+                                                                            class="btn btn-primary position-relative justify-content-end"
+                                                                            onclick="updateform()" required>Tambah</a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <table class="table table-responsive-sm height-100"
+                                                            <div class="table-responsive" id="tfoot_RAB">
+                                                                <table class="table table-responsive-sm height-100"
                                                                 id="tabelRAB1">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tfoot>
-                                                                    <tr>
-                                                                        <th style="width: 55%"> </th>
-                                                                        <th style="width: 15%">Jumlah</th>
-                                                                        <th style="width: 1%">:</th>
-                                                                        <th style="width: 29%" id="jumlah"></th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th></th>
-                                                                        <th>PPN</th>
-                                                                        <th>:</th>
-                                                                        <th id="pajak"></th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th></th>
-                                                                        <th>Total Harga</th>
-                                                                        <th>:</th>
-                                                                        <th id="total"></th>
-                                                                    </tr>
-                                                                </tfoot>
-                                                            </table>
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <th style="width: 15%; padding-left: 25px">Jumlah</th>
+                                                                            <th style="width: 1%">:</th>
+                                                                            <th style="width: 55%" id="jumlah"></th>
+                                                                            <th style="width: 29%"></th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th style="padding-left: 25px">PPN</th>
+                                                                            <th>:</th>
+                                                                            <th id="pajak"></th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th style="padding-left: 25px">Total Harga</th>
+                                                                            <th>:</th>
+                                                                            <th id="total"></th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </tfoot>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -531,20 +583,22 @@
                                                                                 @endforeach
                                                                             </select></td>
                                                                         <td>
-                                                                            <p id="deskripsi_id[1]" name="deskripsi_id">Pilih Redaksi Terlebih Dahulu</p>
+                                                                            <p id="deskripsi_id[1]" name="deskripsi_id">
+                                                                            </p>
                                                                         </td>
                                                                         <!-- <td>
-                                                                            <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
-                                                                                placeholder="Deskripsi" value="" disabled required></textarea>
-                                                                        </td> -->
+                                                                                <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
+                                                                                    placeholder="Deskripsi" value="" disabled required></textarea>
+                                                                            </td> -->
                                                                         <td>
-                                                                            <ol type="a" id="sub_deskripsi_id[1]">
+                                                                            <!-- <p id="sub_deskripsi_id[1]"></p> -->
+                                                                            <ol id="sub_deskripsi_id[1]">
                                                                             </ol>
                                                                         </td>
                                                                         <!-- <td>
-                                                                            <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
-                                                                                placeholder="Sub Deskripsi" value="" disabled required></textarea>
-                                                                        </td> -->
+                                                                                <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
+                                                                                    placeholder="Sub Deskripsi" value="" disabled required></textarea>
+                                                                            </td> -->
 
                                                                         <td><button onclick="deleteRow1(this)"
                                                                                 class="btn btn-danger shadow btn-xs sharp"><i
@@ -808,9 +862,9 @@
 
     <!-- Search and Select -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
-                            integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+                                integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
             <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}

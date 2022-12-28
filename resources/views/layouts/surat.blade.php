@@ -220,7 +220,6 @@
                     </td>
                 </tr> -->
                 <tr nobr="true">
-
                     <td class="justifytb" colspan="2" style="text-align:justify; padding-right:37px;"> Apabila SPBJ/PO ini saudara(i)
                         setuju dan sanggup melaksanakan, harap
                         menandatangani SPBJ/PO ini

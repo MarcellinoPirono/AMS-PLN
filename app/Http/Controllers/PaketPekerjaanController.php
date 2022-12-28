@@ -138,7 +138,7 @@ class PaketPekerjaanController extends Controller
 
         $request->validate([
 
-            'nama_paket' => 'required|max:250',
+            'nama_paket' => 'required|unique:paket_pekerjaans',
             'item_id' => 'required',
             'khs_id' => 'required',
             'volume' => 'required',
@@ -246,7 +246,7 @@ class PaketPekerjaanController extends Controller
 
         $request->validate([
 
-            'nama_paket' => 'required|max:250',
+            'nama_paket' => 'required|unique:paket_pekerjaans',
             'item_id' => 'required',
             'khs_id' => 'required',
             'volume' => 'required',
@@ -310,13 +310,14 @@ class PaketPekerjaanController extends Controller
         $kontrak_induk_id = $request->post('kontrak_induk');
         $khs_id = KontrakInduk::where('id', $kontrak_induk_id)->value('khs_id');
 
-        $klasifikasipaket = DB::table('klasifikasi_pakets')->where('khs_id', $khs_id)->get();
+        // $klasifikasipaket = DB::table('klasifikasi_pakets')->where('khs_id', $khs_id)->get();
 
-        $paket_pekerjaan = PaketPekerjaan::select('nama_paket')->where('khs_id', $khs_id)->groupBy('nama_paket')->get();
+        $paket_pekerjaan = PaketPekerjaan::select('nama_paket', 'slug')->where('khs_id', $khs_id)->groupBy('nama_paket', 'slug')->get();
+
 
 
         $data = [
-            'klasifikasis' => $klasifikasipaket,
+            // 'klasifikasis' => $klasifikasipaket,
             'paket_pekerjaan' => $paket_pekerjaan,
 
         ];
@@ -329,17 +330,25 @@ class PaketPekerjaanController extends Controller
         return response()->json($data);
     }
 
-    // public function checkSlug(Request $request){
+    public function changePaket (Request $request){
+        $nama_paket = $request->post('nama_paket');
 
-    //     dd($request);
 
-    //     $slug = SlugService::createSlug(PaketPekerjaan::class, 'slug', $request->nama_paket);
-    //     return response()->json([
-    //         'slug' => $slug
+        $pakets = PaketPekerjaan::where('slug', $nama_paket)->get();
+        $item = [];
+        for($i = 0; $i < count($pakets); $i++) {
+            $item[$i] = RincianInduk::where('id', $pakets[$i]->item_id)->get();
+        }
+        // $item = RincianInduk::where('id', $pakets->)
+        // dd($item);
+        $data = [
+            'pakets' => $pakets,
+            'items' => $item,
+        ];
 
-    //     ]);
+        return response()->json($data);
+    }
 
-    // }
 
 
 

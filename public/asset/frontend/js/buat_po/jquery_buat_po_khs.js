@@ -64,6 +64,7 @@ jQuery(document).ready(function() {
                 if (result.length > 0) {
                     jQuery('#addendum').val(result[0].nomor_addendum)
                 }
+               
             }
         });
     })
@@ -83,6 +84,7 @@ jQuery(document).ready(function() {
                 if (result.length > 0) {
                     jQuery('#vendor').val(result)
                 }
+
             }
         });
     })
