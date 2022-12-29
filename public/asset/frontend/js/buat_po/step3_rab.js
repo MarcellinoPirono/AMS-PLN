@@ -90,14 +90,14 @@ function updateform() {
             input6.setAttribute("id", "tkdn[" + click + "]");
             input6.setAttribute("name", "tkdn");
             input6.setAttribute("placeholder", "TKDN");
+            input6.setAttribute("onkeyup", "tkdn_format(this)");
             input6.setAttribute("value", "");
-            input6.setAttribute("readonly", true);
-            input6.setAttribute("disabled", true);
-            input6.setAttribute("required", true);
+
             var button = document.createElement("button");
             button.innerHTML = "<i class='fa fa-trash'></i>";
             button.setAttribute("onclick", "deleteRow(this)");
             button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
+            button.setAttribute("style", "margin-top: 18px !important; margin-left: 14px !important")
             var row = table.insertRow(-1);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -352,8 +352,7 @@ function change_item(c) {
         },
         success: function (response) {
             document.getElementById("kategory_id[" + change + "]").value = response.kategori;
-            document.getElementById("satuan[" + change + "]").value = response.kepanjangan + ' (' +
-                response.singkatan + ')';
+            document.getElementById("satuan[" + change + "]").value = response.singkatan;
             var harga_satuan = response.harga_satuan;
             harga_satuan = harga_satuan.toString();
             harga_satuan_2 = "";
@@ -795,6 +794,56 @@ function onSubmitData() {
             }
         })
 }
+
+function tkdn_format(c){
+    var change = c.parentNode.parentNode.rowIndex;
+    var tkdn = document.getElementById("tkdn[" + change + "]");
+
+    tkdn.addEventListener('input', function (prev) {
+        return function (evt) {
+            if(this.value.charAt(0) == "1") {
+                if(this.value.charAt(1) == "0") {
+                    if(this.value.charAt(2) == "0") {
+                        if(this.value.charAt(3) == ",") {
+                            this.value = prev;
+                        } else {
+                            if (!/^\d{0,3}(?:\,\d{0,2})?$/.test(this.value)) {
+                                this.value = prev;
+                            }
+                            else {
+                                prev = this.value;
+                            }
+                        }
+                    } else {
+                        if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                            this.value = prev;
+                        }
+                        else {
+                            prev = this.value;
+                        }
+                    }
+                } else {
+                    if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                        this.value = prev;
+                    }
+                    else {
+                        prev = this.value;
+                    }
+                }
+            } else if (this.value.charAt(0) == "," || this.value.charAt(0) == "0"){
+                this.value = "";
+            } else {
+                if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                    this.value = prev;
+                }
+                else {
+                    prev = this.value;
+                }
+            }
+        };
+    }(tkdn.value), false);
+}
+
 
 
 

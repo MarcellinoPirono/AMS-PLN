@@ -15,6 +15,7 @@ function updateRedaksi() {
             }
 
             var table = document.getElementById('tabelRedaksi');
+            table.setAttribute("style", "vertical-align: top !important;");
             clickredaksi++;
 
             var select1 = document.createElement("select");
@@ -31,6 +32,7 @@ function updateRedaksi() {
             // input1.setAttribute("class", "form-control deskripsi_id");
             input1.setAttribute("id", "deskripsi_id[" + clickredaksi + "]");
             input1.setAttribute("name", "deskripsi_id");
+            input1.setAttribute("style", "vertical-align: top; text-align: justify  !important");
             // input1.setAttribute("placeholder", "Deskripsi Redaksi");
             // input1.setAttribute("value", "");
             // input1.setAttribute("disabled", true);

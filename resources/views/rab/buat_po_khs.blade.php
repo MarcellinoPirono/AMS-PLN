@@ -320,6 +320,7 @@
                                                     <div class="card-header justify-content-center">
                                                         <h4 class="card-title">Paket RAB (Opsional)</h4>
                                                     </div>
+
                                                     <div class="row ml-2">
                                                         <div class="table-responsive" id="tambah_tabel">
 
@@ -341,9 +342,24 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-paket">
-
-
-
+                                                                    {{-- <tr>
+                                                                        <td>
+                                                                            <select class="select-search form-control input-default" id="pejabat" name="pejabat"
+                                                                                style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                                                required>
+                                                                                <option value="" selected disabled>Direksi Pekerjaan
+                                                                                </option>
+                                                                                @foreach ($pejabats as $pejabat)
+                                                                                    @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                                                        <option value="{{ $pejabat->id }}">
+                                                                                            {{ $pejabat->jabatan }} -
+                                                                                            {{ $pejabat->nama_pejabat }}
+                                                                                        </option>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr> --}}
                                                                 </tbody>
                                                             </table>
                                                             <div class="col-lg-12 mb-2">
@@ -377,52 +393,52 @@
                                                         <div class="table-responsive" id="tambah_tabel">
                                                             <div id="thead_RAB">
                                                                 <table class="table table-responsive-lg tabel-daftar1"
-                                                                    style="width: 1610px">
+                                                                    style="width: 1530px" cellpadding="0" cellspacing="0">
                                                                     <thead>
                                                                         <tr align="center" valign="middle"
                                                                             class="">
-                                                                            <th align="center"
-                                                                                valign="middle" style="width: 50px">No</th>
-                                                                            <th align="center"
-                                                                                valign="middle" style="width: 400px">Pekerjaan</th>
-                                                                            <th align="center"
-                                                                                valign="middle" style="width: 200px">Kategori
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 50px vertical-align: middle;">N O</th>
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 350px; vertical-align: middle;">Pekerjaan</th>
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 200px; vertical-align: middle;">Kategori
                                                                                 Pekerjaan</th>
-                                                                            <th align="center"
-                                                                                valign="middle" style="width: 130px">
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 130px; vertical-align: middle;">
                                                                                 Satuan</th>
-                                                                            <th align="center" style="width: 130px"
+                                                                            <th align="center" style="width: 130px; vertical-align: middle;"
                                                                                 valign="middle">
                                                                                 Volume</th>
-                                                                            <th align="center"
-                                                                                valign="middle" style="width: 200px">
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 200px; vertical-align: middle;">
                                                                                 Harga Satuan
                                                                                 (Rp.)
                                                                             </th>
-                                                                            <th align="center"
-                                                                                valign="middle" style="width: 250px">
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 250px; vertical-align: middle;">
                                                                                 Jumlah (Rp.)
                                                                             </th>
-                                                                            <th align="center"
-                                                                                valign="middle" style="width: 150px">TKDN
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 150px; vertical-align: middle;">TKDN
                                                                                 (%)
                                                                             </th>
-                                                                            <th align="center"
-                                                                                valign="middle" style="width: 100px">Aksi</th>
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 100px; vertical-align: middle;">
+                                                                                Aksi</th>
                                                                         </tr>
-                                                                        {{-- <tr><th>Headinnn</th></tr> --}}
                                                                     </thead>
                                                                 </table>
                                                             </div>
                                                             <div class="table-resposive" id="tbody_RAB">
-                                                                <label style="font-weight: bold; color:rgb(38, 13, 93)">Nama Lokasi</label>
+                                                                {{-- <label style="font-weight: bold; color:rgb(38, 13, 93)">Nama Lokasi</label> --}}
                                                                 <table class="table table-responsive-lg tabel-daftar"
-                                                                    style="width: 1610px" id="tabelRAB">
+                                                                    style="width: 1530px" id="tabelRAB" cellpadding="0" cellspacing="0">
                                                                     <!-- <caption style="caption-side:top; text-align:middle;">Lokasi : PLN ULP Panakukkang</caption>
-                                                                    <caption style="caption-side:top; text-align:middle;">Paket : Besi Timah 12 Gram</caption> -->
+                                                                        <caption style="caption-side:top; text-align:middle;">Paket : Besi Timah 12 Gram</caption> -->
                                                                     <thead>
                                                                         <th style="width: 50px"></th>
-                                                                        <th style="width: 400px">Nama Paket</th>
+                                                                        <th style="width: 350px"></th>
                                                                         <th style="width: 200px"></th>
                                                                         <th style="width: 130px"></th>
                                                                         <th style="width: 130px"></th>
@@ -431,9 +447,7 @@
                                                                         <th style="width: 150px"></th>
                                                                         <th style="width: 100px"></th>
                                                                     </thead>
-
                                                                     <tbody id="tbody-kategori">
-
                                                                         <tr>
                                                                             <td><strong id="nomor"
                                                                                     value="1">1</strong></td>
@@ -442,7 +456,7 @@
                                                                                 <select required
                                                                                     onchange="change_item(this)"
                                                                                     name="item_id" id="item_id[1]"
-                                                                                    class="multi-select form-control input-default"
+                                                                                    class="single-select form-control input-default"
                                                                                     style="border-radius: 40px;">
                                                                                     <option value="" selected
                                                                                         disabled required>Pilih Pekerjaan
@@ -483,10 +497,12 @@
                                                                             <td><input type="text"
                                                                                     class="form-control tkdn"
                                                                                     id="tkdn[1]" name="tkdn"
-                                                                                    placeholder="TKDN" value=""
-                                                                                    disabled readonly required>
+                                                                                    placeholder="TKDN"
+                                                                                    onkeyup="tkdn_format(this)"
+                                                                                    value="">
                                                                             </td>
-                                                                            <td><button
+                                                                            <td align="center" valign="middle"
+                                                                                style="vertical-align: middle; align: middle;"><button
                                                                                     onclick="deleteRow(this)"
                                                                                     class="btn btn-danger shadow btn-xs sharp"><i
                                                                                         class='fa fa-trash'></i></button>
@@ -506,7 +522,7 @@
                                                             </div>
                                                             <div class="table-responsive" id="tfoot_RAB">
                                                                 <table class="table table-responsive-sm height-100"
-                                                                id="tabelRAB1">
+                                                                    id="tabelRAB1">
                                                                     <thead>
                                                                         <tr>
                                                                             <th></th>
@@ -517,7 +533,8 @@
                                                                     </thead>
                                                                     <tfoot>
                                                                         <tr>
-                                                                            <th style="width: 15%; padding-left: 25px">Jumlah</th>
+                                                                            <th style="width: 15%; padding-left: 25px">
+                                                                                Jumlah</th>
                                                                             <th style="width: 1%">:</th>
                                                                             <th style="width: 55%" id="jumlah"></th>
                                                                             <th style="width: 29%"></th>
@@ -565,14 +582,18 @@
                                                                         <th>Aksi</th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody id="tbody-redaksi">
+                                                                <tbody id="tbody-redaksi"
+                                                                    style="vertical-align: top !important;">
                                                                     <tr>
-                                                                        <td><strong id="nomor1"
-                                                                                value="1">1</strong></td>
-                                                                        <td><select name="redaksi_id" id="redaksi_id[1]"
+                                                                        <td style="vertical-align: top !important;"><strong
+                                                                                id="nomor1" value="1">1</strong>
+                                                                        </td>
+                                                                        <td valign="top"
+                                                                            style="vertical-align: top !important;"><select
+                                                                                name="redaksi_id" id="redaksi_id[1]"
                                                                                 class="form-control input-default"
                                                                                 onchange="change_redaksi(this)"
-                                                                                style="height: 60px !important ; width: 200px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                                                style="height: 60px !important; width: 200px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
                                                                                 required>
                                                                                 <option value="" selected disabled
                                                                                     required>Pilih Redaksi</option>
@@ -582,25 +603,27 @@
                                                                                     </option>
                                                                                 @endforeach
                                                                             </select></td>
-                                                                        <td>
+                                                                        <td
+                                                                            style="vertical-align: top; text-align: justify;">
                                                                             <p id="deskripsi_id[1]" name="deskripsi_id">
                                                                             </p>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
-                                                                                    placeholder="Deskripsi" value="" disabled required></textarea>
-                                                                            </td> -->
-                                                                        <td>
+                                                                                    <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
+                                                                                        placeholder="Deskripsi" value="" disabled required></textarea>
+                                                                                </td> -->
+                                                                        <td style="vertical-align: top">
                                                                             <!-- <p id="sub_deskripsi_id[1]"></p> -->
                                                                             <ol id="sub_deskripsi_id[1]">
                                                                             </ol>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
-                                                                                    placeholder="Sub Deskripsi" value="" disabled required></textarea>
-                                                                            </td> -->
+                                                                                    <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
+                                                                                        placeholder="Sub Deskripsi" value="" disabled required></textarea>
+                                                                                </td> -->
 
-                                                                        <td><button onclick="deleteRow1(this)"
+                                                                        <td style="vertical-align: top"><button
+                                                                                onclick="deleteRow1(this)"
                                                                                 class="btn btn-danger shadow btn-xs sharp"><i
                                                                                     class='fa fa-trash'></i></button></td>
                                                                     </tr>
@@ -697,7 +720,7 @@
                                                     </div>
                                                     <hr>
                                                     <div class="row ml-2 justify-content-start">
-                                                        <h5 class="card-title">Step 2: Daftar RAB</h5>
+                                                        <h5 class="card-title">Step 3: Daftar RAB</h5>
                                                         <div class="col-xl-12 col-xxl-12">
                                                             <div class="table-responsive">
                                                                 <div class="wrapword" id="firstTable">
@@ -862,9 +885,9 @@
 
     <!-- Search and Select -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
-                                integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+                                    integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
             <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
@@ -875,8 +898,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
+    <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/searching_select.js"></script>
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/smartwizard.js"></script>
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/jquery_buat_po_khs.js"></script>
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step2_paket.js"></script>
@@ -890,6 +915,39 @@
     <script src="{{ asset('/') }}./asset/frontend/js/deznav-init.js"></script>
 
     <script>
+
+
+
+    function myFunction() {
+        $("#dropdown-values").addClass("show");
+        }
+
+        $(document).click(function(e) {
+        if( e.target.id != 'myInput') {
+            $("#dropdown-values").removeClass("show");
+        }
+        });
+
+        function filterFunction() {
+        var input, filter, a, i;
+        filter = $("#myInput").val().toUpperCase();
+        div = document.getElementById("myDropdown");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+            txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+            } else {
+            a[i].style.display = "none";
+            }
+        }
+        }
+
+        function setValueOfInput(e) {
+            $("#myInput").val(e.innerHTML);
+        }
+
+
         function previewImage() {
             const image = document.querySelector('#lampiran');
             const imgPreview = document.querySelector('#img-lampiran');
@@ -904,6 +962,16 @@
             }
         }
     </script>
+<script>
+//     new TomSelect("#tabelPaket tr td:nth-child(3) select",{
+//     create: false,
+//     sortField: {
+//         field: "text",
+//         direction: "asc"
+//     }
+// });
+
+</script>
 @endsection
 
 

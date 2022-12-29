@@ -116,217 +116,217 @@ const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
 
                     $("#prev-btn").addClass('disabled').prop('disabled', true);
                 } else if (stepPosition === 'last') {
-                    var po = $("#po").val();
-                    var kontrak_induk = $("#kontrak_induk option:selected").text();
-                    var pekerjaan = $("#pekerjaan").val();
-                    var start_date = $("#start_date").val();
-                    var end_date = $("#end_date").val();
-                    var addendum = $("#addendum").val();
-                    var skk_id = $("#skk_id option:selected").text();
-                    var prk_id = $("#prk_id option:selected").text();
-                    var pejabat = $("#pejabat option:selected").text();
-                    var pengawas = $("#pengawas_pekerjaan").val();
+                    // var po = $("#po").val();
+                    // var kontrak_induk = $("#kontrak_induk option:selected").text();
+                    // var pekerjaan = $("#pekerjaan").val();
+                    // var start_date = $("#start_date").val();
+                    // var end_date = $("#end_date").val();
+                    // var addendum = $("#addendum").val();
+                    // var skk_id = $("#skk_id option:selected").text();
+                    // var prk_id = $("#prk_id option:selected").text();
+                    // var pejabat = $("#pejabat option:selected").text();
+                    // var pengawas = $("#pengawas_pekerjaan").val();
 
-                    var nomor = 1;
-                    for (var i = 0; i < clicklokasi; i++) {
-                        // if (i == 0) {
-                            var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
+                    // var nomor = 1;
+                    // for (var i = 0; i < clicklokasi; i++) {
+                    //     // if (i == 0) {
+                    //         var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
 
-                            lokasi.html(lokasi + ",");
-                            // } else {
-                                //     var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
-                                //     var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (i +
-                                //         3) + ')');
+                    //         lokasi.html(lokasi + ",");
+                    //         // } else {
+                    //             //     var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
+                    //             //     var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (i +
+                    //             //         3) + ')');
 
-                                //     $('<tr id="location' + i + '" class="noborder"><td></td><td></td><td>' + (i +
-                                //             1) + '. ' + lokasi +
-                                //         '</td></tr>').insertAfter(lokasi_tabel);
-                                // }
-                            nomor++;
-                    }
+                    //             //     $('<tr id="location' + i + '" class="noborder"><td></td><td></td><td>' + (i +
+                    //             //             1) + '. ' + lokasi +
+                    //             //         '</td></tr>').insertAfter(lokasi_tabel);
+                    //             // }
+                    //         nomor++;
+                    // }
 
-                    $("#lokasi_4").html(nomor + "." + lokasi);
-                    $("#po_4").html(po);
-                    $("#kontrak_induk_4").html(kontrak_induk);
-                    $("#judul_pekerjaan_4").html(pekerjaan);
-                    $("#start_date_4").html(start_date);
-                    $("#end_date_4").html(end_date);
-                    if (addendum == "") {
-                        $("#addendum_4").html("-");
-                    } else {
-                        $("#addendum_4").html(addendum);
-                    }
-                    $("#no_skk_4").html(skk_id);
-                    $("#no_prk_4").html(prk_id);
-                    $("#direksi_pekerjaan_4").html(pejabat);
-                    $("#pengawas_pekerjaan_4").html(pengawas);
+                    // $("#lokasi_4").html(nomor + "." + lokasi);
+                    // $("#po_4").html(po);
+                    // $("#kontrak_induk_4").html(kontrak_induk);
+                    // $("#judul_pekerjaan_4").html(pekerjaan);
+                    // $("#start_date_4").html(start_date);
+                    // $("#end_date_4").html(end_date);
+                    // if (addendum == "") {
+                    //     $("#addendum_4").html("-");
+                    // } else {
+                    //     $("#addendum_4").html(addendum);
+                    // }
+                    // $("#no_skk_4").html(skk_id);
+                    // $("#no_prk_4").html(prk_id);
+                    // $("#direksi_pekerjaan_4").html(pejabat);
+                    // $("#pengawas_pekerjaan_4").html(pengawas);
 
-                    baris = [];
-                    baris_jasa = [];
-                    baris_material = [];
+                    // baris = [];
+                    // baris_jasa = [];
+                    // baris_material = [];
 
-                    var html_material = [""];
+                    // var html_material = [""];
 
-                    for (var i = 0; i < click; i++) {
-                        baris[i] = [
-                            document.getElementById("item_id[" + (i + 1) + "]").options[document
-                                .getElementById("item_id[" + (i + 1) + "]").selectedIndex].text,
-                            document.getElementById("kategory_id[" + (i + 1) + "]").value,
-                            document.getElementById("satuan[" + (i + 1) + "]").value,
-                            document.getElementById("volume[" + (i + 1) + "]").value,
-                            document.getElementById("harga_satuan[" + (i + 1) + "]").value,
-                            document.getElementById("harga[" + (i + 1) + "]").value
-                        ]
+                    // for (var i = 0; i < click; i++) {
+                    //     baris[i] = [
+                    //         document.getElementById("item_id[" + (i + 1) + "]").options[document
+                    //             .getElementById("item_id[" + (i + 1) + "]").selectedIndex].text,
+                    //         document.getElementById("kategory_id[" + (i + 1) + "]").value,
+                    //         document.getElementById("satuan[" + (i + 1) + "]").value,
+                    //         document.getElementById("volume[" + (i + 1) + "]").value,
+                    //         document.getElementById("harga_satuan[" + (i + 1) + "]").value,
+                    //         document.getElementById("harga[" + (i + 1) + "]").value
+                    //     ]
 
-                        if (baris[i][1] == "Jasa") {
-                            baris_jasa[i] = [baris[i]];
-                        } else {
-                            baris_material[i] = [baris[i]];
-                        }
-                    }
+                    //     if (baris[i][1] == "Jasa") {
+                    //         baris_jasa[i] = [baris[i]];
+                    //     } else {
+                    //         baris_material[i] = [baris[i]];
+                    //     }
+                    // }
 
-                    const result_jasa = baris_jasa.filter(element => {
-                        return element !== null;
-                    });
-                    const result_material = baris_material.filter(element => {
-                        return element !== null;
-                    });
+                    // const result_jasa = baris_jasa.filter(element => {
+                    //     return element !== null;
+                    // });
+                    // const result_material = baris_material.filter(element => {
+                    //     return element !== null;
+                    // });
 
-                    if (result_jasa.length > 0) {
-                        var html_jasa = [""]
-                        var tbody = document.getElementById("tbody_jasa")
-                        var panjang = result_jasa.length
-                        for (var j = 0; j < panjang; j++) {
-                            html_jasa += ("<tr> <td class='first' align='center' valign='middle'>" + (j +
-                                    1) +
-                                "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
-                                result_jasa[j][0][0] +
-                                "</td> <td class='first' align='center' valign='middle'>" + result_jasa[
-                                    j][0][2].match(/\(([^)]+)\)/)[1] +
-                                "</td> <td class='first' align='center' valign='middle'>" + result_jasa[
-                                    j][0][3] +
-                                "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
-                                result_jasa[
-                                    j][0][4] +
-                                "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
-                                result_jasa[
-                                    j][0][5] + "</td> </tr>")
-                        }
-                        document.getElementById("tbody_jasa").innerHTML =
-                            "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>" +
-                            html_jasa;
-                    }
+                    // if (result_jasa.length > 0) {
+                    //     var html_jasa = [""]
+                    //     var tbody = document.getElementById("tbody_jasa")
+                    //     var panjang = result_jasa.length
+                    //     for (var j = 0; j < panjang; j++) {
+                    //         html_jasa += ("<tr> <td class='first' align='center' valign='middle'>" + (j +
+                    //                 1) +
+                    //             "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
+                    //             result_jasa[j][0][0] +
+                    //             "</td> <td class='first' align='center' valign='middle'>" + result_jasa[
+                    //                 j][0][2].match(/\(([^)]+)\)/)[1] +
+                    //             "</td> <td class='first' align='center' valign='middle'>" + result_jasa[
+                    //                 j][0][3] +
+                    //             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                    //             result_jasa[
+                    //                 j][0][4] +
+                    //             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                    //             result_jasa[
+                    //                 j][0][5] + "</td> </tr>")
+                    //     }
+                    //     document.getElementById("tbody_jasa").innerHTML =
+                    //         "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>" +
+                    //         html_jasa;
+                    // }
 
-                    if (result_material.length > 0) {
-                        var html_material = [""]
-                        var tbody = document.getElementById("tbody_material")
-                        var panjang = result_material.length
-                        for (var j = 0; j < panjang; j++) {
-                            html_material += ("<tr> <td class='first' align='center' valign='middle'>" + (
-                                    j + 1) +
-                                "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
-                                result_material[j][0][0] +
-                                "</td> <td class='first' align='center' valign='middle'>" +
-                                result_material[j][0][2] +
-                                "</td> <td class='first' align='center' valign='middle'>" +
-                                result_material[j][0][3] +
-                                "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
-                                result_material[j][0][4] +
-                                "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
-                                result_material[j][0][5] + "</td> </tr>")
-                        }
-                        document.getElementById("tbody_material").innerHTML =
-                            "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>MATERIAL:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
-                            html_material;
-                    }
+                    // if (result_material.length > 0) {
+                    //     var html_material = [""]
+                    //     var tbody = document.getElementById("tbody_material")
+                    //     var panjang = result_material.length
+                    //     for (var j = 0; j < panjang; j++) {
+                    //         html_material += ("<tr> <td class='first' align='center' valign='middle'>" + (
+                    //                 j + 1) +
+                    //             "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
+                    //             result_material[j][0][0] +
+                    //             "</td> <td class='first' align='center' valign='middle'>" +
+                    //             result_material[j][0][2] +
+                    //             "</td> <td class='first' align='center' valign='middle'>" +
+                    //             result_material[j][0][3] +
+                    //             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                    //             result_material[j][0][4] +
+                    //             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                    //             result_material[j][0][5] + "</td> </tr>")
+                    //     }
+                    //     document.getElementById("tbody_material").innerHTML =
+                    //         "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>MATERIAL:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
+                    //         html_material;
+                    // }
 
-                    document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah")
-                        .innerHTML;
-                    document.getElementById("td_ppn").innerHTML = document.getElementById("pajak")
-                        .innerHTML;
-                    document.getElementById("td_total").innerHTML = document.getElementById("total")
-                        .innerHTML;
+                    // document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah")
+                    //     .innerHTML;
+                    // document.getElementById("td_ppn").innerHTML = document.getElementById("pajak")
+                    //     .innerHTML;
+                    // document.getElementById("td_total").innerHTML = document.getElementById("total")
+                    //     .innerHTML;
 
-                    function terbilang(angka) {
-                        var bilne = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan",
-                            "Sembilan", "Sepuluh", "Sebelas"
-                        ];
+                    // function terbilang(angka) {
+                    //     var bilne = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan",
+                    //         "Sembilan", "Sepuluh", "Sebelas"
+                    //     ];
 
-                        if (angka < 12) {
-                            return bilne[angka];
-                        } else if (angka < 20) {
-                            return terbilang(angka - 10) + " Belas";
-                        } else if (angka < 100) {
-                            return terbilang(Math.floor(parseInt(angka) / 10)) + " Puluh " + terbilang(
-                                parseInt(angka) % 10);
-                        } else if (angka < 200) {
-                            return "Seratus " + terbilang(parseInt(angka) - 100);
-                        } else if (angka < 1000) {
-                            return terbilang(Math.floor(parseInt(angka) / 100)) + " Ratus " + terbilang(
-                                parseInt(angka) % 100);
-                        } else if (angka < 2000) {
-                            return "Seribu " + terbilang(parseInt(angka) - 1000);
-                        } else if (angka < 1000000) {
-                            return terbilang(Math.floor(parseInt(angka) / 1000)) + " Ribu " + terbilang(
-                                parseInt(angka) % 1000);
-                        } else if (angka < 1000000000) {
-                            return terbilang(Math.floor(parseInt(angka) / 1000000)) + " Juta " + terbilang(
-                                parseInt(angka) % 1000000);
-                        } else if (angka < 1000000000000) {
-                            return terbilang(Math.floor(parseInt(angka) / 1000000000)) + " Milyar " +
-                                terbilang(parseInt(angka) % 1000000000);
-                        } else if (angka < 1000000000000000) {
-                            return terbilang(Math.floor(parseInt(angka) / 1000000000000)) + " Trilyun " +
-                                terbilang(parseInt(angka) % 1000000000000);
-                        }
-                    }
+                    //     if (angka < 12) {
+                    //         return bilne[angka];
+                    //     } else if (angka < 20) {
+                    //         return terbilang(angka - 10) + " Belas";
+                    //     } else if (angka < 100) {
+                    //         return terbilang(Math.floor(parseInt(angka) / 10)) + " Puluh " + terbilang(
+                    //             parseInt(angka) % 10);
+                    //     } else if (angka < 200) {
+                    //         return "Seratus " + terbilang(parseInt(angka) - 100);
+                    //     } else if (angka < 1000) {
+                    //         return terbilang(Math.floor(parseInt(angka) / 100)) + " Ratus " + terbilang(
+                    //             parseInt(angka) % 100);
+                    //     } else if (angka < 2000) {
+                    //         return "Seribu " + terbilang(parseInt(angka) - 1000);
+                    //     } else if (angka < 1000000) {
+                    //         return terbilang(Math.floor(parseInt(angka) / 1000)) + " Ribu " + terbilang(
+                    //             parseInt(angka) % 1000);
+                    //     } else if (angka < 1000000000) {
+                    //         return terbilang(Math.floor(parseInt(angka) / 1000000)) + " Juta " + terbilang(
+                    //             parseInt(angka) % 1000000);
+                    //     } else if (angka < 1000000000000) {
+                    //         return terbilang(Math.floor(parseInt(angka) / 1000000000)) + " Milyar " +
+                    //             terbilang(parseInt(angka) % 1000000000);
+                    //     } else if (angka < 1000000000000000) {
+                    //         return terbilang(Math.floor(parseInt(angka) / 1000000000000)) + " Trilyun " +
+                    //             terbilang(parseInt(angka) % 1000000000000);
+                    //     }
+                    // }
 
-                    var terbilang1 = document.getElementById("td_total").innerHTML;
-                    terbilang1 = terbilang1.replace(/\Rp. /g, "");
-                    terbilang1 = terbilang1.replace(/\./g, "");
-                    terbilang1 = parseInt(terbilang1);
-                    document.getElementById("terbilang").innerHTML = "Terbilang: " + terbilang(terbilang1) +
-                        " Rupiah";
+                    // var terbilang1 = document.getElementById("td_total").innerHTML;
+                    // terbilang1 = terbilang1.replace(/\Rp. /g, "");
+                    // terbilang1 = terbilang1.replace(/\./g, "");
+                    // terbilang1 = parseInt(terbilang1);
+                    // document.getElementById("terbilang").innerHTML = "Terbilang: " + terbilang(terbilang1) +
+                    //     " Rupiah";
 
-                    redaksi_line = [];
+                    // redaksi_line = [];
 
-                    for (var i = 0; i < clickredaksi; i++) {
+                    // for (var i = 0; i < clickredaksi; i++) {
 
-                        redaksi_line[i] = [
-                            document.getElementById("redaksi_id[" + (i + 1) + "]").options[document
-                                .getElementById("redaksi_id[" + (i + 1) + "]").selectedIndex].text,
-                            document.getElementById("deskripsi_id[" + (i + 1) + "]").value,
-                            document.getElementById("sub_deskripsi_id[" + (i + 1) + "]").value
-                        ]
+                    //     redaksi_line[i] = [
+                    //         document.getElementById("redaksi_id[" + (i + 1) + "]").options[document
+                    //             .getElementById("redaksi_id[" + (i + 1) + "]").selectedIndex].text,
+                    //         document.getElementById("deskripsi_id[" + (i + 1) + "]").value,
+                    //         document.getElementById("sub_deskripsi_id[" + (i + 1) + "]").value
+                    //     ]
 
-                    }
+                    // }
 
-                    if (redaksi_line.length > 0) {
-                        var html_redaksi = [""];
-                        var isi_redaksi = redaksi_line.length;
-                        for (var j = 0; j < isi_redaksi; j++) {
-                            html_redaksi += ("<tr> <td class='first' align='center' valign='top'>" + (j +
-                                    1) +
-                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
-                                redaksi_line[j][0] +
-                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
-                                redaksi_line[
-                                    j][1] +
-                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
-                                redaksi_line[
-                                    j][2] + "</td> </tr>")
-                        }
-                        document.getElementById("tbody_redaksi").innerHTML = html_redaksi;
-                    }
+                    // if (redaksi_line.length > 0) {
+                    //     var html_redaksi = [""];
+                    //     var isi_redaksi = redaksi_line.length;
+                    //     for (var j = 0; j < isi_redaksi; j++) {
+                    //         html_redaksi += ("<tr> <td class='first' align='center' valign='top'>" + (j +
+                    //                 1) +
+                    //             "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
+                    //             redaksi_line[j][0] +
+                    //             "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
+                    //             redaksi_line[
+                    //                 j][1] +
+                    //             "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
+                    //             redaksi_line[
+                    //                 j][2] + "</td> </tr>")
+                    //     }
+                    //     document.getElementById("tbody_redaksi").innerHTML = html_redaksi;
+                    // }
                     $("#next-btn").addClass('disabled').prop('disabled', true);
                 } else if (stepPosition === 'second') {
-                    var lokasi_2 = [""];
-                    var new_click = clicklokasi - 1;
-                    for (var i = 0; i < clicklokasi; i++) {
-                        value_lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value
-                        lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
-                            "</option>")
-                    }
+                    // var lokasi_2 = [""];
+                    // var new_click = clicklokasi - 1;
+                    // for (var i = 0; i < clicklokasi; i++) {
+                    //     value_lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value
+                    //     lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
+                    //         "</option>")
+                    // }
                     // for(var j = 0; j < clicklokasi; j++) {
                     //     document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
                     // }

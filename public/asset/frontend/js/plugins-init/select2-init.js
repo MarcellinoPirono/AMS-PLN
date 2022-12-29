@@ -15,6 +15,12 @@
   //disabling options
   $('.disabling-options').select2();
 
+  $('#tabelPaket tr td:nth-child(3) select').select2();
+
+  
+
+
+
   //disabling a select2 control
   $(".js-example-disabled").select2();
   $(".js-example-disabled-multi").select2();
