@@ -19,21 +19,39 @@ function updateform() {
         success: function (response) {
             var item = [""]
             for (i = 0; i < response.length; i++) {
-                item += ("<option value='" + response[i].id + "'>" + response[i].nama_item +
-                    "</option>")
+                item += ("<li>" + response[i].nama_item +
+                    "</li>")
             }
             var table = document.getElementById('tabelRAB');
             click++;
-            var select1 = document.createElement("select");
-            select1.innerHTML = "<option value='' selected disabled data-select2-id='2'>Pilih Pekerjaan</option>" + item;
-            select1.setAttribute("id", "item_id[" + click + "]");
-            select1.setAttribute("name", "item_id");
-            select1.setAttribute("class", "multi-select form-control input-default ");
-            //   select1.setAttribute("data-select2-id", "item_id[" + click + "]");
-            select1.setAttribute("onchange", "change_item(this)");
-            select1.setAttribute("style", "border-radius: 40px; width: 250px !Important: ");
-            select1.setAttribute("required", true);
+            // var select1 = document.createElement("select");
+            // select1.innerHTML = "<option value='' selected disabled data-select2-id='2'>Pilih Pekerjaan</option>" + item;
+            // select1.setAttribute("id", "item_id[" + click + "]");
+            // select1.setAttribute("name", "item_id");
+            // select1.setAttribute("class", "multi-select form-control input-default ");
+            // //   select1.setAttribute("data-select2-id", "item_id[" + click + "]");
+            // select1.setAttribute("onchange", "change_item(this)");
+            // select1.setAttribute("style", "border-radius: 40px; width: 250px !Important: ");
+            // select1.setAttribute("required", true);
             //   select1.select2();
+
+            var select1 = document.createElement("div");
+            select1.setAttribute('class', 'searching-select');
+            var input = document.createElement("input");
+            input.setAttribute('class', 'form-control input-default');
+            input.setAttribute('type', 'text');
+            input.setAttribute('id', 'item_id[' + click + ']');
+            input.setAttribute('placeholder', 'Pilih Pekerjaan');
+            input.setAttribute('required', true);
+            input.setAttribute('onkeyup', 'filterFunction(this,event)');
+            input.setAttribute('onblur', 'change_item(this)');
+
+            select1.append(input);
+
+            var ul = document.createElement("ul");
+            ul.setAttribute('id', 'ul_pekerjaan_id[' + click + ']');
+            select1.append(ul);
+            ul.innerHTML = item;
 
             var input1 = document.createElement("input");
             input1.setAttribute("type", "text");
@@ -118,7 +136,7 @@ function updateform() {
             cell8.appendChild(input6);
             cell9.appendChild(button);
 
-            $('.multi-select').select2()
+            // $('.multi-select').select2()
 
             reindex();
         }
@@ -187,7 +205,7 @@ function deleteRow(r) {
     var table = r.parentNode.parentNode.rowIndex;
     document.getElementById("tabelRAB").deleteRow(table);
     click--;
-    var select_id_item = document.querySelectorAll("#tabelRAB tr td:nth-child(2) select");
+    var select_id_item = document.querySelectorAll("#tabelRAB tr td:nth-child(2) input");
     for (var i = 0; i < select_id_item.length; i++) {
         select_id_item[i].id = "item_id[" + (i + 1) + "]";
     }
@@ -517,14 +535,15 @@ function ganti_item() {
             }
 
             var paket = [""];
-            for(var i = 0; i < result['pakets'].length; i++) {
-                paket += ("<option value='" + result['pakets'][i].slug + "'>" + result['pakets'][i].nama_paket +
-                "</option>")
+
+            for (i = 0; i < result['pakets'].length; i++) {
+                paket += ("<li>" + result['pakets'][i].nama_paket + "</li>")
             }
 
             if(clickpaket != 0) {
                 for(var j = 0; j < clickpaket; j++) {
-                    document.getElementById('paket_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Paket</option>" + paket;
+                    document.getElementById('paket_id['+ (j+1) +']').value = '';
+                    document.getElementById('ul_paket_id['+ (j+1) +']').innerHTML = paket;
                 }
             }
         }

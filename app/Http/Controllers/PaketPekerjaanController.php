@@ -349,6 +349,19 @@ class PaketPekerjaanController extends Controller
         return response()->json($data);
     }
 
+    public function ganti_paket(Request $request){
+        $paket = $request->post('paket');
+
+        $pakets = PaketPekerjaan::where('slug', $paket)->get();
+
+        return response()->json($pakets);
+
+
+
+    }
+
+
+
 
 
 

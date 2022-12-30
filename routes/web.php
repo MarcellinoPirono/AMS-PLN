@@ -159,6 +159,7 @@ Route::put('paket-pekerjaan/{jenis_khs}/{slug}/edit', [PaketPekerjaanController:
 
 Route::post('/getPaket', [PaketPekerjaanController::class, 'getPaketPekerjaan']);
 Route::post('/change-paket', [PaketPekerjaanController::class, 'changePaket']);
+Route::post('/gantiPaket', [PaketPekerjaanController::class, 'ganti_paket']);
 // Route::get('/paket-pekerjaan/createSlug', [PaketPekerjaanController::class, 'checkSlug']);
 
 //Paket Pekerjaan

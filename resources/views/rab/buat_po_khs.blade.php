@@ -453,7 +453,15 @@
                                                                                     value="1">1</strong></td>
 
                                                                             <td>
-                                                                                <select required
+                                                                                <div class="searching-select">
+                                                                                    <input type="text" class="form-control input-default" name="item_id" id="item_id[1]" placeholder="Pilih Pekerjaan" onkeyup="filterFunction(this,event)"  onchange="change_item(this)" required>
+                                                                                    <ul>
+                                                                                        <li>
+
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                                {{-- <select required
                                                                                     onchange="change_item(this)"
                                                                                     name="item_id" id="item_id[1]"
                                                                                     class="single-select form-control input-default"
@@ -461,7 +469,7 @@
                                                                                     <option value="" selected
                                                                                         disabled required>Pilih Pekerjaan
                                                                                     </option>
-                                                                                </select>
+                                                                                </select> --}}
                                                                             </td>
 
                                                                             <td><input type="text"
@@ -914,7 +922,7 @@
     <script src="{{ asset('/') }}./asset/frontend/js/custom.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/deznav-init.js"></script>
 
-    <script>
+    <!-- <script>
 
 
 
@@ -961,7 +969,7 @@
                 imgPreview.src = oFREvent.target.result;
             }
         }
-    </script>
+    </script> -->
 <script>
 //     new TomSelect("#tabelPaket tr td:nth-child(3) select",{
 //     create: false,

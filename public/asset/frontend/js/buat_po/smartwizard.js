@@ -88,17 +88,71 @@ const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
                 // Validate only on forward movement
                 $('#start_date').removeAttr('readonly');
                 $('#end_date').removeAttr('readonly');
+
                 if (stepDirection == 'forward') {
-                    let form = document.getElementById('form-' + (currentStepIdx + 1));
-                    if (form) {
-                        if (!form.checkValidity()) {
-                            form.classList.add('was-validated');
-                            $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
-                            $("#smartwizard").smartWizard('fixHeight');
-                            return false;
+                    // console.log(clickpaket);
+                    // alert(currentStepIdx);
+                    // if(currentStepIdx == 1) {
+                    //     console.log("AEAEEAE");
+                    //     if(clickpaket != 0) {
+                    //         for(var i = 0; i < clickpaket; i++) {
+                    //             var paket = document.getElementById('paket_id['+(i+1)+']').value;
+                    //             paket = paket.replace(/\//g, "_");
+                    //             paket = paket.replace(/\ /g, "-");
+
+                    //             let token = $('#csrf').val();
+
+                    //             $.ajax({
+                    //                 url: '/gantiPaket',
+                    //                 type: 'POST',
+                    //                 data: {
+                    //                     'paket': paket,
+                    //                     '_token': token
+                    //                 },
+                    //                 success: function(response) {
+                    //                     // console.log(response);
+                    //                     if(response.length == 0){
+                    //                         // alert("Salah");
+
+                    //                         // let form = document.getElementById('form-' + (currentStepIdx));
+                    //                         // if (form) {
+                    //                         //     if (!form.checkValidity()) {
+                    //                         //         form.classList.add('was-validated');
+                    //                         //         $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
+                    //                         //         $("#smartwizard").smartWizard('fixHeight');
+                    //                         //         return false;
+                    //                         //     }
+                    //                             $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
+                    //                         // }
+                    //                         // console.log(form);
+
+                    //                     } else {
+                    //                         alert("Benar");
+                    //                     }
+                    //                 }
+                    //             })
+                    //         }
+                    //     }
+                    // }
+                    // else {
+                        let form = document.getElementById('form-' + (currentStepIdx + 1));
+                        console.log(form);
+                        if (form) {
+                            if (!form.checkValidity()) {
+                                let form1 = form.classList.add('was-validated');
+                                console.log(form1);
+                                $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
+                                var smart = $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
+                                console.log(smart);
+                                let qwer = $("#smartwizard").smartWizard('fixHeight');
+                                console.log(qwer);
+                                return false;
+                            }
+                            var smart1 = $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
+                            console.log(smart1);
+                            $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
                         }
-                        $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
-                    }
+                    
                 }
             });
 
@@ -107,6 +161,8 @@ const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
                 $("#prev-btn").removeClass('disabled').prop('disabled', false);
                 $("#next-btn").removeClass('disabled').prop('disabled', false);
                 if (stepPosition === 'first') {
+                    // alert(stepPosition)
+                    // console.log(currentStepIdx);
                     // alert(clicklokasi);
                     // var new_click = clicklokasi - 1;
                     // for (var i = 0; i < new_click; i++) {

@@ -16,8 +16,11 @@
 
 
 function filterFunction(that, event) {
+    // console.log(that);
+    // console.log(event);
     let container, input, filter, li, input_val;
     container = $(that).closest(".searching-select");
+    console.log(container);
     input_val = container.find("input").val().toUpperCase();
 
     if (["ArrowDown", "ArrowUp", "Enter"].indexOf(event.key) != -1) {
@@ -67,14 +70,31 @@ function keyControl(e, container) {
 }
 
 function onSelect(val) {
-    alert(val)
+    // alert(val)
 }
 
-$(".searching-select input").focus(function () {
+// $(".searching-select input").focus(function () {
+//     console.log(this);
+//     // $(this).closest(".searching-select").find("ul").css('display', 'initial');
+//     $(this).closest(".searching-select ul").show();
+//     // $(this).closest(".searching-select").find("ul").show();
+//     // $(this).closest(".searching-select").find("ul li").css('display', 'initial');
+//     $(this).closest(".searching-select").show();
+//     // $(this).closest(".searching-select").find("ul li").show();
+// });
+// $(".searching-select input").blur(function () {
+//     let that = this;
+//     setTimeout(function () {
+//         $(that).closest(".searching-select").find("ul").hide();
+//     }, 300);
+// });
+
+$(document).on('focus', '.searching-select input', function () {
     $(this).closest(".searching-select").find("ul").show();
     $(this).closest(".searching-select").find("ul li").show();
 });
-$(".searching-select input").blur(function () {
+
+$(document).on('blur', '.searching-select input', function () {
     let that = this;
     setTimeout(function () {
         $(that).closest(".searching-select").find("ul").hide();
@@ -83,10 +103,16 @@ $(".searching-select input").blur(function () {
 
 $(document).on('click', '.searching-select ul li', function () {
     $(this).closest(".searching-select").find("input").val($(this).text()).blur();
+    $(this).closest(".searching-select").find("ul li.selected").removeClass("selected");
+    $(this).addClass("selected");
     onSelect($(this).text())
 });
 
-$(".searching-select ul li").hover(function () {
+$(document).on('hover', '.searching-select ul li', function () {
     $(this).closest(".searching-select").find("ul li.selected").removeClass("selected");
     $(this).addClass("selected");
 });
+// $(".searching-select ul li").hover(function () {
+//     $(this).closest(".searching-select").find("ul li.selected").removeClass("selected");
+//     $(this).addClass("selected");
+// });
