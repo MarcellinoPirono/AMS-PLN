@@ -20,7 +20,7 @@ function filterFunction(that, event) {
     // console.log(event);
     let container, input, filter, li, input_val;
     container = $(that).closest(".searching-select");
-    console.log(container);
+    // console.log(container);
     input_val = container.find("input").val().toUpperCase();
 
     if (["ArrowDown", "ArrowUp", "Enter"].indexOf(event.key) != -1) {

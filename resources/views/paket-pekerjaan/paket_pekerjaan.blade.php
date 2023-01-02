@@ -54,7 +54,7 @@
                                         <td align="left" valign="top" style="vertical-align: top;">
                                             @foreach ($pakets as $paket2)
                                                 @if ($paket2->nama_paket == $paket->nama_paket)
-                                                    <ol type="1">
+                                                    <ol start="1">
                                                         <li>
                                                             {{ $paket2->rincian_induks->nama_item }}
                                                         </li>

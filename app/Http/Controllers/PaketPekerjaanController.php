@@ -246,7 +246,7 @@ class PaketPekerjaanController extends Controller
 
         $request->validate([
 
-            'nama_paket' => 'required|unique:paket_pekerjaans',
+            'nama_paket' => 'required',
             'item_id' => 'required',
             'khs_id' => 'required',
             'volume' => 'required',
@@ -333,14 +333,12 @@ class PaketPekerjaanController extends Controller
     public function changePaket (Request $request){
         $nama_paket = $request->post('nama_paket');
 
-
         $pakets = PaketPekerjaan::where('slug', $nama_paket)->get();
         $item = [];
         for($i = 0; $i < count($pakets); $i++) {
             $item[$i] = RincianInduk::where('id', $pakets[$i]->item_id)->get();
         }
-        // $item = RincianInduk::where('id', $pakets->)
-        // dd($item);
+
         $data = [
             'pakets' => $pakets,
             'items' => $item,
@@ -355,9 +353,6 @@ class PaketPekerjaanController extends Controller
         $pakets = PaketPekerjaan::where('slug', $paket)->get();
 
         return response()->json($pakets);
-
-
-
     }
 
 

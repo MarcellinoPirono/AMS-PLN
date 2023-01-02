@@ -1,4 +1,4 @@
-    @import url("./../icons/simple-line-icons/css/simple-line-icons.css");
+@import url("./../icons/simple-line-icons/css/simple-line-icons.css");
 @import url("./../icons/font-awesome-old/css/font-awesome.min.css");
 @import url("./../icons/material-design-iconic-font/css/materialdesignicons.min.css");
 @import url("./../icons/themify-icons/css/themify-icons.css");
@@ -25,7 +25,9 @@ div.searching-select {
     width: 300px;
     float: left;
     margin: 0 15px;
+
 }
+
 
 .searching-select {
     word-wrap: break-word !important;
@@ -36,12 +38,19 @@ div.searching-select {
 }
 
 .searching-select input {
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 100%;
-    word-wrap: break-word !important;
+    height: 80px;
+    /* word-wrap: break-word !important;
     white-space: normal !important;
     word-break: break-all !important;
     -moz-white-space: normal;
-    -o-white-space: pre-wrap;
+    -o-white-space: pre-wrap; */
     height: 70px;
     font-size: 14px;
     padding: 10px;
@@ -580,6 +589,8 @@ select {
 
 select {
     word-wrap: normal;
+    white-space: normal;
+    max-width: 100%;
     /* word-wrap: break-word; */
 }
 

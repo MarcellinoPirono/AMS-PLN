@@ -5,6 +5,7 @@ var k = 0
 var clicklokasi = 1
 var nomor_tabel_lokasi = 1
 var l = 0
+
 function updateform() {
     var kontrak_induk = document.getElementById('kontrak_induk').value;
     let token = $('#csrf').val();;
@@ -23,6 +24,7 @@ function updateform() {
                     "</li>")
             }
             var table = document.getElementById('tabelRAB');
+            console.log(table);
             click++;
             // var select1 = document.createElement("select");
             // select1.innerHTML = "<option value='' selected disabled data-select2-id='2'>Pilih Pekerjaan</option>" + item;
@@ -115,7 +117,9 @@ function updateform() {
             button.innerHTML = "<i class='fa fa-trash'></i>";
             button.setAttribute("onclick", "deleteRow(this)");
             button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
-            button.setAttribute("style", "margin-top: 18px !important; margin-left: 14px !important")
+            button.setAttribute("style", "margin-top: 15px");
+
+            console.log(table);
             var row = table.insertRow(-1);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -142,6 +146,8 @@ function updateform() {
         }
     });
 }
+
+
 function updatelokasi() {
     var table_lokasi = document.getElementById('tabelSPBJ');
     clicklokasi++;
@@ -524,14 +530,17 @@ function ganti_item() {
             '_token': token,
         },
         success: function (result) {
+            // console.log(result);
+            // console.log(click);
             var item = [""]
+
             for (i = 0; i < result['items'].length; i++) {
-                item += ("<option value='" + result['items'][i].id + "'>" + result['items'][i].nama_item +
-                    "</option>")
+                item += ("<li>" + result['items'][i].nama_item + "</li>")
             }
+            // console.log(item);
             for (var i = 0; i < click; i++) {
-                document.getElementById("item_id[" + (i + 1) + "]").innerHTML =
-                    "<option value='' selected disabled>Pilih Pekerjaan</option>" + item;
+                document.getElementById('item_id['+ (i+1) +']').value = '';
+                document.getElementById("ul_paket_id2[" + (i + 1) + "]").innerHTML = item;
             }
 
             var paket = [""];
