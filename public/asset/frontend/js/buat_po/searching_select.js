@@ -69,9 +69,9 @@ function keyControl(e, container) {
     });
 }
 
-function onSelect(val) {
-    // alert(val)
-}
+// function onSelect(val) {
+//     // alert(val)
+// }
 
 // $(".searching-select input").focus(function () {
 //     console.log(this);
@@ -102,17 +102,16 @@ $(document).on('blur', '.searching-select input', function () {
 });
 
 $(document).on('click', '.searching-select ul li', function () {
-    $(this).closest(".searching-select").find("input").val($(this).text()).blur();
+    // $(this).closest(".searching-select").find("input").val($(this).text()).blur();
+    $(this).closest(".searching-select").find("input").val($(this).text());
     $(this).closest(".searching-select").find("ul li.selected").removeClass("selected");
     $(this).addClass("selected");
-    onSelect($(this).text())
+    // change_paket2(this);
+    // change_paket(this);
+    // onSelect($(this).text())
 });
 
 $(document).on('hover', '.searching-select ul li', function () {
     $(this).closest(".searching-select").find("ul li.selected").removeClass("selected");
     $(this).addClass("selected");
 });
-// $(".searching-select ul li").hover(function () {
-//     $(this).closest(".searching-select").find("ul li.selected").removeClass("selected");
-//     $(this).addClass("selected");
-// });

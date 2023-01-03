@@ -238,7 +238,7 @@
                                                         Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silakan isi Pengawas Pekerjaan
+                                                       Silakan isi Pengawas Pekerjaan
                                                     </div>
                                                 </div>
                                             </div>
@@ -323,7 +323,6 @@
 
                                                     <div class="row ml-2">
                                                         <div class="table-responsive" id="tambah_tabel">
-
                                                             <table class="table table-responsive-sm height-100"
                                                                 id="tabelPaket">
                                                                 <thead>
@@ -332,7 +331,8 @@
                                                                             style="width: 10px;">No.</th>
                                                                         <th align="center" valign="middle"
                                                                             style="width: 35%;">Lokasi</th>
-                                                                        <th align="center" valign="middle">Paket Pekerjaan
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 40%">Paket Pekerjaan
                                                                         </th>
                                                                         <th align="center" valign="middle"
                                                                             style="width: 15%">Volume
@@ -393,21 +393,26 @@
                                                         <div class="table-responsive" id="tambah_tabel">
                                                             <div id="thead_RAB">
                                                                 <table class="table table-responsive-lg tabel-daftar1"
-                                                                    style="width: 1520px" cellpadding="0" cellspacing="0" border="0">
+                                                                    style="width: 1520px" cellpadding="0" cellspacing="0"
+                                                                    border="0">
                                                                     <thead>
                                                                         <tr align="center" valign="middle"
                                                                             class="">
                                                                             <th align="center" valign="middle"
-                                                                                style="width: 60px vertical-align: middle;">NO</th>
+                                                                                style="width: 60px vertical-align: middle;">
+                                                                                NO</th>
                                                                             <th align="center" valign="middle"
-                                                                                style="width: 370px; vertical-align: middle;">Pekerjaan</th>
+                                                                                style="width: 370px; vertical-align: middle;">
+                                                                                Pekerjaan</th>
                                                                             <th align="center" valign="middle"
-                                                                                style="width: 185px; vertical-align: middle;">Kategori
+                                                                                style="width: 185px; vertical-align: middle;">
+                                                                                Kategori
                                                                                 Pekerjaan</th>
                                                                             <th align="center" valign="middle"
                                                                                 style="width: 130px; vertical-align: middle;">
                                                                                 Satuan</th>
-                                                                            <th align="center" style="width: 130px; vertical-align: middle;"
+                                                                            <th align="center"
+                                                                                style="width: 130px; vertical-align: middle;"
                                                                                 valign="middle">
                                                                                 Volume</th>
                                                                             <th align="center" valign="middle"
@@ -420,7 +425,8 @@
                                                                                 Jumlah (Rp.)
                                                                             </th>
                                                                             <th align="center" valign="middle"
-                                                                                style="width: 130px; vertical-align: middle;">TKDN
+                                                                                style="width: 130px; vertical-align: middle;">
+                                                                                TKDN
                                                                                 (%)
                                                                             </th>
                                                                             <th align="center" valign="middle"
@@ -433,19 +439,26 @@
                                                             <div class="table-resposive" id="tbody_RAB">
                                                                 {{-- <label style="font-weight: bold; color:rgb(15, 58, 106)">Nama Lokasi:</label> --}}
                                                                 <table class="table table-responsive-lg tabel-daftar"
-                                                                    style="width: 1520px" id="tabelRAB" cellpadding="0" cellspacing="0" border="0">
+                                                                    style="width: 1520px" id="tabelRAB" cellpadding="0"
+                                                                    cellspacing="0" border="0">
                                                                     <thead>
                                                                         <th style="width: 63px"></th>
-                                                                        <th id="nama_paket" style="width: 300px"></th>
+                                                                        <th style="width: 300px"></th>
                                                                     </thead>
                                                                     <tbody id="tbody-kategori">
-                                                                    <tr>
+                                                                        <tr>
                                                                             <td><strong id="nomor"
                                                                                     value="1">1</strong></td>
 
-                                                                            <td>
+                                                                            <td style="width: 370px">
                                                                                 <div class="searching-select">
-                                                                                    <input type="search" class="form-control input-default" name="item_id" id="item_id[1]" placeholder="Pilih Pekerjaan" onkeyup="filterFunction(this,event)"  onchange="change_item(this)" required>
+                                                                                    <input type="search"
+                                                                                        class="form-control input-default"
+                                                                                        name="item_id" id="item_id[1]"
+                                                                                        placeholder="Pilih Pekerjaan"
+                                                                                        onkeyup="filterFunction(this,event)"
+                                                                                        onchange="change_item(this)"
+                                                                                        required>
                                                                                     <ul id="ul_paket_id2[1]"></ul>
                                                                                 </div>
                                                                             </td>
@@ -487,8 +500,8 @@
                                                                                     onkeyup="tkdn_format(this)"
                                                                                     value="">
                                                                             </td>
-                                                                            <td style="width: 80px;"><button
-                                                                                    onclick="deleteRow(this)"
+                                                                            <td style="width: 80px; vertical-align: middle !important;">
+                                                                                <button onclick="deleteRow(this)"
                                                                                     class="btn btn-danger shadow btn-xs sharp"><i
                                                                                         class='fa fa-trash'></i></button>
                                                                             </td>
@@ -497,8 +510,7 @@
                                                                 </table>
 
                                                                 <div class="col-lg-12 mb-2">
-                                                                    <div
-                                                                        class="position-relative float-left">
+                                                                    <div class="position-relative float-left">
                                                                         <a type="button" id="tambah-pekerjaan"
                                                                             class="btn btn-primary position-relative justify-content-end"
                                                                             onclick="updateform()" required>Tambah</a>
@@ -594,18 +606,18 @@
                                                                             </p>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                    <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
-                                                                                        placeholder="Deskripsi" value="" disabled required></textarea>
-                                                                                </td> -->
-                                                                        <td style="vertical-align: top">
+                                                                                        <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
+                                                                                            placeholder="Deskripsi" value="" disabled required></textarea>
+                                                                                    </td> -->
+                                                                        <td style="vertical-++++++++++++++++align: top">
                                                                             <!-- <p id="sub_deskripsi_id[1]"></p> -->
                                                                             <ol id="sub_deskripsi_id[1]">
                                                                             </ol>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                    <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
-                                                                                        placeholder="Sub Deskripsi" value="" disabled required></textarea>
-                                                                                </td> -->
+                                                                                        <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
+                                                                                            placeholder="Sub Deskripsi" value="" disabled required></textarea>
+                                                                                    </td> -->
 
                                                                         <td style="vertical-align: top"><button
                                                                                 onclick="deleteRow1(this)"
@@ -870,9 +882,9 @@
 
     <!-- Search and Select -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                                <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
-                                    integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+                                        integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+                                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
             <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
@@ -900,32 +912,29 @@
     <script src="{{ asset('/') }}./asset/frontend/js/deznav-init.js"></script>
 
     <!-- <script>
-
-
-
-    function myFunction() {
-        $("#dropdown-values").addClass("show");
+        function myFunction() {
+            $("#dropdown-values").addClass("show");
         }
 
         $(document).click(function(e) {
-        if( e.target.id != 'myInput') {
-            $("#dropdown-values").removeClass("show");
-        }
+            if (e.target.id != 'myInput') {
+                $("#dropdown-values").removeClass("show");
+            }
         });
 
         function filterFunction() {
-        var input, filter, a, i;
-        filter = $("#myInput").val().toUpperCase();
-        div = document.getElementById("myDropdown");
-        a = div.getElementsByTagName("a");
-        for (i = 0; i < a.length; i++) {
-            txtValue = a[i].textContent || a[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            a[i].style.display = "";
-            } else {
-            a[i].style.display = "none";
+            var input, filter, a, i;
+            filter = $("#myInput").val().toUpperCase();
+            div = document.getElementById("myDropdown");
+            a = div.getElementsByTagName("a");
+            for (i = 0; i < a.length; i++) {
+                txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
             }
-        }
         }
 
         function setValueOfInput(e) {
@@ -947,16 +956,15 @@
             }
         }
     </script> -->
-<script>
-//     new TomSelect("#tabelPaket tr td:nth-child(3) select",{
-//     create: false,
-//     sortField: {
-//         field: "text",
-//         direction: "asc"
-//     }
-// });
-
-</script>
+    <script>
+        //     new TomSelect("#tabelPaket tr td:nth-child(3) select",{
+        //     create: false,
+        //     sortField: {
+        //         field: "text",
+        //         direction: "asc"
+        //     }
+        // });
+    </script>
 @endsection
 
 

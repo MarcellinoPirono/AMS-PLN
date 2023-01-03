@@ -39,9 +39,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MainController::class, 'index']);
 
 Route::get('/dashboard', [MainController::class, 'index']);
 Route::get('/login', [LoginController::class, 'login']);
@@ -159,6 +157,7 @@ Route::put('paket-pekerjaan/{jenis_khs}/{slug}/edit', [PaketPekerjaanController:
 
 Route::post('/getPaket', [PaketPekerjaanController::class, 'getPaketPekerjaan']);
 Route::post('/change-paket', [PaketPekerjaanController::class, 'changePaket']);
+Route::post('/change-paket2', [PaketPekerjaanController::class, 'changePaket2']);
 Route::post('/gantiPaket', [PaketPekerjaanController::class, 'ganti_paket']);
 // Route::get('/paket-pekerjaan/createSlug', [PaketPekerjaanController::class, 'checkSlug']);
 

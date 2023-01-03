@@ -117,7 +117,7 @@ function updateform() {
             button.innerHTML = "<i class='fa fa-trash'></i>";
             button.setAttribute("onclick", "deleteRow(this)");
             button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
-            button.setAttribute("style", "margin-top: 15px");
+            button.setAttribute("style", "margin-top: 18px");
 
             console.log(table);
             var row = table.insertRow(-1);
@@ -171,19 +171,23 @@ function updatelokasi() {
     cell2.appendChild(input1);
     cell3.appendChild(button);
     reindex2();
-    // var lokasi_2 = [""];
-    // for (var i = 0; i < clicklokasi; i++){
-    //     value_lokasi = document.getElementById('lokasi['+ (i + 1) +']').value
-    //     lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
-    //     "</option>")
-    // }
-    // // console.log(clickpaket);
-    // // console.log(lokasi_2);
-    // if(clickpaket != 0) {
-    //     for(var j = 0; j < clicklokasi; j++) {
-    //         document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
-    //     }
-    // }
+    var lokasi_2 = [""];
+    var lokasi_3 = [""];
+    for (var i = 0; i < clicklokasi; i++){
+        value_lokasi = document.getElementById('lokasi['+ (i + 1) +']').value
+        lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
+        "</option>");
+        // lokasi_3 += ("<li class='amsify-list-item '>")
+    }
+    // console.log(clickpaket);
+    // console.log(lokasi_2);
+    if(clickpaket != 0) {
+        for(var j = 0; j < clicklokasi; j++) {
+            // document.getElementsByClassName("amsify-label").innerHTML = "Pilih Paket";
+            document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+            // document.getElementsByClassName("amsify-list").innerHTML = ""
+        }
+    }
 
     // alert("HALOOOO");
 }
@@ -196,6 +200,20 @@ function deleteRow2(r) {
         select_id_lokasi[i].id = "lokasi[" + (i + 1) + "]";
     }
     reindex2();
+
+    var lokasi_2 = [""];
+    for (var i = 0; i < clicklokasi; i++){
+        value_lokasi = document.getElementById('lokasi['+ (i + 1) +']').value
+        lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
+        "</option>")
+    }
+    // console.log(clickpaket);
+    // console.log(lokasi_2);
+    // if(clickpaket != 0) {
+    for(var j = 0; j < clicklokasi; j++) {
+        document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+    }
+    // }
     if (clicklokasi == 0) {
         updatelokasi();
     }
@@ -530,29 +548,35 @@ function ganti_item() {
             '_token': token,
         },
         success: function (result) {
-            // console.log(result);
+            console.log(result);
             // console.log(click);
             var item = [""]
+            var item_2 = [""]
 
             for (i = 0; i < result['items'].length; i++) {
-                item += ("<li>" + result['items'][i].nama_item + "</li>")
+                item += ("<option value='"+ result['items'][i].id +"'>" + result['items'][i].nama_item + "</option>")
+                // item_2 += ("<li class='amsify-list-item '><input type='radio' name='item_id_amsify' class='amsify-select-input' value='"+ result['items'][i].id +"'>" + result['items'][i].nama_item +"</li>")
             }
             // console.log(item);
             for (var i = 0; i < click; i++) {
                 document.getElementById('item_id['+ (i+1) +']').value = '';
-                document.getElementById("ul_paket_id2[" + (i + 1) + "]").innerHTML = item;
+                // document.getElementById("ul_paket_id2[" + (i + 1) + "]").innerHTML = item;
             }
 
             var paket = [""];
+            var paket_2 = [""];
 
             for (i = 0; i < result['pakets'].length; i++) {
-                paket += ("<li>" + result['pakets'][i].nama_paket + "</li>")
+                paket += ("<option value='"+ result['pakets'][i].slug +"'>" + result['pakets'][i].nama_paket + "</li>")
+                paket_2 += ("<li class='amsify-list-item'><input type='radio' name='paket_id_amsify' class='amsify-select-input' value='"+ result['pakets'][i].slug +"'>" + result['pakets'][i].nama_paket)
             }
+            paket_2 += ("</li><li class='amsify-item-noresult'>No matching options</li>")
 
             if(clickpaket != 0) {
                 for(var j = 0; j < clickpaket; j++) {
-                    document.getElementById('paket_id['+ (j+1) +']').value = '';
-                    document.getElementById('ul_paket_id['+ (j+1) +']').innerHTML = paket;
+                    document.getElementById('paket_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Paket</option>" + paket;
+                    document.getElementsByClassName('amsify-label')[j].innerHTML = "Pilih Paket";
+                    document.getElementsByClassName('amsify-list')[j].innerHTML = paket_2;
                 }
             }
         }

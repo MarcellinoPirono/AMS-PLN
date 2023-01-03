@@ -21,6 +21,7 @@
         rel="stylesheet" /> --}}
     <link href="{{ asset('/') }}./asset/frontend/vendor/owl-carousel/owl.carousel.css" rel="stylesheet" />
     <link href="{{ asset('/') }}./asset/frontend/css/style.css" rel="stylesheet" />
+    <link href="{{ asset('/') }}./asset/frontend/css/amsify.select.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('/') }}./asset/frontend/vendor/select2/css/select2.min.css">
 
 
@@ -232,6 +233,7 @@
     <script src="{{ asset('/') }}./asset/frontend/vendor/chart.js/Chart.bundle.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/custom.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/deznav-init.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/js/jquery.amsifyselect.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/vendor/owl-carousel/owl.carousel.js"></script>
 
     <!-- Chart piety plugin files -->
@@ -247,7 +249,7 @@
 
     <!-- Dashboard 1 -->
     <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script>
+    {{-- <script src="{{ asset('/') }}./asset/frontend/js/dashboard/dashboard-1.js"></script> --}}
 
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-steps/build/jquery.steps.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/vendor/jquery-validation/jquery.validate.min.js"></script>

@@ -347,6 +347,38 @@ class PaketPekerjaanController extends Controller
         return response()->json($data);
     }
 
+    public function changePaket2 (Request $request){
+        $nama_paket = $request->post('nama_paket');
+        // dd($nama_paket);
+
+        $each_paket = [];
+        for($i=0; $i<count($request->post('nama_paket')); $i++){
+            $each_paket[$i] = $nama_paket[$i];
+        }
+
+        $pakets = [];
+        $item = [];
+        for($j=0; $j<count($each_paket); $j++){
+            $pakets[$j] = PaketPekerjaan::where('slug', $each_paket[$j])->get();
+        }
+
+        // dd($pakets);
+
+        // $pakets = PaketPekerjaan::where('slug', $nama_paket)->get();
+        for($k = 0; $k < count($pakets[0]); $k++) {
+            $item[$k] = RincianInduk::where('id', $pakets[0][$k]->item_id)->get();
+        }
+
+        // dd($item);
+
+        $data = [
+            'pakets' => $pakets,
+            'items' => $item,
+        ];
+
+        return response()->json($data);
+    }
+
     public function ganti_paket(Request $request){
         $paket = $request->post('paket');
 
