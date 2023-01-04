@@ -3,7 +3,10 @@ var clickpaket = 0
 var nomor_tabel = 0
 var k = 0
 
+
+
 function updatePaket() {
+
     click = 0;
     document.getElementById('tbody_RAB').innerHTML = ""
 
@@ -16,7 +19,6 @@ function updatePaket() {
         data: {
             'kontrak_induk': kontrak_induk,
             '_token': token
-
         },
         success: function (response) {
             var paket = [""];
@@ -27,8 +29,11 @@ function updatePaket() {
                 lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
                     "</option>")
             }
+            // for (i = 0; i < response['paket_pekerjaan'].length; i++) {
+            //     paket += ("<option value='" + response['paket_pekerjaan'][i].slug + "'>" + response['paket_pekerjaan'][i].nama_paket + "</option>")
+            // }
             for (i = 0; i < response['paket_pekerjaan'].length; i++) {
-                paket += ("<option value='" + response['paket_pekerjaan'][i].slug + "'>" + response['paket_pekerjaan'][i].nama_paket + "</option>")
+                paket += ("<li>" + response['paket_pekerjaan'][i].nama_paket + "</li>")
             }
 
             var table = document.getElementById('tabelPaket');
@@ -41,36 +46,39 @@ function updatePaket() {
             select1.setAttribute("class", "form-control input-default");
             select1.setAttribute("style", "height: 60px !important; word-wrap: normal !important; white-space: pre-warp !important; overflow: hidden; text-overflow: ellipsis; max-width: 100%;");
             select1.setAttribute("required", true);
-            // select1.setAttribute("onchange", "change_paket(this)");
+            select1.setAttribute("onchange", "change_paket(this)");
 
-            // var div = document.createElement("div");
-            // div.setAttribute('class', 'searching-select');
+            var div = document.createElement("div");
+            div.setAttribute('class', 'searching-select');
 
             // var div2 = document.createElement("div");
             // div2.setAttribute('class', 'searching-select2');
 
-            // var input = document.createElement("input");
-            // input.setAttribute('class', 'form-control input-default');
-            // input.setAttribute('type', 'search');
-            // input.setAttribute('id', 'paket_id[' + clickpaket + ']');
-            // input.setAttribute("name", "paket_id");
-            // input.setAttribute('placeholder', 'Pilih Paket');
-            // input.setAttribute('required', true);
-            // input.setAttribute('onkeyup', 'filterFunction(this,event)');
-            // input.setAttribute('onkeydown', 'return no_bckspc(this, event)');
-
-            var select2 = document.createElement("select");
-            select2.innerHTML = "<option value='' selected disabled>Pilih Paket</option>" + paket;
-            select2.setAttribute('id', 'paket_id[' + clickpaket + ']');
-            select2.setAttribute("name", "paket_id");
-            select2.setAttribute("class", "form-control input-default");
-            select2.setAttribute("style", "height: 60px !important; word-wrap: normal !important; white-space: pre-warp !important; overflow: hidden; text-overflow: ellipsis; max-width: 100%;");
-            select2.setAttribute("required", true);
-            select2.setAttribute("onchange", "change_paket(this)");
-            // select2.setAttribute("onchange", "change_paket2(this)");
-
+            var input = document.createElement("input");
+            input.setAttribute('class', 'form-control input-default');
+            input.setAttribute('type', 'search');
+            input.setAttribute('id', 'paket_id[' + clickpaket + ']');
+            input.setAttribute("name", "paket_id");
+            input.setAttribute('placeholder', 'Pilih Paket');
+            input.setAttribute('required', true);
+            input.setAttribute('onkeyup', 'filterFunction(this,event)');
+            input.setAttribute('onkeydown', 'return no_bckspc(this, event)');
+            input.setAttribute('title','');
             // input.setAttribute('onblur', 'change_paket(this)');
             // input.setAttribute("maxlength", 1);
+
+            // var select2 = document.createElement("select");
+            // select2.innerHTML = "<option value='' selected disabled>Pilih Paket</option>" + paket;
+            // select2.setAttribute('id', 'paket_id[' + clickpaket + ']');
+            // select2.setAttribute("name", "paket_id");
+            // select2.setAttribute("class", "form-control input-default");
+            // select2.setAttribute("style", "height: 60px !important; word-wrap: normal !important; white-space: pre-warp !important; overflow: hidden; text-overflow: ellipsis; max-width: 100%;");
+            // select2.setAttribute("required", true);
+            // // select2.setAttribute("searchable", "");
+            // select2.setAttribute("onchange", "change_paket(this)");
+            // select2.setAttribute("onchange", "change_paket2(this)");
+
+
 
             // var input2 = document.createElement("input");
             // input2.setAttribute('class', 'form-control input-default');
@@ -84,13 +92,13 @@ function updatePaket() {
             // input2.setAttribute('onblur', 'change_paket(this)');
 
             // input.tooltip();
-            // div.append(input);
+            div.append(input);
             // // div2.append(input2);
-
-            // var ul = document.createElement("ul");
-            // ul.setAttribute('id', 'ul_paket_id[' + clickpaket + ']');
-            // div.append(ul);
-            // ul.innerHTML = paket;
+            //
+            var ul = document.createElement("ul");
+            ul.setAttribute('id', 'ul_paket_id[' + clickpaket + ']');
+            div.append(ul);
+            ul.innerHTML = paket;
 
             // var ul2 = document.createElement("ul");
             // ul2.setAttribute('id', 'ul_paket_id[' + clickpaket + ']2');
@@ -104,7 +112,7 @@ function updatePaket() {
             input3.setAttribute("name", "volume_paket");
             input3.setAttribute("placeholder", "Volume");
             input3.setAttribute("value", "");
-            // input3.setAttribute("onblur", "change_paket(this)");
+            input3.setAttribute("onblur", "change_paket(this)");
             input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
             input3.setAttribute("onkeyup", "format(this)");
             input3.setAttribute("required", true);
@@ -125,22 +133,32 @@ function updatePaket() {
 
             cell1.innerHTML = "1";
             cell2.appendChild(select1);
-            cell3.appendChild(select2);
+            // cell3.appendChild(select2);
+            cell3.appendChild(div);
             // cell4.appendChild(div2);
             cell5.appendChild(input3);
             cell6.appendChild(button);
 
-            $('#tabelPaket tr td:nth-child(3) select').amsifySelect({
-                searchable: true,
-                type: 'bootstrap',
+            // console.log($('#tabelPaket tr td:nth-child(3) select'));
+            // console.log($('#tabelPaket tr td:nth-child(3) .paket'+clickpaket));
 
-
-            }, 'refresh');
+            // for(var i = 0; i < clickpaket; i++) {
+            //     $('#tabelPaket tr td:nth-child(3) select').amsifySelect({
+            //         searchable: true,
+            //     });
+            // }
 
             reindexPaket();
+            // $('select').amsifySelect({
+            //     type :'amsify',
+
+            // }, 'refresh');
         }
     });
+
+
 }
+
 
 function deletePaket(r) {
     var table = r.parentNode.parentNode.rowIndex;
@@ -153,7 +171,7 @@ function deletePaket(r) {
         select_id_redaksi[i].id = "lokasi_id[" + (i + 1) + "]";
     }
 
-    var select_paket_id = document.querySelectorAll("#tabelPaket tr td:nth-child(3) select");
+    var select_paket_id = document.querySelectorAll("#tabelPaket tr td:nth-child(3) input");
     for (var i = 0; i < select_paket_id.length; i++) {
         select_paket_id[i].id = "paket_id[" + (i + 1) + "]";
     }
@@ -166,6 +184,7 @@ function deletePaket(r) {
 
     if (clickpaket == 0) {
         click = 1;
+        document.getElementById('tbody_RAB').innerHTML = ""
         var kontrak_induk = document.getElementById('kontrak_induk').value;
         let token = $('#csrf').val();
         $.ajax({
@@ -182,11 +201,6 @@ function deletePaket(r) {
                 for (i = 0; i < result['items'].length; i++) {
                     item += ("<li>" + result['items'][i].nama_item + "</li>")
                 }
-                // console.log(item);
-                // for (var i = 0; i < click; i++) {
-                //     document.getElementById('item_id[' + (i + 1) + ']').value = '';
-                //     document.getElementById("ul_paket_id2[" + (i + 1) + "]").innerHTML = item;
-                // }
 
                 div1 = document.getElementById("tbody_RAB");
 
@@ -229,6 +243,9 @@ function deletePaket(r) {
                 td8 = document.createElement("td");
                 td9 = document.createElement("td");
 
+                td1.setAttribute("style", "vertical-align: middle; width: 60px");
+                td1.setAttribute("align", "right");
+                td2.setAttribute("style", "width: 370px");
                 td3.setAttribute("style", "width: 185px");
                 td4.setAttribute("style", "width: 130px");
                 td5.setAttribute("style", "width: 130px");
@@ -245,7 +262,7 @@ function deletePaket(r) {
                 td1.append(strong);
 
                 divsearching = document.createElement("div");
-                divsearching.setAttribute('class', 'searching-select');
+                divsearching.setAttribute('class', 'searching-select2');
                 input1 = document.createElement("input");
                 input1.setAttribute('class', 'form- control input1-default');
                 input1.setAttribute('type', 'search');
@@ -253,9 +270,9 @@ function deletePaket(r) {
                 input1.setAttribute("name", "item_id");
                 input1.setAttribute('placeholder', 'Pilih Pejerjaan');
                 input1.setAttribute('required', true);
-                input1.setAttribute('onkeyup', 'filterFunction(this,event)');
+                input1.setAttribute('onkeyup', 'filterFunction2(this,event)');
                 input1.setAttribute('onkeydown', 'return no_bckspc(this, event)');
-                input1.setAttribute('onblur', 'change_paket(this)');
+                // input1.setAttribute('onblur', 'change_paket(this)');
                 divsearching.append(input1);
 
                 ul = document.createElement("ul");
@@ -366,12 +383,19 @@ function deletePaket(r) {
                 div1.append(div2);
             }
         })
+    } else {
+        change_paket();
     }
 
     reindexPaket();
 }
 
 function reindexPaket() {
+    // $('#tabelPaket tr td:nth-child(3) select').amsifySelect({
+    //     type: amsify,
+    // });
+
+
     const ids = document.querySelectorAll("#tabelPaket tr > td:nth-child(1)");
     ids.forEach((e, i) => {
         e.innerHTML = "<strong id=nomor1[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
@@ -379,9 +403,9 @@ function reindexPaket() {
     });
 }
 
-function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
-}
+// function onlyUnique(value, index, self) {
+//     return self.indexOf(value) === index;
+// }
 
 // function change_volume(c) {
 //     var baris_2 = [];
@@ -514,49 +538,59 @@ function onlyUnique(value, index, self) {
 //     }
 // });
 
-function change_paket2(c) {
-    var baris_22 = [];
-    var nama_paket2 = [];
-    // var ea = document.getElementsByClassName('selected')[0].innerHTML;
-    // console.log(ea);
-    console.log("clickpaket = ", clickpaket);
-    console.log("change_paket2 digunakan");
-    for (var z = 0; z < clickpaket; z++) {
+// function change_paket2(c) {
+//     var baris_22 = [];
+//     var nama_paket2 = [];
+//     // var ea = document.getElementsByClassName('selected')[0].innerHTML;
+//     // console.log(ea);
+//     console.log("clickpaket = ", clickpaket);
+//     console.log("change_paket2 digunakan");
+//     for (var z = 0; z < clickpaket; z++) {
 
-        nama_paket2[z] = document.getElementById('paket_id[' + (z + 1) + ']').value;
-        nama_paket2[z] = nama_paket2[i].replace(/\//g, "_");
-        nama_paket2[z] = nama_paket2[i].replace(/\ /g, "-");
+//         nama_paket2[z] = document.getElementById('paket_id[' + (z + 1) + ']').value;
+//         nama_paket2[z] = nama_paket2[i].replace(/\//g, "_");
+//         nama_paket2[z] = nama_paket2[i].replace(/\ /g, "-");
 
 
-        baris_22[z] = {
-            'lokasi': document.getElementById('lokasi_id[' + (z + 1) + ']').value,
-            'paket': document.getElementById('paket_id[' + (z + 1) + ']').value,
-            'volume': document.getElementById('volume_paket[' + (z + 1) + ']').value,
-            // 'item': response['items']
-        }
-        const group_location = baris_22.reduce((group, arr) => {
-            var { lokasi } = arr;
-            group[lokasi] = group[lokasi] ?? [];
-            group[lokasi].push(arr);
-            return group;
-        }, {});
-        // console.log(baris_2);
-        // bikin_table(group_location);
-        // if(document.getElementById('lokasi_id[' + (z + 1) + ']').value != "" && document.getElementById('paket_id[' + (z + 1) + ']').value != "" && document.getElementById('volume_paket[' + (z + 1) + ']').value != "") {
-        // }
-    }
-    bikin_table();
-    console.log(baris_22);
-    console.log("z = ", z);
-    console.log("bikin_table dipanggil");
-}
+//         baris_22[z] = {
+//             'lokasi': document.getElementById('lokasi_id[' + (z + 1) + ']').value,
+//             'paket': document.getElementById('paket_id[' + (z + 1) + ']').value,
+//             'volume': document.getElementById('volume_paket[' + (z + 1) + ']').value,
+//             // 'item': response['items']
+//         }
+//         const group_location = baris_22.reduce((group, arr) => {
+//             var { lokasi } = arr;
+//             group[lokasi] = group[lokasi] ?? [];
+//             group[lokasi].push(arr);
+//             return group;
+//         }, {});
+//         // console.log(baris_2);
+//         // bikin_table(group_location);
+//         // if(document.getElementById('lokasi_id[' + (z + 1) + ']').value != "" && document.getElementById('paket_id[' + (z + 1) + ']').value != "" && document.getElementById('volume_paket[' + (z + 1) + ']').value != "") {
+//         // }
+//     }
+//     bikin_table();
+//     console.log(baris_22);
+//     console.log("z = ", z);
+//     console.log("bikin_table dipanggil");
+// }
 
 
 function change_paket(c) {
+    // c.title = c.value
+    // console.log(c.value);
+    // c.title=c.value
+    // console.log(c. );
+    if (document.getElementById('tbody_RAB').innerHTML != "") {
+        document.getElementById('tbody_RAB').innerHTML = ""
+    }
     var baris_2 = [];
 
     for (var i = 0; i < clickpaket; i++) {
         var nama_paket = document.getElementById('paket_id[' + (i + 1) + ']').value;
+        document.getElementById('paket_id[' + (i + 1) + ']').title = nama_paket;
+        nama_paket = nama_paket.replace(/\//g, "_");
+        nama_paket = nama_paket.replace(/\ /g, "-");
 
         (function (index) {
             $.ajax({
@@ -571,7 +605,9 @@ function change_paket(c) {
                         'lokasi': document.getElementById('lokasi_id[' + (index + 1) + ']').value,
                         'paket': document.getElementById('paket_id[' + (index + 1) + ']').value,
                         'volume': document.getElementById('volume_paket[' + (index + 1) + ']').value,
-                        'item': response['items']
+                        'item': response['items'],
+                        'paket_dari_controller' : response['pakets'],
+                        'satuan' : response['satuans']
                     };
 
                     group_location = baris_2.reduce((group, arr) => {
@@ -580,198 +616,427 @@ function change_paket(c) {
                         group[lokasi].push(arr);
                         return group;
                     }, {});
+
+
                 }
             });
 
         })(i);
     }
+
+    if (document.getElementById('lokasi_id[' + clickpaket + ']').value != "" && document.getElementById('paket_id[' + clickpaket + ']').value != "" && document.getElementById('volume_paket[' + clickpaket + ']').value != "") {
+        bikin_table(group_location);
+        // alert("Berhasil");
+    }
+    // for (var j = 0; j < clickpaket; j++) {
+    // }
+    // console.log(i);
+    // console.log('lokasi', group_location[Object.keys(group_location)][i-1]);
 }
 
 
 // function gruoupBy(objectArray, property)
 
 function bikin_table(data) {
-    // if(document.getElementById("tbody_RAB"))
-    div = document.getElementById("tbody_RAB");
-    for(var i = 0; i < data.length; i++) {
-        if(div.innerHTML == ""){
+    // console.log("console log Object.keys(data)[0]",Object.keys(data)[0]);
+    // console.log("console log Object.keys(data).length",Object.keys(data).length);
+    // console.log("console log data[Object.keys(data)[0]]",data[Object.keys(data)[0]]);
+    // console.log("console log data[Object.keys(data)]",data[Object.keys(data)]);
+    // console.log("data", data[Object.keys(data)][0].paket);
+    // console.log("ea", data[Object.keys(data)][0]);
+    // var item = [""]
+    div1 = document.getElementById("tbody_RAB");
+    // for (i = 0; i < data[Object.keys(data)][0].; i++) {
+    //     item += ("<li>" + response['paket_pekerjaan'][i].nama_paket + "</li>")
+    // }
+    // console.log("data");
+    for(var i = 0; i < Object.keys(data).length; i++) {
+        console.log("ea", Object.keys(data));
+        label_lokasi = document.createElement("label");
+        label_lokasi.setAttribute('style', 'font-weight: bold; color:rgb(15, 58, 106)');
+        label_lokasi.setAttribute('class', 'mt-4 ml-4');
+        label_lokasi.innerHTML = "Nama Lokasi : "+Object.keys(data)[i];
+        div1.append(label_lokasi);
+        // console.log(data[Object.keys(data)].length);
+        for(var j = 0; j < data[Object.keys(data)[i]].length; j++) {
+            // console.log(j);
+            tabel_rab = document.createElement("table");
+            tabel_rab.setAttribute("class", "table table-responsive-lg tabel-daftar");
+            tabel_rab.setAttribute("id", "tabelRAB"+j);
+            tabel_rab.setAttribute("style", "width:1530px");
+            tabel_rab.setAttribute("cellpadding", "0");
+            tabel_rab.setAttribute("cellspacing", "0");
+            tabel_rab.setAttribute("border", "0");
 
+            thead = document.createElement("thead");
+            tabel_rab.append(thead);
+
+            tr2 = document.createElement("tr");
+
+            th1 = document.createElement("th");
+            th1.setAttribute("style", "width:63px");
+            th1.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' fill='currentColor' class='bi bi-dot' viewBox='0 0 16 16'><path d='M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z'/></svg>"
+            th2 = document.createElement("th");
+            th2.innerHTML = data[Object.keys(data)[i]][j].paket;
+            th2.setAttribute("style", "width:300px; vertical-align: middle;");
+            // th2.setAttribute("id", "nama_paket");
+            tr2.append(th1);
+            tr2.append(th2);
+            thead.append(tr2);
+
+            tbody = document.createElement("tbody");
+            tbody.setAttribute("id", "tbody-kategori"+j);
+            tabel_rab.append(tbody);
+            for(var k = 0; k < data[Object.keys(data)[i]][j]["item"].length; k++) {
+                var volume_k = data[Object.keys(data)[i]][j]["paket_dari_controller"][k].volume * data[Object.keys(data)[i]][j]["volume"];
+
+                // console.log("console log data[Object.keys(data)][j][item]", data[Object.keys(data)][j]["item"]);
+                // console.log("console log data[Object.keys(data)][j][paket_dari_controller]", data[Object.keys(data)][j]["paket_dari_controller"]);
+                tr = document.createElement("tr");
+                td1 = document.createElement("td");
+                td2 = document.createElement("td");
+                td3 = document.createElement("td");
+                td4 = document.createElement("td");
+                td5 = document.createElement("td");
+                td6 = document.createElement("td");
+                td7 = document.createElement("td");
+                td8 = document.createElement("td");
+                td9 = document.createElement("td");
+
+                // td1.setAttribute("style", "vertical-align: middle; width: 60px");
+                // td1.setAttribute("align", "right");
+                // td2.setAttribute("style", "width: 370px");
+                // td3.setAttribute("style", "width: 185px");
+                // td4.setAttribute("style", "width: 130px");
+                // td5.setAttribute("style", "width: 130px");
+                // td6.setAttribute("style", "width: 200px");
+                // td7.setAttribute("style", "width: 230px");
+                // td8.setAttribute("style", "width: 130px");
+                // td9.setAttribute("style", "width: 80px");
+
+                strong = document.createElement("strong");
+                strong.setAttribute("id", "nomor"+j);
+                strong.setAttribute("value", "1");
+                strong.setAttribute("style", "padding-left: 22px");
+                strong.innerHTML = k+1;
+
+                td1.append(strong);
+
+                divsearching = document.createElement("div");
+                divsearching.setAttribute('class', 'searching-select');
+                input1 = document.createElement("input");
+                input1.setAttribute('class', 'form- control input1-default');
+                input1.setAttribute('type', 'search');
+                input1.setAttribute('id', 'item_id[' + (k+1) + ']');
+                input1.setAttribute("name", "item_id");
+                input1.setAttribute('placeholder', 'Pilih Pekerjaan');
+                input1.setAttribute('required', true);
+                input1.setAttribute('onkeyup', 'filterFunction(this,event)');
+                input1.setAttribute('onkeydown', 'return no_bckspc(this, event)');
+                input1.setAttribute('onblur', 'change_paket(this)');
+                input1.setAttribute('value', data[Object.keys(data)[i]][j]["item"][k][0].nama_item);
+                divsearching.append(input1);
+
+
+
+                ul = document.createElement("ul");
+                ul.setAttribute('id', "ul_paket_id2[" + (k+1) + "]");
+                // ul.innerHTML = item;
+                divsearching.append(ul);
+
+                input2 = document.createElement("input");
+                input2.setAttribute("type", "text");
+                input2.setAttribute("class", "form-control input-default");
+                input2.setAttribute("name", "kategory_id");
+                input2.setAttribute("value", data[Object.keys(data)[i]][j]["item"][k][0].kategori);
+                input2.setAttribute("id", "kategory_id[" + (k+1) + "]");
+                input2.setAttribute("placeholder", "Kategori");
+                input2.setAttribute("disabled", true);
+                input2.setAttribute("readonly", true);
+                input2.setAttribute("required", true);
+
+
+                input3 = document.createElement("input");
+                input3.setAttribute("type", "text");
+                input3.setAttribute("class", "satuan form-control input-default");
+                input3.setAttribute("name", "satuan");
+                input3.setAttribute("value", data[Object.keys(data)[i]][j]["satuan"][k][0].singkatan);
+                input3.setAttribute("id", "satuan[" + (k+1) + "]");
+                input3.setAttribute("placeholder", "Satuan");
+                input3.setAttribute("disabled", true);
+                input3.setAttribute("readonly", true);
+                input3.setAttribute("required", true);
+
+
+                input4 = document.createElement("input");
+                input4.setAttribute("type", "text");
+                input4.setAttribute("class", "volume form-control input-default");
+                input4.setAttribute("name", "volume");
+                input4.setAttribute("value", '@currency3('+data[Object.keys(data)[i]][j]["paket_dari_controller"][k].volume * data[Object.keys(data)[i]][j]["volume"])+')';
+                input4.setAttribute("id", "volume[" + (k+1) + "]");
+                input4.setAttribute("placeholder", "Volume");
+                input4.setAttribute("required", true);
+
+                input5 = document.createElement("input");
+                input5.setAttribute("type", "text");
+                input5.setAttribute("class", "harga_satuan form-control input-default");
+                input5.setAttribute("name", "harga_satuan");
+                // input5.setAttribute("value",'@currency2(data[Object.keys(data)[i]][j]["item"][k][0].harga_satuan))';
+                input5.setAttribute("id", "harga_satuan[" + (k+1) + "]");
+                input5.setAttribute("placeholder", "Harga Satuan");
+                input5.setAttribute("disabled", true);
+                input5.setAttribute("readonly", true);
+                input5.setAttribute("required", true);
+
+                input6 = document.createElement("input");
+                input6.setAttribute("type", "text");
+                input6.setAttribute("class", "harga form-control input-default");
+                input6.setAttribute("name", "harga");
+                input6.setAttribute("value", data[Object.keys(data)[i]][j]["paket_dari_controller"][k].jumlah_harga * data[Object.keys(data)[i]][j]["volume"]);
+                input6.setAttribute("id", "harga[" + (k+1) + "]");
+                input6.setAttribute("placeholder", "Jumlah");
+                input6.setAttribute("disabled", true);
+                input6.setAttribute("readonly", true);
+                input6.setAttribute("required", true);
+
+                input7 = document.createElement("input");
+                input7.setAttribute("type", "text");
+                input7.setAttribute("class", "tkdn form-control input-default");
+                input7.setAttribute("name", "tkdn");
+                input7.setAttribute("value", data[Object.keys(data)[i]][j]["item"][k][0].tkdn);
+                input7.setAttribute("id", "tkdn[" + (k+1) + "]");
+                input7.setAttribute("placeholder", "TKDN");
+                input7.setAttribute("required", true);
+
+                button1 = document.createElement('button');
+
+                button1.setAttribute('onclick', 'deleteRow'+k+'(this)');
+                button1.setAttribute('class', 'btn btn-danger shadow btn-xs sharp');
+                button1.innerHTML = "<i class='fa fa-trash'></i>";
+
+                td2.append(divsearching);
+                td3.append(input2);
+                td4.append(input3);
+                td5.append(input4);
+                td6.append(input5);
+                td7.append(input6);
+                td8.append(input7);
+                td9.append(button1);
+
+                tr.append(td1);
+                tr.append(td2);
+                tr.append(td3);
+                tr.append(td4);
+                tr.append(td5);
+                tr.append(td6);
+                tr.append(td7);
+                tr.append(td8);
+                tr.append(td9);
+
+
+                tbody.append(tr);
+            }
+
+            div2 = document.createElement("div");
+            div2.setAttribute("class", "col-lg-12 mb-2");
+            div2.setAttribute("style", "display: flex");
+
+            div3 = document.createElement("div");
+            div3.setAttribute("class", "position-relative justify-content-end float-left");
+            div2.append(div3);
+
+            a = document.createElement("a");
+            a.setAttribute("type", "button");
+            a.setAttribute("id", "tambah-pekerjaan");
+            a.setAttribute("class", "btn btn-primary position-relative justify-content-end");
+            a.setAttribute("onclick", "updateform"+j+"()");
+            a.setAttribute("required", true);
+            a.innerHTML = "Tambah";
+            div3.append(a);
+
+            div1.append(tabel_rab);
+            div1.append(div2);
         }
     }
+    // if(document.getElementById("tbody_RAB"))
+    // for(var i = 0; i < data.length; i++) {
+    //     if(div.innerHTML == ""){
+
+    //     }
+    // }
     // console.log("sasa",group_location);
     // for (var j = 0; j < Object.keys(group_location).length; j++) {
     // for(var k = 0; k < )
 
-    label_lokasi = document.createElement("label");
-    // label_lokasi.innerHTML = Object.keys(group_location)[0];
-
-    label_lokasi.innerHTML = "ae";
-
-    tabel_rab = document.createElement("table");
-    tabel_rab.setAttribute("class", "table table-responsive-lg tabel-daftar");
-    tabel_rab.setAttribute("id", "tabelRAB");
-    tabel_rab.setAttribute("style", "width:1530px");
-    tabel_rab.setAttribute("cellpadding", "0");
-    tabel_rab.setAttribute("cellspacing", "0");
-
-    thead = document.createElement("thead");
-
-    tr3 = document.createElement("tr");
-    // thead.append(tr1);
-    th1 = document.createElement("th");
-    th1.setAttribute("style", "width:63px");
-    th2 = document.createElement("th");
-    th2.setAttribute("style", "width:300px");
-    // th2.innerHTML = Object.keys(group_location)[2];
-    th2.innerHTML = "data[]";
-    tr3.append(th1, th2);
-    thead.append(tr3);
-
-    tbody_kategori = document.createElement("tbody");
-    tbody_kategori.setAttribute("id", "tbody-kategori" + j);
-
-    //TD NOMOr
-    td_nomor = document.createElement("td");
-    strong_nomor = document.createElement("strong")
-    strong_nomor.setAttribute("id", "nomor" + j);
-    strong_nomor.setAttribute("value", "1");
-    strong_nomor.innerHTML = 1;
-    td_nomor.append(strong_nomor);
 
 
-    //TD ITEM_ID
-    td_item_id = document.createElement("td");
-    div_searching_select = document.createElement("div");
-    div_searching_select.setAttribute("class", "searching-select");
-    input_searching_select = document.createElement("input");
-    input_searching_select.setAttribute("type", "text");
-    input_searching_select.setAttribute("class", "form-control input-default");
-    input_searching_select.setAttribute("id", "item_id" + j);
-    input_searching_select.setAttribute("placeholder", "Pilih Pekerjaan");
-    input_searching_select.setAttribute("onkeyup", "filterFunction(this,event)");
-    input_searching_select.setAttribute("onchange", "change_item(this)");
-    input_searching_select.setAttribute("required", true);
-    ul_item_id = document.createElement("ul");
-    li_item_id = document.createElement("li");
-    ul_item_id.append(li_item_id);
-    div_searching_select.append(input_searching_select, ul_item_id);
-    td_item_id.append(div_searching_select);
+    // tabel_rab = document.createElement("table");
+    // tabel_rab.setAttribute("class", "table table-responsive-lg tabel-daftar");
+    // tabel_rab.setAttribute("id", "tabelRAB");
+    // tabel_rab.setAttribute("style", "width:1530px");
+    // tabel_rab.setAttribute("cellpadding", "0");
+    // tabel_rab.setAttribute("cellspacing", "0");
 
-    //TD kategory_id
-    td_kategori = document.createElement("td");
-    td_kategori.setAttribute("style", "width: 185px");
-    input_kategori = document.createElement("input");
-    input_kategori.setAttribute("type", "text");
-    input_kategori.setAttribute("class", "form-control kategory_id");
-    input_kategori.setAttribute("id", "kategory_id[1]");
-    input_kategori.setAttribute("name", "kategory_id");
-    input_kategori.setAttribute("placeholder", "Kategori");
-    input_kategori.setAttribute("disabled", true);
-    input_kategori.setAttribute("readonly", true);
-    td_kategori.append(input_kategori);
+    // thead = document.createElement("thead");
 
-    //TD satuan
-    td_satuan = document.createElement("td");
-    td_satuan.setAttribute("style", "width: 130px");
-    input_satuan = document.createElement("input");
-    input_satuan.setAttribute("type", "text");
-    input_satuan.setAttribute("class", "form-control satuan");
-    input_satuan.setAttribute("id", "satuan[1]");
-    input_satuan.setAttribute("name", "satuan");
-    input_satuan.setAttribute("placeholder", "Satuan");
-    input_satuan.setAttribute("disabled", true);
-    input_satuan.setAttribute("readonly", true);
-    td_satuan.append(input_satuan);
+    // tr3 = document.createElement("tr");
+    // // thead.append(tr1);
+    // th1 = document.createElement("th");
+    // th1.setAttribute("style", "width:63px");
+    // th2 = document.createElement("th");
+    // th2.setAttribute("style", "width:300px");
+    // // th2.innerHTML = Object.keys(group_location)[2];
+    // th2.innerHTML = "data[]";
+    // tr3.append(th1, th2);
+    // thead.append(tr3);
 
-    //TD Volume
-    td_volume = document.createElement("td");
-    td_volume.setAttribute("style", "width: 130px");
-    input_volume = document.createElement("input");
-    input_volume.setAttribute("type", "text");
-    input_volume.setAttribute("class", "form-control volume");
-    input_volume.setAttribute("id", "volume[1]");
-    input_volume.setAttribute("name", "volume");
-    input_volume.setAttribute("placeholder", "Volume");
-    input_volume.setAttribute("onblur", "blur_volume(this)");
-    input_volume.setAttribute("onkeyup", "format(this)");
-    input_volume.setAttribute("onkeypress", "return numbersonly2(this, event);");
-    input_volume.setAttribute("required", true);
-    td_volume.append(input_volume);
+    // tbody_kategori = document.createElement("tbody");
+    // tbody_kategori.setAttribute("id", "tbody-kategori" + j);
 
-    //TD Harga Satuan
-    td_harga_satuan = document.createElement("td");
-    td_harga_satuan.setAttribute("style", "width: 200px");
-    input_harga_satuan = document.createElement("input");
-    input_harga_satuan.setAttribute("type", "text");
-    input_harga_satuan.setAttribute("class", "form-control harga_satuan");
-    input_harga_satuan.setAttribute("id", "harga_satuan[1]");
-    input_harga_satuan.setAttribute("name", "harga_satuan");
-    input_harga_satuan.setAttribute("placeholder", "Harga Satuan");
-    input_harga_satuan.setAttribute("disabled", true);
-    input_harga_satuan.setAttribute("readonly", true);
-    td_harga_satuan.append(input_harga_satuan);
-
-    //TD Harga
-    td_harga = document.createElement("td");
-    td_harga.setAttribute("style", "width: 230px");
-    input_harga = document.createElement("input");
-    input_harga.setAttribute("type", "text");
-    input_harga.setAttribute("class", "form-control harga");
-    input_harga.setAttribute("id", "harga[1]");
-    input_harga.setAttribute("name", "harga");
-    input_harga.setAttribute("placeholder", "Harga");
-    input_harga.setAttribute("disabled", true);
-    input_harga.setAttribute("readonly", true);
-    td_harga.append(input_harga);
-
-    //TD TKDN
-    td_tkdn = document.createElement("td");
-    td_tkdn.setAttribute("style", "width: 130px");
-    input_tkdn = document.createElement("input");
-    input_tkdn.setAttribute("type", "text");
-    input_tkdn.setAttribute("class", "form-control tkdn");
-    input_tkdn.setAttribute("id", "tkdn[1]");
-    input_tkdn.setAttribute("name", "tkdn");
-    input_tkdn.setAttribute("placeholder", "TKDN");
-    input_tkdn.setAttribute("onkeyup", "tkdn_format(this)");
-    td_tkdn.append(input_tkdn);
-
-    //TD AKSI
-    td_aksi = document.createElement("td");
-    td_aksi.setAttribute("style", "width:80px; vertical-align: middle !important;");
-    button_aksi = document.createElement("button");
-    button_aksi.setAttribute("onclick", "deleteRow(this)");
-    button_aksi.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
-    i_aksi = document.createElement("i");
-    i_aksi.setAttribute("class", "fa fa-trash");
-    button_aksi.append(i_aksi);
-    td_aksi.append(button_aksi);
-
-    //Tombol Tambah
-    div_col = document.createElement("div");
-    div_col.setAttribute("class", "col-lg-12 mb-2");
-    div_pos = document.createElement("div");
-    div_pos.setAttribute("class", "position-relative float-left");
-    a_tambah = document.createElement("a");
-    a_tambah.innerHTML = "Tambah";
-    a_tambah.setAttribute("type", "button");
-    a_tambah.setAttribute("id", "tambah-pekerjaan");
-    a_tambah.setAttribute("class", "btn btn-primary position-relative justify-content-end");
-    a_tambah.setAttribute("onclick", "updateform(this)");
-    div_pos.append(a_tambah);
-    div_col.append(div_pos);
+    // //TD NOMOr
+    // td_nomor = document.createElement("td");
+    // td_nomor.setAttribute("style", "width: 60px");
+    // strong_nomor = document.createElement("strong")
+    // strong_nomor.setAttribute("id", "nomor" + j);
+    // strong_nomor.setAttribute("value", "1");
+    // strong_nomor.innerHTML = 1;
+    // td_nomor.append(strong_nomor);
 
 
-    tr1 = document.createElement("tr");
+    // //TD ITEM_ID
+    // td_item_id = document.createElement("td");
+    // td_item_id.setAttribute("style", "width: 370px");
+    // div_searching_select = document.createElement("div");
+    // div_searching_select.setAttribute("class", "searching-select");
+    // input_searching_select = document.createElement("input");
+    // input_searching_select.setAttribute("type", "text");
+    // input_searching_select.setAttribute("class", "form-control input-default");
+    // input_searching_select.setAttribute("id", "item_id" + j);
+    // input_searching_select.setAttribute("placeholder", "Pilih Pekerjaan");
+    // input_searching_select.setAttribute("onkeyup", "filterFunction(this,event)");
+    // input_searching_select.setAttribute("onchange", "change_item(this)");
+    // input_searching_select.setAttribute("required", true);
+    // ul_item_id = document.createElement("ul");
+    // li_item_id = document.createElement("li");
+    // ul_item_id.append(li_item_id);
+    // div_searching_select.append(input_searching_select, ul_item_id);
+    // td_item_id.append(div_searching_select);
 
-    tr1.append(td_nomor, td_item_id, td_kategori, td_satuan, td_volume, td_harga_satuan, td_harga, td_tkdn, td_aksi);
-    tbody_kategori.append(tr1);
-    tabel_rab.append(thead, tbody_kategori);
-    // var r, c;
-    // r = tabel_rab.insertRow(0);
-    // c = r.insertCell(0);
-    // c.innerHTML = tr1;
-    div.append(label_lokasi, tabel_rab, div_col);
+    // //TD kategory_id
+    // td_kategori = document.createElement("td");
+    // td_kategori.setAttribute("style", "width: 185px");
+    // input_kategori = document.createElement("input");
+    // input_kategori.setAttribute("type", "text");
+    // input_kategori.setAttribute("class", "form-control kategory_id");
+    // input_kategori.setAttribute("id", "kategory_id[1]");
+    // input_kategori.setAttribute("name", "kategory_id");
+    // input_kategori.setAttribute("placeholder", "Kategori");
+    // input_kategori.setAttribute("disabled", true);
+    // input_kategori.setAttribute("readonly", true);
+    // td_kategori.append(input_kategori);
+
+    // //TD satuan
+    // td_satuan = document.createElement("td");
+    // td_satuan.setAttribute("style", "width: 130px");
+    // input_satuan = document.createElement("input");
+    // input_satuan.setAttribute("type", "text");
+    // input_satuan.setAttribute("class", "form-control satuan");
+    // input_satuan.setAttribute("id", "satuan[1]");
+    // input_satuan.setAttribute("name", "satuan");
+    // input_satuan.setAttribute("placeholder", "Satuan");
+    // input_satuan.setAttribute("disabled", true);
+    // input_satuan.setAttribute("readonly", true);
+    // td_satuan.append(input_satuan);
+
+    // //TD Volume
+    // td_volume = document.createElement("td");
+    // td_volume.setAttribute("style", "width: 130px");
+    // input_volume = document.createElement("input");
+    // input_volume.setAttribute("type", "text");
+    // input_volume.setAttribute("class", "form-control volume");
+    // input_volume.setAttribute("id", "volume[1]");
+    // input_volume.setAttribute("name", "volume");
+    // input_volume.setAttribute("placeholder", "Volume");
+    // input_volume.setAttribute("onblur", "blur_volume(this)");
+    // input_volume.setAttribute("onkeyup", "format(this)");
+    // input_volume.setAttribute("onkeypress", "return numbersonly2(this, event);");
+    // input_volume.setAttribute("required", true);
+    // td_volume.append(input_volume);
+
+    // //TD Harga Satuan
+    // td_harga_satuan = document.createElement("td");
+    // td_harga_satuan.setAttribute("style", "width: 200px");
+    // input_harga_satuan = document.createElement("input");
+    // input_harga_satuan.setAttribute("type", "text");
+    // input_harga_satuan.setAttribute("class", "form-control harga_satuan");
+    // input_harga_satuan.setAttribute("id", "harga_satuan[1]");
+    // input_harga_satuan.setAttribute("name", "harga_satuan");
+    // input_harga_satuan.setAttribute("placeholder", "Harga Satuan");
+    // input_harga_satuan.setAttribute("disabled", true);
+    // input_harga_satuan.setAttribute("readonly", true);
+    // td_harga_satuan.append(input_harga_satuan);
+
+    // //TD Harga
+    // td_harga = document.createElement("td");
+    // td_harga.setAttribute("style", "width: 230px");
+    // input_harga = document.createElement("input");
+    // input_harga.setAttribute("type", "text");
+    // input_harga.setAttribute("class", "form-control harga");
+    // input_harga.setAttribute("id", "harga[1]");
+    // input_harga.setAttribute("name", "harga");
+    // input_harga.setAttribute("placeholder", "Harga");
+    // input_harga.setAttribute("disabled", true);
+    // input_harga.setAttribute("readonly", true);
+    // td_harga.append(input_harga);
+
+    // //TD TKDN
+    // td_tkdn = document.createElement("td");
+    // td_tkdn.setAttribute("style", "width: 130px");
+    // input_tkdn = document.createElement("input");
+    // input_tkdn.setAttribute("type", "text");
+    // input_tkdn.setAttribute("class", "form-control tkdn");
+    // input_tkdn.setAttribute("id", "tkdn[1]");
+    // input_tkdn.setAttribute("name", "tkdn");
+    // input_tkdn.setAttribute("placeholder", "TKDN");
+    // input_tkdn.setAttribute("onkeyup", "tkdn_format(this)");
+    // td_tkdn.append(input_tkdn);
+
+    // //TD AKSI
+    // td_aksi = document.createElement("td");
+    // td_aksi.setAttribute("style", "width:80px; vertical-align: middle !important;");
+    // button_aksi = document.createElement("button");
+    // button_aksi.setAttribute("onclick", "deleteRow(this)");
+    // button_aksi.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
+    // i_aksi = document.createElement("i");
+    // i_aksi.setAttribute("class", "fa fa-trash");
+    // button_aksi.append(i_aksi);
+    // td_aksi.append(button_aksi);
+
+    // //Tombol Tambah
+    // div_col = document.createElement("div");
+    // div_col.setAttribute("class", "col-lg-12 mb-2");
+    // div_pos = document.createElement("div");
+    // div_pos.setAttribute("class", "position-relative float-left");
+    // a_tambah = document.createElement("a");
+    // a_tambah.innerHTML = "Tambah";
+    // a_tambah.setAttribute("type", "button");
+    // a_tambah.setAttribute("id", "tambah-pekerjaan");
+    // a_tambah.setAttribute("class", "btn btn-primary position-relative justify-content-end");
+    // a_tambah.setAttribute("onclick", "updateform(this)");
+    // div_pos.append(a_tambah);
+    // div_col.append(div_pos);
+
+
+    // tr1 = document.createElement("tr");
+
+    // tr1.append(td_nomor, td_item_id, td_kategori, td_satuan, td_volume, td_harga_satuan, td_harga, td_tkdn, td_aksi);
+    // tbody_kategori.append(tr1);
+    // tabel_rab.append(thead, tbody_kategori);
+    // // var r, c;
+    // // r = tabel_rab.insertRow(0);
+    // // c = r.insertCell(0);
+    // // c.innerHTML = tr1;
+    // div.append(label_lokasi, tabel_rab, div_col);
     // div.appendChild(tabel_rab);
 
 

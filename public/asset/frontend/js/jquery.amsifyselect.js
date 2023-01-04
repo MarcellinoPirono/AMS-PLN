@@ -92,7 +92,7 @@
 	AmsifySelect.prototype = {
 
 		_settings : function(settings) {
-           this.settings = $.extend(this.settings, settings);      
+           this.settings = $.extend(this.settings, settings);
        	},
 
       	_setMethod : function(method) {
@@ -113,7 +113,7 @@
 				this.closeClass   = (this.settings.classes.close)? this.settings.classes.close: this.defaultClass[this.settings.type].close;
 				this.extractData();
 				this.createHTML();
-				this.setEvents();
+				// this.setEvents();
 				$(this.selector).hide();
             }
         },
@@ -204,7 +204,7 @@
 			this.selectors.close      = $(close).appendTo(this.selectors.operations);
 			$(this.createList()).appendTo(this.selectors.list);
 			this.fixCSS();
-        },            
+        },
 
         setEvents : function() {
 			var _self = this;
@@ -225,7 +225,7 @@
 				}
 			});
 			$(this.selectors.close).click(function(){
-				$(this).closest(_self.classes.listArea).hide(); 
+				$(this).closest(_self.classes.listArea).hide();
 			});
 			$(this.selectors.list).find(this.classes.listItem).click(function(){
 				$(_self.selectors.list).find(_self.classes.listItem).removeClass('active');
@@ -236,7 +236,7 @@
 				    return $(this).val();
 				}).get();
 				if(values.length > _self.settings.limit) {
-					alert('You cannot select more than '+_self.settings.limit); 
+					alert('You cannot select more than '+_self.settings.limit);
 					$input.prop('checked', false);
 					$(this).removeClass('active');
 					return false;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PaketPekerjaan;
 use App\Models\KontrakInduk;
 use App\Models\RincianInduk;
+use App\Models\Satuan;
 use App\Models\Khs;
 use App\Http\Requests\StorePaketPekerjaanRequest;
 use App\Http\Requests\UpdatePaketPekerjaanRequest;
@@ -338,10 +339,16 @@ class PaketPekerjaanController extends Controller
         for($i = 0; $i < count($pakets); $i++) {
             $item[$i] = RincianInduk::where('id', $pakets[$i]->item_id)->get();
         }
+        // dd($item);
+        $satuan_item = [];
+        for($j = 0; $j < count($item); $j++){
+            $satuan_item[$j] = Satuan::where('id', $item[$j][0]->satuan_id)->get();
+        }
 
         $data = [
             'pakets' => $pakets,
             'items' => $item,
+            'satuans' => $satuan_item,
         ];
 
         return response()->json($data);

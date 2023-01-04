@@ -38,14 +38,14 @@ function updateform() {
             //   select1.select2();
 
             var select1 = document.createElement("div");
-            select1.setAttribute('class', 'searching-select');
+            select1.setAttribute('class', 'searching-select2');
             var input = document.createElement("input");
             input.setAttribute('class', 'form-control input-default');
-            input.setAttribute('type', 'text');
+            input.setAttribute('type', 'search');
             input.setAttribute('id', 'item_id[' + click + ']');
             input.setAttribute('placeholder', 'Pilih Pekerjaan');
             input.setAttribute('required', true);
-            input.setAttribute('onkeyup', 'filterFunction(this,event)');
+            input.setAttribute('onkeyup', 'filterFunction2(this,event)');
             input.setAttribute('onblur', 'change_item(this)');
 
             select1.append(input);
@@ -376,7 +376,7 @@ function deleteRow(r) {
 function reindex() {
     const ids = document.querySelectorAll("#tabelRAB tr > td:nth-child(1)");
     ids.forEach((e, i) => {
-        e.innerHTML = "<strong id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
+        e.innerHTML = "<strong style='padding-left: 22px' id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
         nomor_tabel = i + 1;
     });
 }

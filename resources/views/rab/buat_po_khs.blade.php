@@ -402,21 +402,21 @@
                                                                                 style="width: 60px vertical-align: middle;">
                                                                                 NO</th>
                                                                             <th align="center" valign="middle"
-                                                                                style="width: 370px; vertical-align: middle;">
+                                                                                style="width: 322px; vertical-align: middle;">
                                                                                 Pekerjaan</th>
                                                                             <th align="center" valign="middle"
                                                                                 style="width: 185px; vertical-align: middle;">
                                                                                 Kategori
                                                                                 Pekerjaan</th>
                                                                             <th align="center" valign="middle"
-                                                                                style="width: 130px; vertical-align: middle;">
+                                                                                style="width: 134px; vertical-align: middle;">
                                                                                 Satuan</th>
                                                                             <th align="center"
-                                                                                style="width: 130px; vertical-align: middle;"
+                                                                                style="width: 160px; vertical-align: middle;"
                                                                                 valign="middle">
                                                                                 Volume</th>
                                                                             <th align="center" valign="middle"
-                                                                                style="width: 200px; vertical-align: middle;">
+                                                                                style="width: 209px; vertical-align: middle;">
                                                                                 Harga Satuan
                                                                                 (Rp.)
                                                                             </th>
@@ -430,7 +430,7 @@
                                                                                 (%)
                                                                             </th>
                                                                             <th align="center" valign="middle"
-                                                                                style="width: 80px; vertical-align: middle;">
+                                                                                style="width: 80px; vertical-align: middle !important;">
                                                                                 Aksi</th>
                                                                         </tr>
                                                                     </thead>
@@ -447,16 +447,16 @@
                                                                     </thead>
                                                                     <tbody id="tbody-kategori">
                                                                         <tr>
-                                                                            <td><strong id="nomor"
+                                                                            <td><strong style="padding-left: 22px" id="nomor"
                                                                                     value="1">1</strong></td>
 
                                                                             <td style="width: 370px">
-                                                                                <div class="searching-select">
+                                                                                <div class="searching-select2">
                                                                                     <input type="search"
                                                                                         class="form-control input-default"
                                                                                         name="item_id" id="item_id[1]"
                                                                                         placeholder="Pilih Pekerjaan"
-                                                                                        onkeyup="filterFunction(this,event)"
+                                                                                        onkeyup="filterFunction2(this,event)"
                                                                                         onchange="change_item(this)"
                                                                                         required>
                                                                                     <ul id="ul_paket_id2[1]"></ul>
