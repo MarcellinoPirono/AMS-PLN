@@ -11,7 +11,7 @@ function updatePaket() {
     document.getElementById('tbody_RAB').innerHTML = ""
 
     var kontrak_induk = document.getElementById('kontrak_induk').value;
-    let token = $('#csrf').val();;
+    let token = $('#csrf').val();
 
     $.ajax({
         url: '/getPaket',
@@ -308,6 +308,7 @@ function deletePaket(r) {
                 input4.setAttribute("name", "volume");
                 input4.setAttribute("id", "volume[1]");
                 input4.setAttribute("placeholder", "Volume");
+                input4.setAttribute("onblur", "blur_volume(this)");
                 input4.setAttribute("required", true);
 
                 input5 = document.createElement("input");

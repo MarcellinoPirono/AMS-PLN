@@ -638,7 +638,7 @@
                     $("#next-btn").removeClass('disabled').prop('disabled', false);
                     if (stepPosition === 'first') {
                         $("#prev-btn").addClass('disabled').prop('disabled', true);
-                    } else if (stepPosition === 'last') {
+                    } else if (stepPosition === 'dua') {
                         var nomor_rpbj = $("#nomor_rpbj").val();
                         var skk_id = $("#skk_id option:selected").text();
                         var prk_id = $("#prk_id option:selected").text();
@@ -705,7 +705,7 @@
                     $("#sw-current-step").text(stepInfo.currentStep + 1);
                     $("#sw-total-step").text(stepInfo.totalSteps);
 
-                    if (stepPosition == 'last') {
+                    if (stepPosition == 'dua') {
                         showConfirm();
                         $("#btnFinish").prop('disabled', false);
                     } else {

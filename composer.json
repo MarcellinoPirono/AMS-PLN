@@ -17,6 +17,7 @@
         "realrashid/sweet-alert": "^5.1",
         "riskihajar/terbilang": "^1.2",
         "uwaiscode/laravelterbilang": "dev-master",
+        "webklex/laravel-pdfmerger": "^1.3",
         "yajra/laravel-datatables-oracle": "^10.2"
     },
     "require-dev": {

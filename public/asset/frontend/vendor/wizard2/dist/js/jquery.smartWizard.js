@@ -506,11 +506,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       value: function _getStepPosition(idx) {
         if (idx === 0) {
           return 'first';
-        } else if (idx === 1) {
-          return 'second'
         } else if (idx === 2) {
-          return 'third'
-        } else if (idx === this.steps.length - 1) {
+          return 'dua';
+        }
+         else if (idx === 3) {
+          return 'tiga';
+        }
+        else if (idx === this.steps.length - 1) {
           return 'last';
         }
 

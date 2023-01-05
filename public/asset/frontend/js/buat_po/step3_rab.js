@@ -199,7 +199,12 @@ function updatelokasi() {
         }
     }
 
-    // alert("HALOOOO");
+    if(clicklokasi > 1){
+        var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (clicklokasi +
+            3) + ')');
+
+        $('<tr id="location' + (clicklokasi-1) + '" class="noborder"><td></td><td></td><td id="location_label'+(clicklokasi-1)+'"></td></tr>').insertAfter(lokasi_tabel);
+    }
 }
 function deleteRow2(r) {
     var table = r.parentNode.parentNode.rowIndex;
@@ -217,16 +222,45 @@ function deleteRow2(r) {
         lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
         "</option>")
     }
-    // console.log(clickpaket);
-    // console.log(lokasi_2);
-    // if(clickpaket != 0) {
-    for(var j = 0; j < clicklokasi; j++) {
-        document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+
+    if(clickpaket != 0) {
+        for(var j = 0; j < clicklokasi; j++) {
+            document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+        }
     }
-    // }
+
+    for (var i = 0; i < clicklokasi; i++) {
+        document.getElementById('location' + (i + 1)).remove();
+    }
+
+    for (var i = 0; i < (clicklokasi-1); i++) {
+        var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (i +
+            5) + ')');
+        console.log(lokasi_tabel);
+
+        $('<tr id="location' + (i+1) + '" class="noborder"><td></td><td></td><td id="location_label'+(i+1)+'"></td></tr>').insertAfter(lokasi_tabel);
+    }
+
+    var nomor = 1;
+    for (var i = 0; i < clicklokasi; i++) {
+        if (i == 0) {
+            var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
+
+            document.getElementById("lokasi_4").innerHTML = (i+1) +". " + lokasi;
+        } else {
+            var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
+
+            document.getElementById("location_label"+i).innerHTML = (i+1) +". " + lokasi;
+        }
+        nomor++;
+    }
+
     if (clicklokasi == 0) {
         updatelokasi();
     }
+
+
+
 }
 function reindex2() {
     const ids = document.querySelectorAll("#tabelSPBJ tr > td:nth-child(1)");
@@ -411,7 +445,7 @@ function change_item(c) {
         success: function (response) {
             console.log(response);
             document.getElementById("kategory_id[" + change + "]").value = response["nama_items"][0].kategori;
-            document.getElementById("satuan[" + change + "]").value = response["satuans"][0][0].singkatan;
+            document.getElementById("satuan[" + change + "]").value = response["satuans"][0][0].kepanjangan+" ("+response["satuans"][0][0].singkatan+")";
             var harga_satuan = response["nama_items"][0].harga_satuan;
             harga_satuan = harga_satuan.toString();
             harga_satuan_2 = "";
@@ -746,12 +780,30 @@ function blur_lokasi(ini) {
         lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
         "</option>")
     }
-    // console.log(clickpaket);
-    // console.log(lokasi_2);
+
     if(clickpaket != 0) {
         for(var j = 0; j < clickpaket; j++) {
             document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
         }
+    }
+
+    // var new_click = clicklokasi - 1;
+    // for (var i = 0; i < new_click; i++) {
+    //     document.getElementById('location' + (i + 1)).remove();
+    // }
+
+    var nomor = 1;
+    for (var i = 0; i < clicklokasi; i++) {
+        if (i == 0) {
+            var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
+
+            document.getElementById("lokasi_4").innerHTML = (i+1) +". " + lokasi;
+        } else {
+            var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
+
+            document.getElementById("location_label"+i).innerHTML = (i+1) +". " + lokasi;
+        }
+        nomor++;
     }
 }
 

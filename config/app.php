@@ -200,6 +200,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Riskihajar\Terbilang\TerbilangServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Webklex\PDFMerger\Providers\PDFMergerServiceProvider::class,
 
     ],
 
@@ -219,6 +220,7 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Terbilang' => Riskihajar\Terbilang\Facades\Terbilang::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'PDFMerger' => Webklex\PDFMerger\Facades\PDFMergerFacade::class,
 
     ])->toArray(),
 

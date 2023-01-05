@@ -238,7 +238,7 @@
                                                         Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                       Silakan isi Pengawas Pekerjaan
+                                                        Silakan isi Pengawas Pekerjaan
                                                     </div>
                                                 </div>
                                             </div>
@@ -253,9 +253,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12 mb-2">
+                                            <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Upload Lampiran</label>
+                                                    <label class="text-label">Upload Lampiran (.pdf)</label>
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">Upload</span>
@@ -277,7 +277,25 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-6 mb-2 mt-45">
+                                                <div class="form-group">
+                                                    <div class="position-relative justify-content-center float-center">
+                                                        <button class="btn btn-secondary btn-xs"
+                                                            onclick="toggle('embedLink')" type="button">Show/Hide <span class="btn-icon-right"><i class="bi bi-eye"></i></span></button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+
+
+
+
+
+
+                                        <embed style="display:none; overflow-x: visible; overflow-y: visible;"
+                                            width="100%" height="650px" name="embedLink" id="embedLink"
+                                            type="application/pdf" />
+
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="text-label">Input Lokasi</label>
@@ -447,7 +465,8 @@
                                                                     </thead>
                                                                     <tbody id="tbody-kategori">
                                                                         <tr>
-                                                                            <td><strong style="padding-left: 11px" id="nomor"
+                                                                            <td><strong style="padding-left: 11px"
+                                                                                    id="nomor"
                                                                                     value="1">1</strong></td>
 
                                                                             <td>
@@ -458,8 +477,7 @@
                                                                                         placeholder="Pilih Pekerjaan"
                                                                                         onkeyup="filterFunction2(this,event)"
                                                                                         onkeydown="return no_bckspc(this, event)"
-                                                                                        {{-- onchange="change_item(this)" --}}
-                                                                                        required>
+                                                                                        {{-- onchange="change_item(this)" --}} required>
                                                                                     <ul id="ul_paket_id2[1]"></ul>
                                                                                 </div>
                                                                             </td>
@@ -503,7 +521,8 @@
                                                                             </td>
                                                                             <td>
                                                                                 <button onclick="deleteRow(this)"
-                                                                                    class="btn btn-danger shadow btn-xs sharp" style="margin-top: 15px"><i
+                                                                                    class="btn btn-danger shadow btn-xs sharp"
+                                                                                    style="margin-top: 15px"><i
                                                                                         class='fa fa-trash'></i></button>
                                                                             </td>
                                                                         </tr>
@@ -607,18 +626,18 @@
                                                                             </p>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                        <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
-                                                                                            placeholder="Deskripsi" value="" disabled required></textarea>
-                                                                                    </td> -->
+                                                                                                <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
+                                                                                                    placeholder="Deskripsi" value="" disabled required></textarea>
+                                                                                            </td> -->
                                                                         <td style="vertical-++++++++++++++++align: top">
                                                                             <!-- <p id="sub_deskripsi_id[1]"></p> -->
                                                                             <ol id="sub_deskripsi_id[1]">
                                                                             </ol>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                        <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
-                                                                                            placeholder="Sub Deskripsi" value="" disabled required></textarea>
-                                                                                    </td> -->
+                                                                                                <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
+                                                                                                    placeholder="Sub Deskripsi" value="" disabled required></textarea>
+                                                                                            </td> -->
 
                                                                         <td style="vertical-align: top"><button
                                                                                 onclick="deleteRow1(this)"
@@ -673,11 +692,15 @@
                                                                 <td>:</td>
                                                                 <td id="judul_pekerjaan_4"></td>
                                                             </tr>
+                                                            <tr class="noborder">
+                                                                <td>Direksi Pekerjaan</td>
+                                                                <td>:</td>
+                                                                <td id="direksi_pekerjaan_4"></td>
+                                                            </tr>
                                                             <tr id="tr_lokasi1" class="noborder">
                                                                 <td>Lokasi</td>
                                                                 <td>:</td>
-                                                                <td id="lokasi_4">
-                                                                </td>
+                                                                <td id="lokasi_4"></td>
                                                             </tr>
                                                             <tr class="noborder">
                                                                 <td>Start Date</td>
@@ -705,14 +728,14 @@
                                                                 <td id="no_prk_4"></td>
                                                             </tr>
                                                             <tr class="noborder">
-                                                                <td>Direksi Pekerjaan</td>
-                                                                <td>:</td>
-                                                                <td id="direksi_pekerjaan_4"></td>
-                                                            </tr>
-                                                            <tr class="noborder">
                                                                 <td>Pengawas Pekerjaan</td>
                                                                 <td>:</td>
                                                                 <td id="pengawas_pekerjaan_4"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Pengawas Lapangan</td>
+                                                                <td>:</td>
+                                                                <td id="pengawas_lapangan_4"></td>
                                                             </tr>
                                                         </table>
                                                     </div>
@@ -883,9 +906,9 @@
 
     <!-- Search and Select -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
-                                        integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-                                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
+                                            <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+                                                integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+                                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
             <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
@@ -912,59 +935,39 @@
     <script src="{{ asset('/') }}./asset/frontend/js/custom.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/deznav-init.js"></script>
 
-    <!-- <script>
-        function myFunction() {
-            $("#dropdown-values").addClass("show");
-        }
 
-        $(document).click(function(e) {
-            if (e.target.id != 'myInput') {
-                $("#dropdown-values").removeClass("show");
-            }
+    <script>
+        $(document).ready(function() {
+            var filename;
+            $('#lampiran').change(function() {
+                if (this.files[0].name != "") {
+                    filename = this.files[0]
+                    $('#embedLink')[0].src = window.URL.createObjectURL(new Blob([filename], {
+                        "type": "application/pdf"
+                    }));
+                }
+            });
+
+
+
+
+
+            // $('#lampiran').change(function() {
+            //     if (this.files[0].name != "") {
+            //         filename = this.files[0]
+            //         $('#embedLink')[0].src = window.URL.createObjectURL(new Blob([filename], {
+            //             "type": "application/pdf"
+            //         }));
+            //     }
+            // });
+            // $('#btnPrvw').click(function() {
+            // });
         });
 
-        function filterFunction() {
-            var input, filter, a, i;
-            filter = $("#myInput").val().toUpperCase();
-            div = document.getElementById("myDropdown");
-            a = div.getElementsByTagName("a");
-            for (i = 0; i < a.length; i++) {
-                txtValue = a[i].textContent || a[i].innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    a[i].style.display = "";
-                } else {
-                    a[i].style.display = "none";
-                }
-            }
+        function toggle(target) {
+            var curVal = document.getElementById(target).style.display;
+            document.getElementById(target).style.display = (curVal === 'none') ? '' : 'none';
         }
-
-        function setValueOfInput(e) {
-            $("#myInput").val(e.innerHTML);
-        }
-
-
-        function previewImage() {
-            const image = document.querySelector('#lampiran');
-            const imgPreview = document.querySelector('#img-lampiran');
-
-            imgPreview.style.display = 'block';
-
-            const oFReader = new FileReader();
-            oFReader.readAsDataURL(image.files[0]);
-
-            oFReader.onload = function(oFREvent) {
-                imgPreview.src = oFREvent.target.result;
-            }
-        }
-    </script> -->
-    <script>
-        //     new TomSelect("#tabelPaket tr td:nth-child(3) select",{
-        //     create: false,
-        //     sortField: {
-        //         field: "text",
-        //         direction: "asc"
-        //     }
-        // });
     </script>
 @endsection
 

@@ -9412,6 +9412,11 @@ button.bg-birutua:focus {
     margin-top: 1.5rem !important;
 }
 
+.mt-45,
+.my-45 {
+    margin-top: 2.2rem !important;
+}
+
 .mr-4,
 .mx-4 {
     margin-right: 1.5rem !important;
