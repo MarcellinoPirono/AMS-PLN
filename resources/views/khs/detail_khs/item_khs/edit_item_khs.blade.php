@@ -108,7 +108,7 @@
                             prev = this.value;
                         }
                     }
-                } else if (this.value.charAt(0) == "," || this.value.charAt(0) == "0") {
+                } else if (this.value.charAt(0) == ",") {
                     this.value = "";
                 } else {
                     if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {

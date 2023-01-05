@@ -112,8 +112,6 @@ function reindex1() {
 }
 
 function change_redaksi(c) {
-
-
     var change = c.parentNode.parentNode.rowIndex;
     let token = $('#csrf').val();
     // alert(token);
@@ -153,7 +151,7 @@ function change_redaksi(c) {
         },
         success: function (response) {
             // var sub_deskripsi = [""];
-
+            document.getElementById("sub_deskripsi_id["+ change +"]").innerHTML = "";
             var ordered_list = document.getElementById("sub_deskripsi_id["+ change +"]");
             // var ordered_list = document.createElement("ol");
             // ordered_list.setAttribute("type", "a");
@@ -171,7 +169,7 @@ function change_redaksi(c) {
                 else{
                     var list_item = document.createElement("li");
                     ordered_list.append(list_item);
-                    list_item.innerHTML = i+1 + "." + response[i].sub_deskripsi;
+                    list_item.innerHTML = i+1 + ". " + response[i].sub_deskripsi;
                 }
 
 

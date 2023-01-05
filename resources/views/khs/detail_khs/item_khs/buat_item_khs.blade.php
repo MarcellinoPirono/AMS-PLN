@@ -63,7 +63,7 @@
                                     <label class="text-label">TKDN (%) :</label>
                                     <input type="text"
                                         class="form-control input-default validate2"
-                                        placeholder="TKDN" name="TKDN" id="TKDN">
+                                        placeholder="TKDN" name="tkdn" id="tkdn" required>
                                 </div>
                             </div>
                             <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Tambah</button>
@@ -74,7 +74,7 @@
         </div>
     </div>
     <script>
-        var tkdn = document.getElementById('TKDN');
+        var tkdn = document.getElementById('tkdn');
 
         tkdn.addEventListener('input', function (prev) {
             return function (evt) {
@@ -102,12 +102,11 @@
                     } else {
                         if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
                             this.value = prev;
-                        }
-                        else {
+                        } else {
                             prev = this.value;
                         }
                     }
-                } else if (this.value.charAt(0) == "," || this.value.charAt(0) == "0"){
+                } else if (this.value.charAt(0) == ","){
                     this.value = "";
                 } else {
                     if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
@@ -246,6 +245,9 @@
                 },
                 harga_satuan:{
                     required: "Silakan Isi Harga Satuan"
+                },
+                tkdn:{
+                    required: "TKDN Tidak Boleh Kosong (minimal 0)"
                 }
             },
 
@@ -265,7 +267,7 @@
                 var nama_item = $("#nama_item").val();
                 var satuan_id = $("#satuan_id").val();
                 var harga_satuan = $("#harga_satuan").val();
-                var tkdn = $("#TKDN").val();
+                var tkdn = $("#tkdn").val();
                 harga_satuan = harga_satuan.replace(/\./g, "");
                 harga_satuan = parseInt(harga_satuan);
                 tkdn = tkdn.replace(/\,/g, ".");

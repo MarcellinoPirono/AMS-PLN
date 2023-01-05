@@ -24,7 +24,9 @@ function updateform() {
                     "</li>")
             }
             var table = document.getElementById('tabelRAB');
-            console.log(table);
+            // console.log(table);
+            // var table = c.parentNode.parentNode.previousElementSibling;
+            // console.log("table = ", table);
             click++;
             // var select1 = document.createElement("select");
             // select1.innerHTML = "<option value='' selected disabled data-select2-id='2'>Pilih Pekerjaan</option>" + item;
@@ -37,6 +39,11 @@ function updateform() {
             // select1.setAttribute("required", true);
             //   select1.select2();
 
+            strong = document.createElement("strong");
+            strong.setAttribute("id", "nomor");
+            strong.setAttribute("value", "1");
+            strong.innerHTML = "1";
+
             var select1 = document.createElement("div");
             select1.setAttribute('class', 'searching-select2');
             var input = document.createElement("input");
@@ -47,6 +54,8 @@ function updateform() {
             input.setAttribute('required', true);
             input.setAttribute('onkeyup', 'filterFunction2(this,event)');
             input.setAttribute('onblur', 'change_item(this)');
+            input.setAttribute('onkeydown', 'return no_bckspc(this, event)');
+            input.setAttribute('title','tes');
 
             select1.append(input);
 
@@ -110,8 +119,9 @@ function updateform() {
             input6.setAttribute("id", "tkdn[" + click + "]");
             input6.setAttribute("name", "tkdn");
             input6.setAttribute("placeholder", "TKDN");
-            input6.setAttribute("onkeyup", "tkdn_format(this)");
+            input6.setAttribute("onkeypress", "tkdn_format(this)");
             input6.setAttribute("value", "");
+            input6.setAttribute("required", "");
 
             var button = document.createElement("button");
             button.innerHTML = "<i class='fa fa-trash'></i>";
@@ -130,7 +140,7 @@ function updateform() {
             var cell7 = row.insertCell(6);
             var cell8 = row.insertCell(7);
             var cell9 = row.insertCell(8);
-            cell1.innerHTML = "1";
+            cell1.appendChild(strong);
             cell2.appendChild(select1);
             cell3.appendChild(input1);
             cell4.appendChild(input2);
@@ -376,26 +386,33 @@ function deleteRow(r) {
 function reindex() {
     const ids = document.querySelectorAll("#tabelRAB tr > td:nth-child(1)");
     ids.forEach((e, i) => {
-        e.innerHTML = "<strong style='padding-left: 22px' id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
+        e.innerHTML = "<strong style='padding-left: 11px' id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
         nomor_tabel = i + 1;
     });
 }
+
 function change_item(c) {
-    var change = c.parentNode.parentNode.rowIndex;
+    var change = c.parentNode.parentNode.parentNode.parentNode.rowIndex;
+    var change1 = c.parentNode.parentNode;
+    console.log("change",change);
+    console.log("change1",change1);
     var item_id = document.getElementById("item_id[" + change + "]").value;
+    // item_id = item_id.replace(/\ /g, "-");
+    // item_id = item_id.replace(/\//g, "_");
+    // console.log("yy", item_id);
     let token = $('#csrf').val();
     $.ajax({
         url: '/getItem',
         type: "POST",
         data: {
-
             'item_id': item_id,
             '_token': token,
         },
         success: function (response) {
-            document.getElementById("kategory_id[" + change + "]").value = response.kategori;
-            document.getElementById("satuan[" + change + "]").value = response.singkatan;
-            var harga_satuan = response.harga_satuan;
+            console.log(response);
+            document.getElementById("kategory_id[" + change + "]").value = response["nama_items"][0].kategori;
+            document.getElementById("satuan[" + change + "]").value = response["satuans"][0][0].singkatan;
+            var harga_satuan = response["nama_items"][0].harga_satuan;
             harga_satuan = harga_satuan.toString();
             harga_satuan_2 = "";
             panjang = harga_satuan.length;
@@ -433,6 +450,7 @@ function change_item(c) {
                 total_harga[i] = total_harga[i].replace(/\./g, "");
                 total_harga[i] = parseInt(total_harga[i])
             }
+            document.getElementById("tkdn[" + change + "]").value = response["nama_items"][0].tkdn;
             var pagu_prk = document.getElementById("rupiah").innerHTML;
             pagu_prk = pagu_prk.replace(/\./g, "");
             pagu_prk = parseInt(pagu_prk);
@@ -548,35 +566,36 @@ function ganti_item() {
             '_token': token,
         },
         success: function (result) {
-            console.log(result);
+            // console.log(result);
             // console.log(click);
             var item = [""]
-            var item_2 = [""]
+            // var item_2 = [""]
 
             for (i = 0; i < result['items'].length; i++) {
-                item += ("<option value='"+ result['items'][i].id +"'>" + result['items'][i].nama_item + "</option>")
+                item += ("<li>" + result['items'][i].nama_item + "</li>")
                 // item_2 += ("<li class='amsify-list-item '><input type='radio' name='item_id_amsify' class='amsify-select-input' value='"+ result['items'][i].id +"'>" + result['items'][i].nama_item +"</li>")
             }
             // console.log(item);
             for (var i = 0; i < click; i++) {
-                document.getElementById('item_id['+ (i+1) +']').value = '';
-                // document.getElementById("ul_paket_id2[" + (i + 1) + "]").innerHTML = item;
+                document.getElementById('item_id['+ (i+1) +']').value = "";
+                document.getElementById("ul_paket_id2[" + (i + 1) + "]").innerHTML = item;
             }
 
             var paket = [""];
-            var paket_2 = [""];
+            // var paket_2 = [""];
 
             for (i = 0; i < result['pakets'].length; i++) {
-                paket += ("<option value='"+ result['pakets'][i].slug +"'>" + result['pakets'][i].nama_paket + "</li>")
-                paket_2 += ("<li class='amsify-list-item'><input type='radio' name='paket_id_amsify' class='amsify-select-input' value='"+ result['pakets'][i].slug +"'>" + result['pakets'][i].nama_paket)
+                paket += ("<li>" + result['pakets'][i].nama_paket + "</li>")
+                // paket_2 += ("<li class='amsify-list-item'><input type='radio' name='paket_id_amsify' class='amsify-select-input' value='"+ result['pakets'][i].slug +"'>" + result['pakets'][i].nama_paket)
             }
-            paket_2 += ("</li><li class='amsify-item-noresult'>No matching options</li>")
+            // paket_2 += ("<li class='amsify-item-noresult'>No matching options</li>")
 
             if(clickpaket != 0) {
                 for(var j = 0; j < clickpaket; j++) {
-                    document.getElementById('paket_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Paket</option>" + paket;
-                    document.getElementsByClassName('amsify-label')[j].innerHTML = "Pilih Paket";
-                    document.getElementsByClassName('amsify-list')[j].innerHTML = paket_2;
+                    document.getElementById('paket_id['+ (j+1) +']').value = "";
+                    document.getElementById('ul_paket_id['+ (j+1) +']').innerHTML = paket;
+                    // document.getElementsByClassName('amsify-label')[j].innerHTML = "Pilih Paket";
+                    // document.getElementsByClassName('amsify-list')[j].innerHTML = paket_2;
                 }
             }
         }
@@ -882,7 +901,7 @@ function tkdn_format(c){
                         prev = this.value;
                     }
                 }
-            } else if (this.value.charAt(0) == "," || this.value.charAt(0) == "0"){
+            } else if (this.value.charAt(0) == ","){
                 this.value = "";
             } else {
                 if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {

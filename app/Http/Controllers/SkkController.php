@@ -6,6 +6,7 @@ use App\Models\ItemRincianInduk;
 use App\Models\KontrakInduk;
 use App\Models\RincianInduk;
 use App\Models\PaketPekerjaan;
+use App\Models\Satuan;
 use App\Models\Skk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -203,14 +204,31 @@ public function create()
     {
         $item_id = $request->post('item_id');
 
-        $harga_item1 = DB::table('satuans')
-                        ->rightJoin('rincian_induks', 'rincian_induks.satuan_id', '=', 'satuans.id');
-        $harga_item = DB::table('rincian_induks')
-                        ->leftJoin('satuans', 'rincian_induks.satuan_id', '=', 'satuans.id')
-                        ->unionAll($harga_item1)
-                        ->where('rincian_induks.id', $item_id)
-                        ->first();
-        return response()->json($harga_item);
+        $nama_item = RincianInduk::where('nama_item', $item_id)->get();
+
+        $satuan =[];
+        for($i=0; $i < count($nama_item); $i++){
+            $satuan[$i] = Satuan::where('id', $nama_item[$i]->satuan_id)->get();
+        }
+
+        // dd($nama_item);
+
+        // $harga_item1 = DB::table('satuans')
+        //                 ->rightJoin('rincian_induks', 'rincian_induks.satuan_id', '=', 'satuans.id');
+        // $harga_item = DB::table('rincian_induks')
+        //                 ->leftJoin('satuans', 'rincian_induks.satuan_id', '=', 'satuans.id')
+        //                 ->unionAll($harga_item1)
+        //                 ->where('rincian_induks.nama_item', $nama_item)
+        //                 ->first();
+
+        // dd($harga_item);
+
+        $data = [
+            'nama_items' => $nama_item,
+            'satuans' => $satuan
+        ];
+        // return response()->json($nama_item);
+        return response($data);
     }
 
     public function searchskk(Request $request)

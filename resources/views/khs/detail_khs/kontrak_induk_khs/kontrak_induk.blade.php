@@ -14,7 +14,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="col-xl-3 col-l-3 col-m-3 col-sm-2">
+                    <div class="col-xl-3 col-l-3 col-m-3 col-sm-2 mt-3">
                         <select id="filter-kontrak-induk-khs" class="form-control filter-kontrak">
                             <option value="">Pilih Jenis KHS</option>
                             @foreach ($khss as $khs)
@@ -22,7 +22,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
+                    <div class="col-xl-4 col-l-4 col-m-3 col-sm-2 mt-3">
                         <select id="filter-kontrak-induk-vendor" class="form-control filter-kontrak">
                             <option value="">Pilih Nama Vendor</option>
                             @foreach ($vendors as $vendor)
@@ -30,11 +30,10 @@
                             @endforeach
                         </select>
                     </div>
-                    <a href="/kontrak-induk-khs/create" class="btn btn-primary mr-auto ml-3" style="font-size: 13px">Tambah Kontrak Induk <i class="fa fa-plus-circle"></i>
 
+                    <a href="/kontrak-induk-khs/create-xlsx" class="btn btn-primary btn-xxs mr-auto ml-3" style="font-size: 13px">Via Excel <i class="fa fa-plus-circle"></i></span>
                     </a>
-                    <a href="/kontrak-induk-khs/create-xlsx" class="btn btn-primary mr-auto ml-3" style="font-size: 13px">Tambah Kontrak Induk Via
-                        Excel <i class="fa fa-plus-circle"></i></span>
+                    <a href="/kontrak-induk-khs/create" class="btn btn-primary float-right mr-3 mt-3" style="font-size: 13px">Tambah Kontrak Induk <i class="bi bi-plus-circle"></i>
                     </a>
                     <!-- <div class="input-group search-area position-relative">
                         <div class="input-group-append">

@@ -14,7 +14,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
+                    <div class="col-xl-4 col-l-4 col-m-3 col-sm-2 mt-3">
                         <select id="filter-addendum-kontrak-induk" class="form-control filter">
                             <option value="">Pilih Nomor Kontrak Induk</option>
                             @foreach ($kontrakinduks as $kontrakinduk)
@@ -23,7 +23,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-xl-3 col-l-4 col-m-3 col-sm-2">
+                    <div class="col-xl-3 col-l-4 col-m-3 col-sm-2 mt-3">
                         <select id="filter-addendum-khs" class="form-control filter">
                             <option value="">Pilih Jenis KHS</option>
                             @foreach ($khss as $khs)
@@ -31,11 +31,10 @@
                             @endforeach
                         </select>
                     </div>
-                    <a href="/addendum-khs/create-xlsx" class="btn btn-primary mr-auto ml-3" style="font-size: 13px">Tambah
-                        Addendum Via Excel <i class="fa fa-plus-circle"></i></span>
+                    <a href="/addendum-khs/create-xlsx" class="btn btn-primary btn-xxs mr-auto ml-3" style="font-size: 13px">Via Excel <i class="fa fa-plus-circle"></i></span>
                     </a>
-                    <a href="/addendum-khs/create" class="btn btn-primary position-relative justify-content-end float-right ml-2"
-                        style="font-size: 13px">Tambah Addendum <i class="fa fa-plus-circle"></i>
+                    <a href="/addendum-khs/create" class="btn btn-primary position-relative float-right mt-3 ml-3"
+                        style="font-size: 13px">Tambah Addendum <i class="bi bi-plus-circle"></i>
                     </a>
                     <!-- <div class="input-group search-area position-relative">
                             <div class="input-group-append">

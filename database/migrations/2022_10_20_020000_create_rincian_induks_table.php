@@ -20,13 +20,13 @@ return new class extends Migration
             // $table->foreign('kontraks_id')->references('id')->on('item_rincian_induks');
 
 
-            $table->foreignId('khs_id')->nullable();
+            $table->foreignId('khs_id');
             $table->string('kategori');
             $table->string('nama_item');
             // $table->string('satuan');
             $table->foreignId('satuan_id');
             $table->double('harga_satuan');
-            $table->double('tkdn')->nullable();
+            $table->double('tkdn');
             $table->timestamps();
         });
     }

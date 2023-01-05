@@ -68,7 +68,7 @@
                         <div class="col-lg-12 mb-2">
                             <div class="position-relative justify-content-center float-center">
                                 <a type="button" id="tambah-pekerjaan"
-                                    class="btn btn-primary position-relative justify-content-end"
+                                    class="btn btn-secondary btn-xs position-relative justify-content-end"
                                     onclick="updatelokasi()" required>Tambah</a>
                             </div>
                         </div>

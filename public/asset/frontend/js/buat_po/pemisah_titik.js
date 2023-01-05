@@ -20,6 +20,35 @@ function tandaPemisahTitik(b) {
     return c;
 }
 
+function tandaPemisahTitik2(b) {
+    var _minus = false;
+    if (b < 0) _minus = true;
+    var _comma = false
+    if ((b - Math.floor(b)) !== 0) _comma = true;
+    b = b.toString();
+    b_comma = (b + "").split(".")[1];
+    // console.log(b_comma);
+    b = b.replace(b_comma, "");
+    // console.log(b);
+    b = b.replace(".", "");
+    b = b.replace("-", "");
+    c = "";
+    panjang = b.length;
+    j = 0;
+    for (i = panjang; i > 0; i--) {
+        j = j + 1;
+        if (((j % 3) == 1) && (j != 1)) {
+            c = b.substr(i - 1, 1) + "." + c;
+        } else {
+            c = b.substr(i - 1, 1) + c;
+        }
+    }
+    if (_comma) c = c + "," + b_comma;
+    if (_minus) c = "-" + c;
+    if (_minus && _comma) c = "-" + c + "," + b_comma;
+    return c;
+}
+
 function format(input) {
     var nStr = input.value + '';
     nStr = nStr.replace(/\./g, "");

@@ -40,7 +40,7 @@ function updatePaket() {
             clickpaket++;
 
             var select1 = document.createElement("select");
-            select1.innerHTML = "<option value=0 selected disabled>Pilih Lokasi</option>" + lokasi_2;
+            select1.innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
             select1.setAttribute("id", "lokasi_id[" + clickpaket + "]");
             select1.setAttribute("name", "lokasi_id");
             select1.setAttribute("class", "form-control input-default");
@@ -121,7 +121,7 @@ function updatePaket() {
             button.innerHTML = "<i class='fa fa-trash'></i>";
             button.setAttribute("onclick", "deletePaket(this)");
             button.setAttribute("class", "btn btn-danger shadow btn-xs sharp m-auto");
-            button.setAttribute("style", "margin-top: 18px !important;")
+            button.setAttribute("style", "margin-top: 14px !important;")
 
             var row = table.insertRow(-1);
             var cell1 = row.insertCell(0);
@@ -336,6 +336,7 @@ function deletePaket(r) {
                 input7.setAttribute("name", "tkdn");
                 input7.setAttribute("id", "tkdn[1]");
                 input7.setAttribute("placeholder", "TKDN");
+                input7.setAttribute("onkeypress", "tkdn_format(this)");
                 input7.setAttribute("required", true);
 
                 button1 = document.createElement('button');
@@ -373,7 +374,7 @@ function deletePaket(r) {
                 a = document.createElement("a");
                 a.setAttribute("type", "button");
                 a.setAttribute("id", "tambah-pekerjaan");
-                a.setAttribute("class", "btn btn-primary position-relative justify-content-end");
+                a.setAttribute("class", "btn btn-secondary btn-xs position-relative justify-content-end");
                 a.setAttribute("onclick", "updateform()");
                 a.setAttribute("required", true);
                 a.innerHTML = "Tambah";
@@ -586,6 +587,7 @@ function change_paket(c) {
     }
     var baris_2 = [];
 
+    var kontrak_induk = document.getElementById('kontrak_induk').value;
     for (var i = 0; i < clickpaket; i++) {
         var nama_paket = document.getElementById('paket_id[' + (i + 1) + ']').value;
         document.getElementById('paket_id[' + (i + 1) + ']').title = nama_paket;
@@ -599,15 +601,19 @@ function change_paket(c) {
                 async: false,
                 data: {
                     'nama_paket': nama_paket,
+                    'kontrak_induk': kontrak_induk,
                 },
                 success: function (response) {
+                    // console.log(response);
                     baris_2[index] = {
                         'lokasi': document.getElementById('lokasi_id[' + (index + 1) + ']').value,
                         'paket': document.getElementById('paket_id[' + (index + 1) + ']').value,
                         'volume': document.getElementById('volume_paket[' + (index + 1) + ']').value,
                         'item': response['items'],
                         'paket_dari_controller' : response['pakets'],
-                        'satuan' : response['satuans']
+                        'satuan' : response['satuans'],
+                        'nama_item' : response['nama_item']
+
                     };
 
                     group_location = baris_2.reduce((group, arr) => {
@@ -624,9 +630,10 @@ function change_paket(c) {
         })(i);
     }
 
+    // console.log(group_location);
+
     if (document.getElementById('lokasi_id[' + clickpaket + ']').value != "" && document.getElementById('paket_id[' + clickpaket + ']').value != "" && document.getElementById('volume_paket[' + clickpaket + ']').value != "") {
         bikin_table(group_location);
-        // alert("Berhasil");
     }
     // for (var j = 0; j < clickpaket; j++) {
     // }
@@ -638,28 +645,19 @@ function change_paket(c) {
 // function gruoupBy(objectArray, property)
 
 function bikin_table(data) {
-    // console.log("console log Object.keys(data)[0]",Object.keys(data)[0]);
-    // console.log("console log Object.keys(data).length",Object.keys(data).length);
-    // console.log("console log data[Object.keys(data)[0]]",data[Object.keys(data)[0]]);
-    // console.log("console log data[Object.keys(data)]",data[Object.keys(data)]);
-    // console.log("data", data[Object.keys(data)][0].paket);
-    // console.log("ea", data[Object.keys(data)][0]);
-    // var item = [""]
     div1 = document.getElementById("tbody_RAB");
-    // for (i = 0; i < data[Object.keys(data)][0].; i++) {
-    //     item += ("<li>" + response['paket_pekerjaan'][i].nama_paket + "</li>")
-    // }
-    // console.log("data");
+    var jumlah = 0;
+
     for(var i = 0; i < Object.keys(data).length; i++) {
-        console.log("ea", Object.keys(data));
+        // console.log(Object.keys(data)[]);
         label_lokasi = document.createElement("label");
         label_lokasi.setAttribute('style', 'font-weight: bold; color:rgb(15, 58, 106)');
         label_lokasi.setAttribute('class', 'mt-4 ml-4');
         label_lokasi.innerHTML = "Nama Lokasi : "+Object.keys(data)[i];
         div1.append(label_lokasi);
-        // console.log(data[Object.keys(data)].length);
+
         for(var j = 0; j < data[Object.keys(data)[i]].length; j++) {
-            // console.log(j);
+            // console.log(data[Object.keys(data)[i]][j]);
             tabel_rab = document.createElement("table");
             tabel_rab.setAttribute("class", "table table-responsive-lg tabel-daftar");
             tabel_rab.setAttribute("id", "tabelRAB"+j);
@@ -687,11 +685,39 @@ function bikin_table(data) {
             tbody = document.createElement("tbody");
             tbody.setAttribute("id", "tbody-kategori"+j);
             tabel_rab.append(tbody);
-            for(var k = 0; k < data[Object.keys(data)[i]][j]["item"].length; k++) {
-                var volume_k = data[Object.keys(data)[i]][j]["paket_dari_controller"][k].volume * data[Object.keys(data)[i]][j]["volume"];
 
-                // console.log("console log data[Object.keys(data)][j][item]", data[Object.keys(data)][j]["item"]);
-                // console.log("console log data[Object.keys(data)][j][paket_dari_controller]", data[Object.keys(data)][j]["paket_dari_controller"]);
+            var item_l = [""];
+
+            for(var l = 0; l < data[Object.keys(data)[i]][j]["nama_item"].length; l++) {
+                // console.log(data[Object.keys(data)[i]][j]["nama_item"][l]);
+                item_l += ("<li>" + data[Object.keys(data)[i]][j]["nama_item"][l]["nama_item"] + "</li>")
+            }
+
+            for(var k = 0; k < data[Object.keys(data)[i]][j]["item"].length; k++) {
+                console.log(data[Object.keys(data)[i]][j]["item"][k]);
+                var volume_paket = data[Object.keys(data)[i]][j]["volume"];
+                volume_paket = volume_paket.toString();
+                volume_paket = volume_paket.replace(/\./g, "");
+                volume_paket = volume_paket.replace(/\,/g, ".");
+                volume_paket = parseFloat(volume_paket);
+
+                var volume_k = data[Object.keys(data)[i]][j]["paket_dari_controller"][k].volume * volume_paket;
+                volume_k = volume_k.toString();
+                volume_k = parseFloat(volume_k).toFixed(2);
+
+                var harga_satuan_k = data[Object.keys(data)[i]][j]["item"][k][0].harga_satuan;
+
+                var harga_k = volume_k * harga_satuan_k;
+                harga_k = Math.round(harga_k)
+                jumlah += harga_k;
+                harga_k = tandaPemisahTitik(harga_k)
+                volume_k = tandaPemisahTitik2(volume_k);
+                console.log(volume_k);
+                harga_satuan_k = tandaPemisahTitik(harga_satuan_k);
+
+                var tkdn_k = data[Object.keys(data)[i]][j]["item"][k][0].tkdn;
+                tkdn_k = tandaPemisahTitik2(tkdn_k)
+
                 tr = document.createElement("tr");
                 td1 = document.createElement("td");
                 td2 = document.createElement("td");
@@ -703,21 +729,10 @@ function bikin_table(data) {
                 td8 = document.createElement("td");
                 td9 = document.createElement("td");
 
-                // td1.setAttribute("style", "vertical-align: middle; width: 60px");
-                // td1.setAttribute("align", "right");
-                // td2.setAttribute("style", "width: 370px");
-                // td3.setAttribute("style", "width: 185px");
-                // td4.setAttribute("style", "width: 130px");
-                // td5.setAttribute("style", "width: 130px");
-                // td6.setAttribute("style", "width: 200px");
-                // td7.setAttribute("style", "width: 230px");
-                // td8.setAttribute("style", "width: 130px");
-                // td9.setAttribute("style", "width: 80px");
-
                 strong = document.createElement("strong");
                 strong.setAttribute("id", "nomor"+j);
                 strong.setAttribute("value", "1");
-                strong.setAttribute("style", "padding-left: 22px");
+                strong.setAttribute("style", "padding-left: 11px");
                 strong.innerHTML = k+1;
 
                 td1.append(strong);
@@ -733,15 +748,15 @@ function bikin_table(data) {
                 input1.setAttribute('required', true);
                 input1.setAttribute('onkeyup', 'filterFunction(this,event)');
                 input1.setAttribute('onkeydown', 'return no_bckspc(this, event)');
-                input1.setAttribute('onblur', 'change_paket(this)');
+                // input1.setAttribute('onblur', 'change_paket(this)');
                 input1.setAttribute('value', data[Object.keys(data)[i]][j]["item"][k][0].nama_item);
+                input1.setAttribute('title','')
                 divsearching.append(input1);
-
 
 
                 ul = document.createElement("ul");
                 ul.setAttribute('id', "ul_paket_id2[" + (k+1) + "]");
-                // ul.innerHTML = item;
+                ul.innerHTML = item_l;
                 divsearching.append(ul);
 
                 input2 = document.createElement("input");
@@ -755,12 +770,11 @@ function bikin_table(data) {
                 input2.setAttribute("readonly", true);
                 input2.setAttribute("required", true);
 
-
                 input3 = document.createElement("input");
                 input3.setAttribute("type", "text");
                 input3.setAttribute("class", "satuan form-control input-default");
                 input3.setAttribute("name", "satuan");
-                input3.setAttribute("value", data[Object.keys(data)[i]][j]["satuan"][k][0].singkatan);
+                input3.setAttribute("value", data[Object.keys(data)[i]][j]["satuan"][k][0].kepanjangan+" ("+data[Object.keys(data)[i]][j]["satuan"][k][0].singkatan+")");
                 input3.setAttribute("id", "satuan[" + (k+1) + "]");
                 input3.setAttribute("placeholder", "Satuan");
                 input3.setAttribute("disabled", true);
@@ -772,16 +786,19 @@ function bikin_table(data) {
                 input4.setAttribute("type", "text");
                 input4.setAttribute("class", "volume form-control input-default");
                 input4.setAttribute("name", "volume");
-                input4.setAttribute("value", '@currency3('+data[Object.keys(data)[i]][j]["paket_dari_controller"][k].volume * data[Object.keys(data)[i]][j]["volume"])+')';
+                input4.setAttribute("value", volume_k);
                 input4.setAttribute("id", "volume[" + (k+1) + "]");
                 input4.setAttribute("placeholder", "Volume");
+                input4.setAttribute("onblur", "blur_volume(this)");
+                input4.setAttribute("onkeypress", "return numbersonly2(this, event);");
+                input4.setAttribute("onkeyup", "format(this)");
                 input4.setAttribute("required", true);
 
                 input5 = document.createElement("input");
                 input5.setAttribute("type", "text");
                 input5.setAttribute("class", "harga_satuan form-control input-default");
                 input5.setAttribute("name", "harga_satuan");
-                // input5.setAttribute("value",'@currency2(data[Object.keys(data)[i]][j]["item"][k][0].harga_satuan))';
+                input5.setAttribute("value", harga_satuan_k);
                 input5.setAttribute("id", "harga_satuan[" + (k+1) + "]");
                 input5.setAttribute("placeholder", "Harga Satuan");
                 input5.setAttribute("disabled", true);
@@ -792,7 +809,7 @@ function bikin_table(data) {
                 input6.setAttribute("type", "text");
                 input6.setAttribute("class", "harga form-control input-default");
                 input6.setAttribute("name", "harga");
-                input6.setAttribute("value", data[Object.keys(data)[i]][j]["paket_dari_controller"][k].jumlah_harga * data[Object.keys(data)[i]][j]["volume"]);
+                input6.setAttribute("value", harga_k);
                 input6.setAttribute("id", "harga[" + (k+1) + "]");
                 input6.setAttribute("placeholder", "Jumlah");
                 input6.setAttribute("disabled", true);
@@ -803,15 +820,17 @@ function bikin_table(data) {
                 input7.setAttribute("type", "text");
                 input7.setAttribute("class", "tkdn form-control input-default");
                 input7.setAttribute("name", "tkdn");
-                input7.setAttribute("value", data[Object.keys(data)[i]][j]["item"][k][0].tkdn);
+                input7.setAttribute("value", tkdn_k);
                 input7.setAttribute("id", "tkdn[" + (k+1) + "]");
                 input7.setAttribute("placeholder", "TKDN");
+                input7.setAttribute("onkeypress", "tkdn_format(this)");
                 input7.setAttribute("required", true);
 
                 button1 = document.createElement('button');
 
                 button1.setAttribute('onclick', 'deleteRow'+k+'(this)');
                 button1.setAttribute('class', 'btn btn-danger shadow btn-xs sharp');
+                button1.setAttribute('style', 'margin-top: 15px;')
                 button1.innerHTML = "<i class='fa fa-trash'></i>";
 
                 td2.append(divsearching);
@@ -848,8 +867,8 @@ function bikin_table(data) {
             a = document.createElement("a");
             a.setAttribute("type", "button");
             a.setAttribute("id", "tambah-pekerjaan");
-            a.setAttribute("class", "btn btn-primary position-relative justify-content-end");
-            a.setAttribute("onclick", "updateform"+j+"()");
+            a.setAttribute("class", "btn btn-secondary btn-xs position-relative justify-content-end");
+            a.setAttribute("onclick", "updateform()");
             a.setAttribute("required", true);
             a.innerHTML = "Tambah";
             div3.append(a);
@@ -858,194 +877,52 @@ function bikin_table(data) {
             div1.append(div2);
         }
     }
-    // if(document.getElementById("tbody_RAB"))
-    // for(var i = 0; i < data.length; i++) {
-    //     if(div.innerHTML == ""){
+    var ppn = 0.11 * jumlah;
+    ppn = Math.round(ppn);
+    var total_harga = ppn + jumlah;
+    jumlah = tandaPemisahTitik(jumlah);
+    ppn = tandaPemisahTitik(ppn);
+    total_harga = tandaPemisahTitik(total_harga);
 
+    document.getElementById("jumlah").innerHTML = "Rp. "+jumlah;
+    document.getElementById("pajak").innerHTML = "Rp. "+ppn;
+    document.getElementById("total").innerHTML = "Rp. "+total_harga;
+
+    // var jumlah_3 = [];
+    // // var ppn_3 = [];
+    // // var total_harga_3 = [];
+    // for(var m = 0; m < Object.keys(data).length; m++) {
+    //     jumlah_3[m] = [];
+    //     // ppn_3[m] = [];
+    //     // total_harga_3[m] = [];
+    //     for(var n = 0; n < data[Object.keys(data)[m]].length; n++) {
+    //         jumlah_3[m][n] = [];
+    //         // ppn_3[m][n] = [];
+    //         // total_harga_3[m][n] = [];
+    //         for(var o = 0; o < data[Object.keys(data)[m]][n]["item"].length; o++) {
+    //             var harga = document.getElementById('harga['+(o+1)+']').value;
+    //             harga = harga.replace(/\./g, "");
+    //             harga = parseInt(harga);
+
+    //             jumlah_3[m][n][o] = harga;
+
+    //             // console.log(jumlah_3[m][n][o]);
+
+    //             // jumlah_3[m][n] = jumlah_3[m][n][o].reduce((a, b) => a + b, 0);
+    //         }
+    //         // jumlah_3[m] = jumlah_3[m][n].reduce((a, b) => a + b, 0);
     //     }
+    //     // jumlah_3 = jumlah_3[m].reduce((a, b) => a + b, 0);
+    //     // console.log('dalam', jumlah_3);
     // }
-    // console.log("sasa",group_location);
-    // for (var j = 0; j < Object.keys(group_location).length; j++) {
-    // for(var k = 0; k < )
-
-
-
-    // tabel_rab = document.createElement("table");
-    // tabel_rab.setAttribute("class", "table table-responsive-lg tabel-daftar");
-    // tabel_rab.setAttribute("id", "tabelRAB");
-    // tabel_rab.setAttribute("style", "width:1530px");
-    // tabel_rab.setAttribute("cellpadding", "0");
-    // tabel_rab.setAttribute("cellspacing", "0");
-
-    // thead = document.createElement("thead");
-
-    // tr3 = document.createElement("tr");
-    // // thead.append(tr1);
-    // th1 = document.createElement("th");
-    // th1.setAttribute("style", "width:63px");
-    // th2 = document.createElement("th");
-    // th2.setAttribute("style", "width:300px");
-    // // th2.innerHTML = Object.keys(group_location)[2];
-    // th2.innerHTML = "data[]";
-    // tr3.append(th1, th2);
-    // thead.append(tr3);
-
-    // tbody_kategori = document.createElement("tbody");
-    // tbody_kategori.setAttribute("id", "tbody-kategori" + j);
-
-    // //TD NOMOr
-    // td_nomor = document.createElement("td");
-    // td_nomor.setAttribute("style", "width: 60px");
-    // strong_nomor = document.createElement("strong")
-    // strong_nomor.setAttribute("id", "nomor" + j);
-    // strong_nomor.setAttribute("value", "1");
-    // strong_nomor.innerHTML = 1;
-    // td_nomor.append(strong_nomor);
-
-
-    // //TD ITEM_ID
-    // td_item_id = document.createElement("td");
-    // td_item_id.setAttribute("style", "width: 370px");
-    // div_searching_select = document.createElement("div");
-    // div_searching_select.setAttribute("class", "searching-select");
-    // input_searching_select = document.createElement("input");
-    // input_searching_select.setAttribute("type", "text");
-    // input_searching_select.setAttribute("class", "form-control input-default");
-    // input_searching_select.setAttribute("id", "item_id" + j);
-    // input_searching_select.setAttribute("placeholder", "Pilih Pekerjaan");
-    // input_searching_select.setAttribute("onkeyup", "filterFunction(this,event)");
-    // input_searching_select.setAttribute("onchange", "change_item(this)");
-    // input_searching_select.setAttribute("required", true);
-    // ul_item_id = document.createElement("ul");
-    // li_item_id = document.createElement("li");
-    // ul_item_id.append(li_item_id);
-    // div_searching_select.append(input_searching_select, ul_item_id);
-    // td_item_id.append(div_searching_select);
-
-    // //TD kategory_id
-    // td_kategori = document.createElement("td");
-    // td_kategori.setAttribute("style", "width: 185px");
-    // input_kategori = document.createElement("input");
-    // input_kategori.setAttribute("type", "text");
-    // input_kategori.setAttribute("class", "form-control kategory_id");
-    // input_kategori.setAttribute("id", "kategory_id[1]");
-    // input_kategori.setAttribute("name", "kategory_id");
-    // input_kategori.setAttribute("placeholder", "Kategori");
-    // input_kategori.setAttribute("disabled", true);
-    // input_kategori.setAttribute("readonly", true);
-    // td_kategori.append(input_kategori);
-
-    // //TD satuan
-    // td_satuan = document.createElement("td");
-    // td_satuan.setAttribute("style", "width: 130px");
-    // input_satuan = document.createElement("input");
-    // input_satuan.setAttribute("type", "text");
-    // input_satuan.setAttribute("class", "form-control satuan");
-    // input_satuan.setAttribute("id", "satuan[1]");
-    // input_satuan.setAttribute("name", "satuan");
-    // input_satuan.setAttribute("placeholder", "Satuan");
-    // input_satuan.setAttribute("disabled", true);
-    // input_satuan.setAttribute("readonly", true);
-    // td_satuan.append(input_satuan);
-
-    // //TD Volume
-    // td_volume = document.createElement("td");
-    // td_volume.setAttribute("style", "width: 130px");
-    // input_volume = document.createElement("input");
-    // input_volume.setAttribute("type", "text");
-    // input_volume.setAttribute("class", "form-control volume");
-    // input_volume.setAttribute("id", "volume[1]");
-    // input_volume.setAttribute("name", "volume");
-    // input_volume.setAttribute("placeholder", "Volume");
-    // input_volume.setAttribute("onblur", "blur_volume(this)");
-    // input_volume.setAttribute("onkeyup", "format(this)");
-    // input_volume.setAttribute("onkeypress", "return numbersonly2(this, event);");
-    // input_volume.setAttribute("required", true);
-    // td_volume.append(input_volume);
-
-    // //TD Harga Satuan
-    // td_harga_satuan = document.createElement("td");
-    // td_harga_satuan.setAttribute("style", "width: 200px");
-    // input_harga_satuan = document.createElement("input");
-    // input_harga_satuan.setAttribute("type", "text");
-    // input_harga_satuan.setAttribute("class", "form-control harga_satuan");
-    // input_harga_satuan.setAttribute("id", "harga_satuan[1]");
-    // input_harga_satuan.setAttribute("name", "harga_satuan");
-    // input_harga_satuan.setAttribute("placeholder", "Harga Satuan");
-    // input_harga_satuan.setAttribute("disabled", true);
-    // input_harga_satuan.setAttribute("readonly", true);
-    // td_harga_satuan.append(input_harga_satuan);
-
-    // //TD Harga
-    // td_harga = document.createElement("td");
-    // td_harga.setAttribute("style", "width: 230px");
-    // input_harga = document.createElement("input");
-    // input_harga.setAttribute("type", "text");
-    // input_harga.setAttribute("class", "form-control harga");
-    // input_harga.setAttribute("id", "harga[1]");
-    // input_harga.setAttribute("name", "harga");
-    // input_harga.setAttribute("placeholder", "Harga");
-    // input_harga.setAttribute("disabled", true);
-    // input_harga.setAttribute("readonly", true);
-    // td_harga.append(input_harga);
-
-    // //TD TKDN
-    // td_tkdn = document.createElement("td");
-    // td_tkdn.setAttribute("style", "width: 130px");
-    // input_tkdn = document.createElement("input");
-    // input_tkdn.setAttribute("type", "text");
-    // input_tkdn.setAttribute("class", "form-control tkdn");
-    // input_tkdn.setAttribute("id", "tkdn[1]");
-    // input_tkdn.setAttribute("name", "tkdn");
-    // input_tkdn.setAttribute("placeholder", "TKDN");
-    // input_tkdn.setAttribute("onkeyup", "tkdn_format(this)");
-    // td_tkdn.append(input_tkdn);
-
-    // //TD AKSI
-    // td_aksi = document.createElement("td");
-    // td_aksi.setAttribute("style", "width:80px; vertical-align: middle !important;");
-    // button_aksi = document.createElement("button");
-    // button_aksi.setAttribute("onclick", "deleteRow(this)");
-    // button_aksi.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
-    // i_aksi = document.createElement("i");
-    // i_aksi.setAttribute("class", "fa fa-trash");
-    // button_aksi.append(i_aksi);
-    // td_aksi.append(button_aksi);
-
-    // //Tombol Tambah
-    // div_col = document.createElement("div");
-    // div_col.setAttribute("class", "col-lg-12 mb-2");
-    // div_pos = document.createElement("div");
-    // div_pos.setAttribute("class", "position-relative float-left");
-    // a_tambah = document.createElement("a");
-    // a_tambah.innerHTML = "Tambah";
-    // a_tambah.setAttribute("type", "button");
-    // a_tambah.setAttribute("id", "tambah-pekerjaan");
-    // a_tambah.setAttribute("class", "btn btn-primary position-relative justify-content-end");
-    // a_tambah.setAttribute("onclick", "updateform(this)");
-    // div_pos.append(a_tambah);
-    // div_col.append(div_pos);
-
-
-    // tr1 = document.createElement("tr");
-
-    // tr1.append(td_nomor, td_item_id, td_kategori, td_satuan, td_volume, td_harga_satuan, td_harga, td_tkdn, td_aksi);
-    // tbody_kategori.append(tr1);
-    // tabel_rab.append(thead, tbody_kategori);
-    // // var r, c;
-    // // r = tabel_rab.insertRow(0);
-    // // c = r.insertCell(0);
-    // // c.innerHTML = tr1;
-    // div.append(label_lokasi, tabel_rab, div_col);
-    // div.appendChild(tabel_rab);
-
-
-    // }
+    // jumlah_3 = jumlah_3.reduce((a, b) => a + b, 0)
+    // console.log('luar',jumlah_3);
+    // console.log(document.getElementById('item_id[1]').value);
 }
 
 
 function no_bckspc(ini, e) {
-    if (e.keyCode == 8 || e.keyCode == 46) {
+    if (e.keyCode == 8 || e.keyCode == 46 || e.keyCode == 13) {
         return false;
     }
     var pressedKey = String.fromCharCode(e.keyCode).toLowerCase();

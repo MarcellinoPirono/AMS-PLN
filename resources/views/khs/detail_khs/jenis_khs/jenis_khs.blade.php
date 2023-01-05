@@ -34,18 +34,18 @@
                 <div class="card-header">
                     <h4 class="card-title">Jenis KHS</h4>
                     <div class="input-group search-area position-relative">
-                        <div class="input-group-append">
+                        {{-- <div class="input-group-append">
                             <span class="input-group-text"><a href="javascript:void(0)"><i
                                         class="flaticon-381-search-2"></i></a></span>
 
                             <input type="text" class="form-control" id="search" name="search"
                                 placeholder="Search here..." />
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-responsive-sm">
+                        <table id="tabelJenisKHS" class="table table-responsive-sm">
                             <thead>
                                 <tr align="center" valign="middle">
                                     <th class="width30" style="vertical-align: middle">No.</th>
@@ -54,7 +54,7 @@
                                     <th style="vertical-align: middle">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody class="alldata">
+                            <tbody>
                                 @foreach ($khss as $khs)
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $khs->id }}">
@@ -123,6 +123,16 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+
+    <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+
+    <script>
+    var tableKontrakInduk = $('#tabelJenisKHS').DataTable({
+        createdRow: function(row, data, index) {
+            $(row).addClass('selected')
+        }
+    });
+    </script>
 
 
     <script>

@@ -223,7 +223,8 @@ class PaketPekerjaanController extends Controller
             'nama_paket' => $nama_paket,
             'item_ids' => $item_array,
             // 'item_volumes' => $volume_item_array
-            'item_volumes' => $item_id
+            'item_volumes' => $item_id,
+            'slug' => $slug
         ];
         return view('paket-pekerjaan.edit_paket_pekerjaan', $data);
     }
@@ -239,8 +240,8 @@ class PaketPekerjaanController extends Controller
     {
         // dd($request);
 
-        $slug = $request->slug;
-// dd($slug);
+        $slug = $request->old_slug;
+        // dd($request);
         $jenis_khs = $request->khs_id;
         $khs_id = Khs::select('id')->where('jenis_khs', $jenis_khs)->get();
         // $request["khs_id"] = $khs_id[0]->id;
@@ -259,13 +260,13 @@ class PaketPekerjaanController extends Controller
 
         $banyak_item = count($request->item_id);
 
-        $paketPekerjaan = PaketPekerjaan::where('slug', $slug)->delete();
+        PaketPekerjaan::where('slug', $slug)->delete();
 
 
         for($j=0; $j < $banyak_item; $j++){
             $paket_pekerjaan_data = [
                 "nama_paket"=>$request->nama_paket,
-                "slug"=>$request->slug,
+                "slug"=>$request->new_slug,
                 "khs_id"=>$request["khs_id"] = $khs_id[0]->id,
                 "item_id"=>$request->item_id[$j],
                 "volume"=>$request->volume[$j],
@@ -334,6 +335,12 @@ class PaketPekerjaanController extends Controller
     public function changePaket (Request $request){
         $nama_paket = $request->post('nama_paket');
 
+        $kontrak_induk_id = $request->post('kontrak_induk');
+        $kontrak_induk = KontrakInduk::where('id', $kontrak_induk_id)->value('khs_id');
+        $nama_item = DB::table('rincian_induks')->where('khs_id',$kontrak_induk)->get();
+
+
+
         $pakets = PaketPekerjaan::where('slug', $nama_paket)->get();
         $item = [];
         for($i = 0; $i < count($pakets); $i++) {
@@ -345,10 +352,13 @@ class PaketPekerjaanController extends Controller
             $satuan_item[$j] = Satuan::where('id', $item[$j][0]->satuan_id)->get();
         }
 
+        // $all_item = RincianInduk::all()
+
         $data = [
             'pakets' => $pakets,
             'items' => $item,
             'satuans' => $satuan_item,
+            'nama_item' => $nama_item
         ];
 
         return response()->json($data);

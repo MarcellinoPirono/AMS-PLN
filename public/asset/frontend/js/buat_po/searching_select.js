@@ -86,10 +86,13 @@ function keyControl(e, container) {
         if (container.find("ul li:visible").index(container.find("ul li.selected")) > 0) {
             container.find("ul li.selected").removeClass("selected").prevAll().not('[style*="display: none"]').first().addClass("selected");
         }
-    } else if (e.key == "Enter") {
-        container.find("input").val(container.find("ul li.selected").text()).blur();
-        onSelect(container.find("ul li.selected").text())
     }
+    // else if (e.key == "Enter") {
+        // container.find("input").val(container.find("ul li.selected").text()).blur();
+        // container.find("input").val(container.find("ul li.selected").text());
+        // $(container).closest(".searching-select").find("input").val($(container).text());
+        // onSelect(container.find("ul li.selected").text())
+    // }
 
     container.find("ul li.selected")[0].scrollIntoView({
         behavior: "smooth",
@@ -162,6 +165,7 @@ $(document).on('click', '.searching-select2 ul li', function () {
     $(this).closest(".searching-select2").find("input").val($(this).text());
     $(this).closest(".searching-select2").find("ul li.selected").removeClass("selected");
     $(this).addClass("selected");
+    change_item(this);
     // change_paket2(this);
     // change_paket(this);
     // onSelect($(this).text())

@@ -22,6 +22,7 @@
                             {{-- <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}"> --}}
                             <input type="hidden" name="jumlah_item" id="jumlah_item" value="{{ count($items) }}">
                             <input type="hidden" name="jenis_khs" id="jenis_khs" value="{{ $jenis_khs }}">
+                            <input type="hidden" name="old_slug" id="old_slug" value="{{ $slug }}">
                             <div class="row m-auto">
                                 <div class="col-lg-6 mb-2">
                                     <div class="form-group">
@@ -32,14 +33,14 @@
 
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-6 mb-2">
+                                <!-- {{-- <div class="col-lg-6 mb-2">
                                 <div class="form-group">
                                     <label for="first-name" class="form-label">Slug</label>
                                     <input type="text" class="form-control input-default" id="slug" name="slug"
                                          placeholder="Slug" required autofocus>
 
                                 </div>
-                            </div> --}}
+                            </div> --}} -->
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -164,7 +165,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Submit
+                            <button type="submit" id="btn_tambah" class="btn btn-primary position-relative float-right mb-5 mr-5">Submit
                                 Paket</button>
                         </form>
                     </div>
@@ -355,8 +356,11 @@ nama_paket.addEventListener('change', function(){
                 tabelTambahPaket.search(search).draw();
                 // var token = $('#csrf').val();
                 var nama_paket = $("#nama_paket").val();
-                var slug = nama_paket.replace(/\ /g, "-");
-                slug = slug.replace(/\//g, "_");
+                var slug = $("#old_slug").val();
+                var new_slug = nama_paket.replace(/\ /g, "-");
+                new_slug = nama_paket.replace(/\//g, "_");
+                var old_slug = slug.replace(/\ /g, "-");
+                old_slug = slug.replace(/\//g, "_");
                 var jenis_khs = $("#jenis_khs").val();
                 var item_id = $('input[type=checkbox]:checked').map(function() {
                     return this.value;
@@ -379,20 +383,21 @@ nama_paket.addEventListener('change', function(){
                     "khs_id": jenis_khs,
                     "volume": volume,
                     "jumlah_harga": harga,
-                    "slug": slug
+                    "old_slug": old_slug,
+                    "new_slug": new_slug
                 };
 
                 $.ajax({
                     type: 'PUT',
-                    url: '{{ url('paket-pekerjaan/' . $jenis_khs . '/ slug /edit') }}',
+                    url: '{{ url('paket-pekerjaan/' . $jenis_khs . '/slug/edit') }}',
                     data: data,
 
                     success: function(response) {
                         // console.log(response);
 
                         swal({
-                            title: "Data Ditambah",
-                            text: "Data Berhasil Ditambah",
+                            title: "Data Diedit",
+                            text: "Data Berhasil Diedit",
                             icon: "success",
                             timer: 2e3,
                             buttons: false

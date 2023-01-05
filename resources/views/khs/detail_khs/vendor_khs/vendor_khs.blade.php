@@ -14,17 +14,11 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="/vendor-khs/create" class="btn btn-primary mr-auto ml-3">Tambah Vendor <i class="fa fa-plus-circle"></i>
+                    <a href="/vendor-khs/create-xlsx" class="btn btn-primary btn-xxs mr-auto ml-3">Via Excel<span
+                        class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                     </a>
-                    <a href="/vendor-khs/create-xlsx" class="btn btn-primary mr-auto ml-3">Tambah Vendor Via Excel<span
-                            class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                    <a href="/vendor-khs/create" class="btn btn-primary float-right mt-3 ml-3">Tambah Vendor <i class="bi bi-plus-circle"></i>
                     </a>
-                    <div class="input-group search-area position-relative">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
-                            <input type="search" id="search" name="search" class="form-control" placeholder="Search here..." />
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
                     @if (session('success'))

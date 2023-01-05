@@ -304,7 +304,7 @@
                                         <div class="col-lg-12 mb-2">
                                             <div class="position-relative justify-content-center float-center">
                                                 <a type="button" id="tambah-pekerjaan"
-                                                    class="btn btn-primary position-relative justify-content-end"
+                                                    class="btn btn-secondary btn-xs position-relative justify-content-end"
                                                     onclick="updatelokasi()" required>Tambah</a>
                                             </div>
                                         </div>
@@ -366,7 +366,7 @@
                                                                 <div
                                                                     class="position-relative justify-content-end float-left">
                                                                     <a type="button" id="tambah-pekerjaan"
-                                                                        class="btn btn-primary position-relative justify-content-end"
+                                                                        class="btn btn-secondary btn-xs position-relative justify-content-end"
                                                                         onclick="updatePaket()" required>Tambah</a>
                                                                 </div>
                                                             </div>
@@ -447,62 +447,63 @@
                                                                     </thead>
                                                                     <tbody id="tbody-kategori">
                                                                         <tr>
-                                                                            <td><strong style="padding-left: 22px" id="nomor"
+                                                                            <td><strong style="padding-left: 11px" id="nomor"
                                                                                     value="1">1</strong></td>
 
-                                                                            <td style="width: 370px">
+                                                                            <td>
                                                                                 <div class="searching-select2">
                                                                                     <input type="search"
                                                                                         class="form-control input-default"
                                                                                         name="item_id" id="item_id[1]"
                                                                                         placeholder="Pilih Pekerjaan"
                                                                                         onkeyup="filterFunction2(this,event)"
-                                                                                        onchange="change_item(this)"
+                                                                                        onkeydown="return no_bckspc(this, event)"
+                                                                                        {{-- onchange="change_item(this)" --}}
                                                                                         required>
                                                                                     <ul id="ul_paket_id2[1]"></ul>
                                                                                 </div>
                                                                             </td>
 
-                                                                            <td style="width: 185px"><input type="text"
+                                                                            <td><input type="text"
                                                                                     class="form-control kategory_id"
                                                                                     id="kategory_id[1]" name="kategory_id"
                                                                                     placeholder="Kategori" value=""
                                                                                     disabled readonly required></td>
-                                                                            <td style="width: 130px"><input type="text"
+                                                                            <td><input type="text"
                                                                                     class="form-control satuan"
                                                                                     id="satuan[1]" name="satuan"
                                                                                     placeholder="Satuan" value=""
                                                                                     disabled readonly required>
                                                                             </td>
-                                                                            <td style="width: 130px"><input type="text"
+                                                                            <td><input type="text"
                                                                                     class="form-control volume"
                                                                                     id="volume[1]" name="volume"
                                                                                     placeholder="volume" value=""
                                                                                     onblur="blur_volume(this)"onkeypress="return numbersonly2(this, event);"
                                                                                     onkeyup="format(this)" required></td>
-                                                                            <td style="width: 200px"><input type="text"
+                                                                            <td><input type="text"
                                                                                     class="form-control harga_satuan"
                                                                                     id="harga_satuan[1]"
                                                                                     name="harga_satuan"
                                                                                     placeholder="Harga Satuan"
                                                                                     value="" disabled readonly
                                                                                     required></td>
-                                                                            <td style="width: 230px"><input type="text"
+                                                                            <td><input type="text"
                                                                                     class="form-control harga"
                                                                                     id="harga[1]" name="harga"
                                                                                     placeholder="Jumlah" value=""
                                                                                     disabled readonly required>
                                                                             </td>
-                                                                            <td style="width: 130px"><input type="text"
+                                                                            <td><input type="text"
                                                                                     class="form-control tkdn"
                                                                                     id="tkdn[1]" name="tkdn"
                                                                                     placeholder="TKDN"
                                                                                     onkeyup="tkdn_format(this)"
-                                                                                    value="">
+                                                                                    value="" required>
                                                                             </td>
-                                                                            <td style="width: 80px; vertical-align: middle !important;">
+                                                                            <td>
                                                                                 <button onclick="deleteRow(this)"
-                                                                                    class="btn btn-danger shadow btn-xs sharp"><i
+                                                                                    class="btn btn-danger shadow btn-xs sharp" style="margin-top: 15px"><i
                                                                                         class='fa fa-trash'></i></button>
                                                                             </td>
                                                                         </tr>
@@ -512,7 +513,7 @@
                                                                 <div class="col-lg-12 mb-2">
                                                                     <div class="position-relative float-left">
                                                                         <a type="button" id="tambah-pekerjaan"
-                                                                            class="btn btn-primary position-relative justify-content-end"
+                                                                            class="btn btn-secondary btn-xs position-relative justify-content-end"
                                                                             onclick="updateform()" required>Tambah</a>
                                                                     </div>
                                                                 </div>
@@ -631,7 +632,7 @@
                                                                 <div
                                                                     class="position-relative justify-content-end float-left">
                                                                     <a type="button" id="tambah-pekerjaan"
-                                                                        class="btn btn-primary position-relative justify-content-end"
+                                                                        class="btn btn-secondary btn-xs position-relative justify-content-end"
                                                                         onclick="updateRedaksi()">Tambah</a>
                                                                 </div>
                                                             </div>
@@ -796,7 +797,7 @@
                                                     </div>
                                                     <hr>
                                                     <div class="row ml-2 justify-content-start">
-                                                        <h5 class="card-title">Step 3: Redaksi</h5>
+                                                        <h5 class="card-title">Step 4: Redaksi</h5>
                                                         <div class="col-xl-12 col-xxl-12">
                                                             <div class="wrapword" id="firstTable">
                                                                 <table width="100%" border="2" cellspacing="0"
