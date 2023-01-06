@@ -13,7 +13,7 @@ class RedaksiController extends Controller
         return view('khs.detail_khs.redaksi_khs.redaksi_khs', [
             'title' => 'Redaksi KHS',
             // 'khss' => Khs::all(),
-            'redaksis' => Redaksi::all(),
+            'redaksis' => Redaksi::orderBy('id', 'DESC')->get(),
         ]);
 
     }

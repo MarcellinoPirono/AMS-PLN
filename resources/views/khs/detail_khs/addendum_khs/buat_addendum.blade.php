@@ -55,6 +55,28 @@
                                             required>
                                     </div>
                                 </div>
+                                <div class="col-lg-6 mb-2">
+                                    <div class="form-group">
+                                        <label class="text-label">Input File Addendum</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Upload</span>
+                                            </div>
+                                            <div class="custom-file">
+                                                <input id="kak" type="file"
+                                                    class="form-control custom-file-input"
+                                                    style="border-radius: 0 20px 20px 0" required />
+                                                <label class="custom-file-label">Choose </label>
+                                            </div>
+                                        </div>
+                                        <div class="valid-feedback">
+                                            Data Terisi
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Silakan Upload File Addendum
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="position-relative justify-content-end float-right">
                                 <button type="submit" id="btntambah"

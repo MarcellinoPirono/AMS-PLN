@@ -246,7 +246,7 @@
                 </tr>
                 <tr>
                     <td style="height: 50px; padding-left:40px" align="center" valign="bottom">SETUJU MELAKSANAKAN</td>
-                    <td style="width:43%; padding-left:40px" align="center" valign="bottom">PT PLN (PERSERO) UIW
+                <td style="width:43%; padding-left:40px" align="center" valign="bottom">PT PLN (PERSERO) UID
                         SULSELRABAR</td>
                 </tr>
                 <tr>

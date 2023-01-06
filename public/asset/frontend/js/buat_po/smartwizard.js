@@ -7,7 +7,8 @@ function onCancel() {
     document.getElementById("form-1").reset();
     document.getElementById("form-2").reset();
     document.getElementById("form-3").reset();
-    document.getElementById("form-423").reset();
+    document.getElementById("form-4").reset();
+    document.getElementById("form-5").reset();
 }
 
 function onConfirm() {
@@ -185,8 +186,8 @@ $(function () {
                     return element !== null;
                 });
 
-                console.log(result_jasa);
-                console.log(result_material);
+                // console.log(result_jasa);
+                // console.log(result_material);
 
                 if (result_jasa.length > 0) {
                     var html_jasa = [""]
@@ -291,26 +292,39 @@ $(function () {
                     redaksi_line[i] = [
                         document.getElementById("redaksi_id[" + (i + 1) + "]").options[document
                             .getElementById("redaksi_id[" + (i + 1) + "]").selectedIndex].text,
-                        document.getElementById("deskripsi_id[" + (i + 1) + "]").value,
-                        document.getElementById("sub_deskripsi_id[" + (i + 1) + "]").value
+                        document.getElementById("deskripsi_id[" + (i + 1) + "]").innerText,
+                        document.getElementById("sub_deskripsi_id[" + (i + 1) + "]").innerHTML
                     ]
 
                 }
+
+                // console.log(redaksi_line);
 
                 if (redaksi_line.length > 0) {
                     var html_redaksi = [""];
                     var isi_redaksi = redaksi_line.length;
                     for (var j = 0; j < isi_redaksi; j++) {
-                        html_redaksi += ("<tr> <td class='first' align='center' valign='top'>" + (j +
+                        if(redaksi_line[j][2] == "<li>Tidak Ada Sub Deskripsi</li>") {
+                            html_redaksi += ("<tr> <td class='first' align='center' valign='top'>" + (j +
                                 1) +
                             "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
                             redaksi_line[j][0] +
                             "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
                             redaksi_line[
                                 j][1] +
-                            "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
-                            redaksi_line[
-                                j][2] + "</td> </tr>")
+                            "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>-</td> </tr>")
+                        } else {
+                            html_redaksi += ("<tr> <td class='first' align='center' valign='top'>" + (j +
+                                    1) +
+                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
+                                redaksi_line[j][0] +
+                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
+                                redaksi_line[
+                                    j][1] +
+                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
+                                redaksi_line[
+                                    j][2] + "</td> </tr>")
+                        }
                     }
                     document.getElementById("tbody_redaksi").innerHTML = html_redaksi;
                 }

@@ -17,12 +17,12 @@
                     <a href="/skk/create" class="btn btn-primary mr-auto ml-3 ">Tambah SKK<span class="btn-icon-right"><i
                                 class="fa fa-plus-circle"></i></span>
                     </a>
-                    <div class="input-group search-area position-relative">
+                    <!-- <div class="input-group search-area position-relative">
                         <div class="input-group-append">
                             <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
                             <input type="search" id="search" name="search" class="form-control" placeholder="Search here..." />
                         </div>
-                    </div>
+                    </div> -->
 
                     {{-- <div class="sweetalert mt-5">
                                         <button class="btn btn-warning btn sweet-confirm">Sweet Confirm</button>

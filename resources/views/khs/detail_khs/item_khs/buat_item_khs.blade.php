@@ -29,9 +29,9 @@
                                     <label class="text-label">Kategori :</label>
                                     <div class="form-group mt-lg-2">
                                         <label class="radio-inline">
-                                            <input type="radio" name="kategori" class="kategori"                                               value="Jasa">Jasa &ensp; &ensp;
+                                            <input type="radio" name="kategori" class="kategori" value="Jasa">Jasa
                                         </label>
-                                        <label class="radio-inline">
+                                        <label class="radio-inline ml-2">
                                             <input type="radio" name="kategori"
                                             class="kategori" value="Material">Material
                                         </label>

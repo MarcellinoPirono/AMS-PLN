@@ -27,12 +27,12 @@
                     <a href="/prk/create" class="btn btn-primary mr-auto ml-3 ">Tambah PRK <span class="btn-icon-right"><i
                                 class="fa fa-plus-circle"></i></span>
                     </a>
-                    <div class="input-group search-area position-relative">
+                    <!-- <div class="input-group search-area position-relative">
                         <div class="input-group-append">
                             <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
                             <input id="search" type="search" name="search" class="form-control" placeholder="Search here..." />
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

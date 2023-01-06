@@ -14,9 +14,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="/kontrak-induk-khs/create-xlsx" class="btn btn-primary mr-auto ml-3">Tambah Paket Via
+                    <!-- <a href="/kontrak-induk-khs/create-xlsx" class="btn btn-primary mr-auto ml-3">Tambah Paket Via
                         Excel<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
-                    </a>
+                    </a> -->
                     <a href="/paket-pekerjaan/{{ $jenis_khs }}/create" class="btn btn-primary float-right mr-3 mt-3">Tambah Paket
                         Pekerjaan <i class="bi bi-plus-circle"></i>
                     </a>
