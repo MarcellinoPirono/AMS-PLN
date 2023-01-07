@@ -11,6 +11,10 @@
         disable: [
             1, 7
           ],
+        // formatSubmit: 'dddd/mm/yyyy/',
+        // monthsFull: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+        // weekdaysShort: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+
         selectYears: true,
         selectMonths: true
     });

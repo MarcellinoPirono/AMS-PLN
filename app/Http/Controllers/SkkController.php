@@ -203,6 +203,7 @@ public function create()
     public function getItem(Request $request)
     {
         $item_id = $request->post('item_id');
+        // dd($item_id);
 
         $nama_item = RincianInduk::where('nama_item', $item_id)->get();
 

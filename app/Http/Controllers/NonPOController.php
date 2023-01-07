@@ -212,7 +212,7 @@ class NonPOController extends Controller
 
         $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
         $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
-      
+
         $oMerger->addPDF($request->file('kak')->getPathName(), 'all');
         // }
         // dd($oMerger);

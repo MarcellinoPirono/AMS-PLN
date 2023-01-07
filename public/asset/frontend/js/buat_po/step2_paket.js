@@ -8,7 +8,8 @@ var k = 0
 function updatePaket() {
 
     click = 0;
-    document.getElementById('tbody_RAB').innerHTML = ""
+    document.getElementById('tbody_RAB').innerHTML = "";
+    document.getElementById('thead_RAB').innerHTML = "";
 
     var kontrak_induk = document.getElementById('kontrak_induk').value;
     let token = $('#csrf').val();
@@ -184,7 +185,11 @@ function deletePaket(r) {
 
     if (clickpaket == 0) {
         click = 1;
-        document.getElementById('tbody_RAB').innerHTML = ""
+        document.getElementById('tbody_RAB').innerHTML = "";
+        document.getElementById('thead_RAB').innerHTML = "";
+        document.getElementById('jumlah').innerHTML = "";
+        document.getElementById('pajak').innerHTML = "";
+        document.getElementById('total').innerHTML = "";
         var kontrak_induk = document.getElementById('kontrak_induk').value;
         let token = $('#csrf').val();
         $.ajax({
@@ -202,6 +207,81 @@ function deletePaket(r) {
                     item += ("<li>" + result['items'][i].nama_item + "</li>")
                 }
 
+                div4 = document.getElementById("thead_RAB");
+                tabel_rab2 = document.createElement("table");
+                tabel_rab2.setAttribute("class", "table table-responsive-lg tabel-daftar1");
+                tabel_rab2.setAttribute("style", "width: 1520px");
+                tabel_rab2.setAttribute("cellpadding", "0");
+                tabel_rab2.setAttribute("cellspacing", "0");
+                tabel_rab2.setAttribute("border", "0");
+
+                thead2 = document.createElement("thead");
+                tabel_rab2.append(thead2);
+
+                tr3 = document.createElement("tr");
+                tr3.setAttribute("align", "center");
+                tr3.setAttribute("valign", "middle");
+
+                th3 = document.createElement("th");
+                th3.setAttribute("align", "center");
+                th3.setAttribute("valign", "middle");
+                th3.setAttribute("style", "width: 60px vertical-align: middle;");
+                th3.innerHTML = "NO";
+                th4 = document.createElement("th");
+                th4.setAttribute("align", "center");
+                th4.setAttribute("valign", "middle");
+                th4.setAttribute("style", "width: 322px; vertical-align: middle;");
+                th4.innerHTML = "Pekerjaan";
+                th5 = document.createElement("th");
+                th5.setAttribute("align", "center");
+                th5.setAttribute("valign", "middle");
+                th5.setAttribute("style", "width: 185px; vertical-align: middle;");
+                th5.innerHTML = "Kategori Pekerjaan";
+                th6 = document.createElement("th");
+                th6.setAttribute("align", "center");
+                th6.setAttribute("valign", "middle");
+                th6.setAttribute("style", "width: 134px; vertical-align: middle;");
+                th6.innerHTML = "Satuan";
+                th7 = document.createElement("th");
+                th7.setAttribute("align", "center");
+                th7.setAttribute("valign", "middle");
+                th7.setAttribute("style", "width: 160px; vertical-align: middle;");
+                th7.innerHTML = "Volume";
+                th8 = document.createElement("th");
+                th8.setAttribute("align", "center");
+                th8.setAttribute("valign", "middle");
+                th8.setAttribute("style", "width: 209px; vertical-align: middle;");
+                th8.innerHTML = "Harga Satuan (Rp.)";
+                th9 = document.createElement("th");
+                th9.setAttribute("align", "center");
+                th9.setAttribute("valign", "middle");
+                th9.setAttribute("style", "width: 230px; vertical-align: middle;");
+                th9.innerHTML = "Jumlah (Rp.)";
+                th10 = document.createElement("th");
+                th10.setAttribute("align", "center");
+                th10.setAttribute("valign", "middle");
+                th10.setAttribute("style", "width: 130px; vertical-align: middle;");
+                th10.innerHTML = "TKDN (%)";
+                th11 = document.createElement("th");
+                th11.setAttribute("align", "center");
+                th11.setAttribute("valign", "middle");
+                th11.setAttribute("style", "width: 80px; vertical-align: middle !important;");
+                th11.innerHTML = "Aksi";
+
+                tr3.append(th3);
+                tr3.append(th4);
+                tr3.append(th5);
+                tr3.append(th6);
+                tr3.append(th7);
+                tr3.append(th8);
+                tr3.append(th9);
+                tr3.append(th10);
+                tr3.append(th11);
+
+                thead2.append(tr3);
+
+                div4.append(tabel_rab2);
+
                 div1 = document.getElementById("tbody_RAB");
 
                 tabel_rab = document.createElement("table");
@@ -214,6 +294,7 @@ function deletePaket(r) {
 
                 thead = document.createElement("thead");
                 tabel_rab.append(thead);
+                // tabel_rab.append(thead2)
 
                 tr2 = document.createElement("tr");
 
@@ -242,17 +323,6 @@ function deletePaket(r) {
                 td7 = document.createElement("td");
                 td8 = document.createElement("td");
                 td9 = document.createElement("td");
-
-                td1.setAttribute("style", "vertical-align: middle; width: 60px");
-                td1.setAttribute("align", "right");
-                td2.setAttribute("style", "width: 370px");
-                td3.setAttribute("style", "width: 185px");
-                td4.setAttribute("style", "width: 130px");
-                td5.setAttribute("style", "width: 130px");
-                td6.setAttribute("style", "width: 200px");
-                td7.setAttribute("style", "width: 230px");
-                td8.setAttribute("style", "width: 130px");
-                td9.setAttribute("style", "width: 80px");
 
                 strong = document.createElement("strong");
                 strong.setAttribute("id", "nomor");
@@ -376,7 +446,7 @@ function deletePaket(r) {
                 a.setAttribute("type", "button");
                 a.setAttribute("id", "tambah-pekerjaan");
                 a.setAttribute("class", "btn btn-secondary btn-xs position-relative justify-content-end");
-                a.setAttribute("onclick", "updateform()");
+                a.setAttribute("onclick", "updateform(this)");
                 a.setAttribute("required", true);
                 a.innerHTML = "Tambah";
                 div3.append(a);
@@ -584,7 +654,8 @@ function change_paket(c) {
     // c.title=c.value
     // console.log(c. );
     if (document.getElementById('tbody_RAB').innerHTML != "") {
-        document.getElementById('tbody_RAB').innerHTML = ""
+        document.getElementById('thead_RAB').innerHTML = "";
+        document.getElementById('tbody_RAB').innerHTML = "";
     }
     var baris_2 = [];
 
@@ -649,6 +720,7 @@ function bikin_table(data) {
     div1 = document.getElementById("tbody_RAB");
     var jumlah = 0;
 
+    var table_count = 0;
     for(var i = 0; i < Object.keys(data).length; i++) {
         // console.log(Object.keys(data)[]);
         label_lokasi = document.createElement("label");
@@ -661,14 +733,16 @@ function bikin_table(data) {
             // console.log(data[Object.keys(data)[i]][j]);
             tabel_rab = document.createElement("table");
             tabel_rab.setAttribute("class", "table table-responsive-lg tabel-daftar");
-            tabel_rab.setAttribute("id", "tabelRAB"+j);
+            tabel_rab.setAttribute("id", "tabelRAB"+table_count);
             tabel_rab.setAttribute("style", "width:1530px");
             tabel_rab.setAttribute("cellpadding", "0");
             tabel_rab.setAttribute("cellspacing", "0");
             tabel_rab.setAttribute("border", "0");
 
             thead = document.createElement("thead");
+            thead2 = document.createElement("thead");
             tabel_rab.append(thead);
+            tabel_rab.append(thead2);
 
             tr2 = document.createElement("tr");
 
@@ -678,10 +752,70 @@ function bikin_table(data) {
             th2 = document.createElement("th");
             th2.innerHTML = data[Object.keys(data)[i]][j].paket;
             th2.setAttribute("style", "width:300px; vertical-align: middle;");
+
+            tr3 = document.createElement("tr");
+            tr3.setAttribute("align", "center");
+            tr3.setAttribute("valign", "middle");
+
+            th3 = document.createElement("th");
+            th3.setAttribute("align", "center");
+            th3.setAttribute("valign", "middle");
+            th3.setAttribute("style", "width: 60px vertical-align: middle;");
+            th3.innerHTML = "NO";
+            th4 = document.createElement("th");
+            th4.setAttribute("align", "center");
+            th4.setAttribute("valign", "middle");
+            th4.setAttribute("style", "width: 322px; vertical-align: middle;");
+            th4.innerHTML = "Pekerjaan";
+            th5 = document.createElement("th");
+            th5.setAttribute("align", "center");
+            th5.setAttribute("valign", "middle");
+            th5.setAttribute("style", "width: 185px; vertical-align: middle;");
+            th5.innerHTML = "Kategori Pekerjaan";
+            th6 = document.createElement("th");
+            th6.setAttribute("align", "center");
+            th6.setAttribute("valign", "middle");
+            th6.setAttribute("style", "width: 134px; vertical-align: middle;");
+            th6.innerHTML = "Satuan";
+            th7 = document.createElement("th");
+            th7.setAttribute("align", "center");
+            th7.setAttribute("valign", "middle");
+            th7.setAttribute("style", "width: 160px; vertical-align: middle;");
+            th7.innerHTML = "Volume";
+            th8 = document.createElement("th");
+            th8.setAttribute("align", "center");
+            th8.setAttribute("valign", "middle");
+            th8.setAttribute("style", "width: 209px; vertical-align: middle;");
+            th8.innerHTML = "Harga Satuan (Rp.)";
+            th9 = document.createElement("th");
+            th9.setAttribute("align", "center");
+            th9.setAttribute("valign", "middle");
+            th9.setAttribute("style", "width: 230px; vertical-align: middle;");
+            th9.innerHTML = "Jumlah (Rp.)";
+            th10 = document.createElement("th");
+            th10.setAttribute("align", "center");
+            th10.setAttribute("valign", "middle");
+            th10.setAttribute("style", "width: 130px; vertical-align: middle;");
+            th10.innerHTML = "TKDN (%)";
+            th11 = document.createElement("th");
+            th11.setAttribute("align", "center");
+            th11.setAttribute("valign", "middle");
+            th11.setAttribute("style", "width: 80px; vertical-align: middle !important;");
+            th11.innerHTML = "Aksi";
             // th2.setAttribute("id", "nama_paket");
             tr2.append(th1);
             tr2.append(th2);
+            tr3.append(th3);
+            tr3.append(th4);
+            tr3.append(th5);
+            tr3.append(th6);
+            tr3.append(th7);
+            tr3.append(th8);
+            tr3.append(th9);
+            tr3.append(th10);
+            tr3.append(th11);
             thead.append(tr2);
+            thead2.append(tr3);
 
             tbody = document.createElement("tbody");
             tbody.setAttribute("id", "tbody-kategori"+j);
@@ -751,7 +885,7 @@ function bikin_table(data) {
                 input1.setAttribute('onkeydown', 'return no_bckspc(this, event)');
                 // input1.setAttribute('onblur', 'change_paket(this)');
                 input1.setAttribute('value', data[Object.keys(data)[i]][j]["item"][k][0].nama_item);
-                input1.setAttribute('title','')
+                input1.setAttribute('title', data[Object.keys(data)[i]][j]["item"][k][0].nama_item)
                 divsearching.append(input1);
 
 
@@ -829,9 +963,9 @@ function bikin_table(data) {
 
                 button1 = document.createElement('button');
 
-                button1.setAttribute('onclick', 'deleteRow'+k+'(this)');
+                button1.setAttribute('onclick', 'deleteRowWithPaket(this)');
                 button1.setAttribute('class', 'btn btn-danger shadow btn-xs sharp');
-                button1.setAttribute('style', 'margin-top: 15px;')
+                // button1.setAttribute('style', 'margin-top: 15px;')
                 button1.innerHTML = "<i class='fa fa-trash'></i>";
 
                 td2.append(divsearching);
@@ -869,25 +1003,42 @@ function bikin_table(data) {
             a.setAttribute("type", "button");
             a.setAttribute("id", "tambah-pekerjaan");
             a.setAttribute("class", "btn btn-secondary btn-xs position-relative justify-content-end");
-            a.setAttribute("onclick", "updateform()");
+            a.setAttribute("onclick", "updateformwithpaket(this)");
             a.setAttribute("required", true);
             a.innerHTML = "Tambah";
             div3.append(a);
 
             div1.append(tabel_rab);
             div1.append(div2);
+            table_count++;
         }
     }
     var ppn = 0.11 * jumlah;
     ppn = Math.round(ppn);
     var total_harga = ppn + jumlah;
-    jumlah = tandaPemisahTitik(jumlah);
-    ppn = tandaPemisahTitik(ppn);
-    total_harga = tandaPemisahTitik(total_harga);
+    var prk = document.getElementById('rupiah').innerHTML;
+    prk = prk.replace(/\./g, "");
+    prk = parseInt(prk);
 
-    document.getElementById("jumlah").innerHTML = "Rp. "+jumlah;
-    document.getElementById("pajak").innerHTML = "Rp. "+ppn;
-    document.getElementById("total").innerHTML = "Rp. "+total_harga;
+    if(prk >= total_harga) {
+        jumlah = tandaPemisahTitik(jumlah);
+        ppn = tandaPemisahTitik(ppn);
+        total_harga = tandaPemisahTitik(total_harga);
+
+        document.getElementById("jumlah").innerHTML = "Rp. "+ jumlah;
+        document.getElementById("pajak").innerHTML = "Rp. "+ ppn;
+        document.getElementById("total").innerHTML = "Rp. "+ total_harga;
+        document.getElementById('total').style.color = '#7E7E7E';
+    } else {
+        jumlah = tandaPemisahTitik(jumlah);
+        ppn = tandaPemisahTitik(ppn);
+        total_harga = tandaPemisahTitik(total_harga);
+
+        document.getElementById("jumlah").innerHTML = "Rp. "+ jumlah;
+        document.getElementById("pajak").innerHTML = "Rp. "+ ppn;
+        document.getElementById("total").innerHTML = "Rp. "+ total_harga;
+        document.getElementById('total').style.color = '#F94687';
+    }
 
     // var jumlah_3 = [];
     // // var ppn_3 = [];

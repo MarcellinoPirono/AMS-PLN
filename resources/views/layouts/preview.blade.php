@@ -18,10 +18,10 @@
                 </div>
             </div>
             <div class="card-body">
-{{--                 
+{{--
                 <iframe src="{{ asset('storage/storage/file-pdf-khs/'.$filename.'.pdf') }}"  type="application/pdf" width="100%" height="600px"/> --}}
-                <iframe src="{{ asset('storage/storage/file-pdf-khs/'.$filename.'.pdf') }}" type="application/pdf" width="100%" height="600px"frameborder="0"></iframe>
-                
+                <iframe src="{{ asset('storage/storage/file-pdf-khs/tkdn/'.$filename.'.pdf') }}" type="application/pdf" width="100%" height="600px"frameborder="0"></iframe>
+
             </div>
             {{-- <iframe src="" frameborder="0">{{ $pdf }}</iframe> --}}
             {{-- <object data={{ $pdf }} type="application/pdf"></object> --}}

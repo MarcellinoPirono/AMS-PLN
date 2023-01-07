@@ -322,6 +322,7 @@ class RabController extends Controller
         $nama_pdf = $request->nomor_po;
         $ubah_pdf = str_replace('.', '_', $nama_pdf);
         $ubah_pdf2 = str_replace('/','-', $ubah_pdf);
+        $ubah_pdf2 = str_replace(' ','-', $ubah_pdf);
 
 
         $mypdf = 'public/storage/file-pdf-khs/'.$ubah_pdf2.'.pdf';
@@ -728,6 +729,7 @@ class RabController extends Controller
 
         $fileName = str_replace('/', '-', $fileName);
         $fileName = str_replace('.', '_', $fileName);
+        $fileName = str_replace(' ', '-', $fileName);
 
         // dd($fileName);
         // for pdf, it will be 'application/pdf'

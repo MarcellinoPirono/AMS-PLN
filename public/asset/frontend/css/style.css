@@ -3432,6 +3432,7 @@ fieldset:disabled a.btn {
     color: #fff;
     background-color: #2bc155;
     border-color: #2bc155;
+    opacity:0.35;
 }
 
 .btn-success:not(:disabled):not(.disabled):active,
@@ -4866,6 +4867,7 @@ input[type="button"].btn-block {
     height: calc(1.5em + 0.75rem + 2px);
     margin: 0;
     opacity: 0;
+    border-color: #a6a6a6 !important;
 }
 
 .custom-file-input:focus ~ .custom-file-label {
@@ -4896,9 +4898,9 @@ input[type="button"].btn-block {
     padding: 0.375rem 0.75rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #14a2ba;
+    color: #000;
     background-color: #fff;
-    border: 1px solid #f0f1f5;
+    border: 1px solid #a6a6a6;
     border-radius: 0.75rem;
 }
 
@@ -4909,7 +4911,7 @@ input[type="button"].btn-block {
     bottom: 0;
     z-index: 3;
     display: block;
-    height: calc(1.5em + 0.75rem);
+    height: 100%;
     padding: 0.375rem 0.75rem;
     line-height: 1.5;
     color: #14a2ba;
@@ -40737,7 +40739,7 @@ svg text {
 
 .custom-file-label {
     background: #fff;
-    border-color: #f0f1f5;
+    border-color: #a6a6a6;
 }
 
 [data-theme-version="dark"] .custom-file-label {
@@ -54529,6 +54531,13 @@ input::-webkit-calendar-picker-indicator {
     border-bottom: none;
 }
 
+.firstq {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-top: none;
+    border-bottom: 1px solid #000;
+}
+
 .first1 {
     border-left: 1px solid #000;
     border-right: none;
@@ -54550,11 +54559,22 @@ input::-webkit-calendar-picker-indicator {
     border-bottom: 1px solid #000;
 }
 
+.first35 {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
 .first4 {
     border-left: 1px solid #000;
     border-right: 1px solid #000;
     border-top: 1px solid #000;
     border-bottom: 1px solid #C5C6D0;
+}
+
+.kuning {
+    background-color: #FFFF00;
 }
 
 .warna{
@@ -54650,7 +54670,9 @@ table#rincian {
 }
 
 .tabellkiri {
-    padding-left:3px;
+    padding-left: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .tabellkanan {

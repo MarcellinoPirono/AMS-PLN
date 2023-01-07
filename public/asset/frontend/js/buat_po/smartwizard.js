@@ -124,11 +124,11 @@ $(function () {
             var po = $("#po").val();
             var kontrak_induk = $("#kontrak_induk option:selected").text();
             var pekerjaan = $("#pekerjaan").val();
-            var pejabat =$("#pejabat option:selected").text();
+            var pejabat = $("#pejabat option:selected").text();
             var start_date = $("#start_date").val();
             var end_date = $("#end_date").val();
             var addendum = $("#addendum").val();
-            var nama_vendor =$("#vendor").val();
+            var nama_vendor = $("#vendor").val();
             var skk_id = $("#skk_id option:selected").text();
             var prk_id = $("#prk_id option:selected").text();
             var pengawas_pekerjaan = $("#pengawas_pekerjaan").val();
@@ -138,6 +138,7 @@ $(function () {
             $("#kontrak_induk_4").html(kontrak_induk);
             $("#judul_pekerjaan_4").html(pekerjaan);
             $("#direksi_pekerjaan_4").html(pejabat);
+            $("#nama_vendor_4").html(nama_vendor);
             $("#start_date_4").html(start_date);
             $("#end_date_4").html(end_date);
             if (addendum == "") {
@@ -154,7 +155,7 @@ $(function () {
                 $("#pengawas_lapangan_4").html(pengawas_lapangan);
             }
 
-            if(clickpaket == 0) {
+            if (clickpaket == 0) {
                 baris = [];
                 baris_jasa = [];
                 baris_material = [];
@@ -191,36 +192,45 @@ $(function () {
 
                 if (result_jasa.length > 0) {
                     var html_jasa = [""]
-                    var tbody = document.getElementById("tbody_jasa")
+                    // var tbody = document.getElementById("tbody_jasa")
                     var panjang = result_jasa.length
                     for (var j = 0; j < panjang; j++) {
                         html_jasa += ("<tr> <td class='first' align='center' valign='middle'>" + (j +
-                                1) +
+                            1) +
                             "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
                             result_jasa[j][0][0] +
                             "</td> <td class='first' align='center' valign='middle'>" + result_jasa[
                                 j][0][2].match(/\(([^)]+)\)/)[1] +
                             "</td> <td class='first' align='center' valign='middle'>" + result_jasa[
-                                j][0][3] +
+                            j][0][3] +
                             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
                             result_jasa[
-                                j][0][4] +
+                            j][0][4] +
                             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
                             result_jasa[
-                                j][0][5] + "</td> </tr>")
+                            j][0][5] +
+                            "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                            result_jasa[
+                            j][0][6] +
+                            "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                            result_jasa[
+                            j][0][7] +
+                            "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                            result_jasa[
+                            j][0][8] + "</td> </tr>")
                     }
                     document.getElementById("tbody_jasa").innerHTML =
-                        "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>" +
+                        "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>" +
                         html_jasa;
                 }
 
                 if (result_material.length > 0) {
                     var html_material = [""]
-                    var tbody = document.getElementById("tbody_material")
+                    // var tbody = document.getElementById("tbody_material")
                     var panjang = result_material.length
                     for (var j = 0; j < panjang; j++) {
                         html_material += ("<tr> <td class='first' align='center' valign='middle'>" + (
-                                j + 1) +
+                            j + 1) +
                             "</td> <td class='first tabellkiri' align='left' valign='middle'>" +
                             result_material[j][0][0] +
                             "</td> <td class='first' align='center' valign='middle'>" +
@@ -230,10 +240,16 @@ $(function () {
                             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
                             result_material[j][0][4] +
                             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
-                            result_material[j][0][5] + "</td> </tr>")
+                            result_material[j][0][5] +
+                            "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                            result_material[j][0][6] +
+                            "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                            result_material[j][0][7] +
+                            "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                            result_material[j][0][8] + "</td> </tr>")
                     }
                     document.getElementById("tbody_material").innerHTML =
-                        "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>MATERIAL:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
+                        "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>MATERIAL:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
                         html_material;
                 }
 
@@ -304,26 +320,26 @@ $(function () {
                     var html_redaksi = [""];
                     var isi_redaksi = redaksi_line.length;
                     for (var j = 0; j < isi_redaksi; j++) {
-                        if(redaksi_line[j][2] == "<li>Tidak Ada Sub Deskripsi</li>") {
-                            html_redaksi += ("<tr> <td class='first' align='center' valign='top'>" + (j +
+                        if (redaksi_line[j][2] == "<li>Tidak Ada Sub Deskripsi</li>") {
+                            html_redaksi += ("<tr> <td class='firstq' align='center' valign='top'>" + (j +
                                 1) +
-                            "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
-                            redaksi_line[j][0] +
-                            "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
-                            redaksi_line[
-                                j][1] +
-                            "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>-</td> </tr>")
-                        } else {
-                            html_redaksi += ("<tr> <td class='first' align='center' valign='top'>" + (j +
-                                    1) +
-                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>" +
                                 redaksi_line[j][0] +
-                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>" +
                                 redaksi_line[
-                                    j][1] +
-                                "</td> <td class='first tabellkiri tabellkanan' align='left' valign='top'>" +
+                                j][1] +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>-</td> </tr>")
+                        } else {
+                            html_redaksi += ("<tr> <td class='firstq' align='center' valign='top'>" + (j +
+                                1) +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>" +
+                                redaksi_line[j][0] +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>" +
                                 redaksi_line[
-                                    j][2] + "</td> </tr>")
+                                j][1] +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>" +
+                                redaksi_line[
+                                j][2] + "</td> </tr>")
                         }
                     }
                     document.getElementById("tbody_redaksi").innerHTML = html_redaksi;
@@ -333,22 +349,22 @@ $(function () {
             $("#next-btn").addClass('disabled').prop('disabled', true);
         }
         // else if (stepPosition === 'second') {
-            // var lokasi_2 = [""];
-            // var new_click = clicklokasi - 1;
-            // for (var i = 0; i < clicklokasi; i++) {
-            //     value_lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value
-            //     lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
-            //         "</option>")
-            // }
-            // for(var j = 0; j < clicklokasi; j++) {
-            //     document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
-            // }
-            // console.log(lokasi_2);
-            // document.getElementById('lokasi_id[1]').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
-            // // console.log(lokasi_2);
-            // for (var i = 0; i < new_click; i++) {
-            //     document.getElementById('location' + (i + 1)).remove();
-            // }
+        // var lokasi_2 = [""];
+        // var new_click = clicklokasi - 1;
+        // for (var i = 0; i < clicklokasi; i++) {
+        //     value_lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value
+        //     lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
+        //         "</option>")
+        // }
+        // for(var j = 0; j < clicklokasi; j++) {
+        //     document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+        // }
+        // console.log(lokasi_2);
+        // document.getElementById('lokasi_id[1]').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+        // // console.log(lokasi_2);
+        // for (var i = 0; i < new_click; i++) {
+        //     document.getElementById('location' + (i + 1)).remove();
+        // }
         //     $("#prev-btn").removeClass('disabled').prop('disabled', false);
         //     $("#next-btn").removeClass('disabled').prop('disabled', false);
         // } else if (stepPosition === 'third') {
@@ -402,8 +418,19 @@ $(function () {
             showNextButton: true, // show/hide a Next button
             showPreviousButton: true, // show/hide a Previous button
             position: 'bottom', // none/ top/ both bottom
-            extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Complete Order</button>
-                              <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
+            extraHtml: `<div class="btn-group" role="group">\
+            <div class="dropdown">
+                    <button class="btn btn-success dropdown-toggle" href="#" role="button" id="btnFinish" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                        Cetak
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" onclick="SubmitTDKN()">Via TKDN <i class="bi bi-printer"></i></a> </li>
+                        <li><a class="dropdown-item" href="#">Via NON-TKDN <i class="bi bi-printer"></i></a></li>
+                    </ul>
+            </div>
+        </div>
+        <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
         },
         anchor: {
             enableNavigation: true, // Enable/Disable anchor navigation

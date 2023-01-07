@@ -281,10 +281,15 @@
                                                 <div class="form-group">
                                                     <div class="position-relative justify-content-center float-center">
                                                         <button class="btn btn-secondary btn-xxs"
-                                                            onclick="toggle('embedLink')" type="button">Show/Hide <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                                                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                                                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                                                              </svg></button>
+                                                            onclick="toggle('embedLink')" type="button">Show/Hide <svg
+                                                                xmlns="http://www.w3.org/2000/svg" width="20"
+                                                                height="20" fill="currentColor" class="bi bi-eye"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                                                <path
+                                                                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                                            </svg></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -417,8 +422,7 @@
                                                                     style="width: 1520px" cellpadding="0" cellspacing="0"
                                                                     border="0">
                                                                     <thead>
-                                                                        <tr align="center" valign="middle"
-                                                                            class="">
+                                                                        <tr align="center" valign="middle">
                                                                             <th align="center" valign="middle"
                                                                                 style="width: 60px vertical-align: middle;">
                                                                                 NO</th>
@@ -484,7 +488,6 @@
                                                                                     <ul id="ul_paket_id2[1]"></ul>
                                                                                 </div>
                                                                             </td>
-
                                                                             <td><input type="text"
                                                                                     class="form-control kategory_id"
                                                                                     id="kategory_id[1]" name="kategory_id"
@@ -536,7 +539,7 @@
                                                                     <div class="position-relative float-left">
                                                                         <a type="button" id="tambah-pekerjaan"
                                                                             class="btn btn-secondary btn-xs position-relative justify-content-end"
-                                                                            onclick="updateform()" required>Tambah</a>
+                                                                            onclick="updateform(this)" required>Tambah</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -629,18 +632,18 @@
                                                                             </p>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                                <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
-                                                                                                    placeholder="Deskripsi" value="" disabled required></textarea>
-                                                                                            </td> -->
+                                                                                                                        <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
+                                                                                                                            placeholder="Deskripsi" value="" disabled required></textarea>
+                                                                                                                    </td> -->
                                                                         <td style="vertical-++++++++++++++++align: top">
                                                                             <!-- <p id="sub_deskripsi_id[1]"></p> -->
                                                                             <ol id="sub_deskripsi_id[1]">
                                                                             </ol>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                                <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
-                                                                                                    placeholder="Sub Deskripsi" value="" disabled required></textarea>
-                                                                                            </td> -->
+                                                                                                                        <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
+                                                                                                                            placeholder="Sub Deskripsi" value="" disabled required></textarea>
+                                                                                                                    </td> -->
 
                                                                         <td style="vertical-align: top"><button
                                                                                 onclick="deleteRow1(this)"
@@ -700,6 +703,11 @@
                                                                 <td>:</td>
                                                                 <td id="direksi_pekerjaan_4"></td>
                                                             </tr>
+                                                            <tr class="noborder">
+                                                                <td>Nama Vendor</td>
+                                                                <td>:</td>
+                                                                <td id="nama_vendor_4"></td>
+                                                            </tr>
                                                             <tr id="tr_lokasi1" class="noborder">
                                                                 <td>Lokasi</td>
                                                                 <td>:</td>
@@ -745,7 +753,7 @@
                                                     <hr>
                                                     <div class="row ml-2 justify-content-start">
                                                         <h5 class="card-title">Step 3: Daftar RAB</h5>
-                                                        <div class="col-xl-12 col-xxl-12">
+                                                        {{-- <div class="col-xl-12 col-xxl-12">
                                                             <div class="table-responsive">
                                                                 <div class="wrapword" id="firstTable">
                                                                     <table id="daftar_rabs" class="" width="100%"
@@ -819,6 +827,176 @@
                                                                     </table>
                                                                 </div>
                                                             </div>
+                                                        </div> --}}
+                                                        <div class="col-xl-12 col-xxl-12">
+                                                            <div class="table-responsive">
+                                                                <div class="wrapword" id="firstTable">
+                                                                    <table id="daftar_rabs" class="" width="100%"
+                                                                        border="2" cellspacing="0" cellpadding="0"
+                                                                        style="font-size: 12px;">
+                                                                        <thead>
+                                                                            <tr class="warna">
+                                                                                <td style="width:4%;" rowspan="3"
+                                                                                    align="center" valign="middle">No</td>
+                                                                                <td rowspan="3" align="center"
+                                                                                    valign="middle">Uraian</td>
+                                                                                <td style="width:5%;" rowspan="3"
+                                                                                    align="center" valign="middle">Sat.
+                                                                                </td>
+                                                                                <td style="width:7%;" rowspan="3"
+                                                                                    align="center" valign="middle">Volume
+                                                                                </td>
+                                                                                <td style="width:20%;" colspan="2"
+                                                                                    align="center" valign="middle">Harga
+                                                                                </td>
+                                                                                <td style="width:8%;" rowspan="3"
+                                                                                    align="center" valign="middle">TKDN
+                                                                                    (%)
+                                                                                </td>
+                                                                                <td style="width:21%;" rowspan="2"
+                                                                                    colspan="3" align="center"
+                                                                                    valign="middle">Biaya TKDN (Rupiah)
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr class="warna first4">
+                                                                                <td style="width:9%;" align="center"
+                                                                                    valign="middle">Satuan</td>
+                                                                                <td style="width:9%;" align="center"
+                                                                                    valign="middle">Jumlah</td>
+                                                                            </tr>
+                                                                            <tr class="warna first3">
+                                                                                <td align="center" valign="middle">(RP)
+                                                                                </td>
+                                                                                <td align="center" valign="middle">(RP)
+                                                                                </td>
+                                                                                <td class="warna first35"
+                                                                                    style="width:7%;" align="center"
+                                                                                    valign="middle">KDN
+                                                                                </td>
+                                                                                <td class="warna first35"
+                                                                                    style="width:7%;" align="center"
+                                                                                    valign="middle">KLN
+                                                                                </td>
+                                                                                <td class="warna first35"
+                                                                                    style="width:7%;" align="center"
+                                                                                    valign="middle">Total
+                                                                                </td>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="tbody_jasa">
+                                                                        </tbody>
+                                                                        <tbody id="tbody_material">
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr style="border: 1px #000">
+                                                                                <td rowspan="5" colspan="3"></td>
+                                                                                <td colspan="2" align="center"
+                                                                                    valign="middle"><b>Jumlah Jasa</b></td>
+                                                                                <td class="tabellkanan" id="td_jumlah"
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                            </tr>
+                                                                            <tr style="border: 1px #000">
+                                                                                <td style="border: 1px" colspan="2" align="center"
+                                                                                    valign="middle"><b>Jumlah Material</b>
+                                                                                </td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2" align="center"
+                                                                                    valign="middle"><b>Jumlah
+                                                                                        Keseluruhan</b></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan kuning" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2" align="center"
+                                                                                    valign="middle"><b>PPN 11%</b></td>
+                                                                                <td class="tabellkanan" id="td_ppn"
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2" align="center"
+                                                                                    valign="middle"><b>TOTAL</b></td>
+                                                                                <td class="tabellkanan kuning" id="td_total"
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="first1"></td>
+                                                                                <td class="first2" rowspan="2"
+                                                                                    colspan="5" id="terbilang"
+                                                                                    style="font-weight: bold; font-style:italic;">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <hr>
@@ -834,7 +1012,8 @@
                                                                                 valign="middle">No</th>
                                                                             <th style="width:10%;" align="center"
                                                                                 valign="middle">Redaksi</th>
-                                                                            <th style="width:35%;"align="center" valign="middle">Deskripsi
+                                                                            <th style="width:35%;"align="center"
+                                                                                valign="middle">Deskripsi
                                                                             </th>
                                                                             <th align="center" valign="middle">Sub
                                                                                 Deskripsi
@@ -910,9 +1089,9 @@
 
     <!-- Search and Select -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                                            <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
-                                                integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-                                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
+                                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+                                                                        integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+                                                                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
             <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
@@ -932,6 +1111,7 @@
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step2_paket.js"></script>
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step3_rab.js"></script>
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step4_redaksi.js"></script>
+    <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step5_cetak.js"></script>
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/pemisah_titik.js"></script>
 
     <!-- Required vendors -->

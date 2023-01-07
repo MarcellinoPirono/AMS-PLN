@@ -121,7 +121,6 @@ Route::get('po-khs/buat-po', [RabController::class, 'buat_po_khs']);
 Route::get('po-khs/edit-po/{id}', [RabController::class, 'edit_po_khs']);
 Route::put('po-khs/edit-po/{id}', [RabController::class, 'update_po_khs']);
 Route::post('simpan-po-khs', [RabController::class, 'simpan_po_khs']);
-Route::post('pdf-khs-jtm', [PdfkhsController::class, 'pdf_khs_jtm']);
 Route::resource('po-khs', RabController::class);
 Route::get('export-pdf-khs/{id}', [RabController::class, 'export_pdf_khs']);
 Route::get('preview-pdf-khs/{id}', [RabController::class, 'preview_pdf_khs']);
@@ -189,3 +188,8 @@ Route::get('non-po/buat-non-po', [NonPOController::class, 'buat_non_po']);
 Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po']);
 Route::get('non-po/export-pdf-khs/{id}', [NonPOController::class, 'export_pdf_khs']);
 Route::resource('non-po', NonPOController::class);
+
+//CETAK-PDF
+Route::post('cetak-pdf-tkdn', [PdfkhsController::class, 'cetak_pdf_tkdn']);
+Route::post('cetak-tkdn', [PdfkhsController::class, 'cetak_tkdn']);
+
