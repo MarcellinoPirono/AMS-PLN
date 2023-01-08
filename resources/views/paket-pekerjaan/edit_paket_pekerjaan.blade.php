@@ -54,13 +54,7 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input onclick="checkall()" type="checkbox"
-                                                            class="custom-control-input input-default" id="checkAll"
-                                                            name="letter" autofocus>
-                                                        <label name="letter" class="custom-control-label"
-                                                            for="checkAll"></label>
-                                                    </div>
+
                                                 </th>
                                                 <th>No.</th>
                                                 <th>Kategori</th>
@@ -358,9 +352,10 @@ nama_paket.addEventListener('change', function(){
                 var nama_paket = $("#nama_paket").val();
                 var slug = $("#old_slug").val();
                 var new_slug = nama_paket.replace(/\ /g, "-");
-                new_slug = nama_paket.replace(/\//g, "_");
+                new_slug = new_slug.replace(/\//g, "_");
+                
                 var old_slug = slug.replace(/\ /g, "-");
-                old_slug = slug.replace(/\//g, "_");
+                old_slug = old_slug.replace(/\//g, "_");
                 var jenis_khs = $("#jenis_khs").val();
                 var item_id = $('input[type=checkbox]:checked').map(function() {
                     return this.value;

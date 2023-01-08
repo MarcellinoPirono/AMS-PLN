@@ -35,6 +35,7 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet" />
 
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
@@ -73,7 +74,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> -->
 
 
-
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
 
 
 
@@ -226,6 +227,7 @@
     {{-- <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/jquery.smartWizard.min.js"></script>
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/wizard.js"></script> --}}
 
+
     <script src="{{ asset('/') }}./asset/frontend/vendor/global/global.min.js">
     </script>
     <script src = "{{ asset('/') }}./asset/frontend/vendor/bootstrap-select/dist/js/bootstrap-select.min.js" >
@@ -358,6 +360,8 @@
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/material-date-picker-init.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/pickadate-init.js"></script>
 
+
+
     {{-- <script src="{{ asset('/') }}./asset/frontend/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/sweetalert.init.js"></script>
 
@@ -417,6 +421,9 @@
             }, 1000);
         });
     </script> --}}
+
+    <!-- include jQuery library -->
+
 </body>
 
 </html>

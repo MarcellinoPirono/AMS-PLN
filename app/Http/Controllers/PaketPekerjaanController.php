@@ -241,7 +241,7 @@ class PaketPekerjaanController extends Controller
         // dd($request);
 
         $slug = $request->old_slug;
-        // dd($request);
+        // dd($request->new_slug);
         $jenis_khs = $request->khs_id;
         $khs_id = Khs::select('id')->where('jenis_khs', $jenis_khs)->get();
         // $request["khs_id"] = $khs_id[0]->id;
@@ -334,6 +334,8 @@ class PaketPekerjaanController extends Controller
 
     public function changePaket (Request $request){
         $nama_paket = $request->post('nama_paket');
+
+        // dd($nama_paket);
 
         $kontrak_induk_id = $request->post('kontrak_induk');
         $kontrak_induk = KontrakInduk::where('id', $kontrak_induk_id)->value('khs_id');

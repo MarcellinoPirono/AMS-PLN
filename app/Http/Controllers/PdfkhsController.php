@@ -41,7 +41,7 @@ class PdfkhsController extends Controller
 
     public function cetak_pdf_tkdn(Request $request)
     {
-        // dd($request);
+        dd($request);
         // $request->validate([
         //     'nomor_po' => 'required|unique:rabs|max:250',
         //     'tanggal_po' => 'required|max:250',

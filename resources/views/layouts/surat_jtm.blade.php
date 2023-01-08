@@ -345,10 +345,15 @@
                 <td class="tabelatas" style="width:9%;" rowspan="2" align="center" valign="middle">VOLUME</td>
                 <td class="tabelataskanan" style="width:25%;" colspan="2" align="center" valign="middle">Harga
                 </td>
+                <td class="tabelatas" style="width:8%;" rowspan="2" align="center" valign="middle">TKDN (%)</td>
+                <td class="tabelataskanan" style="width:21%;" colspan="3" align="center" valign="middle">Biaya TKDN (Rupiah)</td>
             </tr>
             <tr class="warna">
                 <td class="tabelnormal" style="width:12%;" align="center" valign="middle">Satuan (RP)</td>
                 <td class="tabelnormalkanan"style="width:12%;" align="center" valign="middle">Jumlah (RP)</td>
+                <td class="tabelnormalkanan"style="width:7%;" align="center" valign="middle">KDN</td>
+                <td class="tabelnormalkanan"style="width:7%;" align="center" valign="middle">KLN</td>
+                <td class="tabelnormalkanan"style="width:7%;" align="center" valign="middle">TOTAL</td>
             </tr>
             @if (count($kategori_jasa) > 0)
                 <tr id="tr_jasa">

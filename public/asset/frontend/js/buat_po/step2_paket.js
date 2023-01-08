@@ -666,7 +666,10 @@ function change_paket(c) {
         nama_paket = nama_paket.replace(/\//g, "_");
         nama_paket = nama_paket.replace(/\ /g, "-");
 
+        // console.log(nama_paket);
+
         (function (index) {
+            // console.log();
             $.ajax({
                 url: '/change-paket',
                 type: "POST",
@@ -873,7 +876,7 @@ function bikin_table(data) {
                 td1.append(strong);
 
                 divsearching = document.createElement("div");
-                divsearching.setAttribute('class', 'searching-select');
+                divsearching.setAttribute('class', 'searching-select3');
                 input1 = document.createElement("input");
                 input1.setAttribute('class', 'form- control input1-default');
                 input1.setAttribute('type', 'search');
@@ -881,7 +884,7 @@ function bikin_table(data) {
                 input1.setAttribute("name", "item_id");
                 input1.setAttribute('placeholder', 'Pilih Pekerjaan');
                 input1.setAttribute('required', true);
-                input1.setAttribute('onkeyup', 'filterFunction(this,event)');
+                input1.setAttribute('onkeyup', 'filterFunction3(this,event)');
                 input1.setAttribute('onkeydown', 'return no_bckspc(this, event)');
                 // input1.setAttribute('onblur', 'change_paket(this)');
                 input1.setAttribute('value', data[Object.keys(data)[i]][j]["item"][k][0].nama_item);
@@ -924,7 +927,7 @@ function bikin_table(data) {
                 input4.setAttribute("value", volume_k);
                 input4.setAttribute("id", "volume[" + (k+1) + "]");
                 input4.setAttribute("placeholder", "Volume");
-                input4.setAttribute("onblur", "blur_volume(this)");
+                input4.setAttribute("onblur", "blur_volume_with_paket(this)");
                 input4.setAttribute("onkeypress", "return numbersonly2(this, event);");
                 input4.setAttribute("onkeyup", "format(this)");
                 input4.setAttribute("required", true);

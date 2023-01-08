@@ -63,7 +63,7 @@ function SubmitTDKN() {
         fd.append("jumlah_harga[]", harga[i]);
     }
 
-    let lokasi =[];
+    let lokasi = [];
 
     for (let index = 0; index < clicklokasi; index++) {
         lokasi = document.getElementById('lokasi[' + (index + 1) + ']').value;

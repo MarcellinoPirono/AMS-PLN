@@ -57,14 +57,14 @@ function updateformwithpaket(c) {
             strong.innerHTML = "1";
 
             var select1 = document.createElement("div");
-            select1.setAttribute('class', 'searching-select2');
+            select1.setAttribute('class', 'searching-select3');
             var input = document.createElement("input");
             input.setAttribute('class', 'form-control input-default');
             input.setAttribute('type', 'search');
             input.setAttribute('id', 'item_id[' + index_table + ']');
             input.setAttribute('placeholder', 'Pilih Pekerjaan');
             input.setAttribute('required', true);
-            input.setAttribute('onkeyup', 'filterFunction2(this,event)');
+            input.setAttribute('onkeyup', 'filterFunction3(this,event)');
             // input.setAttribute('onblur', 'change_item(this)');
             input.setAttribute('onkeydown', 'return no_bckspc(this, event)');
             input.setAttribute('title','tes');
@@ -101,7 +101,7 @@ function updateformwithpaket(c) {
             input3.setAttribute("name", "volume");
             input3.setAttribute("placeholder", "Volume");
             input3.setAttribute("value", "");
-            input3.setAttribute("onblur", "blur_volume(this)");
+            input3.setAttribute("onblur", "blur_volume_with_paket(this)");
             input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
             input3.setAttribute("onkeyup", "format(this)");
             input3.setAttribute("required", true);
@@ -201,15 +201,16 @@ function updateform() {
             //   select1.select2();
 
             var select1 = document.createElement("div");
-            select1.setAttribute('class', 'searching-select');
+            select1.setAttribute('class', 'searching-select2');
             var input = document.createElement("input");
             input.setAttribute('class', 'form-control input-default');
-            input.setAttribute('type', 'text');
+            input.setAttribute('type', 'search');
             input.setAttribute('id', 'item_id[' + click + ']');
             input.setAttribute('placeholder', 'Pilih Pekerjaan');
             input.setAttribute('required', true);
-            input.setAttribute('onkeyup', 'filterFunction(this,event)');
-            input.setAttribute('onblur', 'change_item(this)');
+            input.setAttribute('onkeyup', 'filterFunction2(this,event)');
+            input.setAttribute('onkeydown', 'return no_bckspc(this, event)');
+            // input.setAttribute('onblur', 'change_item(this)');
 
             select1.append(input);
 
@@ -436,6 +437,10 @@ function deleteRow(r) {
     for (var i = 0; i < select_id_kategori.length; i++) {
         select_id_kategori[i].id = "kategory_id[" + (i + 1) + "]";
     }
+    var select_id_item_ul = document.querySelectorAll("tr td:nth-child(2) ul");
+    for (var i = 0; i < select_id_item_ul.length; i++) {
+        select_id_item_ul[i].id = "ul_paket_id2[" + (i + 1) + "]";
+    }
     var select_id_satuan = document.querySelectorAll("#tabelRAB tr td:nth-child(4) input");
     for (var i = 0; i < select_id_satuan.length; i++) {
         select_id_satuan[i].id = "satuan[" + (i + 1) + "]";
@@ -576,9 +581,13 @@ function deleteRowWithPaket(r) {
     var row = r.parentNode.parentNode;
     var row_index = r.parentNode.parentNode.rowIndex;
     var table = row.parentNode.parentNode;
-    var div_tambah_paket = table.nextElementSibling.children;
-    console.log("div_tambah_paket", div_tambah_paket);
+
+    var div_tambah_paket = table.nextElementSibling.children[0].children[0];
+    // console.log("div_tambah_paket", div_tambah_paket);
     table.deleteRow(row_index);
+    const index = table.querySelectorAll("tr > td:nth-child(1)");
+    index_table = index.length;
+    // index_table -= index.length;
 
     //var table = r.parentNode.parentNode.rowIndex;
     // document.getElementById("tabelRAB").deleteRow(table);
@@ -589,38 +598,43 @@ function deleteRowWithPaket(r) {
     for (var i = 0; i < select_id_item.length; i++) {
         select_id_item[i].id = "item_id[" + (i + 1) + "]";
     }
-    var select_id_kategori = document.querySelectorAll("tr td:nth-child(3) input");
+    var select_id_item_ul = table.querySelectorAll("tr td:nth-child(2) ul");
+    for (var i = 0; i < select_id_item_ul.length; i++) {
+        select_id_item_ul[i].id = "ul_paket_id2[" + (i + 1) + "]";
+    }
+    var select_id_kategori = table.querySelectorAll("tr td:nth-child(3) input");
     for (var i = 0; i < select_id_kategori.length; i++) {
         select_id_kategori[i].id = "kategory_id[" + (i + 1) + "]";
     }
-    var select_id_satuan = document.querySelectorAll("tr td:nth-child(4) input");
+    var select_id_satuan = table.querySelectorAll("tr td:nth-child(4) input");
     for (var i = 0; i < select_id_satuan.length; i++) {
         select_id_satuan[i].id = "satuan[" + (i + 1) + "]";
     }
-    var select_id_volume = document.querySelectorAll("tr td:nth-child(5) input");
+    var select_id_volume = table.querySelectorAll("tr td:nth-child(5) input");
     for (var i = 0; i < select_id_volume.length; i++) {
         select_id_volume[i].id = "volume[" + (i + 1) + "]";
     }
-    var select_id_harga_satuan = document.querySelectorAll("tr td:nth-child(6) input");
+    var select_id_harga_satuan = table.querySelectorAll("tr td:nth-child(6) input");
     for (var i = 0; i < select_id_harga_satuan.length; i++) {
         select_id_harga_satuan[i].id = "harga_satuan[" + (i + 1) + "]";
     }
-    var select_id_harga = document.querySelectorAll("tr td:nth-child(7) input");
+    var select_id_harga = table.querySelectorAll("tr td:nth-child(7) input");
     for (var i = 0; i < select_id_harga.length; i++) {
         select_id_harga[i].id = "harga[" + (i + 1) + "]";
     }
-    var input_tkdn = document.querySelectorAll("tr td:nth-child(8) input");
+    var input_tkdn = table.querySelectorAll("tr td:nth-child(8) input");
     for (var i = 0; i < input_tkdn.length; i++) {
         input_tkdn[i].id = "tkdn[" + (i + 1) + "]";
     }
-    if (click == 0) {
+    if (index_table == 0) {
         document.getElementById("jumlah").innerHTML = "";
         document.getElementById("pajak").innerHTML = "";
         document.getElementById("total").innerHTML = "";
     } else {
+document.querySelector()
         var total_harga = [];
         for (var i = 0; i < click; i++) {
-            total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+            total_harga[i] = row.querySelector('input[name="harga"]').value;
             total_harga[i] = total_harga[i].replace(/\./g, "");
             total_harga[i] = parseInt(total_harga[i])
         }
@@ -725,23 +739,29 @@ function deleteRowWithPaket(r) {
         }
     }
     reindexwithpaket(table);
-    if (click == 0) {
-        updateformwithpaket();
+    console.log("index_table",index_table);
+    console.log("click",click);
+    if (index_table == 0) {
+        updateformwithpaket(div_tambah_paket);
     }
+
 }
 function reindex() {
     const ids = document.querySelectorAll("#tabelRAB tr > td:nth-child(1)");
     // const ids = tabel.querySelectorAll("tr > td:nth-child(1)");
     ids.forEach((e, i) => {
-        e.innerHTML = "<strong style='padding-left: 11px' id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
+        e.innerHTML = "<strong style='padding-left: 11px' id=nomor[" + (i+1) + "] value=" + (i+1) + ">" + (i+1) + "</strong>"
         nomor_tabel = i + 1;
     });
 }
 function reindexwithpaket(tabel) {
     // const ids = document.querySelectorAll("#tabelRAB tr > td:nth-child(1)");
     const ids = tabel.querySelectorAll("tr > td:nth-child(1)");
+    console.log("ids = ", ids);
     ids.forEach((e, i) => {
-        e.innerHTML = "<strong style='padding-left: 11px' id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
+        console.log("e", e);
+        console.log("i", i);
+        e.innerHTML = "<strong style='padding-left: 11px' id=nomor[" + (i+1) + "] value=" + (i+1) + ">" + (i+1) + "</strong>"
         nomor_tabel = i + 1;
     });
 }
@@ -749,12 +769,8 @@ function reindexwithpaket(tabel) {
 function change_item(c) {
     var row = c.parentNode.parentNode.parentNode.parentNode;
     var change = row.rowIndex;
-    var change1 = c.parentNode.parentNode.parentNode;
-    console.log("change",row);
+    console.log("row",row);
     console.log("change",change);
-    console.log("change1",change1);
-    console.log("c",c);
-    console.log("c innerHTML",c.innerHTML);
     // var test_item_id = document.getElementById("item_id[" + change - 1 + "]").value;
     // console.log("ea", test_item_id);
     var item_id = document.getElementById("item_id[" + change + "]").value;
@@ -775,7 +791,6 @@ function change_item(c) {
             console.log(change);
             console.log(response["nama_items"][0].kategori);
             console.log(response["satuans"][0][0].kepanjangan+" ("+response["satuans"][0][0].singkatan+")");
-            console.log(document.getElementById("satuan[4]"));
             // row.getElementsByName("kategory_id")[0].value = response["nama_items"][0].kategori;
             document.getElementById("kategory_id[" + change + "]").value = response["nama_items"][0].kategori;
             document.getElementById("satuan[" + change + "]").value = response["satuans"][0][0].kepanjangan+" ("+response["satuans"][0][0].singkatan+")";
@@ -921,6 +936,185 @@ function change_item(c) {
         }
     })
 }
+
+function change_item_with_paket(c) {
+    var row = c.parentNode.parentNode.parentNode.parentNode;
+    var change = row.rowIndex;
+    var change1 = c.parentNode.parentNode.parentNode;
+    console.log("change",row);
+    console.log("change",change);
+    console.log("change1",change1);
+    console.log("c",c);
+    console.log("c innerHTML",c.innerHTML);
+    // var test_item_id = document.getElementById("item_id[" + change - 1 + "]").value;
+    // console.log("ea", test_item_id);
+    // var item_id = document.getElementById("item_id[" + change + "]").value;
+    var item_id = c.innerHTML;
+    // item_id = item_id.replace(/\ /g, "-");
+    // item_id = item_id.replace(/\//g, "_");
+    // console.log("yy", item_id);
+    let token = $('#csrf').val();
+    $.ajax({
+        url: '/getItem',
+        type: "POST",
+        data: {
+            'item_id': item_id,
+            '_token': token,
+        },
+        success: function (response) {
+            console.log(response);
+            console.log(change);
+            console.log(response["nama_items"][0].kategori);
+            console.log(response["satuans"][0][0].kepanjangan+" ("+response["satuans"][0][0].singkatan+")");
+            // console.log("row.getElementsByClassName('kategory_id')", row.getElementsByClassName('kategory_id'));
+            // console.log("row.querySelector(input[name=kategory_id])", row.querySelector('input[name="kategory_id"]'));
+            // console.log(document.getElementById("satuan[4]"));
+            // row.getElementsByName("kategory_id")[0].value = response["nama_items"][0].kategori;
+            row.querySelector('input[name="kategory_id"]').value = response["nama_items"][0].kategori;
+            row.querySelector('input[name="satuan"]').value = response["satuans"][0][0].kepanjangan+" ("+response["satuans"][0][0].singkatan+")";
+            var harga_satuan = response["nama_items"][0].harga_satuan;
+            harga_satuan = harga_satuan.toString();
+            harga_satuan_2 = "";
+            panjang = harga_satuan.length;
+            j = 0;
+            for (i = panjang; i > 0; i--) {
+                j = j + 1;
+                if (((j % 3) == 1) && (j != 1)) {
+                    harga_satuan_2 = harga_satuan.substr(i - 1, 1) + "." + harga_satuan_2;
+                } else {
+                    harga_satuan_2 = harga_satuan.substr(i - 1, 1) + harga_satuan_2;
+                }
+            }
+            row.querySelector('input[name="harga_satuan"]').value = harga_satuan_2;
+            var volume =  row.querySelector('input[name="volume"]').value;
+            harga_satuan = parseInt(harga_satuan);
+            volume = volume.replace(/\./g, "");
+            volume = parseInt(volume);
+            var jumlah = volume * harga_satuan;
+            jumlah = jumlah.toString();
+            jumlah_2 = "";
+            panjang_2 = jumlah.length;
+            k = 0;
+            for (i = panjang_2; i > 0; i--) {
+                k = k + 1;
+                if (((k % 3) == 1) && (k != 1)) {
+                    jumlah_2 = jumlah.substr(i - 1, 1) + "." + jumlah_2;
+                } else {
+                    jumlah_2 = jumlah.substr(i - 1, 1) + jumlah_2;
+                }
+            }
+            row.querySelector('input[name="harga"]').value = jumlah_2;
+            var total_harga = [];
+            for (var i = 0; i < click; i++) {
+                total_harga[i] =  row.querySelector('input[name="harga"]').value;
+                total_harga[i] = total_harga[i].replace(/\./g, "");
+                total_harga[i] = parseInt(total_harga[i])
+            }
+            row.querySelector('input[name="tkdn"]').value = response["nama_items"][0].tkdn;
+            var pagu_prk = document.getElementById("rupiah").innerHTML;
+            pagu_prk = pagu_prk.replace(/\./g, "");
+            pagu_prk = parseInt(pagu_prk);
+            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator +
+                currentvalue);
+            if (pagu_prk >= total_harga_all) {
+                total_harga_all = total_harga_all.toString();
+                total_harga_all_2 = "";
+                panjang_2 = total_harga_all.length;
+                k = 0;
+                for (i = panjang_2; i > 0; i--) {
+                    k = k + 1;
+                    if (((k % 3) == 1) && (k != 1)) {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                    } else {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                    }
+                }
+                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+                total_harga_all = parseInt(total_harga_all);
+                var ppn = total_harga_all * 11 / 100;
+                ppn = Math.round(ppn);
+                ppn = ppn.toString();
+                ppn_2 = ""
+                panjang_3 = ppn.length;
+                l = 0;
+                for (i = panjang_3; i > 0; i--) {
+                    l = l + 1;
+                    if (((l % 3) == 1) && (l != 1)) {
+                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                    } else {
+                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                    }
+                }
+                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+                ppn = parseInt(ppn);
+                var total = total_harga_all + ppn;
+                total = Math.round(total);
+                total = total.toString();
+                total_2 = "";
+                panjang_4 = total.length;
+                m = 0;
+                for (i = panjang_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                    } else {
+                        total_2 = total.substr(i - 1, 1) + total_2;
+                    }
+                }
+                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                document.getElementById("total").style.color = '#7E7E7E';
+            } else {
+                total_harga_all = total_harga_all.toString();
+                total_harga_all_2 = "";
+                panjang_2 = total_harga_all.length;
+                k = 0;
+                for (i = panjang_2; i > 0; i--) {
+                    k = k + 1;
+                    if (((k % 3) == 1) && (k != 1)) {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                    } else {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                    }
+                }
+                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+                total_harga_all = parseInt(total_harga_all);
+                var ppn = total_harga_all * 11 / 100;
+                ppn = Math.round(ppn);
+                ppn = ppn.toString();
+                ppn_2 = ""
+                panjang_3 = ppn.length;
+                l = 0;
+                for (i = panjang_3; i > 0; i--) {
+                    l = l + 1;
+                    if (((l % 3) == 1) && (l != 1)) {
+                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                    } else {
+                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                    }
+                }
+                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+                ppn = parseInt(ppn);
+                var total = total_harga_all + ppn;
+                total = Math.round(total);
+                total = total.toString();
+                total_2 = "";
+                panjang_4 = total.length;
+                m = 0;
+                for (i = panjang_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                    } else {
+                        total_2 = total.substr(i - 1, 1) + total_2;
+                    }
+                }
+                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                document.getElementById("total").style.color = '#F94687';
+            }
+        }
+    })
+}
+
 function ganti_item() {
     var kontrak_induk = document.getElementById('kontrak_induk').value;
     let token = $('#csrf').val();
@@ -999,6 +1193,146 @@ function blur_volume(c) {
         }
     }
     document.getElementById("harga[" + change + "]").value = harga_2;
+    var total_harga = [];
+    for (var i = 0; i < click; i++) {
+        total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+        total_harga[i] = total_harga[i].replace(/\./g, "");
+        total_harga[i] = parseInt(total_harga[i])
+    }
+    var pagu_prk = document.getElementById("rupiah").innerHTML;
+    pagu_prk = pagu_prk.replace(/\./g, "");
+    pagu_prk = parseInt(pagu_prk);
+    var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+    if (pagu_prk >= total_harga_all) {
+        total_harga_all = total_harga_all.toString();
+        total_harga_all_2 = "";
+        panjang_2 = total_harga_all.length;
+        k = 0;
+        for (i = panjang_2; i > 0; i--) {
+            k = k + 1;
+            if (((k % 3) == 1) && (k != 1)) {
+                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+            } else {
+                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+            }
+        }
+        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+        total_harga_all = parseInt(total_harga_all);
+        var ppn = total_harga_all * 11 / 100;
+        ppn = Math.round(ppn);
+        ppn = ppn.toString();
+        ppn_2 = ""
+        panjang_3 = ppn.length;
+        l = 0;
+        for (i = panjang_3; i > 0; i--) {
+            l = l + 1;
+            if (((l % 3) == 1) && (l != 1)) {
+                ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+            } else {
+                ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+            }
+        }
+        document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+        ppn = parseInt(ppn);
+        var total = total_harga_all + ppn;
+        total = Math.round(total);
+        total = total.toString();
+        total_2 = "";
+        panjang_4 = total.length;
+        m = 0;
+        for (i = panjang_4; i > 0; i--) {
+            m = m + 1;
+            if (((m % 3) == 1) && (m != 1)) {
+                total_2 = total.substr(i - 1, 1) + "." + total_2;
+            } else {
+                total_2 = total.substr(i - 1, 1) + total_2;
+            }
+        }
+        document.getElementById("total").innerHTML = "Rp. " + total_2;
+        document.getElementById("total").style.color = '#7E7E7E';
+    } else {
+        total_harga_all = total_harga_all.toString();
+        total_harga_all_2 = "";
+        panjang_2 = total_harga_all.length;
+        k = 0;
+        for (i = panjang_2; i > 0; i--) {
+            k = k + 1;
+            if (((k % 3) == 1) && (k != 1)) {
+                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+            } else {
+                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+            }
+        }
+        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+        total_harga_all = parseInt(total_harga_all);
+        var ppn = total_harga_all * 11 / 100;
+        ppn = Math.round(ppn);
+        ppn = ppn.toString();
+        ppn_2 = ""
+        panjang_3 = ppn.length;
+        l = 0;
+        for (i = panjang_3; i > 0; i--) {
+            l = l + 1;
+            if (((l % 3) == 1) && (l != 1)) {
+                ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+            } else {
+                ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+            }
+        }
+        document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+        ppn = parseInt(ppn);
+        var total = total_harga_all + ppn;
+        total = Math.round(total);
+        total = total.toString();
+        total_2 = "";
+        panjang_4 = total.length;
+        m = 0;
+        for (i = panjang_4; i > 0; i--) {
+            m = m + 1;
+            if (((m % 3) == 1) && (m != 1)) {
+                total_2 = total.substr(i - 1, 1) + "." + total_2;
+            } else {
+                total_2 = total.substr(i - 1, 1) + total_2;
+            }
+        }
+        document.getElementById("total").innerHTML = "Rp. " + total_2;
+        document.getElementById("total").style.color = '#F94687';
+    }
+}
+
+function blur_volume_with_paket(c) {
+    var row = c.parentNode.parentNode;
+    console.log("row", row);
+    var volume = row.querySelector('input[name="volume"]').value;
+    console.log("volume", volume);
+    if(volume.charAt(volume.length-1) == ",") {
+        row.querySelector('input[name="tkdn"]').value = volume + "0";
+    }
+    if(volume.charAt(0) == ",") {
+        row.querySelector('input[name="tkdn"]').value = "0" + volume;
+    }
+    volume = volume.replace(/\./g, "");
+    volume = volume.replace(/\,/g, ".");
+    volume = parseFloat(volume);
+    var harga_satuan = row.querySelector('input[name="harga_satuan"]').value;
+    harga_satuan = harga_satuan.replace(/\./g, "");
+    harga_satuan = parseInt(harga_satuan);
+    var harga = volume * harga_satuan;
+    harga = Math.round(harga);
+    harga = harga.toString();
+    harga = harga.replace(/\./g, "");
+    harga_2 = "";
+    panjang = harga.length;
+    j = 0;
+    for (i = panjang; i > 0; i--) {
+        j = j + 1;
+        if (((j % 3) == 1) && (j != 1)) {
+            harga_2 = harga.substr(i - 1, 1) + "." + harga_2;
+        } else {
+            harga_2 = harga.substr(i - 1, 1) + harga_2;
+        }
+    }
+    row.querySelector('input[name="harga"]').value = harga_2;
     var total_harga = [];
     for (var i = 0; i < click; i++) {
         total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;

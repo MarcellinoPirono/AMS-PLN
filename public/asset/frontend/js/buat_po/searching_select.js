@@ -69,6 +69,33 @@ function filterFunction2(that, event) {
     }
 }
 
+function filterFunction3(that, event) {
+    // console.log(that);
+    // console.log(event);
+    let container, input, filter, li, input_val;
+    container = $(that).closest(".searching-select3");
+    // console.log(container);
+    input_val = container.find("input").val().toUpperCase();
+
+    if (["ArrowDown", "ArrowUp", "Enter"].indexOf(event.key) != -1) {
+        keyControl(event, container)
+    } else {
+        li = container.find("ul li");
+        li.each(function (i, obj) {
+            if ($(this).text().toUpperCase().indexOf(input_val) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+
+        container.find("ul li").removeClass("selected");
+        setTimeout(function () {
+            container.find("ul li:visible").first().addClass("selected");
+        }, 100)
+    }
+}
+
 function keyControl(e, container) {
     if (e.key == "ArrowDown") {
 
@@ -173,5 +200,35 @@ $(document).on('click', '.searching-select2 ul li', function () {
 
 $(document).on('hover', '.searching-select2 ul li', function () {
     $(this).closest(".searching-select2").find("ul li.selected").removeClass("selected");
+    $(this).addClass("selected");
+});
+
+//Searching Select 3
+
+$(document).on('focus', '.searching-select3 input', function () {
+    $(this).closest(".searching-select3").find("ul").show();
+    $(this).closest(".searching-select3").find("ul li").show();
+});
+
+$(document).on('blur', '.searching-select3 input', function () {
+    let that = this;
+    setTimeout(function () {
+        $(that).closest(".searching-select3").find("ul").hide();
+    }, 300);
+});
+
+$(document).on('click', '.searching-select3 ul li', function () {
+    // $(this).closest(".searching-select").find("input").val($(this).text()).blur();
+    $(this).closest(".searching-select3").find("input").val($(this).text());
+    $(this).closest(".searching-select3").find("ul li.selected").removeClass("selected");
+    $(this).addClass("selected");
+    change_item_with_paket(this);
+    // change_paket2(this);
+    // change_paket(this);
+    // onSelect($(this).text())
+});
+
+$(document).on('hover', '.searching-select3 ul li', function () {
+    $(this).closest(".searching-select3").find("ul li.selected").removeClass("selected");
     $(this).addClass("selected");
 });

@@ -56,13 +56,7 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input onclick="checkall()" type="checkbox"
-                                                            class="custom-control-input input-default" id="checkAll"
-                                                            name="letter" autofocus>
-                                                        <label name="letter" class="custom-control-label"
-                                                            for="checkAll"></label>
-                                                    </div>
+                                                  
                                                 </th>
                                                 <th>No.</th>
                                                 <th>Kategori</th>

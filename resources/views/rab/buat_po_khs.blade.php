@@ -263,8 +263,9 @@
                                                         <div class="custom-file">
                                                             <input id="lampiran" type="file" name="lampiran"
                                                                 class="form-control custom-file-input"
-                                                                onchange="previewImage()" />
-                                                            <label class="custom-file-label">Choose or Drag file</label>
+                                                                onchange="return fileValidation()" accept="application/pdf, application/vnd.ms-excel" />
+                                                            <label id="labelfile" class="custom-file-label">Choose or Drag file</label>
+
                                                         </div>
                                                     </div>
                                                     <img class="m-auto justify-content-center" src="#"
@@ -279,9 +280,15 @@
                                             </div>
                                             <div class="col-lg-6 mb-2 mt-45">
                                                 <div class="form-group">
+                                                    <input type="file" class="filepond" id="lampiran">
                                                     <div class="position-relative justify-content-center float-center">
-                                                        <button class="btn btn-secondary btn-xxs"
-                                                            onclick="toggle('embedLink')" type="button">Show/Hide <svg
+                                                        <button class="btn btn-danger btn-xxs mt-1"
+                                                           id="button-reset">Delete file <i
+                                                            class='fa fa-trash'></i></button>
+                                                        <button class="btn btn-secondary btn-xxs mt-1 ml-2"
+                                                            onclick="toggle('embedLink')" type="button">Show/Hide <i
+                                                            class='fa fa-eye'></i>
+                                                            {{-- <svg
                                                                 xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" fill="currentColor" class="bi bi-eye"
                                                                 viewBox="0 0 16 16">
@@ -289,7 +296,8 @@
                                                                     d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
                                                                 <path
                                                                     d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                                                            </svg></button>
+                                                            </svg> --}}
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -798,7 +806,7 @@
                                                                                 <td rowspan="3" colspan="3"></td>
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>Jumlah</b></td>
-                                                                                <td class="tabellkanan" id="td_jumlah"
+                                                                                <td class="tabellkanan"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
                                                                             </tr>
@@ -892,19 +900,19 @@
                                                                                 <td rowspan="5" colspan="3"></td>
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>Jumlah Jasa</b></td>
-                                                                                <td class="tabellkanan" id="td_jumlah"
+                                                                                <td class="tabellkanan" id="jumlah_jasa_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
-                                                                                <td class="tabellkanan" id=""
+                                                                                <td class="tabellkanan" id="jumlah_kdn_jasa_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
-                                                                                <td class="tabellkanan" id=""
+                                                                                <td class="tabellkanan" id="jumlah_kln_jasa_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
-                                                                                <td class="tabellkanan" id=""
+                                                                                <td class="tabellkanan" id="jumlah_total_tkdn_jasa_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
                                                                             </tr>
@@ -912,19 +920,19 @@
                                                                                 <td style="border: 1px" colspan="2" align="center"
                                                                                     valign="middle"><b>Jumlah Material</b>
                                                                                 </td>
-                                                                                <td class="tabellkanan" id=""
+                                                                                <td class="tabellkanan" id="jumlah_material_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
-                                                                                <td class="tabellkanan" id=""
+                                                                                <td class="tabellkanan" id="jumlah_kdn_material_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
-                                                                                <td class="tabellkanan" id=""
+                                                                                <td class="tabellkanan" id="jumlah_kln_material_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
-                                                                                <td class="tabellkanan" id=""
+                                                                                <td class="tabellkanan" id="jumlah_total_tkdn_material_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
                                                                             </tr>
@@ -932,19 +940,19 @@
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>Jumlah
                                                                                         Keseluruhan</b></td>
-                                                                                <td class="tabellkanan" id=""
-                                                                                    style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan" id=""
-                                                                                    style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan" id=""
-                                                                                    style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan" id=""
+                                                                                <td class="tabellkanan" id="td_jumlah"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
                                                                                 <td class="tabellkanan kuning" id=""
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan kuning" id="total_kdn_all"
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan kuning" id="total_kln_all"
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
+                                                                                <td class="tabellkanan kuning" id="total_tkdn_all"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
                                                                             </tr>
@@ -1064,8 +1072,11 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+     <!-- include FilePond library -->
+     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Bootrap for the demo page -->
 
@@ -1105,6 +1116,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
+
+
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/searching_select.js"></script>
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/smartwizard.js"></script>
     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/jquery_buat_po_khs.js"></script>
@@ -1120,6 +1133,10 @@
     <script src="{{ asset('/') }}./asset/frontend/js/deznav-init.js"></script>
 
 
+
+<script>
+    FilePond.parse(document.body);
+  </script>
     <script>
         $(document).ready(function() {
             var filename;
@@ -1131,6 +1148,13 @@
                     }));
                 }
             });
+
+            $('#button-reset').click(function(e){
+                $('#lampiran').val('');
+                $('#labelfile').val('');
+            });
+
+
 
 
 
@@ -1152,6 +1176,30 @@
             var curVal = document.getElementById(target).style.display;
             document.getElementById(target).style.display = (curVal === 'none') ? '' : 'none';
         }
+
+        function fileValidation() {
+            var fileInput =
+                document.getElementById('lampiran');
+
+
+            var filePath = fileInput.value;
+
+            // Allowing file type
+            var allowedExtensions = /(\.pdf)$/i;
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('File (.pdf) only');
+                fileInput.value = '';
+                return false;
+            }
+        }
+
+        // function clearfile() {
+        //     const file =
+        //         document.querySelector('#lampiran');
+        //     file.value = '';
+        // }
+
     </script>
 @endsection
 
