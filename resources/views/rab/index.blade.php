@@ -61,7 +61,7 @@
 														</button>
 														<div class="dropdown-menu">
 															<a class="dropdown-item" href="preview-pdf-khs/{{$rab->id}}">Preview <i class="bi bi-eye"></i></a>
-															<a class="dropdown-item" href="export-pdf-khs/{{ $rab->id }}">Export (pdf) <i class="bi bi-file-earmark-pdf"></i></a>
+															<a class="dropdown-item" href="download/{{ $rab->id }}">Export (pdf) <i class="bi bi-file-earmark-pdf"></i></a>
 															<a class="dropdown-item" href="export-excel-khs/{{ $rab->id }}">Export (excel) <i class="bi bi-file-earmark-excel"></i></a>
 														</div>
 													</div>

@@ -253,7 +253,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 mb-2">
+                                            <div class="col-lg-12 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Upload Lampiran (.pdf)</label>
                                                     <div class="input-group mb-3">
@@ -266,7 +266,14 @@
                                                                 onchange="return fileValidation()" accept="application/pdf, application/vnd.ms-excel" />
                                                             <label id="labelfile" class="custom-file-label">Choose or Drag file</label>
 
+
                                                         </div>
+                                                        <button class="btn btn-danger btn-xxs mt-1"
+                                                        id="button-reset">Delete file <i
+                                                         class='fa fa-trash'></i></button>
+                                                        <button class="btn btn-secondary btn-xxs mt-1 ml-2"
+                                                            onclick="toggle('embedLink')" type="button">Show/Hide <i
+                                                            class='fa fa-eye'></i>
                                                     </div>
                                                     <img class="m-auto justify-content-center" src="#"
                                                         id="img-lampiran" width="300px" />
@@ -278,9 +285,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 mb-2 mt-45">
+                                            {{-- <div class="col-lg-12 mb-2 mt-45">
                                                 <div class="form-group">
-                                                    <input type="file" class="filepond" id="lampiran">
+                                                    <label class="text-label">Upload Lampiran (.pdf)</label>
+                                                    <input type="file" class="filepond" height="500" id="lampiran2" data-pdf-preview-height="500" data-pdf-component-extra-params="toolbar=0&navpanes=0&scrollbar=0&view=fitH"/>
                                                     <div class="position-relative justify-content-center float-center">
                                                         <button class="btn btn-danger btn-xxs mt-1"
                                                            id="button-reset">Delete file <i
@@ -288,7 +296,7 @@
                                                         <button class="btn btn-secondary btn-xxs mt-1 ml-2"
                                                             onclick="toggle('embedLink')" type="button">Show/Hide <i
                                                             class='fa fa-eye'></i>
-                                                            {{-- <svg
+                                                            <svg
                                                                 xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" fill="currentColor" class="bi bi-eye"
                                                                 viewBox="0 0 16 16">
@@ -296,11 +304,11 @@
                                                                     d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
                                                                 <path
                                                                     d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                                                            </svg> --}}
+                                                            </svg>
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
 
 
@@ -711,15 +719,15 @@
                                                                 <td>:</td>
                                                                 <td id="direksi_pekerjaan_4"></td>
                                                             </tr>
-                                                            <tr class="noborder">
-                                                                <td>Nama Vendor</td>
-                                                                <td>:</td>
-                                                                <td id="nama_vendor_4"></td>
-                                                            </tr>
                                                             <tr id="tr_lokasi1" class="noborder">
                                                                 <td>Lokasi</td>
                                                                 <td>:</td>
                                                                 <td id="lokasi_4"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Nama Vendor</td>
+                                                                <td>:</td>
+                                                                <td id="nama_vendor_4"></td>
                                                             </tr>
                                                             <tr class="noborder">
                                                                 <td>Start Date</td>
@@ -1073,7 +1081,16 @@
     </div>
 
      <!-- include FilePond library -->
-     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+     {{-- <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/filepond/filepond-plugin-file-validate-type.js"></script>
+     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/filepond/filepond-plugin-pdf-preview.min.js"></script>
+     <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/filepond/filepond.js"></script> --}}
+
+     {{-- <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+
+     <script src="https://unpkg.com/filepond-plugin-pdf-preview/dist/filepond-plugin-pdf-preview.min.js"></script>
+     <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+     <script src="https://unpkg.com/filepond/dist/filepond.js"></script> --}}
+
 
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -1135,12 +1152,32 @@
 
 
 <script>
-    FilePond.parse(document.body);
-  </script>
+// FilePond.registerPlugin(FilePondPluginFileValidateType);
+// FilePond.registerPlugin(FilePondPluginPdfPreview);
+// FilePond.registerPlugin(FilePondPluginFileEncode);
+
+
+// const pond = FilePond.create(document.querySelector('#lampiran2'), {
+//     acceptedFileTypes: ['application/pdf'],
+//     // allowMultiple: true,
+//     // instantUpload: false,
+//     // allowProcess: false,
+//     fileValidateTypeDetectType: (source, type) =>
+//         new Promise((resolve, reject) => {
+//             // Do custom type detection here and return with promise
+
+//             resolve(type);
+//         }),
+// });
+// var lampiran = $('#lampiran')[0].files;
+// // const pondfiles = pond.getFiles(0);
+// console.log(lampiran);
+
+</script>
     <script>
         $(document).ready(function() {
             var filename;
-            $('#lampiran').change(function() {
+            $('input[type=file]').change(function() {
                 if (this.files[0].name != "") {
                     filename = this.files[0]
                     $('#embedLink')[0].src = window.URL.createObjectURL(new Blob([filename], {

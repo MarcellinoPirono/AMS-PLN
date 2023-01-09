@@ -523,3 +523,7 @@ table.tableSection th, table.tableSection td {
 
     word-break: break-all;
 }
+
+.kuning {
+background-color: #FFF000;
+}

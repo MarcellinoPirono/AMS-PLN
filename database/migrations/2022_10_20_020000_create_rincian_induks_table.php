@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rincian_induks', function (Blueprint $table) {
+    Schema::create('rincian_induks', function (Blueprint $table) {
             $table->id();
 
             // $table->unsignedBigInteger('kontraks_id')->nullable();

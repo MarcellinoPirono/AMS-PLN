@@ -190,6 +190,8 @@ Route::get('non-po/export-pdf-khs/{id}', [NonPOController::class, 'export_pdf_kh
 Route::resource('non-po', NonPOController::class);
 
 //CETAK-PDF
-Route::post('cetak-pdf-tkdn', [PdfkhsController::class, 'cetak_pdf_tkdn']);
-Route::post('cetak-tkdn', [PdfkhsController::class, 'cetak_tkdn']);
+Route::post('cetak-pdf-tkdn', [PdfkhsController::class, 'cetak_tkdn_lampiran']);
+Route::post('cetak-paket-pdf-tkdn', [PdfkhsController::class, 'cetak_paket_tkdn_lampiran']);
+Route::post('cetak-tkdn', [PdfkhsController::class, 'cetak_tkdn_non_lampiran']);
+Route::get('download/{id}', [PdfkhsController::class, 'download']);
 

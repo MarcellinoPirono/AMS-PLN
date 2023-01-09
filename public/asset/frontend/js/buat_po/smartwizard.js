@@ -167,7 +167,7 @@ $(function () {
                     var tkdn_3 = document.getElementById("tkdn[" + (i + 1) + "]").value;
                     tkdn_3 = tkdn_3.replace(/\,/g, ".");
                     tkdn_3 = parseFloat(tkdn_3);
-                    var kdn = harga_3 * (tkdn_3/100);
+                    var kdn = harga_3 * (tkdn_3 / 100);
                     kdn = Math.round(kdn);
                     var kln = harga_3 - kdn;
                     var total_tkdn = kdn + kln;
@@ -464,11 +464,22 @@ $(function () {
                 }
             } else {
                 var baris_step2 = [];
-                for(var i = 0; i < clickpaket; i++) {
+                for (var i = 0; i < clickpaket; i++) {
                     baris_step2[i] = {
                         'lokasi': document.getElementById('lokasi_id[' + (i + 1) + ']').value,
-                        'paket': document.getElementById('paket_id[' + (i + 1) + ']').value
+                        'paket': document.getElementById('paket_id[' + (i + 1) + ']').value,
+                        // 'item': document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2) > div > input').value
                     }
+                }
+
+                var item = [];
+
+                for (var i = 0; i < baris_step2.length; i++) {
+                    item[i] = []
+                    for (var j = 0; j < document.getElementById("tabelRAB" + i).tBodies[0].rows.length; j++) {
+                        item[i][j] = document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (j + 1) + ') td:nth-child(2) > div > input').value
+                    }
+                    baris_step2[i]["item"] = item[i];
 
                     group_location_step2 = baris_step2.reduce((group, arr) => {
                         var { lokasi } = arr;
@@ -477,6 +488,82 @@ $(function () {
                         return group;
                     }, {});
                 }
+                // console.log("item", item);
+                // console.log("baris_step2 ea", baris_step2);
+                console.log(group_location_step2);
+
+
+                // var group_location_2 = [];
+                // var group_2_location_step2 = [];
+
+                // for(var i = 0; i < Object.keys(group_location_step2).length; i++) {
+                // baris_step3[i] = {
+                //     "lokasi": [],
+                // }
+
+                // for (var i = 0; i < baris_step2.length; i++) {
+                //     // console.log("panjang lokasi", i);
+                //     baris_item[i] = [];
+                //     // group_location_2
+                //     // 'lokasi': document.getElementById('lokasi_id[' + (i + 1) + ']').value,
+                //     // 'paket': document.getElementById('paket_id[' + (i + 1) + ']').value,
+                //     // 'item': []
+                //     // };
+                //     // console.log("panjangbaris/paket", document.getElementById("tabelRAB"+j).tBodies[0].rows.length);
+                //     for (var j = 0; j < document.getElementById("tabelRAB" + i).tBodies[0].rows.length; j++) {
+                //         // console.log(document.querySelector('#tabelRAB'+i+' tbody tr:nth-child('+(j+1)+') td:nth-child(2) > div > input').value);
+                //         baris_item[i][j] = {
+                //             // 'lokasi': document.getElementById('lokasi_id[' + (i + 1) + ']').value,
+                //             // 'paket': document.getElementById('paket_id[' + (i + 1) + ']').value,
+                //             'item': document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (j + 1) + ') td:nth-child(2) > div > input').value
+                //         }
+
+                //         // group_location_2[i] = baris_item[i].reduce((group, arr) => {
+                //         //     var { lokasi } = arr;
+                //         //     group[lokasi] = group[lokasi] ?? [];
+                //         //     group[lokasi].push(arr);
+                //         //     return group;
+                //         // }, {})
+                //         // console.log(document.querySelector('#tabelRAB'+i+' tbody tr:nth-child('+j+') td:nth-child(1) > div > input'));
+                //         // baris_item[i][j] = {
+                //         //     'nama_item': document.querySelector('#tabelRAB'+i+' tbody tr:nth-child('+i+') td:nth-child(1) > div > input').value,
+                //         // }
+
+                //     }
+                //     // baris_step2[i].push(...baris_item[i])
+                //     // var lokasi_5 = Object.keys(group_location_2)[i];
+                //     // console.log(Object.keys(group_location_2[i]));
+
+                //     // group_2_location_step2[i] = group_location_2.reduce((group, arr) => {
+                //     //     var lokasi_5 = Object.keys(group_location_2[i]);
+                //     //     group[lokasi_5] = group[lokasi_5] ?? [];
+                //     //     group[lokasi_5].push(arr);
+                //     //     return group;
+                //     // }, {})
+                //     // if(Object.keys(group_location_step2)[i] == baris_step2[j]["lokasi"]) {
+                //     //     for(var k = 0; k < document.getElementById("tabelRAB"+j).tBodies[0].rows.length; k++) {
+                //     //         console.log("haii");
+                //     //     }
+                //     //     // baris_step3[i] = {
+                //     //     //     "lokasi": Object.keys(group_location_step2)[i],
+                //     //     //     "paket": baris_step2[j]["paket"],
+                //     //     //     "item": [
+
+                //     //     //     ]
+                //     //     // }
+                //     // }
+                // }
+                // baris_step2.push(...baris_item);
+                // // console.log("group_2_location_step2", group_2_location_step2);
+                // // console.log("group_location_2", group_location_2);
+                // console.log("baris_item", baris_item);
+                // console.log("baris_step2", baris_step2);
+                // // }
+
+                // for(var i = 0; i < baris_step2.length; i++) {
+
+                // }
+                // console.log(group_location_step2);
 
                 // for(var i = 0; i < baris_step2.length; i++) {
 

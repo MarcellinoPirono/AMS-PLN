@@ -27,6 +27,7 @@ class RincianIndukExport implements FromCollection, WithHeadings, WithTitle
         // dd($this->khs_id);
 
         return RincianInduk::where('khs_id',$this->khs_id)->select('khs_id', 'kategori', 'nama_item', 'satuan_id', 'harga_satuan', 'tkdn')->get();
+        // return RincianInduk::all();
     }
 
     public function headings(): array
@@ -39,6 +40,15 @@ class RincianIndukExport implements FromCollection, WithHeadings, WithTitle
             'harga_satuan',
             'tkdn',
         ];
+        // return [
+        //     'item_id',
+        //     'khs_id',
+        //     'kategori',
+        //     'nama_item',
+        //     'satuan_id',
+        //     'harga_satuan',
+        //     'tkdn',
+        // ];
     }
 
     public function title(): string

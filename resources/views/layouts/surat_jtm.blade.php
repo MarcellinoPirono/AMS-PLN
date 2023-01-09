@@ -246,7 +246,7 @@
                 </tr>
                 <tr>
                     <td style="height: 50px; padding-left:40px" align="center" valign="bottom">SETUJU MELAKSANAKAN</td>
-                <td style="width:43%; padding-left:40px" align="center" valign="bottom">PT PLN (PERSERO) UID
+                    <td style="width:43%; padding-left:40px" align="center" valign="bottom">PT PLN (PERSERO) UID
                         SULSELRABAR</td>
                 </tr>
                 <tr>
@@ -339,18 +339,19 @@
     <div class="wrapword" id="firstTable">
         <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
             <tr class="warna">
-                <td class="tabelataskiri" style="width:4%;" rowspan="2" align="center" valign="middle">No</td>
+                <td class="tabelataskiri" style="width:4%;" rowspan="2" align="center" valign="middle">NO</td>
                 <td class="tabelatas" rowspan="2" align="center" valign="middle">Uraian</td>
-                <td class="tabelatas" style="width:10%;" rowspan="2" align="center" valign="middle">SAT.</td>
-                <td class="tabelatas" style="width:9%;" rowspan="2" align="center" valign="middle">VOLUME</td>
-                <td class="tabelataskanan" style="width:25%;" colspan="2" align="center" valign="middle">Harga
+                <td class="tabelatas" style="width:5%;" rowspan="2" align="center" valign="middle">SAT.</td>
+                <td class="tabelatas" style="width:7%;" rowspan="2" align="center" valign="middle">VOLUME</td>
+                <td class="tabelataskanan" style="width:20%;" colspan="2" align="center" valign="middle">HARGA
                 </td>
                 <td class="tabelatas" style="width:8%;" rowspan="2" align="center" valign="middle">TKDN (%)</td>
-                <td class="tabelataskanan" style="width:21%;" colspan="3" align="center" valign="middle">Biaya TKDN (Rupiah)</td>
+                <td class="tabelataskanan" style="width:21%;" colspan="3" align="center" valign="middle">BIAYA
+                    TKDN (Rupiah)</td>
             </tr>
             <tr class="warna">
-                <td class="tabelnormal" style="width:12%;" align="center" valign="middle">Satuan (RP)</td>
-                <td class="tabelnormalkanan"style="width:12%;" align="center" valign="middle">Jumlah (RP)</td>
+                <td class="tabelnormal" style="width:10%;" align="center" valign="middle">Satuan (RP)</td>
+                <td class="tabelnormalkanan"style="width:10%;" align="center" valign="middle">Jumlah (RP)</td>
                 <td class="tabelnormalkanan"style="width:7%;" align="center" valign="middle">KDN</td>
                 <td class="tabelnormalkanan"style="width:7%;" align="center" valign="middle">KLN</td>
                 <td class="tabelnormalkanan"style="width:7%;" align="center" valign="middle">TOTAL</td>
@@ -416,18 +417,46 @@
                 @endforeach
             @endif
             <tr>
-                <td class="tabelnormalkiri" rowspan="3" colspan="3"></td>
-                <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah</b></td>
+                <td class="tabelnormalkiri" rowspan="5" colspan="3"></td>
+                <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Jasa</b></td>
                 <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($jumlah)</b></td>
+                <td class="tabelnormal"></td>
+                <td class="tabelnormal"></td>
+                <td class="tabelnormal"></td>
+                <td class="tabelnormalkanan tabellkanan"></td>
+            </tr>
+            <tr style="page-break-before: avoid">
+                <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Material</b></td>
+                <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($ppn)</b></td>
+                <td class="tabelnormal"></td>
+                <td class="tabelnormal"></td>
+                <td class="tabelnormal"></td>
+                <td class="tabelnormalkanan tabellkanan"></td>
+            </tr>
+            <tr style="page-break-before: avoid">
+                <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Keseluruhan</b></td>
+                <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($ppn)</b></td>
+                <td class="tabelnormal kuning"></td>
+                <td class="tabelnormal kuning"></td>
+                <td class="tabelnormal kuning"></td>
+                <td class="tabelnormalkanan tabellkanan kuning"></td>
             </tr>
             <tr style="page-break-before: avoid">
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
                 <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($ppn)</b></td>
+                <td class="tabelnormal"></td>
+                <td class="tabelnormal"></td>
+                <td class="tabelnormal"></td>
+                <td class="tabelnormalkanan tabellkanan"></td>
             </tr>
             @foreach ($po_khs as $pokhs)
                 <tr style="page-break-before: avoid">
                     <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>TOTAL</b></td>
-                    <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($pokhs->total_harga)</b></td>
+                    <td class="tabelnormalkanan tabellkanan kuning" align="right"><b>@currency2($pokhs->total_harga)</b></td>
+                    <td class="tabelnormal"></td>
+                    <td class="tabelnormal"></td>
+                    <td class="tabelnormal"></td>
+                    <td class="tabelnormalkanan tabellkanan"></td>
                 </tr>
                 <tr style="page-break-before: avoid">
                     <td class="tabelkiri"></td>

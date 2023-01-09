@@ -22,7 +22,7 @@ return new class extends Migration
             // $table->foreignId('kategori_id')->nullable();
             // $table->foreignId('item_id')->nullable();
             $table->string('pekerjaan');
-            $table->text('lokasi')->nullable();
+           
             $table->date('startdate');
             $table->date('enddate');
             $table->foreignId('nomor_kontrak_induk');

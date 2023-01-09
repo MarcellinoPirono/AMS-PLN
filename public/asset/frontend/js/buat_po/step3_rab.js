@@ -626,18 +626,35 @@ function deleteRowWithPaket(r) {
     for (var i = 0; i < input_tkdn.length; i++) {
         input_tkdn[i].id = "tkdn[" + (i + 1) + "]";
     }
+    reindexwithpaket(table);
+    console.log("index_table",index_table);
+    console.log("click",click);
+    if (index_table == 0) {
+        updateformwithpaket(div_tambah_paket);
+    }
+
     if (index_table == 0) {
         document.getElementById("jumlah").innerHTML = "";
         document.getElementById("pajak").innerHTML = "";
         document.getElementById("total").innerHTML = "";
     } else {
-document.querySelector()
+        console.log("document.querySelectorAll('input[name=harga]')",document.querySelectorAll('input[name="harga"]'));
+        const harga_input = document.querySelectorAll('input[name="harga"]');
         var total_harga = [];
-        for (var i = 0; i < click; i++) {
-            total_harga[i] = row.querySelector('input[name="harga"]').value;
+        harga_input.forEach((e, i) => {
+            console.log("e", e);
+            console.log("i", i);
+            total_harga[i] = e.value;
+            console.log(total_harga[i]);
             total_harga[i] = total_harga[i].replace(/\./g, "");
-            total_harga[i] = parseInt(total_harga[i])
-        }
+            total_harga[i] = parseInt(total_harga[i]);
+        });
+        // var total_harga = [];
+        // for (var i = 0; i < click; i++) {
+        //     total_harga[i] = row.querySelector('input[name="harga"]').value;
+        //     total_harga[i] = total_harga[i].replace(/\./g, "");
+        //     total_harga[i] = parseInt(total_harga[i])
+        // }
         var pagu_prk = document.getElementById("rupiah").innerHTML;
         pagu_prk = pagu_prk.replace(/\./g, "");
         pagu_prk = parseInt(pagu_prk);
@@ -738,12 +755,7 @@ document.querySelector()
             document.getElementById("total").style.color = '#F94687';
         }
     }
-    reindexwithpaket(table);
-    console.log("index_table",index_table);
-    console.log("click",click);
-    if (index_table == 0) {
-        updateformwithpaket(div_tambah_paket);
-    }
+
 
 }
 function reindex() {
@@ -1004,12 +1016,22 @@ function change_item_with_paket(c) {
                 }
             }
             row.querySelector('input[name="harga"]').value = jumlah_2;
+            console.log("document.querySelectorAll('input[name=harga]')",document.querySelectorAll('input[name="harga"]'));
+            const harga_input = document.querySelectorAll('input[name="harga"]');
             var total_harga = [];
-            for (var i = 0; i < click; i++) {
-                total_harga[i] =  row.querySelector('input[name="harga"]').value;
+            harga_input.forEach((e, i) => {
+                console.log("e", e);
+                console.log("i", i);
+                total_harga[i] = e.value;
+                console.log(total_harga[i]);
                 total_harga[i] = total_harga[i].replace(/\./g, "");
-                total_harga[i] = parseInt(total_harga[i])
-            }
+                total_harga[i] = parseInt(total_harga[i]);
+            });
+            // for (var i = 0; i < click; i++) {
+            //     total_harga[i] =  row.querySelector('input[name="harga"]').value;
+            //     total_harga[i] = total_harga[i].replace(/\./g, "");
+            //     total_harga[i] = parseInt(total_harga[i])
+            // }
             row.querySelector('input[name="tkdn"]').value = response["nama_items"][0].tkdn;
             var pagu_prk = document.getElementById("rupiah").innerHTML;
             pagu_prk = pagu_prk.replace(/\./g, "");
@@ -1333,12 +1355,22 @@ function blur_volume_with_paket(c) {
         }
     }
     row.querySelector('input[name="harga"]').value = harga_2;
+    const harga_input = document.querySelectorAll('input[name="harga"]');
     var total_harga = [];
-    for (var i = 0; i < click; i++) {
-        total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+    harga_input.forEach((e, i) => {
+        console.log("e", e);
+        console.log("i", i);
+        total_harga[i] = e.value;
+        console.log(total_harga[i]);
         total_harga[i] = total_harga[i].replace(/\./g, "");
-        total_harga[i] = parseInt(total_harga[i])
-    }
+        total_harga[i] = parseInt(total_harga[i]);
+    });
+    // var total_harga = [];
+    // for (var i = 0; i < click; i++) {
+    //     total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+    //     total_harga[i] = total_harga[i].replace(/\./g, "");
+    //     total_harga[i] = parseInt(total_harga[i])
+    // }
     var pagu_prk = document.getElementById("rupiah").innerHTML;
     pagu_prk = pagu_prk.replace(/\./g, "");
     pagu_prk = parseInt(pagu_prk);
