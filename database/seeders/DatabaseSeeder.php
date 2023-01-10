@@ -276,7 +276,7 @@ class DatabaseSeeder extends Seeder
         Skk::create([
             'nomor_skk' => '021/DAN/2021',
             'uraian_skk' => 'Pembelian Mobil',
-            'pagu_skk' => '12000000000',
+            'pagu_skk' => '0',
             'skk_terkontrak' => '0',
             'skk_realisasi' => '0',
             'skk_terbayar' => '0',
@@ -285,7 +285,7 @@ class DatabaseSeeder extends Seeder
         Skk::create([
             'nomor_skk' => '022/DAN/2022',
             'uraian_skk' => 'Pembelian Skuter',
-            'pagu_skk' => '5000000000',
+            'pagu_skk' => '0',
             'skk_terkontrak' => '0',
             'skk_realisasi' => '0',
             'skk_terbayar' => '0',
@@ -306,8 +306,8 @@ class DatabaseSeeder extends Seeder
             'no_skk_prk' => '1',
             'no_prk' => '002/DAN.PRK/2020',
             'uraian_prk' => 'Pembelian Velg',
-            'pagu_prk' => '500000000',
-            'prk_terkontrak' => '20000000',
+            'pagu_prk' => '0',
+            'prk_terkontrak' => '0',
             'prk_realisasi' => '0',
             'prk_terbayar' => '0',
             'prk_sisa' => '0',
@@ -316,8 +316,8 @@ class DatabaseSeeder extends Seeder
             'no_skk_prk' => '1',
             'no_prk' => '003/DAN.PRK/2020',
             'uraian_prk' => 'Pembelian Spion',
-            'pagu_prk' => '350000000',
-            'prk_terkontrak' => '50000000',
+            'pagu_prk' => '0',
+            'prk_terkontrak' => '0',
             'prk_realisasi' => '0',
             'prk_terbayar' => '0',
             'prk_sisa' => '0',
@@ -326,7 +326,7 @@ class DatabaseSeeder extends Seeder
             'no_skk_prk' => '2',
             'no_prk' => '010/DAN.PRK/2021',
             'uraian_prk' => 'Pembelian Knalpot',
-            'pagu_prk' => '5000000000',
+            'pagu_prk' => '0',
             'prk_terkontrak' => '0',
             'prk_realisasi' => '0',
             'prk_terbayar' => '0',
@@ -336,14 +336,12 @@ class DatabaseSeeder extends Seeder
             'no_skk_prk' => '3',
             'no_prk' => '020/DAN.PRK/2022',
             'uraian_prk' => 'Pembelian Roda',
-            'pagu_prk' => '450000000',
+            'pagu_prk' => '0',
             'prk_terkontrak' => '0',
             'prk_realisasi' => '0',
             'prk_terbayar' => '0',
             'prk_sisa' => '0',
         ]);
-
-
 
     }
 }

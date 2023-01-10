@@ -191,7 +191,9 @@ Route::resource('non-po', NonPOController::class);
 
 //CETAK-PDF
 Route::post('cetak-pdf-tkdn', [PdfkhsController::class, 'cetak_tkdn_lampiran']);
-Route::post('cetak-paket-pdf-tkdn', [PdfkhsController::class, 'cetak_paket_tkdn_lampiran']);
 Route::post('cetak-tkdn', [PdfkhsController::class, 'cetak_tkdn_non_lampiran']);
+Route::post('cetak-non-tkdn-pdf', [PdfkhsController::class, 'cetak_non_tkdn_lampiran']);
+Route::post('cetak-non-tkdn', [PdfkhsController::class, 'cetak_non_tkdn_non_lampiran']);
+Route::post('cetak-paket-pdf-tkdn', [PdfkhsController::class, 'cetak_paket_tkdn_lampiran']);
 Route::get('download/{id}', [PdfkhsController::class, 'download']);
 

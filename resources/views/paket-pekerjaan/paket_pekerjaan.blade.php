@@ -59,7 +59,7 @@
                                                 @if ($paket2->nama_paket == $paket->nama_paket)
                                                     <ol type="1">
                                                         <li>
-                                                            @currency3($paket2->volume)<br>
+                                                        @currency4($paket2->volume)<br>
                                                         </li>
                                                     </ol>
                                                 @endif

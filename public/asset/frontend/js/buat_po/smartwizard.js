@@ -156,6 +156,7 @@ $(function () {
             }
 
             if (clickpaket == 0) {
+                document.getElementById("tbody_paket").innerHTML = "";
                 baris = [];
                 baris_jasa = [];
                 baris_material = [];
@@ -202,9 +203,6 @@ $(function () {
                     return element !== null;
                 });
 
-                // console.log(result_jasa);
-                // console.log(result_material);
-
                 var jumlah_jasa_count = 0;
                 var jumlah_material_count = 0;
                 var jumlah_kdn_jasa_count = 0;
@@ -216,7 +214,7 @@ $(function () {
 
                 if (result_jasa.length > 0) {
                     var html_jasa = [""]
-                    // var tbody = document.getElementById("tbody_jasa")
+
                     var panjang = result_jasa.length
                     for (var j = 0; j < panjang; j++) {
                         var jumlah_jasa = result_jasa[j][0][5];
@@ -249,7 +247,7 @@ $(function () {
                             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
                             result_jasa[
                             j][0][5] +
-                            "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                            "</td> <td class='first tabellkanan' align='center' valign='middle'>" +
                             result_jasa[
                             j][0][6] +
                             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
@@ -262,6 +260,8 @@ $(function () {
                             result_jasa[
                             j][0][9] + "</td> </tr>")
                     }
+                    var jumlah_jasa_tkdn = jumlah_kdn_jasa_count / jumlah_total_tkdn_jasa_count * 100;
+                    jumlah_jasa_tkdn = jumlah_jasa_tkdn.toFixed(2);
                     jumlah_jasa_count = tandaPemisahTitik(jumlah_jasa_count);
                     jumlah_kdn_jasa_count = tandaPemisahTitik(jumlah_kdn_jasa_count);
                     jumlah_kln_jasa_count = tandaPemisahTitik(jumlah_kln_jasa_count);
@@ -274,16 +274,18 @@ $(function () {
                     document.getElementById("jumlah_kdn_jasa_count").innerHTML = jumlah_kdn_jasa_count;
                     document.getElementById("jumlah_kln_jasa_count").innerHTML = jumlah_kln_jasa_count;
                     document.getElementById("jumlah_total_tkdn_jasa_count").innerHTML = jumlah_total_tkdn_jasa_count;
+                    document.getElementById("jumlah_jasa_tkdn").innerHTML = tandaPemisahTitik2(jumlah_jasa_tkdn);
                 } else {
                     document.getElementById("jumlah_jasa_count").innerHTML = "Rp. 0";
                     document.getElementById("jumlah_kdn_jasa_count").innerHTML = "0";
                     document.getElementById("jumlah_kln_jasa_count").innerHTML = "0";
                     document.getElementById("jumlah_total_tkdn_jasa_count").innerHTML = "0";
+                    document.getElementById("jumlah_jasa_tkdn").innerHTML = "0";
                 }
 
                 if (result_material.length > 0) {
                     var html_material = [""]
-                    // var tbody = document.getElementById("tbody_material")
+
                     var panjang = result_material.length
                     for (var j = 0; j < panjang; j++) {
                         var jumlah_material = result_material[j][0][5];
@@ -314,7 +316,7 @@ $(function () {
                             result_material[j][0][4] +
                             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
                             result_material[j][0][5] +
-                            "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                            "</td> <td class='first tabellkanan' align='center' valign='middle'>" +
                             result_material[j][0][6] +
                             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
                             result_material[j][0][7] +
@@ -323,6 +325,8 @@ $(function () {
                             "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
                             result_material[j][0][9] + "</td> </tr>")
                     }
+                    var jumlah_material_tkdn = jumlah_kdn_material_count / jumlah_total_tkdn_material_count * 100;
+                    jumlah_material_tkdn = jumlah_material_tkdn.toFixed(2);
                     jumlah_material_count = tandaPemisahTitik(jumlah_material_count);
                     jumlah_kdn_material_count = tandaPemisahTitik(jumlah_kdn_material_count);
                     jumlah_kln_material_count = tandaPemisahTitik(jumlah_kln_material_count);
@@ -335,11 +339,13 @@ $(function () {
                     document.getElementById("jumlah_kdn_material_count").innerHTML = jumlah_kdn_material_count;
                     document.getElementById("jumlah_kln_material_count").innerHTML = jumlah_kln_material_count;
                     document.getElementById("jumlah_total_tkdn_material_count").innerHTML = jumlah_total_tkdn_material_count;
+                    document.getElementById("jumlah_material_tkdn").innerHTML = tandaPemisahTitik2(jumlah_material_tkdn);
                 } else {
                     document.getElementById("jumlah_material_count").innerHTML = "Rp. 0";
                     document.getElementById("jumlah_kdn_material_count").innerHTML = "0";
                     document.getElementById("jumlah_kln_material_count").innerHTML = "0";
                     document.getElementById("jumlah_total_tkdn_material_count").innerHTML = "0";
+                    document.getElementById("jumlah_material_tkdn").innerHTML = "0";
                 }
 
                 var total_kdn_jasa = document.getElementById("jumlah_kdn_jasa_count").innerHTML;
@@ -349,7 +355,6 @@ $(function () {
                 total_kdn_material = total_kdn_material.replace(/\./g, "");
                 total_kdn_material = parseInt(total_kdn_material);
                 var total_kdn_all = total_kdn_jasa + total_kdn_material;
-                total_kdn_all = tandaPemisahTitik(total_kdn_all);
 
                 var total_kln_jasa = document.getElementById("jumlah_kln_jasa_count").innerHTML;
                 total_kln_jasa = total_kln_jasa.replace(/\./g, "");
@@ -358,7 +363,6 @@ $(function () {
                 total_kln_material = total_kln_material.replace(/\./g, "");
                 total_kln_material = parseInt(total_kln_material);
                 var total_kln_all = total_kln_jasa + total_kln_material;
-                total_kln_all = tandaPemisahTitik(total_kln_all);
 
                 var total_tkdn_jasa = document.getElementById("jumlah_total_tkdn_jasa_count").innerHTML;
                 total_tkdn_jasa = total_tkdn_jasa.replace(/\./g, "");
@@ -367,11 +371,17 @@ $(function () {
                 total_tkdn_material = total_tkdn_material.replace(/\./g, "");
                 total_tkdn_material = parseInt(total_tkdn_material);
                 var total_tkdn_all = total_tkdn_jasa + total_tkdn_material;
+
+                var jumlah_tkdn = total_kdn_all / total_tkdn_all * 100;
+                jumlah_tkdn = jumlah_tkdn.toFixed(2)
+                total_kdn_all = tandaPemisahTitik(total_kdn_all);
+                total_kln_all = tandaPemisahTitik(total_kln_all);
                 total_tkdn_all = tandaPemisahTitik(total_tkdn_all);
 
                 document.getElementById("total_kdn_all").innerHTML = total_kdn_all;
                 document.getElementById("total_kln_all").innerHTML = total_kln_all;
                 document.getElementById("total_tkdn_all").innerHTML = total_tkdn_all;
+                document.getElementById("jumlah_keseluruhan_tkdn").innerHTML = tandaPemisahTitik2(jumlah_tkdn);
 
                 document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah")
                     .innerHTML;
@@ -463,24 +473,64 @@ $(function () {
                     document.getElementById("tbody_redaksi").innerHTML = html_redaksi;
                 }
             } else {
+                document.getElementById("tbody_jasa").innerHTML = "";
+                document.getElementById("tbody_material").innerHTML = "";
+                var baris_step2_db = [];
+                for (var i = 0; i < clickpaket; i++) {
+                    baris_step2_db[i] = {
+                        'lokasi': document.getElementById('lokasi_id[' + (i + 1) + ']').value,
+                        'paket': document.getElementById('paket_id[' + (i + 1) + ']').value,
+                    }
+                }
+
+                var item_db = [];
+                var kategory_order_db = [];
+                var satuan_id_db = [];
+                var volume_db = [];
+                var harga_satuan_db = [];
+                var jumlah_harga_db = [];
+                var tkdn_db = [];
+
+                for (var i = 0; i < baris_step2_db.length; i++) {
+                    item_db[i] = [];
+                    kategory_order_db[i] = [];
+                    satuan_id_db[i] = [];
+                    volume_db[i] = [];
+                    harga_satuan_db[i] = [];
+                    jumlah_harga_db[i] = [];
+                    tkdn_db[i] = [];
+                    for (var j = 0; j < document.getElementById("tabelRAB" + i).tBodies[0].rows.length; j++) {
+                        item_db[i][j] = document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (j + 1) + ') td:nth-child(2) > div > input').value;
+                        kategory_order_db[i][j] = document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (j + 1) + ') td:nth-child(3) > input').value;
+                        satuan_id_db[i][j] = document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (j + 1) + ') td:nth-child(4) > input').value;
+                        volume_db[i][j] = document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (j + 1) + ') td:nth-child(5) > input').value;
+                        harga_satuan_db[i][j] = document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (j + 1) + ') td:nth-child(6) >  input').value;
+                        jumlah_harga_db[i][j] = document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (j + 1) + ') td:nth-child(7) > input').value;
+                        tkdn_db[i][j] = document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (j + 1) + ') td:nth-child(8) > input').value;
+                    }
+                    // console.log("item",item);
+                    baris_step2_db[i]["item"] = item_db[i];
+                    baris_step2_db[i]["kategory_order"] = kategory_order_db[i];
+                    baris_step2_db[i]["satuan_id"] = satuan_id_db[i];
+                    baris_step2_db[i]["volume"] = volume_db[i];
+                    baris_step2_db[i]["harga_satuan"] = harga_satuan_db[i];
+                    baris_step2_db[i]["jumlah_harga"] = jumlah_harga_db[i];
+                    baris_step2_db[i]["tkdn"] = tkdn_db[i];
+
+                    group_location_step2_db = baris_step2_db.reduce((group, arr) => {
+                        var { lokasi } = arr;
+                        group[lokasi] = group[lokasi] ?? [];
+                        group[lokasi].push(arr);
+                        return group;
+                    }, {});
+                }
+
                 var baris_step2 = [];
                 for (var i = 0; i < clickpaket; i++) {
                     baris_step2[i] = {
                         'lokasi': document.getElementById('lokasi_id[' + (i + 1) + ']').value,
                         'paket': document.getElementById('paket_id[' + (i + 1) + ']').value,
-                        // 'item': document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2) > div > input').value
                     }
-                }
-
-                var item = [];
-
-                for (var i = 0; i < baris_step2.length; i++) {
-                    item[i] = []
-                    for (var j = 0; j < document.getElementById("tabelRAB" + i).tBodies[0].rows.length; j++) {
-                        item[i][j] = document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (j + 1) + ') td:nth-child(2) > div > input').value
-                    }
-                    baris_step2[i]["item"] = item[i];
-
                     group_location_step2 = baris_step2.reduce((group, arr) => {
                         var { lokasi } = arr;
                         group[lokasi] = group[lokasi] ?? [];
@@ -488,131 +538,300 @@ $(function () {
                         return group;
                     }, {});
                 }
-                // console.log("item", item);
-                // console.log("baris_step2 ea", baris_step2);
-                console.log(group_location_step2);
 
+                var item = [];
 
-                // var group_location_2 = [];
-                // var group_2_location_step2 = [];
+                item["jasa"] = [];
+                item["material"] = [];
 
-                // for(var i = 0; i < Object.keys(group_location_step2).length; i++) {
-                // baris_step3[i] = {
-                //     "lokasi": [],
-                // }
+                var sum_tabel = 0;
+                var jumlah_jasa_2 = 0;
+                var jumlah_material_2 = 0;
+                var jumlah_kdn_jasa_2 = 0;
+                var jumlah_kln_jasa_2 = 0;
+                var jumlah_totaltkdn_jasa_2 = 0;
+                var jumlah_kdn_material_2 = 0;
+                var jumlah_kln_material_2 = 0;
+                var jumlah_totaltkdn_material_2 = 0;
+                for(var i = 0; i < Object.keys(group_location_step2).length; i++) {
+                    for(var j = 0; j < group_location_step2[Object.keys(group_location_step2)[i]].length; j++) {
+                        var sub_jumlah_jasa = 0;
+                        var sub_jumlah_material = 0;
+                        item["jasa"][j] = [];
+                        item["material"][j] = [];
+                        for(var k = 0; k < document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr").length; k++) {
+                            if(document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(3) > input")[0].value == "Jasa") {
+                                var jumlah_jasa = document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(7) > input")[0].value;
+                                jumlah_jasa = jumlah_jasa.replace(/\./g, "");
+                                jumlah_jasa = parseInt(jumlah_jasa);
+                                sub_jumlah_jasa += jumlah_jasa;
+                                jumlah_jasa_2 += jumlah_jasa
+                                var tkdn_jasa = document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(8) > input")[0].value;
+                                tkdn_jasa = tkdn_jasa.replace(/\,/g, ".");
+                                tkdn_jasa = parseFloat(tkdn_jasa);
+                                var kdn_jasa = jumlah_jasa * (tkdn_jasa / 100);
+                                kdn_jasa = Math.round(kdn_jasa);
+                                jumlah_kdn_jasa_2 += kdn_jasa;
+                                var kln_jasa = jumlah_jasa - kdn_jasa;
+                                jumlah_kln_jasa_2 += kln_jasa;
+                                var totaltkdn_jasa = kdn_jasa + kln_jasa;
+                                jumlah_totaltkdn_jasa_2 += totaltkdn_jasa;
+                                kdn_jasa = tandaPemisahTitik(kdn_jasa);
+                                kln_jasa = tandaPemisahTitik(kln_jasa);
+                                totaltkdn_jasa = tandaPemisahTitik(totaltkdn_jasa);
+                                item["jasa"][j][k] = {
+                                    'item': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(2) > div > input")[0].value,
+                                    'kategori': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(3) > input")[0].value,
+                                    'satuan': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(4) > input")[0].value,
+                                    'volume': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(5) > input")[0].value,
+                                    'harga_satuan': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(6) > input")[0].value,
+                                    'jumlah': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(7) > input")[0].value,
+                                    'tkdn': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(8) > input")[0].value,
+                                    'kdn': kdn_jasa,
+                                    'kln': kln_jasa,
+                                    'total_tkdn': totaltkdn_jasa
+                                }
+                            } else {
+                                var jumlah_material = document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(7) > input")[0].value;
+                                jumlah_material = jumlah_material.replace(/\./g, "");
+                                jumlah_material = parseInt(jumlah_material);
+                                sub_jumlah_material += jumlah_material;
+                                jumlah_material_2 += jumlah_material;
+                                var tkdn_material = document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(8) > input")[0].value;
+                                tkdn_material = tkdn_material.replace(/\,/g, ".");
+                                tkdn_material = parseFloat(tkdn_material);
+                                var kdn_material = jumlah_material * (tkdn_material / 100);
+                                kdn_material = Math.round(kdn_material);
+                                jumlah_kdn_material_2 += kdn_material;
+                                var kln_material = jumlah_material - kdn_material;
+                                jumlah_kln_material_2 += kln_material;
+                                var totaltkdn_material = kdn_material + kln_material;
+                                jumlah_totaltkdn_material_2 += totaltkdn_material;
+                                kdn_material = tandaPemisahTitik(kdn_material);
+                                kln_material = tandaPemisahTitik(kln_material);
+                                totaltkdn_material = tandaPemisahTitik(totaltkdn_material);
+                                item["material"][j][k] = {
+                                    'item': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(2) > div > input")[0].value,
+                                    'kategori': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(3) > input")[0].value,
+                                    'satuan': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(4) > input")[0].value,
+                                    'volume': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(5) > input")[0].value,
+                                    'harga_satuan': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(6) > input")[0].value,
+                                    'jumlah': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(7) > input")[0].value,
+                                    'tkdn': document.getElementById("tbody-kategori"+sum_tabel).querySelectorAll("tr:nth-child("+(k+1)+") td:nth-child(8) > input")[0].value,
+                                    'kdn': kdn_material,
+                                    'kln': kln_material,
+                                    'total_tkdn': totaltkdn_material
+                                }
+                            }
+                        }
+                        sum_tabel++;
+                        item["jasa"][j] = item["jasa"][j].filter(element => {
+                            return element !== null;
+                        });
+                        item["material"][j] = item["material"][j].filter(element => {
+                            return element !== null;
+                        });
 
-                // for (var i = 0; i < baris_step2.length; i++) {
-                //     // console.log("panjang lokasi", i);
-                //     baris_item[i] = [];
-                //     // group_location_2
-                //     // 'lokasi': document.getElementById('lokasi_id[' + (i + 1) + ']').value,
-                //     // 'paket': document.getElementById('paket_id[' + (i + 1) + ']').value,
-                //     // 'item': []
-                //     // };
-                //     // console.log("panjangbaris/paket", document.getElementById("tabelRAB"+j).tBodies[0].rows.length);
-                //     for (var j = 0; j < document.getElementById("tabelRAB" + i).tBodies[0].rows.length; j++) {
-                //         // console.log(document.querySelector('#tabelRAB'+i+' tbody tr:nth-child('+(j+1)+') td:nth-child(2) > div > input').value);
-                //         baris_item[i][j] = {
-                //             // 'lokasi': document.getElementById('lokasi_id[' + (i + 1) + ']').value,
-                //             // 'paket': document.getElementById('paket_id[' + (i + 1) + ']').value,
-                //             'item': document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (j + 1) + ') td:nth-child(2) > div > input').value
-                //         }
+                        group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"] = [];
 
-                //         // group_location_2[i] = baris_item[i].reduce((group, arr) => {
-                //         //     var { lokasi } = arr;
-                //         //     group[lokasi] = group[lokasi] ?? [];
-                //         //     group[lokasi].push(arr);
-                //         //     return group;
-                //         // }, {})
-                //         // console.log(document.querySelector('#tabelRAB'+i+' tbody tr:nth-child('+j+') td:nth-child(1) > div > input'));
-                //         // baris_item[i][j] = {
-                //         //     'nama_item': document.querySelector('#tabelRAB'+i+' tbody tr:nth-child('+i+') td:nth-child(1) > div > input').value,
-                //         // }
-
-                //     }
-                //     // baris_step2[i].push(...baris_item[i])
-                //     // var lokasi_5 = Object.keys(group_location_2)[i];
-                //     // console.log(Object.keys(group_location_2[i]));
-
-                //     // group_2_location_step2[i] = group_location_2.reduce((group, arr) => {
-                //     //     var lokasi_5 = Object.keys(group_location_2[i]);
-                //     //     group[lokasi_5] = group[lokasi_5] ?? [];
-                //     //     group[lokasi_5].push(arr);
-                //     //     return group;
-                //     // }, {})
-                //     // if(Object.keys(group_location_step2)[i] == baris_step2[j]["lokasi"]) {
-                //     //     for(var k = 0; k < document.getElementById("tabelRAB"+j).tBodies[0].rows.length; k++) {
-                //     //         console.log("haii");
-                //     //     }
-                //     //     // baris_step3[i] = {
-                //     //     //     "lokasi": Object.keys(group_location_step2)[i],
-                //     //     //     "paket": baris_step2[j]["paket"],
-                //     //     //     "item": [
-
-                //     //     //     ]
-                //     //     // }
-                //     // }
-                // }
-                // baris_step2.push(...baris_item);
-                // // console.log("group_2_location_step2", group_2_location_step2);
-                // // console.log("group_location_2", group_location_2);
-                // console.log("baris_item", baris_item);
-                // console.log("baris_step2", baris_step2);
-                // // }
-
-                // for(var i = 0; i < baris_step2.length; i++) {
-
-                // }
+                        group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"] = {
+                            "jasa": item["jasa"][j],
+                            "sub_jumlah_jasa": tandaPemisahTitik(sub_jumlah_jasa),
+                            "material": item["material"][j],
+                            "sub_jumlah_material": tandaPemisahTitik(sub_jumlah_material)
+                        };
+                        // group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"] = item["material"][j];
+                    }
+                }
                 // console.log(group_location_step2);
 
-                // for(var i = 0; i < baris_step2.length; i++) {
+                var html_paket = [""];
+                for(var i = 0; i < Object.keys(group_location_step2).length; i++) {
+                    html_paket += ("<tr> <td class='firsto' align='center' valign='middle'> </td> <td class='firsto tabellkiri' align='left' valign='middle' style='font-weight: bold'>"+Object.keys(group_location_step2)[i]+":</td> <td class='firsto' align='center' valign='middle'></td> <td class='firsto' align='center' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> </tr>")
+                    for(var j = 0; j < group_location_step2[Object.keys(group_location_step2)[i]].length; j++) {
+                        html_paket += ("<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>&ensp;"+group_location_step2[Object.keys(group_location_step2)[i]][j].paket+":</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>")
+                        if(group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"].length > 0) {
+                            html_paket += ("<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>&ensp;&ensp;JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>")
+                            for(var k = 0; k < group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"].length; k++) {
+                                html_paket += ("<tr> <td class='first' align='center' valign='middle'>" + (k +
+                                    1) +
+                                    "</td> <td class='first tabellkiri' align='left' valign='middle'>&ensp;&ensp;&ensp;" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"][k].item +
+                                    "</td> <td class='first' align='center' valign='middle'>" + group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"][k].satuan.match(/\(([^)]+)\)/)[1] +
+                                    "</td> <td class='first' align='center' valign='middle'>" + group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"][k].volume +
+                                    "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"][k].harga_satuan +
+                                    "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"][k].jumlah +
+                                    "</td> <td class='first tabellkanan' align='center' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"][k].tkdn +
+                                    "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"][k].kdn +
+                                    "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"][k].kln +
+                                    "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"][k].total_tkdn + "</td> </tr>")
+                            }
+                            html_paket += ("<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>&ensp;&ensp;Sub-Jumlah:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'><b>"+group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"].sub_jumlah_jasa+"</b></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>")
+                        }
+                        if(group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"].length > 0) {
+                            html_paket += ("<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>&ensp;&ensp;MATERIAL:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>")
+                            for(var k = 0; k < group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"].length; k++) {
+                                html_paket += ("<tr> <td class='first' align='center' valign='middle'>" + (k +
+                                    1) +
+                                    "</td> <td class='first tabellkiri' align='left' valign='middle'>&ensp;&ensp;&ensp;" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"][k].item +
+                                    "</td> <td class='first' align='center' valign='middle'>" + group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"][k].satuan.match(/\(([^)]+)\)/)[1] +
+                                    "</td> <td class='first' align='center' valign='middle'>" + group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"][k].volume +
+                                    "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"][k].harga_satuan +
+                                    "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"][k].jumlah +
+                                    "</td> <td class='first tabellkanan' align='center' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"][k].tkdn +
+                                    "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"][k].kdn +
+                                    "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"][k].kln +
+                                    "</td> <td class='first tabellkanan' align='right' valign='middle'>" +
+                                    group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"][k].total_tkdn + "</td> </tr>")
+                            }
+                            html_paket += ("<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>&ensp;&ensp;SUB-JUMLAH:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'><b>"+group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"].sub_jumlah_material+"</b></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>")
+                        }
+                    }
+                }
+                var persentase_tkdn_jasa = jumlah_kdn_jasa_2 / jumlah_totaltkdn_jasa_2 * 100;
+                persentase_tkdn_jasa = persentase_tkdn_jasa.toFixed(2);
+                if(typeof persentase_tkdn_jasa == "undefined" || isNaN(persentase_tkdn_jasa) || !persentase_tkdn_jasa) {
+                    persentase_tkdn_jasa = "0";
+                }
+                var persentase_tkdn_material = jumlah_kdn_material_2 / jumlah_totaltkdn_material_2 * 100;
+                persentase_tkdn_material = persentase_tkdn_material.toFixed(2);
+                if(typeof persentase_tkdn_material == "undefined" || isNaN(persentase_tkdn_material) || !persentase_tkdn_material) {
+                    persentase_tkdn_material = "0";
+                }
+                var jumlah_keseluruhan_kdn = jumlah_kdn_jasa_2 + jumlah_kdn_material_2;
+                var jumlah_keseluruhan_kln = jumlah_kln_jasa_2 + jumlah_kln_material_2;
+                var jumlah_keseluruhan_totaltkdn = jumlah_totaltkdn_jasa_2 + jumlah_totaltkdn_material_2;
+                var persentase_tkdn = jumlah_keseluruhan_kdn / jumlah_keseluruhan_totaltkdn * 100;
+                persentase_tkdn = persentase_tkdn.toFixed(2);
+                if(typeof persentase_tkdn == "undefined" || isNaN(persentase_tkdn) || !persentase_tkdn) {
+                    persentase_tkdn = "0";
+                }
+                var jumlah_keseluruhan = jumlah_jasa_2 + jumlah_material_2;
+                var ppn_2 = jumlah_keseluruhan * (11 / 100);
+                ppn_2 = Math.round(ppn_2);
+                var total_harga_2 = jumlah_keseluruhan + ppn_2;
+                document.getElementById("jumlah_jasa_count").innerHTML = "Rp. " + tandaPemisahTitik(jumlah_jasa_2);
+                document.getElementById("jumlah_material_count").innerHTML = "Rp. " + tandaPemisahTitik(jumlah_material_2);
+                document.getElementById("td_jumlah").innerHTML = "Rp. " + tandaPemisahTitik(jumlah_keseluruhan);
+                document.getElementById("td_ppn").innerHTML = "Rp. " + tandaPemisahTitik(ppn_2);
+                document.getElementById("td_total").innerHTML = "Rp. " + tandaPemisahTitik(total_harga_2);
+                document.getElementById("jumlah_kdn_jasa_count").innerHTML = tandaPemisahTitik(jumlah_kdn_jasa_2);
+                document.getElementById("jumlah_kdn_material_count").innerHTML = tandaPemisahTitik(jumlah_kdn_material_2);
+                document.getElementById("total_kdn_all").innerHTML = tandaPemisahTitik(jumlah_keseluruhan_kdn);
+                document.getElementById("jumlah_kln_jasa_count").innerHTML = tandaPemisahTitik(jumlah_kln_jasa_2);
+                document.getElementById("jumlah_kln_material_count").innerHTML = tandaPemisahTitik(jumlah_kln_material_2);
+                document.getElementById("total_kln_all").innerHTML = tandaPemisahTitik(jumlah_keseluruhan_kln);
+                document.getElementById("jumlah_jasa_tkdn").innerHTML = tandaPemisahTitik2(persentase_tkdn_jasa);
+                document.getElementById("jumlah_material_tkdn").innerHTML = tandaPemisahTitik2(persentase_tkdn_material);
+                document.getElementById("jumlah_keseluruhan_tkdn").innerHTML = tandaPemisahTitik2(persentase_tkdn);
+                document.getElementById("jumlah_total_tkdn_jasa_count").innerHTML = tandaPemisahTitik(jumlah_totaltkdn_jasa_2);
+                document.getElementById("jumlah_total_tkdn_material_count").innerHTML = tandaPemisahTitik(jumlah_totaltkdn_material_2);
+                document.getElementById("total_tkdn_all").innerHTML = tandaPemisahTitik(jumlah_keseluruhan_totaltkdn);
+                document.getElementById("tbody_paket").innerHTML = html_paket;
 
-                // }
-                // console.log(table_count);
-                // console.log(group_location_step2);
+                function terbilang(angka) {
+                    var bilne = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan",
+                        "Sembilan", "Sepuluh", "Sebelas"
+                    ];
+
+                    if (angka < 12) {
+                        return bilne[angka];
+                    } else if (angka < 20) {
+                        return terbilang(angka - 10) + " Belas";
+                    } else if (angka < 100) {
+                        return terbilang(Math.floor(parseInt(angka) / 10)) + " Puluh " + terbilang(
+                            parseInt(angka) % 10);
+                    } else if (angka < 200) {
+                        return "Seratus " + terbilang(parseInt(angka) - 100);
+                    } else if (angka < 1000) {
+                        return terbilang(Math.floor(parseInt(angka) / 100)) + " Ratus " + terbilang(
+                            parseInt(angka) % 100);
+                    } else if (angka < 2000) {
+                        return "Seribu " + terbilang(parseInt(angka) - 1000);
+                    } else if (angka < 1000000) {
+                        return terbilang(Math.floor(parseInt(angka) / 1000)) + " Ribu " + terbilang(
+                            parseInt(angka) % 1000);
+                    } else if (angka < 1000000000) {
+                        return terbilang(Math.floor(parseInt(angka) / 1000000)) + " Juta " + terbilang(
+                            parseInt(angka) % 1000000);
+                    } else if (angka < 1000000000000) {
+                        return terbilang(Math.floor(parseInt(angka) / 1000000000)) + " Milyar " +
+                            terbilang(parseInt(angka) % 1000000000);
+                    } else if (angka < 1000000000000000) {
+                        return terbilang(Math.floor(parseInt(angka) / 1000000000000)) + " Trilyun " +
+                            terbilang(parseInt(angka) % 1000000000000);
+                    }
+                }
+
+                var terbilang2 = document.getElementById("td_total").innerHTML;
+                terbilang2 = terbilang2.replace(/\Rp. /g, "");
+                terbilang2 = terbilang2.replace(/\./g, "");
+                terbilang2 = parseInt(terbilang2);
+                document.getElementById("terbilang").innerHTML = "Terbilang: " + terbilang(terbilang2) +
+                    " Rupiah";
+
+                redaksi_line = [];
+
+                for (var i = 0; i < clickredaksi; i++) {
+
+                    redaksi_line[i] = [
+                        document.getElementById("redaksi_id[" + (i + 1) + "]").options[document
+                            .getElementById("redaksi_id[" + (i + 1) + "]").selectedIndex].text,
+                        document.getElementById("deskripsi_id[" + (i + 1) + "]").innerText,
+                        document.getElementById("sub_deskripsi_id[" + (i + 1) + "]").innerHTML
+                    ]
+
+                }
+
+                if (redaksi_line.length > 0) {
+                    var html_redaksi = [""];
+                    var isi_redaksi = redaksi_line.length;
+                    for (var j = 0; j < isi_redaksi; j++) {
+                        if (redaksi_line[j][2] == "<li>Tidak Ada Sub Deskripsi</li>") {
+                            html_redaksi += ("<tr> <td class='firstq' align='center' valign='top'>" + (j +
+                                1) +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>" +
+                                redaksi_line[j][0] +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>" +
+                                redaksi_line[
+                                j][1] +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>-</td> </tr>")
+                        } else {
+                            html_redaksi += ("<tr> <td class='firstq' align='center' valign='top'>" + (j +
+                                1) +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>" +
+                                redaksi_line[j][0] +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>" +
+                                redaksi_line[
+                                j][1] +
+                                "</td> <td class='firstq tabellkiri tabellkanan' align='left' valign='top'>" +
+                                redaksi_line[
+                                j][2] + "</td> </tr>")
+                        }
+                    }
+                    document.getElementById("tbody_redaksi").innerHTML = html_redaksi;
+                }
+
             }
 
             $("#next-btn").addClass('disabled').prop('disabled', true);
-        }
-        // else if (stepPosition === 'second') {
-        // var lokasi_2 = [""];
-        // var new_click = clicklokasi - 1;
-        // for (var i = 0; i < clicklokasi; i++) {
-        //     value_lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value
-        //     lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
-        //         "</option>")
-        // }
-        // for(var j = 0; j < clicklokasi; j++) {
-        //     document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
-        // }
-        // console.log(lokasi_2);
-        // document.getElementById('lokasi_id[1]').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
-        // // console.log(lokasi_2);
-        // for (var i = 0; i < new_click; i++) {
-        //     document.getElementById('location' + (i + 1)).remove();
-        // }
-        //     $("#prev-btn").removeClass('disabled').prop('disabled', false);
-        //     $("#next-btn").removeClass('disabled').prop('disabled', false);
-        // } else if (stepPosition === 'third') {
-        //     // var new_click = clicklokasi - 1;
-        //     // for (var i = 0; i < new_click; i++) {
-        //     //     document.getElementById('location' + (i + 1)).remove();
-        //     // }
-        //     $("#prev-btn").removeClass('disabled').prop('disabled', false);
-        //     $("#next-btn").removeClass('disabled').prop('disabled', false);
-        // }
-        else {
-            // var new_click = clicklokasi - 1;
-            // for (var i = 0; i < new_click; i++) {
-            //     document.getElementById('location' + (i + 1)).remove();
-            // }
+        } else {
             $("#prev-btn").removeClass('disabled').prop('disabled', false);
             $("#next-btn").removeClass('disabled').prop('disabled', false);
         }
 
-
-
-        // Get step info from Smart Wizard
         let stepInfo = $('#smartwizard').smartWizard("getStepInfo");
         $("#sw-current-step").text(stepInfo.currentStep + 1);
         $("#sw-total-step").text(stepInfo.totalSteps);
@@ -651,8 +870,8 @@ $(function () {
                     </button>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" onclick="SubmitTDKN()">Via TKDN <i class="bi bi-printer"></i></a> </li>
-                        <li><a class="dropdown-item" href="#">Via NON-TKDN <i class="bi bi-printer"></i></a></li>
+                        <li><a class="dropdown-item" href="#" onclick="SubmitTKDN()">Via TKDN <i class="bi bi-printer"></i></a> </li>
+                        <li><a class="dropdown-item" href="#" onclick="SubmitNONTKDN()">Via NON-TKDN <i class="bi bi-printer"></i></a></li>
                     </ul>
             </div>
         </div>

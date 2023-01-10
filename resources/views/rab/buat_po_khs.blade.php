@@ -253,7 +253,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12 mb-2">
+                                            <div class="col-lg-10 mr-2 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Upload Lampiran (.pdf)</label>
                                                     <div class="input-group mb-3">
@@ -263,24 +263,22 @@
                                                         <div class="custom-file">
                                                             <input id="lampiran" type="file" name="lampiran"
                                                                 class="form-control custom-file-input"
-                                                                onchange="return fileValidation()" accept="application/pdf, application/vnd.ms-excel" />
+                                                                onchange="fileValidation();" accept=".pdf" />
                                                             <label id="labelfile" class="custom-file-label">Choose or Drag file</label>
 
 
                                                         </div>
-                                                        <button class="btn btn-danger btn-xxs mt-1"
-                                                        id="button-reset">Delete file <i
-                                                         class='fa fa-trash'></i></button>
-                                                        <button class="btn btn-secondary btn-xxs mt-1 ml-2"
-                                                            onclick="toggle('embedLink')" type="button">Show/Hide <i
+                                                        <button class="btn btn-danger btn-xxs mt-1 ml-3" onclick="onclear()">Delete file <i class='fa fa-trash'></i></button>
+                                                        <button class="btn btn-secondary btn-xxs mt-1 ml-3"
+                                                            onclick="toggle()" type="button">Show/Hide <i
                                                             class='fa fa-eye'></i>
                                                     </div>
-                                                    <img class="m-auto justify-content-center" src="#"
-                                                        id="img-lampiran" width="300px" />
+                                                    {{-- <img class="m-auto justify-content-center" src="#"
+                                                        id="img-lampiran" width="300px" /> --}}
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
-                                                    <div class="invalid-feedback">
+                                                    <div class="invalid-feedback" id="lampiranfile">
                                                         Silakan Upload Lampiran
                                                     </div>
                                                 </div>
@@ -768,7 +766,7 @@
                                                     </div>
                                                     <hr>
                                                     <div class="row ml-2 justify-content-start">
-                                                        <h5 class="card-title">Step 3: Daftar RAB</h5>
+                                                        <h5 class="card-title">Step 2 & 3: Daftar RAB</h5>
                                                         {{-- <div class="col-xl-12 col-xxl-12">
                                                             <div class="table-responsive">
                                                                 <div class="wrapword" id="firstTable">
@@ -808,6 +806,8 @@
                                                                         <tbody id="tbody_jasa">
                                                                         </tbody>
                                                                         <tbody id="tbody_material">
+                                                                        </tbody>
+                                                                        <tbody id="tbody_paket">
                                                                         </tbody>
                                                                         <tfoot>
                                                                             <tr>
@@ -849,7 +849,7 @@
                                                                 <div class="wrapword" id="firstTable">
                                                                     <table id="daftar_rabs" class="" width="100%"
                                                                         border="2" cellspacing="0" cellpadding="0"
-                                                                        style="font-size: 12px;">
+                                                                        style="font-size: 11px;">
                                                                         <thead>
                                                                             <tr class="warna">
                                                                                 <td style="width:4%;" rowspan="3"
@@ -865,7 +865,7 @@
                                                                                 <td style="width:20%;" colspan="2"
                                                                                     align="center" valign="middle">Harga
                                                                                 </td>
-                                                                                <td style="width:8%;" rowspan="3"
+                                                                                <td style="width:5%;" rowspan="3"
                                                                                     align="center" valign="middle">TKDN
                                                                                     (%)
                                                                                 </td>
@@ -903,6 +903,8 @@
                                                                         </tbody>
                                                                         <tbody id="tbody_material">
                                                                         </tbody>
+                                                                        <tbody id="tbody_paket">
+                                                                        </tbody>
                                                                         <tfoot>
                                                                             <tr style="border: 1px #000">
                                                                                 <td rowspan="5" colspan="3"></td>
@@ -911,9 +913,9 @@
                                                                                 <td class="tabellkanan" id="jumlah_jasa_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
-                                                                                <td class="tabellkanan" id=""
+                                                                                <td class="tabellkanan" id="jumlah_jasa_tkdn"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="center"></td>
                                                                                 <td class="tabellkanan" id="jumlah_kdn_jasa_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
@@ -931,9 +933,9 @@
                                                                                 <td class="tabellkanan" id="jumlah_material_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
-                                                                                <td class="tabellkanan" id=""
+                                                                                <td class="tabellkanan" id="jumlah_material_tkdn"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="center"></td>
                                                                                 <td class="tabellkanan" id="jumlah_kdn_material_count"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
@@ -951,9 +953,9 @@
                                                                                 <td class="tabellkanan" id="td_jumlah"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
-                                                                                <td class="tabellkanan kuning" id=""
+                                                                                <td class="tabellkanan kuning" id="jumlah_keseluruhan_tkdn"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="center"></td>
                                                                                 <td class="tabellkanan kuning" id="total_kdn_all"
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
@@ -1089,8 +1091,8 @@
 
      <script src="https://unpkg.com/filepond-plugin-pdf-preview/dist/filepond-plugin-pdf-preview.min.js"></script>
      <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
-     <script src="https://unpkg.com/filepond/dist/filepond.js"></script> --}}
-
+     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+ --}}
 
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -1151,83 +1153,110 @@
 
 
 
-<script>
-// FilePond.registerPlugin(FilePondPluginFileValidateType);
-// FilePond.registerPlugin(FilePondPluginPdfPreview);
-// FilePond.registerPlugin(FilePondPluginFileEncode);
+{{-- <script>
+FilePond.registerPlugin(
+    FilePondPluginFileValidateType,
+    FilePondPluginPdfPreview,
+    FilePondPluginFileEncode
+
+);
+
+const lampiran2 = document.querySelector('#lampiran2');
 
 
-// const pond = FilePond.create(document.querySelector('#lampiran2'), {
-//     acceptedFileTypes: ['application/pdf'],
-//     // allowMultiple: true,
-//     // instantUpload: false,
-//     // allowProcess: false,
-//     fileValidateTypeDetectType: (source, type) =>
-//         new Promise((resolve, reject) => {
-//             // Do custom type detection here and return with promise
+const pond = FilePond.create(lampiran2, {
+    acceptedFileTypes: ['application/pdf'],
+    fileValidateTypeDetectType: (source, type) =>
+        new Promise((resolve, reject) => {
+            // Do custom type detection here and return with promise
 
-//             resolve(type);
-//         }),
-// });
-// var lampiran = $('#lampiran')[0].files;
-// // const pondfiles = pond.getFiles(0);
-// console.log(lampiran);
+            resolve(type);
+        }),
+});
 
-</script>
+
+// const pondfiles = pond.getFiles();
+console.log(pond);
+
+</script> --}}
     <script>
-        $(document).ready(function() {
+        // $(document).ready(function() {
+        //     var filename;
+        //     $('#lampiran').change(function() {
+        //         if (this.files[0].name != "") {
+        //             filename = this.files[0]
+        //             $('#embedLink')[0].src = window.URL.createObjectURL(new Blob([filename], {
+        //                 "type": "application/pdf"
+        //             }));
+        //         }
+
+        //     });
+
+
+
+        // });
+
+        function toggle() {
+
+            var embedLink = document.getElementById('embedLink');
+            var curVal = embedLink.style.display;
+            embedLink.style.display = (curVal === 'none') ? '' : 'none';
+
+
+            var lampiranfile = document.getElementById('lampiran');
+            var labelfile = document.getElementById('labelfile');
             var filename;
-            $('input[type=file]').change(function() {
-                if (this.files[0].name != "") {
-                    filename = this.files[0]
+
+            if (lampiranfile.value != "") {
+                    filename = lampiranfile.files[0]
                     $('#embedLink')[0].src = window.URL.createObjectURL(new Blob([filename], {
                         "type": "application/pdf"
                     }));
-                }
-            });
-
-            $('#button-reset').click(function(e){
-                $('#lampiran').val('');
-                $('#labelfile').val('');
-            });
+            }
+            else{
+                $('#embedLink')[0].src ="";
+            }
 
 
 
 
 
+        }
+
+        function onclear() {
+            var files = document.getElementById('lampiran');
+            files.value = "";
 
 
-            // $('#lampiran').change(function() {
-            //     if (this.files[0].name != "") {
-            //         filename = this.files[0]
-            //         $('#embedLink')[0].src = window.URL.createObjectURL(new Blob([filename], {
-            //             "type": "application/pdf"
-            //         }));
-            //     }
-            // });
-            // $('#btnPrvw').click(function() {
-            // });
-        });
+            var labelfile = document.getElementById('labelfile');
+            labelfile.innerHTML = 'Choose or Drag file';
 
-        function toggle(target) {
-            var curVal = document.getElementById(target).style.display;
-            document.getElementById(target).style.display = (curVal === 'none') ? '' : 'none';
+            event.preventDefault();
+
         }
 
         function fileValidation() {
-            var fileInput =
-                document.getElementById('lampiran');
+
+
+
+            var fileInput = document.getElementById('lampiran');
+            var feedback = document.getElementById('lampiranfile');
+
+            var labelfile = $('#labelfile');
+
 
 
             var filePath = fileInput.value;
 
             // Allowing file type
-            var allowedExtensions = /(\.pdf)$/i;
+            var allowedExtensions = filePath.split('.').pop();
 
-            if (!allowedExtensions.exec(filePath)) {
-                alert('File (.pdf) only');
+            console.log(allowedExtensions);
+
+            if (allowedExtensions != 'pdf') {
+
                 fileInput.value = '';
-                return false;
+
             }
         }
 

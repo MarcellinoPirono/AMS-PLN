@@ -97,7 +97,7 @@
                                                                         class="form-control volume_id"
                                                                         id="volume[{{ $item->id }}]"
                                                                         name="volume[{{ $item->id }}]"
-                                                                        value="@currency3($volume->volume)" required autofocus
+                                                                        value="@currency4($volume->volume)" required autofocus
                                                                         placeholder="Volume"></td>
                                                             @endif
                                                         @endforeach
@@ -353,7 +353,7 @@ nama_paket.addEventListener('change', function(){
                 var slug = $("#old_slug").val();
                 var new_slug = nama_paket.replace(/\ /g, "-");
                 new_slug = new_slug.replace(/\//g, "_");
-                
+
                 var old_slug = slug.replace(/\ /g, "-");
                 old_slug = old_slug.replace(/\//g, "_");
                 var jenis_khs = $("#jenis_khs").val();

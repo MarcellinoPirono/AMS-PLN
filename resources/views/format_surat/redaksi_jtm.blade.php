@@ -155,16 +155,16 @@
                             class="italic">({{ Terbilang::make($days) }})</span> hari kalender sejak tanggal
                         <b>{{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</b>
                         sampai
-                        dengan tanggal <b>{{ \Carbon\Carbon::parse($pokhs->enddate)->isoFormat('DD MMMM YYYY') }}</b>
+                        dengan tanggal <b>{{ \Carbon\Carbon::parse($pokhs->enddate)->isoFormat('DD MMMM YYYY') }}.</b>
                     </li>
                     <li>Sumber Dana Sesuai dengan SKK <b>{{ $pokhs->skks->nomor_skk }} <br> PRK No:
-                            {{ $pokhs->prks->no_prk }}</b></li>
+                            {{ $pokhs->prks->no_prk }}.</b></li>
                     <li>Direksi Pekerjaan adalah <b>{{ $pokhs->pejabats->jabatan }} PT PLN (Persero) UP3
                             Makassar
-                            Selatan</b></li>
+                            Selatan.</b></li>
                     <li>Sebelum melakukan pekerjaan agar berkoordinasi dengan ULP terkait sebagai tindak lanjut
                         monitoring jadwal padam, K3L, dan hal lain yang menjadi perhatian.</li>
-                    <li>Pengawas Pekerjaan adalah <b>{{ $pokhs->pengawas }}</b> PT PLN (Persero) UP3 Makassar Selatan
+                    <li>Pengawas Pekerjaan adalah <b>{{ $pokhs->pengawas }}</b> PT PLN (Persero) UP3 Makassar Selatan.
                     </li>
                     <li>Tempat Penyerahan pekerjaan di Kantor PT PLN (Persero) UP3 Makassar Selatan Jl.
                         Hertasning

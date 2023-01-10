@@ -45,7 +45,7 @@ class SubRedaksiSeeder extends Seeder
 
         SubRedaksi::create([
             'redaksi_id' => 2,
-            'sub_deskripsi' =>' Asli bermaterai Surat Pernyataan Keaslian Barang'
+            'sub_deskripsi' =>'Asli bermaterai Surat Pernyataan Keaslian Barang'
 
         ]);
 

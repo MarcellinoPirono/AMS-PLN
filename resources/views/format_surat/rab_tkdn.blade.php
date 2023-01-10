@@ -97,24 +97,24 @@
                 <td class="tabelatas" rowspan="2" align="center" valign="middle">Uraian</td>
                 <td class="tabelatas" style="width:4%;" rowspan="2" align="center" valign="middle">SAT.</td>
                 <td class="tabelatas" style="width:6%;" rowspan="2" align="center" valign="middle">VOLUME</td>
-                <td class="tabelatas" style="width:18%;" colspan="2" align="center" valign="middle">HARGA
+                <td class="tabelatas" style="width:16%;" colspan="2" align="center" valign="middle">HARGA
                 </td>
-                <td class="tabelatas" style="width:8%;" rowspan="2" align="center" valign="middle">TKDN (%)</td>
-                <td class="tabelataskanan" style="width:21%;" colspan="3" align="center" valign="middle">BIAYA
-                    TKDN (Rupiah)</td>
+                <td class="tabelatas" style="width:5%;" rowspan="2" align="center" valign="middle">TKDN (%)</td>
+                <td class="tabelataskanan" style="width:21%;" colspan="3" align="center" valign="middle">BIAYA (Rupiah)</td>
             </tr>
             <tr class="warna">
-                <td class="tabelnormal" style="width:10%;" align="center" valign="middle">Satuan (RP)</td>
-                <td class="tabelnormal"style="width:10%;" align="center" valign="middle">Jumlah (RP)</td>
-                <td class="tabelnormal"style="width:6%;" align="center" valign="middle">KDN</td>
-                <td class="tabelnormal"style="width:6%;" align="center" valign="middle">KLN</td>
-                <td class="tabelnormalkanan"style="width:6%;" align="center" valign="middle">TOTAL</td>
+                <td class="tabelnormal" style="width:8%;" align="center" valign="middle">Satuan (RP)</td>
+                <td class="tabelnormal"style="width:8%;" align="center" valign="middle">Jumlah (RP)</td>
+                <td class="tabelnormal"style="width:7%;" align="center" valign="middle">KDN</td>
+                <td class="tabelnormal"style="width:7%;" align="center" valign="middle">KLN</td>
+                <td class="tabelnormalkanan"style="width:7%;" align="center" valign="middle">TOTAL</td>
             </tr>
             @if (count($kategori_jasa) > 0)
                 <tr id="tr_jasa">
                     <td class="firstkiri" align="center" valign="middle"></td>
                     <td class="first tabellkiri" style="font-weight: bold; height: 17px;" align="left"
-                        valign="top">JASA:</td>
+                        valign="top">&ensp;&ensp;
+                        JASA:</td>
                     <td class="first" align="center" valign="middle"></td>
                     <td class="first" align="center" valign="middle"></td>
                     <td class="first tabellkanan" align="right" valign="middle"></td>
@@ -127,14 +127,14 @@
                 @foreach ($kategori_jasa as $jasa)
                     <tr>
                         <td class="firstkiri" align="center" valign="middle">{{ $loop->iteration }}</td>
-                        <td class="first tabellkiri" align="left" valign="middle">
+                        <td class="first tabellkiri" align="left" valign="middle">&ensp;&ensp;&ensp;
                             {{ $jasa->rincian_induks->nama_item }}
                         </td>
                         <td class="first" align="center" valign="middle">{{ $jasa->satuans->singkatan }}</td>
                         <td class="first" align="center" valign="middle">@currency3($jasa->volume)</td>
                         <td class="first tabellkanan" align="right" valign="middle">@currency2($jasa->harga_satuan)</td>
                         <td class="first tabellkanan" align="right" valign="middle">@currency2($jasa->jumlah_harga)</td>
-                        <td class="first tabellkanan" align="center" valign="middle">@currency3($jasa->tkdn)</td>
+                        <td class="first tabellkanan" align="center" valign="middle">@currency3($jasa->tkdn)%</td>
                         <td class="first tabellkanan" align="right" valign="middle">@currency3($jasa->kdn)</td>
                         <td class="first tabellkanan" align="right" valign="middle">@currency3($jasa->kln)</td>
                         <td class="firstkanan tabellkanan" align="right" valign="middle">@currency3($jasa->total_tkdn)</td>
@@ -159,7 +159,7 @@
                 <tr id="tr_material">
                     <td class="firstkiri" align="center" valign="middle"></td>
                     <td class="first tabelnormallkiri" style="font-weight: bold; height: 17px;" align="left"
-                        valign="top">
+                        valign="top">&ensp;&ensp;
                         MATERIAL:
                     </td>
                     <td class="first" align="center" valign="middle"></td>
@@ -174,7 +174,7 @@
                 @foreach ($kategori_material as $material)
                     <tr>
                         <td class="firstkiri" align="center" valign="middle">{{ $loop->iteration }}</td>
-                        <td class="first tabelnormallkiri" align="left" valign="middle">
+                        <td class="first tabelnormallkiri" align="left" valign="middle">&ensp;&ensp;&ensp;
                             {{ $material->rincian_induks->nama_item }}
                         </td>
                         <td class="first" align="center" valign="middle">{{ $material->satuans->singkatan }}</td>
@@ -183,7 +183,7 @@
                         <td class="firstkanan tabelnormallkanan tabellkanan" align="right" valign="middle">
                             @currency2($material->jumlah_harga)
                         </td>
-                        <td class="first tabellkanan" align="center" valign="middle">@currency3($jasa->tkdn)</td>
+                        <td class="first tabellkanan" align="center" valign="middle">@currency3($jasa->tkdn)%</td>
                         <td class="first tabellkanan" align="right" valign="middle">@currency3($jasa->kdn)</td>
                         <td class="first tabellkanan" align="right" valign="middle">@currency3($jasa->kln)</td>
                         <td class="firstkanan tabellkanan" align="right" valign="middle">@currency3($jasa->total_tkdn)</td>

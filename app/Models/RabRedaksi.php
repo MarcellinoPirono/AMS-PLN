@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderRedaksiKHS extends Model
-{
+class RabRedaksi extends Model{
+
     use HasFactory;
+
     protected $guarded = [''];
 
-    public function redaksis()
-    {
-        return $this->belongsTo(Redaksi::class, 'redaksi_id');
+    public function subredaksi(){
+        return $this->belongsTo(SubRedaksi::class, 'subdeskripsi_id');
     }
 }

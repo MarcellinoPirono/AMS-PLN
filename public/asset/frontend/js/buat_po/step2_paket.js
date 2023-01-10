@@ -821,7 +821,7 @@ function bikin_table(data) {
             thead2.append(tr3);
 
             tbody = document.createElement("tbody");
-            tbody.setAttribute("id", "tbody-kategori"+j);
+            tbody.setAttribute("id", "tbody-kategori"+table_count);
             tabel_rab.append(tbody);
 
             var item_l = [""];

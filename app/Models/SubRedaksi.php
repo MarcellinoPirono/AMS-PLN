@@ -14,4 +14,10 @@ class SubRedaksi extends Model
     public function redaksis(){
         return $this->belongsTo(Redaksi::class, 'redaksi_id', 'id');
     }
+
+    public function rab_redaksis()
+    {
+        return $this->belongsTo(RabRedaksi::class, 'subdeskripsi_id', 'id');
+    }
+
 }
