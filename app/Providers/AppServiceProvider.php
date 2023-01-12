@@ -39,6 +39,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('currency3', function ($expression) {
             return "<?php echo number_format((float)$expression,3,',','.'); ?>";
         });
+        Blade::directive('currencytkdn', function ($expression) {
+            return "<?php echo number_format((float)$expression,2,',','.'); ?>";
+        });
         Blade::directive('currency4', function ($expression) {
             return "<?php
             if ($expression == number_format((int)$expression,0,',','.')){

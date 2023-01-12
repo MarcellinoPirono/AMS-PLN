@@ -38,8 +38,8 @@
                                     <th>Uraian SKK</th>
                                     <th>Pagu SKK</th>
                                     <th>SKK Terkontrak</th>
-                                    <th>SKK Realisasi</th>
-                                    <th>SKK Terbayar</th>
+                                    <!-- <th>SKK Realisasi</th>
+                                    <th>SKK Terbayar</th> -->
                                     <th>SKK Sisa</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -53,8 +53,8 @@
                                         <td>{{ $skk->uraian_skk }}</td>
                                         <td>@currency($skk->pagu_skk)</td>
                                         <td>@currency($skk->skk_terkontrak)</td>
-                                        <td>@currency($skk->skk_realisasi)</td>
-                                        <td>@currency($skk->skk_terbayar)</td>
+                                        <!-- <td>@currency($skk->skk_realisasi)</td>
+                                        <td>@currency($skk->skk_terbayar)</td> -->
                                         <td>@currency($skk->skk_sisa)</td>
                                         <td>
                                             <div class="d-flex">

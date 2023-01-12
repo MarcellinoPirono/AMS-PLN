@@ -45,8 +45,8 @@
                                     <th>Uraian PRK</th>
                                     <th>Pagu PRK</th>
                                     <th>PRK Terkontrak</th>
-                                    <th>PRK Realisasi</th>
-                                    <th>PRK Terbayar</th>
+                                    <!-- <th>PRK Realisasi</th>
+                                    <th>PRK Terbayar</th> -->
                                     <th>PRK Sisa</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -61,8 +61,8 @@
                                         <td>{{ $prk->uraian_prk }}</td>
                                         <td> @currency($prk->pagu_prk)</td>
                                         <td> @currency($prk->prk_terkontrak)</td>
-                                        <td> @currency($prk->prk_realisasi)</td>
-                                        <td> @currency($prk->prk_terbayar)</td>
+                                        <!-- <td> @currency($prk->prk_realisasi)</td>
+                                        <td> @currency($prk->prk_terbayar)</td> -->
                                         <td> @currency($prk->prk_sisa)</td>
 
                                         <td>

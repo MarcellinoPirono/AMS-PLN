@@ -100,6 +100,8 @@ class KhsController extends Controller
         // $itemRincianInduk[0]->update();
         // return response()->json(['success' => true]);
 
+        // dd($request);
+
         $request->validate([
 
 

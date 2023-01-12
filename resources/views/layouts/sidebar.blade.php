@@ -149,9 +149,9 @@
                     <li><a class="nav-link {{ Request::is('redaksi*') ? 'active' : '' }}"
                             href="/redaksi-khs"><strong>Data Redaksi</strong></a>
                     </li>
-                    {{-- <li><a class="nav-link {{ Request::is('paket-pekerjaan*') ? 'active' : '' }}"
-                            href="/menu-paket-pekerjaan"><strong>Data Paket Pekerjaan</strong></a>
-                    </li> --}}
+                    <li><a class="nav-link {{ Request::is('paket-pekerjaan*') ? 'active' : '' }}"
+                            href="/ppn"><strong>Data PPN</strong></a>
+                    </li>
                 </ul>
 
 

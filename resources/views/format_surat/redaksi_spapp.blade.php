@@ -59,7 +59,7 @@
                         <td></td>
                         <td></td>
                         <td style="width:7%" valign="top">Alamat : </td>
-                        <td class="coba">{{ $pokhs->nomor_kontraks->vendors->alamat_kantor_1 }}</td>
+                        <td class="coba" style="padding-right: 20px">{{ $pokhs->nomor_kontraks->vendors->alamat_kantor_1 }}</td>
                     </tr>
                     <tr class="noborder">
                         <td></td>
@@ -138,29 +138,29 @@
                     <li>Direksi Pekerjaan adalah <b>{{ $pokhs->pejabats->jabatan }} PT PLN (Persero) UP3
                             Makassar
                             Selatan</b></li>
-                    <li>Pengawas Pekerjaan adalah <b>{{ $pokhs->pengawas }}</b> PT PLN (Persero) UP3 Makassar Selatan
+                    <li>Pengawas Pekerjaan adalah <b>{{ $pokhs->pengawas_pekerjaan }}</b> PT PLN (Persero) UP3 Makassar Selatan
                     </li>
+                    @if ($pokhs->pengawas_lapangan != null)
+                        <li>Pengawas Lapangan adalah <b>{{ $pokhs->pengawas_lapangan }}</b></li>
+                    @endif
                     <li>Tempat Penyerahan pekerjaan di Kantor PT PLN (Persero) UP3 Makassar Selatan Jl.
                         Hertasning
                         No.99
                         Rappocini - Makassar dilengkapi dengan realisasi perintah kerja yang sudah selesai
                         dilaksanakan.
                     </li>
-                    @foreach ($redaksis as $redaksi)
+                    @foreach ($rabredaksi_array as $redaksi)
                     <li>
-                            {{$redaksi->deskripsi_id}}
-                            @foreach ($rabredaksi as $poin)
-                                @if ($poin->subdeskripsi_id != '')
-                                    <ul type="a" style="list-style-position: inside; padding-left: 0;">
-                                        <li>{{$poin->subredaksi->sub_deskripsi}}</li>
-                                    </ul>
-                                @endif
-                            @endforeach
+                        {{$redaksi["redaksi"]}}
+                        <ol type="a" style="padding-left:15px; ">
+                        @foreach ($redaksi["sub_redaksi"] as $poin)
+                            @if ($poin->sub_deskripsi != null)
+                                <li>{{$poin->sub_deskripsi}};</li>
+                            @endif
+                        @endforeach
+                        </ol>
                     </li>
                     @endforeach
-
-
-
                 </ol>
 
             </div>
@@ -205,9 +205,6 @@
                 </tr>
             </table>
         @endforeach
-
-
-
 
     </main>
 

@@ -4,15 +4,43 @@
 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="card-header">
-                                <div class="btn-group" role="group">
+                            <div class="card-header position-relative justify-content-end float-right">
+                                {{-- <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih SKK</button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="javascript:void()">Janurari</a>
                                         <a class="dropdown-item" href="javascript:void()">Februari</a>
                                     </div>
+                                </div> --}}
+
+                                <div class="col-xl-2 col-l-4 col-m-3 col-sm-2 mt-3">
+                                    <select id="filter-addendum-khs" class="form-control filter">
+                                        <option value="">Pilih SKK</option>
+                                        @foreach ($skks as $khs)
+                                            <option value="{{ $khs->id }}">{{ $khs->nomor_skk }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <a href="/po-khs/buat-po" type="button" class="btn btn-primary mr-auto ml-3">Buat Kontrak (PO) <i class="bi bi-pencil-square"></i>
+                                <div class="col-xl-3 col-l-4 col-m-3 col-sm-2 mt-3">
+                                    <select id="filter-addendum-khs" class="form-control filter">
+                                        <option value="">Pilih PRK</option>
+                                        @foreach ($prks as $khs)
+                                            <option value="{{ $khs->id }}">{{ $khs->no_prk }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-xl-4 col-l-4 col-m-3 col-sm-2 mt-3">
+                                    <select id="filter-addendum-kontrak-induk" class="form-control filter">
+                                        <option value="">Pilih Nomor Kontrak Induk</option>
+                                        @foreach ($kontrakinduks as $kontrakinduk)
+                                            <option value="{{ $kontrakinduk->nomor_kontrak_induk }}">
+                                                {{ $kontrakinduk->nomor_kontrak_induk }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <a href="/po-khs/buat-po" type="button" class="btn btn-primary ml-3">Buat Kontrak (PO) <i class="bi bi-pencil-square"></i>
                                 </a>
 
                             </div>
@@ -60,9 +88,9 @@
 															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
 														</button>
 														<div class="dropdown-menu">
-															<a class="dropdown-item" href="preview-pdf-khs/{{$rab->id}}">Preview <i class="bi bi-eye"></i></a>
-															<a class="dropdown-item" href="download/{{ $rab->id }}">Export (pdf) <i class="bi bi-file-earmark-pdf"></i></a>
-															<a class="dropdown-item" href="export-excel-khs/{{ $rab->id }}">Export (excel) <i class="bi bi-file-earmark-excel"></i></a>
+															<a class="dropdown-item" href="preview-pdf-khs/{{$rab->slug}}">Preview <i class="bi bi-eye"></i></a>
+															<a class="dropdown-item" href="download/{{ $rab->slug }}">Export (pdf) <i class="bi bi-file-earmark-pdf"></i></a>
+															<a class="dropdown-item" href="export-excel-khs/{{ $rab->slug }}">Export (excel) <i class="bi bi-file-earmark-excel"></i></a>
 														</div>
 													</div>
 												</td>

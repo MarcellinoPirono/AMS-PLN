@@ -123,19 +123,18 @@ function SubmitTKDN() {
             deskripsi_id[index] = document.getElementById('deskripsi_id[' + (index + 1) + ']').innerText;
             fd.append("deskripsi_id[]", deskripsi_id[index]);
             li = document.getElementById('sub_deskripsi_id[' + (index+1) + ']').getElementsByTagName('li');
-            for(var k = 0; k < li.length; k++ ){
-                console.log("k",k);
-                sub_deskripsi_step4[k] = li[k].innerHTML;
-                if(sub_deskripsi_step4[k] != "Tidak Ada Sub Deskripsi"){
-                    // var x = new RegExp('\\'+(k+1)+'\\.\\ ', 'g');
-                    sub_deskripsi_step4[k] = sub_deskripsi_step4[k].replace((k+1)+". ", "");
-                    // sub_deskripsi_step4[k] = sub_deskripsi_step4[k].replace(/\"+(k+1)+ ". /g, "");
-                    // li[k] = li[k].innerHTML.replace(/\k. /g, "")
-                    // sub_deskripsi_id[]
-                    console.log("li[k]", sub_deskripsi_step4[k]);
-                    fd.append("sub_deskripsi_id[]", sub_deskripsi_step4[k]);
+
+            sub_deskripsi_id[index] = [];
+
+            for(var k = 0; k < li.length; k++) {
+                sub_deskripsi_id[index][k] = li[k].innerHTML;
+                // console.log(sub_deskripsi_id[index][k]);
+                if(sub_deskripsi_id[index][k] != "Tidak Ada Sub Deskripsi") {
+                    sub_deskripsi_id[index][k] = sub_deskripsi_id[index][k].replace((k+1)+". ", "");
+                    fd.append("sub_deskripsi,_id["+index+"][]", sub_deskripsi_id[index][k]);
                 } else {
-                    fd.append("sub_deskripsi_id[]", "");
+                    sub_deskripsi_id[index][k] = null;
+                    fd.append("sub_deskripsi_id["+index+"][]", sub_deskripsi_id[index][k]);
                 }
             }
             // console.log("Li",li);
@@ -291,38 +290,8 @@ function SubmitTKDN() {
         var baris_step2 = [];
         var baris_item = [];
 
-
-        // for(var i = 0; i < clickpaket; i++) {
-        //     baris_step2[i] = {
-        //         'lokasi': document.getElementById('lokasi_id[' + (i + 1) + ']').value,
-        //         'paket': document.getElementById('paket_id[' + (i + 1) + ']').value,
-        //         // 'item': document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2) > div > input').value
-        //     }
-        // }
         console.log(baris_step2);
-
-        // log;
-
-
-
-
-        // var baris_item = [];
-        // // console.log(pondfiles);
-        // var item_id = [];
-        // var kategory_id = [];
-        // var satuan = [];
-        // var volume = [];
-        // var harga_satuan = [];
-        // var harga = [];
-        // var tkdn = [];
-        // var lampiran = pondfiles[0].files;
         var lampiran = $('#lampiran')[0].files;
-        // var lampiran = $('#lampiran').serialize();
-
-        // var lampiran = $('input[type=file]').getFiles();
-        // console.log("lampiran",lampiran);
-
-        // log;
 
 
         console.log("clickpaket",clickpaket);
@@ -342,8 +311,8 @@ function SubmitTKDN() {
         for(var i =0; i < Object.keys(group_location_step2_db).length; i++){
             console.log("lokasi",Object.keys(group_location_step2_db)[i]);
             lokasi_with_paket[i] = Object.keys(group_location_step2_db)[i];
-            // fd.append("lokasi[]", lokasi_with_paket[i]);
-            fd.append("lokasi[]", JSON.stringify(lokasi_with_paket[i]));
+            fd.append("lokasi_with_paket[]", lokasi_with_paket[i]);
+            // fd.append("lokasi[]", JSON.stringify(lokasi_with_paket[i]));
             // console.log("i",i);
             pakets[i] = [];
             item_id[i] = [];
@@ -357,8 +326,8 @@ function SubmitTKDN() {
                 console.log("paket",group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket);
                 // console.log("j",j);
                 pakets[i][j] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket;
-                // fd.append("pakets[i][j]", pakets[i][j]);
-                fd.append("pakets[i][j]",  JSON.stringify(pakets[i][j]));
+                fd.append("pakets["+i+"][]", pakets[i][j]);
+                // fd.append("pakets[i][j]",  JSON.stringify(pakets[i][j]));
                 item_id[i][j] = [];
                 kategory_order_with_paket[i][j] = [];
                 satuan_id_with_paket[i][j] = [];
@@ -369,38 +338,38 @@ function SubmitTKDN() {
 
                 for(var l = 0; l < group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].item.length; l++) {
                     item_id[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].item[l];
-                    // fd.append("item_id[]", item_id[i][j][l]);
-                    fd.append("item_id[]", JSON.stringify(item_id[i][j][l]));
+                    fd.append("item_id["+i+"]["+j+"][]", item_id[i][j][l]);
+                    // fd.append("item_id[]", JSON.stringify(item_id[i][j][l]));
                     kategory_order_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].kategory_order[l];
-                    // fd.append("kategory_order_with_paket[]", kategory_order_with_paket[i][j][l]);
-                    fd.append("kategory_order_with_paket[]", JSON.stringify(kategory_order_with_paket[i][j][l]));
+                    fd.append("kategory_order_with_paket["+i+"]["+j+"][]", kategory_order_with_paket[i][j][l]);
+                    // fd.append("kategory_order_with_paket[]", JSON.stringify(kategory_order_with_paket[i][j][l]));
                     satuan_id_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].satuan_id[l];
                     satuan_id_with_paket[i][j][l] = satuan_id_with_paket[i][j][l].replace(/\(([^)]+)\)/, "");
                     satuan_id_with_paket[i][j][l] = satuan_id_with_paket[i][j][l].replace(/\ /g, "");
-                    // fd.append("satuan_id_with_paket[]", satuan_id_with_paket[i][j][l]);
-                    fd.append("satuan_id_with_paket[]", JSON.stringify(satuan_id_with_paket[i][j][l]));
+                    fd.append("satuan_id_with_paket["+i+"]["+j+"][]", satuan_id_with_paket[i][j][l]);
+                    // fd.append("satuan_id_with_paket[]", JSON.stringify(satuan_id_with_paket[i][j][l]));
                     volume_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].volume[l];
                     volume_with_paket[i][j][l] = volume_with_paket[i][j][l].replace(/\./g, "");
                     volume_with_paket[i][j][l] = volume_with_paket[i][j][l].replace(/\,/g, ".");
                     volume_with_paket[i][j][l] = parseFloat(volume_with_paket[i][j][l]);
-                    // fd.append("volume_with_paket[]", volume_with_paket[i][j][l]);
-                    fd.append("volume_with_paket[]", JSON.stringify(volume_with_paket[i][j][l]));
+                    fd.append("volume_with_paket["+i+"]["+j+"][]", volume_with_paket[i][j][l]);
+                    // fd.append("volume_with_paket[]", JSON.stringify(volume_with_paket[i][j][l]));
                     harga_satuan_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].harga_satuan[l];
                     harga_satuan_with_paket[i][j][l] = harga_satuan_with_paket[i][j][l].replace(/\./g, "");
                     harga_satuan_with_paket[i][j][l] = parseInt(harga_satuan_with_paket[i][j][l]);
-                    // fd.append("harga_satuan_with_paket[]", harga_satuan_with_paket[i][j][l]);
-                    fd.append("harga_satuan_with_paket[]", JSON.stringify(harga_satuan_with_paket[i][j][l]));
+                    fd.append("harga_satuan_with_paket["+i+"]["+j+"][]", harga_satuan_with_paket[i][j][l]);
+                    // fd.append("harga_satuan_with_paket[]", JSON.stringify(harga_satuan_with_paket[i][j][l]));
                     jumlah_harga_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].jumlah_harga[l];
                     jumlah_harga_with_paket[i][j][l] = jumlah_harga_with_paket[i][j][l].replace(/\./g, "");
                     jumlah_harga_with_paket[i][j][l] = parseInt(jumlah_harga_with_paket[i][j][l]);
-                    // fd.append("jumlah_harga_with_paket[]", jumlah_harga_with_paket[i][j][l]);
-                    fd.append("jumlah_harga_with_paket[]", JSON.stringify(jumlah_harga_with_paket[i][j][l]));
+                    fd.append("jumlah_harga_with_paket["+i+"]["+j+"][]", jumlah_harga_with_paket[i][j][l]);
+                    // fd.append("jumlah_harga_with_paket[]", JSON.stringify(jumlah_harga_with_paket[i][j][l]));
                     tkdn_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].tkdn[l];
                     tkdn_with_paket[i][j][l] = tkdn_with_paket[i][j][l].replace(/\./g, "");
                     tkdn_with_paket[i][j][l] = tkdn_with_paket[i][j][l].replace(/\,/g, ".");
                     tkdn_with_paket[i][j][l] = parseFloat(tkdn_with_paket[i][j][l]);
-                    // fd.append("tkdn_with_paket[]", tkdn_with_paket[i][j][l]);
-                    fd.append("tkdn_with_paket[]", JSON.stringify(tkdn_with_paket[i][j][l]));
+                    fd.append("tkdn_with_paket["+i+"]["+j+"][]", tkdn_with_paket[i][j][l]);
+                    // fd.append("tkdn_with_paket[]", JSON.stringify(tkdn_with_paket[i][j][l]));
                     // item_l += ("<li>" + data[Object.keys(data)[i]][j]["nama_item"][l]["nama_item"] + "</li>")
                 }
             }
@@ -465,22 +434,26 @@ function SubmitTKDN() {
         let sub_deskripsi_id = [];
         let sub_deskripsi_step4 = [];
 
+
+
         for (let index = 0; index < clickredaksi; index++) {
             redaksi_id[index] = document.getElementById('redaksi_id[' + (index + 1) + ']').value;
-            // fd.append("redaksi_id[]", redaksi_id[index]);
+            fd.append("redaksi_id[]", redaksi_id[index]);
             deskripsi_id[index] = document.getElementById('deskripsi_id[' + (index + 1) + ']').innerText;
-            // fd.append("deskripsi_id[]", deskripsi_id[index]);
+            fd.append("deskripsi_id[]", deskripsi_id[index]);
             li = document.getElementById('sub_deskripsi_id[' + (index+1) + ']').getElementsByTagName('li');
+
+            sub_deskripsi_step4[index] = [];
             for(var k = 0; k < li.length; k++ ){
                 // console.log("k",k);
-                sub_deskripsi_step4[k] = li[k].innerHTML;
-                if(sub_deskripsi_step4[k] != "Tidak Ada Sub Deskripsi"){
-                    sub_deskripsi_step4[k] = sub_deskripsi_step4[k].replace((k+1)+". ", "");
+                sub_deskripsi_step4[index][k] = li[k].innerHTML;
+                if(sub_deskripsi_step4[index][k] != "Tidak Ada Sub Deskripsi"){
+                    sub_deskripsi_step4[index][k] = sub_deskripsi_step4[index][k].replace((k+1)+". ", "");
                     // console.log("li[k]", sub_deskripsi_step4[k]);
-                    // fd.append("sub_deskripsi_id[]", sub_deskripsi_step4[k]);
+                    fd.append("sub_deskripsi_id["+index+"][]", sub_deskripsi_step4[index][k]);
                 } else {
-                    sub_deskripsi_step4[k] = "";
-                    // fd.append("sub_deskripsi_id[]", "");
+                    sub_deskripsi_step4[index][k] = null;
+                    fd.append("sub_deskripsi_id["+index+"][]", sub_deskripsi_step4[index][k]);
                 }
             }
             // sub_deskripsi_id = document.getElementById('sub_deskripsi_id[' + (index + 1) + ']').innerText;
@@ -494,6 +467,8 @@ function SubmitTKDN() {
         var ppn = document.getElementById("pajak").value;
         var total_harga = document.getElementById("total").innerHTML;
         total_harga = total_harga.replace("Rp. ", "");
+        total_harga = total_harga.replace(/\./g, "");
+        total_harga = total_harga.replace(/\,/g, ".");
         total_harga = parseInt(total_harga);
         console.log(total_harga);
         // var total_harga = bef_ppn_total_harga + ppn;
@@ -637,7 +612,7 @@ function SubmitTKDN() {
                             console.log(fd);
                             $.ajax({
                                 type: 'POST',
-                                url: "/cetak-tkdn",
+                                url: "/cetak-paket-tkdn-non-lampiran",
                                 data: fd,
                                 contentType: false,
                                 processData: false,
@@ -678,7 +653,6 @@ function SubmitTKDN() {
 
 function SubmitNONTKDN() {
 
-    {
         console.log(clickredaksi);
         console.log(click);
         var token = $('#csrf').val();
@@ -996,37 +970,8 @@ function SubmitNONTKDN() {
             var baris_step2 = [];
             var baris_item = [];
 
-
-            // for(var i = 0; i < clickpaket; i++) {
-            //     baris_step2[i] = {
-            //         'lokasi': document.getElementById('lokasi_id[' + (i + 1) + ']').value,
-            //         'paket': document.getElementById('paket_id[' + (i + 1) + ']').value,
-            //         // 'item': document.querySelector('#tabelRAB' + i + ' tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2) > div > input').value
-            //     }
-            // }
             console.log(baris_step2);
-
-            // log;
-
-
-
-
-            // var baris_item = [];
-            // // console.log(pondfiles);
-            // var item_id = [];
-            // var kategory_id = [];
-            // var satuan = [];
-            // var volume = [];
-            // var harga_satuan = [];
-            // var harga = [];
-            // var tkdn = [];
-            // var lampiran = pondfiles[0].files;
             var lampiran = $('#lampiran')[0].files;
-
-            // var lampiran = $('input[type=file]').getFiles();
-            console.log(lampiran);
-
-            // log;
 
 
             console.log("clickpaket",clickpaket);
@@ -1046,7 +991,8 @@ function SubmitNONTKDN() {
             for(var i =0; i < Object.keys(group_location_step2_db).length; i++){
                 console.log("lokasi",Object.keys(group_location_step2_db)[i]);
                 lokasi_with_paket[i] = Object.keys(group_location_step2_db)[i];
-                // fd.append("lokasi[]", lokasi_with_paket[i]);
+                fd.append("lokasi_with_paket[]", lokasi_with_paket[i]);
+                // fd.append("lokasi[]", JSON.stringify(lokasi_with_paket[i]));
                 // console.log("i",i);
                 pakets[i] = [];
                 item_id[i] = [];
@@ -1060,7 +1006,8 @@ function SubmitNONTKDN() {
                     console.log("paket",group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket);
                     // console.log("j",j);
                     pakets[i][j] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket;
-                    // fd.append("pakets[i][j]", pakets[i][j]);
+                    fd.append("pakets["+i+"][]", pakets[i][j]);
+                    // fd.append("pakets[i][j]",  JSON.stringify(pakets[i][j]));
                     item_id[i][j] = [];
                     kategory_order_with_paket[i][j] = [];
                     satuan_id_with_paket[i][j] = [];
@@ -1071,31 +1018,38 @@ function SubmitNONTKDN() {
 
                     for(var l = 0; l < group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].item.length; l++) {
                         item_id[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].item[l];
-                        // fd.append("item_id[]", item_id[i][j][l]);
+                        fd.append("item_id["+i+"]["+j+"][]", item_id[i][j][l]);
+                        // fd.append("item_id[]", JSON.stringify(item_id[i][j][l]));
                         kategory_order_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].kategory_order[l];
-                        // fd.append("kategory_order_with_paket[]", kategory_order_with_paket[i][j][l]);
+                        fd.append("kategory_order_with_paket["+i+"]["+j+"][]", kategory_order_with_paket[i][j][l]);
+                        // fd.append("kategory_order_with_paket[]", JSON.stringify(kategory_order_with_paket[i][j][l]));
                         satuan_id_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].satuan_id[l];
                         satuan_id_with_paket[i][j][l] = satuan_id_with_paket[i][j][l].replace(/\(([^)]+)\)/, "");
                         satuan_id_with_paket[i][j][l] = satuan_id_with_paket[i][j][l].replace(/\ /g, "");
-                        // fd.append("satuan_id_with_paket[]", satuan_id_with_paket[i][j][l]);
+                        fd.append("satuan_id_with_paket["+i+"]["+j+"][]", satuan_id_with_paket[i][j][l]);
+                        // fd.append("satuan_id_with_paket[]", JSON.stringify(satuan_id_with_paket[i][j][l]));
                         volume_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].volume[l];
                         volume_with_paket[i][j][l] = volume_with_paket[i][j][l].replace(/\./g, "");
                         volume_with_paket[i][j][l] = volume_with_paket[i][j][l].replace(/\,/g, ".");
                         volume_with_paket[i][j][l] = parseFloat(volume_with_paket[i][j][l]);
-                        // fd.append("volume_with_paket[]", volume_with_paket[i][j][l]);
+                        fd.append("volume_with_paket["+i+"]["+j+"][]", volume_with_paket[i][j][l]);
+                        // fd.append("volume_with_paket[]", JSON.stringify(volume_with_paket[i][j][l]));
                         harga_satuan_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].harga_satuan[l];
                         harga_satuan_with_paket[i][j][l] = harga_satuan_with_paket[i][j][l].replace(/\./g, "");
                         harga_satuan_with_paket[i][j][l] = parseInt(harga_satuan_with_paket[i][j][l]);
-                        // fd.append("harga_satuan_with_paket[]", harga_satuan_with_paket[i][j][l]);
+                        fd.append("harga_satuan_with_paket["+i+"]["+j+"][]", harga_satuan_with_paket[i][j][l]);
+                        // fd.append("harga_satuan_with_paket[]", JSON.stringify(harga_satuan_with_paket[i][j][l]));
                         jumlah_harga_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].jumlah_harga[l];
                         jumlah_harga_with_paket[i][j][l] = jumlah_harga_with_paket[i][j][l].replace(/\./g, "");
                         jumlah_harga_with_paket[i][j][l] = parseInt(jumlah_harga_with_paket[i][j][l]);
-                        // fd.append("jumlah_harga_with_paket[]", jumlah_harga_with_paket[i][j][l]);
+                        fd.append("jumlah_harga_with_paket["+i+"]["+j+"][]", jumlah_harga_with_paket[i][j][l]);
+                        // fd.append("jumlah_harga_with_paket[]", JSON.stringify(jumlah_harga_with_paket[i][j][l]));
                         tkdn_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].tkdn[l];
                         tkdn_with_paket[i][j][l] = tkdn_with_paket[i][j][l].replace(/\./g, "");
                         tkdn_with_paket[i][j][l] = tkdn_with_paket[i][j][l].replace(/\,/g, ".");
                         tkdn_with_paket[i][j][l] = parseFloat(tkdn_with_paket[i][j][l]);
-                        // fd.append("tkdn_with_paket[]", tkdn_with_paket[i][j][l]);
+                        fd.append("tkdn_with_paket["+i+"]["+j+"][]", tkdn_with_paket[i][j][l]);
+                        // fd.append("tkdn_with_paket[]", JSON.stringify(tkdn_with_paket[i][j][l]));
                         // item_l += ("<li>" + data[Object.keys(data)[i]][j]["nama_item"][l]["nama_item"] + "</li>")
                     }
                 }
@@ -1162,20 +1116,22 @@ function SubmitNONTKDN() {
 
             for (let index = 0; index < clickredaksi; index++) {
                 redaksi_id[index] = document.getElementById('redaksi_id[' + (index + 1) + ']').value;
-                // fd.append("redaksi_id[]", redaksi_id[index]);
+                fd.append("redaksi_id[]", redaksi_id[index]);
                 deskripsi_id[index] = document.getElementById('deskripsi_id[' + (index + 1) + ']').innerText;
-                // fd.append("deskripsi_id[]", deskripsi_id[index]);
+                fd.append("deskripsi_id[]", deskripsi_id[index]);
                 li = document.getElementById('sub_deskripsi_id[' + (index+1) + ']').getElementsByTagName('li');
+
+                sub_deskripsi_step4[index] = [];
                 for(var k = 0; k < li.length; k++ ){
                     // console.log("k",k);
-                    sub_deskripsi_step4[k] = li[k].innerHTML;
-                    if(sub_deskripsi_step4[k] != "Tidak Ada Sub Deskripsi"){
-                        sub_deskripsi_step4[k] = sub_deskripsi_step4[k].replace((k+1)+". ", "");
+                    sub_deskripsi_step4[index][k] = li[k].innerHTML;
+                    if(sub_deskripsi_step4[index][k] != "Tidak Ada Sub Deskripsi"){
+                        sub_deskripsi_step4[index][k] = sub_deskripsi_step4[index][k].replace((k+1)+". ", "");
                         // console.log("li[k]", sub_deskripsi_step4[k]);
-                        // fd.append("sub_deskripsi_id[]", sub_deskripsi_step4[k]);
+                        fd.append("sub_deskripsi_id["+index+"][]", sub_deskripsi_step4[index][k]);
                     } else {
-                        sub_deskripsi_step4[k] = "";
-                        // fd.append("sub_deskripsi_id[]", "");
+                        sub_deskripsi_step4[index][k] = null;
+                        fd.append("sub_deskripsi_id["+index+"][]", sub_deskripsi_step4[index][k]);
                     }
                 }
                 // sub_deskripsi_id = document.getElementById('sub_deskripsi_id[' + (index + 1) + ']').innerText;
@@ -1189,32 +1145,34 @@ function SubmitNONTKDN() {
             var ppn = document.getElementById("pajak").value;
             var total_harga = document.getElementById("total").innerHTML;
             total_harga = total_harga.replace("Rp. ", "");
+            total_harga = total_harga.replace(/\./g, "");
+            total_harga = total_harga.replace(/\,/g, ".");
             total_harga = parseInt(total_harga);
             console.log(total_harga);
             // var total_harga = bef_ppn_total_harga + ppn;
             // total_harga = Math.round(total_harga);
 
             if (lampiran.length > 0 ) {
-                // fd.append("_token", token)
-                // fd.append("tanggal_po", today);
-                // fd.append("nomor_po", po);
-                // fd.append("nomor_kontrak_induk", kontrak_induk);
-                // fd.append("pekerjaan", pekerjaan);
-                // fd.append("startdate", start_date);
-                // fd.append("enddate", end_date);
-                // fd.append("addendum_id", addendum);
-                // fd.append("skk_id", skk_id);
-                // fd.append("prk_id", prk_id);
-                // fd.append("pejabat_id", pejabat);
-                // fd.append("pengawas_pekerjaan", pengawas_pekerjaan);
-                // fd.append("pengawas_lapangan", pengawas_lapangan);
+                fd.append("_token", token)
+                fd.append("tanggal_po", today);
+                fd.append("nomor_po", po);
+                fd.append("nomor_kontrak_induk", kontrak_induk);
+                fd.append("pekerjaan", pekerjaan);
+                fd.append("startdate", start_date);
+                fd.append("enddate", end_date);
+                fd.append("addendum_id", addendum);
+                fd.append("skk_id", skk_id);
+                fd.append("prk_id", prk_id);
+                fd.append("pejabat_id", pejabat);
+                fd.append("pengawas_pekerjaan", pengawas_pekerjaan);
+                fd.append("pengawas_lapangan", pengawas_lapangan);
                 fd.append('lampiran', lampiran[0]);
 
-                // fd.append("total_harga", total_harga);
+                fd.append("total_harga", total_harga);
 
-                // fd.append("click", click);
-                // fd.append("clicklokasi", clicklokasi);
-                // fd.append("clickredaksi", clickredaksi);
+                fd.append("click", click);
+                fd.append("clicklokasi", clicklokasi);
+                fd.append("clickredaksi", clickredaksi);
 
                 var data = {
                     // "fd" : fd,
@@ -1231,8 +1189,7 @@ function SubmitNONTKDN() {
                     "pejabat_id" : pejabat,
                     "pengawas_pekerjaan" : pengawas_pekerjaan,
                     "pengawas_lapangan" : pengawas_lapangan,
-                    // "lampiran" : lampiran[0],
-                    "lampiran" : fd,
+                    "lampiran" : lampiran,
                     "total_harga" : total_harga,
                     "click" : click,
                     "clicklokasi" : clicklokasi,
@@ -1263,11 +1220,16 @@ function SubmitNONTKDN() {
                             // console.log(fd);
                             $.ajax({
                                 type: 'POST',
-                                url: "/cetak-paket-pdf-tkdn",
-                                data: data,
-                                // contentType: false,
-                                // processData: false,
-                                // dataType: 'json',
+                                url: "/cetak-paket-pdf-non-tkdn",
+                                // data: data,
+                                data: fd,
+                                // data: {
+                                //     "data":data,
+                                //     "lampiran":fd
+                                // },
+                                contentType: false,
+                                processData: false,
+                                dataType: 'json',
                                 success: function (response) {
                                     swal({
                                         title: "Data Ditambah",
@@ -1328,7 +1290,7 @@ function SubmitNONTKDN() {
                                 console.log(fd);
                                 $.ajax({
                                     type: 'POST',
-                                    url: "/cetak-tkdn",
+                                    url: "/cetak-paket-non-tkdn-non-lampiran",
                                     data: fd,
                                     contentType: false,
                                     processData: false,
@@ -1360,11 +1322,8 @@ function SubmitNONTKDN() {
 
                 }
 
+
         }
-
-
-
-    }
 
 
 

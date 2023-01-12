@@ -3459,7 +3459,7 @@ fieldset:disabled a.btn {
     color: #fff;
     background-color: #34bfd7;
     border-color: #34bfd7;
-    box-shadow: 0 0 0 0.2rem rgba(174, 76, 251, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(76, 172, 251, 0.5);
 }
 
 .btn-secondary.disabled,
@@ -3480,7 +3480,7 @@ fieldset:disabled a.btn {
 .btn-secondary:not(:disabled):not(.disabled):active:focus,
 .btn-secondary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-secondary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(174, 76, 251, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(76, 201, 251, 0.5);
 }
 
 .btn-success {
@@ -3743,7 +3743,7 @@ fieldset:disabled a.btn {
 
 .btn-outline-primary:focus,
 .btn-outline-primary.focus {
-    box-shadow: 0 0 0 0.2rem rgba(11, 42, 151, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(11, 88, 151, 0.5);
 }
 
 .btn-outline-primary.disabled,
@@ -3763,7 +3763,7 @@ fieldset:disabled a.btn {
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
 .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(11, 42, 151, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(11, 137, 151, 0.5);
 }
 
 .btn-outline-secondary {

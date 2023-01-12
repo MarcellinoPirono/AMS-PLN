@@ -359,6 +359,10 @@ function updatelokasi() {
 
         $('<tr id="location' + (clicklokasi-1) + '" class="noborder"><td></td><td></td><td id="location_label'+(clicklokasi-1)+'"></td></tr>').insertAfter(lokasi_tabel);
     }
+
+    if(clicklokasi > 1 && clickpaket == 0) {
+        updatePaket();
+    }
 }
 function deleteRow2(r) {
     var table = r.parentNode.parentNode.rowIndex;

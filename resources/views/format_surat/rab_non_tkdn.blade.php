@@ -94,6 +94,9 @@
             <td class="tabelnormal" style="width:12%;" align="center" valign="middle">Satuan (RP)</td>
             <td class="tabelnormalkanan"style="width:12%;" align="center" valign="middle">Jumlah (RP)</td>
         </tr>
+
+
+
         @if (count($kategori_jasa) > 0)
             <tr id="tr_jasa">
                 <td class="firstkiri" align="center" valign="middle"></td>
@@ -186,7 +189,7 @@
         </tr>
         <tr style="page-break-before: avoid">
             <td class="noborder" colspan="2" align="center" valign="top">{{ $jabatan_manager }}</td>
-            <td class="noborder centertb" colspan="4" align="center" valign="middle" style="padding-left: 30px; padding-right: 30px; text-align: center;">{{ $pokhs->pejabats->jabatan }}
+            <td class="noborder centertb" colspan="4" align="center" valign="middle" style="text-align: center;">{{ $pokhs->pejabats->jabatan }}
             </td>
         </tr>
         <tr style="height: 92px; page-break-before: avoid">
@@ -198,22 +201,6 @@
             </td>
         </tr>
     </table>
-    <!-- <div style="page-break-before: avoid"></div> -->
-    <!-- <table class="wrapword" width="95%" border="0" cellspacing="0" cellpadding="0" align="center" >
-        <tr>
-            <td style="height: 30px;" align="center" valign="bottom">Mengetahui</td>
-            <td style="width:36%;" align="center" valign="bottom">Makassar,
-                {{ \Carbon\Carbon::parse($pokhs->tanggal_po)->isoFormat('DD MMMM YYYY') }}</td>
-        </tr>
-        <tr>
-            <td align="center" valign="top">{{ $jabatan_manager }}</td>
-            <td align="center" valign="middle">{{ $pokhs->pejabats->jabatan }}</td>
-        </tr>
-        <tr style="height: 85px;">
-            <td style="height: 85px;" align="center" valign="bottom"><b>{{ $nama_manager }}</b></td>
-            <td align="center" valign="bottom"><b>{{ $pokhs->pejabats->nama_pejabat }}</b></td>
-        </tr>
-    </table> -->
 </div>
 
 

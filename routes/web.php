@@ -22,7 +22,9 @@ use App\Http\Controllers\RedaksiController;
 use App\Http\Controllers\NonPOController;
 use App\Http\Controllers\PaketPekerjaanController;
 use App\Http\Controllers\PejabatController;
+use App\Http\Controllers\PpnController;
 use App\Http\Controllers\ImporExcelController;
+use App\Http\Controllers\CetakNonTkdnController;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 
@@ -105,6 +107,12 @@ Route::resource('redaksi-khs', RedaksiController::class);
 Route::resource('pejabat', PejabatController::class);
 Route::get('/search-pejabat', [PejabatController::class, 'searchpejabat']);
 
+Route::get('ppn', [PpnController::class, 'index']);
+Route::get('ppn/{ppn}/edit', [PpnController::class, 'edit']);
+Route::put('ppn/{ppn}', [PpnController::class, 'update']);
+// Route::resource('ppn', PpnController::class);
+// Route::get('/search-pejabat', [PejabatController::class, 'searchpejabat']);
+
 //MENU
 Route::get('/menu-item-khs', [MenuController::class, 'MenuItemKHS']);
 Route::get('/menu-paket-pekerjaan', [MenuController::class, 'PaketPekerjaan']);
@@ -118,12 +126,12 @@ Route::get('deleteitem/{id}', [RincianIndukController::class, 'destroy']);
 
 //PO KHS
 Route::get('po-khs/buat-po', [RabController::class, 'buat_po_khs']);
-Route::get('po-khs/edit-po/{id}', [RabController::class, 'edit_po_khs']);
-Route::put('po-khs/edit-po/{id}', [RabController::class, 'update_po_khs']);
+Route::get('po-khs/edit-po/{slug}', [RabController::class, 'edit_po_khs']);
+Route::put('po-khs/edit-po/{slug}', [RabController::class, 'update_po_khs']);
 Route::post('simpan-po-khs', [RabController::class, 'simpan_po_khs']);
 Route::resource('po-khs', RabController::class);
-Route::get('export-pdf-khs/{id}', [RabController::class, 'export_pdf_khs']);
-Route::get('preview-pdf-khs/{id}', [RabController::class, 'preview_pdf_khs']);
+Route::get('export-pdf-khs/{slug}', [RabController::class, 'export_pdf_khs']);
+Route::get('preview-pdf-khs/{slug}', [RabController::class, 'preview_pdf_khs']);
 Route::get('/search-pokhs', [RabController::class, 'searchpokhs']);
 Route::post('/getAddendum', [RabController::class, 'getAddendum']);
 Route::post('/getVendor', [RabController::class, 'getVendor']);
@@ -189,11 +197,20 @@ Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po']);
 Route::get('non-po/export-pdf-khs/{id}', [NonPOController::class, 'export_pdf_khs']);
 Route::resource('non-po', NonPOController::class);
 
-//CETAK-PDF
+//TKDN
 Route::post('cetak-pdf-tkdn', [PdfkhsController::class, 'cetak_tkdn_lampiran']);
 Route::post('cetak-tkdn', [PdfkhsController::class, 'cetak_tkdn_non_lampiran']);
-Route::post('cetak-non-tkdn-pdf', [PdfkhsController::class, 'cetak_non_tkdn_lampiran']);
-Route::post('cetak-non-tkdn', [PdfkhsController::class, 'cetak_non_tkdn_non_lampiran']);
 Route::post('cetak-paket-pdf-tkdn', [PdfkhsController::class, 'cetak_paket_tkdn_lampiran']);
-Route::get('download/{id}', [PdfkhsController::class, 'download']);
+Route::post('cetak-paket-tkdn-non-lampiran', [PdfkhsController::class, 'cetak_paket_tkdn_non_lampiran']);
 
+
+
+//NON-TKDN
+Route::post('cetak-paket-pdf-non-tkdn', [CetakNonTkdnController::class, 'cetak_paket_non_tkdn_lampiran']);
+Route::post('cetak-paket-non-tkdn-non-lampiran', [CetakNonTkdnController::class, 'cetak_paket_non_tkdn_non_lampiran']);
+Route::post('cetak-non-tkdn-pdf', [CetakNonTkdnController::class, 'cetak_non_tkdn_lampiran']);
+Route::post('cetak-non-tkdn', [CetakNonTkdnController::class, 'cetak_non_tkdn_non_lampiran']);
+
+
+
+Route::get('download/{slug}', [PdfkhsController::class, 'download']);

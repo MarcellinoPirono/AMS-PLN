@@ -57,7 +57,7 @@
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label for="first-name" class="form-label">No. Purchase
-                                                        Order(PO)</label>
+                                                        Order(PO) <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="po" name="po"
                                                         value="{{ old('po') }}" placeholder="No. PO" required autofocus>
                                                     <div class="valid-feedback">
@@ -71,7 +71,7 @@
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label for="first-name" class="form-label">Pilih No. Kontrak
-                                                        Induk</label>
+                                                        Induk <span class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="kontrak_induk"
                                                         name="kontrak_induk"
                                                         style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
@@ -96,7 +96,7 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Judul Pekerjaan</label>
+                                                    <label class="text-label">Judul Pekerjaan <span class="text-danger">*</span></label>
                                                     <textarea type="text" class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan" id="pekerjaan"
                                                         placeholder="Pekerjaan" required>{{ old('pekerjaan') }}</textarea>
                                                     <div class="valid-feedback">
@@ -110,7 +110,7 @@
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Pilih Direksi Pekerjaan</label>
+                                                    <label class="text-label">Pilih Direksi Pekerjaan <span class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="pejabat" name="pejabat"
                                                         style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
                                                         required>
@@ -135,7 +135,7 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Start Date</label>
+                                                    <label class="text-label">Start Date <span class="text-danger">*</span></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i
@@ -157,7 +157,7 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">End Date</label>
+                                                    <label class="text-label">End Date <span class="text-danger">*</span></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i
@@ -194,7 +194,7 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input No.SKK</label>
+                                                    <label class="text-label">Input No.SKK <span class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="skk_id"
                                                         name="skk_id" required>
                                                         <option value="" selected disabled>Pilih No. SKK</option>
@@ -213,7 +213,7 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input No. PRK</label>
+                                                    <label class="text-label">Input No. PRK <span class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="prk_id"
                                                         name="prk_id" required>
                                                         <option value="" selected disabled>Pilih PRK</option>
@@ -228,7 +228,7 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input Pengawas Pekerjaan</label>
+                                                    <label class="text-label">Input Pengawas Pekerjaan <span class="text-danger">*</span></label>
                                                     <input type="text"
                                                         class="form-control @error('pengawas') is-invalid @enderror"
                                                         name="pengawas_pekerjaan" id="pengawas_pekerjaan"
@@ -253,7 +253,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-10 mr-2 mb-2">
+                                            <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Upload Lampiran (.pdf)</label>
                                                     <div class="input-group mb-3">
@@ -264,14 +264,17 @@
                                                             <input id="lampiran" type="file" name="lampiran"
                                                                 class="form-control custom-file-input"
                                                                 onchange="fileValidation();" accept=".pdf" />
-                                                            <label id="labelfile" class="custom-file-label">Choose or Drag file</label>
+                                                            <label id="labelfile" class="custom-file-label">Choose or Drag
+                                                                file</label>
 
 
                                                         </div>
-                                                        <button class="btn btn-danger btn-xxs mt-1 ml-3" onclick="onclear()">Delete file <i class='fa fa-trash'></i></button>
-                                                        <button class="btn btn-secondary btn-xxs mt-1 ml-3"
-                                                            onclick="toggle()" type="button">Show/Hide <i
-                                                            class='fa fa-eye'></i>
+                                                        <!-- <button class="btn btn-danger btn-xxs mt-1 ml-3"
+                                                                onclick="onclear()">Delete file <i
+                                                                    class='fa fa-trash'></i></button>
+                                                            <button class="btn btn-secondary btn-xxs mt-1 ml-3"
+                                                                onclick="toggle()" type="button">Show/Hide <i
+                                                                    class='fa fa-eye'></i> -->
                                                     </div>
                                                     {{-- <img class="m-auto justify-content-center" src="#"
                                                         id="img-lampiran" width="300px" /> --}}
@@ -281,6 +284,15 @@
                                                     <div class="invalid-feedback" id="lampiranfile">
                                                         Silakan Upload Lampiran
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2 mt-45">
+                                                <div class="form-group">
+                                                    <button class="btn btn-danger btn-xxs mt-1"
+                                                        onclick="onclear()">Delete file <i
+                                                            class='fa fa-trash'></i></button>
+                                                    <button class="btn btn-secondary btn-xxs mt-1" onclick="toggle()"
+                                                        type="button">Show/Hide <i class='fa fa-eye'></i>
                                                 </div>
                                             </div>
                                             {{-- <div class="col-lg-12 mb-2 mt-45">
@@ -320,7 +332,7 @@
 
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-label">Input Lokasi</label>
+                                                <label class="text-label">Input Lokasi <span class="text-danger">*</span></label>
                                             </div>
                                         </div>
                                         <table class="table table-responsive-sm height-100" width="100%"
@@ -378,7 +390,8 @@
                                                                             style="width: 15%">Volume
                                                                         </th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 5%">Aksi</th>
+                                                                            style="width: 5%">
+                                                                            Aksi</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-paket">
@@ -488,7 +501,8 @@
                                                                         <tr>
                                                                             <td><strong style="padding-left: 11px"
                                                                                     id="nomor"
-                                                                                    value="1">1</strong></td>
+                                                                                    value="1">1</strong>
+                                                                            </td>
 
                                                                             <td>
                                                                                 <div class="searching-select2">
@@ -646,18 +660,18 @@
                                                                             </p>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                                                        <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
-                                                                                                                            placeholder="Deskripsi" value="" disabled required></textarea>
-                                                                                                                    </td> -->
+                                                                                                                                <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
+                                                                                                                                    placeholder="Deskripsi" value="" disabled required></textarea>
+                                                                                                                            </td> -->
                                                                         <td style="vertical-++++++++++++++++align: top">
                                                                             <!-- <p id="sub_deskripsi_id[1]"></p> -->
                                                                             <ol id="sub_deskripsi_id[1]">
                                                                             </ol>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                                                        <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
-                                                                                                                            placeholder="Sub Deskripsi" value="" disabled required></textarea>
-                                                                                                                    </td> -->
+                                                                                                                                <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
+                                                                                                                                    placeholder="Sub Deskripsi" value="" disabled required></textarea>
+                                                                                                                            </td> -->
 
                                                                         <td style="vertical-align: top"><button
                                                                                 onclick="deleteRow1(this)"
@@ -910,41 +924,63 @@
                                                                                 <td rowspan="5" colspan="3"></td>
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>Jumlah Jasa</b></td>
-                                                                                <td class="tabellkanan" id="jumlah_jasa_count"
+                                                                                <td class="tabellkanan"
+                                                                                    id="jumlah_jasa_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan" id="jumlah_jasa_tkdn"
+                                                                                    align="right">
+                                                                                </td>
+                                                                                <td class="tabellkanan"
+                                                                                    id="jumlah_jasa_tkdn"
                                                                                     style="font-weight: bold"
-                                                                                    align="center"></td>
-                                                                                <td class="tabellkanan" id="jumlah_kdn_jasa_count"
+                                                                                    align="center">
+                                                                                </td>
+                                                                                <td class="tabellkanan"
+                                                                                    id="jumlah_kdn_jasa_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan" id="jumlah_kln_jasa_count"
+                                                                                    align="right">
+                                                                                </td>
+                                                                                <td class="tabellkanan"
+                                                                                    id="jumlah_kln_jasa_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan" id="jumlah_total_tkdn_jasa_count"
+                                                                                    align="right">
+                                                                                </td>
+                                                                                <td class="tabellkanan"
+                                                                                    id="jumlah_total_tkdn_jasa_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                             </tr>
                                                                             <tr style="border: 1px #000">
-                                                                                <td style="border: 1px" colspan="2" align="center"
-                                                                                    valign="middle"><b>Jumlah Material</b>
+                                                                                <td style="border: 1px" colspan="2"
+                                                                                    align="center" valign="middle">
+                                                                                    <b>Jumlah
+                                                                                        Material</b>
                                                                                 </td>
-                                                                                <td class="tabellkanan" id="jumlah_material_count"
+                                                                                <td class="tabellkanan"
+                                                                                    id="jumlah_material_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan" id="jumlah_material_tkdn"
+                                                                                    align="right">
+                                                                                </td>
+                                                                                <td class="tabellkanan"
+                                                                                    id="jumlah_material_tkdn"
                                                                                     style="font-weight: bold"
-                                                                                    align="center"></td>
-                                                                                <td class="tabellkanan" id="jumlah_kdn_material_count"
+                                                                                    align="center">
+                                                                                </td>
+                                                                                <td class="tabellkanan"
+                                                                                    id="jumlah_kdn_material_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan" id="jumlah_kln_material_count"
+                                                                                    align="right">
+                                                                                </td>
+                                                                                <td class="tabellkanan"
+                                                                                    id="jumlah_kln_material_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan" id="jumlah_total_tkdn_material_count"
+                                                                                    align="right">
+                                                                                </td>
+                                                                                <td class="tabellkanan"
+                                                                                    id="jumlah_total_tkdn_material_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="2" align="center"
@@ -952,57 +988,77 @@
                                                                                         Keseluruhan</b></td>
                                                                                 <td class="tabellkanan" id="td_jumlah"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan kuning" id="jumlah_keseluruhan_tkdn"
+                                                                                    align="right">
+                                                                                </td>
+                                                                                <td class="tabellkanan kuning"
+                                                                                    id="jumlah_keseluruhan_tkdn"
                                                                                     style="font-weight: bold"
-                                                                                    align="center"></td>
-                                                                                <td class="tabellkanan kuning" id="total_kdn_all"
+                                                                                    align="center">
+                                                                                </td>
+                                                                                <td class="tabellkanan kuning"
+                                                                                    id="total_kdn_all"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan kuning" id="total_kln_all"
+                                                                                    align="right">
+                                                                                </td>
+                                                                                <td class="tabellkanan kuning"
+                                                                                    id="total_kln_all"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
-                                                                                <td class="tabellkanan kuning" id="total_tkdn_all"
+                                                                                    align="right">
+                                                                                </td>
+                                                                                <td class="tabellkanan kuning"
+                                                                                    id="total_tkdn_all"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>PPN 11%</b></td>
                                                                                 <td class="tabellkanan" id="td_ppn"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="2" align="center"
                                                                                     valign="middle"><b>TOTAL</b></td>
-                                                                                <td class="tabellkanan kuning" id="td_total"
+                                                                                <td class="tabellkanan kuning"
+                                                                                    id="td_total"
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"
-                                                                                    align="right"></td>
+                                                                                    align="right">
+                                                                                </td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td class="first1"></td>
@@ -1082,12 +1138,12 @@
         </div>
     </div>
 
-     <!-- include FilePond library -->
-     {{-- <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/filepond/filepond-plugin-file-validate-type.js"></script>
+    <!-- include FilePond library -->
+    {{-- <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/filepond/filepond-plugin-file-validate-type.js"></script>
      <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/filepond/filepond-plugin-pdf-preview.min.js"></script>
      <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/filepond/filepond.js"></script> --}}
 
-     {{-- <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    {{-- <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
 
      <script src="https://unpkg.com/filepond-plugin-pdf-preview/dist/filepond-plugin-pdf-preview.min.js"></script>
      <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
@@ -1119,9 +1175,9 @@
 
     <!-- Search and Select -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
-                                                                        integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-                                                                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
+                                                                            <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+                                                                                integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+                                                                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
             <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
@@ -1153,7 +1209,7 @@
 
 
 
-{{-- <script>
+    {{-- <script>
 FilePond.registerPlugin(
     FilePondPluginFileValidateType,
     FilePondPluginPdfPreview,
@@ -1208,13 +1264,12 @@ console.log(pond);
             var filename;
 
             if (lampiranfile.value != "") {
-                    filename = lampiranfile.files[0]
-                    $('#embedLink')[0].src = window.URL.createObjectURL(new Blob([filename], {
-                        "type": "application/pdf"
-                    }));
-            }
-            else{
-                $('#embedLink')[0].src ="";
+                filename = lampiranfile.files[0]
+                $('#embedLink')[0].src = window.URL.createObjectURL(new Blob([filename], {
+                    "type": "application/pdf"
+                }));
+            } else {
+                $('#embedLink')[0].src = "";
             }
 
 
@@ -1226,6 +1281,10 @@ console.log(pond);
         function onclear() {
             var files = document.getElementById('lampiran');
             files.value = "";
+
+            var embed = document.getElementById('embedLink');
+            embed.src = "";
+            embed.style.display = "none";
 
 
             var labelfile = document.getElementById('labelfile');
@@ -1265,7 +1324,6 @@ console.log(pond);
         //         document.querySelector('#lampiran');
         //     file.value = '';
         // }
-
     </script>
 @endsection
 

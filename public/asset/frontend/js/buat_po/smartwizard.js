@@ -517,13 +517,28 @@ $(function () {
                     baris_step2_db[i]["jumlah_harga"] = jumlah_harga_db[i];
                     baris_step2_db[i]["tkdn"] = tkdn_db[i];
 
-                    group_location_step2_db = baris_step2_db.reduce((group, arr) => {
+                    group_location_step2_db2  = baris_step2_db.reduce((group, arr) => {
                         var { lokasi } = arr;
                         group[lokasi] = group[lokasi] ?? [];
                         group[lokasi].push(arr);
                         return group;
                     }, {});
                 }
+                // console.log(clicklokasi);
+                // console.log("group_location_step2_db", group_location_step2_db2);
+                // console.log("Object.keys(group_location_step2_db)", Object.keys(group_location_step2_db2));
+                // console.log("Object.keys(group_location_step2_db).length", Object.keys(group_location_step2_db2).length);
+
+                var group_location_step2_db = [];
+                for(var i = 0; i < clicklokasi; i++) {
+                    if(document.getElementById('lokasi['+(i+1)+']').value == Object.keys(group_location_step2_db2)[i]) {
+                        group_location_step2_db[document.getElementById('lokasi['+(i+1)+']').value] = group_location_step2_db2[Object.keys(group_location_step2_db2)[i]];
+                    } else {
+                        group_location_step2_db[document.getElementById('lokasi['+(i+1)+']').value] = null;
+                    }
+                }
+
+                console.log("group_location_step2_db", group_location_step2_db);
 
                 var baris_step2 = [];
                 for (var i = 0; i < clickpaket; i++) {
@@ -645,16 +660,29 @@ $(function () {
                 }
                 // console.log(group_location_step2);
 
+                function romanize (num) {
+                    if (isNaN(num))
+                        return NaN;
+                    var digits = String(+num).split(""),
+                        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+                               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+                               "","I","II","III","IV","V","VI","VII","VIII","IX"],
+                        roman = "",
+                        i = 3;
+                    while (i--)
+                        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+                    return Array(+digits.join("") + 1).join("M") + roman;
+                }
+
                 var html_paket = [""];
                 for(var i = 0; i < Object.keys(group_location_step2).length; i++) {
-                    html_paket += ("<tr> <td class='firsto' align='center' valign='middle'> </td> <td class='firsto tabellkiri' align='left' valign='middle' style='font-weight: bold'>"+Object.keys(group_location_step2)[i]+":</td> <td class='firsto' align='center' valign='middle'></td> <td class='firsto' align='center' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> </tr>")
+                    html_paket += ("<tr> <td class='firsto' align='center' valign='middle' style='font-weight: bold'> "+ (i+1) +" </td> <td class='firsto tabellkiri' align='left' valign='middle' style='font-weight: bold'>"+Object.keys(group_location_step2)[i]+":</td> <td class='firsto' align='center' valign='middle'></td> <td class='firsto' align='center' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> <td class='firsto tabellkanan' align='right' valign='middle'></td> </tr>")
                     for(var j = 0; j < group_location_step2[Object.keys(group_location_step2)[i]].length; j++) {
-                        html_paket += ("<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>&ensp;"+group_location_step2[Object.keys(group_location_step2)[i]][j].paket+":</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>")
+                        html_paket += ("<tr> <td class='first' align='center' valign='middle' style='font-weight: bold'>"+ romanize((j+1)) +"</td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>&ensp;"+group_location_step2[Object.keys(group_location_step2)[i]][j].paket+":</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>")
                         if(group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"].length > 0) {
-                            html_paket += ("<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>&ensp;&ensp;JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>")
+                            html_paket += ("<tr><td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>&ensp;&ensp;JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>")
                             for(var k = 0; k < group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"].length; k++) {
-                                html_paket += ("<tr> <td class='first' align='center' valign='middle'>" + (k +
-                                    1) +
+                                html_paket += ("<tr><td class='first' align='center' valign='middle'>" + String.fromCharCode(97 + k) +
                                     "</td> <td class='first tabellkiri' align='left' valign='middle'>&ensp;&ensp;&ensp;" +
                                     group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"][k].item +
                                     "</td> <td class='first' align='center' valign='middle'>" + group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["jasa"][k].satuan.match(/\(([^)]+)\)/)[1] +
@@ -677,8 +705,7 @@ $(function () {
                         if(group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"].length > 0) {
                             html_paket += ("<tr> <td class='first' align='center' valign='middle'> </td> <td class='first tabellkiri' align='left' valign='middle' style='font-weight: bold'>&ensp;&ensp;MATERIAL:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> <td class='first tabellkanan' align='right' valign='middle'></td> </tr>")
                             for(var k = 0; k < group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"].length; k++) {
-                                html_paket += ("<tr> <td class='first' align='center' valign='middle'>" + (k +
-                                    1) +
+                                html_paket += ("<tr> <td class='first' align='center' valign='middle'>" + String.fromCharCode(97 + k) +
                                     "</td> <td class='first tabellkiri' align='left' valign='middle'>&ensp;&ensp;&ensp;" +
                                     group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"][k].item +
                                     "</td> <td class='first' align='center' valign='middle'>" + group_location_step2[Object.keys(group_location_step2)[i]][j]["rab"]["material"][k].satuan.match(/\(([^)]+)\)/)[1] +

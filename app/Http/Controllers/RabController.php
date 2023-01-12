@@ -57,6 +57,9 @@ class RabController extends Controller
             'title1' => 'RAB',
             'rabs' => Rab::orderBy('id', 'DESC')->get(),
             'kontraks' => KontrakInduk::get(),
+            'skks' => Skk::all(),
+            'prks' => Prk::all(),
+            'kontrakinduks' => KontrakInduk::all(),
         ]);
 
 
@@ -709,12 +712,13 @@ class RabController extends Controller
 
     }
 
-    public function preview_pdf_khs($id)
+    public function preview_pdf_khs($nama_pdf)
     {
 
-        $document = Rab::find($id);
+        $document = Rab::where('slug', $nama_pdf)->value('pdf_file');
+        // dd($document);
 
-        $filePath = $document->pdf_file;
+        $filePath = $document;
 
         // dd($filePath);
 
@@ -725,7 +729,7 @@ class RabController extends Controller
 
         $pdfContent = Storage::get($filePath);
 
-        $fileName = Rab::where('id', $id)->value('nomor_po');
+        $fileName = Rab::where('slug', $nama_pdf)->value('nomor_po');
 
         $fileName = str_replace('/', '-', $fileName);
         $fileName = str_replace('.', '_', $fileName);
@@ -748,11 +752,11 @@ class RabController extends Controller
         return view('layouts.preview', [
             'Content-Type'        => $type,
             'Content-Disposition' => 'inline; filename="' . $fileName . '.pdf"',
-            'id' => $id,
             'filePath' => $filePath,
             'title' =>'Preview PO-KHS '.$fileName,
             'filename' => $fileName,
             'pdf' => $pdf,
+            'slug' => $nama_pdf,
             'active' => $fileName
 
         ]);

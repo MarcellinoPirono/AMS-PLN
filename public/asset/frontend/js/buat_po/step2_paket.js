@@ -114,8 +114,8 @@ function updatePaket() {
             input3.setAttribute("placeholder", "Volume");
             input3.setAttribute("value", "");
             input3.setAttribute("onblur", "change_paket(this)");
-            input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
-            input3.setAttribute("onkeyup", "format(this)");
+            input3.setAttribute("onkeypress", "return numbersonly(this, event);");
+            input3.setAttribute("onkeyup", "javascript:tandaPemisahTitik(this)");
             input3.setAttribute("required", true);
 
             var button = document.createElement("button");
@@ -457,6 +457,10 @@ function deletePaket(r) {
         })
     } else {
         change_paket();
+    }
+
+    if(clicklokasi > 1 && clickpaket == 0) {
+        updatePaket();
     }
 
     reindexPaket();
@@ -840,8 +844,9 @@ function bikin_table(data) {
                 volume_paket = parseFloat(volume_paket);
 
                 var volume_k = data[Object.keys(data)[i]][j]["paket_dari_controller"][k].volume * volume_paket;
+                volume_k = parseFloat(volume_k).toFixed(3);
+                volume_k = volume_k.replace(/\,/g, ".");
                 volume_k = volume_k.toString();
-                volume_k = parseFloat(volume_k).toFixed(2);
 
                 var harga_satuan_k = data[Object.keys(data)[i]][j]["item"][k][0].harga_satuan;
 
