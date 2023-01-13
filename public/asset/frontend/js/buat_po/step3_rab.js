@@ -1,4 +1,3 @@
-
 var click = 1;
 var nomor_tabel = 1;
 var k = 0;
@@ -67,7 +66,7 @@ function updateformwithpaket(c) {
             input.setAttribute('onkeyup', 'filterFunction3(this,event)');
             // input.setAttribute('onblur', 'change_item(this)');
             input.setAttribute('onkeydown', 'return no_bckspc(this, event)');
-            input.setAttribute('title','tes');
+            input.setAttribute('title', 'tes');
 
             select1.append(input);
 
@@ -169,6 +168,7 @@ function updateformwithpaket(c) {
         }
     });
 }
+
 function updateform() {
     var kontrak_induk = document.getElementById('kontrak_induk').value;
     let token = $('#csrf').val();
@@ -337,19 +337,19 @@ function updatelokasi() {
     reindex2();
     var lokasi_2 = [""];
     var lokasi_3 = [""];
-    for (var i = 0; i < clicklokasi; i++){
+    for (var i = 0; i < clicklokasi; i++) {
         lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi + "</option>");
     }
 
-    if(clicklokasi > 1){
+    if (clicklokasi > 1) {
         var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (clicklokasi +
             3) + ')');
 
-        $('<tr id="location' + (clicklokasi-1) + '" class="noborder"><td></td><td></td><td id="location_label'+(clicklokasi-1)+'"></td></tr>').insertAfter(lokasi_tabel);
+        $('<tr id="location' + (clicklokasi - 1) + '" class="noborder"><td></td><td></td><td id="location_label' + (clicklokasi - 1) + '"></td></tr>').insertAfter(lokasi_tabel);
     }
 
-    if(clicklokasi == 2) {
-        for(var i = 0; i < clicklokasi; i++){
+    if (clicklokasi == 2) {
+        for (var i = 0; i < clicklokasi; i++) {
             updatePaket();
         }
 
@@ -360,7 +360,7 @@ function updatelokasi() {
         // }
     }
 
-    if(clicklokasi > 2) {
+    if (clicklokasi > 2) {
         updatePaket();
         // console.log(clickpaket);
 
@@ -371,17 +371,53 @@ function updatelokasi() {
         // }
     }
 
-    if(clickpaket != 0) {
-        for(var j = 0; j < clicklokasi; j++) {
-            document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+    if (clickpaket != 0) {
+        for (var j = 0; j < clicklokasi; j++) {
+            document.getElementById('lokasi_id[' + (j + 1) + ']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
         }
     }
 }
+
 function deleteRow2(r) {
+    // console.log(r);
     var table = r.parentNode.parentNode.rowIndex;
     document.getElementById("tabelSPBJ").deleteRow(table);
-    document.getElementById("tabelPaket").deleteRow(table);
+
+    if (clicklokasi > 1) {
+        document.getElementById("tabelPaket").deleteRow(table);
+        clickpaket--;
+
+        var select_id_redaksi = document.querySelectorAll("#tabelPaket tr td:nth-child(2) select");
+        for (var i = 0; i < select_id_redaksi.length; i++) {
+            select_id_redaksi[i].id = "lokasi_id[" + (i + 1) + "]";
+        }
+
+        var select_paket_id = document.querySelectorAll("#tabelPaket tr td:nth-child(3) input");
+        for (var i = 0; i < select_paket_id.length; i++) {
+            select_paket_id[i].id = "paket_id[" + (i + 1) + "]";
+        }
+
+        var input_volume = document.querySelectorAll("#tabelPaket tr td:nth-child(4) input");
+        for (var i = 0; i < input_volume.length; i++) {
+            input_volume[i].id = "volume_paket[" + (i + 1) + "]";
+        }
+
+        var button = document.querySelectorAll("#tabelPaket tr td:nth-child(5) button");
+        for (var i = 0; i < button.length; i++) {
+            button[i].id = "deletePaket[" + (i + 1) + "]";
+        }
+
+        reindexPaket();
+    }
+
     clicklokasi--;
+
+    if (clicklokasi == 1) {
+        for(var i = 0; i < clicklokasi; i++) {
+            document.getElementById('lokasi_id['+(i+1)+']').removeAttribute('disabled');
+            document.getElementById('deletePaket['+(i+1)+']').removeAttribute('disabled');
+        }
+    }
     var select_id_lokasi = document.querySelectorAll("#tabelSPBJ tr td:nth-child(2) textarea");
     for (var i = 0; i < select_id_lokasi.length; i++) {
         select_id_lokasi[i].id = "lokasi[" + (i + 1) + "]";
@@ -389,15 +425,15 @@ function deleteRow2(r) {
     reindex2();
 
     var lokasi_2 = [""];
-    for (var i = 0; i < clicklokasi; i++){
-        value_lokasi = document.getElementById('lokasi['+ (i + 1) +']').value
+    for (var i = 0; i < clicklokasi; i++) {
+        value_lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value
         lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
-        "</option>")
+            "</option>")
     }
 
-    if(clickpaket != 0) {
-        for(var j = 0; j < clicklokasi; j++) {
-            document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+    if (clickpaket != 0) {
+        for (var j = 0; j < clickpaket; j++) {
+            document.getElementById('lokasi_id[' + (j + 1) + ']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
         }
     }
 
@@ -405,38 +441,41 @@ function deleteRow2(r) {
         document.getElementById('location' + (i + 1)).remove();
     }
 
-    for (var i = 0; i < (clicklokasi-1); i++) {
+    for (var i = 0; i < (clicklokasi - 1); i++) {
         var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (i +
             5) + ')');
         console.log(lokasi_tabel);
 
-        $('<tr id="location' + (i+1) + '" class="noborder"><td></td><td></td><td id="location_label'+(i+1)+'"></td></tr>').insertAfter(lokasi_tabel);
+        $('<tr id="location' + (i + 1) + '" class="noborder"><td></td><td></td><td id="location_label' + (i + 1) + '"></td></tr>').insertAfter(lokasi_tabel);
     }
 
-    var nomor = 1;
     for (var i = 0; i < clicklokasi; i++) {
         if (i == 0) {
             var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
 
-            document.getElementById("lokasi_4").innerHTML = (i+1) +". " + lokasi;
+            document.getElementById("lokasi_4").innerHTML = (i + 1) + ". " + lokasi;
         } else {
             var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
 
-            document.getElementById("location_label"+i).innerHTML = (i+1) +". " + lokasi;
+            document.getElementById("location_label" + i).innerHTML = (i + 1) + ". " + lokasi;
         }
-        nomor++;
     }
-    for(var i = 0; i < clickpaket; i++) {
-        document.getElementById('lokasi_id['+(i+1)+']').value = document.getElementById('lokasi['+(i+1)+']').value;
-        document.getElementById('lokasi_id['+(i+1)+']').setAttribute('disabled', true);
-        document.getElementById('deletePaket['+(i+1)+']').setAttribute('disabled', true);
+
+    if(clicklokasi > 1) {
+        for (var i = 0; i < clickpaket; i++) {
+            document.getElementById('lokasi_id[' + (i + 1) + ']').value = document.getElementById('lokasi[' + (i + 1) + ']').value;
+            document.getElementById('lokasi_id[' + (i + 1) + ']').setAttribute('disabled', true);
+            document.getElementById('deletePaket[' + (i + 1) + ']').setAttribute('disabled', true);
+        }
     }
+
+    // if (clicklokasi)
 
     if (clicklokasi == 0) {
         updatelokasi();
     }
-
 }
+
 function reindex2() {
     const ids = document.querySelectorAll("#tabelSPBJ tr > td:nth-child(1)");
     ids.forEach((e, i) => {
@@ -444,6 +483,7 @@ function reindex2() {
         nomor_tabel_lokasi = i + 1;
     });
 }
+
 function deleteRow(r) {
     var table = r.parentNode.parentNode.rowIndex;
     document.getElementById("tabelRAB").deleteRow(table);
@@ -598,6 +638,7 @@ function deleteRow(r) {
         updateform();
     }
 }
+
 function deleteRowWithPaket(r) {
     var row = r.parentNode.parentNode;
     var row_index = r.parentNode.parentNode.rowIndex;
@@ -648,8 +689,8 @@ function deleteRowWithPaket(r) {
         input_tkdn[i].id = "tkdn[" + (i + 1) + "]";
     }
     reindexwithpaket(table);
-    console.log("index_table",index_table);
-    console.log("click",click);
+    console.log("index_table", index_table);
+    console.log("click", click);
     if (index_table == 0) {
         updateformwithpaket(div_tambah_paket);
     }
@@ -659,7 +700,7 @@ function deleteRowWithPaket(r) {
         document.getElementById("pajak").innerHTML = "";
         document.getElementById("total").innerHTML = "";
     } else {
-        console.log("document.querySelectorAll('input[name=harga]')",document.querySelectorAll('input[name="harga"]'));
+        console.log("document.querySelectorAll('input[name=harga]')", document.querySelectorAll('input[name="harga"]'));
         const harga_input = document.querySelectorAll('input[name="harga"]');
         var total_harga = [];
         harga_input.forEach((e, i) => {
@@ -779,14 +820,16 @@ function deleteRowWithPaket(r) {
 
 
 }
+
 function reindex() {
     const ids = document.querySelectorAll("#tabelRAB tr > td:nth-child(1)");
     // const ids = tabel.querySelectorAll("tr > td:nth-child(1)");
     ids.forEach((e, i) => {
-        e.innerHTML = "<strong style='padding-left: 11px' id=nomor[" + (i+1) + "] value=" + (i+1) + ">" + (i+1) + "</strong>"
+        e.innerHTML = "<strong style='padding-left: 11px' id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
         nomor_tabel = i + 1;
     });
 }
+
 function reindexwithpaket(tabel) {
     // const ids = document.querySelectorAll("#tabelRAB tr > td:nth-child(1)");
     const ids = tabel.querySelectorAll("tr > td:nth-child(1)");
@@ -794,7 +837,7 @@ function reindexwithpaket(tabel) {
     ids.forEach((e, i) => {
         console.log("e", e);
         console.log("i", i);
-        e.innerHTML = "<strong style='padding-left: 11px' id=nomor[" + (i+1) + "] value=" + (i+1) + ">" + (i+1) + "</strong>"
+        e.innerHTML = "<strong style='padding-left: 11px' id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
         nomor_tabel = i + 1;
     });
 }
@@ -802,8 +845,8 @@ function reindexwithpaket(tabel) {
 function change_item(c) {
     var row = c.parentNode.parentNode.parentNode.parentNode;
     var change = row.rowIndex;
-    console.log("row",row);
-    console.log("change",change);
+    console.log("row", row);
+    console.log("change", change);
     // var test_item_id = document.getElementById("item_id[" + change - 1 + "]").value;
     // console.log("ea", test_item_id);
     var item_id = document.getElementById("item_id[" + change + "]").value;
@@ -823,10 +866,10 @@ function change_item(c) {
             console.log(response);
             console.log(change);
             console.log(response["nama_items"][0].kategori);
-            console.log(response["satuans"][0][0].kepanjangan+" ("+response["satuans"][0][0].singkatan+")");
+            console.log(response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")");
             // row.getElementsByName("kategory_id")[0].value = response["nama_items"][0].kategori;
             document.getElementById("kategory_id[" + change + "]").value = response["nama_items"][0].kategori;
-            document.getElementById("satuan[" + change + "]").value = response["satuans"][0][0].kepanjangan+" ("+response["satuans"][0][0].singkatan+")";
+            document.getElementById("satuan[" + change + "]").value = response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")";
             var harga_satuan = response["nama_items"][0].harga_satuan;
             harga_satuan = harga_satuan.toString();
             harga_satuan_2 = "";
@@ -974,11 +1017,11 @@ function change_item_with_paket(c) {
     var row = c.parentNode.parentNode.parentNode.parentNode;
     var change = row.rowIndex;
     var change1 = c.parentNode.parentNode.parentNode;
-    console.log("change",row);
-    console.log("change",change);
-    console.log("change1",change1);
-    console.log("c",c);
-    console.log("c innerHTML",c.innerHTML);
+    console.log("change", row);
+    console.log("change", change);
+    console.log("change1", change1);
+    console.log("c", c);
+    console.log("c innerHTML", c.innerHTML);
     // var test_item_id = document.getElementById("item_id[" + change - 1 + "]").value;
     // console.log("ea", test_item_id);
     // var item_id = document.getElementById("item_id[" + change + "]").value;
@@ -998,13 +1041,13 @@ function change_item_with_paket(c) {
             console.log(response);
             console.log(change);
             console.log(response["nama_items"][0].kategori);
-            console.log(response["satuans"][0][0].kepanjangan+" ("+response["satuans"][0][0].singkatan+")");
+            console.log(response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")");
             // console.log("row.getElementsByClassName('kategory_id')", row.getElementsByClassName('kategory_id'));
             // console.log("row.querySelector(input[name=kategory_id])", row.querySelector('input[name="kategory_id"]'));
             // console.log(document.getElementById("satuan[4]"));
             // row.getElementsByName("kategory_id")[0].value = response["nama_items"][0].kategori;
             row.querySelector('input[name="kategory_id"]').value = response["nama_items"][0].kategori;
-            row.querySelector('input[name="satuan"]').value = response["satuans"][0][0].kepanjangan+" ("+response["satuans"][0][0].singkatan+")";
+            row.querySelector('input[name="satuan"]').value = response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")";
             var harga_satuan = response["nama_items"][0].harga_satuan;
             harga_satuan = harga_satuan.toString();
             harga_satuan_2 = "";
@@ -1019,7 +1062,7 @@ function change_item_with_paket(c) {
                 }
             }
             row.querySelector('input[name="harga_satuan"]').value = harga_satuan_2;
-            var volume =  row.querySelector('input[name="volume"]').value;
+            var volume = row.querySelector('input[name="volume"]').value;
             harga_satuan = parseInt(harga_satuan);
             volume = volume.replace(/\./g, "");
             volume = parseInt(volume);
@@ -1037,7 +1080,7 @@ function change_item_with_paket(c) {
                 }
             }
             row.querySelector('input[name="harga"]').value = jumlah_2;
-            console.log("document.querySelectorAll('input[name=harga]')",document.querySelectorAll('input[name="harga"]'));
+            console.log("document.querySelectorAll('input[name=harga]')", document.querySelectorAll('input[name="harga"]'));
             const harga_input = document.querySelectorAll('input[name="harga"]');
             var total_harga = [];
             harga_input.forEach((e, i) => {
@@ -1181,7 +1224,7 @@ function ganti_item() {
             }
             // console.log(item);
             for (var i = 0; i < click; i++) {
-                document.getElementById('item_id['+ (i+1) +']').value = "";
+                document.getElementById('item_id[' + (i + 1) + ']').value = "";
                 document.getElementById("ul_paket_id2[" + (i + 1) + "]").innerHTML = item;
             }
 
@@ -1194,10 +1237,10 @@ function ganti_item() {
             }
             // paket_2 += ("<li class='amsify-item-noresult'>No matching options</li>")
 
-            if(clickpaket != 0) {
-                for(var j = 0; j < clickpaket; j++) {
-                    document.getElementById('paket_id['+ (j+1) +']').value = "";
-                    document.getElementById('ul_paket_id['+ (j+1) +']').innerHTML = paket;
+            if (clickpaket != 0) {
+                for (var j = 0; j < clickpaket; j++) {
+                    document.getElementById('paket_id[' + (j + 1) + ']').value = "";
+                    document.getElementById('ul_paket_id[' + (j + 1) + ']').innerHTML = paket;
                     // document.getElementsByClassName('amsify-label')[j].innerHTML = "Pilih Paket";
                     // document.getElementsByClassName('amsify-list')[j].innerHTML = paket_2;
                 }
@@ -1205,13 +1248,14 @@ function ganti_item() {
         }
     })
 }
+
 function blur_volume(c) {
     var change = c.parentNode.parentNode.rowIndex;
     var volume = document.getElementById("volume[" + change + "]").value;
-    if(volume.charAt(volume.length-1) == ",") {
+    if (volume.charAt(volume.length - 1) == ",") {
         document.getElementById("volume[" + change + "]").value = volume + "0";
     }
-    if(volume.charAt(0) == ",") {
+    if (volume.charAt(0) == ",") {
         document.getElementById("volume[" + change + "]").value = "0" + volume;
     }
     volume = volume.replace(/\./g, "");
@@ -1348,10 +1392,10 @@ function blur_volume_with_paket(c) {
     console.log("row", row);
     var volume = row.querySelector('input[name="volume"]').value;
     console.log("volume", volume);
-    if(volume.charAt(volume.length-1) == ",") {
+    if (volume.charAt(volume.length - 1) == ",") {
         row.querySelector('input[name="tkdn"]').value = volume + "0";
     }
-    if(volume.charAt(0) == ",") {
+    if (volume.charAt(0) == ",") {
         row.querySelector('input[name="tkdn"]').value = "0" + volume;
     }
     volume = volume.replace(/\./g, "");
@@ -1495,23 +1539,26 @@ function blur_volume_with_paket(c) {
 
 function blur_lokasi(ini) {
     var lokasi_2 = [""];
-    for (var i = 0; i < clicklokasi; i++){
-        value_lokasi = document.getElementById('lokasi['+ (i + 1) +']').value
+    for (var i = 0; i < clicklokasi; i++) {
+        value_lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value
         lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
-        "</option>")
+            "</option>")
     }
 
-    if(clickpaket != 0) {
-        for(var j = 0; j < clickpaket; j++) {
-            document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+    if (clickpaket != 0) {
+        for (var j = 0; j < clickpaket; j++) {
+            document.getElementById('lokasi_id[' + (j + 1) + ']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
         }
     }
 
-    for(var i = 0; i < clickpaket; i++) {
-        document.getElementById('lokasi_id['+(i+1)+']').value = document.getElementById('lokasi['+(i+1)+']').value;
-        document.getElementById('lokasi_id['+(i+1)+']').setAttribute('disabled', true);
-        document.getElementById('deletePaket['+(i+1)+']').setAttribute('disabled', true);
+    if(clicklokasi > 1) {
+        for (var i = 0; i < clickpaket; i++) {
+            document.getElementById('lokasi_id[' + (i + 1) + ']').value = document.getElementById('lokasi[' + (i + 1) + ']').value;
+            document.getElementById('lokasi_id[' + (i + 1) + ']').setAttribute('disabled', true);
+            document.getElementById('deletePaket[' + (i + 1) + ']').setAttribute('disabled', true);
+        }
     }
+
 
     // var new_click = clicklokasi - 1;
     // for (var i = 0; i < new_click; i++) {
@@ -1523,11 +1570,11 @@ function blur_lokasi(ini) {
         if (i == 0) {
             var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
 
-            document.getElementById("lokasi_4").innerHTML = (i+1) +". " + lokasi;
+            document.getElementById("lokasi_4").innerHTML = (i + 1) + ". " + lokasi;
         } else {
             var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
 
-            document.getElementById("location_label"+i).innerHTML = (i+1) +". " + lokasi;
+            document.getElementById("location_label" + i).innerHTML = (i + 1) + ". " + lokasi;
         }
         // nomor++;
     }
@@ -1587,11 +1634,11 @@ function onSubmitData() {
     var total_harga = bef_ppn_total_harga + ppn;
     total_harga = Math.round(total_harga);
     swal({
-        title: "Apakah anda yakin?",
-        text: "Anda tidak dapat mengedit Data ini lagi!",
-        icon: "warning",
-        buttons: true,
-    })
+            title: "Apakah anda yakin?",
+            text: "Anda tidak dapat mengedit Data ini lagi!",
+            icon: "warning",
+            buttons: true,
+        })
         .then((willCreate) => {
             if (willCreate) {
                 var data = {
@@ -1652,55 +1699,47 @@ function onSubmitData() {
 
 
 
-function tkdn_format(c){
+function tkdn_format(c) {
     var change = c.parentNode.parentNode.rowIndex;
     var tkdn = document.getElementById("tkdn[" + change + "]");
 
     tkdn.addEventListener('input', function (prev) {
         return function (evt) {
-            if(this.value.charAt(0) == "1") {
-                if(this.value.charAt(1) == "0") {
-                    if(this.value.charAt(2) == "0") {
-                        if(this.value.charAt(3) == ",") {
+            if (this.value.charAt(0) == "1") {
+                if (this.value.charAt(1) == "0") {
+                    if (this.value.charAt(2) == "0") {
+                        if (this.value.charAt(3) == ",") {
                             this.value = prev;
                         } else {
                             if (!/^\d{0,3}(?:\,\d{0,2})?$/.test(this.value)) {
                                 this.value = prev;
-                            }
-                            else {
+                            } else {
                                 prev = this.value;
                             }
                         }
                     } else {
                         if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
                             this.value = prev;
-                        }
-                        else {
+                        } else {
                             prev = this.value;
                         }
                     }
                 } else {
                     if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
                         this.value = prev;
-                    }
-                    else {
+                    } else {
                         prev = this.value;
                     }
                 }
-            } else if (this.value.charAt(0) == ","){
+            } else if (this.value.charAt(0) == ",") {
                 this.value = "";
             } else {
                 if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
                     this.value = prev;
-                }
-                else {
+                } else {
                     prev = this.value;
                 }
             }
         };
     }(tkdn.value), false);
 }
-
-
-
-
