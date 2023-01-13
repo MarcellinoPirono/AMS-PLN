@@ -1,4 +1,3 @@
-// $('#tabelPaket tr td:nth-child(3) select').select2();
 var clickpaket = 0
 var nomor_tabel = 0
 var k = 0
@@ -121,6 +120,7 @@ function updatePaket() {
             var button = document.createElement("button");
             button.innerHTML = "<i class='fa fa-trash'></i>";
             button.setAttribute("onclick", "deletePaket(this)");
+            button.setAttribute("id", "deletePaket["+clickpaket+"]");
             button.setAttribute("class", "btn btn-danger shadow btn-xs sharp m-auto");
             button.setAttribute("style", "margin-top: 14px !important;")
 
@@ -180,6 +180,11 @@ function deletePaket(r) {
     var input_volume = document.querySelectorAll("#tabelPaket tr td:nth-child(4) input");
     for (var i = 0; i < input_volume.length; i++) {
         input_volume[i].id = "volume_paket[" + (i + 1) + "]";
+    }
+
+    var button = document.querySelectorAll("#tabelPaket tr td:nth-child(5) button");
+    for (var i = 0; i < button.length; i++) {
+        button[i].id = "deletePaket[" + (i + 1) + "]";
     }
     // console.log(clickpaket);
 
@@ -459,9 +464,9 @@ function deletePaket(r) {
         change_paket();
     }
 
-    if(clicklokasi > 1 && clickpaket == 0) {
-        updatePaket();
-    }
+    // if(clickpaket < clicklokasi) {
+
+    // }
 
     reindexPaket();
 }
@@ -670,10 +675,8 @@ function change_paket(c) {
         nama_paket = nama_paket.replace(/\//g, "_");
         nama_paket = nama_paket.replace(/\ /g, "-");
 
-        // console.log(nama_paket);
 
         (function (index) {
-            // console.log();
             $.ajax({
                 url: '/change-paket',
                 type: "POST",
@@ -683,7 +686,6 @@ function change_paket(c) {
                     'kontrak_induk': kontrak_induk,
                 },
                 success: function (response) {
-                    // console.log(response);
                     baris_2[index] = {
                         'lokasi': document.getElementById('lokasi_id[' + (index + 1) + ']').value,
                         'paket': document.getElementById('paket_id[' + (index + 1) + ']').value,
@@ -708,8 +710,6 @@ function change_paket(c) {
 
         })(i);
     }
-
-    // console.log(group_location);
 
     if (document.getElementById('lokasi_id[' + clickpaket + ']').value != "" && document.getElementById('paket_id[' + clickpaket + ']').value != "" && document.getElementById('volume_paket[' + clickpaket + ']').value != "") {
         bikin_table(group_location);

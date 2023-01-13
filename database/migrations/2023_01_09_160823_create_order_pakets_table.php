@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('order_pakets', function (Blueprint $table) {
             $table->id();
-            $table->text('nama_paket');
+            $table->text('nama_paket')->nullable();
             $table->foreignId('lokasi_id');
             $table->timestamps();
         });

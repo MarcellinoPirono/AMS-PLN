@@ -126,6 +126,11 @@
             var categor = $('#filter-kategori').val();
             tableItem.columns(2).search(categor).draw();
         });
+
+        // $('#filter-addendum-kontrak-induk').on("change", function(event) {
+        //     var categor = $('#filter-addendum-kontrak-induk').val();
+        //     tableItem.columns(2).search(categor).draw();
+        // });
     </script>
 
 @endsection

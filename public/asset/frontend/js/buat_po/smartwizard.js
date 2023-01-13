@@ -529,16 +529,51 @@ $(function () {
                 // console.log("Object.keys(group_location_step2_db)", Object.keys(group_location_step2_db2));
                 // console.log("Object.keys(group_location_step2_db).length", Object.keys(group_location_step2_db2).length);
 
-                var group_location_step2_db = [];
+                var lokasi_step2 = Object.keys(group_location_step2_db2)
+                var lokasi_step1 = [];
                 for(var i = 0; i < clicklokasi; i++) {
-                    if(document.getElementById('lokasi['+(i+1)+']').value == Object.keys(group_location_step2_db2)[i]) {
+                    lokasi_step1[i] = document.getElementById('lokasi['+(i+1)+']').value;
+                }
+
+                lokasi_step1.forEach(function(value) {
+                    if(lokasi_step2.indexOf(value)==-1) lokasi_step2.push(value);
+                });
+                // console.log("lokasi_step1", lokasi_step1);
+                // console.log("lokasi_step2", lokasi_step2);
+                group_location_step2_db = [];
+
+
+                for(var i = 0; i < lokasi_step2.length; i++) {
+                    if(lokasi_step2[i] == Object.keys(group_location_step2_db2)[i]) {
                         group_location_step2_db[document.getElementById('lokasi['+(i+1)+']').value] = group_location_step2_db2[Object.keys(group_location_step2_db2)[i]];
                     } else {
                         group_location_step2_db[document.getElementById('lokasi['+(i+1)+']').value] = null;
                     }
                 }
+                console.log(group_location_step2_db);
+                // for(var i = 0; i < clicklokasi; i ++) {
 
-                console.log("group_location_step2_db", group_location_step2_db);
+                // }
+                // for(var i = 0; i < Object.keys(group_location_step2_db2).length; i++) {
+                //     for(var j = 0; j < group_location_step2_db2[Object.keys(group_location_step2_db2)[i]].length; j++) {
+                //         for(var k = 0; k < clicklokasi; k++) {
+                //             if(document.getElementById('lokasi['+(k+1)+']').value == group_location_step2_db2[Object.keys(group_location_step2_db2)[i]][j].lokasi) {
+                //                 group_location_step2_db[document.getElementById('lokasi['+(k+1)+']').value] = group_location_step2_db2[Object.keys(group_location_step2_db2)[i]];
+                //             } else {
+                //                 group_location_step2_db[document.getElementById('lokasi['+(k+1)+']').value] = null;
+                //             }
+                //         }
+                //     }
+                //         // for(var j = 0; j < clicklokasi; j++) {
+                //         //     if(document.getElementById('lokasi['+(j+1)+']').value == Object.keys(group_location_step2_db2)[i]) {
+                //         //         group_location_step2_db[document.getElementById('lokasi['+(j+1)+']').value] = group_location_step2_db2[Object.keys(group_location_step2_db2)[i]];
+                //         //     } else {
+                //         //         group_location_step2_db[document.getElementById('lokasi['+(j+1)+']').value] = null;
+                //         //     }
+                //         // }
+                // }
+
+                // console.log("group_location_step2_db", group_location_step2_db);
 
                 var baris_step2 = [];
                 for (var i = 0; i < clickpaket; i++) {
@@ -897,8 +932,8 @@ $(function () {
                     </button>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#" onclick="SubmitTKDN()">Via TKDN <i class="bi bi-printer"></i></a> </li>
-                        <li><a class="dropdown-item" href="#" onclick="SubmitNONTKDN()">Via NON-TKDN <i class="bi bi-printer"></i></a></li>
+                        <li><a class="dropdown-item" href="#" onclick="SubmitTKDN()">Versi TKDN <i class="bi bi-printer"></i></a> </li>
+                        <li><a class="dropdown-item" href="#" onclick="SubmitNONTKDN()">Versi NON-TKDN <i class="bi bi-printer"></i></a></li>
                     </ul>
             </div>
         </div>

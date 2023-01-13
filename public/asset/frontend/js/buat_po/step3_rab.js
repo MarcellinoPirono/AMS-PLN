@@ -338,19 +338,7 @@ function updatelokasi() {
     var lokasi_2 = [""];
     var lokasi_3 = [""];
     for (var i = 0; i < clicklokasi; i++){
-        value_lokasi = document.getElementById('lokasi['+ (i + 1) +']').value
-        lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
-        "</option>");
-        // lokasi_3 += ("<li class='amsify-list-item '>")
-    }
-    // console.log(clickpaket);
-    // console.log(lokasi_2);
-    if(clickpaket != 0) {
-        for(var j = 0; j < clicklokasi; j++) {
-            // document.getElementsByClassName("amsify-label").innerHTML = "Pilih Paket";
-            document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
-            // document.getElementsByClassName("amsify-list").innerHTML = ""
-        }
+        lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi + "</option>");
     }
 
     if(clicklokasi > 1){
@@ -360,13 +348,39 @@ function updatelokasi() {
         $('<tr id="location' + (clicklokasi-1) + '" class="noborder"><td></td><td></td><td id="location_label'+(clicklokasi-1)+'"></td></tr>').insertAfter(lokasi_tabel);
     }
 
-    if(clicklokasi > 1 && clickpaket == 0) {
+    if(clicklokasi == 2) {
+        for(var i = 0; i < clicklokasi; i++){
+            updatePaket();
+        }
+
+        // for(var i = 0; i < clicklokasi; i++) {
+        //     document.getElementById('lokasi_id['+(i+1)+']').value = document.getElementById('lokasi['+(i+1)+']').value;
+        //     document.getElementById('lokasi_id['+(i+1)+']').setAttribute('disabled', true);
+        //     document.getElementById('deletePaket['+(i+1)+']').setAttribute('disabled', true);
+        // }
+    }
+
+    if(clicklokasi > 2) {
         updatePaket();
+        // console.log(clickpaket);
+
+        // for(var i = 0; i < clicklokasi; i++) {
+        //     document.getElementById('lokasi_id['+(i+1)+']').value = document.getElementById('lokasi['+(i+1)+']').value;
+        //     document.getElementById('lokasi_id['+(i+1)+']').setAttribute('disabled', true);
+        //     document.getElementById('deletePaket['+(i+1)+']').setAttribute('disabled', true);
+        // }
+    }
+
+    if(clickpaket != 0) {
+        for(var j = 0; j < clicklokasi; j++) {
+            document.getElementById('lokasi_id['+ (j+1) +']').innerHTML = "<option value='' selected disabled>Pilih Lokasi</option>" + lokasi_2;
+        }
     }
 }
 function deleteRow2(r) {
     var table = r.parentNode.parentNode.rowIndex;
     document.getElementById("tabelSPBJ").deleteRow(table);
+    document.getElementById("tabelPaket").deleteRow(table);
     clicklokasi--;
     var select_id_lokasi = document.querySelectorAll("#tabelSPBJ tr td:nth-child(2) textarea");
     for (var i = 0; i < select_id_lokasi.length; i++) {
@@ -412,12 +426,15 @@ function deleteRow2(r) {
         }
         nomor++;
     }
+    for(var i = 0; i < clickpaket; i++) {
+        document.getElementById('lokasi_id['+(i+1)+']').value = document.getElementById('lokasi['+(i+1)+']').value;
+        document.getElementById('lokasi_id['+(i+1)+']').setAttribute('disabled', true);
+        document.getElementById('deletePaket['+(i+1)+']').setAttribute('disabled', true);
+    }
 
     if (clicklokasi == 0) {
         updatelokasi();
     }
-
-
 
 }
 function reindex2() {
@@ -1490,12 +1507,18 @@ function blur_lokasi(ini) {
         }
     }
 
+    for(var i = 0; i < clickpaket; i++) {
+        document.getElementById('lokasi_id['+(i+1)+']').value = document.getElementById('lokasi['+(i+1)+']').value;
+        document.getElementById('lokasi_id['+(i+1)+']').setAttribute('disabled', true);
+        document.getElementById('deletePaket['+(i+1)+']').setAttribute('disabled', true);
+    }
+
     // var new_click = clicklokasi - 1;
     // for (var i = 0; i < new_click; i++) {
     //     document.getElementById('location' + (i + 1)).remove();
     // }
 
-    var nomor = 1;
+    // var nomor = 1;
     for (var i = 0; i < clicklokasi; i++) {
         if (i == 0) {
             var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
@@ -1506,7 +1529,7 @@ function blur_lokasi(ini) {
 
             document.getElementById("location_label"+i).innerHTML = (i+1) +". " + lokasi;
         }
-        nomor++;
+        // nomor++;
     }
 }
 

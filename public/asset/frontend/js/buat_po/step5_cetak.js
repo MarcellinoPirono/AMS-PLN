@@ -105,7 +105,6 @@ function SubmitTKDN() {
         for (let index = 0; index < clicklokasi; index++) {
             lokasi[index] = document.getElementById('lokasi[' + (index + 1) + ']').value;
             fd.append("lokasi[]", lokasi[index]);
-
         }
 
         let redaksi_id = [];
@@ -322,56 +321,67 @@ function SubmitTKDN() {
             harga_satuan_with_paket[i] = [];
             jumlah_harga_with_paket[i] = [];
             tkdn_with_paket[i] = [];
-            for(var j = 0; j < group_location_step2_db[Object.keys(group_location_step2_db)[i]].length; j++) {
-                console.log("paket",group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket);
-                // console.log("j",j);
-                pakets[i][j] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket;
-                fd.append("pakets["+i+"][]", pakets[i][j]);
-                // fd.append("pakets[i][j]",  JSON.stringify(pakets[i][j]));
-                item_id[i][j] = [];
-                kategory_order_with_paket[i][j] = [];
-                satuan_id_with_paket[i][j] = [];
-                volume_with_paket[i][j] = [];
-                harga_satuan_with_paket[i][j] = [];
-                jumlah_harga_with_paket[i][j] = [];
-                tkdn_with_paket[i][j] = [];
+            if(group_location_step2_db[Object.keys(group_location_step2_db)[i]] != null) {
+                for(var j = 0; j < group_location_step2_db[Object.keys(group_location_step2_db)[i]].length; j++) {
+                    console.log("paket",group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket);
+                    // console.log("j",j);
+                    pakets[i][j] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket;
+                    fd.append("pakets["+i+"][]", pakets[i][j]);
+                    // fd.append("pakets[i][j]",  JSON.stringify(pakets[i][j]));
+                    item_id[i][j] = [];
+                    kategory_order_with_paket[i][j] = [];
+                    satuan_id_with_paket[i][j] = [];
+                    volume_with_paket[i][j] = [];
+                    harga_satuan_with_paket[i][j] = [];
+                    jumlah_harga_with_paket[i][j] = [];
+                    tkdn_with_paket[i][j] = [];
 
-                for(var l = 0; l < group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].item.length; l++) {
-                    item_id[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].item[l];
-                    fd.append("item_id["+i+"]["+j+"][]", item_id[i][j][l]);
-                    // fd.append("item_id[]", JSON.stringify(item_id[i][j][l]));
-                    kategory_order_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].kategory_order[l];
-                    fd.append("kategory_order_with_paket["+i+"]["+j+"][]", kategory_order_with_paket[i][j][l]);
-                    // fd.append("kategory_order_with_paket[]", JSON.stringify(kategory_order_with_paket[i][j][l]));
-                    satuan_id_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].satuan_id[l];
-                    satuan_id_with_paket[i][j][l] = satuan_id_with_paket[i][j][l].replace(/\(([^)]+)\)/, "");
-                    satuan_id_with_paket[i][j][l] = satuan_id_with_paket[i][j][l].replace(/\ /g, "");
-                    fd.append("satuan_id_with_paket["+i+"]["+j+"][]", satuan_id_with_paket[i][j][l]);
-                    // fd.append("satuan_id_with_paket[]", JSON.stringify(satuan_id_with_paket[i][j][l]));
-                    volume_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].volume[l];
-                    volume_with_paket[i][j][l] = volume_with_paket[i][j][l].replace(/\./g, "");
-                    volume_with_paket[i][j][l] = volume_with_paket[i][j][l].replace(/\,/g, ".");
-                    volume_with_paket[i][j][l] = parseFloat(volume_with_paket[i][j][l]);
-                    fd.append("volume_with_paket["+i+"]["+j+"][]", volume_with_paket[i][j][l]);
-                    // fd.append("volume_with_paket[]", JSON.stringify(volume_with_paket[i][j][l]));
-                    harga_satuan_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].harga_satuan[l];
-                    harga_satuan_with_paket[i][j][l] = harga_satuan_with_paket[i][j][l].replace(/\./g, "");
-                    harga_satuan_with_paket[i][j][l] = parseInt(harga_satuan_with_paket[i][j][l]);
-                    fd.append("harga_satuan_with_paket["+i+"]["+j+"][]", harga_satuan_with_paket[i][j][l]);
-                    // fd.append("harga_satuan_with_paket[]", JSON.stringify(harga_satuan_with_paket[i][j][l]));
-                    jumlah_harga_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].jumlah_harga[l];
-                    jumlah_harga_with_paket[i][j][l] = jumlah_harga_with_paket[i][j][l].replace(/\./g, "");
-                    jumlah_harga_with_paket[i][j][l] = parseInt(jumlah_harga_with_paket[i][j][l]);
-                    fd.append("jumlah_harga_with_paket["+i+"]["+j+"][]", jumlah_harga_with_paket[i][j][l]);
-                    // fd.append("jumlah_harga_with_paket[]", JSON.stringify(jumlah_harga_with_paket[i][j][l]));
-                    tkdn_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].tkdn[l];
-                    tkdn_with_paket[i][j][l] = tkdn_with_paket[i][j][l].replace(/\./g, "");
-                    tkdn_with_paket[i][j][l] = tkdn_with_paket[i][j][l].replace(/\,/g, ".");
-                    tkdn_with_paket[i][j][l] = parseFloat(tkdn_with_paket[i][j][l]);
-                    fd.append("tkdn_with_paket["+i+"]["+j+"][]", tkdn_with_paket[i][j][l]);
-                    // fd.append("tkdn_with_paket[]", JSON.stringify(tkdn_with_paket[i][j][l]));
-                    // item_l += ("<li>" + data[Object.keys(data)[i]][j]["nama_item"][l]["nama_item"] + "</li>")
+                    for(var l = 0; l < group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].item.length; l++) {
+                        item_id[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].item[l];
+                        fd.append("item_id["+i+"]["+j+"][]", item_id[i][j][l]);
+                        // fd.append("item_id[]", JSON.stringify(item_id[i][j][l]));
+                        kategory_order_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].kategory_order[l];
+                        fd.append("kategory_order_with_paket["+i+"]["+j+"][]", kategory_order_with_paket[i][j][l]);
+                        // fd.append("kategory_order_with_paket[]", JSON.stringify(kategory_order_with_paket[i][j][l]));
+                        satuan_id_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].satuan_id[l];
+                        satuan_id_with_paket[i][j][l] = satuan_id_with_paket[i][j][l].replace(/\(([^)]+)\)/, "");
+                        // satuan_id_with_paket[i][j][l] = satuan_id_with_paket[i][j][l].replace(/\ /g, " ");
+                        fd.append("satuan_id_with_paket["+i+"]["+j+"][]", satuan_id_with_paket[i][j][l]);
+                        // fd.append("satuan_id_with_paket[]", JSON.stringify(satuan_id_with_paket[i][j][l]));
+                        volume_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].volume[l];
+                        volume_with_paket[i][j][l] = volume_with_paket[i][j][l].replace(/\./g, "");
+                        volume_with_paket[i][j][l] = volume_with_paket[i][j][l].replace(/\,/g, ".");
+                        volume_with_paket[i][j][l] = parseFloat(volume_with_paket[i][j][l]);
+                        fd.append("volume_with_paket["+i+"]["+j+"][]", volume_with_paket[i][j][l]);
+                        // fd.append("volume_with_paket[]", JSON.stringify(volume_with_paket[i][j][l]));
+                        harga_satuan_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].harga_satuan[l];
+                        harga_satuan_with_paket[i][j][l] = harga_satuan_with_paket[i][j][l].replace(/\./g, "");
+                        harga_satuan_with_paket[i][j][l] = parseInt(harga_satuan_with_paket[i][j][l]);
+                        fd.append("harga_satuan_with_paket["+i+"]["+j+"][]", harga_satuan_with_paket[i][j][l]);
+                        // fd.append("harga_satuan_with_paket[]", JSON.stringify(harga_satuan_with_paket[i][j][l]));
+                        jumlah_harga_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].jumlah_harga[l];
+                        jumlah_harga_with_paket[i][j][l] = jumlah_harga_with_paket[i][j][l].replace(/\./g, "");
+                        jumlah_harga_with_paket[i][j][l] = parseInt(jumlah_harga_with_paket[i][j][l]);
+                        fd.append("jumlah_harga_with_paket["+i+"]["+j+"][]", jumlah_harga_with_paket[i][j][l]);
+                        // fd.append("jumlah_harga_with_paket[]", JSON.stringify(jumlah_harga_with_paket[i][j][l]));
+                        tkdn_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].tkdn[l];
+                        tkdn_with_paket[i][j][l] = tkdn_with_paket[i][j][l].replace(/\./g, "");
+                        tkdn_with_paket[i][j][l] = tkdn_with_paket[i][j][l].replace(/\,/g, ".");
+                        tkdn_with_paket[i][j][l] = parseFloat(tkdn_with_paket[i][j][l]);
+                        fd.append("tkdn_with_paket["+i+"]["+j+"][]", tkdn_with_paket[i][j][l]);
+                        // fd.append("tkdn_with_paket[]", JSON.stringify(tkdn_with_paket[i][j][l]));
+                        // item_l += ("<li>" + data[Object.keys(data)[i]][j]["nama_item"][l]["nama_item"] + "</li>")
+                    }
                 }
+            } else {
+                fd.append("pakets["+i+"][]", '');
+                fd.append("item_id["+i+"][]", '');
+                fd.append("kategory_order_with_paket["+i+"][]", "");
+                fd.append("satuan_id_with_paket["+i+"][]", "");
+                fd.append("volume_with_paket["+i+"][]", "");
+                fd.append("harga_satuan_with_paket["+i+"][]", "");
+                fd.append("jumlah_harga_with_paket["+i+"][]", "");
+                fd.append("tkdn_with_paket["+i+"][]", "");
             }
             // fd.append("group_location_step2_db[]", group_location_step2_db);
         }

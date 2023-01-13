@@ -336,6 +336,10 @@
      padding-left: 4px;
  }
 
+ .tabellkirii {
+    padding-left: 15px;
+}
+
  .tabellkanan {
      padding-right: 4px;
  }
@@ -526,4 +530,25 @@ table.tableSection th, table.tableSection td {
 
 .kuning {
 background-color: #FFF000;
+}
+
+.tabelpaket {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: none;
+}
+
+.tabelpaket1 {
+    border-left: 3px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: none;
+}
+
+.tabelpaket2 {
+    border-left: 1px solid black;
+    border-right: 3px solid black;
+    border-top: 1px solid black;
+    border-bottom: none;
 }

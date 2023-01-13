@@ -656,6 +656,46 @@ class PdfkhsController extends Controller
         $satuan_id = [];
         $nama_item_id = [];
 
+        // for($i = 0; $i < count($request->lokasi_with_paket); $i++){
+        //     $rab_id[$i] = $id;
+        //     $order_lokasi = [
+        //         'rab_id' => $rab_id[$i],
+        //         'nama_lokasi' => $request->lokasi_with_paket[$i]
+        //     ];
+        //     lokasi::create($order_lokasi);
+        //     $lokasi_id = lokasi::where('rab_id', $rab_id[$i])->where("nama_lokasi", $request->lokasi_with_paket[$i])->value('id');
+        //     for($j = 0; $j < count($request->pakets[$i]); $j++){
+        //         // $rab_id[$i] = $id;
+        //         $order_paket = [
+        //             'nama_paket' => $request->pakets[$i][$j],
+        //             'lokasi_id' => $lokasi_id,
+        //         ];
+        //         OrderPaket::create($order_paket);
+        //         $order_paket_id = OrderPaket::where("lokasi_id", $lokasi_id)->where("nama_paket", $request->pakets[$i][$j])->value('id');
+        //         // dd($request->item_id[$i]);
+        //         for($k = 0; $k < count($request->item_id[$i][$j]); $k++){
+        //             $satuan_id = Satuan::where('kepanjangan', $request->satuan_id_with_paket[$i][$j][$k])->value('id');
+        //             $item_order = RincianInduk::where('nama_item', $request->item_id[$i][$j][$k])->value('id');
+        //             $order_khs = [
+        //                 'rab_id' => $rab_id[$i],
+        //                 'order_paket_id' => $order_paket_id,
+        //                 'kategori_order' => $request->kategory_order_with_paket[$i][$j][$k],
+        //                 'item_order' => $item_order,
+        //                 'satuan_id' => $satuan_id,
+        //                 'harga_satuan' => $request->harga_satuan_with_paket[$i][$j][$k],
+        //                 'volume' => $request->volume_with_paket[$i][$j][$k],
+        //                 'jumlah_harga' => $request->jumlah_harga_with_paket[$i][$j][$k],
+        //                 'tkdn' => $request->tkdn_with_paket[$i][$j][$k],
+        //                 'kdn' => $request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k],
+        //                 'kln' =>  $request->jumlah_harga_with_paket[$i][$j][$k] - ($request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k]),
+        //                 'total_tkdn' => ($request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k]) + ($request->jumlah_harga_with_paket[$i][$j][$k] - ($request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k]))
+        //             ];
+        //             OrderKhs::create($order_khs);
+        //         }
+        //         // $nama_item_id = RincianINduk::where('nama_item', $request->item_order[$i])->value('id');
+        //     }
+        // }
+
         for($i = 0; $i < count($request->lokasi_with_paket); $i++){
             $rab_id[$i] = $id;
             $order_lokasi = [
@@ -670,27 +710,31 @@ class PdfkhsController extends Controller
                     'nama_paket' => $request->pakets[$i][$j],
                     'lokasi_id' => $lokasi_id,
                 ];
+                // dd($order_paket);
                 OrderPaket::create($order_paket);
                 $order_paket_id = OrderPaket::where("lokasi_id", $lokasi_id)->where("nama_paket", $request->pakets[$i][$j])->value('id');
                 // dd($request->item_id[$i]);
-                for($k = 0; $k < count($request->item_id[$i][$j]); $k++){
-                    $satuan_id = Satuan::where('kepanjangan', $request->satuan_id_with_paket[$i][$j][$k])->value('id');
-                    $item_order = RincianInduk::where('nama_item', $request->item_id[$i][$j][$k])->value('id');
-                    $order_khs = [
-                        'rab_id' => $rab_id[$i],
-                        'order_paket_id' => $order_paket_id,
-                        'kategori_order' => $request->kategory_order_with_paket[$i][$j][$k],
-                        'item_order' => $item_order,
-                        'satuan_id' => $satuan_id,
-                        'harga_satuan' => $request->harga_satuan_with_paket[$i][$j][$k],
-                        'volume' => $request->volume_with_paket[$i][$j][$k],
-                        'jumlah_harga' => $request->jumlah_harga_with_paket[$i][$j][$k],
-                        'tkdn' => $request->tkdn_with_paket[$i][$j][$k],
-                        'kdn' => $request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k],
-                        'kln' =>  $request->jumlah_harga_with_paket[$i][$j][$k] - ($request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k]),
-                        'total_tkdn' => ($request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k]) + ($request->jumlah_harga_with_paket[$i][$j][$k] - ($request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k]))
-                    ];
-                    OrderKhs::create($order_khs);
+                if($request->item_id[$i][$j] != null) {
+                    for($k = 0; $k < count($request->item_id[$i][$j]); $k++){
+                        $satuan_id = Satuan::where('kepanjangan', $request->satuan_id_with_paket[$i][$j][$k])->value('id');
+                        // dd($satuan_id);
+                        $item_order = RincianInduk::where('nama_item', $request->item_id[$i][$j][$k])->value('id');
+                        $order_khs = [
+                            'rab_id' => $rab_id[$i],
+                            'order_paket_id' => $order_paket_id,
+                            'kategori_order' => $request->kategory_order_with_paket[$i][$j][$k],
+                            'item_order' => $item_order,
+                            'satuan_id' => $satuan_id,
+                            'harga_satuan' => $request->harga_satuan_with_paket[$i][$j][$k],
+                            'volume' => $request->volume_with_paket[$i][$j][$k],
+                            'jumlah_harga' => $request->jumlah_harga_with_paket[$i][$j][$k],
+                            'tkdn' => $request->tkdn_with_paket[$i][$j][$k],
+                            'kdn' => $request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k],
+                            'kln' =>  $request->jumlah_harga_with_paket[$i][$j][$k] - ($request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k]),
+                            'total_tkdn' => ($request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k]) + ($request->jumlah_harga_with_paket[$i][$j][$k] - ($request->tkdn_with_paket[$i][$j][$k] * $request->jumlah_harga_with_paket[$i][$j][$k]))
+                        ];
+                        OrderKhs::create($order_khs);
+                    }
                 }
                 // $nama_item_id = RincianINduk::where('nama_item', $request->item_order[$i])->value('id');
             }
@@ -797,9 +841,13 @@ class PdfkhsController extends Controller
 
         $jasa = [];
         $jasa_volume = [];
+        $jasa_jumlah_harga = [];
+        $sub_jumlah_jasa = [];
         $ubah_volume_jasa = [];
         $material = [];
         $material_volume = [];
+        $material_jumlah_harga= [];
+        $sub_jumlah_material = [];
         $ubah_volume_material = [];
         $values_pdf_page2 = [];
 
@@ -808,9 +856,13 @@ class PdfkhsController extends Controller
         for($k = 0; $k < count($lokasis); $k++){
             $jasa[$k] = [];
             $jasa_volume[$k] = [];
+            $jasa_jumlah_harga[$k] = [];
+            $sub_jumlah_jasa[$k] = [];
             $ubah_volume_jasa[$k] = [];
             $material[$k] = [];
             $material_volume[$k] = [];
+            $material_jumlah_harga[$k] = [];
+            $sub_jumlah_material[$k] = [];
             $values_pdf_page2[$k] = [];
             $ubah_volume_material[$k] = [];
             // $paket_id[$k] = OrderPaket::where('');
@@ -822,46 +874,40 @@ class PdfkhsController extends Controller
                 // $nama_paket[$k][$j] = $paket_id[$k][$j]->nama_paket;
                 $jasa[$k][$j] = [];
                 $jasa_volume[$k][$j] = [];
+                $jasa_jumlah_harga[$k][$j] = [];
+                $sub_jumlah_jasa[$k][$j] = [];
                 $ubah_volume_jasa[$k][$j] = [];
                 $material[$k][$j] = [];
                 $material_volume[$k][$j] = [];
+                $material_jumlah_harga[$k][$j] = [];
+                $sub_jumlah_material[$k][$j] = [];
                 $ubah_volume_material[$k][$j] = [];
                 for($i = 0; $i < count($values_pdf_page2[$k][$j]); $i++) {
                     // dd($values_pdf_page2[$k][$j][$i]);
                     if($values_pdf_page2[$k][$j][$i]->kategori_order == "Jasa") {
                         $jasa[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
                         $jasa_volume[$k][$j][$i] = $jasa[$k][$j][$i]->volume;
+                        $jasa_jumlah_harga[$k][$j][$i] = $jasa[$k][$j][$i]->jumlah_harga;
+                        $sub_jumlah_jasa[$k][$j][$i] = $jasa_jumlah_harga[$k][$j][$i];
+                        // dd($sub_jumlah_jasa[$k][$j][$i]);
                         $ubah_volume_jasa[$k][$j][$i] = str_replace(".", ",", $jasa_volume[$k][$j][$i]);
                         $jasa[$k][$j][$i]->volume = $ubah_volume_jasa[$k][$j][$i];
-                        // $jasa[$i]->volume = str_replace()
                     } else {
                         $material[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
                         $material_volume[$k][$j][$i] = $material[$k][$j][$i]->volume;
-                        // dd($material_volume[$k][$j][$i]);
+                        $material_jumlah_harga[$k][$j][$i] = $material[$k][$j][$i]->jumlah_harga;
+                        $sub_jumlah_material[$k][$j] = $material_jumlah_harga[$k][$j][$i];
                         $ubah_volume_material[$k][$j][$i] = str_replace(".", ",", $material_volume[$k][$j][$i]);
                         $material[$k][$j][$i]->volume = $ubah_volume_material[$k][$j][$i];
                     }
                 }
+                // $sub_jumlah_jasa[$k][$j] = array_sum($sub_jumlah_jasa[$k][$j]);
+                // $sub_jumlah_material[$k][$j] = array_sum($material_jumlah_harga[$k][$j]);
+
+                // $sub_jumlah_jasa[$k][$j] = $values_pdf_page2[$k][$j]->harga->sum();
             }
         }
-        // dd($jasa);
-        // $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
-        // for($i = 0; $i < count($values_pdf_page2); $i++) {
-        //     if($values_pdf_page2[$i]->kategori_order == "Jasa") {
-        //         $jasa[$i] = $values_pdf_page2[$i];
-        //         $jasa_volume[$i] = $jasa[$i]->volume;
-        //         $ubah_volume_jasa[$i] = str_replace(".", ",", "$jasa_volume[$i]");
-        //         $jasa[$i]->volume = $ubah_volume_jasa[$i];
-        //         // $jasa[$i]->volume = str_replace()
-        //     } else {
-        //         $material[$i] = $values_pdf_page2[$i];
-        //         $material_volume[$i] = $material[$i]->volume;
-        //         $ubah_volume_material[$i] = str_replace(".", ",", "$material_volume[$i]");
-        //         $material[$i]->volume = $ubah_volume_material[$i];
-        //     }
-        // }
-        // dd($material);
-        // $jabatan = Pejabat::select('jabatan');
+        // dd($sub_jumlah_jasa);
 
         $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
@@ -869,11 +915,12 @@ class PdfkhsController extends Controller
         $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
         $ppn = $jumlah * 0.11;
 
-
         $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
             "po_khs" => $values_pdf_page1,
             "kategori_jasa" => $jasa,
+            "sub_jumlah_jasa" => $sub_jumlah_jasa,
             "kategori_material" => $material,
+            "sub_jumlah_material" => $sub_jumlah_material,
             "jumlah" => $jumlah,
             "ppn" => $ppn,
             "days" => $days,
@@ -881,8 +928,8 @@ class PdfkhsController extends Controller
             "nama_manager" => $nama_manager,
             "title" => $nama_pdf,
             "redaksis" => $redaksis,
-            "rabredaksi" => $rabredaksi,
-            "subdeskripsi_id" => $subdeskripsi_id,
+            // "rabredaksi" => $rabredaksi,
+            // "subdeskripsi_id" => $subdeskripsi_id,
             "lokasis" => $lokasis,
             "paket_id" => $paket_id,
             "rabredaksi_array" => $rabredaksi_array,
@@ -891,7 +938,9 @@ class PdfkhsController extends Controller
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
-        $pdf2 = Pdf::loadView('format_surat.rab_tkdn',[
+        // dd($paket_id);
+
+        $pdf2 = Pdf::loadView('format_surat.testing_grouping',[
             "po_khs" => $values_pdf_page1,
             "kategori_jasa" => $jasa,
             "kategori_material" => $material,
@@ -901,7 +950,6 @@ class PdfkhsController extends Controller
             "jabatan_manager" => $jabatan_manager,
             "nama_manager" => $nama_manager,
             "title" => $nama_pdf,
-            "redaksis" => $redaksis,
             "lokasis" => $lokasis,
             "paket_id" => $paket_id,
         ]);
@@ -1320,11 +1368,12 @@ class PdfkhsController extends Controller
         // dd($rab_id);
         // $paket = [];
         $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+
         $paket_id = OrderKhs::select('order_paket_id')->where('rab_id', $rab_id)->groupBy('order_paket_id')->get();
         // dd($values_pdf_page2);
         $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
         $lokasis = lokasi::where('rab_id', $rab_id)->get();
-        dd($lokasis, $paket_id);
+        // dd($lokasis, $redaksis);
         // dd($paket_id);
         // for($i = 0; $i < count($values_pdf_page2); $i++) {
         //     $paket[$i] =
@@ -1358,16 +1407,87 @@ class PdfkhsController extends Controller
         // dd($rabredaksi_array);
 
         // dd($values_pdf_page2[0]->kategori_order);
-        $jasa = [];
-        $material = [];
+        // $jasa = [];
+        // $material = [];
 
-        for($i = 0; $i < count($values_pdf_page2); $i++) {
-            if($values_pdf_page2[$i]->kategori_order == "Jasa") {
-                $jasa[$i] = $values_pdf_page2[$i];
-            } else {
-                $material[$i] = $values_pdf_page2[$i];
-            }
+        // for($i = 0; $i < count($values_pdf_page2); $i++) {
+        //     if($values_pdf_page2[$i]->kategori_order == "Jasa") {
+        //         $jasa[$i] = $values_pdf_page2[$i];
+        //     } else {
+        //         $material[$i] = $values_pdf_page2[$i];
+        //     }
+        // }
+        $jasa = [];
+        $jasa_volume = [];
+        $jasa_jumlah_harga = [];
+        $sub_jumlah_jasa = [];
+        $ubah_volume_jasa = [];
+        $material = [];
+        $material_volume = [];
+        $material_jumlah_harga= [];
+        $sub_jumlah_material = [];
+        $ubah_volume_material = [];
+        $values_pdf_page2 = [];
+
+        $nama_paket = [];
+
+        for($k = 0; $k < count($lokasis); $k++){
+            $jasa[$k] = [];
+            $jasa_volume[$k] = [];
+            $jasa_jumlah_harga[$k] = [];
+            $sub_jumlah_jasa[$k] = [];
+            $ubah_volume_jasa[$k] = [];
+            $material[$k] = [];
+            $material_volume[$k] = [];
+            $material_jumlah_harga[$k] = [];
+            $sub_jumlah_material[$k] = [];
+            $values_pdf_page2[$k] = [];
+            $ubah_volume_material[$k] = [];
+            // $paket_id[$k] = OrderPaket::where('');
+            $paket_id[$k] = OrderPaket::where('lokasi_id', $lokasis[$k]->id)->get();
+            // if($paket_id[$k][0]->nama_paket != null) {
+                for($j = 0; $j < count($paket_id[$k]); $j++){
+                    // dd($paket_id[$k][$j]->id);
+                    $values_pdf_page2[$k][$j] = OrderKhs::where('order_paket_id', $paket_id[$k][$j]->id)->get();
+                    // dd($values_pdf_page2[$k][$j]);
+                    // $nama_paket[$k][$j] = $paket_id[$k][$j]->nama_paket;
+                    $jasa[$k][$j] = [];
+                    $jasa_volume[$k][$j] = [];
+                    $jasa_jumlah_harga[$k][$j] = [];
+                    $sub_jumlah_jasa[$k][$j] = [];
+                    $ubah_volume_jasa[$k][$j] = [];
+                    $material[$k][$j] = [];
+                    $material_volume[$k][$j] = [];
+                    $material_jumlah_harga[$k][$j] = [];
+                    $sub_jumlah_material[$k][$j] = [];
+                    $ubah_volume_material[$k][$j] = [];
+                    for($i = 0; $i < count($values_pdf_page2[$k][$j]); $i++) {
+                        // dd($values_pdf_page2[$k][$j][$i]);
+                        if($values_pdf_page2[$k][$j][$i]->kategori_order == "Jasa") {
+                            $jasa[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
+                            $jasa_volume[$k][$j][$i] = $jasa[$k][$j][$i]->volume;
+                            $jasa_jumlah_harga[$k][$j][$i] = $jasa[$k][$j][$i]->jumlah_harga;
+                            $sub_jumlah_jasa[$k][$j][$i] = $jasa_jumlah_harga[$k][$j][$i];
+                            // dd($sub_jumlah_jasa[$k][$j][$i]);
+                            $ubah_volume_jasa[$k][$j][$i] = str_replace(".", ",", $jasa_volume[$k][$j][$i]);
+                            $jasa[$k][$j][$i]->volume = $ubah_volume_jasa[$k][$j][$i];
+                        } else {
+                            $material[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
+                            $material_volume[$k][$j][$i] = $material[$k][$j][$i]->volume;
+                            $material_jumlah_harga[$k][$j][$i] = $material[$k][$j][$i]->jumlah_harga;
+                            $sub_jumlah_material[$k][$j] = $material_jumlah_harga[$k][$j][$i];
+                            $ubah_volume_material[$k][$j][$i] = str_replace(".", ",", $material_volume[$k][$j][$i]);
+                            $material[$k][$j][$i]->volume = $ubah_volume_material[$k][$j][$i];
+                        }
+                    }
+                    // $sub_jumlah_jasa[$k][$j] = array_sum($sub_jumlah_jasa[$k][$j]);
+                    // $sub_jumlah_material[$k][$j] = array_sum($material_jumlah_harga[$k][$j]);
+
+                    // $sub_jumlah_jasa[$k][$j] = $values_pdf_page2[$k][$j]->harga->sum();
+                }
+            // }
         }
+        // dd($lokasis, $paket_id);
 
         // dd($material);
 
@@ -1413,7 +1533,20 @@ class PdfkhsController extends Controller
         // dd($jasa);
 
 
-        $pdf2 = Pdf::loadView('format_surat.rab_tkdn',[
+        // $pdf2 = Pdf::loadView('format_surat.testing_grouping',[
+        //     "po_khs" => $values_pdf_page1,
+        //     "kategori_jasa" => $jasa,
+        //     "kategori_material" => $material,
+        //     "jumlah" => $jumlah,
+        //     "ppn" => $ppn,
+        //     "days" => $days,
+        //     "jabatan_manager" => $jabatan_manager,
+        //     "nama_manager" => $nama_manager,
+        //     "redaksis" => $redaksis,
+        //     "lokasis" => $lokasis,
+        //     "title" => 'PO-KHS (SP-APP)',
+        // ]);
+        $pdf2 = Pdf::loadView('format_surat.testing_grouping',[
             "po_khs" => $values_pdf_page1,
             "kategori_jasa" => $jasa,
             "kategori_material" => $material,
@@ -1422,25 +1555,26 @@ class PdfkhsController extends Controller
             "days" => $days,
             "jabatan_manager" => $jabatan_manager,
             "nama_manager" => $nama_manager,
-            "redaksis" => $redaksis,
+            "title" => $nama_pdf,
+            // "redaksis" => $redaksis,
             "lokasis" => $lokasis,
-            "title" => 'PO-KHS (SP-APP)',
+            "paket_id" => $paket_id,
         ]);
         // dd($pdf2);
-        // $pdf2->setPaper('A4', 'landscape');
-        // $path2 = 'RAB.pdf';
-        // Storage::disk('local')->put($path2, $pdf2->output());
+        $pdf2->setPaper('A4', 'landscape');
+        $path2 = 'RAB.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
 
-        // $oMerger = PDFMerger::init();
+        $oMerger = PDFMerger::init();
 
-        // $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
-        // $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
 
-        // $filename = $nama_pdf.'.pdf';
-        // $oMerger->merge();
+        $filename = $nama_pdf.'.pdf';
+        $oMerger->merge();
 
 
-        // return $oMerger->download();
+        return $oMerger->download();
 
     }
 

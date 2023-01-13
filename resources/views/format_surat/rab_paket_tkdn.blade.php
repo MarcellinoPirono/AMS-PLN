@@ -147,7 +147,7 @@
                             <td class="first" align="center" valign="middle"></td>
                             <td class="first" align="center" valign="middle"></td>
                             <td class="first tabellkanan" align="right" valign="middle"></td>
-                            <td class="firstkanan tabellkanan" align="right" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle"></td>
                             <td class="first" align="center" valign="middle"></td>
                             <td class="first" align="center" valign="middle"></td>
                             <td class="first" align="center" valign="middle"></td>
@@ -165,7 +165,7 @@
                         <td class="first" align="center" valign="middle"></td>
                         <td class="first" align="center" valign="middle"></td>
                         <td class="first tabellkanan" align="right" valign="middle"></td>
-                        <td class="firstkanan tabelnormallkanan" align="right" valign="middle"></td>
+                        <td class="first tabelnormallkanan" align="right" valign="middle"></td>
                         <td class="first" align="center" valign="middle"></td>
                         <td class="first" align="center" valign="middle"></td>
                         <td class="first" align="center" valign="middle"></td>
@@ -180,7 +180,7 @@
                             <td class="first" align="center" valign="middle">{{ $material->satuans->singkatan }}</td>
                             <td class="first" align="center" valign="middle">@currency4($material->volume)</td>
                             <td class="first tabellkanan" align="right" valign="middle">@currency2($material->harga_satuan)</td>
-                            <td class="firstkanan tabelnormallkanan tabellkanan" align="right" valign="middle">
+                            <td class="first tabelnormallkanan tabellkanan" align="right" valign="middle">
                                 @currency2($material->jumlah_harga)
                             </td>
                             <td class="first tabellkanan" align="center" valign="middle">@currencytkdn($material->tkdn)%</td>

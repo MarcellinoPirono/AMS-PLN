@@ -12,9 +12,9 @@
 </head>
 
 <body>
-    <header class="mt-1">
+    {{-- <header class="mt-1">
         <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
-    </header>
+    </header> --}}
 
     <footer>
         <div class="footer-2">
@@ -31,7 +31,7 @@
     @foreach ($po_khs as $pokhs)
     <table class="sub-judul" width="95%" cellspacing="0" cellpadding="0" align="center">
         <tr>
-            <td colspan="3" class="judul">RINCIAN ANGGARAN BIAYA NON-TKDN</td>
+            <td colspan="3" class="judul">RINCIAN ANGGARAN BIAYA</td>
         </tr>
         <tr>
             <td width="18%" style="height: 4px;">PEKERJAAN</td>
