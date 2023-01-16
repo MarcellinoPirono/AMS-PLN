@@ -143,7 +143,9 @@ function SubmitTKDN() {
         }
 
         const bef_ppn_total_harga = harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-        var ppn = bef_ppn_total_harga * 11 / 100;
+        var ppn_id = document.getElementById('ppn').value;
+        ppn_id = parseFloat(ppn_id);
+        var ppn = bef_ppn_total_harga * ppn_id / 100;
         ppn = Math.round(ppn);
         var total_harga = bef_ppn_total_harga + ppn;
         total_harga = Math.round(total_harga);
@@ -834,7 +836,9 @@ function SubmitNONTKDN() {
             }
 
             const bef_ppn_total_harga = harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-            var ppn = bef_ppn_total_harga * 11 / 100;
+            var ppn_id = document.getElementById('ppn').value;
+            ppn_id = parseFloat(ppn_id);
+            var ppn = bef_ppn_total_harga * ppn_id / 100;
             ppn = Math.round(ppn);
             var total_harga = bef_ppn_total_harga + ppn;
             total_harga = Math.round(total_harga);

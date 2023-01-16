@@ -432,6 +432,7 @@
                                 </div>
                                 <div id="daftar_rab" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <form id="form-3" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
+                                        <input type="hidden" name="ppn" id="ppn" value="{{ $ppn[0]->ppn }}">
                                         <div class="row">
                                             <div class="col-xl-12 col-xxl-12">
                                                 <div class="card">
@@ -591,7 +592,7 @@
                                                                             <th style="width: 24%"></th>
                                                                         </tr>
                                                                         <tr>
-                                                                            <th style="padding-left: 35px">PPN</th>
+                                                                            <th style="padding-left: 35px">PPN {{ $ppn[0]->ppn }}%</th>
                                                                             <th>:</th>
                                                                             <th id="pajak"></th>
                                                                             <th></th>
@@ -1013,7 +1014,7 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="2" align="center"
-                                                                                    valign="middle"><b>PPN 11%</b></td>
+                                                                                    valign="middle"><b>PPN {{ $ppn[0]->ppn }}%</b></td>
                                                                                 <td class="tabellkanan" id="td_ppn"
                                                                                     style="font-weight: bold"
                                                                                     align="right">

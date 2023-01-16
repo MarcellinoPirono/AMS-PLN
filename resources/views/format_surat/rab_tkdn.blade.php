@@ -215,7 +215,7 @@
                     <td class="tabelnormalkanan tabellkanan kuning" align="right">@currency2($total_jasa_material)</td>
                 </tr>
                 <tr style="page-break-before: avoid">
-                    <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
+                    <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN {{ $ppn_id[0]->ppn }}%</b></td>
                     <td class="tabelnormal tabellkanan" align="right"><b>@currency2($ppn)</b></td>
                     <td class="tabelnormal"></td>
                     <td class="tabelnormal"></td>

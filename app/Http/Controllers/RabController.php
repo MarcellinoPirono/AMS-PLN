@@ -19,6 +19,7 @@ use App\Models\Vendor;
 // use App\Models\OrderedRab;
 use App\Models\OrderKhs;
 use App\Models\OrderRedaksiKHS;
+use App\Models\PpnModel;
 use App\Models\Redaksi;
 use App\Models\SubRedaksi;
 use App\Models\Satuan;
@@ -68,7 +69,8 @@ class RabController extends Controller
 
     public function buat_po_khs()
     {
-
+        // $ppn = PpnModel::all();
+        // dd($ppn);
         $data_items = RincianInduk::select('id', 'nama_item', 'harga_satuan', 'satuan_id')->get();
         $data_kategori = ItemRincianInduk::select('id', 'khs_id', 'nama_kategori')->get();
         // $khs =Khs::all();
@@ -113,6 +115,7 @@ class RabController extends Controller
                 'pejabats' => Pejabat::all(),
                 'khs' => Khs::all(),
                 'redaksis'=>Redaksi::all(),
+                'ppn'=>PpnModel::all(),
             ],
             compact('data_kategori', 'data_items')
         );

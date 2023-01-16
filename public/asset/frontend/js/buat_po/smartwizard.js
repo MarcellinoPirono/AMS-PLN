@@ -781,7 +781,9 @@ $(function () {
                     persentase_tkdn = "0";
                 }
                 var jumlah_keseluruhan = jumlah_jasa_2 + jumlah_material_2;
-                var ppn_2 = jumlah_keseluruhan * (11 / 100);
+                var ppn_id = document.getElementById('ppn').value;
+                ppn_id = parseFloat(ppn_id);
+                var ppn_2 = jumlah_keseluruhan * (ppn_id / 100);
                 ppn_2 = Math.round(ppn_2);
                 var total_harga_2 = jumlah_keseluruhan + ppn_2;
                 document.getElementById("jumlah_jasa_count").innerHTML = "Rp. " + tandaPemisahTitik(jumlah_jasa_2);

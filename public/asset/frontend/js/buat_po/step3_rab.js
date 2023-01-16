@@ -552,7 +552,9 @@ function deleteRow(r) {
             }
             document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
             total_harga_all = parseInt(total_harga_all);
-            var ppn = total_harga_all * 11 / 100;
+            var ppn_id = document.getElementById('ppn').value;
+            ppn_id = parseFloat(ppn_id);
+            var ppn = total_harga_all * ppn_id / 100;
             ppn = Math.round(ppn);
             ppn = ppn.toString();
             ppn_2 = ""
@@ -599,7 +601,9 @@ function deleteRow(r) {
             }
             document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
             total_harga_all = parseInt(total_harga_all);
-            var ppn = total_harga_all * 11 / 100;
+            var ppn_id = document.getElementById('ppn').value;
+            ppn_id = parseFloat(ppn_id);
+            var ppn = total_harga_all * ppn_id / 100;
             ppn = Math.round(ppn);
             ppn = ppn.toString();
             ppn_2 = ""
@@ -736,7 +740,9 @@ function deleteRowWithPaket(r) {
             }
             document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
             total_harga_all = parseInt(total_harga_all);
-            var ppn = total_harga_all * 11 / 100;
+            var ppn_id = document.getElementById('ppn').value;
+            ppn_id = parseFloat(ppn_id);
+            var ppn = total_harga_all * ppn_id / 100;
             ppn = Math.round(ppn);
             ppn = ppn.toString();
             ppn_2 = ""
@@ -783,7 +789,9 @@ function deleteRowWithPaket(r) {
             }
             document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
             total_harga_all = parseInt(total_harga_all);
-            var ppn = total_harga_all * 11 / 100;
+            var ppn_id = document.getElementById('ppn').value;
+            ppn_id = parseFloat(ppn_id);
+            var ppn = total_harga_all * ppn_id / 100;
             ppn = Math.round(ppn);
             ppn = ppn.toString();
             ppn_2 = ""
@@ -929,7 +937,9 @@ function change_item(c) {
                 }
                 document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
                 total_harga_all = parseInt(total_harga_all);
-                var ppn = total_harga_all * 11 / 100;
+                var ppn_id = document.getElementById('ppn').value;
+                ppn_id = parseFloat(ppn_id);
+                var ppn = total_harga_all * ppn_id / 100;
                 ppn = Math.round(ppn);
                 ppn = ppn.toString();
                 ppn_2 = ""
@@ -976,7 +986,9 @@ function change_item(c) {
                 }
                 document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
                 total_harga_all = parseInt(total_harga_all);
-                var ppn = total_harga_all * 11 / 100;
+                var ppn_id = document.getElementById('ppn').value;
+                ppn_id = parseFloat(ppn_id);
+                var ppn = total_harga_all * ppn_id / 100;
                 ppn = Math.round(ppn);
                 ppn = ppn.toString();
                 ppn_2 = ""
@@ -1117,7 +1129,9 @@ function change_item_with_paket(c) {
                 }
                 document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
                 total_harga_all = parseInt(total_harga_all);
-                var ppn = total_harga_all * 11 / 100;
+                var ppn_id = document.getElementById('ppn').value;
+                ppn_id = parseFloat(ppn_id);
+                var ppn = total_harga_all * ppn_id / 100;
                 ppn = Math.round(ppn);
                 ppn = ppn.toString();
                 ppn_2 = ""
@@ -1164,7 +1178,9 @@ function change_item_with_paket(c) {
                 }
                 document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
                 total_harga_all = parseInt(total_harga_all);
-                var ppn = total_harga_all * 11 / 100;
+                var ppn_id = document.getElementById('ppn').value;
+                ppn_id = parseFloat(ppn_id);
+                var ppn = total_harga_all * ppn_id / 100;
                 ppn = Math.round(ppn);
                 ppn = ppn.toString();
                 ppn_2 = ""
@@ -1305,7 +1321,9 @@ function blur_volume(c) {
         }
         document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
         total_harga_all = parseInt(total_harga_all);
-        var ppn = total_harga_all * 11 / 100;
+        var ppn_id = document.getElementById('ppn').value;
+        ppn_id = parseFloat(ppn_id);
+        var ppn = total_harga_all * ppn_id / 100;
         ppn = Math.round(ppn);
         ppn = ppn.toString();
         ppn_2 = ""
@@ -1352,7 +1370,9 @@ function blur_volume(c) {
         }
         document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
         total_harga_all = parseInt(total_harga_all);
-        var ppn = total_harga_all * 11 / 100;
+        var ppn_id = document.getElementById('ppn').value;
+        ppn_id = parseFloat(ppn_id);
+        var ppn = total_harga_all * ppn_id / 100;
         ppn = Math.round(ppn);
         ppn = ppn.toString();
         ppn_2 = ""
@@ -1455,7 +1475,9 @@ function blur_volume_with_paket(c) {
         }
         document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
         total_harga_all = parseInt(total_harga_all);
-        var ppn = total_harga_all * 11 / 100;
+        var ppn_id = document.getElementById('ppn').value;
+        ppn_id = parseFloat(ppn_id);
+        var ppn = total_harga_all * ppn_id / 100;
         ppn = Math.round(ppn);
         ppn = ppn.toString();
         ppn_2 = ""
@@ -1502,7 +1524,9 @@ function blur_volume_with_paket(c) {
         }
         document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
         total_harga_all = parseInt(total_harga_all);
-        var ppn = total_harga_all * 11 / 100;
+        var ppn_id = document.getElementById('ppn').value;
+        ppn_id = parseFloat(ppn_id);
+        var ppn = total_harga_all * ppn_id / 100;
         ppn = Math.round(ppn);
         ppn = ppn.toString();
         ppn_2 = ""
@@ -1629,7 +1653,9 @@ function onSubmitData() {
         harga[i] = parseInt(harga[i]);
     }
     const bef_ppn_total_harga = harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-    var ppn = bef_ppn_total_harga * 11 / 100;
+    var ppn_id = document.getElementById('ppn').value;
+    ppn_id = parseFloat(ppn_id);
+    var ppn = bef_ppn_total_harga * ppn_id / 100;
     ppn = Math.round(ppn);
     var total_harga = bef_ppn_total_harga + ppn;
     total_harga = Math.round(total_harga);

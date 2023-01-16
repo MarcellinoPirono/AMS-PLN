@@ -1021,7 +1021,9 @@ function bikin_table(data) {
             table_count++;
         }
     }
-    var ppn = 0.11 * jumlah;
+    var ppn_id = document.getElementById('ppn').value;
+    ppn_id = parseFloat(ppn_id);
+    var ppn = (ppn_id/100) * jumlah;
     ppn = Math.round(ppn);
     var total_harga = ppn + jumlah;
     var prk = document.getElementById('rupiah').innerHTML;

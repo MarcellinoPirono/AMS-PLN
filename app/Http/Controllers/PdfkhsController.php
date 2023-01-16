@@ -18,6 +18,7 @@ use App\Models\Vendor;
 use App\Models\OrderKhs;
 use App\Models\OrderPaket;
 use App\Models\OrderRedaksiKHS;
+use App\Models\PpnModel;
 use App\Models\Redaksi;
 use App\Models\SubRedaksi;
 use App\Models\RabRedaksi;
@@ -292,7 +293,8 @@ class PdfkhsController extends Controller
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
         $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn = $jumlah * 0.11;
+        $ppn_id = PpnModel::all();
+        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
 
 
         $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
@@ -305,6 +307,7 @@ class PdfkhsController extends Controller
             "title" => $nama_pdf,
             "rabredaksi_array" => $rabredaksi_array,
             "lokasis" => $lokasis,
+            // "ppn_id"=>$ppn_id,
         ]);
 
         $path1 = 'SPBJ.pdf';
@@ -336,6 +339,7 @@ class PdfkhsController extends Controller
             "title" => $nama_pdf,
             "redaksis" => $redaksis,
             "lokasis" => $lokasis,
+            "ppn_id"=>$ppn_id,
 
         ]);
 
@@ -633,7 +637,8 @@ class PdfkhsController extends Controller
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
         $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn = $jumlah * 0.11;
+        $ppn_id = PpnModel::all();
+        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
 
 
         $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
@@ -681,6 +686,7 @@ class PdfkhsController extends Controller
             "title" => $nama_pdf,
             "redaksis" => $redaksis,
             "lokasis" => $lokasis,
+            "ppn_id"=>$ppn_id,
         ]);
 
         // $content = $pdf->download()->getOriginalContent();
@@ -979,7 +985,8 @@ class PdfkhsController extends Controller
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
         $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn = $jumlah * 0.11;
+        $ppn_id = PpnModel::all();
+        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
 
         $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
             "po_khs" => $values_pdf_page1,
@@ -1024,6 +1031,7 @@ class PdfkhsController extends Controller
             "title" => $nama_pdf,
             "lokasis" => $lokasis,
             "paket_id" => $paket_id,
+            "ppn_id"=>$ppn_id,
         ]);
 
         $pdf2->setPaper('A4', 'landscape');
@@ -1324,7 +1332,8 @@ class PdfkhsController extends Controller
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
         $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn = $jumlah * 0.11;
+        $ppn_id = PpnModel::all();
+        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
 
         $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
             "po_khs" => $values_pdf_page1,
@@ -1370,6 +1379,7 @@ class PdfkhsController extends Controller
             "title" => $nama_pdf,
             "lokasis" => $lokasis,
             "paket_id" => $paket_id,
+            "ppn_id"=>$ppn_id,
         ]);
 
         $pdf2->setPaper('A4', 'landscape');
@@ -1616,7 +1626,8 @@ class PdfkhsController extends Controller
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
         $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn = $jumlah * 0.11;
+        $ppn_id = PpnModel::all();
+        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
         // $tes = [
         //     "po_khs" => $values_pdf_page1,
         //     "kategori_jasa" => $jasa,
@@ -1696,6 +1707,7 @@ class PdfkhsController extends Controller
             // "redaksis" => $redaksis,
             "lokasis" => $lokasis,
             "paket_id" => $paket_id,
+            "ppn_id"=>$ppn_id,
         ]);
         // dd($pdf2);
         $path2 = 'RAB.pdf';
