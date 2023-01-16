@@ -16,6 +16,7 @@ use App\Http\Controllers\KhsController;
 use App\Http\Controllers\PdfkhsController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\KlasifikasiPaketController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AddendumController;
 use App\Http\Controllers\RedaksiController;
@@ -214,3 +215,7 @@ Route::post('cetak-non-tkdn', [CetakNonTkdnController::class, 'cetak_non_tkdn_no
 
 
 Route::get('download/{slug}', [PdfkhsController::class, 'download']);
+
+
+//USER
+Route::resource('user', UserController::class);

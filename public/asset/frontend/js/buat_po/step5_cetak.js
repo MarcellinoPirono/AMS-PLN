@@ -60,7 +60,6 @@ function SubmitTKDN() {
             fd.append("kategori_order[]", kategory_id[i]);
             satuan[i] = document.getElementById("satuan[" + (i + 1) + "]").value;
             satuan[i] = satuan[i].replace(/\(([^)]+)\)/, "");
-            satuan[i] = satuan[i].replace(/\ /g, "");
             fd.append("satuan_id[]", satuan[i]);
             volume[i] = document.getElementById("volume[" + (i + 1) + "]").value;
             volume[i] = volume[i].replace(/\./g, "");
@@ -97,7 +96,7 @@ function SubmitTKDN() {
             fd.append("kln[]", kln[i]);
 
             total_tkdn[i] = kdn[i] + kln[i];
-            fd.append("total_tkdn[]", total_tkdn[i]);
+        fd.append("total_tkdn[]", total_tkdn[i]);
         }
 
         let lokasi = [];
@@ -130,7 +129,7 @@ function SubmitTKDN() {
                 // console.log(sub_deskripsi_id[index][k]);
                 if(sub_deskripsi_id[index][k] != "Tidak Ada Sub Deskripsi") {
                     sub_deskripsi_id[index][k] = sub_deskripsi_id[index][k].replace((k+1)+". ", "");
-                    fd.append("sub_deskripsi,_id["+index+"][]", sub_deskripsi_id[index][k]);
+                    fd.append("sub_deskripsi_id["+index+"][]", sub_deskripsi_id[index][k]);
                 } else {
                     sub_deskripsi_id[index][k] = null;
                     fd.append("sub_deskripsi_id["+index+"][]", sub_deskripsi_id[index][k]);
@@ -906,7 +905,10 @@ function SubmitNONTKDN() {
 
 
 
-            } else {
+            }
+
+
+            else {
                 fd.append("_token", token)
                 fd.append("tanggal_po", today);
                 fd.append("nomor_po", po);

@@ -12,9 +12,9 @@
 </head>
 
 <body>
-    <header class="mt-1">
+    {{-- <header class="mt-1">
         <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
-    </header>
+    </header> --}}
 
     <footer>
         <div class="footer-2" style="float: right">
@@ -28,7 +28,6 @@
     </footer>
 
     @foreach ($po_khs as $pokhs)
-        <h1>HALAMAN RAB TKDN</h1>
         <table class="sub-judul" width="95%" cellspacing="0" cellpadding="0" align="center">
             <tr>
                 <td colspan="3" class="judul">RINCIAN ANGGARAN BIAYA</td>
@@ -110,12 +109,12 @@
                 <td class="tabelnormalkanan"style="width:7%;" align="center" valign="middle">TOTAL</td>
             </tr>
             @foreach ($lokasis as $key => $value)
-                @if ($value->order_pakets != null)
                 <tr id="tr_jasa">
-                    <td class="firstkiri tabelpaket1" align="center" valign="middle">{{ $value->order_pakets["nama_pak"] }}</td>
+                    <td class="firstkiri tabelpaket1" align="center" valign="middle" style="font-weight: bold;">
+                        {{ $loop->iteration }}</td>
                     <td class="first tabellkiri tabelpaket" style="font-weight: bold; height: 17px;" align="left"
-                            valign="top">&ensp;&ensp;
-                            {{ $value->nama_lokasi }}:</td>
+                        valign="top">&ensp;&ensp;
+                        {{ $value->nama_lokasi }}:</td>
                     <td class="first tabelpaket" align="center" valign="middle"></td>
                     <td class="first tabelpaket" align="center" valign="middle"></td>
                     <td class="first tabellkanan tabelpaket" align="right" valign="middle"></td>
@@ -126,11 +125,26 @@
                     <td class="firstkanan tabellkanan tabelpaket2" align="right" valign="middle"></td>
                 </tr>
                 @foreach ($paket_id[$key] as $key1 => $value1)
+                    <tr id="tr_jasa">
+                        <td class="firstkiri"align="center"valign="middle"style="font-weight:bold;">{{ Terbilang::roman($loop->iteration) }}</td>
+                        <td class="first tabellkiri" style="font-weight: bold; height: 17px;" align="left"
+                            valign="top">&ensp;&ensp;
+                            {{ $value1->nama_paket }}:</td>
+                        <td class="first" align="center" valign="middle"></td>
+                        <td class="first" align="center" valign="middle"></td>
+                        <td class="first tabellkanan" align="right" valign="middle"></td>
+                        <td class="first" align="center" valign="middle"></td>
+                        <td class="first" align="center" valign="middle"></td>
+                        <td class="first" align="center" valign="middle"></td>
+                        <td class="first" align="center" valign="middle"></td>
+                        <td class="firstkanan tabellkanan" align="right" valign="middle"></td>
+                    </tr>
+                    @if (count($kategori_jasa[$key][$key1]) > 0)
                         <tr id="tr_jasa">
                             <td class="firstkiri" align="center" valign="middle"></td>
                             <td class="first tabellkiri" style="font-weight: bold; height: 17px;" align="left"
                                 valign="top">&ensp;&ensp;
-                                {{ $value1->nama_paket }}:</td>
+                                JASA:</td>
                             <td class="first" align="center" valign="middle"></td>
                             <td class="first" align="center" valign="middle"></td>
                             <td class="first tabellkanan" align="right" valign="middle"></td>
@@ -140,134 +154,183 @@
                             <td class="first" align="center" valign="middle"></td>
                             <td class="firstkanan tabellkanan" align="right" valign="middle"></td>
                         </tr>
-                        @if (count($kategori_jasa) > 0)
-                            <tr id="tr_jasa">
-                                <td class="firstkiri" align="center" valign="middle"></td>
-                                <td class="first tabellkiri" style="font-weight: bold; height: 17px;" align="left"
-                                    valign="top">&ensp;&ensp;
-                                    JASA:</td>
-                                <td class="first" align="center" valign="middle"></td>
-                                <td class="first" align="center" valign="middle"></td>
-                                <td class="first tabellkanan" align="right" valign="middle"></td>
-                                <td class="first" align="center" valign="middle"></td>
-                                <td class="first" align="center" valign="middle"></td>
-                                <td class="first" align="center" valign="middle"></td>
-                                <td class="first" align="center" valign="middle"></td>
-                                <td class="firstkanan tabellkanan" align="right" valign="middle"></td>
-                            </tr>
-                            @foreach ($kategori_jasa[$key][$key1] as $key2 => $value2)
-                                <tr>
-                                    <td class="firstkiri" align="center" valign="middle">{{ $loop->iteration }}</td>
-                                    <td class="first tabellkiri" align="left" valign="middle">&ensp;&ensp;&ensp;
-                                        {{ $value2->rincian_induks->nama_item }}
-                                    </td>
-                                    <td class="first" align="center" valign="middle">
-                                        {{ $value2->satuans->singkatan }}</td>
-                                    <td class="first" align="center" valign="middle">@currency2($value2->volume)</td>
-                                    <td class="first tabellkanan" align="right" valign="middle">@currency2($value2->harga_satuan)
-                                    </td>
-                                    <td class="first tabellkanan" align="right" valign="middle">@currency2($value2->jumlah_harga)
-                                    </td>
-                                    <td class="first tabellkanan" align="center" valign="middle">@currency2($value2->tkdn)%
-                                    </td>
-                                    <td class="first tabellkanan" align="right" valign="middle">@currency2($value2->kdn)
-                                    </td>
-                                    <td class="first tabellkanan" align="right" valign="middle">@currency2($value2->kln)
-                                    </td>
-                                    <td class="firstkanan tabellkanan" align="right" valign="middle">
-                                        @currency2($value2->total_tkdn)</td>
-                                </tr>
-                            @endforeach
-                            @if (count($kategori_material) > 0)
-                                <tr>
-                                    <td class="firstkiri" align="center" valign="middle"><br></td>
-                                    <td class="first tabellkiri" style="font-weight: bold" align="left"
-                                        valign="middle"></td>
-                                    <td class="first" align="center" valign="middle"></td>
-                                    <td class="first" align="center" valign="middle"></td>
-                                    <td class="first tabellkanan" align="right" valign="middle"></td>
-                                    <td class="first tabellkanan" align="right" valign="middle"></td>
-                                    <td class="first" align="center" valign="middle"></td>
-                                    <td class="first" align="center" valign="middle"></td>
-                                    <td class="first" align="center" valign="middle"></td>
-                                    <td class="firstkanan tabellkanan" align="center" valign="middle"></td>
-                                </tr>
-                            @endif
-                        @endif
-                        @if (count($kategori_material) > 0)
-                            <tr id="tr_material">
-                                <td class="firstkiri" align="center" valign="middle"></td>
-                                <td class="first tabelnormallkiri" style="font-weight: bold; height: 17px;"
-                                    align="left" valign="top">&ensp;&ensp;
-                                    MATERIAL:
+                        {{-- <tr id="tr_jasa">
+                            <td class="firstkiri" align="center" valign="middle"></td>
+                            <td class="first tabellkiri" style="font-weight: bold; height: 17px;" align="left"
+                                valign="top">&ensp;&ensp;
+                                SUB JUMLAH:</td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="firstkanan tabellkanan" align="right" valign="middle"></td>
+                        </tr> --}}
+                        @php
+                            $char = 1;
+                            $albha = 'a';
+                            $char < 'z';
+                        @endphp
+                        @foreach ($kategori_jasa[$key][$key1] as $key2 => $value2)
+                            <tr>
+                                <td class="firstkiri" align="center" valign="middle">{{ $albha++ }}</td>
+                                <td class="first tabellkiri" align="left" valign="middle">&ensp;&ensp;&ensp;
+                                    {{ $value2->rincian_induks->nama_item }}
                                 </td>
+                                <td class="first" align="center" valign="middle">
+                                    {{ $value2->satuans->singkatan }}</td>
+                                <td class="first" align="center" valign="middle">@currency2($value2->volume)</td>
+                                <td class="first tabellkanan" align="right" valign="middle">@currency2($value2->harga_satuan)
+                                </td>
+                                <td class="first tabellkanan" align="right" valign="middle">@currency2($value2->jumlah_harga)
+                                </td>
+                                <td class="first tabellkanan" align="center" valign="middle">@currencytkdn($value2->tkdn)%
+                                </td>
+                                <td class="first tabellkanan" align="right" valign="middle">@currency2($value2->kdn)
+                                </td>
+                                <td class="first tabellkanan" align="right" valign="middle">@currency2($value2->kln)
+                                </td>
+                                <td class="firstkanan tabellkanan" align="right" valign="middle">
+                                    @currency2($value2->total_tkdn)</td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td class="firstkiri" align="center" valign="middle"></td>
+                            <td class="first tabellkiri" align="left" valign="middle"
+                                style="font-weight: bold; height: 17px;">&ensp;&ensp;SUB-JUMLAH:</td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle">
+                                @currency2($sub_jumlah_jasa_paket[$key][$key1])</td>
+                            <td class="first tabellkanan" align="center" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle"></td>
+                            <td class="firstkanan tabellkanan" align="right" valign="middle"></td>
+                        </tr>
+                        @if (count($kategori_material[$key][$key1]) > 0)
+                            <tr>
+                                <td class="firstkiri" align="center" valign="middle"><br></td>
+                                <td class="first tabellkiri" style="font-weight: bold" align="left"
+                                    valign="middle"></td>
                                 <td class="first" align="center" valign="middle"></td>
                                 <td class="first" align="center" valign="middle"></td>
                                 <td class="first tabellkanan" align="right" valign="middle"></td>
-                                <td class="first tabelnormallkanan" align="right" valign="middle"></td>
+                                <td class="first tabellkanan" align="right" valign="middle"></td>
                                 <td class="first" align="center" valign="middle"></td>
                                 <td class="first" align="center" valign="middle"></td>
                                 <td class="first" align="center" valign="middle"></td>
-                                <td class="firstkanan tabelnormallkanan" align="center" valign="middle"></td>
+                                <td class="firstkanan tabellkanan" align="center" valign="middle"></td>
                             </tr>
-                            @foreach ($kategori_material[$key][$key1] as $key3 => $value3)
-                                <tr>
-                                    <td class="firstkiri" align="center" valign="middle">{{ $loop->iteration }}</td>
-                                    <td class="first tabellkirii" align="left" valign="middle">
-                                        &ensp;&ensp;&ensp;
-                                        {{ $value3->rincian_induks->nama_item }}
-                                    </td>
-                                    <td class="first" align="center" valign="middle">
-                                        {{ $value3->satuans->singkatan }}</td>
-                                    <td class="first" align="center" valign="middle">{{ $value3->volume }}</td>
-                                    <td class="first tabellkanan" align="right" valign="middle">@currency2($value3->harga_satuan)
-                                    </td>
-                                    <td class="first tabelnormallkanan tabellkanan" align="right"
-                                        valign="middle">
-                                        @currency2($value3->jumlah_harga)
-                                    </td>
-                                    <td class="first tabellkanan" align="center" valign="middle">@currencytkdn($value3->tkdn)%
-                                    </td>
-                                    <td class="first tabellkanan" align="right" valign="middle">@currency2($value3->kdn)
-                                    </td>
-                                    <td class="first tabellkanan" align="right" valign="middle">@currency2($value3->kln)
-                                    </td>
-                                    <td class="firstkanan tabellkanan" align="right" valign="middle">
-                                        @currency2($value3->total_tkdn)</td>
-                                </tr>
-                            @endforeach
                         @endif
-                    @endforeach
-                @endif
+                    @endif
+                    @if (count($kategori_material[$key][$key1]) > 0)
+                        <tr id="tr_material">
+                            <td class="firstkiri" align="center" valign="middle"></td>
+                            <td class="first tabelnormallkiri" style="font-weight: bold; height: 17px;"
+                                align="left" valign="top">&ensp;&ensp;MATERIAL:
+                            </td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle"></td>
+                            <td class="first tabelnormallkanan" align="right" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="firstkanan tabelnormallkanan" align="center" valign="middle"></td>
+                        </tr>
+                        {{-- <tr id="tr_material">
+                            <td class="firstkiri" align="center" valign="middle"></td>
+                            <td class="first tabelnormallkiri" style="font-weight: bold; height: 17px;"
+                                align="left" valign="top">&ensp;&ensp;SUB JUMLAH:
+                            </td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle"></td>
+                            <td class="first tabelnormallkanan" align="right" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="firstkanan tabelnormallkanan" align="center" valign="middle"></td>
+                        </tr> --}}
+                        @php
+                            $char = 1;
+                            $albha = 'a';
+                            $char < 'z';
+                        @endphp
+                        @foreach ($kategori_material[$key][$key1] as $key3 => $value3)
+                            <tr>
+                                <td class="firstkiri" align="center" valign="middle">{{ $albha++ }}</td>
+                                <td class="first tabellkirii" align="left" valign="middle">
+                                    &ensp;&ensp;&ensp;
+                                    {{ $value3->rincian_induks->nama_item }}
+                                </td>
+                                <td class="first" align="center" valign="middle">
+                                    {{ $value3->satuans->singkatan }}</td>
+                                <td class="first" align="center" valign="middle">{{$value3->volume}}</td>
+                                <td class="first tabellkanan" align="right" valign="middle">@currency2($value3->harga_satuan)
+                                </td>
+                                <td class="first tabelnormallkanan tabellkanan" align="right" valign="middle">
+                                    @currency2($value3->jumlah_harga)
+                                </td>
+                                <td class="first tabellkanan" align="center" valign="middle">@currencytkdn($value3->tkdn)%
+                                </td>
+                                <td class="first tabellkanan" align="right" valign="middle">@currency2($value3->kdn)
+                                </td>
+                                <td class="first tabellkanan" align="right" valign="middle">@currency2($value3->kln)
+                                </td>
+                                <td class="firstkanan tabellkanan" align="right" valign="middle">
+                                    @currency2($value3->total_tkdn)</td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td class="firstkiri" align="center" valign="middle"></td>
+                            <td class="first tabellkiri" align="left" valign="middle"
+                                style="font-weight: bold; height: 17px;">&ensp;&ensp;SUB-JUMLAH:
+                            </td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first" align="center" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle">@currency2($sub_jumlah_material_paket[$key][$key1])
+                            </td>
+                            <td class="first tabellkanan" align="center" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle"></td>
+                            <td class="first tabellkanan" align="right" valign="middle"></td>
+                            <td class="firstkanan tabellkanan" align="right" valign="middle"></td>
+                        </tr>
+                    @endif
+                @endforeach
             @endforeach
             <tr>
                 <td class="tabelnormalkiri" rowspan="5" colspan="3"></td>
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Jasa</b></td>
-                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($jumlah)</b></td>
-                <td class="tabelnormal" align="center"></td>
-                <td class="tabelnormal" align="right"></td>
-                <td class="tabelnormal" align="right"></td>
-                <td class="tabelnormalkanan tabellkanan" align="right"></td>
+                <td class="tabelnormal tabellkanan" align="right"><b>Rp. @currency2($sub_jumlah_jasa)</b></td>
+                <td class="tabelnormal" align="center">@currencytkdn($total_tkdn_jasa )%</td>
+                <td class="tabelnormal tabellkanan" align="right">Rp. @currency2($kdn_jasa)</td>
+                <td class="tabelnormal" align="right">Rp. @currency2($kln_jasa)</td>
+                <td class="tabelnormalkanan tabellkanan" align="right">Rp. @currency2($total_jasa)</td>
             </tr>
             <tr style="page-break-before: avoid">
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Material</b></td>
-                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($ppn)</b></td>
-                <td class="tabelnormal" align="center"></td>
-                <td class="tabelnormal" align="right"></td>
-                <td class="tabelnormal" align="right"></td>
-                <td class="tabelnormalkanan tabellkanan" align="right"></td>
+                <td class="tabelnormal tabellkanan" align="right"><b>Rp. @currency2($sub_jumlah_material)</b></td>
+                <td class="tabelnormal" align="center">@currencytkdn($total_tkdn_material )%</td>
+                <td class="tabelnormal tabellkanan" align="right">Rp. @currency2($kdn_material)</td>
+                <td class="tabelnormal" align="right">Rp. @currency2($kln_material)</td>
+                <td class="tabelnormalkanan tabellkanan" align="right">Rp. @currency2($total_material)</td>
             </tr>
             <tr style="page-break-before: avoid">
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Keseluruhan</b></td>
-                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($ppn)</b></td>
-                <td class="tabelnormal kuning" align="center"></td>
-                <td class="tabelnormal kuning" align="right"></td>
-                <td class="tabelnormal kuning" align="right"></td>
-                <td class="tabelnormalkanan tabellkanan kuning" align="right"></td>
+                <td class="tabelnormal tabellkanan" align="right"><b>Rp. @currency2($jumlah)</b></td>
+                <td class="tabelnormal kuning" align="center">@currencytkdn($total_tkdn_jasa_material )%</td>
+                <td class="tabelnormal kuning" align="right">Rp. @currency2($total_kdn_jasa_material)</td>
+                <td class="tabelnormal kuning" align="right">Rp. @currency2($total_kln_jasa_material)</td>
+                <td class="tabelnormalkanan tabellkanan kuning" align="right">Rp. @currency2($total_jasa_material)</td>
             </tr>
             <tr style="page-break-before: avoid">
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
-                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($ppn)</b></td>
+                <td class="tabelnormal tabellkanan" align="right"><b>Rp. @currency2($ppn)</b></td>
                 <td class="tabelnormal"></td>
                 <td class="tabelnormal"></td>
                 <td class="tabelnormal"></td>
@@ -276,7 +339,7 @@
             @foreach ($po_khs as $pokhs)
                 <tr style="page-break-before: avoid">
                     <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>TOTAL</b></td>
-                    <td class="tabelnormal tabellkanan kuning" align="right"><b>@currency2($pokhs->total_harga)</b></td>
+                    <td class="tabelnormal tabellkanan kuning" align="right"><b>Rp. @currency2($pokhs->total_harga)</b></td>
                     <td class="tabelnormal"></td>
                     <td class="tabelnormal"></td>
                     <td class="tabelnormal"></td>
@@ -314,22 +377,6 @@
                 </td>
             </tr>
         </table>
-        <!-- <div style="page-break-before: avoid"></div> -->
-        <!-- <table class="wrapword" width="95%" border="0" cellspacing="0" cellpadding="0" align="center" >
-            <tr>
-                <td style="height: 30px;" align="center" valign="bottom">Mengetahui</td>
-                <td style="width:36%;" align="center" valign="bottom">Makassar,
-                    {{ \Carbon\Carbon::parse($pokhs->tanggal_po)->isoFormat('DD MMMM YYYY') }}</td>
-            </tr>
-            <tr>
-                <td align="center" valign="top">{{ $jabatan_manager }}</td>
-                <td align="center" valign="middle">{{ $pokhs->pejabats->jabatan }}</td>
-            </tr>
-            <tr style="height: 85px;">
-                <td style="height: 85px;" align="center" valign="bottom"><b>{{ $nama_manager }}</b></td>
-                <td align="center" valign="bottom"><b>{{ $pokhs->pejabats->nama_pejabat }}</b></td>
-            </tr>
-        </table> -->
     </div>
 
 

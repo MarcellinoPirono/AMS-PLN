@@ -18,8 +18,7 @@ class OrderKhs extends Model
 
     public function rincian_induks()
     {
-        return $this->belongsTo(RincianInduk::class, 'item_order');
-
+        return $this->belongsTo(RincianInduk::class, 'item_order', 'id');
     }
 
     public function order_pakets()

@@ -40,8 +40,17 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo number_format((float)$expression,3,',','.'); ?>";
         });
         Blade::directive('currencytkdn', function ($expression) {
-            return "<?php echo number_format((float)$expression,2,',','.'); ?>";
+            return "<?php
+            if ($expression == number_format((float)$expression,0,',','.')){
+                echo number_format((float)$expression,0,',','.');
+            } else {
+                echo number_format((float)$expression,2,',','.');
+            }
+
+
+            ?>";
         });
+
         Blade::directive('currency4', function ($expression) {
             return "<?php
             if ($expression == number_format((int)$expression,0,',','.')){

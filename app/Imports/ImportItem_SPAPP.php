@@ -3,6 +3,8 @@
 namespace App\Imports;
 
 use App\Models\RincianInduk;
+use App\Models\Satuan;
+use App\Models\Khs;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -17,12 +19,33 @@ class ImportItem_SPAPP implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new RincianInduk([
-         'khs_id'  => $row['khs_id'],
+         'khs_id'  => $this->Tokhsid($row['khs_id']),
          'kategori'   => $row['kategori'],
          'nama_item'   => $row['nama_item'],
-         'satuan_id'    => $row['satuan_id'],
+         'satuan_id'    => $this->ToSatuanId($row['satuan_id']),
          'harga_satuan'  => $row['harga_satuan'],
          'tkdn'  => $row['tkdn'],
         ]);
+    }
+
+
+    public function ToSatuanId($value) {
+        $satuan = Satuan::where('singkatan', $value)->first();
+
+        if(! $satuan){
+            return null;
+        }
+
+        return $satuan->id;
+    }
+
+    public function Tokhsid($value) {
+        $khs = Khs::where('jenis_khs', $value)->first();
+
+        if(! $khs){
+            return null;
+        }
+
+        return $khs->id;
     }
 }

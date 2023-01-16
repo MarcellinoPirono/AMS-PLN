@@ -87,7 +87,7 @@ class PaketPekerjaanController extends Controller
         return view(
             'paket-pekerjaan.buat_paket_pekerjaan',
             [
-                'title' => 'Buat Paket Pekerjaan ',
+                'title' => 'Buat Paket Pekerjaan ' .$jenis_khs,
                 'active' => 'Paket-Pekerjaan',
                 'active1' => 'Tambah Paket Pekerjaan ',
                 'jenis_khs' => $jenis_khs,

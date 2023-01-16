@@ -64,7 +64,7 @@
                                 <div class="form-group col-md-6">
                                     <label class="text-label">TKDN (%) :</label>
                                     <input type="text" class="form-control input-default validate2" placeholder="TKDN"
-                                        name="TKDN" id="TKDN" value="@currency3($item_khs->tkdn)">
+                                        name="TKDN" id="TKDN" value="@currencytkdn($item_khs->tkdn)">
                                 </div>
                             </div>
                             <div class="position-relative justify-content-end float-right">

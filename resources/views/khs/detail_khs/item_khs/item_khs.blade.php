@@ -77,7 +77,7 @@
                                         <td align="center" valign="middle">{{ $item->khs->jenis_khs }}</td>
                                         <td align="center" valign="middle">{{ $item->satuans->singkatan }}</td>
                                         <td>@currency($item->harga_satuan) </td>
-                                        <td align="center" valign="middle">@currency3($item->tkdn) % </td>
+                                        <td align="center" valign="middle">@currencytkdn($item->tkdn) % </td>
                                         <td align="center" valign="middle" style="width:96px">
                                             <div class="d-flex">
                                                 <a href="{{ route('item-khs.edit', ['jenis_khs' => $item->khs->jenis_khs, 'id' => $item->id]) }}"

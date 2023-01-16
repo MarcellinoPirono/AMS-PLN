@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    <button style="width: 90px;" type="button" class="btn btn-secondary tombol-edit"><i class="fa fa-pencil"></i></button>
+                    <button style="width: 90px;" type="button" class="btn btn-outline-primary tombol-edit"><i class="fa fa-pencil"></i></button>
                 </div>
             </div>
         </div>

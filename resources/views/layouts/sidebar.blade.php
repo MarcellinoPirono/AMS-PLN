@@ -149,8 +149,11 @@
                     <li><a class="nav-link {{ Request::is('redaksi*') ? 'active' : '' }}"
                             href="/redaksi-khs"><strong>Data Redaksi</strong></a>
                     </li>
-                    <li><a class="nav-link {{ Request::is('paket-pekerjaan*') ? 'active' : '' }}"
+                    <li><a class="nav-link {{ Request::is('ppn*') ? 'active' : '' }}"
                             href="/ppn"><strong>Data PPN</strong></a>
+                    </li>
+                    <li><a class="nav-link {{ Request::is('user*') ? 'active' : '' }}"
+                            href="/user"><strong>Data User</strong></a>
                     </li>
                 </ul>
 

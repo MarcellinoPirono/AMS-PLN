@@ -3,12 +3,22 @@
 namespace App\Exports;
 
 use App\Models\RincianInduk;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Models\Satuan;
+use App\Models\Khs;
+// use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
 
-class RincianIndukExport implements FromCollection, WithHeadings, WithTitle
+use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+
+class RincianIndukExport implements FromQuery, WithHeadings, WithTitle, WithMapping
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -16,19 +26,25 @@ class RincianIndukExport implements FromCollection, WithHeadings, WithTitle
 
     protected $sheets;
     protected $khs_id;
+    protected $results;
 
     function __construct($sheets, $khs_id) {
             $this->sheets = $sheets;
             $this->khs_id = $khs_id;
+
+
     }
 
-    public function collection()
-    {
-        // dd($this->khs_id);
+    // public function collection()
+    // {
+    //     // dd($this->khs_id);
+    //     $this->results = $this->getActionItems();
 
-        return RincianInduk::where('khs_id',$this->khs_id)->select('khs_id', 'kategori', 'nama_item', 'satuan_id', 'harga_satuan', 'tkdn')->get();
-        // return RincianInduk::all();
-    }
+    //     return $this->results;
+
+    //     // return RincianInduk::where('khs_id',$this->khs_id)->select('khs_id', 'kategori', 'nama_item', 'satuan_id', 'harga_satuan', 'tkdn')->get();
+    //     // return RincianInduk::all();
+    // }
 
     public function headings(): array
     {
@@ -55,4 +71,74 @@ class RincianIndukExport implements FromCollection, WithHeadings, WithTitle
     {
         return 'Tabel Item KHS';
     }
+
+
+    public function map($item): array
+    {
+         return[
+             $item->khs->jenis_khs,
+             $item->kategori,
+             $item->nama_item,
+             $item->satuans->singkatan,
+             $item->harga_satuan,
+             $item->tkdn,
+
+         ];
+    }
+
+    public function query()
+    {
+        return RincianInduk::with('satuans:id,singkatan')->with('khs:id,jenis_khs')->where('khs_id',$this->khs_id);
+    }
+
+
+
+
+    // public function registerEvents(): array
+    // {
+    //     return [
+    //         // handle by a closure.
+    //         AfterSheet::class => function(AfterSheet $event) {
+
+    //             // get layout counts (add 1 to rows for heading row)
+    //             $row_count = $this->results->count() + 1;
+    //             $column_count = count($this->results[0]->toArray());
+
+    //             // set dropdown column
+    //             $drop_column = 'G';
+
+    //             // set dropdown options
+    //             $options = [
+    //                 'option 1',
+    //                 'option 2',
+    //                 'option 3',
+    //             ];
+
+    //             // set dropdown list for first data row
+    //             $validation = $event->sheet->getCell("{$drop_column}2")->getDataValidation();
+    //             $validation->setType(DataValidation::TYPE_LIST );
+    //             $validation->setErrorStyle(DataValidation::STYLE_INFORMATION );
+    //             $validation->setAllowBlank(false);
+    //             $validation->setShowInputMessage(true);
+    //             $validation->setShowErrorMessage(true);
+    //             $validation->setShowDropDown(true);
+    //             $validation->setErrorTitle('Input error');
+    //             $validation->setError('Value is not in list.');
+    //             $validation->setPromptTitle('Pick from list');
+    //             $validation->setPrompt('Please pick a value from the drop-down list.');
+    //             $validation->setFormula1(sprintf('"%s"',implode(',',$options)));
+
+    //             // clone validation to remaining rows
+    //             for ($i = 3; $i <= $row_count; $i++) {
+    //                 $event->sheet->getCell("{$drop_column}{$i}")->setDataValidation(clone $validation);
+    //             }
+
+    //             // set columns to autosize
+    //             for ($i = 1; $i <= $column_count; $i++) {
+    //                 $column = Coordinate::stringFromColumnIndex($i);
+    //                 $event->sheet->getColumnDimension($column)->setAutoSize(true);
+    //             }
+    //         },
+    //     ];
+    // }
 }

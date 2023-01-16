@@ -343,7 +343,7 @@ function deletePaket(r) {
                 input1.setAttribute('type', 'search');
                 input1.setAttribute('id', 'item_id[1]');
                 input1.setAttribute("name", "item_id");
-                input1.setAttribute('placeholder', 'Pilih Pejerjaan');
+                input1.setAttribute('placeholder', 'Pilih Pekerjaan');
                 input1.setAttribute('required', true);
                 input1.setAttribute('onkeyup', 'filterFunction2(this,event)');
                 input1.setAttribute('onkeydown', 'return no_bckspc(this, event)');

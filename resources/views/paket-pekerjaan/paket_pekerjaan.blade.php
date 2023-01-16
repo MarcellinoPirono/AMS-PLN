@@ -25,15 +25,15 @@
                 <div class="card-body">
 
                     <div class="table-responsive" id="read">
-                        <table id="TabelListPaket" class="table table-responsive-md">
+                        <table id="TabelListPaket" class="table table-responsive-md" width="120%">
                             <thead>
                                 <tr align="center" valign="middle" style="vertical-align: middle">
-                                    <th class="width70" style="vertical-align: middle">No.</th>
+                                    <th class="width70" style="vertical-align: middle; text-align: center">No.</th>
                                     <th style="vertical-align: middle">Nama Paket</th>
                                     <th style="vertical-align: middle">Uraian Pekerjaan</th>
                                     <th style="vertical-align: middle">Volume</th>
                                     <th style="vertical-align: middle">Harga Satuan</th>
-                                    <th style="vertical-align: middle">Harga</th>
+                                    <th style="width: 15%; vertical-align: middle">Harga</th>
                                     <th class="width70" style="vertical-align: middle">Aksi</th>
                                 </tr>
                             </thead>
@@ -59,7 +59,7 @@
                                                 @if ($paket2->nama_paket == $paket->nama_paket)
                                                     <ol type="1">
                                                         <li>
-                                                        @currency4($paket2->volume)<br>
+                                                        {{ str_replace('.',',', $paket2->volume)}}<br>
                                                         </li>
                                                     </ol>
                                                 @endif
@@ -87,8 +87,8 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td align="center" valign="top" style="vertical-align: top;">
-                                            <div class="d-flex">
+                                        <td align="center" valign="top" style="vertical-align: top; text-align: center; margin-left:auto; margin-right:auto;">
+                                            <div class="d-flex justify-content-center">
                                                 <a href="{{ route('paket-pekerjaan.edit', ['jenis_khs' => $jenis_khs, 'slug' => $paket->slug]) }}"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>

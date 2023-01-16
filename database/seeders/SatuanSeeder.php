@@ -29,10 +29,6 @@ class SatuanSeeder extends Seeder
             'kepanjangan' => 'Set',
         ]);
         Satuan::create([
-            'singkatan' => 'plg',
-            'kepanjangan' => 'Pelanggan',
-        ]);
-        Satuan::create([
             'singkatan' => 'titik',
             'kepanjangan' => 'Titik',
         ]);
@@ -96,9 +92,6 @@ class SatuanSeeder extends Seeder
             'singkatan' => 'gardu',
             'kepanjangan' => 'Gardu',
         ]);
-        Satuan::create([
-            'singkatan' => 'panel',
-            'kepanjangan' => 'Panel',
-        ]);
+
     }
 }

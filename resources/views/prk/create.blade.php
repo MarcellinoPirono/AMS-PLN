@@ -52,7 +52,7 @@
                                         class="form-control input-default input-default"
                                         placeholder="Pagu PRK" onkeydown="return numbersonly(this, event);"
                                         onkeyup="javascript:tandaPemisahTitik(this);" value="{{ old('pagu_skk') }}"
-                                        name="pagu_prk" id="pagu_prk" required autofocus value="{{ old('pagu_prk') }}">
+                                        name="pagu_prk" id="pagu_prk" required autofocus>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -61,7 +61,7 @@
                                     <input type="text"
                                         class="form-control input-default"
                                         onkeydown="return numbersonly(this, event);"
-                                        onkeyup="javascript:tandaPemisahTitik(this);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" value="0"
                                         placeholder="PRK Terkontrak" name="prk_terkontrak" id="prk_terkontrak" required
                                         autofocus value="{{ old('prk_terkontrak') }}">
                                 </div>
@@ -101,7 +101,7 @@
                             <div class="position-relative justify-content-end float-right">
                                 <button type="submit"
                                     class="btn btn-primary position-relative justify-content-end">Tambah Data</button>
-                            </div>      
+                            </div>
                         </form>
                     </div>
                 </div>

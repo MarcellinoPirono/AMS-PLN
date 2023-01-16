@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Carbon;
+
 // use DB;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -121,7 +123,7 @@ class RincianIndukController extends Controller
      $jenis_khs = $request->jenis_khs;
 
     $file = $request->file('select_file');
-    $nama_file = rand().$file->getClientOriginalName();
+    $nama_file = Carbon::now()->format('Y-m-d') . $file->getClientOriginalName();
     $file->move('file_itemspapp', $nama_file);
 
 
@@ -166,7 +168,7 @@ class RincianIndukController extends Controller
         $jenis_khs = $request->jenis_khs;
         $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
         // dd($khs_id);
-        $sheets = ['Item KHS', 'Satuan'];
+        $sheets = ['Item KHS', 'Satuan', 'Khs'];
         // dd($khs_id);
 
         return Excel::download(new MultiSheetExport($sheets, $khs_id), 'Template Import '.$jenis_khs.'.xlsx');

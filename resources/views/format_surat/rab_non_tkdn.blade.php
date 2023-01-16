@@ -12,9 +12,9 @@
 </head>
 
 <body>
-    {{-- <header class="mt-1">
+    <header class="mt-1">
         <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
-    </header> --}}
+    </header>
 
     <footer>
         <div class="footer-2">
@@ -114,7 +114,7 @@
                         {{ $jasa->rincian_induks->nama_item }}
                     </td>
                     <td class="first" align="center" valign="middle">{{ $jasa->satuans->singkatan }}</td>
-                    <td class="first" align="center" valign="middle">@currency3($jasa->volume)</td>
+                    <td class="first" align="center" valign="middle">@currency4($jasa->volume)</td>
                     <td class="first tabellkanan" align="right" valign="middle">@currency2($jasa->harga_satuan)</td>
                     <td class="firstkanan tabellkanan" align="right" valign="middle">@currency2($jasa->jumlah_harga)</td>
                 </tr>
@@ -133,7 +133,7 @@
         @if (count($kategori_material) > 0)
             <tr id="tr_material">
                 <td class="firstkiri" align="center" valign="middle"></td>
-                <td class="first tabelnormallkiri" style="font-weight: bold; height: 17px;" align="left"
+                <td class="first tabellkiri" style="font-weight: bold; height: 17px;" align="left"
                     valign="top">
                     MATERIAL:
                 </td>
@@ -145,11 +145,11 @@
             @foreach ($kategori_material as $material)
                 <tr>
                     <td class="firstkiri" align="center" valign="middle">{{ $loop->iteration }}</td>
-                    <td class="first tabelnormallkiri" align="left" valign="middle">
+                    <td class="first tabellkiri" align="left" valign="middle">
                         {{ $material->rincian_induks->nama_item }}
                     </td>
                     <td class="first" align="center" valign="middle">{{ $material->satuans->singkatan }}</td>
-                    <td class="first" align="center" valign="middle">{{ $material->volume }}</td>
+                    <td class="first" align="center" valign="middle">@currency4($material->volume)</td>
                     <td class="first tabellkanan" align="right" valign="middle">@currency2($material->harga_satuan)</td>
                     <td class="firstkanan tabelnormallkanan tabellkanan" align="right" valign="middle">
                         @currency2($material->jumlah_harga)

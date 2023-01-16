@@ -97,7 +97,7 @@
                                                                         class="form-control volume_id"
                                                                         id="volume[{{ $item->id }}]"
                                                                         name="volume[{{ $item->id }}]"
-                                                                        value="@currency4($volume->volume)" required autofocus
+                                                                        value="{{str_replace('.', ',',$volume->volume)}}" required autofocus
                                                                         placeholder="Volume"></td>
                                                             @endif
                                                         @endforeach

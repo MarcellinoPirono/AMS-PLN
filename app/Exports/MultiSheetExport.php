@@ -34,6 +34,7 @@ class MultiSheetExport implements WithMultipleSheets
         $sheets = [
             new RincianIndukExport($this->sheets[0], $this->khs_id),
             new SatuanExport($this->sheets[1]),
+            new KhsExport($this->sheets[2]),
         ];
 
         return $sheets;

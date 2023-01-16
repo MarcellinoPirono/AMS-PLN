@@ -4,7 +4,7 @@
 
 <div class="page-titles">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/vendor-khs">{{$active}}</a></li>
+        <li class="breadcrumb-item"><a href="/user">{{$active}}</a></li>
         <li class="breadcrumb-item active"><a href="javascript:void(0)">{{$active1}}</a></li>
     </ol>
 </div>
@@ -21,10 +21,34 @@
                     <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default" placeholder="Nama Vendor" name="nama_vendor" id="nama_vendor" required autofocus value="{{ old('nama_vendor') }}">
+                                <label class="text-label">Username</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                    </div>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter a username..">
+                                </div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default" placeholder="Nama Direktur" name="nama_direktur" id="nama_direktur" required autofocus value="{{ old('nama_direktur') }}">
+                                <label class="text-label">Password *</label>
+                                <div class="input-group transparent-append">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                    </div>
+                                    <input type="password" class="form-control" id="dz-password" name="val-password" placeholder="Choose a safe one..">
+                                    <div class="input-group-append show-pass ">
+                                        <span class="input-group-text ">
+                                            <i class="fa fa-eye-slash"></i>
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control input-default" placeholder="Username" name="username" id="username" required autofocus value="{{ old('username') }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control input-default" placeholder="Password" name="password" id="password" required autofocus value="{{ old('password') }}">
                             </div>
                             <div class="form-group col-md-6">
                                 <textarea type="text" class="form-control input-default" placeholder="Alamat Kantor 1" name="alamat_kantor_1" id="alamat_kantor_1" required autofocus>{{ old('alamat_kantor_1') }}</textarea>
@@ -66,14 +90,31 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 
 <script>
+    jQuery(document).ready(function(){
+
+		jQuery('.show-pass').on('click',function(){
+			jQuery(this).toggleClass('active');
+			if(jQuery('#dz-password').attr('type') == 'password'){
+				jQuery('#dz-password').attr('type','text');
+			}else if(jQuery('#dz-password').attr('type') == 'text'){
+				jQuery('#dz-password').attr('type','password');
+			}
+		});
+
+
+
+	});
+</script>
+
+<script>
     $(document).ready(function() {
 
         $('#valid_vendor').validate({
             rules:{
-                nama_vendor:{
+                username:{
                     required: true
                 },
-                nama_direktur:{
+                password:{
                     required:true
                 },
                 alamat_kantor_1:{
@@ -99,11 +140,11 @@
                 }
             },
             messages:{
-                nama_vendor:{
-                    required: "Silakan Isi Nama Vendor"
+                username:{
+                    required: "Silakan Isi Username"
                 },
-                nama_direktur:{
-                    required: "Silakan Isi Nama Direktur"
+                password:{
+                    required: "Silakan Isi Password"
                 },
                 alamat_kantor_1:{
                     required: "Silakan Isi Alamat Kantor 1"
@@ -129,8 +170,8 @@
             },
             submitHandler: function(form) {
                     var token = $('#csrf').val();
-                    var nama_vendor = $("#nama_vendor").val();
-                    var nama_direktur = $("#nama_direktur").val();
+                    var username = $("#username").val();
+                    var password = $("#password").val();
                     var alamat_kantor_1 = $("#alamat_kantor_1").val();
                     var alamat_kantor_2 = $("#alamat_kantor_2").val();
                     var no_rek_1 = $("#no_rek_1").val();
@@ -141,8 +182,8 @@
 
                     var data = {
                         "_token": token,
-                        "nama_vendor": nama_vendor,
-                        "nama_direktur": nama_direktur,
+                        "username": username,
+                        "password": password,
                         "alamat_kantor_1": alamat_kantor_1,
                         "alamat_kantor_2": alamat_kantor_2,
                         "no_rek_1": no_rek_1,
@@ -176,8 +217,8 @@
 
         // $('#btntambah').on('click', function() {
         //     var token = $('#csrf').val();
-        //     var nama_vendor = $("#nama_vendor").val();
-        //     var nama_direktur = $("#nama_direktur").val();
+        //     var username = $("#username").val();
+        //     var password = $("#password").val();
         //     var alamat_kantor_1 = $("#alamat_kantor_1").val();
         //     var alamat_kantor_2 = $("#alamat_kantor_2").val();
         //     var no_rek_1 = $("#no_rek_1").val();
@@ -190,8 +231,8 @@
 
         //     var data = {
         //         "_token": token,
-        //         "nama_vendor": nama_vendor,
-        //         "nama_direktur": nama_direktur,
+        //         "username": username,
+        //         "password": password,
         //         "alamat_kantor_1": alamat_kantor_1,
         //         "alamat_kantor_2": alamat_kantor_2,
         //         "no_rek_1": no_rek_1,
