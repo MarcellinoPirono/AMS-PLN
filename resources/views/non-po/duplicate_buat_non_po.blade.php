@@ -31,7 +31,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link " href="#preview_non_po">
-                                        <span class="num">5</span>
+                                        <span class="num">3</span>
                                         Preview Kontrak Non PO
                                     </a>
                                 </li>
@@ -659,13 +659,15 @@
                                 document.getElementById("harga[" + (i + 1) + "]").value
                             ]
                         }
-                        console.log(baris);
+                        console.log("baris", baris);
 
                         const result_rab_non_po = baris.filter(element => {
                             return element !== null;
                         })
 
-                        if (result_rab_non_po > 0) {
+                        console.log("result_rab_non_po", result_rab_non_po);
+
+                        if (result_rab_non_po.length > 0) {
                             var html_rab = [""];
                             var tbody = document.getElementById("uraian_rab");
                             var array_length = result_rab_non_po.length;
@@ -682,9 +684,10 @@
                                     "</td> <td class='first' align='right' valign='middle'>" +
                                     result_rab_non_po[j][4] + "</td> </tr>")
                             }
+                            console.log("html_rab", html_rab);
                             document.getElementById("uraian_rab").innerHTML =
-                                "<tr> <td class='first' align='center' valign='middle'> </td> <td class='first' align='left' valign='middle' style='font-weight: bold'>JASA:</td> <td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
-                                html_rab;
+                            "<tr> <td class='first' align='center' valign='middle'><td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
+                            html_rab;
                         }
                         document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah")
                             .innerHTML;
@@ -774,175 +777,6 @@
                 })
 
             });
-        </script>
-        <script>
-            // var url = 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf';
-
-            // var pdfjsLib = window['pdfjs-dist/build/pdf'];
-            // pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-            // var pdfDoc = null,
-            //     pageNum = 1,
-            //     pageRendering = false,
-            //     pageNumPending = null,
-            //     scale = 0.8,
-            //     canvas = document.getElementById('pdfViewer'),
-            //     ctx = canvas.getContext('2d');
-
-            // // var url = document.getElementById('kak').files();
-
-            // // $("#kak").on("change", function(e){
-            // //     var file = e.target.files[0]
-            // //     if(file.type == "application/pdf"){
-            // //         var fileReader = new FileReader();
-            // //         fileReader.onload = function() {
-            // //             var pdfData = new Uint8Array(this.result);
-            // //             // Using DocumentInitParameters object to load binary data.
-            // //             var loadingTask = pdfjsLib.getDocument({data: pdfData});
-            // //             loadingTask.promise.then(function(pdf) {
-            // //             console.log('PDF loaded');
-
-            // //             // Fetch the first page
-            // //             var pageNumber = 1;
-            // //             pdf.getPage(pageNumber).then(function(page) {
-            // //                 console.log('Page loaded');
-
-            // //                 var scale = 1.5;
-            // //                 var viewport = page.getViewport({scale: scale});
-
-            // //                 // Prepare canvas using PDF page dimensions
-            // //                 var canvas = $("#pdfViewer")[0];
-            // //                 var context = canvas.getContext('2d');
-            // //                 canvas.height = viewport.height;
-            // //                 canvas.width = viewport.width;
-
-            // //                 // Render PDF page into canvas context
-            // //                 var renderContext = {
-            // //                 canvasContext: context,
-            // //                 viewport: viewport
-            // //                 };
-            // //                 var renderTask = page.render(renderContext);
-            // //                 renderTask.promise.then(function () {
-            // //                 console.log('Page rendered');
-            // //                 });
-            // //             });
-            // //             }, function (reason) {
-            // //             // PDF loading error
-            // //             console.error(reason);
-            // //             });
-            // //         };
-            // //         fileReader.readAsArrayBuffer(file);
-            // //     }
-            // // });
-            // function renderPage(num) {
-            //     pageRendering = true;
-            //     // Using promise to fetch the page
-            //     pdfDoc.getPage(num).then(function(page) {
-            //         var viewport = page.getViewport({scale: scale});
-            //         canvas.height = viewport.height;
-            //         canvas.width = viewport.width;
-
-            //         // Render PDF page into canvas context
-            //         var renderContext = {
-            //         canvasContext: ctx,
-            //         viewport: viewport
-            //         };
-            //         var renderTask = page.render(renderContext);
-
-            //         // Wait for rendering to finish
-            //         renderTask.promise.then(function() {
-            //         pageRendering = false;
-            //         if (pageNumPending !== null) {
-            //             // New page rendering is pending
-            //             renderPage(pageNumPending);
-            //             pageNumPending = null;
-            //         }
-            //         });
-            //     });
-
-            //     // Update page counters
-            //     document.getElementById('page_num').textContent = num;
-            // }
-
-            // function queueRenderPage(num) {
-            //     if (pageRendering) {
-            //         pageNumPending = num;
-            //     } else {
-            //         renderPage(num);
-            //     }
-            // }
-
-            // function onPrevPage() {
-            //     if (pageNum <= 1) {
-            //         return;
-            //     }
-            //     pageNum--;
-            //     queueRenderPage(pageNum);
-            // }
-            // document.getElementById('prevpdf').addEventListener('click', onPrevPage);
-
-            // function onNextPage() {
-            //     if (pageNum >= pdfDoc.numPages) {
-            //         return;
-            //     }
-            //     pageNum++;
-            //     queueRenderPage(pageNum);
-            // }
-            // document.getElementById('nextpdf').addEventListener('click', onNextPage);
-
-            // $("#kak").on("change", function(e){
-            //     var file = e.target.files[0]
-            //     if(file.type == "application/pdf"){
-            //         var fileReader = new FileReader();
-            //         fileReader.onload = function() {
-            //             var pdfData = new Uint8Array(this.result);
-            //             // Using DocumentInitParameters object to load binary data.
-            //             var loadingTask = pdfjsLib.getDocument({data: pdfData});
-            //             loadingTask.promise.then(function(pdf) {
-            //                 console.log('PDF loaded');
-            //                 pdfDoc = pdf;
-            //                 document.getElementById('page_count').textContent = pdfDoc.numPages;
-            //                 renderPage(pageNum);
-
-            //             // Fetch the first page
-            //             // var pageNumber = 1;
-            //             // pdf.getPage(pageNumber).then(function(page) {
-            //             //     console.log('Page loaded');
-
-            //             //     var scale = 1.5;
-            //             //     var viewport = page.getViewport({scale: scale});
-
-            //             //     // Prepare canvas using PDF page dimensions
-            //             //     var canvas = $("#pdfViewer")[0];
-            //             //     var context = canvas.getContext('2d');
-            //             //     canvas.height = viewport.height;
-            //             //     canvas.width = viewport.width;
-
-            //             //     // Render PDF page into canvas context
-            //             //     var renderContext = {
-            //             //     canvasContext: context,
-            //             //     viewport: viewport
-            //             //     };
-            //             //     var renderTask = page.render(renderContext);
-            //             //     renderTask.promise.then(function () {
-            //             //     console.log('Page rendered');
-            //             //     });
-            //             // });
-            //             }, function (reason) {
-            //             // PDF loading error
-            //             console.error(reason);
-            //             });
-            //         };
-            //         fileReader.readAsArrayBuffer(file);
-            //     }
-            // });
-
-            // pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-            //     pdfDoc = pdfDoc_;
-            //     document.getElementById('page_count').textContent = pdfDoc.numPages;
-
-            //     // Initial/first page rendering
-            //     renderPage(pageNum);
-            // });
         </script>
         <!-- <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step3_redaksi.js"></script> -->
     @endsection

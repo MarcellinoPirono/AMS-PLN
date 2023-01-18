@@ -110,12 +110,17 @@
                  <ul aria-expanded="false">
                      <li>
                          <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/non-po">
-                             <strong>Buat KAK & RAB</strong>
+                             <strong>NON-PO</strong>
                          </a>
                      </li>
                      <li>
                          <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/non-po-hpe">
                              <strong>Buat HPE</strong>
+                         </a>
+                     </li>
+                     <li>
+                         <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/hpe">
+                             <strong>HPE</strong>
                          </a>
                      </li>
                      <li>

@@ -1,8 +1,8 @@
 {
     "calibri": {
-        "normal": "C:\\laragon\\www\\AMS-PLN-master\\AMS-PLN\\storage\\fonts\/calibri_normal_0c885a8e37c7276dbcc036500e3f0661",
-        "bold": "C:\\laragon\\www\\AMS-PLN-master\\AMS-PLN\\storage\\fonts\/calibri_bold_58452892349f9f0472b5eb5fbd7786ba",
-        "bold_italic": "C:\\laragon\\www\\AMS-PLN-master\\AMS-PLN\\storage\\fonts\/calibri_bold_italic_0b9f4e860cf5a178a92d87130b7a0809",
-        "italic": "calibri_italic_0e76319fbdbab960c109b8c91664c998"
+        "normal": "D:\\ACTIVITY\\SEM 7\\3. KP\\WEB\\laravel_ams\\storage\\fonts\/calibri_normal_5ba2a5e3bc2ba8b8f078ba9e946adb0a",
+        "bold": "D:\\ACTIVITY\\SEM 7\\3. KP\\WEB\\laravel_ams\\storage\\fonts\/calibri_bold_94adb53345afcaafef998d28386cf0b8",
+        "bold_italic": "D:\\ACTIVITY\\SEM 7\\3. KP\\WEB\\laravel_ams\\storage\\fonts\/calibri_bold_italic_b8ac06a294226dc8e1005ec9fedf954a",
+        "italic": "calibri_italic_03ae7d538c463c470091eaeebdfdb1d7"
     }
 }

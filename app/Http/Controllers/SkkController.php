@@ -261,4 +261,10 @@ public function create()
        return response($output);
     }
 
+    public function checkSKK(Request $request) {
+        $check_skk = $request->post('check_skk');
+        dd($check_skk);
+    }
+
 }
+

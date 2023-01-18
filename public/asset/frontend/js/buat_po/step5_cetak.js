@@ -40,7 +40,7 @@ function SubmitTKDN() {
         // var lampiran = pondfiles[0].files;
         var lampiran = $('#lampiran')[0].files;
 
-        // var lampiran = $('input[type=file]').getFiles();
+        // var lampi{{ ran = $('input }}[type=file]').getFiles();
         console.log(lampiran);
 
         // log;
@@ -724,8 +724,10 @@ function SubmitNONTKDN() {
                 kategory_id[i] = document.getElementById("kategory_id[" + (i + 1) + "]").value;
                 fd.append("kategori_order[]", kategory_id[i]);
                 satuan[i] = document.getElementById("satuan[" + (i + 1) + "]").value;
+                console.log(satuan);
                 satuan[i] = satuan[i].replace(/\(([^)]+)\)/, "");
-                satuan[i] = satuan[i].replace(/\ /g, "");
+                // satuan[i] = satuan[i].replace(/\ /g, "");
+
                 fd.append("satuan_id[]", satuan[i]);
                 volume[i] = document.getElementById("volume[" + (i + 1) + "]").value;
                 volume[i] = volume[i].replace(/\./g, "");
@@ -764,6 +766,7 @@ function SubmitNONTKDN() {
                 total_tkdn[i] = kdn[i] + kln[i];
                 fd.append("total_tkdn[]", total_tkdn[i]);
             }
+            console.log("satuan", satuan);
 
             let lokasi = [];
 
@@ -1041,7 +1044,7 @@ function SubmitNONTKDN() {
                         // fd.append("kategory_order_with_paket[]", JSON.stringify(kategory_order_with_paket[i][j][l]));
                         satuan_id_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].satuan_id[l];
                         satuan_id_with_paket[i][j][l] = satuan_id_with_paket[i][j][l].replace(/\(([^)]+)\)/, "");
-                        satuan_id_with_paket[i][j][l] = satuan_id_with_paket[i][j][l].replace(/\ /g, "");
+                        // satuan_id_with_paket[i][j][l] = satuan_id_with_paket[i][j][l].replace(/\ /g, "");
                         fd.append("satuan_id_with_paket["+i+"]["+j+"][]", satuan_id_with_paket[i][j][l]);
                         // fd.append("satuan_id_with_paket[]", JSON.stringify(satuan_id_with_paket[i][j][l]));
                         volume_with_paket[i][j][l] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].volume[l];

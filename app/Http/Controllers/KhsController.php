@@ -48,6 +48,7 @@ class KhsController extends Controller
      */
     public function store(StoreKhsRequest $request)
     {
+        // dd($request);
         $validatedData = $request->validate([
 
             'jenis_khs' => 'required',

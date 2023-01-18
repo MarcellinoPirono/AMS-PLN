@@ -12,11 +12,11 @@
 </head>
 
 <body>
-    {{-- <header class="mt-1">
-        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
-    </header> --}}
+    <header class="mt-1">
+        <img class="mt-1 header-rab" src="{{ public_path('/') }}./asset/frontend/images/header_rab.png" alt="">
+    </header>
 
-    <footer>
+    <footer style="width: 100%">
         <div class="footer-2">
             Paraf________________
         </div>
@@ -33,27 +33,27 @@
                 <td colspan="3" class="judul">RINCIAN ANGGARAN BIAYA</td>
             </tr>
             <tr>
-                <td width="18%" style="height: 4px;">NAMA PEKERJAAN</td>
+                <td width="18%" style="height: 4px;">PEKERJAAN</td>
                 <td width="2%" style="height: 4px;">:</td>
                 <td width="80%" style="height: 4px;">{{ $pokhs->pekerjaan }}</td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <td> NO KONTRAK</td>
                 <td>:</td>
-                <td>0123908124</td>
+                <td>NO KONTRAK</td>
             </tr>
             <tr>
                 <td> NO SPBJ</td>
                 <td>:</td>
                 <td>0123908124</td>
-            </tr>
+            </tr> --}}
             <tr>
                 <td>SUMBER DANA</td>
                 <td>:</td>
                 <td>{{ $pokhs->skks->nomor_skk }}</td>
             </tr>
             <tr>
-                <td valign="top">DAERAH KERJA</td>
+                <td valign="top">LOKASI</td>
                 <td valign="top">:</td>
 
                 <td valign="top">
@@ -83,7 +83,7 @@
                 {{-- <td>{{ $pokhs->lokasi }}</td> --}}
             </tr>
             <tr>
-                <td>PENYEDIA BARANG/JASA</td>
+                <td>NOMOR PRK</td>
                 <td>:</td>
                 <td>{{ $pokhs->prks->no_prk }}</td>
             </tr>
@@ -99,14 +99,14 @@
                 <td class="tabelatas" style="width:16%;" colspan="2" align="center" valign="middle">HARGA
                 </td>
                 <td class="tabelatas" style="width:5%;" rowspan="2" align="center" valign="middle">TKDN (%)</td>
-                <td class="tabelataskanan" style="width:21%;" colspan="3" align="center" valign="middle">BIAYA (Rupiah)</td>
+                <td class="tabelataskanan" style="width:27%;" colspan="3" align="center" valign="middle">BIAYA (Rupiah)</td>
             </tr>
             <tr class="warna">
                 <td class="tabelnormal" style="width:8%;" align="center" valign="middle">Satuan (RP)</td>
                 <td class="tabelnormal"style="width:8%;" align="center" valign="middle">Jumlah (RP)</td>
-                <td class="tabelnormal"style="width:7%;" align="center" valign="middle">KDN</td>
-                <td class="tabelnormal"style="width:7%;" align="center" valign="middle">KLN</td>
-                <td class="tabelnormalkanan"style="width:7%;" align="center" valign="middle">TOTAL</td>
+                <td class="tabelnormal"style="width:9%;" align="center" valign="middle">KDN</td>
+                <td class="tabelnormal"style="width:9%;" align="center" valign="middle">KLN</td>
+                <td class="tabelnormalkanan"style="width:9%;" align="center" valign="middle">TOTAL</td>
             </tr>
                 @if (count($kategori_jasa) > 0)
                     <tr id="tr_jasa">
@@ -158,8 +158,7 @@
                     <tr id="tr_material">
                         <td class="firstkiri" align="center" valign="middle"></td>
                         <td class="first tabellkiri" style="font-weight: bold; height: 17px;" align="left"
-                            valign="top">&ensp;&ensp;
-                            MATERIAL:
+                            valign="top">&ensp;&ensp; MATERIAL:
                         </td>
                         <td class="first" align="center" valign="middle"></td>
                         <td class="first" align="center" valign="middle"></td>
@@ -248,8 +247,8 @@
                     {{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</td>
             </tr>
             <tr style="page-break-before: avoid">
-                <td class="noborder" colspan="4" align="center" valign="top">{{ $jabatan_manager }}</td>
-                <td class="noborder centertb" colspan="6" align="center" valign="middle"
+                <td style="text-align: center" class="noborder centertb" colspan="4" align="center" valign="top">{{ $jabatan_manager }}</td>
+                <td style="text-align: center" class="noborder centertb" colspan="6" align="center" valign="middle"
                     style="padding-left: 30px; padding-right: 30px; text-align: center;">
                     {{ $pokhs->pejabats->jabatan }}
                 </td>

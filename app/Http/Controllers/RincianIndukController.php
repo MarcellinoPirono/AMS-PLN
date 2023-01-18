@@ -113,14 +113,21 @@ class RincianIndukController extends Controller
 
     function import(Request $request)
     {
-    // dd($request);
+    // $kontrak =
+    // dd($request->jenis_khs);
+    // $khs_id = Khs::where('jenis_khs', $request->jenis_khs)->value('id');
+    // // dd($khs_id);
+    // $rincianInduk = RincianInduk::where('khs_id', $khs_id)->get();
+    // dd(count($rincianInduk));
+    // for($i = 0; $i < count($rincianInduk); $i++) {
 
+    // }
 
-     $request->validate([
-      'select_file'  => 'required|mimes:xls,xlsx'
-     ]);
+    $request->validate([
+        'select_file'  => 'required|mimes:xls,xlsx'
+    ]);
 
-     $jenis_khs = $request->jenis_khs;
+    $jenis_khs = $request->jenis_khs;
 
     $file = $request->file('select_file');
     $nama_file = Carbon::now()->format('Y-m-d') . $file->getClientOriginalName();

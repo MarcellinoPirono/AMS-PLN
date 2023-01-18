@@ -17,7 +17,7 @@
                                     <select id="filter-addendum-khs" class="form-control filter">
                                         <option value="">Pilih SKK</option>
                                         @foreach ($skks as $khs)
-                                            <option value="{{ $khs->id }}">{{ $khs->nomor_skk }}</option>
+                                            <option value="{{ $khs->id }}">{{ $khs->nomor_skk  }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -40,7 +40,7 @@
                                     </select>
                                 </div>
 
-                                <a href="/po-khs/buat-po" type="button" class="btn btn-primary ml-3">Buat Kontrak (PO) <i class="bi bi-pencil-square"></i>
+                                <a href="/po-khs/buat-po" type="button" class="btn btn-primary ml-3 mt-3">Buat Kontrak (PO) <i class="bi bi-pencil-square"></i>
                                 </a>
 
                             </div>
@@ -118,9 +118,13 @@
 
     <script>
         var ListTabelRab = $('#ListTabelRab').DataTable({
+            select:  {
+                    style: 'multi'
+            },
             createdRow: function(row, data, index) {
                 $(row).addClass('selected')
             }
+
         });
         $('#filter-kategori').on("change", function(event) {
             var categor = $('#filter-kategori').val();

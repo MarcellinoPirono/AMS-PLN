@@ -12,6 +12,7 @@ use App\Models\Khs;
 use App\Models\KontrakInduk;
 use App\Models\RincianInduk;
 use App\Models\Pejabat;
+use App\Models\PpnModel;
 use App\Models\Addendum;
 use App\Models\Vendor;
 // use App\Models\OrderedRab;
@@ -273,7 +274,8 @@ class CetakNonTkdnController extends Controller
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
         $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn = $jumlah * 0.11;
+        $ppn_id = PpnModel::all();
+         $ppn = $jumlah * ($ppn_id[0]->ppn/100);
 
         $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
             "po_khs" => $values_pdf_page1,
@@ -283,6 +285,7 @@ class CetakNonTkdnController extends Controller
             "jabatan_manager" => $jabatan_manager,
             "nama_manager" => $nama_manager,
             "redaksis" => $redaksis,
+            "ppn_id" => $ppn_id,
             "lokasis" => $lokasis,
             "rabredaksi_array" => $rabredaksi_array,
             "title" => 'PO-KHS (SP-APP)',
@@ -307,6 +310,7 @@ class CetakNonTkdnController extends Controller
             "title" => $nama_pdf,
             "lokasis" => $lokasis,
             "paket_id" => $paket_id,
+            "ppn_id" => $ppn_id,
         ]);
         $path2 = 'RAB_Paket_NON_TKDN.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
@@ -346,7 +350,7 @@ class CetakNonTkdnController extends Controller
         return response()->json($nama_pdf);
     }
 
-    
+
     public function cetak_paket_non_tkdn_non_lampiran(Request $request)
     {
 
@@ -452,18 +456,18 @@ class CetakNonTkdnController extends Controller
 
         $subdeskripsi_id = RabRedaksi::select('subdeskripsi_id')->where('rab_id', $rab_id)->get();
         $rabredaksi = RabRedaksi::where('rab_id', $rab_id)->get();
+        $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
 
         $rabredaksi_array = [];
-        for($i = 0; $i < $redaksi_click; $i++) {
+        for($i = 0; $i <  count($redaksis); $i++) {
             $rabredaksi_array[$i] = [
-                'redaksi' => OrderRedaksiKHS::where('rab_id', $rab_id)->get(),
-                'sub_redaksi' => RabRedaksi::select('subdeskripsi_id')->where('rab_id', $rab_id)->get()
+                'redaksi' => $redaksis[$i]->deskripsi_id,
+                'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
             ];
         }
 
 
 
-        $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
         $lokasis = lokasi::where('rab_id', $rab_id)->get();
 
         $lokasi_id = [];
@@ -583,7 +587,8 @@ class CetakNonTkdnController extends Controller
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
         $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn = $jumlah * 0.11;
+        $ppn_id = PpnModel::all();
+        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
 
         $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
             "po_khs" => $values_pdf_page1,
@@ -596,6 +601,7 @@ class CetakNonTkdnController extends Controller
             "lokasis" => $lokasis,
             "rabredaksi_array" => $rabredaksi_array,
             "title" => 'PO-KHS (SP-APP)',
+            "ppn_id" => $ppn_id,
         ]);
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
@@ -616,6 +622,7 @@ class CetakNonTkdnController extends Controller
             "title" => $nama_pdf,
             "lokasis" => $lokasis,
             "paket_id" => $paket_id,
+            "ppn_id" => $ppn_id,
         ]);
 
         $path2 = 'RAB_Paket_NON_TKDN.pdf';
@@ -872,7 +879,8 @@ class CetakNonTkdnController extends Controller
          $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
          $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-         $ppn = $jumlah * 0.11;
+         $ppn_id = PpnModel::all();
+         $ppn = $jumlah * ($ppn_id[0]->ppn/100);
 
 
          $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
@@ -890,6 +898,7 @@ class CetakNonTkdnController extends Controller
              "subdeskripsi_id" => $subdeskripsi_id,
              "lokasis" => $lokasis,
              "rabredaksi_array" => $rabredaksi_array,
+             "ppn_id" => $ppn_id
          ]);
 
          $path1 = 'SPBJ.pdf';
@@ -906,6 +915,7 @@ class CetakNonTkdnController extends Controller
             "nama_manager" => $nama_manager,
             "title" => $nama_pdf,
             "lokasis" => $lokasis,
+            "ppn_id" => $ppn_id
         ]);
 
         // $content = $pdf->download()->getOriginalContent();
@@ -1026,7 +1036,6 @@ class CetakNonTkdnController extends Controller
              $satuan_id[$i] = Satuan::where('kepanjangan', $request->satuan_id[$i])->value('id');
              $nama_item_id[$i] = RincianINduk::where('nama_item', $request->item_order[$i])->value('id');
          }
-
 
 
 
@@ -1158,7 +1167,8 @@ class CetakNonTkdnController extends Controller
          $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
          $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-         $ppn = $jumlah * 0.11;
+         $ppn_id = PpnModel::all();
+         $ppn = $jumlah * ($ppn_id[0]->ppn/100);
 
 
          $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
@@ -1172,6 +1182,8 @@ class CetakNonTkdnController extends Controller
              "redaksis" => $redaksis,
              "lokasis" => $lokasis,
              "rabredaksi_array" => $rabredaksi_array,
+             "ppn_id"=>$ppn_id,
+
          ]);
 
          $path1 = 'SPBJ.pdf';
@@ -1188,6 +1200,8 @@ class CetakNonTkdnController extends Controller
              "nama_manager" => $nama_manager,
              "title" => $nama_pdf,
              "lokasis" => $lokasis,
+             "ppn_id"=>$ppn_id,
+
          ]);
 
          // $content = $pdf->download()->getOriginalContent();

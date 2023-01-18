@@ -126,7 +126,7 @@
             </div>
             <div class="content3" style="margin-left: 40px; margin-right: -5px;">
                 <ol type="1" style="justify-content: space-between">
-                    <li>Harga Borongan Pekerjaan <b>@currency($pokhs->total_harga),-</b> (Termasuk PPN 11%)</li>
+                    <li>Harga Borongan Pekerjaan <b>@currency($pokhs->total_harga),-</b> (Termasuk PPN {{ $ppn_id[0]->ppn }}%)</li>
                     <li>Jangka waktu pelaksanaan pekerjaan <b>{{ $days }}</b> <span
                             class="italic">({{ Terbilang::make($days) }})</span> hari kalender sejak tanggal
                         <b>{{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</b>

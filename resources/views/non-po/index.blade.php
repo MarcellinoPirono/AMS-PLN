@@ -27,12 +27,14 @@
                                     <table class="table table-responsive-md" id="read">
                                         <thead>
                                             <tr align="center" valign="middle">
-                                                <th class="width80">No.</th>                                            
-                                                <th>No. RPBJ</th>                                                
-                                                <th>No SKK</th>
-                                                <th>No PRK</th>                                                
-                                                <th>Total Harga</th>                                                
-                                                <th> </th>
+                                                <th class="width80">No.</th>
+                                                <th>Nomor RPBJ</th>
+                                                <th>Pekerjaan</th>
+                                                <th>No. SKK</th>
+                                                <th>No. PRK</th>
+                                                <th>Supervisor</th>
+                                                <th>Total Harga</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody class="alldata">
@@ -40,9 +42,11 @@
                                                 <tr>
                                                     <td align="center" valign="middle"><strong>{{$loop->iteration}}</strong></td>
                                                     <td>{{$nonpo->nomor_rpbj}}</td>
+                                                    <td>{{ $nonpo->pekerjaan }}</td>
                                                     <td>{{$nonpo->skks->nomor_skk}}</td>
                                                     <td>{{$nonpo->prks->no_prk}}</td>
-                                                    <td>@currency($nonpo->total_harga)</td>                                                                                                       
+                                                    <td>{{ $nonpo->supervisor }}</td>
+                                                    <td>@currency($nonpo->total_harga)</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
@@ -56,8 +60,8 @@
                                                     </div>
                                                 </td>
 
-                                                </tr>                                                                                                
-                                            @endforeach                                            
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                         <tbody id="Content" class="searchdata">
                                         </tbody>
@@ -94,7 +98,7 @@
         }
 
     });
-        
+
     });
 </script>
 @endsection

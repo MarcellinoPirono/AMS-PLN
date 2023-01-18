@@ -16,8 +16,8 @@
         <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
     </header>
 
-    <footer>
-        <div class="footer-2" style="float: right">
+    <footer style="width: 100%">
+        <div class="footer-2" style="float: right; width: 100%">
             Paraf________________
         </div>
         <div class="footer-1">
@@ -241,7 +241,7 @@
                 <td class="tabelnormalkanan tabellkanan" align="right"><b>Rp. @currency2($jumlah)</b></td>
             </tr>
             <tr style="page-break-before: avoid">
-                <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
+                <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN {{$ppn_id[0]->ppn}}%</b></td>
                 <td class="tabelnormalkanan tabellkanan" align="right"><b>Rp. @currency2($ppn)</b></td>
             </tr>
             @foreach ($po_khs as $pokhs)
@@ -266,8 +266,8 @@
                     {{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</td>
             </tr>
             <tr style="page-break-before: avoid">
-                <td class="noborder" colspan="2" align="center" valign="top">{{ $jabatan_manager }}</td>
-                <td class="noborder centertb" colspan="4" align="center" valign="middle"
+                <td style="text-align: center" class="noborder centertb" colspan="2" align="center" valign="top">{{ $jabatan_manager }}</td>
+                <td style="text-align: center" class="noborder centertb" colspan="4" align="center" valign="middle"
                     style="padding-left: 30px; padding-right: 30px; text-align: center;">
                     {{ $pokhs->pejabats->jabatan }}
                 </td>

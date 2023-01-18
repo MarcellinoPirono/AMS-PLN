@@ -26,4 +26,8 @@ class NonPo extends Model
     public function pejabats(){
         return $this->belongsTo(Pejabat::class, 'pejabat_id', 'id');
     }
+
+    public function hpes(){
+        return $this->hasOne(Hpe::class, 'non_po_id');
+    }
 }

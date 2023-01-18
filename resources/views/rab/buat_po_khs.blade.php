@@ -556,9 +556,8 @@
                                                                             </td>
                                                                             <td>
                                                                                 <button onclick="deleteRow(this)"
-                                                                                    class="btn btn-danger shadow btn-xs sharp"
-                                                                                    style="margin-top: 15px"><i
-                                                                                        class='fa fa-trash'></i></button>
+                                                                                    class="btn btn-danger shadow btn-xs sharp">
+                                                                                    <i class='fa fa-trash'></i></button>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>

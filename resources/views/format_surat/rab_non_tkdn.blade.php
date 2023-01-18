@@ -163,7 +163,7 @@
             <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($jumlah)</b></td>
         </tr>
         <tr style="page-break-before: avoid">
-            <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
+            <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN {{$ppn_id[0]->ppn}}%</b></td>
             <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($ppn)</b></td>
         </tr>
         @foreach ($po_khs as $pokhs)
@@ -188,8 +188,8 @@
                 {{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</td>
         </tr>
         <tr style="page-break-before: avoid">
-            <td class="noborder" colspan="2" align="center" valign="top">{{ $jabatan_manager }}</td>
-            <td class="noborder centertb" colspan="4" align="center" valign="middle" style="text-align: center;">{{ $pokhs->pejabats->jabatan }}
+            <td style="text-align: center" class="noborder centertb" colspan="2" align="center" valign="top">{{ $jabatan_manager }}</td>
+            <td style="text-align: center" class="noborder centertb" colspan="4" align="center" valign="middle" style="text-align: center;">{{ $pokhs->pejabats->jabatan }}
             </td>
         </tr>
         <tr style="height: 92px; page-break-before: avoid">

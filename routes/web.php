@@ -10,6 +10,7 @@ use App\Http\Controllers\PrkController;
 use App\Http\Controllers\SkkController;
 use App\Http\Controllers\RincianIndukController;
 use App\Http\Controllers\HpeController;
+use App\Http\Controllers\NonPoHpeController;
 use App\Http\Controllers\JenisKhsController;
 use App\Http\Controllers\KontrakIndukController;
 use App\Http\Controllers\KhsController;
@@ -44,8 +45,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index']);
 
-Route::get('/dashboard', [MainController::class, 'index']);
+Route::get('/dashboard', [MainController::class, 'index'])/*->middleware('admin')*/;
+
+//LOGIN
 Route::get('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::resource('categories', ItemRincianIndukController::class);
 Route::get('/search-categories', [ItemRincianIndukController::class, 'searchcategories']);
@@ -151,6 +156,7 @@ Route::post('/getCategory', [SkkController::class, 'getCategory']);
 Route::post('/getItem', [SkkController::class, 'getItem']);
 Route::post('/getKontrakInduk', [SkkController::class, 'getKontrakInduk']);
 Route::post('/getKontrak_Induk', [SkkController::class, 'getKontrak_Induk']);
+Route::post('/checkSKK', [SkkController::class, 'checkSKK']);
 
 
 //Paket Pekerjaan
@@ -185,7 +191,6 @@ Route::put('klasifikasi-paket-pekerjaan/{jenis_khs}/{id}/edit', [KlasifikasiPake
 
 
 
-Route::resource('hpe', HpeController::class);
 
 
 // Route::view('products', 'layouts.main', [
@@ -197,6 +202,15 @@ Route::get('non-po/buat-non-po', [NonPOController::class, 'buat_non_po']);
 Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po']);
 Route::get('non-po/export-pdf-khs/{id}', [NonPOController::class, 'export_pdf_khs']);
 Route::resource('non-po', NonPOController::class);
+
+Route::get('non-po-hpe/{id}/buat-non-po-hpe', [NonPoHpeController::class, 'buat_non_po_hpe']);
+Route::post('simpan-non-po-hpe', [NonPoHpeController::class, 'simpan_non_po_hpe']);
+Route::resource('non-po-hpe', NonPoHpeController::class);
+// Route::resource('non-po-hpe', NonPOHPEController::class);
+
+Route::resource('hpe', HpeController::class);
+
+
 
 //TKDN
 Route::post('cetak-pdf-tkdn', [PdfkhsController::class, 'cetak_tkdn_lampiran']);
@@ -218,4 +232,15 @@ Route::get('download/{slug}', [PdfkhsController::class, 'download']);
 
 
 //USER
-Route::resource('user', UserController::class);
+// Route::resource('user', UserController::class);
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('/user', 'index')->name('index');
+    Route::get('/user/create', 'create')->name('user.create');
+    Route::get('/user/{username}/edit', 'edit')->name('user.edit');
+    // Route::post('/user/{username}/edit', 'edit');
+    Route::post('/user/{username}/edit', 'update')->name('user.update');
+    Route::post('/user', 'store')->name('user');
+    Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile');
+    Route::delete('/deleteuser/{id}', 'destroy')->name('hapus');
+});

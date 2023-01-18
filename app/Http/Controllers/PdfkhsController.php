@@ -307,7 +307,7 @@ class PdfkhsController extends Controller
             "title" => $nama_pdf,
             "rabredaksi_array" => $rabredaksi_array,
             "lokasis" => $lokasis,
-            // "ppn_id"=>$ppn_id,
+            "ppn_id"=>$ppn_id,
         ]);
 
         $path1 = 'SPBJ.pdf';
@@ -654,7 +654,7 @@ class PdfkhsController extends Controller
             "redaksis" => $redaksis,
             "lokasis" => $lokasis,
             "rabredaksi_array" => $rabredaksi_array,
-
+            "ppn_id"=>$ppn_id,
         ]);
 
         $path1 = 'SPBJ.pdf';
@@ -999,6 +999,7 @@ class PdfkhsController extends Controller
             "lokasis" => $lokasis,
             "rabredaksi_array" => $rabredaksi_array,
             "title" => 'PO-KHS (SP-APP)',
+            "ppn_id"=>$ppn_id,
         ]);
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
@@ -1346,6 +1347,7 @@ class PdfkhsController extends Controller
             "lokasis" => $lokasis,
             "rabredaksi_array" => $rabredaksi_array,
             "title" => 'PO-KHS (SP-APP)',
+            "ppn_id"=>$ppn_id,
         ]);
 
         $path1 = 'SPBJ.pdf';
@@ -1658,6 +1660,7 @@ class PdfkhsController extends Controller
             "rabredaksi" => $rabredaksi,
             "rabredaksi_array" => $rabredaksi_array,
             "title" => 'PO-KHS (SP-APP)',
+            "ppn_id"=>$ppn_id,
         ]);
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
@@ -1678,7 +1681,7 @@ class PdfkhsController extends Controller
         //     "lokasis" => $lokasis,
         //     "title" => 'PO-KHS (SP-APP)',
         // ]);
-        $pdf2 = Pdf::loadView('format_surat.testing_rab_non_tkdn',[
+        $pdf2 = Pdf::loadView('format_surat.testing_grouping',[
             "po_khs" => $values_pdf_page1,
             "kategori_jasa" => $jasa,
             "kategori_material" => $material,
@@ -1709,6 +1712,7 @@ class PdfkhsController extends Controller
             "paket_id" => $paket_id,
             "ppn_id"=>$ppn_id,
         ]);
+        $pdf2->setPaper('A4', 'landscape');
         // dd($pdf2);
         $path2 = 'RAB.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());

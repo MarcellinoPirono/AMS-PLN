@@ -12,12 +12,12 @@
 </head>
 
 <body>
-    {{-- <header class="mt-1">
-        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
-    </header> --}}
+    <header class="mt-1">
+        <img class="mt-1 header-rab" src="{{ public_path('/') }}./asset/frontend/images/header_rab.png" alt="">
+    </header>
 
-    <footer>
-        <div class="footer-2" style="float: right">
+    <footer style="width: 100%">
+        <div class="footer-2" style="float: right;">
             Paraf________________
         </div>
         <div class="footer-1">
@@ -53,6 +53,11 @@
                 <td>{{ $pokhs->skks->nomor_skk }}</td>
             </tr>
             <tr>
+                <td>NOMOR PRK</td>
+                <td>:</td>
+                <td>{{ $pokhs->prks->no_prk }}</td>
+            </tr>
+            <tr>
                 <td valign="top">DAERAH KERJA</td>
                 <td valign="top">:</td>
 
@@ -81,11 +86,7 @@
                 </td>
                 {{-- <td>{{ $pokhs->lokasi }}</td> --}}
             </tr>
-            <tr>
-                <td>PENYEDIA BARANG/JASA</td>
-                <td>:</td>
-                <td>{{ $pokhs->prks->no_prk }}</td>
-            </tr>
+
         </table>
     @endforeach
     <div class="wrapword" id="firstTable">
@@ -98,15 +99,15 @@
                 <td class="tabelatas" style="width:16%;" colspan="2" align="center" valign="middle">HARGA
                 </td>
                 <td class="tabelatas" style="width:5%;" rowspan="2" align="center" valign="middle">TKDN (%)</td>
-                <td class="tabelataskanan" style="width:21%;" colspan="3" align="center" valign="middle">BIAYA
+                <td class="tabelataskanan" style="width:27%;" colspan="3" align="center" valign="middle">BIAYA
                     (Rupiah)</td>
             </tr>
             <tr class="warna">
                 <td class="tabelnormal" style="width:8%;" align="center" valign="middle">Satuan (RP)</td>
                 <td class="tabelnormal"style="width:8%;" align="center" valign="middle">Jumlah (RP)</td>
-                <td class="tabelnormal"style="width:7%;" align="center" valign="middle">KDN</td>
-                <td class="tabelnormal"style="width:7%;" align="center" valign="middle">KLN</td>
-                <td class="tabelnormalkanan"style="width:7%;" align="center" valign="middle">TOTAL</td>
+                <td class="tabelnormal"style="width:9%;" align="center" valign="middle">KDN</td>
+                <td class="tabelnormal"style="width:9%;" align="center" valign="middle">KLN</td>
+                <td class="tabelnormalkanan"style="width:9%;" align="center" valign="middle">TOTAL</td>
             </tr>
             @foreach ($lokasis as $key => $value)
                 <tr id="tr_jasa">
@@ -229,7 +230,7 @@
                     @if (count($kategori_material[$key][$key1]) > 0)
                         <tr id="tr_material">
                             <td class="firstkiri" align="center" valign="middle"></td>
-                            <td class="first tabelnormallkiri" style="font-weight: bold; height: 17px;"
+                            <td class="first tabellkiri" style="font-weight: bold; height: 17px;"
                                 align="left" valign="top">&ensp;&ensp;MATERIAL:
                             </td>
                             <td class="first" align="center" valign="middle"></td>
@@ -309,7 +310,7 @@
                 <td class="tabelnormal tabellkanan" align="right"><b>Rp. @currency2($sub_jumlah_jasa)</b></td>
                 <td class="tabelnormal" align="center">@currencytkdn($total_tkdn_jasa )%</td>
                 <td class="tabelnormal tabellkanan" align="right">Rp. @currency2($kdn_jasa)</td>
-                <td class="tabelnormal" align="right">Rp. @currency2($kln_jasa)</td>
+                <td class="tabelnormal tabellkanan" align="right">Rp. @currency2($kln_jasa)</td>
                 <td class="tabelnormalkanan tabellkanan" align="right">Rp. @currency2($total_jasa)</td>
             </tr>
             <tr style="page-break-before: avoid">
@@ -317,15 +318,15 @@
                 <td class="tabelnormal tabellkanan" align="right"><b>Rp. @currency2($sub_jumlah_material)</b></td>
                 <td class="tabelnormal" align="center">@currencytkdn($total_tkdn_material )%</td>
                 <td class="tabelnormal tabellkanan" align="right">Rp. @currency2($kdn_material)</td>
-                <td class="tabelnormal" align="right">Rp. @currency2($kln_material)</td>
+                <td class="tabelnormal tabellkanan" align="right">Rp. @currency2($kln_material)</td>
                 <td class="tabelnormalkanan tabellkanan" align="right">Rp. @currency2($total_material)</td>
             </tr>
             <tr style="page-break-before: avoid">
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Keseluruhan</b></td>
                 <td class="tabelnormal tabellkanan" align="right"><b>Rp. @currency2($jumlah)</b></td>
                 <td class="tabelnormal kuning" align="center">@currencytkdn($total_tkdn_jasa_material )%</td>
-                <td class="tabelnormal kuning" align="right">Rp. @currency2($total_kdn_jasa_material)</td>
-                <td class="tabelnormal kuning" align="right">Rp. @currency2($total_kln_jasa_material)</td>
+                <td class="tabelnormal tabellkanan kuning" align="right">Rp. @currency2($total_kdn_jasa_material)</td>
+                <td class="tabelnormal tabellkanan kuning" align="right">Rp. @currency2($total_kln_jasa_material)</td>
                 <td class="tabelnormalkanan tabellkanan kuning" align="right">Rp. @currency2($total_jasa_material)</td>
             </tr>
             <tr style="page-break-before: avoid">
@@ -362,8 +363,8 @@
                     {{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</td>
             </tr>
             <tr style="page-break-before: avoid">
-                <td class="noborder" colspan="4" align="center" valign="top">{{ $jabatan_manager }}</td>
-                <td class="noborder centertb" colspan="6" align="center" valign="middle"
+                <td style="text-align: center" class="noborder centertb" colspan="4" align="center" valign="top">{{ $jabatan_manager }}</td>
+                <td style="text-align: center" class="noborder centertb" colspan="6" align="center" valign="middle"
                     style="padding-left: 30px; padding-right: 30px; text-align: center;">
                     {{ $pokhs->pejabats->jabatan }}
                 </td>

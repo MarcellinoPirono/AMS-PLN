@@ -21,6 +21,71 @@ color:red;
 font-family:verdana, Helvetica;
 } */
 
+  /* .multiselect {
+    width: 200px;
+  }
+
+  .selectBox {
+    position: relative;
+  }
+
+  .selectBox select {
+    width: 100%;
+    font-weight: bold;
+  }
+
+  .overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  #checkboxes {
+    display: none;
+    border: 0.5px #7c7c7c solid;
+    background-color: #ffffff;
+    max-height: 150px;
+    overflow-y: scroll;
+  }
+
+  #checkboxes label {
+    display: block;
+    font-weight: normal;
+    white-space: nowrap;
+    min-height: 1.2em;
+    background-color: #ffffff00;
+    padding: 0 1.5rem 0 -.75rem;
+  }
+
+  #checkboxes label:hover {
+    background-color: #1e90ff;
+  } */
+  .password-container{
+    width: 365px;
+    position: relative;
+  }
+  .password-container input[type="password"],
+  .password-container input[type="text"]{
+    width: 100%;
+    padding: 12px 36px 12px 12px;
+    box-sizing: border-box;
+  }
+  .fa-eye{
+    position: absolute;
+    top: 28%;
+    right: 4%;
+    cursor: pointer;
+    color: lightgray;
+  }
+  .fa-user{
+    position: absolute;
+    top: 30%;
+    right: 4%;
+    cursor: pointer;
+    color: lightgray;
+  }
 div.searching-select {
     width: 300px;
     float: left;
@@ -54783,3 +54848,7 @@ table#rincian {
     vertical-align: top !important;
 }
 
+.merah{
+    font-size: 9px !important;
+    color: #d50a44;
+}

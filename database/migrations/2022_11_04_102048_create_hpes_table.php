@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('hpes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rab_id')->nullable();
-            $table->integer('harga_perkiraan');
-            $table->integer('jumlah_harga_perkiraan');
+            $table->foreignId('non_po_id');
+            $table->double('total_harga_hpe');
+            // $table->double('jumlah_harga_perkiraan');
             $table->timestamps();
         });
     }

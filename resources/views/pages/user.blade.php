@@ -30,14 +30,14 @@
                         <table id="tableVendor" class="table table-responsive-md">
                             <thead>
                                 <tr align="center" valign="middle">
-                                    <th class="width80">No.</th>
-                                    <th>Nama Vendor</th>
-                                    <th>Nama Direktur</th>
-                                    <th>Alamat Kantor 1</th>
-                                    <th>Alamat Kantor 2</th>
-                                    <th>No Rek 1</th>
-                                    <th>No Rek 2</th>
-                                    <th>NPWP</th>
+                                    <th>No.</th>
+                                    <th class="sorting_1"></th>
+                                    <th>Role User</th>
+                                    <th>username</th>
+                                    <th>Nama</th>
+                                    <th>email</th>
+                                    <th>No. Hp</th>
+
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -45,18 +45,29 @@
                                 @foreach ($users as $user)
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $user->id }}">
-                                        <td><strong>{{ $loop->iteration }}</strong></td>
-                                        <td>{{ $user->nama_user }}</td>
-                                        <td>{{ $user->nama_direktur }}</td>
-                                        <td>{{ $user->alamat_kantor_1 }}</td>
-                                        <td>{{ $user->alamat_kantor_2 }}</td>
+                                        <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
+                                        <td class="sorting_1">
+                                            @if ($user->pic_profile != null)
+                                            <img class="rounded-circle" width="40" height="40" src="{{ asset('/storage/'.$user->pic_profile.'') }}" alt=""></td>
+
+                                            @else
+                                            <img class="rounded-circle" width="40" height="40" src="{{ asset('/storage/storage/Image-profile/avatar.svg') }}" alt=""></td>
+
+
+                                            @endif
+                                        <td>{{ $user->role }}</td>
+                                        <td>{{ $user->username }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->no_hp }}</td>
+                                        {{-- <td>{{ $user->alamat_kantor_2 }}</td>
                                         <td>{{ $user->no_rek_1 }} - {{ $user->nama_bank_1 }}</td>
                                         <td>{{ $user->no_rek_2 }} - {{ $user->nama_bank_2 }}</td>
-                                        <td>{{ $user->npwp }}</td>
+                                        <td>{{ $user->npwp }}</td> --}}
                                         <td>
 
                                             <div class="d-flex">
-                                                <a href="/vendor-khs/{{ $vendor->id }}/edit"
+                                                <a href="/user/{{ $user->username }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
                                                 <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
@@ -69,9 +80,9 @@
 
                             </tbody>
                              </tbody>
-                            <tbody id="Content" class="searchdata">
+                            {{-- <tbody id="Content" class="searchdata">
 
-                            </tbody>
+                            </tbody> --}}
                         </table>
                         <div class="d-flex justify-content-center">
                             {{-- {{ $items->links() }} --}}
@@ -128,7 +139,6 @@
     });
 </script>
 
-@endsection
 <script>
     $(document).ready(function() {
         $('.btndelete').click(function(e) {
@@ -147,19 +157,19 @@
                     if (willDelete) {
 
                         var data = {
-                            "_token": $('input[name=_token]').val(),
+                            // "_token": $('input[name=_token]').val(),
                             'id': deleteid,
                         };
                         $.ajax({
                             type: "DELETE",
-                            url: "{{ url('vendor-khs') }}"+'/'+deleteid,
+                            url: "{{ url('deleteuser') }}"+'/'+deleteid,
                             data: data,
                             success: function(response) {
                                 swal({
-                                        title: "Data Dihapus",
-                                        text: "Data Berhasil Dihapus",
+                                        title: "Data User Dihapus",
+                                        text: "User Berhasil Dihapus",
                                         icon: "success",
-                                        timer: 2e3,
+                                        timer: 4e3,
                                         buttons: false
                                     })
                                     .then((result) => {
@@ -180,3 +190,6 @@
         });
     });
 </script>
+
+@endsection
+

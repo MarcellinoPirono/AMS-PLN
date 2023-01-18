@@ -10,8 +10,8 @@ use App\Models\Pejabat;
 use App\Models\RabNonPo;
 use App\Models\Redaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Riskihajar\Terbilang\Facades\Terbilang;
 use Illuminate\Support\Facades\Storage;
+use Riskihajar\Terbilang\Facades\Terbilang;
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 
 
@@ -99,11 +99,13 @@ class NonPOController extends Controller
         // dd($filepath);
 
         $nama_pdf = $request->nomor_rpbj;
-        $ubah_pdf = str_replace('.', '_', $nama_pdf);
-        $ubah_pdf2 = str_replace('/','-', $ubah_pdf);
+        $nama_pdf = str_replace('.', '_', $nama_pdf);
+        $nama_pdf = str_replace('/','-', $nama_pdf);
+        $nama_pdf = str_replace(' ','-', $nama_pdf);
+        dd($nama_pdf);
 
 
-        $mypdf = 'storage/storage/file-pdf-khs/non-po/'.$ubah_pdf2.'.pdf';
+        $mypdf = 'storage/storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf';
 
 
         $non_po = [
@@ -161,7 +163,7 @@ class NonPOController extends Controller
 
         $pdf = Pdf::loadView('layouts.nota_dinas',[
             "non_po" => $values_pdf_page1,
-            "rab_non_po" => $values_pdf_page2,
+        "rab_non_po" => $values_pdf_page2,
             "jumlah" => $jumlah,
             "ppn" => $ppn,
             // "days" => $days,
@@ -189,7 +191,7 @@ class NonPOController extends Controller
 
         ]);
 
-        $pdf2->setPaper('A4', 'landscape');
+        $pdf2->setPaper('A4', 'potrait');
 
         // $dom_pdf2 = $pdf2->getDomPDF();
         // $canvas2 = $dom_pdf2->get_canvas();
@@ -211,15 +213,18 @@ class NonPOController extends Controller
 
 
         $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
-        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        // $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
 
-        $oMerger->addPDF($request->file('kak')->getPathName(), 'all');
+        // $oMerger->addPDF($request->file('kak')->getPathName(), 'all');
         // }
         // dd($oMerger);
 
-        $fileName2 = $request->nomor_rpbj.'.pdf';
-        $oMerger->merge();
-        $oMerger->save('storage/storage/file-pdf-khs/non-po/'.$fileName2.'.pdf');
+        $nama_pdf = $request->nomor_rpbj;
+        $nama_pdf = str_replace('.', '_', $nama_pdf);
+        $nama_pdf = str_replace('/','-', $nama_pdf);
+        $nama_pdf = str_replace(' ','-', $nama_pdf);
+        // $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf');
 
 
 
@@ -265,7 +270,9 @@ class NonPOController extends Controller
 
         $filePath = $document->pdf_file;
 
-        return Storage::download($filePath);
+        // dd($filePath);
+
+        return response()->download($filePath);
 
     }
 

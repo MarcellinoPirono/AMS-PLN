@@ -17,6 +17,7 @@ use App\Models\Vendor;
 use App\Models\Addendum;
 use App\Models\Satuan;
 use App\Models\Redaksi;
+use App\Models\PpnModel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -45,8 +46,9 @@ class DatabaseSeeder extends Seeder
             SubRedaksiSeeder::class,
             KlasifikasiSeeder::class
         ]);
-
-
+        PpnModel::create([
+            'ppn' => 11,
+        ]);
         Khs::create([
             'jenis_khs' => 'SP-APP',
             'nama_pekerjaan' => 'Pengadaan Jasa Konstruksi dan Pemeliharaan SP & APP Dengan Pola Kesepakatan Harga Satuan (KHS) Tahun 2020/2021',

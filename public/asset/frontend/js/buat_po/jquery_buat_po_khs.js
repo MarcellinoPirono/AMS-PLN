@@ -38,43 +38,89 @@ jQuery(document).ready(function() {
                     total = total.replace(/\./g, "");
                     total = parseInt(total);
                     if(pemisah_titik >= total) {
-                        pemisah_titik = pemisah_titik.toString();
-                        pemisah_titik2 = "";
-                        panjang = pemisah_titik.length;
-                        j = 0;
-                        for (i = panjang; i > 0; i--) {
-                            j = j + 1;
-                            if (((j % 3) == 1) && (j != 1)) {
-                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." +
-                                    pemisah_titik2;
-                            } else {
-                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
-                                    pemisah_titik2;
+                        if(pemisah_titik.charAt(0) == "-") {
+                            pemisah_titik = pemisah_titik.replace(/\-/g, "");
+                            pemisah_titik = pemisah_titik.toString();
+                            pemisah_titik2 = "";
+                            panjang = pemisah_titik.length;
+                            j = 0;
+                            for (i = panjang; i > 0; i--) {
+                                j = j + 1;
+                                if (((j % 3) == 1) && (j != 1)) {
+                                    pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." +
+                                        pemisah_titik2;
+                                } else {
+                                    pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                        pemisah_titik2;
+                                }
                             }
-                        }
-                        jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
-                            pemisah_titik2 + "</b>")
+                            pemisah_titik2 = "-"+pemisah_titik2;
+                            jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                                pemisah_titik2 + "</b>")
 
-                        document.getElementById("total").style.color = '#7E7E7E';
+                            document.getElementById("total").style.color = '#7E7E7E';
+                        } else {
+                            pemisah_titik = pemisah_titik.toString();
+                            pemisah_titik2 = "";
+                            panjang = pemisah_titik.length;
+                            j = 0;
+                            for (i = panjang; i > 0; i--) {
+                                j = j + 1;
+                                if (((j % 3) == 1) && (j != 1)) {
+                                    pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." +
+                                        pemisah_titik2;
+                                } else {
+                                    pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                        pemisah_titik2;
+                                }
+                            }
+                            jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                                pemisah_titik2 + "</b>")
+
+                            document.getElementById("total").style.color = '#7E7E7E';
+                        }
                     } else {
-                        pemisah_titik = pemisah_titik.toString();
-                        pemisah_titik2 = "";
-                        panjang = pemisah_titik.length;
-                        j = 0;
-                        for (i = panjang; i > 0; i--) {
-                            j = j + 1;
-                            if (((j % 3) == 1) && (j != 1)) {
-                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." +
-                                    pemisah_titik2;
-                            } else {
-                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
-                                    pemisah_titik2;
+                        if(pemisah_titik.charAt(0) == "-") {
+                            pemisah_titik = pemisah_titik.replace(/\-/g, "");
+                            pemisah_titik = pemisah_titik.toString();
+                            pemisah_titik2 = "";
+                            panjang = pemisah_titik.length;
+                            j = 0;
+                            for (i = panjang; i > 0; i--) {
+                                j = j + 1;
+                                if (((j % 3) == 1) && (j != 1)) {
+                                    pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." +
+                                        pemisah_titik2;
+                                } else {
+                                    pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                        pemisah_titik2;
+                                }
                             }
-                        }
-                        jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
-                            pemisah_titik2 + "</b>")
+                            pemisah_titik2 = "-"+pemisah_titik2;
+                            jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                                pemisah_titik2 + "</b>")
 
-                        document.getElementById("total").style.color = '#F94687';
+                            document.getElementById("total").style.color = '#F94687';
+                        } else {
+                            pemisah_titik = pemisah_titik.toString();
+                            pemisah_titik2 = "";
+                            panjang = pemisah_titik.length;
+                            j = 0;
+                            for (i = panjang; i > 0; i--) {
+                                j = j + 1;
+                                if (((j % 3) == 1) && (j != 1)) {
+                                    pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." +
+                                        pemisah_titik2;
+                                } else {
+                                    pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                        pemisah_titik2;
+                                }
+                            }
+                            jQuery('#pagu_prk').html("Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                                pemisah_titik2 + "</b>")
+
+                            document.getElementById("total").style.color = '#F94687';
+                        }
                     }
                 } else {
                     pemisah_titik = pemisah_titik.toString();

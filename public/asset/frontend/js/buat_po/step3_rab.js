@@ -61,12 +61,13 @@ function updateformwithpaket(c) {
             input.setAttribute('class', 'form-control input-default');
             input.setAttribute('type', 'search');
             input.setAttribute('id', 'item_id[' + index_table + ']');
+            input.setAttribute('name', 'item_id');
             input.setAttribute('placeholder', 'Pilih Pekerjaan');
             input.setAttribute('required', true);
             input.setAttribute('onkeyup', 'filterFunction3(this,event)');
             // input.setAttribute('onblur', 'change_item(this)');
             input.setAttribute('onkeydown', 'return no_bckspc(this, event)');
-            input.setAttribute('title', 'tes');
+            input.setAttribute('title', '');
 
             select1.append(input);
 
@@ -138,7 +139,7 @@ function updateformwithpaket(c) {
             button.innerHTML = "<i class='fa fa-trash'></i>";
             button.setAttribute("onclick", "deleteRowWithPaket(this)");
             button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
-            button.setAttribute("style", "margin-top: 18px");
+            // button.setAttribute("style", "margin-top: 18px");
 
             console.log(table);
             var row = table.insertRow(-1);
@@ -210,6 +211,7 @@ function updateform() {
             input.setAttribute('required', true);
             input.setAttribute('onkeyup', 'filterFunction2(this,event)');
             input.setAttribute('onkeydown', 'return no_bckspc(this, event)');
+            input.setAttribute('title', '');
             // input.setAttribute('onblur', 'change_item(this)');
 
             select1.append(input);
@@ -281,7 +283,7 @@ function updateform() {
             button.innerHTML = "<i class='fa fa-trash'></i>";
             button.setAttribute("onclick", "deleteRow(this)");
             button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
-            button.setAttribute("style", "margin-top: 15px");
+            // button.setAttribute("style", "margin-top: 15px");
 
             console.log(table);
             var row = table.insertRow(-1);
@@ -875,6 +877,7 @@ function change_item(c) {
             console.log(change);
             console.log(response["nama_items"][0].kategori);
             console.log(response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")");
+            document.getElementById('item_id['+ change +']').title = response["nama_items"][0].nama_item;
             // row.getElementsByName("kategory_id")[0].value = response["nama_items"][0].kategori;
             document.getElementById("kategory_id[" + change + "]").value = response["nama_items"][0].kategori;
             document.getElementById("satuan[" + change + "]").value = response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")";
@@ -1029,11 +1032,13 @@ function change_item_with_paket(c) {
     var row = c.parentNode.parentNode.parentNode.parentNode;
     var change = row.rowIndex;
     var change1 = c.parentNode.parentNode.parentNode;
+    // console.log("jkdkjdskjdsjk",change1);
     console.log("change", row);
     console.log("change", change);
     console.log("change1", change1);
     console.log("c", c);
     console.log("c innerHTML", c.innerHTML);
+    row.querySelector('input[name="item_id"]').title = c.innerHTML;
     // var test_item_id = document.getElementById("item_id[" + change - 1 + "]").value;
     // console.log("ea", test_item_id);
     // var item_id = document.getElementById("item_id[" + change + "]").value;
