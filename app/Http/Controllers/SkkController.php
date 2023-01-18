@@ -8,6 +8,7 @@ use App\Models\RincianInduk;
 use App\Models\PaketPekerjaan;
 use App\Models\Satuan;
 use App\Models\Skk;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -262,8 +263,14 @@ public function create()
     }
 
     public function checkSKK(Request $request) {
-        $check_skk = $request->post('check_skk');
-        dd($check_skk);
+        $check_skk = $request->post('nomor_skk');
+        $nomor_skk = Skk::where('nomor_skk', $check_skk)->get();
+        
+        if(count($nomor_skk) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
     }
 
 }

@@ -104,29 +104,14 @@
 
 <script>
     $(document).ready(function() {
-        // $.validator.addMethod("validationkSKK",
-        //     function(value, element) {
-        //         var result = false;
-        //         $.ajax({
-        //             type:"GET",
-        //             async: false,
-        //             url: "check-no-skk.php", // script to validate in server side
-        //             data: {check_skk: value},
-        //             success: function(data) {
-        //                 result = (data == true) ? true : false;
-        //             }
-        //         });
-        //         // return true if username is exist in database
-        //         return result;
-        //     },
-        //     "This username is already taken! Try another."
-        // );
-
         $('#valid_skk').validate({
             rules:{
                 nomor_skk: {
                     required: true,
-                    // validationSKK: true
+                    remote: {
+                        url: "/checkSKK",
+                        type: "post",
+                    }
                 },
                 uraian_skk: {
                     required: true
@@ -140,7 +125,8 @@
             },
             messages: {
                 nomor_skk: {
-                    required: "Silakan Isi No SKK"
+                    required: "Silakan Isi No SKK",
+                    remote: "Nomor SKK Sudah Ada"
                 },
                 uraian_skk: {
                     required: "Silakan Isi Uraian SKK"
@@ -163,7 +149,7 @@
                 skk_terkontrak = skk_terkontrak.replace(/\./g, "");
                 skk_terkontrak = parseInt(skk_terkontrak);
                 var skk_realisasi = $("#skk_realisasi").val();
-                skk_realisasi = skk_realisasi.replace(/\./g, "");{{  }}
+                skk_realisasi = skk_realisasi.replace(/\./g, "");
                 skk_realisasi = parseInt(skk_realisasi);
                 var skk_terbayar = $("#skk_terbayar").val();
                 skk_terbayar = skk_terbayar.replace(/\./g, "");

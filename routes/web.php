@@ -157,6 +157,7 @@ Route::post('/getItem', [SkkController::class, 'getItem']);
 Route::post('/getKontrakInduk', [SkkController::class, 'getKontrakInduk']);
 Route::post('/getKontrak_Induk', [SkkController::class, 'getKontrak_Induk']);
 Route::post('/checkSKK', [SkkController::class, 'checkSKK']);
+// Route::post('skk/check-no-skk.php');
 
 
 //Paket Pekerjaan
