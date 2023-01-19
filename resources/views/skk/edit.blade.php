@@ -195,7 +195,11 @@
         $('#valid_skk').validate({
             rules:{
                 nomor_skk: {
-                    required: true
+                    required: true,
+                    remote: {
+                        url: "/checkSKK",
+                        type: "post",
+                    }
                 },
                 uraian_skk: {
                     required: true
@@ -209,7 +213,8 @@
             },
             messages: {
                 nomor_skk: {
-                    required: "Silakan Isi No SKK"
+                    required: "Silakan Isi No SKK",
+                    remote: "Nomor SKK Sudah Ada"
                 },
                 uraian_skk: {
                     required: "Silakan Isi Uraian SKK"

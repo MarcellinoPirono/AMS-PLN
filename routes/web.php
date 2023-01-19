@@ -82,6 +82,8 @@ Route::put('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'up
 
 Route::resource('jenis-khs', KhsController::class);
 Route::get('/search-jenis-khs', [KhsController::class, 'searchjeniskhs']);
+Route::post('/checkJenisKhs', [KhsController::class, 'checkJenisKhs']);
+Route::post('/checkJenisKhs/edit', [KhsController::class, 'checkJenisKhs_edit']);
 
 //Vendor KHS
 Route::get('/vendor-khs/create-xlsx', [VendorController::class, 'create_xlsx']);
@@ -148,6 +150,7 @@ Route::post('/getSubDeskripsi', [RabController::class, 'getSubDeskripsi']);
 Route::resource('prk', PrkController::class);
 Route::any('prk/filter', [PrkController::class, 'filterprk']);
 Route::get('/search-prk', [PrkController::class, 'searchprk']);
+Route::post('/checkPRK', [PrkController::class, 'checkPRK']);
 Route::resource('skk', SkkController::class);
 Route::get('/search-skk', [SkkController::class, 'searchskk']);
 Route::post('/getSKK', [SkkController::class, 'getSKK']);

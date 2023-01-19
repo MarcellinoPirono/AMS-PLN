@@ -163,4 +163,26 @@ class KhsController extends Controller
 
        return response($output);
     }
+
+    public function checkJenisKhs(Request $request) {
+        $jenis_khs = $request->post('jenis_khs');
+        $check_jenis_khs = Khs::where('jenis_khs', $jenis_khs)->get();
+
+        if(count($check_jenis_khs) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
+
+    public function checkJenisKhs_edit(Request $request) {
+        $jenis_khs = $request->post('edit_jenis_khs');
+        $check_jenis_khs = Khs::where('jenis_khs', $jenis_khs)->get();
+
+        if(count($check_jenis_khs) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
 }

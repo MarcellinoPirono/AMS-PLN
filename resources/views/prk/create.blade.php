@@ -200,7 +200,11 @@
                     required: true
                 },
                 no_prk: {
-                    required: true
+                    required: true,
+                    remote: {
+                        url: "/checkPRK",
+                        type: "post",
+                    }
                 },
                 uraian_prk: {
                     required: true
@@ -223,7 +227,8 @@
                     required: "Silakan Pilih No SKK"
                 },
                 no_prk: {
-                    required: "Silakan Isi No PRK"
+                    required: "Silakan Isi No PRK",
+                    remote: "Nomor PRK Sudah Ada"
                 },
                 uraian_prk: {
                     required: "Silakan Isi Uraian PRK"

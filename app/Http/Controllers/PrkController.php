@@ -224,4 +224,15 @@ class PrkController extends Controller
         return view('prk.filter', ['prks' => $prks]);
         // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
     }
+
+    public function checkPRK(Request $request) {
+        $check_prk = $request->post('no_prk');
+        $nomor_prk = Prk::where('no_prk', $check_prk)->get();
+
+        if(count($nomor_prk) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
 }

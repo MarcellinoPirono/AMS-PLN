@@ -140,7 +140,11 @@
             $('#valid_khs').validate({
                 rules: {
                     jenis_khs: {
-                        required: true
+                        required: true,
+                        remote: {
+                            url: "/checkJenisKhs",
+                            type: "post"
+                        }
                     },
                     nama_pekerjaan: {
                         required: true
@@ -148,7 +152,8 @@
                 },
                 messages: {
                     jenis_khs: {
-                        required: "Silakan Isi Jenis KHS"
+                        required: "Silakan Isi Jenis KHS",
+                        remote: "Jenis KHS Sudah Ada"
                     },
                     nama_pekerjaan: {
                         required: "Silakan Isi Nama Pekerjaan"
@@ -249,7 +254,11 @@
                         $('#edit_valid_khs').validate({
                             rules: {
                                 edit_jenis_khs: {
-                                    required: true
+                                    required: true,
+                                    remote: {
+                                        url: "/checkJenisKhs/edit",
+                                        type: "post"
+                                    }
                                 },
                                 edit_nama_pekerjaan: {
                                     required: true
@@ -257,7 +266,8 @@
                             },
                             messages: {
                                 edit_jenis_khs: {
-                                    required: "Silakan Isi Jenis KHS"
+                                    required: "Silakan Isi Jenis KHS",
+                                    remote: "Jenis KHS Sudah Ada"
                                 },
                                 edit_nama_pekerjaan: {
                                     required: "Silakan Isi Nama Pekerjaan"
