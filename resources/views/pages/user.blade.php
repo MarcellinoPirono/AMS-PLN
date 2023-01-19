@@ -67,9 +67,9 @@
                                         <td>
 
                                             <div class="d-flex">
-                                                <a href="/user/{{ $user->username }}/edit"
+                                                {{-- <a href="/user/{{ $user->username }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
-                                                        class="fa fa-pencil"></i></a>
+                                                        class="fa fa-pencil"></i></a> --}}
                                                 <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
                                                         class="fa fa-trash"></i></button>
 

@@ -301,23 +301,29 @@ nama_paket.addEventListener('change', function(){
 
     function check(ini) {
         if ($(ini).is(":checked")) {
+            alert("Yes")
             document.getElementById("volume[" + ini.value + "]").setAttribute('required', '')
             document.getElementById("volume[" + ini.value + "]").setAttribute('autofocus', '')
             document.getElementById("volume[" + ini.value + "]").removeAttribute('disabled')
         } else {
-            document.getElementById("checkBox2[" + ini.value + "]").removeAttribute('checked')
+            // alert("No")
             document.getElementById("volume[" + ini.value + "]").value = "";
             document.getElementById("harga[" + ini.value + "]").value = "";
             document.getElementById("volume[" + ini.value + "]").removeAttribute('required')
             document.getElementById("volume[" + ini.value + "]").removeAttribute('autofocus')
             document.getElementById("volume[" + ini.value + "]").setAttribute('disabled', '')
+            document.getElementById("checkBox2[" + ini.value + "]").removeAttribute('checked')
         }
     }
     $(document).ready(function() {
         $('#valid_paket').validate({
             rules: {
                 nama_paket: {
-                    required: true
+                    required: true,
+                    remote: {
+                        url: "/checkPaketPekerjaan",
+                        type: "post"
+                    }
                 },
                 letter: {
                     required: true
@@ -328,7 +334,8 @@ nama_paket.addEventListener('change', function(){
             },
             messages: {
                 nama_paket: {
-                    required: "Silakan Isi Nama Paket"
+                    required: "Silakan Isi Nama Paket",
+                    remote: "Nama Paket Sudah Ada"
                 },
                 letter: {
                     required: "Silakan Pilih Minimal 1 Item"

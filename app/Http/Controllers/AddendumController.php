@@ -209,5 +209,15 @@ class AddendumController extends Controller
     //     return response()->json($jenis_khs);
     // }
 
+    public function checkAddendum(Request $request) {
+        $nomor_addendum = $request->post('nomor_addendum');
+        $check_nomor_addendum = Addendum::where('nomor_addendum', $nomor_addendum)->get();
+
+        if(count($check_nomor_addendum) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
 
 }

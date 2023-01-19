@@ -20,13 +20,13 @@
     <div class="animated bounceInDown">
       <div class="container">
         <span class="error animated tada" id="msg"></span>
-        <form method="POST" action="{{ route('login') }}" name="form1" class="box" onsubmit="return checkStuff()">
+        <form method="POST" action="{{ route('login')}}" name="form1" class="box" onsubmit="return checkStuff()">
           @csrf
           <h4>PLN <span>UP3-MAKASSAR SELATAN</span></h4>
           <h5>Sign in to your account.</h5>
-            <input type="text" name="email" placeholder="Email or username" autocomplete="off">
+            <input type="text" name="username" placeholder="username" autocomplete="off">
             <i class="typcn typcn-eye" id="eye"></i>
-            <input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
+            <input type="password" name="password" placeholder="Passsword" id="password" autocomplete="off">
             {{-- <label>
               <input type="checkbox">
               <span></span>

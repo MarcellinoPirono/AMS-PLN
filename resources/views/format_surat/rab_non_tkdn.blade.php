@@ -13,7 +13,7 @@
 
 <body>
     <header class="mt-1">
-        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
+        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.jpg" alt="">
     </header>
 
     <footer>
@@ -97,6 +97,34 @@
 
 
 
+        @if (count($kategori_material) > 0)
+            <tr id="tr_material">
+                <td class="firstkiri" align="center" valign="middle"></td>
+                <td class="first tabellkiri" style="font-weight: bold; height: 17px;" align="left"
+                    valign="top">
+                    MATERIAL:
+                </td>
+                <td class="first" align="center" valign="middle"></td>
+                <td class="first" align="center" valign="middle"></td>
+                <td class="first tabellkanan" align="right" valign="middle"></td>
+                <td class="firstkanan tabelnormallkanan" align="right" valign="middle"></td>
+            </tr>
+            @foreach ($kategori_material as $material)
+                <tr>
+                    <td class="firstkiri" align="center" valign="middle">{{ $loop->iteration }}</td>
+                    <td class="first tabellkiri" align="left" valign="middle">
+                        {{ $material->rincian_induks->nama_item }}
+                    </td>
+                    <td class="first" align="center" valign="middle">{{ $material->satuans->singkatan }}</td>
+                    <td class="first" align="center" valign="middle">@currency4($material->volume)</td>
+                    <td class="first tabellkanan" align="right" valign="middle">@currency2($material->harga_satuan)</td>
+                    <td class="firstkanan tabelnormallkanan tabellkanan" align="right" valign="middle">
+                        @currency2($material->jumlah_harga)
+                    </td>
+                </tr>
+            @endforeach
+        @endif
+
         @if (count($kategori_jasa) > 0)
             <tr id="tr_jasa">
                 <td class="firstkiri" align="center" valign="middle"></td>
@@ -129,33 +157,6 @@
                     <td class="firstkanan tabellkanan" align="right" valign="middle"></td>
                 </tr>
             @endif
-        @endif
-        @if (count($kategori_material) > 0)
-            <tr id="tr_material">
-                <td class="firstkiri" align="center" valign="middle"></td>
-                <td class="first tabellkiri" style="font-weight: bold; height: 17px;" align="left"
-                    valign="top">
-                    MATERIAL:
-                </td>
-                <td class="first" align="center" valign="middle"></td>
-                <td class="first" align="center" valign="middle"></td>
-                <td class="first tabellkanan" align="right" valign="middle"></td>
-                <td class="firstkanan tabelnormallkanan" align="right" valign="middle"></td>
-            </tr>
-            @foreach ($kategori_material as $material)
-                <tr>
-                    <td class="firstkiri" align="center" valign="middle">{{ $loop->iteration }}</td>
-                    <td class="first tabellkiri" align="left" valign="middle">
-                        {{ $material->rincian_induks->nama_item }}
-                    </td>
-                    <td class="first" align="center" valign="middle">{{ $material->satuans->singkatan }}</td>
-                    <td class="first" align="center" valign="middle">@currency4($material->volume)</td>
-                    <td class="first tabellkanan" align="right" valign="middle">@currency2($material->harga_satuan)</td>
-                    <td class="firstkanan tabelnormallkanan tabellkanan" align="right" valign="middle">
-                        @currency2($material->jumlah_harga)
-                    </td>
-                </tr>
-            @endforeach
         @endif
         <tr>
             <td class="tabelnormalkiri" rowspan="3" colspan="3"></td>

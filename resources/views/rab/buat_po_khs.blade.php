@@ -60,9 +60,7 @@
                                                         Order(PO) <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="po" name="po"
                                                         value="{{ old('po') }}" placeholder="No. PO" required autofocus>
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
+                                                    <div class="valid-feedback">Data Terisi</div>
                                                     <div class="invalid-feedback">
                                                         Silakan Isi No. PO
                                                     </div>

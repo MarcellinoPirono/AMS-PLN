@@ -52,47 +52,53 @@
             <tr class="warna">
                 <td style="width:12%;" align="center" valign="middle">Satuan (RP)</td>
                 <td style="width:15%;" align="center" valign="middle">Jumlah (RP)</td>
-            </tr>
-            <tr class="warna">
                 <td style="width:12%;" align="center" valign="middle">Harga Perkiraan (RP)</td>
                 <td style="width:15%;" align="center" valign="middle">Jumlah Harga HPE (RP)</td>
             </tr>
             @foreach ($rab_hpes as $rab_hpe)
                 <tr>
                     <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>
-                    <td class="first" align="left" valign="middle">{{ $rab_hpe->rab_non_pos->uraian }}</td>
+                    <td class="first tabellkirii" align="left" valign="middle">{{ $rab_hpe->rab_non_pos->uraian }}</td>
                     <td class="first" align="center" valign="middle">{{ $rab_hpe->rab_non_pos->satuan }}</td>
                     <td class="first" align="center" valign="middle">{{ $rab_hpe->rab_non_pos->volume }}</td>
-                    <td class="first" align="right" valign="middle">@currency2($rab_hpe->rab_non_pos->harga_satuan)</td>
-                    <td class="first" align="right" valign="middle">@currency2($rab_hpe->rab_non_pos->jumlah_harga)</td>
-                    <td class="first" align="right" valign="middle">@currency2($rab_hpe->harga_perkiraan)</td>
-                    <td class="first" align="right" valign="middle">@currency2($rab_hpe->jumlah_harga_perkiraan)</td>
+                    <td class="first tabellkanan" align="right" valign="middle">@currency2($rab_hpe->rab_non_pos->harga_satuan)</td>
+                    <td class="first tabelnormallkanan tabellkanan" align="right" valign="middle">@currency2($rab_hpe->rab_non_pos->jumlah_harga)</td>
+                    <td class="first tabellkanan" align="right" valign="middle">@currency2($rab_hpe->harga_perkiraan)</td>
+                    <td class="first tabelnormallkanan tabellkanan" align="right" valign="middle">@currency2($rab_hpe->jumlah_harga_perkiraan)</td>
                 </tr>
             @endforeach
             <tr>
-                <td rowspan="3" colspan="3"></td>
-                <td colspan="2" align="center" valign="middle"><b>Jumlah</b></td>
-                <td align="right"><b>@currency2($jumlah)</b></td>
+                <td class="tabelnormalkiri" rowspan="3" colspan="3"></td>
+                <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>JUMLAH</b></td>
+                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($jumlah)</b></td>
+                <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>JUMLAH HPE</b></td>
+                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($jumlah_hpe)</b></td>
             </tr>
             <tr>
-                <td colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
-                <td align="right"><b>@currency2($ppn)</b></td>
+                <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
+                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($ppn)</b></td>
+                <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>PPN HPE 11%</b></td>
+                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($ppn_hpe)</b></td>
             </tr>
             @foreach ($hpes as $hpe)
-                <tr>
-                    <td colspan="2" align="center" valign="middle"><b>TOTAL</b></td>
-                    <td align="right"><b>@currency2($hpe->non_pos->total_harga)</b></td>
-                    <td align="right"><b>@currency2($hpe->total_harga_hpe)</b></td>
-                </tr>
-                <tr>
-                    <td class="first1"></td>
-                    <td class="first2" rowspan="2" colspan="5" style="font-weight: bold; font-style:italic;">
-                        Terbilang: {{ Terbilang::make($hpe->non_pos->total_harga, ' rupiah') }}</td>
-                </tr>
-                <tr>
-                    <td class="first1"></td>
-                </tr>
+            <tr>
+                <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>TOTAL</b></td>
+                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($hpe->non_pos->total_harga)</b></td>
+                <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>TOTAL HPE</b></td>
+                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($hpe->total_harga_hpe)</b></td>
+            </tr>
+            <tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelnormalkanan2" class="first2" rowspan="2" colspan="7" style="font-weight: bold; font-style:italic;">
+                    Terbilang: {{ Terbilang::make($hpe->non_pos->total_harga, ' rupiah') }}</td>
+            </tr>
+            <tr>
+                <td class="first1"></td>
+            </tr>
             @endforeach
+            <tr>
+
+            </tr>
         </table>
     </div>
 

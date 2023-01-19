@@ -13,7 +13,7 @@
 
 <body>
     <header class="mt-1">
-        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
+        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.jpg" alt="">
     </header>
 
     <footer>
@@ -32,21 +32,21 @@
         @foreach ($po_khs as $pokhs)
             <div class="contents">
                 <table class="uprightTbl noborder ml-2" style="width:92%;" id="rincian" cellspacing="0"
-                    cellpadding="0" align="center">
+                    cellpadding="0" align="center" border="0">
                     <tr class="noborder">
-                        <td style="width:6%;">Nomor
+                        <td style="width:12%; padding-left: 27px;">Nomor
                         </td>
-                        <td style="width:54%">: {{ $pokhs->nomor_po }}</td>
+                        <td style="width:45%">: {{ $pokhs->nomor_po }}</td>
                         <td colspan="2">
                             {{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('dddd, DD MMMM YYYY') }}</td>
                     </tr>
                     <tr class="noborder">
-                        <td>Lamp.</td>
+                        <td style="padding-left: 27px;">Lamp.</td>
                         <td>: 1(satu) Set</td>
                         <td colspan="2"></td>
                     </tr>
                     <tr class="noborder">
-                        <td>Perihal</td>
+                        <td style="padding-left: 27px;">Perihal</td>
                         <td>: Surat Pesanan Barang / Jasa (SPBJ)</td>
                         <td colspan="2">Kepada :</td>
                     </tr>
@@ -59,7 +59,7 @@
                         <td></td>
                         <td></td>
                         <td style="width:7%" valign="top">Alamat : </td>
-                        <td class="coba" style="padding-right: 20px">{{ $pokhs->nomor_kontraks->vendors->alamat_kantor_1 }}</td>
+                        <td class="coba">{{ $pokhs->nomor_kontraks->vendors->alamat_kantor_1 }}</td>
                     </tr>
                     <tr class="noborder">
                         <td></td>
@@ -70,7 +70,7 @@
                 </table>
             </div>
             <div style="margin-top: 20px">
-                <table width="90%" cellspacing="0" cellpadding="0">
+                <table width="92%" cellspacing="0" cellpadding="0">
                     <tr>
                         <td colspan="3" style="text-indent:60px; ">Menunjuk Kontrak Perjanjian Sebagai
                             Berikut</td>
@@ -78,7 +78,7 @@
                     <tr>
                         <td width="23%" style="text-indent:60px;" valign="top">Kontrak Nomor</td>
                         <td width="2%" valign="top">:</td>
-                        <td width="65%" valign="top">{{ $pokhs->nomor_kontraks->nomor_kontrak_induk }}</td>
+                        <td width="67%" valign="top">{{ $pokhs->nomor_kontraks->nomor_kontrak_induk }}</td>
                     </tr>
                     <tr>
                         <td style="text-indent:60px;">Tanggal
@@ -116,7 +116,7 @@
                     </ol>
                 @else
                     <ol type="1"
-                        style="text-transform:uppercase; margin-bottom:-5px; margin-top:10px; margin-left: 55px; margin-right: 10px; font-weight:bold; text-align:justify;">
+                        style="text-transform:uppercase; margin-bottom:-5px; margin-top:10px; margin-left: 170px; margin-right: 10px; font-weight:bold; text-align:justify;">
                         @foreach ($lokasis as $lokasi)
                             <li style="margin-bottom: 5px;">{{ $lokasi->nama_lokasi }}</li>
                         @endforeach
@@ -124,11 +124,11 @@
                 @endif
 
             </div>
-            <div class="content3" style="margin-left: 40px; margin-right: -5px;">
+            <div class="content3" style="margin-left: 40px; margin-right: -33px;">
                 <ol type="1" style="justify-content: space-between">
                     <li>Harga Borongan Pekerjaan <b>@currency($pokhs->total_harga),-</b> (Termasuk PPN {{ $ppn_id[0]->ppn }}%)</li>
                     <li>Jangka waktu pelaksanaan pekerjaan <b>{{ $days }}</b> <span
-                            class="italic">({{ Terbilang::make($days) }})</span> hari kalender sejak tanggal
+                           >({{ Terbilang::make($days) }})</span> hari kalender sejak tanggal
                         <b>{{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</b>
                         sampai
                         dengan tanggal <b>{{ \Carbon\Carbon::parse($pokhs->enddate)->isoFormat('DD MMMM YYYY') }}</b>
@@ -168,7 +168,7 @@
                 style="page-break-inside: avoid;">
 
                 <tr nobr="true">
-                    <td class="justifytb" colspan="2" style="text-align:justify; padding-right:37px;"> Apabila SPBJ/PO ini saudara(i)
+                    <td class="justifytb" colspan="2" style="text-align:justify; padding-right:15px;"> Apabila SPBJ/PO ini saudara(i)
                         setuju dan sanggup melaksanakan, harap
                         menandatangani SPBJ/PO ini
                         dan dikembalikan kepada kami untuk proses lebih lanjut.

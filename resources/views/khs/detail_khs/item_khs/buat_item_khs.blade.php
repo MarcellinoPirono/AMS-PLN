@@ -221,7 +221,11 @@
                     required:true
                 },
                 nama_item:{
-                    required:true
+                    required:true,
+                    remote: {
+                        url: "/checkItem",
+                        type: "post"
+                    }
                 },
                 satuan_id:{
                     required:true
@@ -238,7 +242,8 @@
                     required: "Silakan Pilih Kategori"
                 },
                 nama_item:{
-                    required: "Silakan Isi Nama Item"
+                    required: "Silakan Isi Nama Item",
+                    remote: "Nama Item Sudah Ada"
                 },
                 satuan_id:{
                     required: "Silakan Pilih Satuan"

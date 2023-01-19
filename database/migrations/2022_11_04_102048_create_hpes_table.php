@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('non_po_id');
             $table->double('total_harga_hpe');
+            $table->string("pdf_file");
             // $table->double('jumlah_harga_perkiraan');
             $table->timestamps();
         });

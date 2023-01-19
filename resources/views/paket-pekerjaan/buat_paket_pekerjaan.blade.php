@@ -56,7 +56,7 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                  
+
                                                 </th>
                                                 <th>No.</th>
                                                 <th>Kategori</th>
@@ -263,21 +263,14 @@ nama_paket.addEventListener('change', function(){
         }
     }
     $(document).ready(function() {
-        // function validkan() {
-
-        // }
-        // if(document.getElementsByClassname("valid").value == "") {
-        // }
-        // var search = "";
-        // tabelTambahPaket.search(search).draw();
         $('#valid_paket').validate({
-            // validatesearch: function(form) {
-            //     var search = "";
-            //     tabelTambahPaket.search(search).draw();
-            // },
             rules: {
                 nama_paket: {
-                    required: true
+                    required: true,
+                    remote: {
+                        url: "/checkPaketPekerjaan",
+                        type: "post"
+                    }
                 },
                 letter: {
                     required: true
@@ -288,7 +281,8 @@ nama_paket.addEventListener('change', function(){
             },
             messages: {
                 nama_paket: {
-                    required: "Silakan Isi Nama Paket"
+                    required: "Silakan Isi Nama Paket",
+                    remote: "Nama Paket Sudah Ada"
                 },
                 letter: {
                     required: "Silakan Pilih Minimal 1 Item"

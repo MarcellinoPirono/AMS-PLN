@@ -49,8 +49,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-        // $file =$request->file('file')-;
         if ($request->file('file') != null) {
             # code...
             $fileName = time() . $request->file('file')->getClientOriginalName();
@@ -59,41 +57,6 @@ class UserController extends Controller
         else{
             $path = null;
         }
-        // $requestData["file"] = '/storage/' . $path;
-        // dd($requestData["file"]);
-
-
-        // $path = Storage::putFile('public/storage', $request->file('file'), 'public');
-        // dd($path);
-
-
-        // $filename = hexdec(uniqid()) . '.' . $file->extension();
-        // $path1 = 'public/storage/Image-profile/'.$filename.'';
-
-
-        // Storage::disk('local')->put($path1);
-
-
-        // dd($filename);
-
-
-        // $filename = hexdec(uniqid()) . '.' . $file->extension();
-        // // $folder = uniqid() . '-' . now()->timestamp;
-
-        // $file->storeAs('profile-image/', $filename);
-
-
-        // dd($file);
-        // $data = $request->validate([
-        //     'name' => 'required|min:5',
-        //     'username'=> 'required|min:3|max:255|unique:users',
-        //     'email' => 'required|email:dns|unique:users',
-        //     'password' =>'required|min:5|max:255',
-
-        // ]);
-        // dd($file);
-
-
 
 
 
@@ -117,13 +80,7 @@ class UserController extends Controller
             'success'   => true
         ]);
 
-        // Session::push('folder', $folder); //save session  folder
-        // // folder = [item1, item2, item3];
-        // Session::push('filename', $filename);
 
-        // Session::push('folder', $folder); //save session  folder
-        // // folder = [item1, item2, item3];
-        // Session::push('filename', $filename); //save session filename
     }
 
 
@@ -173,11 +130,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $username_old)
+    public function update(Request $request)
     {
-        // dd($request->old_pic_profile);
+        // dd($request);
 //
-        $id = User::where('username', $username_old)->value('id');
+        $id = User::where('username', $request->username_old)->value('id');
         $users = User::findOrFail($id);
 
         if($request->old_pic_profile){
@@ -222,6 +179,50 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id)->delete();
+
+    }
+
+    public function edit_profile($username){
+
+        dd($username);
+        $user = User::where('username', $username)->value('id');
+
+        $user = User::find($user);
+
+        $data = [
+            'users'  => $user,
+            'title' => 'Data User',
+            'active' => 'User',
+            'username' => $username,
+            'active1' => 'Edit User',
+            // 'categories' => ItemRincianInduk::orderBy('id', 'DESC')->get(),
+        ];
+
+        // dd($data);
+        // $view = view('pages.edit_user', $data)->render();
+        return view('pages.edit_user', $data);
+        // echo response()->json(['html'=>$view]);
+
+    }
+    public function edit_password($username){
+
+        $user = User::where('username', $username)->value('id');
+
+        $user = User::find($user);
+
+        $data = [
+            'user'  => $user,
+            'title' => 'Change Password',
+            'active' => 'User',
+            'username' => $username,
+            'active1' => 'Edit User',
+            // 'categories' => ItemRincianInduk::orderBy('id', 'DESC')->get(),
+        ];
+
+        // dd($data);
+
+
+        return view('pages.edit_user', $data);
 
     }
 }

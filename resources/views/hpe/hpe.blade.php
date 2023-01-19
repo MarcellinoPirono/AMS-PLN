@@ -13,20 +13,10 @@
                             <a class="dropdown-item" href="javascript:void()">Februari</a>
                         </div>
                     </div>
-                    <a href="/hpe/create" type="button" class="btn btn-primary mr-auto ml-3 ">Buat HPE<span
-                            class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
-                    </a>
-                    <div class="input-group search-area position-relative">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><a href="javascript:void(0)"><i
-                                        class="flaticon-381-search-2"></i></a></span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Search here..." />
-                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-responsive-md">
+                        <table class="table table-responsive-md" id="tableHpe">
                             <thead>
                                 <tr>
                                     <th class="width80">No.</th>
@@ -49,14 +39,14 @@
                                         <td>{{ $hpe->non_pos->skks->nomor_skk }}</td>
                                         <td>{{ $hpe->non_pos->prks->no_prk }}</td>
                                         <td>{{ $hpe->non_pos->supervisor }}</td>
-                                        <td>@currency2($hpe->total_harga_hpe)</td>
+                                        <td>@currency($hpe->total_harga_hpe)</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
                                                     <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="non-po/export-pdf-khs/{{$hpe->id}}">Export (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
+                                                    <a class="dropdown-item" href="download-hpe/{{$hpe->id}}">Export (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
                                                     <a class="dropdown-item" href="export-excel-khs">Export (excel) <i class="bi bi-file-earmark-excel-fill"></i></a>
                                                 </div>
                                             </div>
@@ -70,4 +60,26 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
+<script>
+    var tableHpe = $('#tableHpe').DataTable({
+        select:  {
+                style: 'multi'
+        },
+        createdRow: function(row, data, index) {
+            $(row).addClass('selected')
+        }
+
+    });
+    // $('#filter-kategori').on("change", function(event) {
+    //     var categor = $('#filter-kategori').val();
+    //     tableItem.columns(2).search(categor).draw();
+    // });
+
+    // $('#filter-addendum-kontrak-induk').on("change", function(event) {
+    //     var categor = $('#filter-addendum-kontrak-induk').val();
+    //     tableItem.columns(2).search(categor).draw();
+    // });
+</script>
 @endsection

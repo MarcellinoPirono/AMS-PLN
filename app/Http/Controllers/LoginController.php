@@ -14,18 +14,24 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
+        // dd($request);
         $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials)){
-            if(auth()->user()->username !== 'superadmin'){
-                $request->session()->regenerate();
-                return redirect()->intended('/po-khs');
-            }
+        // if(Auth::attempt($credentials)){
+        //     if(auth()->user()->username !== 'superadmin'){
+        //         $request->session()->regenerate();
+        //         return redirect()->intended('/po-khs');
+        //     }
 
+        //     $request->session()->regenerate();
+        //     return redirect()->intended('/dashboard');
+        // }
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
             return redirect()->intended('/dashboard');
         }
 

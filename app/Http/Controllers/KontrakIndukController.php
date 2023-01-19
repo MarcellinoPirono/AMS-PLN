@@ -203,5 +203,14 @@ class KontrakIndukController extends Controller
        return response($output);
     }
 
+    public function checkKontrakInduk(Request $request) {
+        $nomor_kontrak_induk = $request->post('nomor_kontrak_induk');
+        $check_nomor_kontrak_induk = KontrakInduk::where('nomor_kontrak_induk', $nomor_kontrak_induk)->get();
 
+        if(count($check_nomor_kontrak_induk) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
 }

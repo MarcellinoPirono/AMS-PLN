@@ -27,7 +27,7 @@ class NonPoHpeController extends Controller
      */
     public function index()
     {
-        $nonpos_without_hpe = NonPo::doesnthave('hpes')->get();
+        $nonpos_without_hpe = NonPo::doesnthave('hpes')->orderBy('id', 'DESC')->get();
         return view('non_po_hpe.index', [
             'title' => 'HPE',
             'title1' => 'HPE',
@@ -79,39 +79,20 @@ class NonPoHpeController extends Controller
         //     'jumlah_harga' => 'required|max:250',
         // ]);
 
-        // $file = $request->file('kak')->getClientOriginalName();
-        // // dd($file);
-        // $filename = 'NAMAAFILEE'.$file->getClientOriginalName();
-        // // File extension
-        // $extension = $file->getClientOriginalExtension();
-
-        // // File upload location
-        // // $location = 'public/storage/non-po/';
-        // Storage::put('public/storage/file-pdf-khs/non-po/'.$filename.'', $file);
-
-        // dd($filepath2);
-
-        // Upload file
-        // $file->move($location,$filename);
-        // $content = $file->getOriginalContent();
-        // Storage::put('public/storage/file-pdf-khs/'.$filename.'.pdf',$content);
-        // File path
-        // $filepath = 'public/storage/file-pdf-khs/non-po/'.$filename;
-
-        // dd($filepath);
-
         $non_po_id = $request->non_po_id;
         // dd($non_po_id);
         $nama_pdf = NonPo::where('id', $non_po_id)->value("nomor_rpbj");
         $nama_pdf = str_replace('.', '_', $nama_pdf);
         $nama_pdf = str_replace('/','-', $nama_pdf);
+        // $nama_pdf = $nama_pdf;
 
 
-        $mypdf = 'storage/storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf';
+        $mypdf = 'storage/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'-HPE.pdf';
 
         $non_po_hpe = [
             'non_po_id' => $non_po_id,
             'total_harga_hpe' => $request->total_harga,
+            'pdf_file' => $mypdf
         ];
         Hpe::create($non_po_hpe);
 
@@ -193,22 +174,13 @@ class NonPoHpeController extends Controller
         // $dom_pdf2 = $pdf2->getDomPDF();
         // $canvas2 = $dom_pdf2->get_canvas();
         // $this->pageNumber($canvas2, $lang);
-        $path2 = 'newFileName2.pdf';
         // Storage::disk('local')->put($path2, $pdf2->output());
 
         $oMerger = PDFMerger::init();
         $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
-        // $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'-HPE.pdf');
 
-        // $oMerger->addPDF($request->file('kak')->getPathName(), 'all');
-        // }
-        // dd($oMerger);
-
-        $nama_pdf = $request->nomor_rpbj;
-        $nama_pdf = str_replace('.', '_', $nama_pdf);
-        $nama_pdf = str_replace('/','-', $nama_pdf);
-        $nama_pdf = str_replace(' ','-', $nama_pdf);
-        $oMerger->save('storage/storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf');
 
 
 

@@ -89,7 +89,11 @@
                     required: true
                 },
                 nomor_kontrak_induk: {
-                    required: true
+                    required: true,
+                    remote: {
+                        url: "/checkKontrakInduk",
+                        type: "post"
+                    }
                 },
                 tanggal_kontrak_induk: {
                     required: true
@@ -103,7 +107,8 @@
                     required: "Silakan Pilih Jenis KHS"
                 },
                 nomor_kontrak_induk: {
-                    required: "Silakan Isi Nomor Kontrak Induk"
+                    required: "Silakan Isi Nomor Kontrak Induk",
+                    remote: "Nomor Kontrak Induk Sudah Ada"
                 },
                 tanggal_kontrak_induk: {
                     required: "Silakan Isi Tanggal Kontrak Induk"
@@ -122,7 +127,7 @@
                 var tanggal_kontrak_induk = new Date(tanggal_kontrak_induk.getTime() - (tanggal_kontrak_induk.getTimezoneOffset() * 60000))
                     .toISOString().split("T")[0];
 
-                
+
 
                 var data = {
                     "_token": token,
@@ -190,3 +195,4 @@
         // });
     });
 </script>
+

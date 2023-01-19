@@ -13,11 +13,11 @@
 
 <body>
     <header class="mt-1">
-        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
+        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.jpg" alt="">
     </header>
 
     <footer>
-        <div class="footer-2">
+        <div class="footer-2" style="padding-right:80px">
             Paraf________________
         </div>
         <div class="footer-1">

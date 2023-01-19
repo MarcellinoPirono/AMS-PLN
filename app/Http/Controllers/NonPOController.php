@@ -23,7 +23,7 @@ class NonPOController extends Controller
         return view('non-po.index', [
             'title' => 'Non-PO',
             'title1' => 'Non-PO',
-            'nonpos' => NonPO::all()
+            'nonpos' => NonPO::orderBy('id', 'DESC')->get(),
             // 'redaksis'=>Redaksi::all(),
         ]);
     }
@@ -102,7 +102,7 @@ class NonPOController extends Controller
         $nama_pdf = str_replace('.', '_', $nama_pdf);
         $nama_pdf = str_replace('/','-', $nama_pdf);
         $nama_pdf = str_replace(' ','-', $nama_pdf);
-        dd($nama_pdf);
+        // dd($nama_pdf);
 
 
         $mypdf = 'storage/storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf';
@@ -163,14 +163,10 @@ class NonPOController extends Controller
 
         $pdf = Pdf::loadView('layouts.nota_dinas',[
             "non_po" => $values_pdf_page1,
-        "rab_non_po" => $values_pdf_page2,
+            "rab_non_po" => $values_pdf_page2,
             "jumlah" => $jumlah,
             "ppn" => $ppn,
-            // "days" => $days,
-            // "jabatan_manager" => $jabatan_manager,
-            // "nama_manager" => $nama_manager,
-            "title" => $ubah_pdf2,
-
+            "title" => $nama_pdf,
         ]);
 
         // $dom_pdf1 = $pdf->getDomPDF();
@@ -179,25 +175,25 @@ class NonPOController extends Controller
         $path1 = 'newFileName.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
-        $pdf2 = Pdf::loadView('layouts.nota_dinas',[
-            "non_po" => $values_pdf_page1,
-            "rab_non_po" => $values_pdf_page2,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            // "days" => $days,
-            // "jabatan_manager" => $jabatan_manager,
-            // "nama_manager" => $nama_manager,
-            "title" => $ubah_pdf2,
+        // $pdf2 = Pdf::loadView('layouts.nota_dinas',[
+        //     "non_po" => $values_pdf_page1,
+        //     "rab_non_po" => $values_pdf_page2,
+        //     "jumlah" => $jumlah,
+        //     "ppn" => $ppn,
+        //     // "days" => $days,
+        //     // "jabatan_manager" => $jabatan_manager,
+        //     // "nama_manager" => $nama_manager,
+        //     "title" => $ubah_pdf2,
 
-        ]);
+        // ]);
 
-        $pdf2->setPaper('A4', 'potrait');
+        // $pdf2->setPaper('A4', 'potrait');
 
         // $dom_pdf2 = $pdf2->getDomPDF();
         // $canvas2 = $dom_pdf2->get_canvas();
         // $this->pageNumber($canvas2, $lang);
-        $path2 = 'newFileName2.pdf';
-        Storage::disk('local')->put($path2, $pdf2->output());
+        // $path2 = 'newFileName2.pdf';
+        // Storage::disk('local')->put($path2, $pdf2->output());
 
         // $content = $pdf->download()->getOriginalContent();
         // $pdfs1 = Storage::put('public/storage/file-pdf-khs/non-po/'.$ubah_pdf2.'.pdf',$content);
@@ -209,22 +205,19 @@ class NonPOController extends Controller
 
 
         $oMerger = PDFMerger::init();
-
-
-
         $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf');
         // $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
 
         // $oMerger->addPDF($request->file('kak')->getPathName(), 'all');
         // }
         // dd($oMerger);
 
-        $nama_pdf = $request->nomor_rpbj;
-        $nama_pdf = str_replace('.', '_', $nama_pdf);
-        $nama_pdf = str_replace('/','-', $nama_pdf);
-        $nama_pdf = str_replace(' ','-', $nama_pdf);
-        // $oMerger->merge();
-        $oMerger->save('storage/storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf');
+        // $nama_pdf = $request->nomor_rpbj;
+        // $nama_pdf = str_replace('.', '_', $nama_pdf);
+        // $nama_pdf = str_replace('/','-', $nama_pdf);
+        // $nama_pdf = str_replace(' ','-', $nama_pdf);
 
 
 

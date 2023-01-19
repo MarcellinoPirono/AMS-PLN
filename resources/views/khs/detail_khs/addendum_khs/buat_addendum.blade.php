@@ -3,7 +3,7 @@
 @section('content')
     <div class="page-titles">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/vendor-khs">{{ $active }}</a></li>
+            <li class="breadcrumb-item"><a href="/addendum-khs">{{ $title }}</a></li>
             <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $active1 }}</a></li>
         </ol>
     </div>
@@ -109,7 +109,11 @@
                     required: true
                 },
                 nomor_addendum: {
-                    required: true
+                    required: true,
+                    remote: {
+                        url: "/checkAddendum",
+                        type: "post"
+                    }
                 },
                 tanggal_addendum: {
                     required: true
@@ -120,7 +124,8 @@
                     required: "Silakan Pilih Nomor Kontrak Induk"
                 },
                 nomor_addendum: {
-                    required: "Silakan Isi Nomor Addendum"
+                    required: "Silakan Isi Nomor Addendum",
+                    remote: "Nomor Addendum Sudah Ada"
                 },
                 tanggal_addendum: {
                     required: "Silakan Pilih Tanggal Addendum"

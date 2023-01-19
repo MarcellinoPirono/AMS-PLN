@@ -12,6 +12,10 @@ use App\Models\Pejabat;
 use App\Models\RincianInduk;
 use App\Models\ItemRincianInduk;
 use App\Models\Rab;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
+use Riskihajar\Terbilang\Facades\Terbilang;
+use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 use Illuminate\Http\Request;
 
 class HpeController extends Controller
@@ -326,5 +330,80 @@ class HpeController extends Controller
     public function destroy(Hpe $hpe)
     {
         //
+    }
+
+    public function export_pdf_khs(Request $request, $id)
+    {
+        $document = Hpe::findorFail($id);
+        $filePath = $document->pdf_file;
+
+        return response()->download($filePath);
+    }
+
+    public function download(Request $request, $id)
+    {
+        $nama_pdf =NonPo::where('id', $id)->value('nomor_rpbj');
+        $nama_pdf = str_replace('.', '_', $nama_pdf);
+        $nama_pdf = str_replace('/','-', $nama_pdf);
+        $nama_pdf = str_replace(' ','-', $nama_pdf);
+
+        $non_po_id = Hpe::where('id', $id)->value('non_po_id');
+        // $hpe_id = NonPo::where('non_po_id', $non_po_id)->value('id');
+        // $values_pdf_page2 = RabNonPo::where('non_po_id', $non_po_id)->get();
+        // $rab_non_po_id = RabNonPo::where('non_po_id', $non_po_id)->get();
+        $values_pdf_page1 = Hpe::where('id', $id)->get();
+        $values_pdf_page2 = RabHpe::where('hpe_id', $id)->get();
+        $values_pdf_page3 = NonPo::where('id', $non_po_id)->get();
+
+        $jumlah = RabNonPo::where('non_po_id', $non_po_id)->sum('jumlah_harga');
+        $jumlah_hpe = RabHpe::where('hpe_id', $id)->sum('jumlah_harga_perkiraan');
+        $ppn = $jumlah * 0.11;
+        $ppn_hpe = $jumlah_hpe * 0.11;
+        // dd($values_pdf_page1, $values_pdf_page2, $values_pdf_page3);
+
+        $pdf = Pdf::loadView('layouts.nota_dinas_hpe',[
+            "hpes" => $values_pdf_page1,
+            "rab_hpes" => $values_pdf_page2,
+            "non_po" => $values_pdf_page3,
+            "jumlah" => $jumlah,
+            "ppn" => $ppn,
+            "jumlah_hpe" => $jumlah_hpe,
+            "ppn_hpe" => $ppn_hpe,
+            // "nama_manager" => $nama_manager,
+            "title" => $nama_pdf,
+        ]);
+        // $pdf->setPaper('A4', 'landscape');
+
+        // $dom_pdf1 = $pdf->getDomPDF();
+        // $canvas = $dom_pdf1->get_canvas();
+        // $this->pageNumber($canvas, $lang);
+        $path1 = 'newFileName.pdf';
+        Storage::disk('local')->put($path1, $pdf->output());
+
+        // $pdf2 = Pdf::loadView('layouts.nota_dinas',[
+        //     "non_po" => $values_pdf_page1,
+        //     "rab_non_po" => $values_pdf_page2,
+        //     "jumlah" => $jumlah,
+        //     "ppn" => $ppn,
+        //     // "days" => $days,
+        //     // "jabatan_manager" => $jabatan_manager,
+        //     // "nama_manager" => $nama_manager,
+        //     "title" => $ubah_pdf2,
+
+        // ]);
+
+
+        // $dom_pdf2 = $pdf2->getDomPDF();
+        // $canvas2 = $dom_pdf2->get_canvas();
+        // $this->pageNumber($canvas2, $lang);
+        // $path2 = 'newFileName2.pdf';
+        // Storage::disk('local')->put($path2, $pdf2->output());
+
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'-HPE.pdf');
+
+        return $oMerger->download();
     }
 }

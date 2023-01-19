@@ -71,7 +71,11 @@
         $('#valid_vendor').validate({
             rules:{
                 nama_vendor:{
-                    required: true
+                    required: true,
+                    remote: {
+                        url: "/checkVendor",
+                        type: "post"
+                    }
                 },
                 nama_direktur:{
                     required:true
@@ -100,7 +104,8 @@
             },
             messages:{
                 nama_vendor:{
-                    required: "Silakan Isi Nama Vendor"
+                    required: "Silakan Isi Nama Vendor",
+                    remote: "Nama Vendor Sudah Ada"
                 },
                 nama_direktur:{
                     required: "Silakan Isi Nama Direktur"

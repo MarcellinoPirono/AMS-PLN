@@ -822,4 +822,15 @@ class RabController extends Controller
 
         return response()->json($sub_deskripsi);
     }
+
+    public function checkPO(Request $request) {
+        $nomor_po = $request->post('po');
+        $check_nomor_po = Rab::where('nomor_po', $nomor_po)->get();
+
+        // if(count($check_nomor_po) > 0) {
+        return response()->json($check_nomor_po);
+        // } else {
+        //     echo json_encode(true);
+        // }
+    }
 }

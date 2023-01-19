@@ -194,4 +194,14 @@ class VendorController extends Controller
        return response($output);
     }
 
+    public function checkVendor(Request $request) {
+        $nama_vendor = $request->post('nama_vendor');
+        $check_nama_vendor = Vendor::where('nama_vendor', $nama_vendor)->get();
+
+        if(count($check_nama_vendor) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
 }

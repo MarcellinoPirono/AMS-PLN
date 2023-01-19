@@ -354,4 +354,15 @@ class RincianIndukController extends Controller
 
         return response($output);
     }
+
+    public function checkItem(Request $request) {
+        $nama_item = $request->post('nama_item');
+        $check_nama_item = RincianInduk::where('nama_item', $nama_item)->get();
+
+        if(count($check_nama_item) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
 }

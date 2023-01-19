@@ -34,12 +34,12 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default" name="nama_pekerjaan" id="nama_pekerjaan" placeholder="Nama Pekerjaan" readonly disabled value="{{ old('khs_id', $kontrakinduks->khs->nama_pekerjaan) }}">             
+                                <input type="text" class="form-control input-default" name="nama_pekerjaan" id="nama_pekerjaan" placeholder="Nama Pekerjaan" readonly disabled value="{{ old('khs_id', $kontrakinduks->khs->nama_pekerjaan) }}">
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control input-default " placeholder="Nomor Kontrak Induk" name="nomor_kontrak_induk" id="nomor_kontrak_induk" required autofocus value="{{ old('nomor_kontrak_induk', $kontrakinduks->nomor_kontrak_induk) }}">                                    
-                            </div>                            
-                            <div class="form-group col-md-6 icon1">
+                                <input type="text" class="form-control input-default " placeholder="Nomor Kontrak Induk" name="nomor_kontrak_induk" id="nomor_kontrak_induk" required autofocus value="{{ old('nomor_kontrak_induk', $kontrakinduks->nomor_kontrak_induk) }}">
+                            </div>
+                            <div class="form-group col-md-6">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i
@@ -47,7 +47,7 @@
                                         </span>
                                     </div>
                                     <input name="tanggal_kontrak_induk" id="tanggal_kontrak_induk" class="datepicker-default form-control"
-                                    placeholder="Tanggal Kontrak Induk" value="{{ old('tanggal_kontrak_induk', $kontrakinduks->tanggal_kontrak_induk) }}" style="border-radius: 0 20px 20px 0" required >                        
+                                    placeholder="Tanggal Kontrak Induk" value="{{ old('tanggal_kontrak_induk', $kontrakinduks->tanggal_kontrak_induk) }}" style="border-radius: 0 20px 20px 0" required >
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -63,7 +63,7 @@
                             <button type="submit" id="btnedit"
                                 class="btn btn-primary position-relative justify-content-end">Edit Data</button>
                         </div>
-                    </form>                                     
+                    </form>
                 </div>
             </div>
         </div>
@@ -77,8 +77,8 @@
     $(document).ready(function() {
         $('#khs_id').on('change', function() {
             const selected = $(this).find('option:selected');
-            // const jenis_khs = selected.data('jeniskhs'); 
-            const nama_pekerjaan = selected.data('namapekerjaan'); 
+            // const jenis_khs = selected.data('jeniskhs');
+            const nama_pekerjaan = selected.data('namapekerjaan');
             // $("#jenis_khs").val(jenis_khs);
             $("#nama_pekerjaan").val(nama_pekerjaan);
         });
@@ -94,7 +94,7 @@
         //     var date = new Date(tanggal_kontrak_induk);
         //     var vendor_id = $("#vendor_id").val();
         //     var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
-           
+
 
         //     var data = {
         //          "_token": token,
@@ -103,7 +103,7 @@
         //         "tanggal_kontrak_induk": dateString,
         //         "vendor_id": vendor_id,
         //     }
-                        
+
 
         //     // $.ajax({
         //     //     url: "{{ url('kontrak-induk-khs') }}" + '/' + id,
@@ -132,21 +132,26 @@
                         required: true
                     },
                     nomor_kontrak_induk:{
-                        required:true
+                        required:true,
+                        remote: {
+                            url: "/checkKontrakInduk",
+                            type: "post"
+                        }
                     },
                     tanggal_kontrak_induk:{
                         required:true
                     },
                     vendor_id:{
                         required:true
-                    }   
+                    }
                 },
                 messages:{
                     khs_id:{
                         required: "Silakan Pilih Jenis KHS"
                     },
                     nomor_kontrak_induk:{
-                        required: "Silakan Isi Nomor Kontrak Induk"
+                        required: "Silakan Isi Nomor Kontrak Induk",
+                        remote: "Nomor Kontrak Induk Sudah Ada"
                     },
                     tanggal_kontrak_induk:{
                         required: "Silakan Isi Tanggal Kontrak Induk"
@@ -164,8 +169,8 @@
                     var date = new Date(tanggal_kontrak_induk);
                     var vendor_id = $("#vendor_id").val();
                     var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
-                    
-                    var data = {                        
+
+                    var data = {
                         "khs_id": khs_id,
                         "nomor_kontrak_induk": nomor_kontrak_induk,
                         "tanggal_kontrak_induk": dateString,

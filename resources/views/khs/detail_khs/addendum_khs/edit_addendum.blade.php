@@ -35,7 +35,7 @@
                                     <input type="text" class="form-control input-default"  name="nama_pekerjaan" id="nama_pekerjaan" placeholder="Nama Pekerjaan" readonly disabled value="{{ old('kontrak_induk_id', $addendums->kontrak_induks->khs->nama_pekerjaan) }}">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <input type="text" class="form-control input-default" placeholder="Nomor Addendum" name="nomor_addendum" id="nomor_addendum"  value="{{ old('nomor_addendum', $addendums->nomor_addendum) }}" required autofocus>                                
+                                    <input type="text" class="form-control input-default" placeholder="Nomor Addendum" name="nomor_addendum" id="nomor_addendum"  value="{{ old('nomor_addendum', $addendums->nomor_addendum) }}" required autofocus>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -48,7 +48,7 @@
                                         </div>
 
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div class="position-relative justify-content-end float-right">
@@ -84,7 +84,11 @@
                     required: true
                 },
                 nomor_addendum:{
-                    required:true
+                    required:true,
+                    remote: {
+                        url: "/checkAddendum",
+                        type: "post"
+                    }
                 },
                 tanggal_addendum:{
                     required:true
@@ -95,7 +99,8 @@
                     required: "Silakan Pilih Nomor Kontrak Induk"
                 },
                 nomor_addendum:{
-                    required: "Silakan Isi Nomor Addendum"
+                    required: "Silakan Isi Nomor Addendum",
+                    remote: "Nomor Addendum Sudah Ada"
                 },
                 tanggal_addendum:{
                     required: "Silakan Pilih Tanggal Addendum"
@@ -107,13 +112,13 @@
                 var kontrak_induk_id = $("#kontrak_induk_id").val();
                 var nomor_addendum = $("#nomor_addendum").val();
                 var tanggal_addendum = $("#tanggal_addendum").val();
-                var date = new Date(tanggal_addendum);                
+                var date = new Date(tanggal_addendum);
                 var tanggal_addendum = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
-                
-                var data = {                        
+
+                var data = {
                     "kontrak_induk_id": kontrak_induk_id,
                     "nomor_addendum": nomor_addendum,
-                    "tanggal_addendum": tanggal_addendum,                    
+                    "tanggal_addendum": tanggal_addendum,
                 }
                 $.ajax({
                     url: "{{ url('addendum-khs') }}" + '/' + id,

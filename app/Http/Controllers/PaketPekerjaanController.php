@@ -406,9 +406,15 @@ class PaketPekerjaanController extends Controller
         return response()->json($pakets);
     }
 
+    public function checkPaketPekerjaan(Request $request) {
+        // dd($request);
+        $nama_paket = $request->post('nama_paket');
+        $check_nama_paket = PaketPekerjaan::where('nama_paket', $nama_paket)->get();
 
-
-
-
-
+        if(count($check_nama_paket) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
 }

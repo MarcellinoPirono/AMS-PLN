@@ -68,9 +68,9 @@
                                     <label class="text-label">Username</label>
                                     <div class="input-group">
 
-                                        <input style="border-radius: 1.5rem" type="text" class="form-control" id="username" name="username"
+                                        <input style="border-radius: 1.5rem" type="text" class="form-control" id="new_username" name="new_username"
                                             placeholder="Enter a username.."
-                                            value="{{ old('username', $users->username) }}">
+                                            value="{{ old('username', auth()->user()->username) }}">
                                             <i style="padding-top: 3px;" class="fa-solid fa-user" ></i>
                                     </div>
                                 </div>
@@ -240,7 +240,7 @@
                     }
                     console.log(fd);
                     var token = $('#csrf').val();
-                    var username = $("#username").val();
+                    var username = $("#new_username").val();
                     var username_old = $("#username_old").val();
 
                     var name = $("#name").val();
@@ -252,7 +252,7 @@
                     fd.append("_token", token);
                     fd.append("username", username);
                     fd.append("username_old", username_old);
-                    
+
                     fd.append("name", name);
                     fd.append("email", email);
                     fd.append("no_hp", no_hp);

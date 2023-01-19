@@ -12,7 +12,7 @@ function onCancel() {
 }
 
 function onConfirm() {
-    let form = document.getElementById('form-4');
+    let form = document.getElementById('form-5');
     if (form) {
         if (!form.checkValidity()) {
             form.classList.add('was-validated');
@@ -25,6 +25,13 @@ function onConfirm() {
         myModal.show();
     }
 }
+
+// function onUnique() {
+//     let form = document.getElementById('form-1');
+//     if (form) {
+//         // if (!)
+//     }
+// }
 
 function closeModal() {
     // Reset wizard
@@ -82,6 +89,39 @@ function showConfirm() {
     $('#smartwizard').smartWizard("fixHeight");
 }
 
+// $('#form-1').validate({
+//     rules: {
+//         po: {
+//             remote: {
+//                 url: "/checkPO",
+//                 type: "post"
+//             }
+//         }
+//     },
+//     messages: {
+//         po: {
+//             remote: 'Nomor PO Sudah Ada'
+//         }
+//     }
+// })
+
+// function uniquepo() {
+//     var data = document.getElementById('po').value;
+
+//     $.ajax({
+//         type: 'post',
+//         url: '/checkPO',
+//         data: {
+//             'po':data
+//         },
+//         success: function(response) {
+//             if(response.length > 0) {
+
+//             }
+//         }
+//     })
+// }
+
 $(function () {
     // Leave step event is used for validating the forms
     $("#smartwizard").on("leaveStep", function (e, anchorObject, currentStepIdx, nextStepIdx,
@@ -93,14 +133,42 @@ $(function () {
         if (stepDirection == 'forward') {
             let form = document.getElementById('form-' + (currentStepIdx + 1));
             if (form) {
+                var data = document.getElementById('po').value;
                 if (!form.checkValidity()) {
                     form.classList.add('was-validated');
                     $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
                     $("#smartwizard").smartWizard('fixHeight');
                     return false;
+                } else {
+                    if (document.getElementById('po').value != "") {
+                        var data = document.getElementById('po').value;
+
+                        $.ajax({
+                            type: 'post',
+                            url: '/checkPO',
+                            data: {
+                                'po':data
+                            },
+                            async: false,
+                            success: function(response) {
+                                check = response.length;
+                            }
+                        })
+                        if(check > 0) {
+                            form.classList.add('was-validated');
+                            // document.getElementById('po').style.borderColor = "#f94687";
+                            // document.getElementById('valid_po').innerHTML = "Nomor PO Sudah Ada";
+                            // document.getElementById('valid_po').style.color = "#f94687";
+                            $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
+                            $("#smartwizard").smartWizard('fixHeight');
+                            return false;
+                        }
+                    }
+
+                    $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
                 }
+
                 // console.log(smart1);
-                $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
             }
         }
     });

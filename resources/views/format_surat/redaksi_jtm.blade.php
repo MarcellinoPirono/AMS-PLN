@@ -13,7 +13,7 @@
 
 <body>
     <header class="mt-1">
-        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.svg" alt="">
+        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.jpg" alt="">
     </header>
 
     <footer>

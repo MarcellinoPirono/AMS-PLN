@@ -1681,7 +1681,7 @@ class PdfkhsController extends Controller
         //     "lokasis" => $lokasis,
         //     "title" => 'PO-KHS (SP-APP)',
         // ]);
-        $pdf2 = Pdf::loadView('format_surat.testing_grouping',[
+    $pdf2 = Pdf::loadView('format_surat.testing_grouping',[
             "po_khs" => $values_pdf_page1,
             "kategori_jasa" => $jasa,
             "kategori_material" => $material,
