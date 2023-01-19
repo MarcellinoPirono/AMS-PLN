@@ -17,7 +17,9 @@ use App\Models\Vendor;
 use App\Models\Addendum;
 use App\Models\Satuan;
 use App\Models\Redaksi;
+use App\Models\User;
 use App\Models\PpnModel;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -49,6 +51,32 @@ class DatabaseSeeder extends Seeder
         PpnModel::create([
             'ppn' => 11,
         ]);
+
+        User::create([
+            'name'=> 'Administrator',
+            'username' => 'administrator',
+            'password' => bcrypt('Administrator@123'),
+            'role'=>'Admin',
+            'email'=>'administrator@gmail.com',
+            'no_hp'=>'08123456789',
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'pic_profile'=>'storage/Image-profile/admin.png',
+
+        ]);
+        User::create([
+            'name'=> 'Fadhil',
+            'username' => 'dhil',
+            'password' => bcrypt('dhilkh@123'),
+            'role'=>'Staff',
+            'email'=>'dhilkh@gmail.com',
+            'no_hp'=>'0812666779',
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'pic_profile'=>'storage/Image-profile/d.png',
+
+        ]);
+
         Khs::create([
             'jenis_khs' => 'SP-APP',
             'nama_pekerjaan' => 'Pengadaan Jasa Konstruksi dan Pemeliharaan SP & APP Dengan Pola Kesepakatan Harga Satuan (KHS) Tahun 2020/2021',

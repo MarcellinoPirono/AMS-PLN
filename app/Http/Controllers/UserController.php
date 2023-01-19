@@ -101,10 +101,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($username)
+    public function edit(Request $request)
     {
-
-        $user = User::where('username', $username)->value('id');
+        // dd($request);
+        $username = $request->username;
+        $user = User::where('username', $request->username)->value('id');
 
         $user = User::find($user);
 
@@ -114,7 +115,6 @@ class UserController extends Controller
             'active' => 'User',
             'username' => $username,
             'active1' => 'Edit User',
-            // 'categories' => ItemRincianInduk::orderBy('id', 'DESC')->get(),
         ];
 
         // dd($data);
@@ -182,47 +182,34 @@ class UserController extends Controller
 
     }
 
-    public function edit_profile($username){
+    public function edit_password(){
 
-        dd($username);
-        $user = User::where('username', $username)->value('id');
+        return response()->json([
+            'success'   => true
+        ]);
 
-        $user = User::find($user);
-
-        $data = [
-            'users'  => $user,
-            'title' => 'Data User',
-            'active' => 'User',
-            'username' => $username,
-            'active1' => 'Edit User',
-            // 'categories' => ItemRincianInduk::orderBy('id', 'DESC')->get(),
-        ];
-
-        // dd($data);
-        // $view = view('pages.edit_user', $data)->render();
-        return view('pages.edit_user', $data);
-        // echo response()->json(['html'=>$view]);
 
     }
-    public function edit_password($username){
+    public function check_password(Request $request) {
+        // $jenis_khs = $request->post('edit_jenis_khs');
+        // dd($request);
 
-        $user = User::where('username', $username)->value('id');
+        $id = User::where('username', $request->username)->value('id');
+        $users = User::findOrFail($id);
 
-        $user = User::find($user);
-
-        $data = [
-            'user'  => $user,
-            'title' => 'Change Password',
-            'active' => 'User',
-            'username' => $username,
-            'active1' => 'Edit User',
-            // 'categories' => ItemRincianInduk::orderBy('id', 'DESC')->get(),
+         $data = [
+            'password' => $request->new_password,
         ];
 
-        // dd($data);
+        $data['password']= Hash::make($data['password']);
+        // dd($users);
 
 
-        return view('pages.edit_user', $data);
+        $users->update($data);
+
+        return response()->json([
+            'success'   => true
+        ]);
 
     }
 }

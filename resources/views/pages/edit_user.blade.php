@@ -178,7 +178,7 @@
                 styleRetryItemProcessingPosition: 'center center',
                 styleProgressIndicatorPosition: 'center bottom',
                 styleButtonRemoveItemPosition: 'center bottom',
-                imageCropAspectRatio: 1,
+                // imageCropAspectRatio: 1,
 
                 acceptedFileTypes: ['image/png', 'image/jpeg'],
                 files: [{
@@ -264,7 +264,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: '',
+                        url: "{{ route('user.update')}}",
                         data: fd,
                         contentType: false,
                         processData: false,

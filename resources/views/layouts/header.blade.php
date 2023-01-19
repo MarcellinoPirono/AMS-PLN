@@ -29,18 +29,21 @@
 
 
                         </a>
-                        <input type="hidden" id="username" name="username" value="{{ auth()->user()->username }}">
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="/" class="dropdown-item ai-icon btnprofile" >
-                                <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary"
-                                    width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                                <span class="ml-2">Profile </span>
-                            </button>
+                            <form action="{{ route('user.edit_profile') }}" method="post">
+                                @csrf
+                                <input type="hidden" id="username" name="username" value="{{ auth()->user()->username }}">
+                                <button type="submit" class="dropdown-item ai-icon" >
+                                    <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary"
+                                        width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    <span class="ml-2">Profile </span>
+                                </button>
+                            </form>
                             <button class="dropdown-item ai-icon btnpass" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" class="text-success"
                                     height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
@@ -48,7 +51,7 @@
                                         d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z" />
                                     <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                                 </svg>
-                                <span class="ml-2">Ubah Password </span>
+                                <span class="ml-2">Reset Password </span>
                             </button>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
@@ -75,72 +78,95 @@
     </div>
 </div>
 
+    {{-- Modal EDIT --}}
+    <div class="modal fade" id="category_form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form name="form_reset_password" id="form_reset_password" action="#">
+                    <div class="modal-body">
+                        {{-- <input type="hidden" class="edit_id" value="{{ $khs->jenis_khs }}"> --}}
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Password Baru :</label>
+                            <input type="text" class="form-control input-rounded edit_data" placeholder="Password Baru"
+                                id="new_password" name="new_password">
+                        </div>
+                        {{-- <input type="hidden" class="edit_id" value="{{ $khs->nama_pekerjaan }}"> --}}
+                        <div class="form-group">
+                            <label class="col-form-label">Konfirmasi Password :</label>
+                            <input type="text" class="form-control input-rounded edit_data" placeholder="Konfirmasi Password" id="konfirmasi_password"
+                                name="konfirmasi_password">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-primary">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
+
+
     $(document).ready(function() {
-        var username = $('#username').val();
-        $('.btnprofile').click(function(e) {
+
+       $('.btnpass').click(function(e) {
+
                 $.ajax({
-                    url:  "{{ route('user.edit_profile') }}",
-                    type: 'GET',
-                    data: {
-                        username: username
-                    },
-                    success:function (response){
-                        console.log(response);
-
-                    }
-
-                });
-            });
-
-        $('.btnpass').click(function(e) {
-                $.ajax({
-                    url: 'edit-password/' + username,
+                    url: "{{ route('user.edit_password')}}",
                     type: 'GET',
                     success: function(response) {
                         $('#category_form').modal('show');
 
-                        $('#edit_valid_khs').validate({
-                            rules: {
-                                edit_jenis_khs: {
-                                    required: true,
-                                    remote: {
-                                        url: "/checkJenisKhs/edit",
-                                        type: "post"
-                                    }
+                        $('#form_reset_password').validate({
+                            rules:{
+                                new_password:{
+                                    required :true,
+                                    minlength: 5,
                                 },
-                                edit_nama_pekerjaan: {
-                                    required: true
+                                konfirmasi_password:{
+                                    required :true,
+                                    minlength: 5,
+                                    equalTo: "#new_password"
                                 }
                             },
                             messages: {
-                                edit_jenis_khs: {
-                                    required: "Silakan Isi Jenis KHS",
-                                    remote: "Jenis KHS Sudah Ada"
+                                new_password: {
+                                    required: "Silahkan Isi Terlebih Dahulu",
+                                    minlength: "Minimal 5 Karakter",
+
                                 },
-                                edit_nama_pekerjaan: {
-                                    required: "Silakan Isi Nama Pekerjaan"
+                                konfirmasi_password: {
+                                    required: "Silahkan Isi Terlebih Dahulu",
+                                    minlength: "Minimal 5 Karakter",
+                                    equalTo: "Password Tidak Sama",
                                 }
                             },
 
                             // console.log();
                             submitHandler: function(form) {
                                 $.ajax({
-                                    url: 'jenis-khs/' + id,
+                                    url: '/check-password',
                                     type: 'PUT',
                                     data: {
-                                        jenis_khs: $('#edit_jenis_khs')
-                                            .val(),
-                                        nama_pekerjaan: $(
-                                                '#edit_nama_pekerjaan')
-                                            .val(),
+                                        new_password: $('#new_password').val(),
+                                        konfirmasi_password: $('#konfirmasi_password').val(),
+                                        username: $('#username').val(),
 
                                     },
                                     success: function(response) {
                                         swal({
-                                            title: "Data Diedit",
-                                            text: "Data Berhasil Diedit",
+                                            title: "Password Diubah",
+                                            text: "Password Telah Berhasil Diubah",
                                             icon: "success",
                                             timer: 2e3,
                                             buttons: false

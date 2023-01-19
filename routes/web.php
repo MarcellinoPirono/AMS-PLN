@@ -245,14 +245,17 @@ Route::get('download/{slug}', [PdfkhsController::class, 'download'])->middleware
 // Route::resource('user', UserController::class);
 
 Route::controller(UserController::class)->group(function () {
-    Route::get('/user', 'index')->name('index');
-    Route::get('/user/create', 'create')->name('user.create');
-    Route::get('/user/{username}/edit', 'edit')->name('user.edit');
-    Route::get('/edit-profile', 'edit_profile')->name('user.edit_profile')->middleware('auth');
-    Route::post('/edit-profile', 'update')->name('user.update')->middleware('auth');
+    Route::get('/user', 'index')->name('index')->middleware('auth');
+    Route::get('/user/create', 'create')->name('user.create')->middleware('auth');
+    Route::post('/edit-profile', 'edit')->name('user.edit_profile')->middleware('auth');
+    Route::post('/edit-profile-update', 'update')->name('user.update')->middleware('auth');
     Route::get('/edit-password', 'edit_password')->name('user.edit_password')->middleware('auth');
-    // Route::post('/user/{username}/edit', 'edit');
-    Route::post('/user', 'store')->name('user');
-    Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile');
-    Route::delete('/deleteuser/{id}', 'destroy')->name('hapus');
+    Route::put('/check-password', 'check_password');
+    Route::post('/user', 'store')->name('user')->middleware('auth');
+    Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile')->middleware('auth');
+    Route::delete('/deleteuser/{id}', 'destroy')->name('hapus')->middleware('auth');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
