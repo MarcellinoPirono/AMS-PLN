@@ -137,7 +137,7 @@ class RincianIndukController extends Controller
         // Excel::selectSheetsByIndex(0)->load();
 
         $import->onlySheets(0);
-        // Excel::import($import, public_path('/file_itemspapp/'.$nama_file));
+        Excel::import($import, public_path('/file_itemspapp/'.$nama_file));
         $rules = [];
 
 
@@ -146,21 +146,21 @@ class RincianIndukController extends Controller
         // }
 
         // dd(Excel::import($import->conditionalSheets(0), public_path('/file_itemspapp/'.$nama_file)));
-        if (Excel::import($import->conditionalSheets(0), public_path('/file_itemspapp/'.$nama_file))) {
-            $rules = $import->conditionalSheets(0)->rules($rules);
-            $validator = Validator::make($request->all(), $rules);
-            dd($validator);
-            // if ($validator->fails()) {
-            //     return back()->with('errors', $validator->messages())->withInput();
-            // }
-            // return redirect('item-khs/'.$jenis_khs.'')->withError($import->rules($rules));
+        // if (Excel::import($import->conditionalSheets(0), public_path('/file_itemspapp/'.$nama_file))) {
+        //     $rules = $import->conditionalSheets(0)->rules($rules);
+        //     $validator = Validator::make($request->all(), $rules);
+        //     dd($validator);
+        //     // if ($validator->fails()) {
+        //     //     return back()->with('errors', $validator->messages())->withInput();
+        //     // }
+        //     // return redirect('item-khs/'.$jenis_khs.'')->withError($import->rules($rules));
 
-        }
+        // }
         // else{
         //     $import->onlySheets(0);
         //     Excel::import($import, public_path('/file_itemspapp/'.$nama_file));
-        //     return redirect('item-khs/'.$jenis_khs.'')->withSuccess('Import File Berhasil');
         // }
+            return redirect('item-khs/'.$jenis_khs.'')->withSuccess('Import File Berhasil');
     }
 
     }
