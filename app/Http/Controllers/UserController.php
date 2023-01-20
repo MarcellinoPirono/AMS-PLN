@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -207,9 +208,23 @@ class UserController extends Controller
 
         $users->update($data);
 
-        return response()->json([
-            'success'   => true
-        ]);
+        Alert::success('Reset Password', 'Telah Berhasil');
 
+        return redirect()->route('dashboard');
+        // return response()->json([
+        //     'success'   => true
+        // ]);
+
+    }
+
+    public function checkUsername(Request $request) {
+        $username = $request->post('username');
+        $checkUsername = User::where('username', $username)->get();
+
+        if(count($checkUsername) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
     }
 }

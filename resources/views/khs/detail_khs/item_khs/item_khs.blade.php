@@ -1,14 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
-    {{-- @if (session()->has('status'))
-        <div class="alert alert-success alert-dismissible alert-alt fade show">
-            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i
-                        class="mdi mdi-close"></i></span>
-            </button>
-            <strong>Success!</strong> {{ session('status') }}
-        </div>
-    @endif --}}
+
+@include('sweetalert::alert')
 
     <div class="row">
         <div class="col-lg-12">
@@ -23,18 +17,17 @@
                         </select>
                     </div>
 
-                    <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
-                    <a href="/item-khs/{{ $jenis_khs }}/create" class="btn btn-primary">Tambah Item <i
-                            class="bi bi-plus-circle"></i>
-                    </a>
-
-
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#importExcel">
                         Import Data (Excel) <i class="bi bi-upload"></i>
                     </button>
 
                     <a href="/item-khs/{{ $jenis_khs }}/export" class="btn btn-success">Export Data (Excel) <i
                             class="bi bi-download"></i>
+                    </a>
+
+                    <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                    <a href="/item-khs/{{ $jenis_khs }}/create" class="btn btn-primary">Tambah Item <i
+                            class="bi bi-plus-circle"></i>
                     </a>
                     <input type="hidden" name="jenis_khs" id="jenis_khs" value="{{ $jenis_khs }}">
                     {{-- <div class="input-group search-area position-relative">

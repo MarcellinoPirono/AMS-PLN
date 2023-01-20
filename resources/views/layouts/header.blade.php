@@ -88,10 +88,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form name="form_reset_password" id="form_reset_password" action="#">
+                <form name="form_reset_password" id="form_reset_password" action="/check-password" method="post">
+                    @csrf
+                    {{-- @method('put') --}}
                     <div class="modal-body">
                         {{-- <input type="hidden" class="edit_id" value="{{ $khs->jenis_khs }}"> --}}
                         <div class="form-group">
+                            <input type="hidden" id="username" name="username" value="{{ auth()->user()->username }}">
                             <label for="recipient-name" class="col-form-label">Password Baru :</label>
                             <input type="text" class="form-control input-rounded edit_data" placeholder="Password Baru"
                                 id="new_password" name="new_password">
@@ -112,7 +115,7 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
 
 <script>
 
@@ -120,66 +123,94 @@
     $(document).ready(function() {
 
        $('.btnpass').click(function(e) {
+        $('#category_form').modal('show');
 
-                $.ajax({
-                    url: "{{ route('user.edit_password')}}",
-                    type: 'GET',
-                    success: function(response) {
-                        $('#category_form').modal('show');
-
-                        $('#form_reset_password').validate({
-                            rules:{
-                                new_password:{
-                                    required :true,
-                                    minlength: 5,
-                                },
-                                konfirmasi_password:{
-                                    required :true,
-                                    minlength: 5,
-                                    equalTo: "#new_password"
-                                }
-                            },
-                            messages: {
-                                new_password: {
-                                    required: "Silahkan Isi Terlebih Dahulu",
-                                    minlength: "Minimal 5 Karakter",
-
-                                },
-                                konfirmasi_password: {
-                                    required: "Silahkan Isi Terlebih Dahulu",
-                                    minlength: "Minimal 5 Karakter",
-                                    equalTo: "Password Tidak Sama",
-                                }
-                            },
-
-                            // console.log();
-                            submitHandler: function(form) {
-                                $.ajax({
-                                    url: '/check-password',
-                                    type: 'PUT',
-                                    data: {
-                                        new_password: $('#new_password').val(),
-                                        konfirmasi_password: $('#konfirmasi_password').val(),
-                                        username: $('#username').val(),
-
-                                    },
-                                    success: function(response) {
-                                        swal({
-                                            title: "Password Diubah",
-                                            text: "Password Telah Berhasil Diubah",
-                                            icon: "success",
-                                            timer: 2e3,
-                                            buttons: false
-                                        }).then((result) => {
-                                            location.reload();
-                                        });
-                                    }
-                                })
-                            }
-                        });
-
+            $('#form_reset_password').validate({
+                rules:{
+                    new_password:{
+                        required :true,
+                        minlength: 5,
+                    },
+                    konfirmasi_password:{
+                        required :true,
+                        minlength: 5,
+                        equalTo: "#new_password"
                     }
-                });
+                },
+                messages: {
+                    new_password: {
+                        required: "Silahkan Isi Terlebih Dahulu",
+                        minlength: "Minimal 5 Karakter",
+
+                    },
+                    konfirmasi_password: {
+                        required: "Silahkan Isi Terlebih Dahulu",
+                        minlength: "Minimal 5 Karakter",
+                        equalTo: "Password Tidak Sama",
+                    }
+                },
+
+
+            });
+
+                // $.ajax({
+                //     url: "{{ route('user.edit_password')}}",
+                //     type: 'GET',
+                //     success: function(response) {
+                //         $('#category_form').modal('show');
+
+                //         $('#form_reset_password').validate({
+                //             rules:{
+                //                 new_password:{
+                //                     required :true,
+                //                     minlength: 5,
+                //                 },
+                //                 konfirmasi_password:{
+                //                     required :true,
+                //                     minlength: 5,
+                //                     equalTo: "#new_password"
+                //                 }
+                //             },
+                //             messages: {
+                //                 new_password: {
+                //                     required: "Silahkan Isi Terlebih Dahulu",
+                //                     minlength: "Minimal 5 Karakter",
+
+                //                 },
+                //                 konfirmasi_password: {
+                //                     required: "Silahkan Isi Terlebih Dahulu",
+                //                     minlength: "Minimal 5 Karakter",
+                //                     equalTo: "Password Tidak Sama",
+                //                 }
+                //             },
+
+                //             // submitHandler: function(form) {
+                //             //     $.ajax({
+                //             //         url: '/check-password',
+                //             //         type: 'PUT',
+                //             //         data: {
+                //             //             new_password: $('#new_password').val(),
+                //             //             konfirmasi_password: $('#konfirmasi_password').val(),
+                //             //             username: $('#username').val(),
+
+                //             //         },
+                //             //         success: function(response) {
+                //             //             swal({
+                //             //                 title: "Password Diubah",
+                //             //                 text: "Password Telah Berhasil Diubah",
+                //             //                 icon: "success",
+                //             //                 timer: 2e3,
+                //             //                 buttons: false
+                //             //             }).then((result) => {
+                //             //                 location.reload();
+                //             //             });
+                //             //         }
+                //             //     });
+                //             // }
+                //         });
+
+                //     }
+                // });
             });
     });
 </script>

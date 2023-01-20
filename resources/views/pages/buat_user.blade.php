@@ -32,20 +32,20 @@
                                     <label class="text-label">Nama :</label>
 
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="name">
+                                        placeholder="Nama">
 
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Email :</label>
 
                                     <input type="text" class="form-control" id="email" name="email"
-                                        placeholder="email">
+                                        placeholder="Email">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">No. HP :</label>
 
-                                    <input type="text" class="form-control" id="no_hp" name="no_hp"
-                                        placeholder="No. HP">
+                                    <input type="tel" class="form-control" id="no_hp" name="no_hp"
+                                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="No. HP">
                                 </div>
                                 <div class="form group justify-content-center col-6">
                                     <label class="text-label">Pilih Role User :</label>
@@ -62,17 +62,39 @@
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Username</label>
                                     <div class="input-group">
-                                        {{-- <div class="input-group-prepend">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                        </div>
+                                        <input type="text" class="form-control" id="username" name="username"
+                                            placeholder="Enter a username..">
+                                    </div>
+                                    <!-- <label class="text-label">Username</label>
+                                        <div class="input-group">
+                                            {{-- <div class="input-group-prepend">
                                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                         </div> --}}
-                                        <input  style="border-radius: 1.5rem" type="text" class="form-control" id="username" name="username"
-                                        placeholder="Enter a username..">
-                                        <i style="padding-top: 3px;" class="fa-solid fa-user" ></i>
-                                    </div>
+                                            <input style="border-radius: 1.5rem" type="text" class="form-control"
+                                                id="username" name="username" placeholder="Enter a Username..">
+                                            <i style="padding-top: 3px;" class="fa-solid fa-user"></i>
+                                        </div> -->
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Password *</label>
-                                    {{-- <div class="input-group transparent-append">
+                                    <div class="input-group transparent-append">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-eye-slash"></i>
+                                                <i class="fa fa-eye"></i>
+                                            </span>
+                                        </div>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            placeholder="Choose a safe one..">
+                                        <div class="input-group-append show-pass ">
+
+                                        </div>
+                                    </div>
+                                    <!-- <label class="text-label">Password *</label>
+                                            {{-- <div class="input-group transparent-append">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                         </div>
@@ -85,13 +107,17 @@
                                             </span>
                                         </div>
                                     </div> --}}
-                                    <div class="input-group">
+                                            <div class="input-group">
 
-                                        <input style="border-radius: 1.5rem" type="password" class="form-control" placeholder="Password..." id="password" name="password">
-                                        <i style="padding-top: 3px" class="fa-solid fa-eye" id="eye"></i>
-                                        {{-- <span class="input-group-text">
-                                        </span> --}}
-                                    </div>
+                                                <input style="border-radius: 1.5rem" type="password" class="form-control"
+                                                    placeholder="Password..." id="password" name="password">
+                                                <div class="input-group-append show-pass ">
+                                                    <span class="input-group-text ">
+                                                        <i class="fa fa-eye-slash"></i>
+                                                        <i class="fa fa-eye"></i>
+                                                    </span>
+                                                </div>
+                                            </div> -->
 
                                 </div>
 
@@ -132,7 +158,7 @@
         const passwordInput = document.querySelector("#password")
         const eye = document.querySelector("#eye");
 
-        eye.addEventListener("click", function(){
+        eye.addEventListener("click", function() {
             this.classList.toggle("fa-eye-slash")
             const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
             passwordInput.setAttribute("type", type)
@@ -196,16 +222,22 @@
             $('#valid_user').validate({
                 rules: {
                     username: {
-                        required: true
+                        required: true,
+                        remote: {
+                            url: "/checkUsername",
+                            type: "post"
+                        }
                     },
                     password: {
-                        required: true
+                        required: true,
+                        minlength: 6
                     },
                     name: {
                         required: true
                     },
                     email: {
-                        required: true
+                        required: true,
+                        email: true
                     },
                     role: {
                         required: true
@@ -216,16 +248,19 @@
                 },
                 messages: {
                     username: {
-                        required: "Silakan Isi Username"
+                        required: "Silakan Isi Username",
+                        remote: "Username Sudah Ada"
                     },
                     password: {
-                        required: "Silakan Isi Password"
+                        required: "Silakan Isi Password",
+                        minlength: "Password Minimal  Karakter"
                     },
                     name: {
                         required: "Silakan Isi name"
                     },
                     email: {
-                        required: "Silakan Isi email"
+                        required: "Silakan Isi email",
+                        email: "Silakan Isi Email yang Valid"
                     },
                     role: {
                         required: "Silakan pilih role"

@@ -59,11 +59,9 @@
                                                     <label for="first-name" class="form-label">No. Purchase
                                                         Order(PO) <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="po" name="po"
-                                                        value="{{ old('po') }}" placeholder="No. PO" required autofocus>
+                                                        value="{{ old('po') }}" placeholder="No. PO" required autofocus onkeyup="validunique(this)">
                                                     <div class="valid-feedback">Data Terisi</div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan Isi No. PO
-                                                    </div>
+                                                    <div id="invalid_po" class="invalid-feedback">Silakan Isi No. PO</div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-2">

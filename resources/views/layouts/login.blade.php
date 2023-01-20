@@ -17,6 +17,7 @@
 </head>
 
 <body id="particles-js">
+    @include('sweetalert::alert')
     <div class="animated bounceInDown">
       <div class="container">
         <span class="error animated tada" id="msg"></span>

@@ -49,6 +49,7 @@
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="preview-pdf-khs">Download KAK</a>
                                             <a class="dropdown-item" href="non-po/export-pdf-khs/{{$nonpo->id}}">Export (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
+                                            <a class="dropdown-item" href="download-non-po/{{$nonpo->id}}">Download (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
                                             <a class="dropdown-item" href="export-excel-khs">Export (excel) <i class="bi bi-file-earmark-excel-fill"></i></a>
                                         </div>
                                     </div>

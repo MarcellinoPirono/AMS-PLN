@@ -75,7 +75,7 @@
                                     </div>
                                 </div>
 
-                                <div class="justify-content-end float-right mt-5">
+                                <div class="col-md-12 justify-content-end float-right mt-5">
                                     <button type="submit" id="btntambah"
                                         class="btn btn-primary position-relative justify-content-end">Edit User</button>
                                 </div>

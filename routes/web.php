@@ -45,7 +45,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index'])->middleware('auth');
 
-Route::get('/dashboard', [MainController::class, 'index'])->middleware('auth');/*->middleware('admin')*/;
+Route::get('/dashboard', [MainController::class, 'index'])->name('dashboard')->middleware('auth');/*->middleware('admin')*/;
 
 //LOGIN
 Route::get('/login', [LoginController::class, 'login'])->middleware('guest');
@@ -210,6 +210,7 @@ Route::put('klasifikasi-paket-pekerjaan/{jenis_khs}/{id}/edit', [KlasifikasiPake
 Route::get('non-po/buat-non-po', [NonPOController::class, 'buat_non_po'])->middleware('auth');
 Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po'])->middleware('auth');
 Route::get('non-po/export-pdf-khs/{id}', [NonPOController::class, 'export_pdf_khs'])->middleware('auth');
+Route::get('download-non-po/{id}', [NonPOController::class, 'download'])->middleware('auth');
 Route::resource('non-po', NonPOController::class)->middleware('auth');
 
 Route::get('non-po-hpe/{id}/buat-non-po-hpe', [NonPoHpeController::class, 'buat_non_po_hpe'])->middleware('auth');
@@ -250,12 +251,11 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/edit-profile', 'edit')->name('user.edit_profile')->middleware('auth');
     Route::post('/edit-profile-update', 'update')->name('user.update')->middleware('auth');
     Route::get('/edit-password', 'edit_password')->name('user.edit_password')->middleware('auth');
-    Route::put('/check-password', 'check_password');
+    Route::post('/check-password', 'check_password')->name('user.check_password')->middleware('auth');
     Route::post('/user', 'store')->name('user')->middleware('auth');
     Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile')->middleware('auth');
     Route::delete('/deleteuser/{id}', 'destroy')->name('hapus')->middleware('auth');
 });
 
-Auth::routes();
+Route::post('/checkUsername', [UserController::class, 'checkUsername'])->middleware('auth');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -43,7 +43,7 @@
                                     <input type="text" class="form-control input-default" placeholder="Nomor Addendum"
                                         name="nomor_addendum" id="nomor_addendum" required autofocus>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 mt-4">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="bi bi-calendar2-minus"></i>

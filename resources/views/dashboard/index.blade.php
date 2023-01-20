@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+@include('sweetalert::alert')
     <div class="row">
         <div class="col-xl-6 col-xxl-12">
             <div class="row">
@@ -14,9 +15,9 @@
                                 </span>
                                 <div class="media-body">
                                     <p class="fs-14 mb-2">PO KHS SP/APP</p>
-                                    
+
                                     <span class="title text-black font-w600">123</span>
-                                    
+
                                 </div>
                             </div>
                             <div class="progress" style="height:5px;">

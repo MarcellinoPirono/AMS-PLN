@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\RincianInduk;
 use App\Models\Satuan;
 use App\Models\Khs;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -48,4 +49,19 @@ class ImportItem_SPAPP implements ToModel, WithHeadingRow
 
         return $khs->id;
     }
+    public function rules(): array
+    {
+        return  [
+            'khs_id' => 'required',
+            'kategori' => 'required',
+            'nama_item' => 'required',
+            'satuan_id' => 'required',
+            'harga_satuan' => 'required',
+            'tkdn' => 'required',
+
+        ];
+
+
+    }
+
 }

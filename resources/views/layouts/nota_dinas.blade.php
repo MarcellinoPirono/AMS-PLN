@@ -20,7 +20,7 @@
                 <!-- <td colspan="3" class="sub-judul">{{ $nonpo->nomor_rpbj }}</td> -->
             </tr>
             <tr style="height: 10px;">
-                <td colspan="3" class="sub-judul" align="center" valign="top">No: {{ $nonpo->nomor_rpbj }}</td>                
+                <td colspan="3" class="sub-judul" align="center" valign="top">No: {{ $nonpo->nomor_rpbj }}</td>
             </tr>
             <tr>
                 <td width="18%">PEKERJAAN</td>
@@ -55,26 +55,26 @@
             @foreach ($rab_non_po as $rabnonpo)
                 <tr>
                     <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>
-                    <td class="first" align="left" valign="middle">{{ $rabnonpo->uraian }}</td>
+                    <td class="first tabellkiri" align="left" valign="middle">{{ $rabnonpo->uraian }}</td>
                     <td class="first" align="center" valign="middle">{{ $rabnonpo->satuan }}</td>
                     <td class="first" align="center" valign="middle">{{ $rabnonpo->volume }}</td>
-                    <td class="first" align="right" valign="middle">@currency2($rabnonpo->harga_satuan)</td>
-                    <td class="first" align="right" valign="middle">@currency2($rabnonpo->jumlah_harga)</td>
+                    <td class="first tabellkanan" align="right" valign="middle">@currency2($rabnonpo->harga_satuan)</td>
+                    <td class="first tabellkanan" align="right" valign="middle">@currency2($rabnonpo->jumlah_harga)</td>
                 </tr>
             @endforeach
             <tr>
                 <td rowspan="3" colspan="3"></td>
                 <td colspan="2" align="center" valign="middle"><b>Jumlah</b></td>
-                <td align="right"><b>@currency2($jumlah)</b></td>
+                <td class="tabellkanan" align="right"><b>@currency2($jumlah)</b></td>
             </tr>
             <tr>
                 <td colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
-                <td align="right"><b>@currency2($ppn)</b></td>
+                <td class="tabellkanan" align="right"><b>@currency2($ppn)</b></td>
             </tr>
             @foreach ($non_po as $nonpo)
                 <tr>
                     <td colspan="2" align="center" valign="middle"><b>TOTAL</b></td>
-                    <td align="right"><b>@currency2($nonpo->total_harga)</b></td>
+                    <td class="tabellkanan" align="right"><b>@currency2($nonpo->total_harga)</b></td>
                 </tr>
                 <tr>
                     <td class="first1"></td>
@@ -91,17 +91,18 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
             <td style="height: 50px;" align="center" valign="bottom">Dibuat Oleh</td>
-            <td style="width:35%;" align="center" valign="bottom">Mengetahui</td>
+            <td style="width:40%;" align="center" valign="bottom">Mengetahui</td>
         </tr>
         <tr>
             <td align="center" valign="top">{{ $nonpo->supervisor }}</td>
             <td align="center" valign="middle">{{ $nonpo->pejabats->jabatan }}</td>
         </tr>
         <tr style="height: 150px;">
-            <td style="height: 150px;" align="center" valign="bottom">Fadhil KH</td>
+            <td style="height: 150px;" align="center" valign="bottom">Rajab KH</td>
             <td align="center" valign="bottom">{{ $nonpo->pejabats->nama_pejabat }}</td>
         </tr>
     </table>
 </body>
 
 </html>
+

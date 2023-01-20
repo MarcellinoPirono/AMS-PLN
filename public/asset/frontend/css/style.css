@@ -74,14 +74,14 @@ font-family:verdana, Helvetica;
   }
   .fa-eye{
     position: absolute;
-    top: 28%;
+    top: 20%;
     right: 4%;
     cursor: pointer;
     color: lightgray;
   }
   .fa-user{
     position: absolute;
-    top: 30%;
+    top: 20%;
     right: 4%;
     cursor: pointer;
     color: lightgray;

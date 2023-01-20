@@ -217,6 +217,13 @@
      border-bottom: none;
  }
 
+ .first3 {
+     border-left: none;
+     border-right: 1px solid #000;
+     border-top: none;
+     border-bottom: none;
+ }
+
  .warna {
      background-color: #C5C6D0;
      font-weight: bold;
@@ -453,6 +460,13 @@
      border-bottom: 3px solid black;
  }
 
+ .tabelbawahkanan2 {
+     border-left: none;
+     border-right: 1px solid black;
+     border-top: none;
+     border-bottom: 3px solid black;
+ }
+
  .tabelnormal {
      border-left: 1px solid black;
      border-right: 1px solid black;
@@ -493,6 +507,20 @@
     border-right: 3px solid black;
     border-top: 1px solid black;
     border-bottom: 3px solid black;
+}
+
+.tabelkecualikiri{
+    border-left: none;
+    border-right: 3px solid black;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+}
+
+.tabelkecualikananbawah{
+    border-left: 3px solid black;
+    border-right: none;
+    border-top: 3px solid black;
+    border-bottom: none;
 }
 
 .justifytb {
@@ -557,3 +585,11 @@ background-color: #FFF000;
     border-top: 1px solid black;
     border-bottom: none;
 }
+
+/* label.checkbox-label input[type=checkbox]{
+    position: relative;
+    vertical-align: middle;
+    bottom: 1px;
+} */
+
+input[type=checkbox] { display: inline; }

@@ -19,6 +19,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 // use DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -113,61 +115,54 @@ class RincianIndukController extends Controller
 
     function import(Request $request)
     {
-    // $kontrak =
-    // dd($request->jenis_khs);
-    // $khs_id = Khs::where('jenis_khs', $request->jenis_khs)->value('id');
-    // // dd($khs_id);
-    // $rincianInduk = RincianInduk::where('khs_id', $khs_id)->get();
-    // dd(count($rincianInduk));
-    // for($i = 0; $i < count($rincianInduk); $i++) {
 
-    // }
+
 
     $request->validate([
-        'select_file'  => 'required|mimes:xls,xlsx'
+        'select_file'  => 'required|mimes:xls,xlsx|'
     ]);
+
+    // dd($request);
 
     $jenis_khs = $request->jenis_khs;
 
-    $file = $request->file('select_file');
-    $nama_file = Carbon::now()->format('Y-m-d') . $file->getClientOriginalName();
-    $file->move('file_itemspapp', $nama_file);
+    if ($request->file('select_file')) {
+        # code...
+        $file = $request->file('select_file');
+        $nama_file = Carbon::now()->format('Y-m-d') . $file->getClientOriginalName();
+        $file->move('file_itemspapp', $nama_file);
 
 
-    $import = new MultiSheetImport();
-    $import->onlySheets(0);
-    Excel::import($import, public_path('/file_itemspapp/'.$nama_file));
+        $import = new MultiSheetImport();
+        // Excel::selectSheetsByIndex(0)->load();
 
-    // Session::flash('sukses','Data Siswa Berhasil Diimport!');
+        $import->onlySheets(0);
+        // Excel::import($import, public_path('/file_itemspapp/'.$nama_file));
+        $rules = [];
 
-    //  dd($import);
 
-    //  dd($data);
+        // if ($validator->fails()) {
+        //     return back()->with('errors', $validator->messages()->all()[0])->withInput();
+        // }
 
-    //  if($data->count() > 0)
-    //  {
-    //   foreach($data->toArray() as $key => $value)
-    //   {
-    //    foreach($value as $row)
-    //    {
-    //     $insert_data[] = array(
-    //      'khs_id'  => $row['khs_id'],
-    //      'kategori'   => $row['kategori'],
-    //      'nama_item'   => $row['nama_item'],
-    //      'satuan_id'    => $row['satuan_id'],
-    //      'harga_satuan'  => $row['harga_satuan'],
-    //     );
-    //    }
-    //   }
+        // dd(Excel::import($import->conditionalSheets(0), public_path('/file_itemspapp/'.$nama_file)));
+        if (Excel::import($import->conditionalSheets(0), public_path('/file_itemspapp/'.$nama_file))) {
+            $rules = $import->conditionalSheets(0)->rules($rules);
+            $validator = Validator::make($request->all(), $rules);
+            dd($validator);
+            // if ($validator->fails()) {
+            //     return back()->with('errors', $validator->messages())->withInput();
+            // }
+            // return redirect('item-khs/'.$jenis_khs.'')->withError($import->rules($rules));
 
-    //   if(!empty($insert_data))
-    //   {
-    //    DB::table('rincian_induks')->insert($insert_data);
-    //   }
-    //  }
-    //  dd($insert_data);
-    return redirect('item-khs/'.$jenis_khs.'');
-    //  return back()->with('success', 'Excel Data Imported successfully.');
+        }
+        // else{
+        //     $import->onlySheets(0);
+        //     Excel::import($import, public_path('/file_itemspapp/'.$nama_file));
+        //     return redirect('item-khs/'.$jenis_khs.'')->withSuccess('Import File Berhasil');
+        // }
+    }
+
     }
 
     public function export(Request $request)
@@ -178,8 +173,8 @@ class RincianIndukController extends Controller
         $sheets = ['Item KHS', 'Satuan', 'Khs'];
         // dd($khs_id);
 
-        return Excel::download(new MultiSheetExport($sheets, $khs_id), 'Template Import '.$jenis_khs.'.xlsx');
 
+        return Excel::download(new MultiSheetExport($sheets, $khs_id), 'Template Import '.$jenis_khs.'.xlsx');
 
     }
 

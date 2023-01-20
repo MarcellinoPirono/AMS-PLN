@@ -269,6 +269,72 @@ class NonPOController extends Controller
 
     }
 
+    public function download(Request $request, $id)
+    {
+        $nama_pdf =NonPo::where('id', $id)->value('nomor_rpbj');
+        $nama_pdf = str_replace('.', '_', $nama_pdf);
+        $nama_pdf = str_replace('/','-', $nama_pdf);
+        $nama_pdf = str_replace(' ','-', $nama_pdf);
+
+        $values_pdf_page1 = NonPo::where('id', $id)->get();
+
+        $non_po_id = NonPo::where('id', $id)->value('id');
+        $values_pdf_page2 = RabNonPo::where('non_po_id', $non_po_id)->get();
+
+        $jumlah = RabNonPo::where('non_po_id', $non_po_id)->sum('jumlah_harga');
+        $ppn = $jumlah * 0.11;
+        // dd($values_pdf_page1);
+
+        $pdf = Pdf::loadView('layouts.nota_dinas',[
+            "non_po" => $values_pdf_page1,
+            "rab_non_po" => $values_pdf_page2,
+            "jumlah" => $jumlah,
+            "ppn" => $ppn,
+            "title" => $nama_pdf,
+        ]);
+
+        // $dom_pdf1 = $pdf->getDomPDF();
+        // $canvas = $dom_pdf1->get_canvas();
+        // $this->pageNumber($canvas, $lang);
+        $path1 = 'newFileName.pdf';
+        Storage::disk('local')->put($path1, $pdf->output());
+
+        // $pdf2 = Pdf::loadView('layouts.nota_dinas',[
+        //     "non_po" => $values_pdf_page1,
+        //     "rab_non_po" => $values_pdf_page2,
+        //     "jumlah" => $jumlah,
+        //     "ppn" => $ppn,
+        //     // "days" => $days,
+        //     // "jabatan_manager" => $jabatan_manager,
+        //     // "nama_manager" => $nama_manager,
+        //     "title" => $ubah_pdf2,
+
+        // ]);
+
+        // $pdf2->setPaper('A4', 'potrait');
+
+        // $dom_pdf2 = $pdf2->getDomPDF();
+        // $canvas2 = $dom_pdf2->get_canvas();
+        // $this->pageNumber($canvas2, $lang);
+        // $path2 = 'newFileName2.pdf';
+        // Storage::disk('local')->put($path2, $pdf2->output());
+
+        // $content = $pdf->download()->getOriginalContent();
+        // $pdfs1 = Storage::put('public/storage/file-pdf-khs/non-po/'.$ubah_pdf2.'.pdf',$content);
+
+        // $content2 = $pdf2->download()->getOriginalContent();
+        // // Storage::put('public/storage/file-pdf-khs/non-po/'.$ubah_pdf2.'.pdf',$content2);
+        // $pdfs2 = Storage::put('public/storage/file-pdf-khs/non-po/pdf2.pdf', $content2);
+        // dd($pdfs2);
+
+
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf');
+        return $oMerger->download();
+    }
+
 
 
 }

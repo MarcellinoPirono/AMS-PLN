@@ -43,22 +43,22 @@
         <table width="100%" border="2" cellspacing="0" cellpadding="0">
             <tr class="warna">
                 <td style="width:4%;" rowspan="2" align="center" valign="middle">No</td>
-                <td rowspan="2" align="center" valign="middle">Uraian Pekerjaan</td>
-                <td style="width:12%;" rowspan="2" align="center" valign="middle">Satuan</td>
-                <td style="width:9%;" rowspan="2" align="center" valign="middle">Volume</td>
-                <td style="width:25%;" colspan="2" align="center" valign="middle">Harga</td>
+                <td rowspan="2" align="center" valign="middle">Uraian</td>
+                <td style="width:8%;" rowspan="2" align="center" valign="middle">Satuan</td>
+                <td style="width:9%;" rowspan="2" align="center" valign="middle">Vol</td>
+                <td style="width:21%;" colspan="2" align="center" valign="middle">Harga</td>
                 <td style="width:25%;" colspan="2" align="center" valign="middle">Harga Perkiraan</td>
             </tr>
             <tr class="warna">
-                <td style="width:12%;" align="center" valign="middle">Satuan (RP)</td>
-                <td style="width:15%;" align="center" valign="middle">Jumlah (RP)</td>
+                <td style="width:9%;" align="center" valign="middle">Satuan (RP)</td>
+                <td style="width:12%;" align="center" valign="middle">Jumlah (RP)</td>
                 <td style="width:12%;" align="center" valign="middle">Harga Perkiraan (RP)</td>
                 <td style="width:15%;" align="center" valign="middle">Jumlah Harga HPE (RP)</td>
             </tr>
             @foreach ($rab_hpes as $rab_hpe)
                 <tr>
                     <td class="first" align="center" valign="middle">{{ $loop->iteration }}</td>
-                    <td class="first tabellkirii" align="left" valign="middle">{{ $rab_hpe->rab_non_pos->uraian }}</td>
+                    <td class="first tabellkiri" align="left" valign="middle">{{ $rab_hpe->rab_non_pos->uraian }}</td>
                     <td class="first" align="center" valign="middle">{{ $rab_hpe->rab_non_pos->satuan }}</td>
                     <td class="first" align="center" valign="middle">{{ $rab_hpe->rab_non_pos->volume }}</td>
                     <td class="first tabellkanan" align="right" valign="middle">@currency2($rab_hpe->rab_non_pos->harga_satuan)</td>
@@ -68,57 +68,119 @@
                 </tr>
             @endforeach
             <tr>
-                <td class="tabelnormalkiri" rowspan="3" colspan="3"></td>
+                <td class="tabelnormal" rowspan="3" colspan="2"></td>
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>JUMLAH</b></td>
-                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($jumlah)</b></td>
-                <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>JUMLAH HPE</b></td>
-                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($jumlah_hpe)</b></td>
+                <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($jumlah)</b></td>
+                <!-- <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>JUMLAH HPE</b></td> -->
+                <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($jumlah_hpe)</b></td>
             </tr>
             <tr>
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
-                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($ppn)</b></td>
-                <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>PPN HPE 11%</b></td>
-                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($ppn_hpe)</b></td>
+                <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($ppn)</b></td>
+                <!-- <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>PPN HPE 11%</b></td> -->
+                <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($ppn_hpe)</b></td>
             </tr>
             @foreach ($hpes as $hpe)
             <tr>
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>TOTAL</b></td>
-                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($hpe->non_pos->total_harga)</b></td>
-                <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>TOTAL HPE</b></td>
-                <td class="tabelnormal tabellkanan" align="right"><b>@currency2($hpe->total_harga_hpe)</b></td>
+                <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($hpe->non_pos->total_harga)</b></td>
+                <!-- <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>TOTAL HPE</b></td> -->
+                <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($hpe->total_harga_hpe)</b></td>
             </tr>
             <tr>
-                <td class="tabelkiri"></td>
-                <td class="tabelnormalkanan2" class="first2" rowspan="2" colspan="7" style="font-weight: bold; font-style:italic;">
+                <td class="tabelkecualikananbawah"></td>
+                <td class="tabelkecualikiri" rowspan="2" colspan="7" style="font-weight: bold; font-style:italic;">
                     Terbilang: {{ Terbilang::make($hpe->non_pos->total_harga, ' rupiah') }}</td>
             </tr>
             <tr>
-                <td class="first1"></td>
+                <td class="tabelbawahkiri"></td>
+            </tr>
+            @endforeach
+            @foreach ($non_po as $nonpo)
+            <tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2" style="font-weight: bold;">Lampiran</td>
+                <td class="firstkanan tabellkiri" colspan="5" style="font-weight: bold;">Monitoring Anggaran</td>
+            </tr>
+            <tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2"></td>
+                <td class="first2 tabellkiri" colspan="1">SKK</td>
+                <td class="tabelkanan" colspan="4">: {{$nonpo->skks->nomor_skk}}</td>
+            </tr>
+            <tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2">Referensi Harga:</td>
+                <td class="first2 tabellkiri" colspan="1">PRK</td>
+                <td class="tabelkanan" colspan="4">: {{$nonpo->prks->no_prk}}</td>
+            </tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2">Nota Dinas/Disposisi:</td>
+                <td class="first2 tabellkiri" colspan="1">Saldo Awal</td>
+                <td class="tabelkanan" colspan="4">: Rp. @currency2($nonpo->prks->pagu_prk)</td>
+            <tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2">Lain-Lain:</td>
+                <td class="first2 tabellkiri" colspan="1">Terpakai</td>
+                <td class="tabelkanan" colspan="4">: Rp. @currency2($nonpo->prks->prk_terkontrak)</td>
+            </tr>
+            <tr>
+                <td class="tabelbawahkiri"></td>
+                <td class="tabelbawahkanan" colspan="2"></td>
+                <td class="tabelbawah first2 tabellkiri" colspan="1">Saldo Akhir</td>
+                <td class="tabelbawahkanan" colspan="4">: Rp. @currency2($nonpo->prks->prk_sisa)</td>
             </tr>
             @endforeach
             <tr>
-
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2"></td>
+                <td class="tabelkanan" colspan="3" align="center" valign="middle">Verifikasi Anggaran</td>
+                <td class="tabelkanan" colspan="2" align="center" valign="middle">Evaluasi HPE,</td>
+            </tr>
+            <tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2" align="center" valign="middle">Catatan Keuangan :</td>
+                <td class="tabelkanan" colspan="3" align="center" valign="middle">MANAJER BAGIAN KEUANGAN DAN UMUM</td>
+                <td class="tabelkanan" colspan="2" align="center" valign="middle">MANAJER BAGIAN PERENCANAAN</td>
+            </tr>
+            <tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2"></td>
+                <td class="tabelkanan" colspan="3"></td>
+                <td class="tabelkanan" colspan="2"></td>
+            </tr>
+            <tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2"><label class="checkbox-label"><input type="checkbox">: Disetujui</label></td>
+                <td class="tabelkanan" colspan="3"></td>
+                <td class="tabelkanan" colspan="2"></td>
+            </tr>
+            <tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2"></td>
+                <td class="tabelkanan" colspan="3"></td>
+                <td class="tabelkanan" colspan="2"></td>
+            </tr>
+            <tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2"><label class="checkbox-label"><input type="checkbox">: Tidak Disetujui</label></td>
+                <td class="tabelkanan" colspan="3"></td>
+                <td class="tabelkanan" colspan="2"></td>
+            </tr>
+            <tr>
+                <td class="tabelkiri"></td>
+                <td class="tabelkanan" colspan="2"></td>
+                <td class="tabelkanan" colspan="3" align="center" valign="middle">JOHAN PRASETYA YUDHA PRAMUKTI</td>
+                <td class="tabelkanan" colspan="2" align="center" valign="middle">YANUARDHI ARIEF BUDIYONO</td>
+            </tr>
+            <tr>
+                <td class="tabelbawahkiri"></td>
+                <td class="tabelbawahkanan" colspan="2"></td>
+                <td class="tabelbawahkanan" colspan="3"></td>
+                <td class="tabelbawahkanan" colspan="2"></td>
             </tr>
         </table>
     </div>
-
-    @foreach ($non_po as $nonpo)
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-            <td style="height: 50px;" align="center" valign="bottom">Dibuat Oleh</td>
-            <td style="width:35%;" align="center" valign="bottom">Mengetahui</td>
-        </tr>
-        <tr>
-            <td align="center" valign="top">{{ $nonpo->supervisor }}</td>
-            <td align="center" valign="middle">{{ $nonpo->pejabats->jabatan }}</td>
-        </tr>
-        <tr style="height: 150px;">
-            <td style="height: 150px;" align="center" valign="bottom">Fadhil KH</td>
-            <td align="center" valign="bottom">{{ $nonpo->pejabats->nama_pejabat }}</td>
-        </tr>
-    </table>
-    @endforeach
-
 </body>
 
 </html>

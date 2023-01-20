@@ -61,7 +61,6 @@ class DatabaseSeeder extends Seeder
             'no_hp'=>'08123456789',
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
-            'pic_profile'=>'storage/Image-profile/admin.png',
 
         ]);
         User::create([

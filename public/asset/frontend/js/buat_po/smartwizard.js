@@ -105,22 +105,29 @@ function showConfirm() {
 //     }
 // })
 
-// function uniquepo() {
-//     var data = document.getElementById('po').value;
+function validunique(ini) {
+    var data = ini.value;
 
-//     $.ajax({
-//         type: 'post',
-//         url: '/checkPO',
-//         data: {
-//             'po':data
-//         },
-//         success: function(response) {
-//             if(response.length > 0) {
+    $.ajax({
+        type: 'post',
+        url: '/checkPO',
+        data: {
+            'po':data
+        },
+        async: false,
+        success: function(response) {
+            check = response.length;
+        }
+    })
 
-//             }
-//         }
-//     })
-// }
+    if(check > 0) {
+        ini.setCustomValidity('Nomor PO Sudah Ada');
+        document.getElementById('invalid_po').innerHTML = "Nomor PO Sudah Ada";
+    } else {
+        ini.setCustomValidity('');
+        document.getElementById('invalid_po').innerHTML = "Silakan Isi No. PO";
+    }
+}
 
 $(function () {
     // Leave step event is used for validating the forms
@@ -155,14 +162,22 @@ $(function () {
                             }
                         })
                         if(check > 0) {
+                            // console.log("error", check);
                             form.classList.add('was-validated');
-                            // document.getElementById('po').style.borderColor = "#f94687";
+                            // document.getElementById('po').setCustomValidity('Nomor PO Sudah Ada');
+                            // document.getElementById('po').reportValidity();
                             // document.getElementById('valid_po').innerHTML = "Nomor PO Sudah Ada";
                             // document.getElementById('valid_po').style.color = "#f94687";
                             $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
                             $("#smartwizard").smartWizard('fixHeight');
                             return false;
                         }
+                        // else {
+                        //     console.log("success", check);
+                        //     document.getElementById('po').setCustomValidity('');
+                        //     $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
+                        //     $("#smartwizard").smartWizard('fixHeight');
+                        // }
                     }
 
                     $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
