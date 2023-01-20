@@ -130,7 +130,7 @@ class RincianIndukController extends Controller
         # code...
         $file = $request->file('select_file');
         $nama_file = Carbon::now()->format('Y-m-d') . $file->getClientOriginalName();
-        $file->move('file_itemspapp', $nama_file);
+        $file->move('storage/storage/file_itemspapp', $nama_file);
 
 
         $import = new MultiSheetImport();
