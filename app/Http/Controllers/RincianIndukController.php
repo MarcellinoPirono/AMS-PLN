@@ -337,4 +337,22 @@ class RincianIndukController extends Controller
             echo json_encode(true);
         }
     }
+
+    public function checkItem_edit(Request $request) {
+        // dd($request);
+        $nama_item = $request->post('nama_item');
+        $old_item = $request->post('old_item');
+        // dd($old_item);
+        $check_nama_item = RincianInduk::where('nama_item', $nama_item)->get();
+
+        if(count($check_nama_item) > 0) {
+            if($check_nama_item[0]->nama_item == $old_item) {
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+            }
+        } else {
+            echo json_encode(true);
+        }
+    }
 }

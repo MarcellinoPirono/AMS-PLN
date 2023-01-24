@@ -8,6 +8,7 @@ use App\Models\NonPo;
 use App\Models\RabNonPo;
 use App\Models\Skk;
 use App\Models\Prk;
+use App\Models\PpnModel;
 use App\Models\Pejabat;
 use App\Models\RincianInduk;
 use App\Models\ItemRincianInduk;
@@ -40,7 +41,8 @@ class NonPoHpeController extends Controller
     {
         $nonpo_id = $request->id;
         $jumlah_harga = RabNonPO::where('non_po_id', $nonpo_id)->sum("jumlah_harga");
-        $ppn = 0.11 * $jumlah_harga;
+        $ppn_default = PpnModel::all();
+        $ppn = ($ppn_default[0]->ppn / 100) * $jumlah_harga;
         $total_harga = $jumlah_harga + $ppn;
 
         return view('non_po_hpe.buat_non_po_hpe',[
@@ -49,7 +51,7 @@ class NonPoHpeController extends Controller
                 'title1' => 'Non-PO HPE',
                 'active' => 'Non-PO HPE',
                 'jumlah_harga' => $jumlah_harga,
-                'ppn' => $ppn,
+                'ppn_nonpo' => $ppn,
                 'total_harga' => $total_harga,
                 'non_po_id' => $nonpo_id,
                 'nonpos'=> NonPo::where('id', $nonpo_id)->get(),
@@ -57,6 +59,7 @@ class NonPoHpeController extends Controller
                 'skks' => Skk::all(),
                 'prks' => Prk::all(),
                 'pejabats' => Pejabat::all(),
+                'ppn' => $ppn_default,
         ]);
     }
 
@@ -89,12 +92,17 @@ class NonPoHpeController extends Controller
 
         $mypdf = 'storage/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'-HPE.pdf';
 
+        // Buat HPE
         $non_po_hpe = [
             'non_po_id' => $non_po_id,
             'total_harga_hpe' => $request->total_harga,
             'pdf_file' => $mypdf
         ];
         Hpe::create($non_po_hpe);
+
+        //Edit Status Non-PO
+        $status = 2;
+        NonPo::where('id', $non_po_id)->update(array('status' => $status));
 
         $id = Hpe::where('non_po_id', $non_po_id)->value('id');
 

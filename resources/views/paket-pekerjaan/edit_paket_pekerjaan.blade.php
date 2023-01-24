@@ -30,7 +30,7 @@
                                         <input type="text" class="form-control input-default" id="nama_paket"
                                             name="nama_paket" value="{{ $nama_paket }}" placeholder="Nama Paket" required
                                             autofocus>
-
+                                        <input type="hidden" id="old_nama_paket" value="{{ $nama_paket }}">
                                     </div>
                                 </div>
                                 <!-- {{-- <div class="col-lg-6 mb-2">
@@ -301,7 +301,7 @@ nama_paket.addEventListener('change', function(){
 
     function check(ini) {
         if ($(ini).is(":checked")) {
-            alert("Yes")
+            // alert("Yes")
             document.getElementById("volume[" + ini.value + "]").setAttribute('required', '')
             document.getElementById("volume[" + ini.value + "]").setAttribute('autofocus', '')
             document.getElementById("volume[" + ini.value + "]").removeAttribute('disabled')
@@ -316,13 +316,17 @@ nama_paket.addEventListener('change', function(){
         }
     }
     $(document).ready(function() {
+        var old_nama_paket = document.getElementById('old_nama_paket').value;
         $('#valid_paket').validate({
             rules: {
                 nama_paket: {
                     required: true,
                     remote: {
-                        url: "/checkPaketPekerjaan",
-                        type: "post"
+                        url: "/checkPaketPekerjaan_edit",
+                        type: "post",
+                        data: {
+                            'old_nama_paket': old_nama_paket
+                        }
                     }
                 },
                 letter: {
@@ -367,7 +371,7 @@ nama_paket.addEventListener('change', function(){
                 var item_id = $('input[type=checkbox]:checked').map(function() {
                     return this.value;
                 }).get();
-                console.log(item_id);
+                // console.log(item_id);
                 var volume = [];
                 var harga = []
                 for (var i = 0; i < item_id.length; i++) {

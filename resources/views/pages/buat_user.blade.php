@@ -43,9 +43,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">No. HP :</label>
-
-                                    <input type="tel" class="form-control" id="no_hp" name="no_hp"
-                                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="No. HP">
+                                    <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="No. HP" onkeypress="return onlyNumberKey(event)">
                                 </div>
                                 <div class="form group justify-content-center col-6">
                                     <label class="text-label">Pilih Role User :</label>
@@ -93,6 +91,22 @@
 
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                            <label class="text-label">Password *</label>
+                                            <div class="input-group transparent-append">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                                </div>
+                                                <input type="password" class="form-control" id="password" name="password" placeholder="Choose a safe one..">
+                                                <div class="input-group-append show-pass ">
+                                                    <span class="input-group-text ">
+														<i class="fa fa-eye-slash"></i>
+														<i class="fa fa-eye"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     <!-- <label class="text-label">Password *</label>
                                             {{-- <div class="input-group transparent-append">
                                         <div class="input-group-prepend">
@@ -163,6 +177,22 @@
             const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
             passwordInput.setAttribute("type", type)
         });
+
+        function onlyNumberKey(evt) {
+              // Only ASCII character in that range allowed
+              var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+              if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                  return false;
+              return true;
+        }
+
+        // function tandapemisahtel(b) {
+        //     b = b.toString();
+        //     c = "";
+        //     panjang = b.length;
+        //     j = 0;
+
+        // }
         // jQuery(document).ready(function() {
 
         //     jQuery('.show-pass').on('click', function() {
@@ -219,6 +249,22 @@
 
             });
 
+            jQuery.validator.addMethod("uppercaseCheck",
+                function(value, element, param) {
+                    return this.optional(element) || (value.match(/[A-Z]/));
+                }, "Silakan Masukkan Minimal 1 Karakter Uppercase"
+            )
+            jQuery.validator.addMethod("nomorCheck",
+                function(value, element, param) {
+                    return this.optional(element) || (value.match(/[0-9]/));
+                }, "Silakan Masukkan Minimal 1 Karakter Numerik"
+            )
+            jQuery.validator.addMethod("spesialcharCheck",
+                function(value, element, param) {
+                    return this.optional(element) || (value.match(/[●!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/));
+                }, "Silakan Masukkan Minimal 1 Spesial Karakter"
+            )
+
             $('#valid_user').validate({
                 rules: {
                     username: {
@@ -230,7 +276,10 @@
                     },
                     password: {
                         required: true,
-                        minlength: 6
+                        minlength: 5,
+                        uppercaseCheck: true,
+                        nomorCheck: true,
+                        spesialcharCheck: true,
                     },
                     name: {
                         required: true
@@ -243,7 +292,8 @@
                         required: true
                     },
                     no_hp: {
-                        required: true
+                        required: true,
+                        number: true
                     }
                 },
                 messages: {
@@ -253,20 +303,21 @@
                     },
                     password: {
                         required: "Silakan Isi Password",
-                        minlength: "Password Minimal  Karakter"
+                        minlength: "Minimal 5 Karakter"
                     },
                     name: {
-                        required: "Silakan Isi name"
+                        required: "Silakan Isi Nama"
                     },
                     email: {
-                        required: "Silakan Isi email",
+                        required: "Silakan Isi Email",
                         email: "Silakan Isi Email yang Valid"
                     },
                     role: {
-                        required: "Silakan pilih role"
+                        required: "Silakan pilih Role"
                     },
                     no_hp: {
-                        required: "Silakan Isi hp"
+                        required: "Silakan Isi No. HP",
+                        number: "Silakan Masukkan Nomor HP"
                     },
 
 

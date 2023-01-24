@@ -56,7 +56,7 @@ class ImportItem_SPAPP implements ToModel, WithHeadingRow, WithValidation
         return  [
             'khs_id' => 'required',
             'kategori' => 'required',
-            'nama_item' => 'required|unique:rincian_induks',
+            'nama_item' => 'required',
             'satuan_id' => 'required',
             'harga_satuan' => 'required|numeric',
             'tkdn' => 'required|numeric',

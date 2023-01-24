@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignId("pejabat_id");
             $table->double("total_harga");
             $table->string("pdf_file");
+            $table->integer("status");
             $table->timestamps();
         });
     }

@@ -124,6 +124,11 @@
                          </a>
                      </li>
                      <li>
+                         <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/pengesahan-hpe">
+                             <strong>Pengesahan HPE</strong>
+                         </a>
+                     </li>
+                     <li>
                          <a class="has-arrow ai-icon nav-link {{ Request::is('detailkhs*') ? 'active' : '' }}"
                              href="javascript:void()">
                              <strong>Detail Non PO</strong>

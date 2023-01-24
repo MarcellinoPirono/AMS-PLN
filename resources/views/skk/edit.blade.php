@@ -25,6 +25,7 @@
                                         class="form-control input-default" placeholder="Nomor SKK"
                                         name="nomor_skk" id="nomor_skk" required autofocus
                                         value="{{ old('nomor_skk', $skk->nomor_skk) }}">
+                                    <input type="hidden" id="old_skk" value="{{ $skk->nomor_skk }}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -192,13 +193,18 @@
 </script>
 <script>
     $(document).ready(function() {
+        // var skk = document.getElementById("nomor_skk").value;
+        var old_skk = document.getElementById("old_skk").value;
         $('#valid_skk').validate({
             rules:{
                 nomor_skk: {
                     required: true,
                     remote: {
-                        url: "/checkSKK",
+                        url: "/checkSKK_edit",
                         type: "post",
+                        data: {
+                            'old_skk': old_skk
+                        }
                     }
                 },
                 uraian_skk: {

@@ -6,6 +6,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/kontrak-induk-khs">{{$active}}</a></li>
         <li class="breadcrumb-item active"><a href="javascript:void(0)">{{$active1}}</a></li>
+        {{-- <li>jdjdjksdjksdjk</li> --}}
     </ol>
 </div>
 
@@ -38,6 +39,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <input type="text" class="form-control input-default " placeholder="Nomor Kontrak Induk" name="nomor_kontrak_induk" id="nomor_kontrak_induk" required autofocus value="{{ old('nomor_kontrak_induk', $kontrakinduks->nomor_kontrak_induk) }}">
+                                <input type="hidden" id="old_kontrak_induk" value="{{ $kontrakinduks->nomor_kontrak_induk }}">
                             </div>
                             <div class="form-group col-md-6">
                                 <div class="input-group">
@@ -126,6 +128,7 @@
     });
 
     $(document).ready(function(){
+        var old_kontrak_induk = document.getElementById('old_kontrak_induk').value;
         $('#edit_valid_kontrak_induk').validate({
                 rules:{
                     khs_id:{
@@ -134,8 +137,11 @@
                     nomor_kontrak_induk:{
                         required:true,
                         remote: {
-                            url: "/checkKontrakInduk",
-                            type: "post"
+                            url: "/checkKontrakInduk_edit",
+                            type: "post",
+                            data: {
+                                'old_kontrak_induk': old_kontrak_induk
+                            }
                         }
                     },
                     tanggal_kontrak_induk:{

@@ -323,6 +323,9 @@
      hyphens: auto;
  }
 
+.black {
+border-color: #000;
+}
 
  .uprightTbl * {
      border: none;

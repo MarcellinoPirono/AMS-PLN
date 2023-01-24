@@ -64,11 +64,11 @@ class PrkController extends Controller
             'prk_sisa' => 'required|max:250'
 
         ]);
-        
+
         // Update Pagu SKK
         $total_pagu_prk = 0;
-        $previous_pagu_prk = Prk::where('no_skk_prk', $request->no_skk_prk)->get("pagu_prk");        
-        foreach($previous_pagu_prk as $pagu_prk)            
+        $previous_pagu_prk = Prk::where('no_skk_prk', $request->no_skk_prk)->get("pagu_prk");
+        foreach($previous_pagu_prk as $pagu_prk)
             $total_pagu_prk += (Double)$pagu_prk->pagu_prk;
         $updated_pagu_skk = $request->pagu_prk + $total_pagu_prk;
         Skk::where('id', $request->no_skk_prk)->update(array('pagu_skk'=>(Double)$updated_pagu_skk));
@@ -145,9 +145,9 @@ class PrkController extends Controller
 
         //Update Pagu SKK
         $updated_pagu_skk = 0;
-        $previous_pagu_prk = Prk::where('no_skk_prk', $request->no_skk_prk)->get("pagu_prk");        
-        foreach($previous_pagu_prk as $pagu_prk)            
-            $updated_pagu_skk += (Double)$pagu_prk->pagu_prk;                
+        $previous_pagu_prk = Prk::where('no_skk_prk', $request->no_skk_prk)->get("pagu_prk");
+        foreach($previous_pagu_prk as $pagu_prk)
+            $updated_pagu_skk += (Double)$pagu_prk->pagu_prk;
         Skk::where('id', $request->no_skk_prk)->update(array('pagu_skk'=>(Double)$updated_pagu_skk));
 
         //Update SKK Sisa
@@ -198,8 +198,8 @@ class PrkController extends Controller
             <td>'. $prk->prk_terkontrak.' </td>
             <td>'. $prk->prk_realisasi.' </td>
             <td>'. $prk->prk_terbayar.' </td>
-            <td>'. $prk->prk_sisa.' </td>                     
-            <td>'. ' 
+            <td>'. $prk->prk_sisa.' </td>
+            <td>'. '
             <div class="d-flex">
             <a href="/prk/'.$prk->id.'/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
             <a href="#" data-toggle="modal" data-target="#deleteModal{{ $prk->id }}"><i class="btn btn-danger shadow btn-xs sharp fa fa-trash"></i></a>
@@ -211,7 +211,7 @@ class PrkController extends Controller
     }
 
     public function filterprk(Request $request)
-    { 
+    {
 
         $no_skk_prk = $request->no_skk_prk;
 
@@ -220,7 +220,7 @@ class PrkController extends Controller
         }
         else{
             $prks = Prk::where('no_skk_prk', $no_skk_prk)->get();
-        }        
+        }
         return view('prk.filter', ['prks' => $prks]);
         // return redirect('/rincian')->with('success', 'Data berhasil dicari!');
     }
@@ -231,6 +231,22 @@ class PrkController extends Controller
 
         if(count($nomor_prk) > 0) {
             echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
+
+    public function checkPRK_edit(Request $request) {
+        $check_prk = $request->post('no_prk');
+        $old_prk = $request->post('old_prk');
+        $nomor_prk = Prk::where('no_prk', $check_prk)->get();
+
+        if(count($nomor_prk) > 0) {
+            if($nomor_prk[0]->no_prk == $old_prk) {
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+            }
         } else {
             echo json_encode(true);
         }

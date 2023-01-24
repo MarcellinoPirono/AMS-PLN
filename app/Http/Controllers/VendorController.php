@@ -58,7 +58,7 @@ class VendorController extends Controller
 
 
     // $import = Excel::import(new VendorImport, public_path('/file_vendor/'.$nama_file));
-    $import = Excel::import(new VendorImport, $request->file('select_file')->store('temp'));
+    Excel::import(new VendorImport, $request->file('select_file')->store('temp'));
 
     // Session::flash('sukses','Data Siswa Berhasil Diimport!');
 
@@ -201,6 +201,22 @@ class VendorController extends Controller
 
         if(count($check_nama_vendor) > 0) {
             echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
+
+    public function checkVendor_edit(Request $request) {
+        $nama_vendor = $request->post('nama_vendor');
+        $old_vendor = $request->post('old_vendor');
+        $check_nama_vendor = Vendor::where('nama_vendor', $nama_vendor)->get();
+
+        if(count($check_nama_vendor) > 0) {
+            if($check_nama_vendor[0]->nama_vendor == $old_vendor) {
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+            }
         } else {
             echo json_encode(true);
         }

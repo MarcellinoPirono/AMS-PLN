@@ -105,7 +105,6 @@ class KhsController extends Controller
 
         $request->validate([
 
-
             'jenis_khs' => 'required',
             'nama_pekerjaan' => 'required',
 
@@ -176,11 +175,18 @@ class KhsController extends Controller
     }
 
     public function checkJenisKhs_edit(Request $request) {
+        // dd($request);
         $jenis_khs = $request->post('edit_jenis_khs');
+        $old_jenis_khs = $request->post('old_jenis_khs');
         $check_jenis_khs = Khs::where('jenis_khs', $jenis_khs)->get();
+        // dd($check_jenis_khs);
 
         if(count($check_jenis_khs) > 0) {
-            echo json_encode(false);
+            if($check_jenis_khs[0]->jenis_khs == $old_jenis_khs) {
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+            }
         } else {
             echo json_encode(true);
         }

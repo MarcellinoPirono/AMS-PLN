@@ -22,6 +22,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <input type="text" class="form-control input-default" placeholder="Nama Vendor" name="nama_vendor" id="nama_vendor" required autofocus value="{{ old('nama_vendor', $vendors->nama_vendor) }}">
+                                <input type="hidden" id="old_vendor" value="{{ $vendors->nama_vendor }}">
                             </div>
                             <div class="form-group col-md-6">
                                 <input type="text" class="form-control input-default" placeholder="Nama Direktur" name="nama_direktur" id="nama_direktur" required autofocus value="{{ old('nama_direktur', $vendors->nama_direktur) }}">
@@ -66,14 +67,17 @@
 
 <script>
     $(document).ready(function() {
-
+        var old_vendor = document.getElementById('old_vendor').value;
         $('#edit_valid_vendor').validate({
             rules:{
                 nama_vendor:{
                     required: true,
                     remote: {
-                        url: "/checkVendor",
-                        type: "post"
+                        url: "/checkVendor_edit",
+                        type: "post",
+                        data: {
+                            'old_vendor': old_vendor
+                        }
                     }
                 },
                 nama_direktur:{

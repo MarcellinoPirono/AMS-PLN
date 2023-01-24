@@ -36,6 +36,7 @@
                                     <input type="text" class="form-control" placeholder="No PRK"
                                         name="no_prk" id="no_prk" required autofocus
                                         value="{{ old('no_prk', $prk->no_prk) }}">
+                                    <input type="hidden" id="old_prk" value="{{ $prk->no_prk }}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -115,6 +116,7 @@
 
 <script>
     $(document).ready(function() {
+        var old_prk = document.getElementById('old_prk').value
         $('#valid_prk').validate({
             rules:{
                 no_skk_prk: {
@@ -123,8 +125,11 @@
                 no_prk: {
                     required: true,
                     remote: {
-                        url: "/checkPRK",
+                        url: "/checkPRK_edit",
                         type: "post",
+                        data: {
+                            'old_prk': old_prk
+                        }
                     }
                 },
                 uraian_prk: {

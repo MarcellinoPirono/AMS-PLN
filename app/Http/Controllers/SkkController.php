@@ -265,9 +265,25 @@ public function create()
     public function checkSKK(Request $request) {
         $check_skk = $request->post('nomor_skk');
         $nomor_skk = Skk::where('nomor_skk', $check_skk)->get();
-        
+
         if(count($nomor_skk) > 0) {
             echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
+
+    public function checkSKK_edit(Request $request) {
+        $check_skk = $request->post('nomor_skk');
+        $old_skk = $request->post('old_skk');
+        $nomor_skk = Skk::where('nomor_skk', $check_skk)->get();
+
+        if(count($nomor_skk) > 0) {
+            if($nomor_skk[0]->nomor_skk == $old_skk) {
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+            }
         } else {
             echo json_encode(true);
         }

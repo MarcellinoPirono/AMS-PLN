@@ -40,7 +40,7 @@
         </table>
     @endforeach
     <div class="wrapword" id="firstTable">
-        <table width="100%" border="2" cellspacing="0" cellpadding="0">
+        <table class="black" width="100%" border="2" cellspacing="0" cellpadding="0">
             <tr class="warna">
                 <td style="width:4%;" rowspan="2" align="center" valign="middle">No</td>
                 <td rowspan="2" align="center" valign="middle">Uraian Pekerjaan</td>
@@ -62,26 +62,26 @@
                     <td class="first tabellkanan" align="right" valign="middle">@currency2($rabnonpo->jumlah_harga)</td>
                 </tr>
             @endforeach
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td rowspan="3" colspan="3"></td>
                 <td colspan="2" align="center" valign="middle"><b>Jumlah</b></td>
                 <td class="tabellkanan" align="right"><b>@currency2($jumlah)</b></td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
                 <td class="tabellkanan" align="right"><b>@currency2($ppn)</b></td>
             </tr>
             @foreach ($non_po as $nonpo)
-                <tr>
+                <tr style="page-break-before: avoid">
                     <td colspan="2" align="center" valign="middle"><b>TOTAL</b></td>
                     <td class="tabellkanan" align="right"><b>@currency2($nonpo->total_harga)</b></td>
                 </tr>
-                <tr>
+                <tr style="page-break-before: avoid">
                     <td class="first1"></td>
                     <td class="first2" rowspan="2" colspan="5" style="font-weight: bold; font-style:italic;">
                         Terbilang: {{ Terbilang::make($nonpo->total_harga, ' rupiah') }}</td>
                 </tr>
-                <tr>
+                <tr style="page-break-before: avoid">
                     <td class="first1"></td>
                 </tr>
             @endforeach
@@ -89,15 +89,15 @@
     </div>
 
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
+        <tr style="page-break-before: avoid">
             <td style="height: 50px;" align="center" valign="bottom">Dibuat Oleh</td>
             <td style="width:40%;" align="center" valign="bottom">Mengetahui</td>
         </tr>
-        <tr>
+        <tr style="page-break-before: avoid">
             <td align="center" valign="top">{{ $nonpo->supervisor }}</td>
             <td align="center" valign="middle">{{ $nonpo->pejabats->jabatan }}</td>
         </tr>
-        <tr style="height: 150px;">
+        <tr style="height: 150px; page-break-before: avoid">
             <td style="height: 150px;" align="center" valign="bottom">Rajab KH</td>
             <td align="center" valign="bottom">{{ $nonpo->pejabats->nama_pejabat }}</td>
         </tr>

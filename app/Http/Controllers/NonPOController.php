@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\NonPo;
 use App\Models\Skk;
 use App\Models\Prk;
+use App\Models\PpnModel;
 use App\Models\Pejabat;
 use App\Models\RabNonPo;
 use App\Models\Redaksi;
@@ -40,7 +41,8 @@ class NonPOController extends Controller
                 'active' => 'Non-PO',
                 'skks' => Skk::all(),
                 'prks' => Prk::all(),
-                'redaksis'=>Redaksi::all(),
+                'redaksis'=> Redaksi::all(),
+                'ppn'=> PpnModel::all(),
             ]
         );
     }
@@ -55,6 +57,7 @@ class NonPOController extends Controller
                 'skks' => Skk::all(),
                 'prks' => Prk::all(),
                 'pejabats' => Pejabat::all(),
+                'ppn'=> PpnModel::all(),
         ]);
     }
 
@@ -106,6 +109,7 @@ class NonPOController extends Controller
 
 
         $mypdf = 'storage/storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf';
+        $status = 1;
 
 
         $non_po = [
@@ -118,6 +122,7 @@ class NonPOController extends Controller
             'kak' => 'asasasa',
             'total_harga' => $request->total_harga,
             'pdf_file' => $mypdf,
+            'status' => $status,
         ];
 
         NonPo::create($non_po);
@@ -151,6 +156,8 @@ class NonPOController extends Controller
         }
 
         // dd($rab_non_po);
+        $ppn_default = PpnModel::all();
+        // dd($ppn_default);
 
         $values_pdf_page1 = NonPo::where('id', $id)->get();
 
@@ -158,7 +165,7 @@ class NonPOController extends Controller
         $values_pdf_page2 = RabNonPo::where('non_po_id', $non_po_id)->get();
 
         $jumlah = RabNonPo::where('non_po_id', $non_po_id)->sum('jumlah_harga');
-        $ppn = $jumlah * 0.11;
+        $ppn = $jumlah * ($ppn_default[0]->ppn / 100);
         // dd($values_pdf_page1);
 
         $pdf = Pdf::loadView('layouts.nota_dinas',[

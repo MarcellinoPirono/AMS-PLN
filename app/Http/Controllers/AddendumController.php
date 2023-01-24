@@ -57,41 +57,9 @@ class AddendumController extends Controller
       'select_file'  => 'required|mimes:xls,xlsx'
      ]);
 
-    $file = $request->file('select_file');
-    $nama_file = rand().$file->getClientOriginalName();
-    $file->move('storage/storage/file_addendum', $nama_file);
 
 
-    $import = Excel::import(new AddendumImport, public_path('/file_addendum/'.$nama_file));
-
-    // Session::flash('sukses','Data Siswa Berhasil Diimport!');
-
-    //  dd($import);
-
-    //  dd($data);
-
-    //  if($data->count() > 0)
-    //  {
-    //   foreach($data->toArray() as $key => $value)
-    //   {
-    //    foreach($value as $row)
-    //    {
-    //     $insert_data[] = array(
-    //      'khs_id'  => $row['khs_id'],
-    //      'kategori'   => $row['kategori'],
-    //      'nama_item'   => $row['nama_item'],
-    //      'satuan_id'    => $row['satuan_id'],
-    //      'harga_satuan'  => $row['harga_satuan'],
-    //     );
-    //    }
-    //   }
-
-    //   if(!empty($insert_data))
-    //   {
-    //    DB::table('rincian_induks')->insert($insert_data);
-    //   }
-    //  }
-    //  dd($insert_data);
+    Excel::import(new AddendumImport, $request->file('select_file')->store('temp'));
     return redirect('/addendum-khs');
     //  return back()->with('success', 'Excel Data Imported successfully.');
     }
@@ -215,6 +183,22 @@ class AddendumController extends Controller
 
         if(count($check_nomor_addendum) > 0) {
             echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
+
+    public function checkAddendum_edit(Request $request) {
+        $nomor_addendum = $request->post('nomor_addendum');
+        $old_nomor_addendum = $request->post('old_nomor_addendum');
+        $check_nomor_addendum = Addendum::where('nomor_addendum', $nomor_addendum)->get();
+
+        if(count($check_nomor_addendum) > 0) {
+            if($check_nomor_addendum[0]->nomor_addendum == $old_nomor_addendum) {
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+            }
         } else {
             echo json_encode(true);
         }

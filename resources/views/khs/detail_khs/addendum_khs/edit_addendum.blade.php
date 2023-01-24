@@ -36,6 +36,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input type="text" class="form-control input-default" placeholder="Nomor Addendum" name="nomor_addendum" id="nomor_addendum"  value="{{ old('nomor_addendum', $addendums->nomor_addendum) }}" required autofocus>
+                                    <input type="hidden" id="old_nomor_addendum" value="{{ $addendums->nomor_addendum }}">
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -78,6 +79,7 @@
             $("#nama_pekerjaan").val(nama_pekerjaan);
         });
 
+        var old_nomor_addendum = document.getElementById('old_nomor_addendum').value;
         $('#edit_valid_addendum').validate({
             rules:{
                 kontrak_induk_id:{
@@ -86,8 +88,11 @@
                 nomor_addendum:{
                     required:true,
                     remote: {
-                        url: "/checkAddendum",
-                        type: "post"
+                        url: "/checkAddendum_edit",
+                        type: "post",
+                        data: {
+                            'old_nomor_addendum': old_nomor_addendum
+                        }
                     }
                 },
                 tanggal_addendum:{

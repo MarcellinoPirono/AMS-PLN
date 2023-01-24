@@ -67,48 +67,48 @@
                     <td class="first tabelnormallkanan tabellkanan" align="right" valign="middle">@currency2($rab_hpe->jumlah_harga_perkiraan)</td>
                 </tr>
             @endforeach
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelnormal" rowspan="3" colspan="2"></td>
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>JUMLAH</b></td>
                 <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($jumlah)</b></td>
                 <!-- <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>JUMLAH HPE</b></td> -->
                 <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($jumlah_hpe)</b></td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN 11%</b></td>
                 <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($ppn)</b></td>
                 <!-- <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>PPN HPE 11%</b></td> -->
                 <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($ppn_hpe)</b></td>
             </tr>
             @foreach ($hpes as $hpe)
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>TOTAL</b></td>
                 <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($hpe->non_pos->total_harga)</b></td>
                 <!-- <td class="tabelnormal" colspan="1" align="center" valign="middle"><b>TOTAL HPE</b></td> -->
                 <td class="tabelnormal tabellkanan" colspan="2" align="right"><b>@currency2($hpe->total_harga_hpe)</b></td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkecualikananbawah"></td>
                 <td class="tabelkecualikiri" rowspan="2" colspan="7" style="font-weight: bold; font-style:italic;">
                     Terbilang: {{ Terbilang::make($hpe->non_pos->total_harga, ' rupiah') }}</td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelbawahkiri"></td>
             </tr>
             @endforeach
             @foreach ($non_po as $nonpo)
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2" style="font-weight: bold;">Lampiran</td>
                 <td class="firstkanan tabellkiri" colspan="5" style="font-weight: bold;">Monitoring Anggaran</td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2"></td>
                 <td class="first2 tabellkiri" colspan="1">SKK</td>
                 <td class="tabelkanan" colspan="4">: {{$nonpo->skks->nomor_skk}}</td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2">Referensi Harga:</td>
                 <td class="first2 tabellkiri" colspan="1">PRK</td>
@@ -118,62 +118,62 @@
                 <td class="tabelkanan" colspan="2">Nota Dinas/Disposisi:</td>
                 <td class="first2 tabellkiri" colspan="1">Saldo Awal</td>
                 <td class="tabelkanan" colspan="4">: Rp. @currency2($nonpo->prks->pagu_prk)</td>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2">Lain-Lain:</td>
                 <td class="first2 tabellkiri" colspan="1">Terpakai</td>
                 <td class="tabelkanan" colspan="4">: Rp. @currency2($nonpo->prks->prk_terkontrak)</td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelbawahkiri"></td>
                 <td class="tabelbawahkanan" colspan="2"></td>
                 <td class="tabelbawah first2 tabellkiri" colspan="1">Saldo Akhir</td>
                 <td class="tabelbawahkanan" colspan="4">: Rp. @currency2($nonpo->prks->prk_sisa)</td>
             </tr>
             @endforeach
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2"></td>
                 <td class="tabelkanan" colspan="3" align="center" valign="middle">Verifikasi Anggaran</td>
                 <td class="tabelkanan" colspan="2" align="center" valign="middle">Evaluasi HPE,</td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2" align="center" valign="middle">Catatan Keuangan :</td>
                 <td class="tabelkanan" colspan="3" align="center" valign="middle">MANAJER BAGIAN KEUANGAN DAN UMUM</td>
                 <td class="tabelkanan" colspan="2" align="center" valign="middle">MANAJER BAGIAN PERENCANAAN</td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2"></td>
                 <td class="tabelkanan" colspan="3"></td>
                 <td class="tabelkanan" colspan="2"></td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2"><label class="checkbox-label"><input type="checkbox">: Disetujui</label></td>
                 <td class="tabelkanan" colspan="3"></td>
                 <td class="tabelkanan" colspan="2"></td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2"></td>
                 <td class="tabelkanan" colspan="3"></td>
                 <td class="tabelkanan" colspan="2"></td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2"><label class="checkbox-label"><input type="checkbox">: Tidak Disetujui</label></td>
                 <td class="tabelkanan" colspan="3"></td>
                 <td class="tabelkanan" colspan="2"></td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2"></td>
                 <td class="tabelkanan" colspan="3" align="center" valign="middle">JOHAN PRASETYA YUDHA PRAMUKTI</td>
                 <td class="tabelkanan" colspan="2" align="center" valign="middle">YANUARDHI ARIEF BUDIYONO</td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
                 <td class="tabelbawahkiri"></td>
                 <td class="tabelbawahkanan" colspan="2"></td>
                 <td class="tabelbawahkanan" colspan="3"></td>

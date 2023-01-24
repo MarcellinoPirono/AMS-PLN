@@ -34,7 +34,7 @@
                             <tbody>
                                 @foreach ($hpes as $hpe)
                                     <tr>
-                                        <input type="hidden" class="delete_id" value="{{ $hpe->id }}">
+                                        <input type="hidden" class="edit_id" value="{{ $hpe->non_pos->id }}">
                                         <td><strong>{{ $loop->iteration }}</strong></td>
                                         <td>{{ $hpe->non_pos->nomor_rpbj }}</td>
                                         <td>{{ $hpe->non_pos->pekerjaan }}</td>
@@ -50,17 +50,33 @@
                                         @elseif ($hpe->non_pos->status == 3)
                                         <td>Disetujui</td>
                                         @endif
+                                        @if ($hpe->non_pos->status == 3)
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
                                                     <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="download-hpe/{{$hpe->id}}">Export (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
+                                                    <a class="dropdown-item" href="download-hpe/{{$hpe->id}}">Download HPE<i class="bi bi-file-earmark-pdf-fill"></i></a>
+                                                    <button class="dropdown-item terimanonpo" disabled>Terima Non-PO<i class="bi bi-file-earmark-pdf-fill"></i></button>
                                                     <a class="dropdown-item" href="export-excel-khs">Export (excel) <i class="bi bi-file-earmark-excel-fill"></i></a>
                                                 </div>
                                             </div>
                                         </td>
+                                        @else
+<td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
+                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="download-hpe/{{$hpe->id}}">Download HPE<i class="bi bi-file-earmark-pdf-fill"></i></a>
+                                                    <button class="dropdown-item terimanonpo">Terima Non-PO<i class="bi bi-file-earmark-pdf-fill"></i></button>
+                                                    <a class="dropdown-item" href="export-excel-khs">Export (excel) <i class="bi bi-file-earmark-excel-fill"></i></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -70,6 +86,9 @@
             </div>
         </div>
     </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
 <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
 <script>
@@ -91,5 +110,55 @@
     //     var categor = $('#filter-addendum-kontrak-induk').val();
     //     tableItem.columns(2).search(categor).draw();
     // });
+</script>
+<script>
+    $('.terimanonpo').click(function(e) {
+        e.preventDefault();
+
+        var editid = $(this).closest("tr").find('.edit_id').val();
+
+        swal({
+                title: "Pengesahan Non-PO",
+                // text: "Setelah disahkan, Anda tidak dapat memulihkan Data ini lagi!",
+                text: "Terima NON-PO?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+
+                    var data = {
+                        // "_token": $('input[name=_token]').val(),
+                        'id': editid,
+                    };
+                    $.ajax({
+                        type: "PUT",
+                        url: 'pengesahan-hpe/' + editid,
+                        data: data,
+                        success: function(response) {
+                            swal({
+                                    title: "Pengesahan Non-PO",
+                                    text: "Non-PO Berhasil Disahkan",
+                                    icon: "success",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((result) => {
+                                    location.reload();
+                                });
+                        }
+                    });
+                } else {
+                    swal({
+                        title: "Pengesahan Non-PO",
+                        text: "Non-PO Batal Diterima",
+                        icon: "error",
+                        timer: 2e3,
+                        buttons: false
+                    });
+                }
+            });
+    });
 </script>
 @endsection

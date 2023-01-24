@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-xl-3 col-l-3 col-m-3 col-sm-2 mt-3">
-                        <select id="filter-kontrak-induk-khs" class="form-control filter-kontrak">
+                        <select multiple id="filter-kontrak-induk-khs" class="form-control filter-kontrak">
                             <option value="">Pilih Jenis KHS</option>
                             @foreach ($khss as $khs)
                                 <option value="{{ $khs->jenis_khs }}">{{ $khs->jenis_khs }}</option>
@@ -23,7 +23,7 @@
                         </select>
                     </div>
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2 mt-3">
-                        <select id="filter-kontrak-induk-vendor" class="form-control filter-kontrak">
+                        <select multiple id="filter-kontrak-induk-vendor" class="form-control filter-kontrak">
                             <option value="">Pilih Nama Vendor</option>
                             @foreach ($vendors as $vendor)
                                 <option value="{{ $vendor->nama_vendor }}">{{ $vendor->nama_vendor }}</option>
@@ -174,14 +174,15 @@
 
     $('#filter-kontrak-induk-khs').on("change", function(event){
         var jenis_khs = $('#filter-kontrak-induk-khs').val();
-        // console.log(category);
+        console.log(jenis_khs);
+        // for(i)
         // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
         tableKontrakInduk.columns(1).search(jenis_khs).draw();
     });
 
     $('#filter-kontrak-induk-vendor').on("change", function(event){
         var nama_vendor = $('#filter-kontrak-induk-vendor').val();
-        // console.log(category);
+        console.log(nama_vendor);
         // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
         tableKontrakInduk.columns(4).search(nama_vendor).draw();
     });

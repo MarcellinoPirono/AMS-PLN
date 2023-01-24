@@ -249,6 +249,7 @@
                     success: function(response) {
                         $('#category_form').modal('show');
                         $('#edit_jenis_khs').val(response.result.jenis_khs);
+                        var old_jenis_khs = response.result.jenis_khs;
                         $('#edit_nama_pekerjaan').val(response.result.nama_pekerjaan);
                         console.log("test");
                         $('#edit_valid_khs').validate({
@@ -257,7 +258,10 @@
                                     required: true,
                                     remote: {
                                         url: "/checkJenisKhs/edit",
-                                        type: "post"
+                                        type: "post",
+                                        data: {
+                                            'old_jenis_khs': old_jenis_khs
+                                        }
                                     }
                                 },
                                 edit_nama_pekerjaan: {

@@ -24,6 +24,7 @@
                                     <input type="text" class="form-control input-default" placeholder="Jenis Kontrak"
                                         name="khs_id" id="khs_id" readonly disabled required autofocus
                                         value="{{ old('khs_id', $jenis_khs) }}">
+                                    {{-- <input type="hidden" id="old_item" value="{{ $jenis_khs }}"> --}}
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="text-label">Kategori:</label>
@@ -42,6 +43,7 @@
                                     <input type="text" class="form-control input-default" placeholder="Nama Item"
                                         name="nama_item" id="nama_item" required autofocus
                                         value="{{ old('nama_item', $item_khs->nama_item) }}">
+                                    <input type="hidden" id="old_item" value="{{ $item_khs->nama_item }}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Satuan:</label>
@@ -209,6 +211,7 @@
     }
 
     $(document).ready(function() {
+        var old_item = document.getElementById('old_item').value;
         $('#edit_valid_item_khs').validate({
             rules: {
                 khs_id: {
@@ -220,8 +223,11 @@
                 nama_item: {
                     required: true,
                     remote: {
-                        url: "/checkItem",
-                        type: "post"
+                        url: "/checkItem_edit",
+                        type: "post",
+                        data: {
+                            'old_item': old_item
+                        }
                     }
                 },
                 satuan_id: {

@@ -56,43 +56,10 @@ class KontrakIndukController extends Controller
       'select_file'  => 'required|mimes:xls,xlsx'
      ]);
 
-    $file = $request->file('select_file');
-    $nama_file = rand().$file->getClientOriginalName();
-    $file->move('storage/storage/file_kontrak_induk', $nama_file);
 
+     Excel::import(new KontrakIndukImport, $request->file('select_file')->store('temp'));
 
-    $import = Excel::import(new KontrakIndukImport, public_path('/file_kontrak_induk/'.$nama_file));
-
-    // Session::flash('sukses','Data Siswa Berhasil Diimport!');
-
-    //  dd($import);
-
-    //  dd($data);
-
-    //  if($data->count() > 0)
-    //  {
-    //   foreach($data->toArray() as $key => $value)
-    //   {
-    //    foreach($value as $row)
-    //    {
-    //     $insert_data[] = array(
-    //      'khs_id'  => $row['khs_id'],
-    //      'kategori'   => $row['kategori'],
-    //      'nama_item'   => $row['nama_item'],
-    //      'satuan_id'    => $row['satuan_id'],
-    //      'harga_satuan'  => $row['harga_satuan'],
-    //     );
-    //    }
-    //   }
-
-    //   if(!empty($insert_data))
-    //   {
-    //    DB::table('rincian_induks')->insert($insert_data);
-    //   }
-    //  }
-    //  dd($insert_data);
     return redirect('/kontrak-induk-khs');
-    //  return back()->with('success', 'Excel Data Imported successfully.');
     }
 
     public function store(Request $request)
@@ -209,6 +176,22 @@ class KontrakIndukController extends Controller
 
         if(count($check_nomor_kontrak_induk) > 0) {
             echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
+
+    public function checkKontrakInduk_edit(Request $request) {
+        $nomor_kontrak_induk = $request->post('nomor_kontrak_induk');
+        $old_kontrak_induk = $request->post('old_kontrak_induk');
+        $check_nomor_kontrak_induk = KontrakInduk::where('nomor_kontrak_induk', $nomor_kontrak_induk)->get();
+
+        if(count($check_nomor_kontrak_induk) > 0) {
+            if($check_nomor_kontrak_induk[0]->nomor_kontrak_induk == $old_kontrak_induk) {
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+            }
         } else {
             echo json_encode(true);
         }

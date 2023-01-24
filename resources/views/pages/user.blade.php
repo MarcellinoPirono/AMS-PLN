@@ -64,9 +64,9 @@
                                         <td>{{ $user->no_rek_1 }} - {{ $user->nama_bank_1 }}</td>
                                         <td>{{ $user->no_rek_2 }} - {{ $user->nama_bank_2 }}</td>
                                         <td>{{ $user->npwp }}</td> --}}
-                                        <td>
+                                        <td align="center">
 
-                                            <div class="d-flex">
+                                            <div class="">
                                                 {{-- <a href="/user/{{ $user->username }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a> --}}

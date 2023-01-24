@@ -10,6 +10,7 @@ use App\Http\Controllers\PrkController;
 use App\Http\Controllers\SkkController;
 use App\Http\Controllers\RincianIndukController;
 use App\Http\Controllers\HpeController;
+use App\Http\Controllers\PengesahanHpeController;
 use App\Http\Controllers\NonPoHpeController;
 use App\Http\Controllers\JenisKhsController;
 use App\Http\Controllers\KontrakIndukController;
@@ -57,15 +58,15 @@ Route::get('/search-categories', [ItemRincianIndukController::class, 'searchcate
 
 
 //KHS
-Route::get('item-khs/{jenis_khs}', [RincianIndukController::class, 'jenis_khs'])->middleware('auth');;
-Route::get('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'create'])->middleware('auth');;
-Route::post('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'store'])->middleware('auth');;
-Route::post('item-khs/{jenis_khs}/import', [RincianIndukController::class, 'import'])->middleware('auth');;
-Route::get('item-khs/{jenis_khs}/export', [RincianIndukController::class, 'export'])->middleware('auth');;
-Route::get('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'edit'])->name('item-khs.edit')->middleware('auth');;
-Route::get('item-khs/{jenis_khs}/{id}', [RincianIndukController::class, 'destroy'])->middleware('auth');;
-Route::any('item-khs/{jenis_khs}/filter', [RincianIndukController::class, 'filteritem'])->middleware('auth');;
-Route::put('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'update'])->middleware('auth');;
+Route::get('item-khs/{jenis_khs}', [RincianIndukController::class, 'jenis_khs'])->middleware('auth');
+Route::get('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'create'])->middleware('auth');
+Route::post('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'store'])->middleware('auth');
+Route::post('item-khs/{jenis_khs}/import', [RincianIndukController::class, 'import'])->middleware('auth');
+Route::get('item-khs/{jenis_khs}/export', [RincianIndukController::class, 'export'])->middleware('auth');
+Route::get('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'edit'])->name('item-khs.edit')->middleware('auth');
+Route::get('item-khs/{jenis_khs}/{id}', [RincianIndukController::class, 'destroy'])->middleware('auth');
+Route::any('item-khs/{jenis_khs}/filter', [RincianIndukController::class, 'filteritem'])->middleware('auth');
+Route::put('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'update'])->middleware('auth');
 // Route::get('item-khs/{jenis_khs}', [ImporExcelController::class, 'index']);
 // Route::get('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'create']);
 // Route::post('item-khs/{jenis_khs}/create', [RincianIndukController::class, 'store']);
@@ -83,20 +84,22 @@ Route::put('item-khs/{jenis_khs}/{id}/edit', [RincianIndukController::class, 'up
 Route::resource('jenis-khs', KhsController::class)->middleware('auth');
 Route::get('/search-jenis-khs', [KhsController::class, 'searchjeniskhs'])->middleware('auth');
 Route::post('/checkJenisKhs', [KhsController::class, 'checkJenisKhs']);
-Route::post('/checkJenisKhs/edit', [KhsController::class, 'checkJenisKhs_edit'])->middleware('auth');;
+Route::post('/checkJenisKhs/edit', [KhsController::class, 'checkJenisKhs_edit'])->middleware('auth');
 
 //Vendor KHS
-Route::get('/vendor-khs/create-xlsx', [VendorController::class, 'create_xlsx'])->middleware('auth');;
-Route::post('vendor-khs/import', [VendorController::class, 'import'])->middleware('auth');;
-Route::post('/checkVendor', [VendorController::class, 'checkVendor'])->middleware('auth');;
+Route::get('/vendor-khs/create-xlsx', [VendorController::class, 'create_xlsx'])->middleware('auth');
+Route::post('vendor-khs/import', [VendorController::class, 'import'])->middleware('auth');
+Route::post('/checkVendor', [VendorController::class, 'checkVendor'])->middleware('auth');
+Route::post('/checkVendor_edit', [VendorController::class, 'checkVendor_edit'])->middleware('auth');
 Route::resource('vendor-khs', VendorController::class)->middleware('auth');
 // Route::resource('vendor-khs', VendorController::class);
-Route::get('/search-vendor', [VendorController::class, 'searchvendor'])->middleware('auth');;
+Route::get('/search-vendor', [VendorController::class, 'searchvendor'])->middleware('auth');
 
 //Kontrak Induk KHS
-Route::get('/kontrak-induk-khs/create-xlsx', [KontrakIndukController::class, 'create_xlsx'])->middleware('auth');;
-Route::post('kontrak-induk-khs/import', [KontrakIndukController::class, 'import'])->middleware('auth');;
+Route::get('/kontrak-induk-khs/create-xlsx', [KontrakIndukController::class, 'create_xlsx'])->middleware('auth');
+Route::post('kontrak-induk-khs/import', [KontrakIndukController::class, 'import'])->middleware('auth');
 Route::post('/checkKontrakInduk', [KontrakIndukController::class, 'checkKontrakInduk'])->middleware('auth');
+Route::post('/checkKontrakInduk_edit', [KontrakIndukController::class, 'checkKontrakInduk_edit'])->middleware('auth');
 Route::resource('kontrak-induk-khs', KontrakIndukController::class)->middleware('auth');
 Route::any('kontrak-induk-khs/filter', [KontrakIndukController::class, 'filterkontrakinduk'])->middleware('auth');
 Route::get('/search-kontrak-induk', [KontrakIndukController::class, 'searchkontrakinduk'])->middleware('auth');
@@ -105,6 +108,7 @@ Route::get('/search-kontrak-induk', [KontrakIndukController::class, 'searchkontr
 Route::get('/addendum-khs/create-xlsx', [AddendumController::class, 'create_xlsx'])->middleware('auth');
 Route::post('addendum-khs/import', [AddendumController::class, 'import'])->middleware('auth');
 Route::post('/checkAddendum', [AddendumController::class, 'checkAddendum'])->middleware('auth');
+Route::post('/checkAddendum_edit', [AddendumController::class, 'checkAddendum_edit'])->middleware('auth');
 Route::resource('addendum-khs', AddendumController::class)->middleware('auth');
 Route::any('addendum-khs/filter', [AddendumController::class, 'filteraddendum'])->middleware('auth');
 Route::get('/search-addendum-khs', [AddendumController::class, 'searchaddendumkhs'])->middleware('auth');
@@ -134,6 +138,7 @@ Route::any('rincian/filter', [RincianIndukController::class, 'filter'])->middlew
 Route::get('/search-rincian', [RincianIndukController::class, 'searchRincian'])->middleware('auth');
 Route::get('deleteitem/{id}', [RincianIndukController::class, 'destroy'])->middleware('auth');
 Route::post('/checkItem', [RincianIndukController::class, 'checkItem'])->middleware('auth');
+Route::post('/checkItem_edit', [RincianIndukController::class, 'checkItem_edit'])->middleware('auth');
 
 //PO KHS
 Route::get('po-khs/buat-po', [RabController::class, 'buat_po_khs'])->middleware('auth');
@@ -141,7 +146,7 @@ Route::get('po-khs/edit-po/{slug}', [RabController::class, 'edit_po_khs'])->midd
 Route::put('po-khs/edit-po/{slug}', [RabController::class, 'update_po_khs'])->middleware('auth');
 Route::post('simpan-po-khs', [RabController::class, 'simpan_po_khs'])->middleware('auth');
 Route::post('/checkPO', [RabController::class, 'checkPO'])->middleware('auth');
-Route::resource('po-khs', RabController::class)->middleware('auth');;
+Route::resource('po-khs', RabController::class)->middleware('auth');
 Route::get('export-pdf-khs/{slug}', [RabController::class, 'export_pdf_khs'])->middleware('auth');
 Route::get('preview-pdf-khs/{slug}', [RabController::class, 'preview_pdf_khs'])->middleware('auth');
 Route::get('/search-pokhs', [RabController::class, 'searchpokhs'])->middleware('auth');
@@ -155,6 +160,7 @@ Route::resource('prk', PrkController::class)->middleware('auth');
 Route::any('prk/filter', [PrkController::class, 'filterprk'])->middleware('auth');
 Route::get('/search-prk', [PrkController::class, 'searchprk'])->middleware('auth');
 Route::post('/checkPRK', [PrkController::class, 'checkPRK'])->middleware('auth');
+Route::post('/checkPRK_edit', [PrkController::class, 'checkPRK_edit'])->middleware('auth');
 Route::resource('skk', SkkController::class)->middleware('auth');
 Route::get('/search-skk', [SkkController::class, 'searchskk'])->middleware('auth');
 Route::post('/getSKK', [SkkController::class, 'getSKK'])->middleware('auth');
@@ -164,6 +170,7 @@ Route::post('/getItem', [SkkController::class, 'getItem'])->middleware('auth');
 Route::post('/getKontrakInduk', [SkkController::class, 'getKontrakInduk'])->middleware('auth');
 Route::post('/getKontrak_Induk', [SkkController::class, 'getKontrak_Induk'])->middleware('auth');
 Route::post('/checkSKK', [SkkController::class, 'checkSKK'])->middleware('auth');
+Route::post('/checkSKK_edit', [SkkController::class, 'checkSKK_edit'])->middleware('auth');
 // Route::post('skk/check-no-skk.php');
 
 
@@ -174,6 +181,7 @@ Route::get('paket-pekerjaan/{jenis_khs}/create', [PaketPekerjaanController::clas
 Route::post('paket-pekerjaan/{jenis_khs}/create', [PaketPekerjaanController::class, 'store'])->middleware('auth');
 Route::post('paket-pekerjaan/{jenis_khs}/import', [PaketPekerjaanController::class, 'import'])->middleware('auth');
 Route::post('/checkPaketPekerjaan', [PaketPekerjaanController::class, 'checkPaketPekerjaan'])->middleware('auth');
+Route::post('/checkPaketPekerjaan_edit', [PaketPekerjaanController::class, 'checkPaketPekerjaan_edit'])->middleware('auth');
 Route::get('paket-pekerjaan/{jenis_khs}/{slug}/edit', [PaketPekerjaanController::class, 'edit'])->middleware('auth')->name('paket-pekerjaan.edit');
 Route::delete('paket-pekerjaan/{jenis_khs}/{slug}', [PaketPekerjaanController::class, 'destroy'])->middleware('auth');
 Route::any('paket-pekerjaan/{jenis_khs}/filter', [PaketPekerjaanController::class, 'filterPaket'])->middleware('auth');
@@ -220,6 +228,8 @@ Route::resource('non-po-hpe', NonPoHpeController::class)->middleware('auth');
 
 Route::get('hpe/export-pdf-khs/{id}', [HpeController::class, 'export_pdf_khs'])->middleware('auth');
 Route::resource('hpe', HpeController::class)->middleware('auth');
+
+Route::resource('pengesahan-hpe', PengesahanHpeController::class)->middleware('auth');
 
 Route::get('download-hpe/{id}', [HpeController::class, 'download'])->middleware('auth');
 
