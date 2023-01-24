@@ -184,7 +184,7 @@
         var nama_vendor = $('#filter-kontrak-induk-vendor').val();
         console.log(nama_vendor);
         // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
-        tableKontrakInduk.columns(4).search(nama_vendor).draw();
+        tableKontrakInduk.columns(4).search(nama_vendor.join('|'), true, false, true).draw();
     });
 
 
