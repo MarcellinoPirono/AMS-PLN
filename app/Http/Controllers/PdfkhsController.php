@@ -353,7 +353,11 @@ class PdfkhsController extends Controller
             $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
             $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
             $lampiran_file = $request->file('lampiran')->store('temp');
-            $oMerger->addPDF($lampiran_file->getPathName(), 'all');
+            dd($lampiran_file);
+            $path3 = 'Lampiran.pdf';
+            Storage::disk('local')->put($path3, $lampiran_file->output());
+
+            $oMerger->addPDF(Storage::disk('local')->path($path3), 'all');
 
             $oMerger->merge();
             $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
