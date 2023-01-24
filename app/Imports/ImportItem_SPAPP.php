@@ -8,9 +8,11 @@ use App\Models\Khs;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
 
-class ImportItem_SPAPP implements ToModel, WithHeadingRow
+
+class ImportItem_SPAPP implements ToModel, WithHeadingRow, WithValidation
 {
     /**
     * @param array $row
@@ -54,14 +56,30 @@ class ImportItem_SPAPP implements ToModel, WithHeadingRow
         return  [
             'khs_id' => 'required',
             'kategori' => 'required',
-            'nama_item' => 'required',
+            'nama_item' => 'required|unique:rincian_induks',
             'satuan_id' => 'required',
-            'harga_satuan' => 'required',
-            'tkdn' => 'required',
+            'harga_satuan' => 'required|numeric',
+            'tkdn' => 'required|numeric',
 
         ];
 
 
     }
+
+    public function customValidationMessages()
+    {
+        return [
+            'nama_item.required' => 'Kolom nama_item tidak boleh Kosong !',
+            'nama_item.unique' => 'nama_item sudah ada !',
+            'khs_id.required' => 'Kolom khs_id tidak boleh Kosong !',
+            'kategori.required' => 'Kolom kategori tidak boleh Kosong !',
+            'satuan_id.required' => 'Kolom satuan_id tidak boleh Kosong !',
+            'harga_satuan.numeric' => 'Kolom harga_satuan harus numeric',
+            'harga_satuan.required' => 'Kolom harga_satuan tidak boleh Kosong !',
+            'tkdn.required' => 'Kolom tkdn tidak boleh Kosong !',
+            'tkdn.numeric' => 'Kolom tkdn harus numeric',
+        ];
+    }
+
 
 }

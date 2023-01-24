@@ -58,7 +58,7 @@ class KontrakIndukController extends Controller
 
     $file = $request->file('select_file');
     $nama_file = rand().$file->getClientOriginalName();
-    $file->move('file_kontrak_induk', $nama_file);
+    $file->move('storage/storage/file_kontrak_induk', $nama_file);
 
 
     $import = Excel::import(new KontrakIndukImport, public_path('/file_kontrak_induk/'.$nama_file));

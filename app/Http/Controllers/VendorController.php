@@ -52,12 +52,13 @@ class VendorController extends Controller
       'select_file'  => 'required|mimes:xls,xlsx'
      ]);
 
-    $file = $request->file('select_file');
-    $nama_file = rand().$file->getClientOriginalName();
-    $file->move('file_vendor', $nama_file);
+    // $file = $request->file('select_file');
+    // $nama_file = rand().$file->getClientOriginalName();
+    // $file->move('storage/storage/file_vendor', $nama_file);
 
 
-    $import = Excel::import(new VendorImport, public_path('/file_vendor/'.$nama_file));
+    // $import = Excel::import(new VendorImport, public_path('/file_vendor/'.$nama_file));
+    $import = Excel::import(new VendorImport, $request->file('select_file')->store('temp'));
 
     // Session::flash('sukses','Data Siswa Berhasil Diimport!');
 

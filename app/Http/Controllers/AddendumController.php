@@ -59,7 +59,7 @@ class AddendumController extends Controller
 
     $file = $request->file('select_file');
     $nama_file = rand().$file->getClientOriginalName();
-    $file->move('file_addendum', $nama_file);
+    $file->move('storage/storage/file_addendum', $nama_file);
 
 
     $import = Excel::import(new AddendumImport, public_path('/file_addendum/'.$nama_file));

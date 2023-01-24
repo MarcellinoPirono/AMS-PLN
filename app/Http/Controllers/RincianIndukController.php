@@ -116,52 +116,29 @@ class RincianIndukController extends Controller
     function import(Request $request)
     {
 
+            $request->validate([
+                'select_file'  => 'required|mimes:xls,xlsx|'
+            ]);
+
+            // dd($request);
+
+            $jenis_khs = $request->jenis_khs;
+
+            if ($request->file('select_file')) {
+                # code...
+                // $file = $request->file('select_file');
+                // $nama_file = Carbon::now()->format('Y-m-d') . $file->getClientOriginalName();
+                // $file->move('storage/storage/file_itemspapp', $nama_file);
 
 
-    $request->validate([
-        'select_file'  => 'required|mimes:xls,xlsx|'
-    ]);
-
-    // dd($request);
-
-    $jenis_khs = $request->jenis_khs;
-
-    if ($request->file('select_file')) {
-        # code...
-        $file = $request->file('select_file');
-        $nama_file = Carbon::now()->format('Y-m-d') . $file->getClientOriginalName();
-        $file->move('storage/storage/file_itemspapp', $nama_file);
+                $import = new MultiSheetImport();
+                $import->onlySheets(0);
+                Excel::import($import, $request->file('select_file')->store('temp'));
+                $rules = [];
 
 
-        $import = new MultiSheetImport();
-        // Excel::selectSheetsByIndex(0)->load();
-
-        $import->onlySheets(0);
-        Excel::import($import, public_path('/file_itemspapp/'.$nama_file));
-        $rules = [];
-
-
-        // if ($validator->fails()) {
-        //     return back()->with('errors', $validator->messages()->all()[0])->withInput();
-        // }
-
-        // dd(Excel::import($import->conditionalSheets(0), public_path('/file_itemspapp/'.$nama_file)));
-        // if (Excel::import($import->conditionalSheets(0), public_path('/file_itemspapp/'.$nama_file))) {
-        //     $rules = $import->conditionalSheets(0)->rules($rules);
-        //     $validator = Validator::make($request->all(), $rules);
-        //     dd($validator);
-        //     // if ($validator->fails()) {
-        //     //     return back()->with('errors', $validator->messages())->withInput();
-        //     // }
-        //     // return redirect('item-khs/'.$jenis_khs.'')->withError($import->rules($rules));
-
-        // }
-        // else{
-        //     $import->onlySheets(0);
-        //     Excel::import($import, public_path('/file_itemspapp/'.$nama_file));
-        // }
-            return redirect('item-khs/'.$jenis_khs.'')->withSuccess('Import File Berhasil');
-    }
+                return redirect('item-khs/'.$jenis_khs.'')->withSuccess('Import File Berhasil');
+            }
 
     }
 

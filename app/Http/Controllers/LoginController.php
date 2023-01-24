@@ -33,9 +33,10 @@ class LoginController extends Controller
         //     return redirect()->intended('/dashboard');
         // }
         if (Auth::attempt($credentials)) {
+            // dd($credentials);
             $request->session()->regenerate();
 
-            Alert::success('Login Telah Berhasil', 'Selamat Datang');
+            Alert::success('Login Telah Berhasil', 'Selamat Datang di SIPAKAINGA '.$request->username.'');
             return redirect()->route('dashboard');
         }
         else {
@@ -54,7 +55,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-        Alert::info('Logout Berhasil', 'Anda Telah Logout');
+        Alert::toast('Logout Berhasil', 'info');
 
         return redirect('/login');
     }

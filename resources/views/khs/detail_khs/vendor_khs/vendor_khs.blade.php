@@ -1,14 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-    @if (session()->has('status'))
-        <div class="alert alert-success alert-dismissible alert-alt fade show">
-            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i
-                        class="mdi mdi-close"></i></span>
-            </button>
-            <strong>Success!</strong> {{ session('status') }}
-        </div>
-    @endif
 
     <div class="row">
         <div class="col-lg-12">
@@ -59,7 +51,7 @@
                                                 <a href="/vendor-khs/{{ $vendor->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                <button value="{{$vendor->id}}" class="btn btn-danger shadow btn-xs sharp" onclick="deleteItem(this)"><i
                                                         class="fa fa-trash"></i></button>
 
                                             </div>
@@ -128,13 +120,10 @@
     });
 </script>
 
-@endsection
 <script>
-    $(document).ready(function() {
-        $('.btndelete').click(function(e) {
-            e.preventDefault();
+    function deleteItem(id) {
 
-            var deleteid = $(this).closest("tr").find('.delete_id').val();
+            var deleteid = id.value;
 
             swal({
                     title: "Apakah anda yakin?",
@@ -177,6 +166,8 @@
                         });
                     }
                 });
-        });
-    });
+        }
 </script>
+
+@endsection
+

@@ -79,7 +79,7 @@
 </div>
 
     {{-- Modal EDIT --}}
-    <div class="modal fade" id="category_form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="resetpassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -123,7 +123,7 @@
     $(document).ready(function() {
 
        $('.btnpass').click(function(e) {
-        $('#category_form').modal('show');
+        $('#resetpassword').modal('show');
 
             $('#form_reset_password').validate({
                 rules:{
@@ -157,7 +157,7 @@
                 //     url: "{{ route('user.edit_password')}}",
                 //     type: 'GET',
                 //     success: function(response) {
-                //         $('#category_form').modal('show');
+                //         $('#resetpassword').modal('show');
 
                 //         $('#form_reset_password').validate({
                 //             rules:{
