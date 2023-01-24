@@ -42,7 +42,7 @@
                             <div class="media-body text-white">
                                 <p class="mb-1">PPN</p>
                                 <input type="hidden" value="{{ $ppn }}" id="ppn">
-                                <h3 class="text-white">{{ $ppn }} %</h3>
+                                <h3 class="text-white">{{ str_replace('.',',', $ppn)}} %</h3>
                             </div>
                         </div>
                     </div>
@@ -97,6 +97,51 @@
                 $(row).addClass('selected')
             }
         });
+
+        var ppn = document.getElementById('edit_ppn');
+
+        ppn.addEventListener('input', function (prev) {
+            return function (evt) {
+                if(this.value.charAt(0) == "1") {
+                    if(this.value.charAt(1) == "0") {
+                        if(this.value.charAt(2) == "0") {
+                            if(this.value.charAt(3) == ",") {
+                                this.value = prev;
+                            } else {
+                                if (!/^\d{0,3}(?:\,\d{0,2})?$/.test(this.value)) {
+                                    this.value = prev;
+                                }
+                                else {
+                                    prev = this.value;
+                                }
+                            }
+                        } else {
+                            if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                                this.value = prev;
+                            }
+                            else {
+                                prev = this.value;
+                            }
+                        }
+                    } else {
+                        if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                            this.value = prev;
+                        } else {
+                            prev = this.value;
+                        }
+                    }
+                } else if (this.value.charAt(0) == ","){
+                    this.value = "";
+                } else {
+                    if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                        this.value = prev;
+                    }
+                    else {
+                        prev = this.value;
+                    }
+                }
+            };
+        }(ppn.value), false);
     </script>
 
 
@@ -208,8 +253,12 @@
                     url: 'ppn/' + ppn + '/edit',
                     type: 'GET',
                     success: function(response) {
+                        // console.log(response.result);
+                        var ppn = response.result;
+                        ppn = ppn.toString();
+                        ppn = ppn.replace(/\./g, ",");
                         $('#category_form').modal('show');
-                        $('#edit_ppn').val(response.result);
+                        $('#edit_ppn').val(ppn);
                         console.log("test");
                         $('#edit_valid_khs').validate({
                             rules: {
@@ -232,11 +281,9 @@
                                     type: 'PUT',
                                     data: {
                                         ppn: $('#edit_ppn')
-                                            .val(),
+                                            .val().replace(/\,/g, "."),
                                         old_ppn : $('#ppn')
                                             .val()
-
-
                                     },
                                     success: function(response) {
                                         swal({

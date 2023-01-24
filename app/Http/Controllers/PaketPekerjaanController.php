@@ -62,7 +62,14 @@ class PaketPekerjaanController extends Controller
         $jenis_khs = $request->jenis_khs;
         $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
         $items = RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'DESC')->get();
-        // $count_item =;
+        $satuan = Satuan::whereIn('singkatan', ['kg', 'meter', 'panel', 'gr', 'roll', 'sel', 'liter'])->get('singkatan');
+        // dd($satuan);
+        $satuan_non_desimal = [];
+        for($i=0; $i < count($satuan); $i++){
+            $satuan_desimal[$i] =$satuan[$i]->singkatan;
+        }
+        // dd($satuan_non_desimal);
+
 
         // if ($request->ajax()) {
             // dd($jenis_khs);
@@ -91,7 +98,8 @@ class PaketPekerjaanController extends Controller
                 'active' => 'Paket-Pekerjaan',
                 'active1' => 'Tambah Paket Pekerjaan ',
                 'jenis_khs' => $jenis_khs,
-                'items' => $items
+                'items' => $items,
+                'satuan_desimal' => $satuan_desimal
             ],
         );
     }

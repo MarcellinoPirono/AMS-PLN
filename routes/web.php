@@ -268,4 +268,5 @@ Route::controller(UserController::class)->group(function () {
 });
 
 Route::post('/checkUsername', [UserController::class, 'checkUsername'])->middleware('auth');
+Route::post('/checkUsername_edit', [UserController::class, 'checkUsername_edit'])->middleware('auth');
 

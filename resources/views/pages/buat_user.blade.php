@@ -43,7 +43,8 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">No. HP :</label>
-                                    <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="No. HP" onkeypress="return onlyNumberKey(event)">
+                                    <input type="text" class="form-control" id="no_hp" name="no_hp"
+                                        placeholder="No. HP" onkeypress="return onlyNumberKey(event)">
                                 </div>
                                 <div class="form group justify-content-center col-6">
                                     <label class="text-label">Pilih Role User :</label>
@@ -67,48 +68,30 @@
                                             placeholder="Enter a username..">
                                     </div>
                                     <!-- <label class="text-label">Username</label>
-                                        <div class="input-group">
-                                            {{-- <div class="input-group-prepend">
+                                                            <div class="input-group">
+                                                                {{-- <div class="input-group-prepend">
                                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                         </div> --}}
-                                            <input style="border-radius: 1.5rem" type="text" class="form-control"
-                                                id="username" name="username" placeholder="Enter a Username..">
-                                            <i style="padding-top: 3px;" class="fa-solid fa-user"></i>
-                                        </div> -->
+                                                                <input style="border-radius: 1.5rem" type="text" class="form-control"
+                                                                    id="username" name="username" placeholder="Enter a Username..">
+                                                                <i style="padding-top: 3px;" class="fa-solid fa-user"></i>
+                                                            </div> -->
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="text-label">Password *</label>
-                                    <div class="input-group transparent-append">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
+                                    <label class="text-label">Password</label>
+                                    <div class="input-group transparent-append" style="border-radius: 1.5rem">
+                                        <div class="input-group-append show-pass" style="border-radius: 1.5rem">
+                                            <span class="input-group-text" style="border-top-left-radius: 1.5rem; border-bottom-left-radius: 1.5rem">
                                                 <i class="fa fa-eye-slash"></i>
                                                 <i class="fa fa-eye"></i>
                                             </span>
                                         </div>
-                                        <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Choose a safe one..">
-                                        <div class="input-group-append show-pass ">
-
-                                        </div>
+                                        <input style="border-radius-right: 1.5rem" type="password" class="form-control" id="password"
+                                            name="password" placeholder="Choose a safe one..">
                                     </div>
 
-                                    <div class="form-group">
-                                            <label class="text-label">Password *</label>
-                                            <div class="input-group transparent-append">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                                </div>
-                                                <input type="password" class="form-control" id="dz-password" name="val-password" placeholder="Choose a safe one..">
-                                                <div class="input-group-append show-pass ">
-                                                    <span class="input-group-text ">
-														<i class="fa fa-eye-slash"></i>
-														<i class="fa fa-eye"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
                                     <!-- <label class="text-label">Password *</label>
-                                            {{-- <div class="input-group transparent-append">
+                                                                {{-- <div class="input-group transparent-append">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                         </div>
@@ -120,18 +103,18 @@
                                                 <i class="fa fa-eye"></i>
                                             </span>
                                         </div>
-                                    </div> --}}
-                                            <div class="input-group">
+                                    </div> --}} -->
+                                    <!-- <div class="input-group">
 
-                                                <input style="border-radius: 1.5rem" type="password" class="form-control"
-                                                    placeholder="Password..." id="password" name="password">
-                                                <div class="input-group-append show-pass ">
-                                                    <span class="input-group-text ">
-                                                        <i class="fa fa-eye-slash"></i>
-                                                        <i class="fa fa-eye"></i>
-                                                    </span>
-                                                </div>
-                                            </div> -->
+                                                                    <input style="border-radius: 1.5rem" type="password" class="form-control"
+                                                                        placeholder="Password..." id="password" name="password">
+                                                                    <div class="input-group-append show-pass ">
+                                                                        <span class="input-group-text ">
+                                                                            <i class="fa fa-eye-slash"></i>
+                                                                            <i class="fa fa-eye"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div> -->
 
                                 </div>
 
@@ -169,44 +152,26 @@
 
 
     <script>
-        const passwordInput = document.querySelector("#password")
-        const eye = document.querySelector("#eye");
-
-        eye.addEventListener("click", function() {
-            this.classList.toggle("fa-eye-slash")
-            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
-            passwordInput.setAttribute("type", type)
+        jQuery(document).ready(function() {
+            jQuery('.show-pass').on('click', function() {
+                jQuery(this).toggleClass('active');
+                if (jQuery('#password').attr('type') == 'password') {
+                    jQuery('#password').attr('type', 'text');
+                } else if (jQuery('#password').attr('type') == 'text') {
+                    jQuery('#password').attr('type', 'password');
+                }
+            });
         });
+    </script>
 
+    <script>
         function onlyNumberKey(evt) {
-              // Only ASCII character in that range allowed
-              var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-              if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-                  return false;
-              return true;
+            // Only ASCII character in that range allowed
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+            return true;
         }
-
-        // function tandapemisahtel(b) {
-        //     b = b.toString();
-        //     c = "";
-        //     panjang = b.length;
-        //     j = 0;
-
-        // }
-        // jQuery(document).ready(function() {
-
-        //     jQuery('.show-pass').on('click', function() {
-        //         jQuery(this).toggleClass('active');
-        //         if (jQuery('#password').attr('type') == 'password') {
-        //             jQuery('#password').attr('type', 'text');
-        //         } else if (jQuery('#password').attr('type') == 'text') {
-        //             jQuery('#password').attr('type', 'password');
-        //         }
-        //     });
-
-
-
-        // });
     </script>
 
 
@@ -319,8 +284,6 @@
                         required: "Silakan Isi No. HP",
                         number: "Silakan Masukkan Nomor HP"
                     },
-
-
                 },
                 submitHandler: function(form) {
                     event.preventDefault();

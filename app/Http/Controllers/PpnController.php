@@ -36,10 +36,7 @@ class PpnController extends Controller
         $ppn = (float)$request->ppn;
 
         $request->validate([
-
-
             'ppn' => 'required',
-
         ]);
         $Ppnmodel = Ppnmodel::where('ppn', $request->old_ppn)->get();
         $Ppnmodel[0]->ppn = $ppn;

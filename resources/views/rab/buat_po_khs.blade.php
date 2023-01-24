@@ -587,7 +587,7 @@
                                                                             <th style="width: 24%"></th>
                                                                         </tr>
                                                                         <tr>
-                                                                            <th style="padding-left: 35px">PPN {{ $ppn[0]->ppn }}%</th>
+                                                                            <th style="padding-left: 35px">PPN {{ str_replace('.',',', $ppn[0]->ppn) }}%</th>
                                                                             <th>:</th>
                                                                             <th id="pajak"></th>
                                                                             <th></th>
@@ -1009,7 +1009,7 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="2" align="center"
-                                                                                    valign="middle"><b>PPN {{ $ppn[0]->ppn }}%</b></td>
+                                                                                    valign="middle"><b>PPN {{ str_replace('.',',', $ppn[0]->ppn) }}%</b></td>
                                                                                 <td class="tabellkanan" id="td_ppn"
                                                                                     style="font-weight: bold"
                                                                                     align="right">

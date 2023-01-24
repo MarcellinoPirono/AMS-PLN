@@ -134,7 +134,6 @@ class UserController extends Controller
     public function update(Request $request)
     {
         // dd($request);
-//
         $id = User::where('username', $request->username_old)->value('id');
         $users = User::findOrFail($id);
 
@@ -223,6 +222,23 @@ class UserController extends Controller
 
         if(count($checkUsername) > 0) {
             echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
+
+    public function checkUsername_edit(Request $request) {
+        $username = $request->post('username');
+        $old_username = $request->post('old_username');
+        $checkUsername = User::where('username', $username)->get();
+        // dd($checkUsername, $old_username);
+
+        if(count($checkUsername) > 0) {
+            if($checkUsername[0]->username == $old_username) {
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+            }
         } else {
             echo json_encode(true);
         }

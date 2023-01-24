@@ -15,7 +15,6 @@ class SatuanSeeder extends Seeder
      */
     public function run()
     {
-
         Satuan::create([
             'singkatan' => 'plg',
             'kepanjangan' => 'Pelanggan',

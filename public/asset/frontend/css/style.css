@@ -35802,13 +35802,60 @@ input[type="checkbox"]:checked:after {
 }
 
 .show-pass {
-    cursor: pointer; }
-    .show-pass .fa-eye {
-      display: none; }
-    .show-pass.active .fa-eye-slash {
-      display: none; }
-    .show-pass.active .fa-eye {
-      display: inline-block; }
+    cursor: pointer;
+}
+
+.show-pass .fa-eye {
+    display: none;
+}
+
+.show-pass.active .fa-eye-slash {
+    display: none;
+}
+
+.show-pass.active .fa-eye {
+    display: inline-block;
+}
+
+.show-pass2 {
+    cursor: pointer;
+}
+
+.show-pass2 .fa-eye {
+    display: none;
+}
+
+.show-pass2.active .fa-eye-slash {
+    display: none;
+}
+
+.show-pass2.active .fa-eye {
+    display: inline-block;
+}
+
+.show-pass2.accordion-no-gutter .fa-eye {
+    display: inline-block;
+}
+
+.show-pass3 {
+    cursor: pointer;
+}
+
+.show-pass3 .fa-eye {
+    display: none;
+}
+
+.show-pass3.active .fa-eye-slash {
+    display: none;
+}
+
+.show-pass3.active .fa-eye {
+    display: inline-block;
+}
+
+.show-pass3.accordion-no-gutter .fa-eye {
+    display: inline-block;
+}
 
 .asColorPicker-dropdown {
     max-width: 26rem;

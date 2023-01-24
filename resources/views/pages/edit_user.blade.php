@@ -32,23 +32,18 @@
                             <div class="form-row justify-content-center">
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Nama :</label>
-
                                     <input type="text" class="form-control" id="name" name="name"
                                         placeholder="name" value="{{ old('name', $users->name) }}">
-
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Email :</label>
-
                                     <input type="text" class="form-control" id="email" name="email"
                                         placeholder="email" value="{{ old('email', $users->email) }}">
-
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="text-label">No. HP :</label>
-
                                     <input type="text" class="form-control" id="no_hp" name="no_hp"
-                                        placeholder="No. HP" value="{{ old('no_hp', $users->no_hp) }}">
+                                        placeholder="No. HP" value="{{ old('no_hp', $users->no_hp) }}" onkeypress="return onlyNumberKey(event)">
                                     <input type="hidden" class="form-control" id="old_pic_profile" name="old_pic_profile"
                                         value="{{ old('pic_profile', $users->pic_profile) }}">
                                 </div>
@@ -67,20 +62,18 @@
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Username</label>
                                     <div class="input-group">
-
-                                        <input style="border-radius: 1.5rem" type="text" class="form-control" id="new_username" name="new_username"
+                                        <input style="border-radius: 1.5rem" type="text" class="form-control" id="username" name="username"
                                             placeholder="Enter a username.."
                                             value="{{ old('username', auth()->user()->username) }}">
-                                            <i style="padding-top: 3px;" class="fa-solid fa-user" ></i>
+                                        <input type="hidden" id="old_username" value="{{ auth()->user()->username }}">
+                                        {{-- <i style="padding-top: 3px;" class="fa-solid fa-user" ></i> --}}
                                     </div>
                                 </div>
-
                                 <div class="col-md-12 justify-content-end float-right mt-5">
                                     <button type="submit" id="btntambah"
                                         class="btn btn-primary position-relative justify-content-end">Edit User</button>
                                 </div>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -117,14 +110,16 @@
                     jQuery('#password').attr('type', 'password');
                 }
             });
-
-
-
         });
+
+        function onlyNumberKey(evt) {
+            // Only ASCII character in that range allowed
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+            return true;
+        }
     </script>
-
-
-
     <script>
         $(document).ready(function() {
             FilePond.registerPlugin(
@@ -143,9 +138,6 @@
             let url = '{{ asset('/storage/' . $users->pic_profile . '') }}';
             let token = $('#csrf').val();
             let username = $('#username').val();
-
-
-            console.log(url);
 
             const inputElement = document.querySelector('input[id="pic_profile"]');
             // const inputElement = document.querySelector('fieldset');
@@ -188,46 +180,54 @@
 
                     },
                 }],
-
-
-
             });
+            var old_username = document.getElementById('old_username').value;
 
             $('#edit_user').validate({
                 rules: {
                     username: {
-                        required: true
+                        required: true,
+                        remote: {
+                            url: "/checkUsername_edit",
+                            type: "post",
+                            data: {
+                                'old_username': old_username
+                            }
+                        }
                     },
-
                     name: {
                         required: true
                     },
                     email: {
-                        required: true
+                        required: true,
+                        email: true
                     },
                     role: {
                         required: true
                     },
                     no_hp: {
-                        required: true
+                        required: true,
+                        number: true
                     }
                 },
                 messages: {
                     username: {
-                        required: "Silakan Isi Username"
+                        required: "Silakan Isi Username",
+                        remote: "Username Sudah Ada"
                     },
-
                     name: {
-                        required: "Silakan Isi name"
+                        required: "Silakan Isi Nama"
                     },
                     email: {
-                        required: "Silakan Isi email"
+                        required: "Silakan Isi Email",
+                        email: "Silakan Isi Email yang Valid"
                     },
                     role: {
-                        required: "Silakan pilih role"
+                        required: "Silakan pilih Role"
                     },
                     no_hp: {
-                        required: "Silakan Isi hp"
+                        required: "Silakan Isi No. HP",
+                        number: "Silakan Masukkan Nomor HP"
                     },
                 },
                 submitHandler: function(form) {
