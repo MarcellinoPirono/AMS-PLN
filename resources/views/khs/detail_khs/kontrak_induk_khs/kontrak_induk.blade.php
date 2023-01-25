@@ -205,11 +205,16 @@
     // $('#filter-kontrak-induk-vendor').on("change", function(event){
     $('#items2').on("change", function(event){
         var flags = Array();
-        console.log(this);
-        $("input:checkbox[name=filter]:checked", $(this).children("ul").first()).each(function(){
-            console.log(this);
-            flags.push($(this).val());
-        });
+        // console.log("input:checkbox[name=filter]:checked", $(this).first());
+        // $("input:checkbox[name=filter]:checked", $(this).first()).each(function(){
+        //     console.log($(this).val());
+        //     flags.push($(this).val());
+        // });
+        // console.log(flags);
+        // var ul = $(this);
+        // console.log(ul);
+        // flags = ul.find("input:checked");
+        // flags = ul.find("input:checked").map(function(){return this.value});
         console.log(flags);
         // var nama_vendor = $('#items2').val();
         // console.log(nama_vendor);

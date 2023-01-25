@@ -69,6 +69,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 d-flex justify-content-center">
+                                    <a type="button" class="btn btn-danger mr-3" href="/">Back</a>
                                     <button type="submit" id="btntambah"
                                         class="btn btn-primary">Edit User</button>
                                 </div>

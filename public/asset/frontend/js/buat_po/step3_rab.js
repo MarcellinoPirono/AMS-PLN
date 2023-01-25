@@ -864,6 +864,7 @@ function change_item(c) {
     // item_id = item_id.replace(/\ /g, "-");
     // item_id = item_id.replace(/\//g, "_");
     // console.log("yy", item_id);
+    var satuan_non_desimal = ['kg', 'meter', 'panel', 'gr', 'roll', 'sel', 'liter'];
     let token = $('#csrf').val();
     $.ajax({
         url: '/getItem',
@@ -873,10 +874,14 @@ function change_item(c) {
             '_token': token,
         },
         success: function (response) {
-            console.log(response);
-            console.log(change);
-            console.log(response["nama_items"][0].kategori);
-            console.log(response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")");
+            console.log(satuan_non_desimal);
+            if(satuan_non_desimal.includes(response["satuans"][0][0].singkatan)) {
+                document.getElementById('volume['+ change +']').onkeypress = "return numbersonly2(this, event);"
+            }
+            // console.log(response);
+            // console.log(change);
+            // console.log(response["nama_items"][0].kategori);
+            // console.log(response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")");
             document.getElementById('item_id['+ change +']').title = response["nama_items"][0].nama_item;
             // row.getElementsByName("kategory_id")[0].value = response["nama_items"][0].kategori;
             document.getElementById("kategory_id[" + change + "]").value = response["nama_items"][0].kategori;
