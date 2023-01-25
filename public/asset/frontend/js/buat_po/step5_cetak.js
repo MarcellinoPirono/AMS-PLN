@@ -181,8 +181,9 @@ function SubmitTKDN() {
             })
                 .then((willCreate) => {
                     if (willCreate) {
-
-                        console.log(fd);
+                        document.getElementById('main-wrapper').style.cursor = "wait"
+                        document.getElementById('btnFinish').setAttribute('disabled', true);
+                        // console.log(fd);
                         $.ajax({
                             type: 'POST',
                             url: "/cetak-pdf-tkdn",
@@ -247,8 +248,9 @@ function SubmitTKDN() {
             })
                 .then((willCreate) => {
                     if (willCreate) {
-
-                        console.log(fd);
+                        document.getElementById('main-wrapper').style.cursor = "wait"
+                        document.getElementById('btnFinish').setAttribute('disabled', true);
+                        // console.log(fd);
                         $.ajax({
                             type: 'POST',
                             url: "/cetak-tkdn",
@@ -550,6 +552,8 @@ function SubmitTKDN() {
             })
                 .then((willCreate) => {
                     if (willCreate) {
+                        document.getElementById('main-wrapper').style.cursor = "wait"
+                        document.getElementById('btnFinish').setAttribute('disabled', true);
                         // console.log(fd);
                         $.ajax({
                             type: 'POST',
@@ -564,6 +568,7 @@ function SubmitTKDN() {
                             processData: false,
                             dataType: 'json',
                             success: function (response) {
+
                                 swal({
                                     title: "Data Ditambah",
                                     text: "Data Berhasil Ditambah",
@@ -620,7 +625,9 @@ function SubmitTKDN() {
                 })
                     .then((willCreate) => {
                         if (willCreate) {
-                            console.log(fd);
+                            document.getElementById('main-wrapper').style.cursor = "wait"
+                            document.getElementById('btnFinish').setAttribute('disabled', true);
+                            // console.log(fd);
                             $.ajax({
                                 type: 'POST',
                                 url: "/cetak-paket-tkdn-non-lampiran",
@@ -629,6 +636,7 @@ function SubmitTKDN() {
                                 processData: false,
                                 dataType: 'json',
                                 success: function (response) {
+
                                     swal({
                                         title: "Data Ditambah",
                                         text: "Data Berhasil Ditambah",
@@ -877,8 +885,9 @@ function SubmitNONTKDN() {
                 })
                     .then((willCreate) => {
                         if (willCreate) {
-
-                            console.log(fd);
+                            document.getElementById('main-wrapper').style.cursor = "wait"
+                            document.getElementById('btnFinish').setAttribute('disabled', true);
+                            // console.log(fd);
                             $.ajax({
                                 type: 'POST',
                                 url: "/cetak-non-tkdn-pdf",
@@ -887,6 +896,7 @@ function SubmitNONTKDN() {
                                 processData: false,
                                 dataType: 'json',
                                 success: function (response) {
+
                                     swal({
                                         title: "Data Ditambah",
                                         text: "Data Berhasil Ditambah",
@@ -946,8 +956,9 @@ function SubmitNONTKDN() {
                 })
                     .then((willCreate) => {
                         if (willCreate) {
-
-                            console.log(fd);
+                            document.getElementById('main-wrapper').style.cursor = "wait"
+                            document.getElementById('btnFinish').setAttribute('disabled', true);
+                            // console.log(fd);
                             $.ajax({
                                 type: 'POST',
                                 url: "/cetak-non-tkdn",
@@ -956,6 +967,7 @@ function SubmitNONTKDN() {
                                 processData: false,
                                 dataType: 'json',
                                 success: function (response) {
+
                                     swal({
                                         title: "Data Ditambah",
                                         text: "Data Berhasil Ditambah",
@@ -1236,6 +1248,8 @@ function SubmitNONTKDN() {
                 })
                     .then((willCreate) => {
                         if (willCreate) {
+                            document.getElementById('main-wrapper').style.cursor = "wait"
+                            document.getElementById('btnFinish').setAttribute('disabled', true);
                             // console.log(fd);
                             $.ajax({
                                 type: 'POST',
@@ -1250,6 +1264,7 @@ function SubmitNONTKDN() {
                                 processData: false,
                                 dataType: 'json',
                                 success: function (response) {
+
                                     swal({
                                         title: "Data Ditambah",
                                         text: "Data Berhasil Ditambah",
@@ -1306,7 +1321,9 @@ function SubmitNONTKDN() {
                     })
                         .then((willCreate) => {
                             if (willCreate) {
-                                console.log(fd);
+                                document.getElementById('main-wrapper').style.cursor = "wait"
+                                document.getElementById('btnFinish').setAttribute('disabled', true);
+                                // console.log(fd);
                                 $.ajax({
                                     type: 'POST',
                                     url: "/cetak-paket-non-tkdn-non-lampiran",
@@ -1315,6 +1332,7 @@ function SubmitNONTKDN() {
                                     processData: false,
                                     dataType: 'json',
                                     success: function (response) {
+
                                         swal({
                                             title: "Data Ditambah",
                                             text: "Data Berhasil Ditambah",

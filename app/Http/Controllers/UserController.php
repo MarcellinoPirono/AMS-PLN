@@ -109,12 +109,13 @@ class UserController extends Controller
         $user = User::where('username', $request->username)->value('id');
 
         $user = User::find($user);
+        // dd($username);
 
         $data = [
             'users'  => $user,
             'title' => 'Data User',
             'active' => 'User',
-            'username' => $username,
+            'old_username' => $username,
             'active1' => 'Edit User',
         ];
 

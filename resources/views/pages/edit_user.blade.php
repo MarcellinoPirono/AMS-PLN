@@ -24,8 +24,7 @@
                                         <label style="text-align: center" class="text-label">Profile Picture:</label>
                                         <input type="file" class="filepond" name="pic_profile" id="pic_profile"
                                             data-max-file-size="2MB" accept="image/png, image/jpeg, image/gif" />
-                                        <input type="hidden" id="username_old" name="username_old"
-                                            value="{{ $username }}">
+
                                     </div>
                                 </div>
                             </div>
@@ -62,16 +61,16 @@
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Username</label>
                                     <div class="input-group">
-                                        <input style="border-radius: 1.5rem" type="text" class="form-control" id="username" name="username"
+                                        <input style="border-radius: 1.5rem" type="text" class="form-control" id="new_username" name="new_username"
                                             placeholder="Enter a username.."
-                                            value="{{ old('username', auth()->user()->username) }}">
-                                        <input type="hidden" id="old_username" value="{{ auth()->user()->username }}">
+                                            value="{{ old('new_username', $users->username) }}">
+                                        <input type="hidden" id="old_username" name="old_username" value="{{ $old_username }}">
                                         {{-- <i style="padding-top: 3px;" class="fa-solid fa-user" ></i> --}}
                                     </div>
                                 </div>
-                                <div class="col-md-12 justify-content-end float-right mt-5">
+                                <div class="col-md-12 d-flex justify-content-center">
                                     <button type="submit" id="btntambah"
-                                        class="btn btn-primary position-relative justify-content-end">Edit User</button>
+                                        class="btn btn-primary">Edit User</button>
                                 </div>
                         </form>
                     </div>
@@ -241,7 +240,7 @@
                     console.log(fd);
                     var token = $('#csrf').val();
                     var username = $("#new_username").val();
-                    var username_old = $("#username_old").val();
+                    var username_old = $("#old_username").val();
 
                     var name = $("#name").val();
                     var email = $("#email").val();

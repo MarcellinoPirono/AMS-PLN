@@ -206,6 +206,11 @@ class PaketPekerjaanController extends Controller
         $nama_paket = PaketPekerjaan::where('slug', $slug)->value('nama_paket');
         $item_id = PaketPekerjaan::where('slug', $slug)->get();
         $item_volumes = PaketPekerjaan::where('slug', $slug)->get('volume');
+        $satuan = Satuan::whereIn('singkatan', ['kg', 'meter', 'panel', 'gr', 'roll', 'sel', 'liter'])->get('singkatan');
+        $satuan_non_desimal = [];
+        for($i=0; $i < count($satuan); $i++){
+            $satuan_desimal[$i] =$satuan[$i]->singkatan;
+        }
         // dd($item_volumes);
 
 
@@ -232,7 +237,8 @@ class PaketPekerjaanController extends Controller
             'item_ids' => $item_array,
             // 'item_volumes' => $volume_item_array
             'item_volumes' => $item_id,
-            'slug' => $slug
+            'slug' => $slug,
+            'satuan_desimal' => $satuan_desimal
         ];
         return view('paket-pekerjaan.edit_paket_pekerjaan', $data);
     }

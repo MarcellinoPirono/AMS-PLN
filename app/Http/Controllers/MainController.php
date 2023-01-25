@@ -19,6 +19,9 @@ class MainController extends Controller
             'active' => 'Dashboard',
             'date' => $date,
         ]);
-        
+
+    }
+    public function data()
+    {
     }
 }

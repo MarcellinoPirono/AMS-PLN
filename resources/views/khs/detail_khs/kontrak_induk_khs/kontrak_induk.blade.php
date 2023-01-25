@@ -15,20 +15,36 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-xl-3 col-l-3 col-m-3 col-sm-2 mt-3">
-                        <select multiple id="filter-kontrak-induk-khs" class="form-control filter-kontrak">
+                        <!-- <select id="filter-kontrak-induk-khs" class="form-control filter-kontrak">
                             <option value="">Pilih Jenis KHS</option>
                             @foreach ($khss as $khs)
                                 <option value="{{ $khs->jenis_khs }}">{{ $khs->jenis_khs }}</option>
                             @endforeach
-                        </select>
+                        </select> -->
+                        <div id="list1" class="dropdown-check-list" tabindex="100">
+                            <span class="anchor">Pilih Jenis KHS</span>
+                            <ul id="items" class="items">
+                                @foreach ($khss as $khs)
+                                <li><input type="checkbox" name="filter" />{{ $khs->jenis_khs }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2 mt-3">
-                        <select multiple id="filter-kontrak-induk-vendor" class="form-control filter-kontrak">
+                        <!-- <select id="filter-kontrak-induk-vendor" class="form-control filter-kontrak">
                             <option value="">Pilih Nama Vendor</option>
                             @foreach ($vendors as $vendor)
                                 <option value="{{ $vendor->nama_vendor }}">{{ $vendor->nama_vendor }}</option>
                             @endforeach
-                        </select>
+                        </select> -->
+                        <div id="list2" class="dropdown-check-list" tabindex="100">
+                            <span class="anchor">Pilih Nama Vendor</span>
+                            <ul id="items2" class="items2">
+                                @foreach ($vendors as $vendor)
+                                <li><input type="checkbox" name="filter"/>{{ $vendor->nama_vendor }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
 
                     <a href="/kontrak-induk-khs/create-xlsx" class="btn btn-primary btn-xxs mr-auto ml-3" style="font-size: 13px">Via Excel <i class="fa fa-plus-circle"></i></span>
@@ -161,7 +177,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script data-require="jquery@2.1.1" data-semver="2.1.1"
     src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
 <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
 <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
 
@@ -172,22 +188,70 @@
         }
     });
 
-    $('#filter-kontrak-induk-khs').on("change", function(event){
-        var jenis_khs = $('#filter-kontrak-induk-khs').val();
-        console.log(jenis_khs);
-        // for(i)
-        // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
-        tableKontrakInduk.columns(1).search(jenis_khs).draw();
+    // $('#filter-kontrak-induk-khs').on("change", function(event){
+    $('#items').on("change", function(event){
+        var flags = Array();
+        $("input:checkbox[name=filter]:checked", $(this).parents("ul").first()).each(function(){
+            flags.push($(this).val());
+        });
+        console.log(flags);
+        // var jenis_khs = $('#items').val();
+        // console.log(jenis_khs);
+        // // for(i)
+        // // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
+        // tableKontrakInduk.columns(1).search(jenis_khs).draw();
     });
 
-    $('#filter-kontrak-induk-vendor').on("change", function(event){
-        var nama_vendor = $('#filter-kontrak-induk-vendor').val();
-        console.log(nama_vendor);
-        // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
-        tableKontrakInduk.columns(4).search(nama_vendor.join('|'), true, false, true).draw();
+    // $('#filter-kontrak-induk-vendor').on("change", function(event){
+    $('#items2').on("change", function(event){
+        var flags = Array();
+        console.log(this);
+        $("input:checkbox[name=filter]:checked", $(this).children("ul").first()).each(function(){
+            console.log(this);
+            flags.push($(this).val());
+        });
+        console.log(flags);
+        // var nama_vendor = $('#items2').val();
+        // console.log(nama_vendor);
+        // // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
+        // tableKontrakInduk.columns(4).search(nama_vendor.join('|'), true, false, true).draw();
     });
 
+    $('select[multiple]').multiselect();
 
+
+</script>
+<script>
+    var checkList = document.getElementById('list1');
+    var items = document.getElementById('items');
+        checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+            if (items.classList.contains('visible')){
+                items.classList.remove('visible');
+                items.style.display = "none";
+            }
+            else{
+                items.classList.add('visible');
+                items.style.display = "block";
+            }
+        }
+        items.onblur = function(evt) {
+            items.classList.remove('visible');
+        }
+    var checkList2 = document.getElementById('list2');
+    var items2 = document.getElementById('items2');
+        checkList2.getElementsByClassName('anchor')[0].onclick = function (evt) {
+            if (items2.classList.contains('visible')){
+                items2.classList.remove('visible');
+                items2.style.display = "none";
+            }
+            else{
+                items2.classList.add('visible');
+                items2.style.display = "block";
+            }
+        }
+        items2.onblur = function(evt) {
+            items2.classList.remove('visible');
+        }
 </script>
 @endsection
 <script>

@@ -51,7 +51,7 @@
                                             <img class="rounded-circle" width="40" height="40" src="{{ asset('/storage/'.$user->pic_profile.'') }}" alt=""></td>
 
                                             @else
-                                            <img class="rounded-circle" width="40" height="40" src="{{ asset('/storage/storage/Image-profile/avatar.svg') }}" alt=""></td>
+                                            <img class="rounded-circle" width="40" height="40" src="{{ asset('/asset/frontend/images/avatar/avatar.svg') }}" alt=""></td>
 
 
                                             @endif

@@ -1,13 +1,8 @@
 <div class="header">
-    @csrf
     <div class="header-content">
         <nav class="navbar navbar-expand">
             <div class="collapse navbar-collapse justify-content-between">
                 <div class="header-left">
-                    <!-- <form action="/logout" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-danger" href="/login">Logout</button>
-                    </form> -->
                     <div class="dashboard_bar">
                         {{ $title }}
                     </div>
@@ -21,7 +16,7 @@
                                         src="{{ asset('/storage/' . auth()->user()->pic_profile . '') }}" alt="">
                                 @else
                                     <img width="20" height="20"
-                                        src="{{ asset('/storage/storage/Image-profile/avatar.svg') }}" alt="">
+                                        src="{{ asset('/asset/frontend/images/avatar/avatar.svg') }}" alt="">
                                 @endif
                                 <div class="header-info">
                                     <span class="text-white"><strong>{{ auth()->user()->username }}</strong></span>

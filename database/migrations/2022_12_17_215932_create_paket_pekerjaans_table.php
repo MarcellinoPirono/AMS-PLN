@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('slug');
             $table->foreignId('khs_id');
             $table->foreignId('item_id')->nullable();
-
             $table->double('volume');
             $table->string('jumlah_harga');
             $table->timestamps();
