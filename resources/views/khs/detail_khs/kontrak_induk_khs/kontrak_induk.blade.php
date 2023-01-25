@@ -25,7 +25,7 @@
                             <span class="anchor">Pilih Jenis KHS</span>
                             <ul id="items" class="items">
                                 @foreach ($khss as $khs)
-                                <li><input type="checkbox" name="filter" />{{ $khs->jenis_khs }}</li>
+                                <li><input type="checkbox" name="filter" value="{{ $khs->jenis_khs }}"/>{{ $khs->jenis_khs }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -41,7 +41,7 @@
                             <span class="anchor">Pilih Nama Vendor</span>
                             <ul id="items2" class="items2">
                                 @foreach ($vendors as $vendor)
-                                <li><input type="checkbox" name="filter"/>{{ $vendor->nama_vendor }}</li>
+                                <li><input type="checkbox" name="filter" value="{{ $vendor->nama_vendor }}"/>{{ $vendor->nama_vendor }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -203,24 +203,41 @@
     });
 
     // $('#filter-kontrak-induk-vendor').on("change", function(event){
-    $('#items2').on("change", function(event){
-        var flags = Array();
-        // console.log("input:checkbox[name=filter]:checked", $(this).first());
-        // $("input:checkbox[name=filter]:checked", $(this).first()).each(function(){
-        //     console.log($(this).val());
-        //     flags.push($(this).val());
-        // });
-        // console.log(flags);
-        // var ul = $(this);
-        // console.log(ul);
-        // flags = ul.find("input:checked");
-        // flags = ul.find("input:checked").map(function(){return this.value});
-        console.log(flags);
-        // var nama_vendor = $('#items2').val();
-        // console.log(nama_vendor);
-        // // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
-        // tableKontrakInduk.columns(4).search(nama_vendor.join('|'), true, false, true).draw();
-    });
+    // $('#items2').on("change", function(event){
+    //     var flags = Array();
+    //     console.log($(this).children().children().children());
+    //     $("input:checkbox[name=filter]:checked", $(this).children().children().children().first()).each(function(){
+    //         // console.log($(this).val());
+    //         flags.push($(this).children().children().children().val());
+    //     });
+    //     // console.log(flags);
+    //     // var ul = $(this);
+    //     // console.log(ul);
+    //     // flags = ul.find("input:checked");
+    //     // flags = ul.find("input:checked").map(function(){return this.value});
+    //     console.log(flags);
+    //     // var nama_vendor = $('#items2').val();
+    //     // console.log(nama_vendor);
+    //     // // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
+    //     // tableKontrakInduk.columns(4).search(nama_vendor.join('|'), true, false, true).draw();
+    // });
+    $(document).on("change", "#items2", function() {
+    var flags = $(this).closest('ul').find("input:checkbox[name=filter]:checked").map(function() {
+        return this.value;
+    }).get();
+    tableKontrakInduk.columns(4).search(flags.join('|'), true, false, true).draw();
+
+    // console.log(flags);
+    })
+
+    $(document).on("change", "#items", function() {
+    var flags = $(this).closest('ul').find("input:checkbox[name=filter]:checked").map(function() {
+        return this.value;
+    }).get();
+    tableKontrakInduk.columns(1).search(flags.join('|'), true, false, true).draw();
+
+    // console.log(flags);
+    })
 
     $('select[multiple]').multiselect();
 

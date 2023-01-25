@@ -27,8 +27,8 @@
                                 <th>No. SKK</th>
                                 <th>No. PRK</th>
                                 <th>Supervisor</th>
-                                <th>Total Harga</th>
                                 <th>Status</th>
+                                <th>Total Harga</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>

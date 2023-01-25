@@ -90,7 +90,7 @@
                                                         <td>{{ $item->nama_item }}</td>
                                                         @foreach ($item_volumes as $volume)
                                                             @if ($volume->item_id == $item->id)
-                                                                @if(in_array($item->satuans->singkatan, $satuan_desimal))
+                                                                {{-- @if(in_array($item->satuans->singkatan, $satuan_desimal)) --}}
                                                                     <td><input data-tagname="{{ $item->id }}"
                                                                             onblur="blur_volume(this)"
                                                                             onkeypress="return numbersonly2(this, event);"
@@ -100,8 +100,8 @@
                                                                             name="volume[{{ $item->id }}]"
                                                                             value="{{str_replace('.', ',',$volume->volume)}}" required autofocus
                                                                             placeholder="Volume"></td>
-                                                                @else
-                                                                    <td><input data-tagname="{{ $item->id }}"
+                                                                {{-- @else --}}
+                                                                    {{-- <td><input data-tagname="{{ $item->id }}"
                                                                             onblur="blur_volume(this)"
                                                                             onkeypress="return numbersonly(this, event);"
                                                                             onkeyup="format(this)" type="text"
@@ -109,8 +109,8 @@
                                                                             id="volume[{{ $item->id }}]"
                                                                             name="volume[{{ $item->id }}]"
                                                                             value="{{str_replace('.', ',',$volume->volume)}}" required autofocus
-                                                                            placeholder="Volume"></td>
-                                                                @endif
+                                                                            placeholder="Volume"></td> --}}
+                                                                {{-- @endif --}}
                                                             @endif
                                                         @endforeach
                                                         <td align="center">{{ $item->satuans->singkatan }}</td>

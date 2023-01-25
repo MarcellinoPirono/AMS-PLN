@@ -11,6 +11,8 @@ use App\Models\Skk;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+
 
 class SKKController extends Controller
 {
@@ -19,8 +21,10 @@ class SKKController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request);
+        Gate::allows('Keuangan');
         // if($request->ajax()) {
         //     return view('skk.index',[
         //         'title' => 'SKK',
@@ -39,8 +43,10 @@ class SKKController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-public function create()
+    public function create()
     {
+        Gate::allows('Keuangan');
+
         return view('skk.create', [
             'title' => 'SKK',
             'active' => 'SKK',
@@ -57,6 +63,8 @@ public function create()
      */
     public function store(Request $request)
     {
+        Gate::allows('Keuangan');
+
         $validatedData = $request->validate([
 
             'nomor_skk' => 'required|max:250',
@@ -91,6 +99,8 @@ public function create()
      */
     public function edit($id)
     {
+        Gate::allows('Keuangan');
+
         $skk = Skk::findOrFail($id);
         return view('skk.edit', [
             'title' => 'SKK',
@@ -109,6 +119,8 @@ public function create()
      */
     public function update(Request $request, $id)
     {
+        Gate::allows('Keuangan');
+
         // dd($request);
         $request->validate([
 
@@ -136,6 +148,8 @@ public function create()
      */
     public function destroy(SKK $sKK, $id)
     {
+        Gate::allows('Keuangan');
+
         // dd($id);
         $sKK = SKK::find($id);
         $sKK->prks()->delete();
@@ -148,6 +162,7 @@ public function create()
 
     public function getSKK(Request $request)
     {
+
         $skk_id = $request->post('skk_id');
         $prk = DB::table('prks')->where('no_skk_prk',$skk_id)->orderBy('no_prk')->get();
 
@@ -160,6 +175,7 @@ public function create()
 
     public function getPRK(Request $request)
     {
+
         $prk_id = $request->post('prk_id');
         $pagu_prk = DB::table('prks')->where('id',$prk_id)->get();
         $html = $pagu_prk[0]->prk_sisa;

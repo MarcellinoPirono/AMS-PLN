@@ -62,12 +62,12 @@ class PaketPekerjaanController extends Controller
         $jenis_khs = $request->jenis_khs;
         $khs_id = Khs::where('jenis_khs', $jenis_khs)->value('id');
         $items = RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'DESC')->get();
-        $satuan = Satuan::whereIn('singkatan', ['kg', 'meter', 'panel', 'gr', 'roll', 'sel', 'liter'])->get('singkatan');
+        // $satuan = Satuan::whereIn('singkatan', ['kg', 'meter', 'panel', 'gr', 'roll', 'sel', 'liter'])->get('singkatan');
         // dd($satuan);
-        $satuan_non_desimal = [];
-        for($i=0; $i < count($satuan); $i++){
-            $satuan_desimal[$i] =$satuan[$i]->singkatan;
-        }
+        // $satuan_non_desimal = [];
+        // for($i=0; $i < count($satuan); $i++){
+        //     $satuan_desimal[$i] =$satuan[$i]->singkatan;
+        // }
         // dd($satuan_non_desimal);
 
 
@@ -99,7 +99,7 @@ class PaketPekerjaanController extends Controller
                 'active1' => 'Tambah Paket Pekerjaan ',
                 'jenis_khs' => $jenis_khs,
                 'items' => $items,
-                'satuan_desimal' => $satuan_desimal
+                // 'satuan_desimal' => $satuan_desimal
             ],
         );
     }
@@ -206,11 +206,11 @@ class PaketPekerjaanController extends Controller
         $nama_paket = PaketPekerjaan::where('slug', $slug)->value('nama_paket');
         $item_id = PaketPekerjaan::where('slug', $slug)->get();
         $item_volumes = PaketPekerjaan::where('slug', $slug)->get('volume');
-        $satuan = Satuan::whereIn('singkatan', ['kg', 'meter', 'panel', 'gr', 'roll', 'sel', 'liter'])->get('singkatan');
-        $satuan_non_desimal = [];
-        for($i=0; $i < count($satuan); $i++){
-            $satuan_desimal[$i] =$satuan[$i]->singkatan;
-        }
+        // $satuan = Satuan::whereIn('singkatan', ['kg', 'meter', 'panel', 'gr', 'roll', 'sel', 'liter'])->get('singkatan');
+        // $satuan_non_desimal = [];
+        // for($i=0; $i < count($satuan); $i++){
+        //     $satuan_desimal[$i] =$satuan[$i]->singkatan;
+        // }
         // dd($item_volumes);
 
 
@@ -238,7 +238,7 @@ class PaketPekerjaanController extends Controller
             // 'item_volumes' => $volume_item_array
             'item_volumes' => $item_id,
             'slug' => $slug,
-            'satuan_desimal' => $satuan_desimal
+            // 'satuan_desimal' => $satuan_desimal
         ];
         return view('paket-pekerjaan.edit_paket_pekerjaan', $data);
     }

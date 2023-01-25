@@ -318,7 +318,7 @@ class NonPOController extends Controller
 
         // ]);
 
-        // $pdf2->setPaper('A4', 'potrait');
+        $pdf->setPaper('A4', 'potrait');
 
         // $dom_pdf2 = $pdf2->getDomPDF();
         // $canvas2 = $dom_pdf2->get_canvas();

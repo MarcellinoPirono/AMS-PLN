@@ -87,7 +87,7 @@
                                                     <td align="center"><strong>{{ $loop->iteration }}</strong></td>
                                                     <td>{{ $item->kategori }} </td>
                                                     <td>{{ $item->nama_item }}</td>
-                                                    @if(in_array($item->satuans->singkatan, $satuan_desimal))
+                                                    {{-- @if(in_array($item->satuans->singkatan, $satuan_desimal)) --}}
                                                     <td><input data-tagname="{{ $item->id }}"
                                                             onblur="blur_volume(this)"
                                                             onkeypress="return numbersonly2(this, event);"
@@ -95,15 +95,15 @@
                                                             class="form-control volume_id" id="volume[{{ $item->id }}]"
                                                             name="volume[{{ $item->id }}]" value="" required
                                                             disabled autofocus placeholder="Volume"></td>
-                                                    @else
-                                                    <td><input data-tagname="{{ $item->id }}"
+                                                    {{-- @else --}}
+                                                    {{-- <td><input data-tagname="{{ $item->id }}"
                                                             onblur="blur_volume(this)"
                                                             onkeypress="return numbersonly(this, event);"
                                                             onkeyup="format(this)" type="text"
                                                             class="form-control volume_id" id="volume[{{ $item->id }}]"
                                                             name="volume[{{ $item->id }}]" value="" required
-                                                            disabled autofocus placeholder="Volume"></td>
-                                                    @endif
+                                                            disabled autofocus placeholder="Volume"></td> --}}
+                                                    {{-- @endif --}}
                                                     <td align="center">{{ $item->satuans->singkatan }}</td>
                                                     <td><input type="text" class="form-control harga_satuan"
                                                             id="harga_satuan[{{ $item->id }}]" name="harga_satuan"

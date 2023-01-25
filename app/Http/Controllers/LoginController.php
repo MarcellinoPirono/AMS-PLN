@@ -37,8 +37,14 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             Alert::success('Login Telah Berhasil', 'Selamat Datang di SIPAKAINGA '.$request->username.'');
-            return redirect()->route('dashboard');
+            if (auth()->user()->role === 'Staff') {
+                return redirect('po-khs');
+
+            } else{
+                return redirect()->route('dashboard');
+            }
         }
+
         else {
             Alert::error('Gagal Login', 'Username atau Password Salah');
         }

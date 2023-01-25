@@ -64,6 +64,39 @@ class DatabaseSeeder extends Seeder
 
         ]);
         User::create([
+            'name'=> 'Keuangan',
+            'username' => 'keuangan',
+            'password' => bcrypt('keuangan'),
+            'role'=>'Keuangan',
+            'email'=>'Keuangan@gmail.com',
+            'no_hp'=>'08123456789',
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+
+        ]);
+        User::create([
+            'name'=> 'Manager',
+            'username' => 'manager',
+            'password' => bcrypt('manager'),
+            'role'=>'Manager',
+            'email'=>'manager@gmail.com',
+            'no_hp'=>'08123456789',
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+
+        ]);
+        User::create([
+            'name'=> 'Perencanaan',
+            'username' => 'perencanaan',
+            'password' => bcrypt('perencanaan'),
+            'role'=>'Perencanaan',
+            'email'=>'perencanaan@gmail.com',
+            'no_hp'=>'08123456789',
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+
+        ]);
+        User::create([
             'name'=> 'Fadhil',
             'username' => 'dhil',
             'password' => bcrypt('dhilkh@123'),

@@ -1,29 +1,40 @@
- <div class="deznav">
+
+<div class="deznav">
      <div class="deznav-scroll">
          <ul class="metismenu" id="menu">
+            @if (auth()->user()->role == "Admin" || auth()->user()->role == "Manager" )
+
              <li><a class="nav-link" href="/dashboard">
                      <i class="flaticon-381-networking"></i>
                      <span class="nav-text">Dashboard</span>
                  </a>
              </li>
+             @endif
 
-             <h5>
-                 <p class="fs-12 ml-3 mt-4 mb-1 text-black">Anggaran</p>
-             </h5>
-             <li>
-                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                     <i class="bi bi-cash-coin"></i>
-                     <span class="nav-text">SKK/PRK </span>
-                 </a>
-                 <ul aria-expanded="false">
-                     <li><a class="nav-link {{ Request::is('spkk*') ? 'active' : '' }}"
-                             href="/skk"><strong>SKK</strong></a>
-                     </li>
-                     <li><a class="nav-link {{ Request::is('prk*') ? 'active' : '' }}"
-                             href="/prk"><strong>PRK</strong></a>
-                     </li>
-                 </ul>
-             </li>
+             {{-- @if (auth()->user()->role == 'Keuangan'->can('Keuangan')) --}}
+
+             @if (auth()->user()->role === "Keuangan" || auth()->user()->role === "Admin" || auth()->user()->role === "Manager" )
+
+             <h5> <p class="fs-12 ml-3 mt-4 mb-1 text-black">Anggaran</p>
+                </h5>
+                <li>
+                    <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                        <i class="bi bi-cash-coin"></i>
+                        <span class="nav-text">SKK/PRK </span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a class="nav-link {{ Request::is('spkk*') ? 'active' : '' }}"
+                            href="/skk"><strong>SKK</strong></a>
+                        </li>
+                        <li><a class="nav-link {{ Request::is('prk*') ? 'active' : '' }}"
+                            href="/prk"><strong>PRK</strong></a>
+                        </li>
+                    </ul>
+                </li>
+
+             @endif
+
+             @if (auth()->user()->role === "Staff" || auth()->user()->role === "Admin" || auth()->user()->role === "Manager")
 
              <h5>
                  <p class="fs-12 ml-3 mt-4 mb-1 text-black">KHS</p>
@@ -36,7 +47,7 @@
                  <ul aria-expanded="false">
                      <li>
                          <a class="nav-link {{ Request::is('po-khs*') ? 'active' : '' }}" href="/po-khs">
-                             <strong>Buat PO</strong>
+                             <strong>PO-KHS</strong>
                          </a>
                      </li>
                      {{-- <li>
@@ -44,6 +55,8 @@
                                     Vendor KHS
                                 </a>
                             </li> --}}
+                    @if (auth()->user()->role === "Manager" || auth()->user()->role === "Admin")
+
                      <li>
                          <a class="has-arrow ai-icon nav-link {{ Request::is('detailkhs*') ? 'active' : '' }}"
                              href="javascript:void()">
@@ -67,6 +80,8 @@
                                      href="/menu-klasifikasi-paket-pekerjaan">&ensp; &ensp; Klasifikasi Paket </a></li> --}}
                          </ul>
                      </li>
+                     @endif
+
                  </ul>
              </li>
 
@@ -143,6 +158,10 @@
                      </li>
                  </ul>
              </li>
+             @endif
+
+             @if (auth()->user()->role === "Admin" || auth()->user()->role === "Manager" )
+
              <h5>
                  <p class="fs-12 ml-3 mt-4 mb-1 text-black">Data Master</p>
              </h5>
@@ -169,6 +188,8 @@
 
 
              </li>
+             @endif
+
 
 
 
@@ -199,7 +220,6 @@
          </div>
      </div>
  </div>
-
 
  <!-- <script>
      $(document).ready(function() {

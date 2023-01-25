@@ -71,7 +71,7 @@
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">PPN (%) :</label>
                             <input type="text" class="form-control input-rounded edit_data" placeholder="PPN (%)"
-                                id="edit_ppn" name="edit_ppn" onkeydown="change_backslash2(event)" value="">
+                                id="edit_ppn" name="edit_ppn" value="">
                         </div>
                         {{-- <input type="hidden" class="edit_id" value="{{ $khs->nama_pekerjaan }}"> --}}
 

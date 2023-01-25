@@ -54,6 +54,10 @@
                                         </option>
                                         <option value="Manager" @if($users->role == "Manager")selected @endif>Manager
                                         </option>
+                                        <option value="Keuangan" @if($users->role == "Keuangan")selected @endif>Keuangan
+                                        </option>
+                                        <option value="Perencanaan" @if($users->role == "Perencanaan")selected @endif>Perencanaan
+                                        </option>
                                         <option value="Staff" @if($users->role == "Staff")selected @endif>Staff
                                         </option>
                                     </select>

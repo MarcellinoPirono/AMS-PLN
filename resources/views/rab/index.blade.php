@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="row">
+@include('sweetalert::alert')
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header position-relative justify-content-end float-right">
@@ -50,6 +51,7 @@
                                         <thead>
                                             <tr align="center" valign="middle">
                                                 <th class="width80">No.</th>
+                                                <th>Status</th>
                                                 {{-- <th>Date</th> --}}
                                                 {{-- <th>Nomor Surat</th> --}}
                                                 <th>No. PO</th>
@@ -70,6 +72,7 @@
                                             @foreach ($rabs as $rab)
                                                 <tr>
                                                     <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
+                                                    <td><span class="badge light badge-warning">Progress</span></td>
                                                     <td>{{ $rab->nomor_po }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($rab->tanggal_po)->isoFormat('dddd, DD-MMMM-YYYY')}}</td>
                                                     <td>{{ $rab->skks->nomor_skk }}</td>

@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('content')
+@include('sweetalert::alert')
     <div class="page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/po-khs">{{ $active }}</a></li>
@@ -528,7 +529,8 @@
                                                                                     class="form-control volume"
                                                                                     id="volume[1]" name="volume"
                                                                                     placeholder="volume" value=""
-                                                                                    onblur="blur_volume(this)"onkeypress="return numbersonly2(this, event);"
+                                                                                    onblur="blur_volume(this)"
+                                                                                    onkeypress="return numbersonly2(this, event);"
                                                                                     onkeyup="format(this)" required></td>
                                                                             <td><input type="text"
                                                                                     class="form-control harga_satuan"

@@ -102,7 +102,7 @@ function updateformwithpaket(c) {
             input3.setAttribute("placeholder", "Volume");
             input3.setAttribute("value", "");
             input3.setAttribute("onblur", "blur_volume_with_paket(this)");
-            input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
+            // input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
             input3.setAttribute("onkeyup", "format(this)");
             input3.setAttribute("required", true);
             var input4 = document.createElement("input");
@@ -247,7 +247,7 @@ function updateform() {
             input3.setAttribute("placeholder", "Volume");
             input3.setAttribute("value", "");
             input3.setAttribute("onblur", "blur_volume(this)");
-            input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
+            // input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
             input3.setAttribute("onkeyup", "format(this)");
             input3.setAttribute("required", true);
             var input4 = document.createElement("input");
@@ -864,7 +864,7 @@ function change_item(c) {
     // item_id = item_id.replace(/\ /g, "-");
     // item_id = item_id.replace(/\//g, "_");
     // console.log("yy", item_id);
-    var satuan_non_desimal = ['kg', 'meter', 'panel', 'gr', 'roll', 'sel', 'liter'];
+    // var satuan_non_desimal = ['kg', 'meter', 'panel', 'gr', 'roll', 'sel', 'liter'];
     let token = $('#csrf').val();
     $.ajax({
         url: '/getItem',
@@ -874,10 +874,104 @@ function change_item(c) {
             '_token': token,
         },
         success: function (response) {
-            console.log(satuan_non_desimal);
-            if(satuan_non_desimal.includes(response["satuans"][0][0].singkatan)) {
-                document.getElementById('volume['+ change +']').onkeypress = "return numbersonly2(this, event);"
-            }
+            // console.log(satuan_non_desimal);
+            // if(satuan_non_desimal.includes(response["satuans"][0][0].singkatan)) {
+            //     // console.log()
+            //     alert("ea");
+            //     $('#volume['+ change +']').keypress(function(ini, e) {
+            //         alert("ea1");
+            //         // $(this).closest(".searching-select").find("input").val($(this).text()).blur();
+            //         if (e.keyCode >= 49) {
+            //             if (e.keyCode <= 57) {
+            //                 a = ini.value.toString().replace(".", "");
+            //                 b = a.replace(/[^\d]/g, "");
+            //                 b = (b == "0") ? String.fromCharCode(e.keyCode) : b + String.fromCharCode(e.keyCode);
+            //                 ini.value = tandaPemisahTitik(b);
+            //                 return false;
+            //             } else if (e.keyCode <= 105) {
+            //                 if (e.keyCode >= 96) {
+            //                     //e.keycode = e.keycode - 47;
+            //                     a = ini.value.toString().replace(".", "");
+            //                     b = a.replace(/[^\d]/g, "");
+            //                     b = (b == "0") ? String.fromCharCode(e.keyCode - 48) : b + String.fromCharCode(e.keyCode - 48);
+            //                     ini.value = tandaPemisahTitik(b);
+            //                     //alert(e.keycode);
+            //                     return false;
+            //                 } else {
+            //                     return false;
+            //                 }
+            //             } else {
+            //                 return false;
+            //             }
+            //         } else if (e.keyCode == 48) {
+            //             a = ini.value.replace(".", "") + String.fromCharCode(e.keyCode);
+            //             b = a.replace(/[^\d]/g, "");
+            //             if (parseFloat(b) != 0) {
+            //                 ini.value = tandaPemisahTitik(b);
+            //                 return false;
+            //             } else {
+            //                 return false;
+            //             }
+            //         } else if (e.keyCode == 95) {
+            //             a = ini.value.replace(".", "") + String.fromCharCode(e.keyCode - 48);
+            //             b = a.replace(/[^\d]/g, "");
+            //             if (parseFloat(b) != 0) {
+            //                 ini.value = tandaPemisahTitik(b);
+            //                 return false;
+            //             } else {
+            //                 return false;
+            //             }
+            //         } else if (e.keyCode == 8 || e.keycode == 46) {
+            //             a = ini.value.replace(".", "");
+            //             b = a.replace(/[^\d]/g, "");
+            //             b = b.substr(0, b.length - 1);
+            //             if (tandaPemisahTitik(b) != "") {
+            //                 ini.value = tandaPemisahTitik(b);
+            //             } else {
+            //                 ini.value = "";
+            //             }
+
+            //             return false;
+            //         } else if (e.keyCode == 9) {
+            //             return true;
+            //         } else if (e.keyCode == 17) {
+            //             return true;
+            //         } else {
+            //             //alert (e.keyCode);
+            //             return false;
+            //         }
+            //         // change_paket2(this);
+            //         // change_paket(this);
+            //         // onSelect($(this).text())
+            //     });
+            //     // $('#volume['+ change +']').keypress(numbersonly(this, event))
+            //     // document.getElementById('volume['+ change +']').onkeypress ="return numbersonly(this, event);")
+            // } else {
+            //     alert("ae");
+            //     $('#volume['+ change +']').keypress(function(ini, e) {
+            //         alert("ae1");
+            //         // $(this).closest(".searching-select").find("input").val($(this).text()).blur();
+            //         var txt = String.fromCharCode(e.which);
+            //         if(!txt.match(/[0-9.,]/)) {
+            //             return false;
+            //         } else {
+            //             if (e.keyCode >= 48) {
+            //                 if (e.keyCode <= 57) {
+            //                     if (ini.value == "0") {
+            //                         ini.value = ""
+            //                     }
+            //                 }
+            //             }
+
+            //         }
+            //     });
+            //     // $('#volume['+ change +']').keypress(numbersonly2(this, event))
+            // }
+
+
+            // numbersonly(this, event) {
+
+            // }
             // console.log(response);
             // console.log(change);
             // console.log(response["nama_items"][0].kategori);

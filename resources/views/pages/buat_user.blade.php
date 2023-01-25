@@ -54,6 +54,10 @@
                                         </option>
                                         <option value="Manager">Manager
                                         </option>
+                                        <option value="Keuangan">Keuangan
+                                        </option>
+                                        <option value="Perencanaan">Perencanaan
+                                        </option>
                                         <option value="Staff">Staff
                                         </option>
                                     </select>
