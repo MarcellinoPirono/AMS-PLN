@@ -22,6 +22,8 @@ function SubmitTKDN() {
     var pejabat = document.getElementById('pejabat').value;
     var pengawas_pekerjaan = document.getElementById('pengawas_pekerjaan').value;
     var pengawas_lapangan = document.getElementById('pengawas_lapangan').value;
+    var status = "Progress";
+    var user_id = document.getElementById('user_id').value;
     if(clickpaket == 0) {
         // console.log(pondfiles);
         var item_id = [];
@@ -41,12 +43,12 @@ function SubmitTKDN() {
         var lampiran = $('#lampiran')[0].files;
 
         // var lampi{{ ran = $('input }}[type=file]').getFiles();
-        console.log(lampiran);
+        // console.log(lampiran);
 
         // log;
 
 
-        console.log("clickpaket",clickpaket);
+        // console.log("clickpaket",clickpaket);
 
 
         var fd = new FormData();
@@ -96,7 +98,7 @@ function SubmitTKDN() {
             fd.append("kln[]", kln[i]);
 
             total_tkdn[i] = kdn[i] + kln[i];
-        fd.append("total_tkdn[]", total_tkdn[i]);
+            fd.append("total_tkdn[]", total_tkdn[i]);
         }
 
         let lokasi = [];
@@ -138,8 +140,6 @@ function SubmitTKDN() {
             // console.log("Li",li);
             // sub_deskripsi_id[index] = document.getElementById('sub_deskripsi_id[' + (index + 1) + ']').innerText;
             // console.log()
-
-
         }
 
         const bef_ppn_total_harga = harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
@@ -165,12 +165,12 @@ function SubmitTKDN() {
             fd.append("pengawas_pekerjaan", pengawas_pekerjaan);
             fd.append("pengawas_lapangan", pengawas_lapangan);
             fd.append('lampiran', lampiran[0]);
-
             fd.append("total_harga", total_harga);
-
             fd.append("click", click);
             fd.append("clicklokasi", clicklokasi);
             fd.append("clickredaksi", clickredaksi);
+            fd.append("status", status);
+            fd.append("user_id", user_id);
 
             swal({
                 title: "Apakah anda yakin?",
@@ -180,9 +180,11 @@ function SubmitTKDN() {
 
             })
                 .then((willCreate) => {
+                    document.getElementById('main-wrapper').style.cursor = "wait"
+                    document.getElementById('btnFinish').setAttribute('disabled', true);
                     if (willCreate) {
-                        document.getElementById('main-wrapper').style.cursor = "wait"
-                        document.getElementById('btnFinish').setAttribute('disabled', true);
+                        // document.getElementById('main-wrapper').style.cursor = "wait"
+                        // document.getElementById('btnFinish').setAttribute('disabled', true);
                         // console.log(fd);
                         $.ajax({
                             type: 'POST',
@@ -238,6 +240,8 @@ function SubmitTKDN() {
             fd.append("click", click);
             fd.append("clicklokasi", clicklokasi);
             fd.append("clickredaksi", clickredaksi);
+            fd.append("status", status);
+            fd.append("user_id", user_id);
 
             swal({
                 title: "Apakah anda yakin?",
@@ -247,9 +251,9 @@ function SubmitTKDN() {
 
             })
                 .then((willCreate) => {
+                    document.getElementById('main-wrapper').style.cursor = "wait"
+                    document.getElementById('btnFinish').setAttribute('disabled', true);
                     if (willCreate) {
-                        document.getElementById('main-wrapper').style.cursor = "wait"
-                        document.getElementById('btnFinish').setAttribute('disabled', true);
                         // console.log(fd);
                         $.ajax({
                             type: 'POST',
@@ -508,6 +512,8 @@ function SubmitTKDN() {
             fd.append("click", click);
             fd.append("clicklokasi", clicklokasi);
             fd.append("clickredaksi", clickredaksi);
+            fd.append("status", status);
+            fd.append("user_id", user_id);
 
             var data = {
                 // "fd" : fd,
@@ -551,9 +557,11 @@ function SubmitTKDN() {
 
             })
                 .then((willCreate) => {
+                    document.getElementById('main-wrapper').style.cursor = "wait"
+                    document.getElementById('btnFinish').setAttribute('disabled', true);
                     if (willCreate) {
-                        document.getElementById('main-wrapper').style.cursor = "wait"
-                        document.getElementById('btnFinish').setAttribute('disabled', true);
+                        // document.getElementById('main-wrapper').style.cursor = "wait"
+                        // document.getElementById('btnFinish').setAttribute('disabled', true);
                         // console.log(fd);
                         $.ajax({
                             type: 'POST',
@@ -615,6 +623,8 @@ function SubmitTKDN() {
                 fd.append("click", click);
                 fd.append("clicklokasi", clicklokasi);
                 fd.append("clickredaksi", clickredaksi);
+                fd.append("status", status);
+                fd.append("user_id", user_id);
 
                 swal({
                     title: "Apakah anda yakin?",
@@ -624,9 +634,11 @@ function SubmitTKDN() {
 
                 })
                     .then((willCreate) => {
+                        document.getElementById('main-wrapper').style.cursor = "wait"
+                        document.getElementById('btnFinish').setAttribute('disabled', true);
                         if (willCreate) {
-                            document.getElementById('main-wrapper').style.cursor = "wait"
-                            document.getElementById('btnFinish').setAttribute('disabled', true);
+                            // document.getElementById('main-wrapper').style.cursor = "wait"
+                            // document.getElementById('btnFinish').setAttribute('disabled', true);
                             // console.log(fd);
                             $.ajax({
                                 type: 'POST',
@@ -695,6 +707,8 @@ function SubmitNONTKDN() {
         var pejabat = document.getElementById('pejabat').value;
         var pengawas_pekerjaan = document.getElementById('pengawas_pekerjaan').value;
         var pengawas_lapangan = document.getElementById('pengawas_lapangan').value;
+        var status = "Progress";
+        var user_id = document.getElementById('user_id').value;
         if(clickpaket == 0) {
             // console.log(pondfiles);
             var item_id = [];
@@ -875,6 +889,8 @@ function SubmitNONTKDN() {
                 fd.append("click", click);
                 fd.append("clicklokasi", clicklokasi);
                 fd.append("clickredaksi", clickredaksi);
+                fd.append("status", status);
+                fd.append("user_id", user_id);
 
                 swal({
                     title: "Apakah anda yakin?",
@@ -884,9 +900,11 @@ function SubmitNONTKDN() {
 
                 })
                     .then((willCreate) => {
+                        document.getElementById('main-wrapper').style.cursor = "wait"
+                        document.getElementById('btnFinish').setAttribute('disabled', true);
                         if (willCreate) {
-                            document.getElementById('main-wrapper').style.cursor = "wait"
-                            document.getElementById('btnFinish').setAttribute('disabled', true);
+                            // document.getElementById('main-wrapper').style.cursor = "wait"
+                            // document.getElementById('btnFinish').setAttribute('disabled', true);
                             // console.log(fd);
                             $.ajax({
                                 type: 'POST',
@@ -946,6 +964,8 @@ function SubmitNONTKDN() {
                 fd.append("click", click);
                 fd.append("clicklokasi", clicklokasi);
                 fd.append("clickredaksi", clickredaksi);
+                fd.append("status", status);
+                fd.append("user_id", user_id);
 
                 swal({
                     title: "Apakah anda yakin?",
@@ -955,9 +975,11 @@ function SubmitNONTKDN() {
 
                 })
                     .then((willCreate) => {
+                        document.getElementById('main-wrapper').style.cursor = "wait"
+                        document.getElementById('btnFinish').setAttribute('disabled', true);
                         if (willCreate) {
-                            document.getElementById('main-wrapper').style.cursor = "wait"
-                            document.getElementById('btnFinish').setAttribute('disabled', true);
+                            // document.getElementById('main-wrapper').style.cursor = "wait"
+                            // document.getElementById('btnFinish').setAttribute('disabled', true);
                             // console.log(fd);
                             $.ajax({
                                 type: 'POST',
@@ -1204,6 +1226,8 @@ function SubmitNONTKDN() {
                 fd.append("click", click);
                 fd.append("clicklokasi", clicklokasi);
                 fd.append("clickredaksi", clickredaksi);
+                fd.append("status", status);
+                fd.append("user_id", user_id);
 
                 var data = {
                     // "fd" : fd,
@@ -1247,9 +1271,11 @@ function SubmitNONTKDN() {
 
                 })
                     .then((willCreate) => {
+                        document.getElementById('main-wrapper').style.cursor = "wait"
+                        document.getElementById('btnFinish').setAttribute('disabled', true);
                         if (willCreate) {
-                            document.getElementById('main-wrapper').style.cursor = "wait"
-                            document.getElementById('btnFinish').setAttribute('disabled', true);
+                            // document.getElementById('main-wrapper').style.cursor = "wait"
+                            // document.getElementById('btnFinish').setAttribute('disabled', true);
                             // console.log(fd);
                             $.ajax({
                                 type: 'POST',
@@ -1311,6 +1337,8 @@ function SubmitNONTKDN() {
                     fd.append("click", click);
                     fd.append("clicklokasi", clicklokasi);
                     fd.append("clickredaksi", clickredaksi);
+                    fd.append("status", status);
+                    fd.append("user_id", user_id);
 
                     swal({
                         title: "Apakah anda yakin?",
@@ -1320,9 +1348,11 @@ function SubmitNONTKDN() {
 
                     })
                         .then((willCreate) => {
+                            document.getElementById('main-wrapper').style.cursor = "wait"
+                            document.getElementById('btnFinish').setAttribute('disabled', true);
                             if (willCreate) {
-                                document.getElementById('main-wrapper').style.cursor = "wait"
-                                document.getElementById('btnFinish').setAttribute('disabled', true);
+                                // document.getElementById('main-wrapper').style.cursor = "wait"
+                                // document.getElementById('btnFinish').setAttribute('disabled', true);
                                 // console.log(fd);
                                 $.ajax({
                                     type: 'POST',

@@ -7,7 +7,7 @@
             <li class="breadcrumb-item active"><a href=""> {{ $active1 }}</a></li>
         </ol>
     </div>
-
+    <input type="hidden" value="{{ auth()->user()->id }}" id="user_id">
     <div class="row">
         <div class="col-xxl-12">
             <div class="card">
@@ -60,7 +60,7 @@
                                                     <label for="first-name" class="form-label">No. Purchase
                                                         Order(PO) <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="po" name="po"
-                                                        value="{{ old('po') }}" placeholder="No. PO" required autofocus onkeyup="validunique(this)">
+                                                        value="{{ old('po') }}" placeholder="No. PO" required autofocus onblur="validunique(this)">
                                                     <div class="valid-feedback">Data Terisi</div>
                                                     <div id="invalid_po" class="invalid-feedback">Silakan Isi No. PO</div>
                                                 </div>

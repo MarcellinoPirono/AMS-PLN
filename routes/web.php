@@ -142,14 +142,14 @@ Route::post('/checkItem_edit', [RincianIndukController::class, 'checkItem_edit']
 
 //PO KHS
 Route::get('po-khs/buat-po', [RabController::class, 'buat_po_khs'])->middleware('StaffMiddleware');
-Route::get('po-khs/edit-po/{slug}', [RabController::class, 'edit_po_khs'])->middleware('Manager');
-Route::put('po-khs/edit-po/{slug}', [RabController::class, 'update_po_khs'])->middleware('Manager');
+Route::get('po-khs/edit-po/{slug}', [RabController::class, 'edit_po_khs'])->middleware('StaffMiddleware');
+Route::put('po-khs/edit-po/{slug}', [RabController::class, 'update_po_khs'])->middleware('StaffMiddleware');
 Route::post('simpan-po-khs', [RabController::class, 'simpan_po_khs'])->middleware('StaffMiddleware');
 Route::post('/checkPO', [RabController::class, 'checkPO'])->middleware('StaffMiddleware');
 Route::resource('po-khs', RabController::class)->middleware('StaffMiddleware');
 Route::get('export-pdf-khs/{slug}', [RabController::class, 'export_pdf_khs'])->middleware('StaffMiddleware');
 Route::get('preview-pdf-khs/{slug}', [RabController::class, 'preview_pdf_khs'])->middleware('StaffMiddleware');
-Route::get('/search-pokhs', [RabController::class, 'searchpokhs'])->middleware('Manager');
+Route::get('/search-pokhs', [RabController::class, 'searchpokhs'])->middleware('StaffMiddleware');
 Route::post('/getAddendum', [RabController::class, 'getAddendum'])->middleware('StaffMiddleware');
 Route::post('/getVendor', [RabController::class, 'getVendor'])->middleware('StaffMiddleware');
 Route::get('/getRedaksi', [RabController::class, 'getRedaksi'])->middleware('StaffMiddleware');
@@ -172,7 +172,7 @@ Route::post('/getItem', [SkkController::class, 'getItem'])->middleware('StaffMid
 Route::post('/getKontrakInduk', [SkkController::class, 'getKontrakInduk'])->middleware('StaffMiddleware');
 Route::post('/getKontrak_Induk', [SkkController::class, 'getKontrak_Induk'])->middleware('StaffMiddleware');
 Route::post('/checkSKK', [SkkController::class, 'checkSKK'])->middleware('StaffMiddleware');
-Route::post('/checkSKK_edit', [SkkController::class, 'checkSKK_edit'])->middleware('StaffMiddleware');
+Route::post('/checkSKK_edit', [SkkController::class, 'checkSKK_edit'])->middleware('Keuangan');
 // Route::post('skk/check-no-skk.php');
 
 
@@ -250,17 +250,22 @@ Route::get('download/{slug}', [PdfkhsController::class, 'download'])->middleware
 // Route::resource('user', UserController::class);
 
 Route::controller(UserController::class)->group(function () {
-    Route::get('/user', 'index')->name('index')->middleware('Manager');
-    Route::get('/user/create', 'create')->name('user.create')->middleware('Manager');
-    Route::post('/edit-profile', 'edit')->name('user.edit_profile')->middleware('Manager');
-    Route::post('/edit-profile-update', 'update')->name('user.update')->middleware('Manager');
-    Route::get('/edit-password', 'edit_password')->name('user.edit_password')->middleware('Manager');
-    Route::post('/check-password', 'check_password')->name('user.check_password')->middleware('Manager');
-    Route::post('/user', 'store')->name('user')->middleware('Manager');
-    Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile')->middleware('Manager');
-    Route::delete('/deleteuser/{id}', 'destroy')->name('hapus')->middleware('Manager');
+    Route::get('/user', 'index')->name('index')->middleware('AdminMiddleware');
+    Route::get('/user/create', 'create')->name('user.create')->middleware('AdminMiddleware');
+    Route::post('/edit-profile', 'edit')->name('user.edit_profile')->middleware('StaffMiddleware');
+    // Route::post('/user/{username}/edit', 'edit_admin')->middleware('AdminMiddleware');
+    // Route::put('/user/{username}/edit', 'update_admin')->middleware('AdminMiddleware');
+    Route::post('/edit-profile-update', 'update')->name('user.update')->middleware('StaffMiddleware');
+    Route::get('/edit-password', 'edit_password')->name('user.edit_password')->middleware('StaffMiddleware');
+    Route::post('/check-password', 'check_password')->name('user.check_password')->middleware('StaffMiddleware');
+    Route::post('/user', 'store')->name('user')->middleware('AdminMiddleware');
+    Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile')->middleware('StaffMiddleware');
+    Route::delete('/deleteuser/{id}', 'destroy')->name('hapus')->middleware('AdminMiddleware');
 });
 
-Route::post('/checkUsername', [UserController::class, 'checkUsername'])->middleware('Manager');
-Route::post('/checkUsername_edit', [UserController::class, 'checkUsername_edit'])->middleware('Manager');
+Route::fallback([UserController::class,'not_found']);
+
+Route::post('/checkUsername', [UserController::class, 'checkUsername'])->middleware('StaffMiddleware');
+Route::post('/konfirmasi', [RabController::class, 'setuju'])->name('setuju');
+Route::post('/checkUsername_edit', [UserController::class, 'checkUsername_edit'])->middleware('StaffMiddleware');
 

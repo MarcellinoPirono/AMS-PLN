@@ -236,7 +236,7 @@
      text-transform: uppercase;
      margin-bottom: -20px;
      tab-size: 4;
-
+     padding-bottom: 20px;
  }
 
  .italic {
@@ -260,7 +260,7 @@
      font-family: Calibri;
      font-weight: bold;
      font-style: normal;
-     font-size: x-large;
+     font-size: 16px;
      text-decoration: underline;
      text-align: center;
  }

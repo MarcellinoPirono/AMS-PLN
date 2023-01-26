@@ -1,14 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    @if (session()->has('status'))
-        <div class="alert alert-success alert-dismissible alert-alt fade show">
-            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i
-                        class="mdi mdi-close"></i></span>
-            </button>
-            <strong>Success!</strong> {{ session('status') }}
-        </div>
-    @endif
+@include('sweetalert::alert')
 
     <div class="row">
         <div class="col-lg-12">
@@ -66,11 +59,16 @@
                                         <td>{{ $user->npwp }}</td> --}}
                                         <td align="center">
 
-                                            <div class="">
-                                                {{-- <a href="/user/{{ $user->username }}/edit"
-                                                    class="btn btn-primary shadow btn-xs sharp mr-1"><i
-                                                        class="fa fa-pencil"></i></a> --}}
-                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                            <div class="d-flex">
+                                                <form action="{{ route('user.edit_profile') }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" id="username" name="username"
+                                                        value="{{ $user->username }}">
+                                                    <button type="submit"
+                                                        class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                            class="fa fa-pencil"></i></button>
+                                                </form>
+                                                <button value="{{ $user->id }}" class="btn btn-danger shadow btn-xs sharp" onclick="deleteuser(this)"><i
                                                         class="fa fa-trash"></i></button>
 
                                             </div>
@@ -129,6 +127,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+<script data-require="jquery@2.1.1" data-semver="2.1.1"
+    src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
 
 <script>
@@ -140,11 +140,10 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('.btndelete').click(function(e) {
-            e.preventDefault();
-
-            var deleteid = $(this).closest("tr").find('.delete_id').val();
+    function deleteuser(id) {
+        console.log(id);
+            var deleteid = id.value;
+            console.log(deleteid);
 
             swal({
                     title: "Apakah anda yakin?",
@@ -187,8 +186,7 @@
                         });
                     }
                 });
-        });
-    });
+        }
 </script>
 
 @endsection

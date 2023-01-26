@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class Keuangan
 {
@@ -24,11 +26,12 @@ class Keuangan
 
         }
         else{
-            if (auth()->user()->role === 'Keuangan' || auth()->user()->role === 'Admin'){
+            if (auth()->user()->role === 'Keuangan' || auth()->user()->role === 'Admin' || auth()->user()->role === 'Manager'){
                 return $next($request);
             }
             else{
-                abort(403);
+                Alert::error('Mohon Maaf', 'Halaman Tidak Tersedia');
+                return back();
             }
         }
 

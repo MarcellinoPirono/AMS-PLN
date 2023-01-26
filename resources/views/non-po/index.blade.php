@@ -42,11 +42,11 @@
                                     <td>{{$nonpo->prks->no_prk}}</td>
                                     <td>{{ $nonpo->supervisor }}</td>
                                     @if ($nonpo->status == 1)
-                                    <td>Proses HPE</td>
+                                    <td><span class="badge light badge-warning">Proses HPE</span></td>
                                     @elseif ($nonpo->status == 2)
-                                    <td>Sedang Menunggu Persetujuan Manager</td>
+                                    <td><span class="badge light badge-warning">Sedang Menunggu Persetujuan Manager</span></td>
                                     @elseif ($nonpo->status == 3)
-                                    <td>Disetujui</td>
+                                    <td><span class="badge light badge-warning">Disetujui</span></td>
                                     @endif
                                     <td>@currency($nonpo->total_harga)</td>
                                 <td align="center">

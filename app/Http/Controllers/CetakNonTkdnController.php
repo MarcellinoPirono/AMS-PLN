@@ -60,6 +60,8 @@ class CetakNonTkdnController extends Controller
 
         $rab = [
             'nomor_po' => $request->nomor_po,
+            'status' => $request->status,
+            'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
             'prk_id' => $request->prk_id,
@@ -366,6 +368,8 @@ class CetakNonTkdnController extends Controller
 
         $rab = [
             'nomor_po' => $request->nomor_po,
+            'status' => $request->status,
+            'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
             'prk_id' => $request->prk_id,
@@ -438,7 +442,6 @@ class CetakNonTkdnController extends Controller
             ];
             RabRedaksi::create($rab_redaksi);
         }
-
         $redaksi_click = $request->clickredaksi;
 
         for ($i = 0; $i < $redaksi_click; $i++) {
@@ -708,6 +711,8 @@ class CetakNonTkdnController extends Controller
 
          $rab = [
              'nomor_po' => $request->nomor_po,
+             'status' => $request->status,
+             'user_id' => $request->user_id,
              'tanggal_po' => $request->tanggal_po,
              'skk_id' => $request->skk_id,
              'prk_id' => $request->prk_id,
@@ -1002,6 +1007,10 @@ class CetakNonTkdnController extends Controller
 
          $rab = [
              'nomor_po' => $request->nomor_po,
+             'status' => $request->status,
+             'user_id' => $request->user_id,
+             'status' => $request->status,
+             'user_id' => $request->user_id,
              'tanggal_po' => $request->tanggal_po,
              'skk_id' => $request->skk_id,
              'prk_id' => $request->prk_id,

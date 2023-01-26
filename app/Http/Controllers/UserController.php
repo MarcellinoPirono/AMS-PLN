@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         return view('pages.user', [
             'title' => 'Data User',
-            'users' => User::orderBy('id', 'DESC')->get(),
+            'users' => User::orderBy('id', 'DESC')->whereNot('role', 'Admin')->get(),
         ]);
 
     }
@@ -50,6 +50,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         if ($request->file('file') != null) {
             # code...
             $fileName = time() . $request->file('file')->getClientOriginalName();
@@ -63,7 +64,7 @@ class UserController extends Controller
 
 
         $data = [
-            'username' => $request->username,
+            'username' => $request->new_username,
             'password' => $request->password,
             'name' => $request->name,
             'email' => $request->email,
@@ -113,7 +114,7 @@ class UserController extends Controller
 
         $data = [
             'users'  => $user,
-            'title' => 'Data User',
+            'title' => 'Edit Data User',
             'active' => 'User',
             'old_username' => $username,
             'active1' => 'Edit User',
@@ -164,6 +165,15 @@ class UserController extends Controller
 
         $users->update($input);
 
+        // if (auth()->user()->role === 'Admin') {
+        //     return redirect('user')->withSuccess('Data User Telah Diedit');
+        // }
+        // else{
+
+        // }
+        // return back()->withSuccess('Data User Telah Diedit');
+
+
         return response()->json([
             'success'   => true
         ]);
@@ -179,6 +189,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        // dd($id);
         $user = User::find($id)->delete();
 
     }
@@ -243,5 +254,11 @@ class UserController extends Controller
         } else {
             echo json_encode(true);
         }
+    }
+    public function not_found(){
+        Alert::error('Mohon Maaf', 'Halaman Tidak Tersedia');
+
+        return back();
+
     }
 }

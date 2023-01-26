@@ -23,20 +23,14 @@ class Manager
 
         }
         else{
-            if (auth()->user()->role === 'Manager'){
+            if (auth()->user()->role === 'Manager' || auth()->user()->role === 'Admin' ){
                 return $next($request);
             }
 
             else{
-                if($next($request) == true) {
-                    Alert::error('Mohon Maaf', 'Halaman Tidak Tersedia');
-                    return back();
-                } else {
-                    Alert::error('Mohon Maaf', 'Halaman Tidak Tersedia');
-                    return back();
-                }
-                // dd($next($request));
-                // abort(403);
+                Alert::error('Mohon Maaf', 'Halaman Tidak Tersedia');
+                return back();
+
             }
         }
     }

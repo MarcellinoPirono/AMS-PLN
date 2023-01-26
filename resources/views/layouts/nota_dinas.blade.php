@@ -13,7 +13,7 @@
 
 <body>
     <header class="mt-1">
-        <img class="mt-1 header-rab" src="{{ public_path('/') }}./asset/frontend/images/header_rab.png" alt="">
+        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.jpg" alt="">
     </header>
     @foreach ($non_po as $nonpo)
         <table class="sub-judul" width="100%" cellspacing="0" cellpadding="0">
@@ -22,12 +22,12 @@
                 <!-- <td colspan="3" class="sub-judul">{{ $nonpo->nomor_rpbj }}</td> -->
             </tr>
             <tr style="height: 10px;">
-                <td colspan="3" class="sub-judul" align="center" valign="top">No: {{ $nonpo->nomor_rpbj }}</td>
+                <td colspan="3" class="sub-judul"" align="center" valign="top">No: {{ $nonpo->nomor_rpbj }}</td>
             </tr>
             <tr>
-                <td width="18%">PEKERJAAN</td>
-                <td width="2%">:</td>
-                <td width="80%">{{ $nonpo->pekerjaan }}</td>
+                <td width="18%" style="height: 4px;">PEKERJAAN</td>
+                <td width="2%" style="height: 4px;">:</td>
+                <td width="80%" style="height: 4px;">{{ $nonpo->pekerjaan }}</td>
             </tr>
             <tr>
                 <td>SUMBER ANGGARAN</td>

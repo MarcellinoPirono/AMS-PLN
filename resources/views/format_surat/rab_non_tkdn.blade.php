@@ -13,7 +13,7 @@
 
 <body>
     <header class="mt-1">
-        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_rab.png" alt="">
+        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.jpg" alt="">
     </header>
 
     <footer>
@@ -29,7 +29,7 @@
 
 
     @foreach ($po_khs as $pokhs)
-    <table class="sub-judul" width="95%" cellspacing="0" cellpadding="0" align="center">
+    <table class="sub-judul" width="95%" cellspacing="0" cellpadding="0" align="center" border="1">
         <tr>
             <td colspan="3" class="judul">RINCIAN ANGGARAN BIAYA</td>
         </tr>

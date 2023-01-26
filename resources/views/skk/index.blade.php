@@ -1,6 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
+
+@include('sweetalert::alert')
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -61,7 +63,7 @@
                                                 <a href="/skk/{{ $skk->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                <button class="btn btn-danger shadow btn-xs sharp" onclick="deleteSkk(this)"><i
                                                         class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
@@ -109,11 +111,12 @@
         //     let skk = $("#filter-skk").val()
         // });
 
-        $(document).ready(function() {
-            $('.btndelete').click(function(e) {
-                e.preventDefault();
+        function deleteSkk(id) {
 
-                var deleteid = $(this).closest("tr").find('.delete_id').val();
+                // var deleteid = $(this).closest("tr").find('.delete_id').val();
+                var deleteid = id.value;
+                console.log(deleteid);
+
 
                 swal({
                         title: "Apakah anda yakin?",
@@ -156,37 +159,7 @@
                             });
                         }
                     });
-            });
-        });
-    </script>
-    <script type="text/javascript">
-    $('#search').on('keyup',function(){
-        $value=$(this).val();
-
-        if($value){
-            $('.alldata').hide();
-            $('.searchdata').show();
-        }
-
-        else{
-            $('.alldata').show();
-            $('.searchdata').hide();
-
-        }
-
-        $.ajax({
-
-            type: 'get',
-            url:'{{URL::to('search-skk') }}',
-            data:{'search':$value},
-
-            success:function(data){
-                console.log(data);
-                $('#Content').html(data);
             }
 
-        });
-
-    });
-</script>
+    </script>
 @endsection

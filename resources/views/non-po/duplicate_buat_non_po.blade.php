@@ -40,6 +40,7 @@
                                 <div id="informasi_umum" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <form id="form-1" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
                                         <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                                        <input type="hidden" name="user_id" id="user_id" value="{{ $user_id }}">
                                         <div class="row m-auto">
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
@@ -68,12 +69,6 @@
                                                     <input type="text" class="form-control" name="nomor_rpbj"
                                                         id="nomor_rpbj" placeholder="Nomor RPBJ" required autofocus
                                                         value="{{ old('nomor_rpbj') }}">
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan isi No. RPBJ
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-2">
@@ -295,7 +290,7 @@
                                     </form>
                                 </div>
                                 <div id="preview_non_po" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
-                                    <form id="form-3" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
+                                    <form id="form-3" class="row row-cols-1 ms-5 me-5 needs-validation">
                                         <div class="row">
                                             <div class="col-xl-12 col-xxl-12">
                                                 <div class="card">
@@ -304,6 +299,7 @@
                                                     </div>
                                                     <div class="row ml-2 justify-content-start">
                                                         <h5 class="card-title">Step 1: Informasi Umum</h5>
+
                                                         <table class="uprightTbl noborder" style="width:100%;"
                                                             id="rincian" cellspacing="0" cellpadding="0">
                                                             <tr class="noborder">
@@ -433,6 +429,9 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <div id="validation-errors">
+
+                                    </div>
                                 </div>
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
@@ -1237,6 +1236,7 @@
 
         function onSubmitData() {
             var token = $('#csrf').val();
+            var user_id = $('#user_id').val();
             var nomor_rpbj = document.getElementById('nomor_rpbj').value;
             var pekerjaan = document.getElementById('pekerjaan').value;
             var skk_id = document.getElementById('skk_id').value;
@@ -1288,6 +1288,7 @@
 
             if (kak.length > 0) {
                 fd.append("_token", token)
+                fd.append("user_id", user_id);
                 fd.append("nomor_rpbj", nomor_rpbj);
                 fd.append("pekerjaan", pekerjaan);
                 fd.append("skk_id", skk_id);
@@ -1347,7 +1348,13 @@
                                 window.location.href = "/non-po";
                                 //         .then((result) => {
                                 //         });
-                            }
+                            },
+                            error: function (xhr) {
+                                $('#validation-errors').html('');
+                                $.each(xhr.responseJSON.errors, function(key,value) {
+                                    $('#validation-errors').append('<div class="alert alert-danger">'+value+'</div');
+                                });
+                            },
                         });
                     } else {
                         swal({

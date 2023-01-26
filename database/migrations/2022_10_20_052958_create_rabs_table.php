@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('rabs', function (Blueprint $table) {
             $table->id();
             $table->string('nomor_po');
+            $table->string('status');
+            $table->foreignId('user_id');
             $table->text('slug');
             $table->date('tanggal_po');
             $table->foreignId('skk_id')->nullable();

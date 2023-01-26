@@ -27,7 +27,9 @@ class StaffMiddleware
                 return $next($request);
             }
             else{
-                abort(403);
+                Alert::error('Mohon Maaf', 'Halaman Tidak Tersedia');
+                return back();
+
             }
 
             // else{

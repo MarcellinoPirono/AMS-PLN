@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hpe;
+use App\Models\User;
 use App\Models\RabHpe;
 use App\Models\NonPo;
 use App\Models\RabNonPo;
@@ -15,6 +16,7 @@ use App\Models\ItemRincianInduk;
 use App\Models\Rab;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Riskihajar\Terbilang\Facades\Terbilang;
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 use Illuminate\Http\Request;
@@ -60,6 +62,7 @@ class NonPoHpeController extends Controller
                 'prks' => Prk::all(),
                 'pejabats' => Pejabat::all(),
                 'ppn' => $ppn_default,
+                'user_id'=> User::find(Auth::id())->value('id'),
         ]);
     }
 
@@ -94,6 +97,7 @@ class NonPoHpeController extends Controller
 
         // Buat HPE
         $non_po_hpe = [
+            'user_id' => $request->user_id,
             'non_po_id' => $non_po_id,
             'total_harga_hpe' => $request->total_harga,
             'pdf_file' => $mypdf

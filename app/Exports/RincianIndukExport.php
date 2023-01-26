@@ -32,7 +32,9 @@ class RincianIndukExport implements FromQuery, WithHeadings, WithTitle, WithEven
     protected $results;
 
     function __construct($sheets, $khs_id) {
+            // $
             $satuan = Satuan::pluck('singkatan')->toArray();
+            $khss = Khs::pluck('jenis_khs')->toArray();
             $khs = RincianInduk::where('khs_id', $khs_id)->get();
             $row_count = count($khs);
             $column_count = 7;

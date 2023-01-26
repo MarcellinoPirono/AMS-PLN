@@ -3,8 +3,10 @@
 @section('content')
     <div class="page-titles">
         <ol class="breadcrumb">
+            @if (auth()->user()->role === "Admin")
             <li class="breadcrumb-item"><a href="/user">{{ $active }}</a></li>
             <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $active1 }}</a></li>
+            @endif
         </ol>
     </div>
 
@@ -14,6 +16,7 @@
                 <div class="card-header">
                     <h4 class="card-title">{{ $title }}</h4>
                 </div>
+                <input type="hidden" id="admin" value="{{ auth()->user()->role }}">
                 <div class="card-body">
                     <div class="basic-form">
                         <form name="edit_user" id="edit_user" action="#">
@@ -46,22 +49,25 @@
                                     <input type="hidden" class="form-control" id="old_pic_profile" name="old_pic_profile"
                                         value="{{ old('pic_profile', $users->pic_profile) }}">
                                 </div>
-                                <div class="form group justify-content-center col-6">
-                                    <label class="text-label">Pilih Role User :</label>
-                                    <select  id="role" class="form-control filter-role">
-                                        <option value="" disabled>Pilih Role</option>
-                                        <option value="Admin" @if($users->role == "Admin")selected @endif>Admin
-                                        </option>
-                                        <option value="Manager" @if($users->role == "Manager")selected @endif>Manager
-                                        </option>
-                                        <option value="Keuangan" @if($users->role == "Keuangan")selected @endif>Keuangan
-                                        </option>
-                                        <option value="Perencanaan" @if($users->role == "Perencanaan")selected @endif>Perencanaan
-                                        </option>
-                                        <option value="Staff" @if($users->role == "Staff")selected @endif>Staff
-                                        </option>
-                                    </select>
-                                </div>
+                                @if (auth()->user()->role === "Admin")
+                                    @if ($users->role != "Admin")
+                                    <div class="form group justify-content-center col-6">
+                                        <label class="text-label">Pilih Role User :</label>
+                                        <select  id="role" class="form-control filter-role">
+                                            <option value="" disabled>Pilih Role</option>
+                                            <option value="Manager" @if($users->role == "Manager")selected @endif>Manager
+                                            </option>
+                                            <option value="Keuangan" @if($users->role == "Keuangan")selected @endif>Keuangan
+                                            </option>
+                                            <option value="Perencanaan" @if($users->role == "Perencanaan")selected @endif>Perencanaan
+                                            </option>
+                                            <option value="Staff" @if($users->role == "Staff")selected @endif>Staff
+                                            </option>
+                                        </select>
+                                    </div>
+                                    @endif
+                                @endif
+                                <input type="hidden" id="role_user" value="{{ $users->role }}">
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Username</label>
                                     <div class="input-group">
@@ -251,6 +257,7 @@
                     var email = $("#email").val();
                     var no_hp = $("#no_hp").val();
                     var role = $("#role").val();
+                    var role_lama = $("#role_user").val();
                     var old_pic_profile = $("#old_pic_profile").val();
 
                     fd.append("_token", token);
@@ -260,33 +267,63 @@
                     fd.append("name", name);
                     fd.append("email", email);
                     fd.append("no_hp", no_hp);
-                    fd.append("role", role);
+                    if(document.getElementById("admin").value == "Admin") {
+                        fd.append("role", role);
+                    } else {
+                        fd.append("role", role_lama);
+                    }
                     fd.append("old_pic_profile", old_pic_profile);
                     // var pic_profile = pond.files;
 
                     console.log(fd);
 
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('user.update')}}",
-                        data: fd,
-                        contentType: false,
-                        processData: false,
-                        dataType: 'json',
+                    if(document.getElementById("admin").value == "Admin") {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('user.update')}}",
+                            data: fd,
+                            contentType: false,
+                            processData: false,
+                            dataType: 'json',
 
-                        success: function(response) {
-                            swal({
-                                    title: "Data User Diedit ",
-                                    text: "Telah Berhasil Diedit",
-                                    icon: "success",
-                                    timer: 2e3,
-                                    buttons: false
-                                })
-                                .then((result) => {
-                                    window.location.href = "/user";
-                                });
-                        }
-                    });
+                            success: function(response) {
+                                swal({
+                                        title: "Data User Diedit ",
+                                        text: "Telah Berhasil Diedit",
+                                        icon: "success",
+                                        timer: 2e3,
+                                        buttons: false
+                                    })
+                                    .then((result) => {
+                                        window.location.href = "/user";
+                                    });
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('user.update')}}",
+                            data: fd,
+                            contentType: false,
+                            processData: false,
+                            dataType: 'json',
+
+                            success: function(response) {
+                                swal({
+                                        title: "Data User Diedit ",
+                                        text: "Telah Berhasil Diedit",
+                                        icon: "success",
+                                        timer: 2e3,
+                                        buttons: false
+                                    })
+                                    .then((result) => {
+                                        window.history.back();
+                                    });
+                            }
+                        });
+
+                    }
+
                 }
             });
 

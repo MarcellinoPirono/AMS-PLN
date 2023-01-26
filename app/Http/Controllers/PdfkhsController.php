@@ -86,6 +86,8 @@ class PdfkhsController extends Controller
 
         $rab = [
             'nomor_po' => $request->nomor_po,
+            'status' => $request->status,
+            'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
             'prk_id' => $request->prk_id,
@@ -429,6 +431,8 @@ class PdfkhsController extends Controller
 
         $rab = [
             'nomor_po' => $request->nomor_po,
+            'status' => $request->status,
+            'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
             'prk_id' => $request->prk_id,
@@ -753,6 +757,8 @@ class PdfkhsController extends Controller
 
         $rab = [
             'nomor_po' => $request->nomor_po,
+            'status' => $request->status,
+            'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
             'prk_id' => $request->prk_id,
@@ -1091,6 +1097,8 @@ class PdfkhsController extends Controller
 
         $rab = [
             'nomor_po' => $request->nomor_po,
+            'status' => $request->status,
+            'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
             'prk_id' => $request->prk_id,
@@ -1863,7 +1871,7 @@ class PdfkhsController extends Controller
     $path1 = 'SPBJ.pdf';
     Storage::disk('local')->put($path1, $pdf->output());
 
-    $pdf2 = Pdf::loadView('format_surat.rab_tkdn',[
+    $pdf2 = Pdf::loadView('format_surat.rab_non_tkdn',[
         "po_khs" => $values_pdf_page1,
         "kategori_jasa" => $jasa,
         "kategori_material" => $material,
@@ -1895,7 +1903,7 @@ class PdfkhsController extends Controller
 
         // $content = $pdf->download()->getOriginalContent();
         // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
-        $pdf2->setPaper('A4', 'landscape');
+        $pdf2->setPaper('A4', 'potrait');
         $path2 = 'RAB.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 

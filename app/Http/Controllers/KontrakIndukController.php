@@ -69,7 +69,7 @@ class KontrakIndukController extends Controller
         $validatedData = $request->validate([
 
             'khs_id' => 'required',
-            'nomor_kontrak_induk' => 'required',
+            'nomor_kontrak_induk' => 'required|unique:kontrak_induks',
             'tanggal_kontrak_induk' => 'required',
             'vendor_id' => 'required',
 

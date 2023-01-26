@@ -36,7 +36,12 @@
                                 <div class="form-group col-md-6">
                                     <input type="text" class="form-control input-default"
                                         placeholder="Nomor Kontrak Induk" name="nomor_kontrak_induk"
-                                        id="nomor_kontrak_induk" required autofocus>
+                                        id="nomor_kontrak_induk" value="{{ old('nomor_kontrak_induk')}}" required autofocus>
+                                    @error('nomor_kontrak_induk')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group col-md-6">
                                     <div class="input-group">

@@ -181,9 +181,11 @@
                     <li><a class="nav-link {{ Request::is('ppn*') ? 'active' : '' }}"
                             href="/ppn"><strong>Data PPN</strong></a>
                     </li>
+                    @if (auth()->user()->role === "Admin")
                     <li><a class="nav-link {{ Request::is('user*') ? 'active' : '' }}"
-                            href="/user"><strong>Data User</strong></a>
+                        href="/user"><strong>Data User</strong></a>
                     </li>
+                    @endif
                 </ul>
 
 

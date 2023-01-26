@@ -56,15 +56,30 @@ class RabController extends Controller
     {
         Gate::allows('Staff');
 
-        return view('rab.index', [
-            'title' => 'PO KHS',
-            'title1' => 'RAB',
-            'rabs' => Rab::orderBy('id', 'DESC')->get(),
-            'kontraks' => KontrakInduk::get(),
-            'skks' => Skk::all(),
-            'prks' => Prk::all(),
-            'kontrakinduks' => KontrakInduk::all(),
-        ]);
+        $id = auth()->user()->id;
+        // dd($id);
+        if(auth()->user()->role == "Staff") {
+            return view('rab.index', [
+                'title' => 'PO KHS',
+                'title1' => 'RAB',
+                'rabs' => Rab::orderBy('id', 'DESC')->where('user_id', $id)->get(),
+                'kontraks' => KontrakInduk::get(),
+                'skks' => Skk::all(),
+                'prks' => Prk::all(),
+                'kontrakinduks' => KontrakInduk::all(),
+            ]);
+        } else {
+            return view('rab.index', [
+                'title' => 'PO KHS',
+                'title1' => 'RAB',
+                'rabs' => Rab::orderBy('id', 'DESC')->get(),
+                'kontraks' => KontrakInduk::get(),
+                'skks' => Skk::all(),
+                'prks' => Prk::all(),
+                'kontrakinduks' => KontrakInduk::all(),
+            ]);
+        }
+
 
 
     }
@@ -736,6 +751,9 @@ class RabController extends Controller
         $pdfContent = Storage::get($filePath);
 
         $fileName = Rab::where('slug', $nama_pdf)->value('nomor_po');
+        $id = Rab::where('slug', $nama_pdf)->value('id');
+
+        $rabs = Rab::find($id);
 
         $fileName = str_replace('/', '-', $fileName);
         $fileName = str_replace('.', '_', $fileName);
@@ -762,6 +780,7 @@ class RabController extends Controller
             'title' =>'Preview PO-KHS '.$fileName,
             'filename' => $fileName,
             'pdf' => $pdf,
+            'rabs' => $rabs,
             'slug' => $nama_pdf,
             'active' => $fileName
 
@@ -835,5 +854,49 @@ class RabController extends Controller
         // } else {
         //     echo json_encode(true);
         // }
+    }
+    public function setuju(Request $request){
+        // dd($request);
+
+        $id = Rab::where('slug', $request->slug)->value('id');
+
+        $rab = Rab::find($id);
+
+
+        $data = [
+            'status' => $request->terima,
+        ];
+
+        $rab->update($data);
+
+        return response()->json([
+            'success'   => true
+        ]);
+
+
+        // if($request->terima === "Disetujui"){
+
+        // $data = [
+        //     'status' => $request->acc,
+        // ];
+
+        // $rab->update($data);
+
+        // return redirect('po-khs')->withSuccess('Po disetujui');
+
+        // }
+        // else {
+
+        //     $data = [
+        //         'status' => $request->acc,
+        //     ];
+
+        //     $rab->update($data);
+
+        //     return redirect('po-khs')->with('error','Po Ditolak');
+
+        // }
+
+
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('non_pos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("user_id");
             $table->string("nomor_rpbj");
             $table->string("pekerjaan");
             $table->foreignId("skk_id");

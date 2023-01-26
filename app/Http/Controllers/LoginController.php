@@ -34,13 +34,23 @@ class LoginController extends Controller
         // }
         if (Auth::attempt($credentials)) {
             // dd($credentials);
-            $request->session()->regenerate();
 
-            Alert::success('Login Telah Berhasil', 'Selamat Datang di SIPAKAINGA '.$request->username.'');
+
             if (auth()->user()->role === 'Staff') {
+                $request->session()->regenerate();
+                Alert::success('Login Telah Berhasil', 'Selamat Datang di SIPAKAINGA '.$request->username.'');
                 return redirect('po-khs');
 
-            } else{
+            } else if(auth()->user()->role === 'Keuangan'){
+                $request->session()->regenerate();
+
+                Alert::success('Login Telah Berhasil', 'Selamat Datang di SIPAKAINGA '.$request->username.'');
+                return redirect('skk');
+
+            }
+            else{
+                $request->session()->regenerate();
+                Alert::success('Login Telah Berhasil', 'Selamat Datang di SIPAKAINGA '.$request->username.'');
                 return redirect()->route('dashboard');
             }
         }

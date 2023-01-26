@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminMiddleware
 {
@@ -25,7 +26,8 @@ class AdminMiddleware
                 return $next($request);
             }
             else{
-                abort(403);
+                Alert::error('Mohon Maaf', 'Halaman Tidak Tersedia');
+                return back();
             }
         }
     }

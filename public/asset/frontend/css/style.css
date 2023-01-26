@@ -48,7 +48,7 @@ font-family:verdana, Helvetica;
     background-color: #ffffff;
     max-height: 150px;
     overflow-y: scroll;
-  }
+}
 
   #checkboxes label {
     display: block;
@@ -3007,7 +3007,7 @@ ntrol .table-responsive>.table-bordered {
     line-height: 1.5;
     color: #060607;
     background-color: #fff;
-    background-clip: padding-box;
+    /* background-clip: padding-box; */
     position: relative;
     border: 1px solid #63656b;
     border-color: #63656b;

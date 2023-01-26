@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('hpes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->foreignId('non_po_id');
             $table->double('total_harga_hpe');
             $table->string("pdf_file");

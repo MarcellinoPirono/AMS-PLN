@@ -54,7 +54,7 @@ class ImportItem_SPAPP implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return  [
-            'khs_id' => 'required',
+            'khs_id' => 'required|exists:khs,jenis_khs',
             'kategori' => 'required',
             'nama_item' => 'required',
             'satuan_id' => 'required',
@@ -72,6 +72,7 @@ class ImportItem_SPAPP implements ToModel, WithHeadingRow, WithValidation
             'nama_item.required' => 'Kolom nama_item tidak boleh Kosong !',
             'nama_item.unique' => 'nama_item sudah ada !',
             'khs_id.required' => 'Kolom khs_id tidak boleh Kosong !',
+            'khs_id.exists' => 'Harus Sesuai Jenis Khs!',
             'kategori.required' => 'Kolom kategori tidak boleh Kosong !',
             'satuan_id.required' => 'Kolom satuan_id tidak boleh Kosong !',
             'harga_satuan.numeric' => 'Kolom harga_satuan harus numeric',

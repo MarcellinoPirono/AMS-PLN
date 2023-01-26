@@ -42,6 +42,7 @@
                                     <form id="form-1" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
                                         <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                                         <input type="hidden" name="non_po_id" id="non_po_id" value="{{ $non_po_id }}">
+                                        <input type="hidden" name="user_id" id="user_id" value="{{ $user_id }}">
                                         <div class="row m-auto">
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
@@ -898,6 +899,7 @@
         function onSubmitData() {
             var token = $('#csrf').val();
             var non_po_id = $('#non_po_id').val();
+            var user_id = $('#user_id').val();
 
             var harga_hpe = [];
             var jumlah_harga_hpe = [];
@@ -933,6 +935,7 @@
             // if (kak.length > 0) {
             fd.append("total_harga", total_harga);
             fd.append("non_po_id", non_po_id);
+            fd.append("user_id", user_id);
             // }
 
             swal({

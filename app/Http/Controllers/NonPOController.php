@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NonPo;
+use App\Models\User;
 use App\Models\Skk;
 use App\Models\Prk;
 use App\Models\PpnModel;
@@ -12,6 +13,7 @@ use App\Models\RabNonPo;
 use App\Models\Redaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Riskihajar\Terbilang\Facades\Terbilang;
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 
@@ -43,6 +45,7 @@ class NonPOController extends Controller
                 'prks' => Prk::all(),
                 'redaksis'=> Redaksi::all(),
                 'ppn'=> PpnModel::all(),
+                'user_id'=> User::find(Auth::id())->first(),
             ]
         );
     }
@@ -58,14 +61,17 @@ class NonPOController extends Controller
                 'prks' => Prk::all(),
                 'pejabats' => Pejabat::all(),
                 'ppn'=> PpnModel::all(),
+                'user_id'=> User::find(Auth::id())->value('id'),
         ]);
     }
 
     public function simpan_non_po(Request $request)
     {
         // dd($request);
+        // dd($errors);
         $request->validate([
-            'nomor_rpbj' => 'required|max:250',
+            'user_id' => 'required|max:250',
+            'nomor_rpbj' => 'required|unique:non_pos|max:250',
             'pekerjaan' => 'required|max:250',
             'skk_id' => 'required|max:250',
             'prk_id' => 'required|max:250',
@@ -79,6 +85,7 @@ class NonPOController extends Controller
             'volume' => 'required|max:250',
             'jumlah_harga' => 'required|max:250',
         ]);
+
 
         // $file = $request->file('kak')->getClientOriginalName();
         // // dd($file);
@@ -113,6 +120,7 @@ class NonPOController extends Controller
 
 
         $non_po = [
+            'user_id' => $request->user_id,
             'nomor_rpbj' => $request->nomor_rpbj,
             'pekerjaan' => $request->pekerjaan,
             'skk_id' => $request->skk_id,

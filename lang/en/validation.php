@@ -156,6 +156,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'nomor_rpbj' => [
+            'unique' => 'Nomor RPBJ Sudah Ada',
+        ],
     ],
 
     /*

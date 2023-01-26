@@ -50,8 +50,6 @@
                                     <label class="text-label">Pilih Role User :</label>
                                     <select id="role" name="role" class="form-control filter-role">
                                         <option value="" disabled selected>Pilih Role</option>
-                                        <option value="Admin">Admin
-                                        </option>
                                         <option value="Manager">Manager
                                         </option>
                                         <option value="Keuangan">Keuangan
@@ -68,7 +66,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                         </div>
-                                        <input type="text" class="form-control" id="username" name="username"
+                                        <input type="text" class="form-control" id="new_username" name="new_username"
                                             placeholder="Enter a username..">
                                     </div>
                                     <!-- <label class="text-label">Username</label>
@@ -298,14 +296,15 @@
                         fd.append('file', pondFiles[i].file);
                     }
                     var token = $('#csrf').val();
-                    var username = $("#username").val();
+                    var new_username = $("#new_username").val();
+                    console.log(new_username);
                     var password = $("#password").val();
                     var name = $("#name").val();
                     var email = $("#email").val();
                     var no_hp = $("#no_hp").val();
                     var role = $("#role").val();
                     fd.append("_token", token);
-                    fd.append("username", username);
+                    fd.append("new_username", new_username);
                     fd.append("password", password);
                     fd.append("name", name);
                     fd.append("email", email);
