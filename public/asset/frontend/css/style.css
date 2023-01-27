@@ -83,8 +83,8 @@ font-family:verdana, Helvetica;
   .dropdown-check-list .anchor {
     /* position: relative; */
     cursor: pointer;
-    display: inline-block;
-    /* display: block; */
+    /* display: inline-block; */
+    display: block;
     width: 100%;
     height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 0.75rem;
@@ -103,6 +103,12 @@ font-family:verdana, Helvetica;
     /* padding: 5px 50px 5px 10px; */
     /* border: 1px solid #ccc; */
   }
+  @media (prefers-reduced-motion: reduce) {
+    .dropdown-check-list {
+        transition: none;
+        }
+    }
+
   .dropdown-check-list .anchor:after {
     position: absolute;
     content: "";
@@ -125,21 +131,27 @@ font-family:verdana, Helvetica;
     padding: 2px;
     display: none;
     margin: 0;
-    border: 1px solid #ccc;
-    border-top: none;
+    border: 1px solid #000;
+    /* border-top: none; */
+    overflow: auto;
   }
   .dropdown-check-list ul.items li {
     list-style: none;
+    color:#000;
   }
   .dropdown-check-list ul.items2 {
     padding: 2px;
     display: none;
     margin: 0;
-    border: 1px solid #ccc;
-    border-top: none;
+    border: 1px solid #000;
+    /* border-top: none; */
+    max-height: 100px;
+    overflow-y: auto;
   }
   .dropdown-check-list ul.items2 li {
     list-style: none;
+    color:#000;
+    /* overflow: auto; */
   }
 
 .password-container {
@@ -38790,8 +38802,8 @@ button:focus {
 }
 
 .light.btn-info {
-    background-color: #a4e3f1;
-    border-color: #a4e3f1;
+    background-color: #c4e6ee47;
+    border-color: #c4e6ee47;
     color: #1ea7c5;
 }
 

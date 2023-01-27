@@ -48,7 +48,7 @@
                                         @elseif ($hpe->non_pos->status == 2)
                                         <td><span class="badge light badge-warning">Sedang Menunggu Persetujuan Manager</span></td>
                                         @elseif ($hpe->non_pos->status == 3)
-                                        <td><span class="badge light badge-warning">Disetujui</span></td>
+                                        <td><span class="badge light badge-success">Disetujui</span></td>
                                         @endif
                                         <td>
                                             <div class="dropdown">

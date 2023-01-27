@@ -37,7 +37,7 @@
                                         @elseif ($nonpo->status == 2)
                                         <td><span class="badge light badge-warning">Sedang Menunggu Persetujuan Manager</span></td>
                                         @elseif ($nonpo->status == 3)
-                                        <td><span class="badge light badge-warning">Disetujui</span></td>
+                                        <td><span class="badge light badge-success">Disetujui</span></td>
                                         @endif
                                         <td>@currency($nonpo->total_harga)</td>
                                         <td align="center">

@@ -14,22 +14,30 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
+                    <div class="col-xl-3 col-l-4 col-m-3 col-sm-2 mt-3">
+                        <select id="filter-addendum-khs" class="form-control filter">
+                            <option value="">Pilih Jenis KHS</option>
+                            @foreach ($khss as $khs)
+                            <option value="{{ $khs->jenis_khs }}">{{ $khs->jenis_khs }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2 mt-3">
-                        <select id="filter-addendum-kontrak-induk" class="form-control filter">
+                        <!-- <select id="filter-addendum-kontrak-induk" class="form-control filter">
                             <option value="">Pilih Nomor Kontrak Induk</option>
                             @foreach ($kontrakinduks as $kontrakinduk)
                                 <option value="{{ $kontrakinduk->nomor_kontrak_induk }}">
                                     {{ $kontrakinduk->nomor_kontrak_induk }}</option>
                             @endforeach
-                        </select>
-                    </div>
-                    <div class="col-xl-3 col-l-4 col-m-3 col-sm-2 mt-3">
-                        <select id="filter-addendum-khs" class="form-control filter">
-                            <option value="">Pilih Jenis KHS</option>
-                            @foreach ($khss as $khs)
-                                <option value="{{ $khs->jenis_khs }}">{{ $khs->jenis_khs }}</option>
-                            @endforeach
-                        </select>
+                        </select> -->
+                        <div id="list2" class="dropdown-check-list" tabindex="100">
+                            <span class="anchor">Pilih Nomor Kontrak Induk</span>
+                            <ul id="items2" class="items2">
+                                @foreach ($kontrakinduks as $kontrakinduk)
+                                <li><input type="checkbox" class="custom-control-label" name="filter" value="{{ $kontrakinduk->nomor_kontrak_induk }}"/>{{ $kontrakinduk->nomor_kontrak_induk }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                     <a href="/addendum-khs/create-xlsx" class="btn btn-primary btn-xxs mr-auto ml-3" style="font-size: 13px">Via Excel <i class="fa fa-plus-circle"></i></span>
                     </a>
@@ -170,15 +178,40 @@
             }
         });
 
-        $('#filter-addendum-kontrak-induk').on("change", function(event) {
-            var kontrak_induk = $('#filter-addendum-kontrak-induk').val();
-            tableAddendum.columns(1).search(kontrak_induk).draw();
-        });
+        // $('#filter-addendum-kontrak-induk').on("change", function(event) {
+        //     var kontrak_induk = $('#filter-addendum-kontrak-induk').val();
+        //     tableAddendum.columns(1).search(kontrak_induk).draw();
+        // });
 
         $('#filter-addendum-khs').on("change", function(event) {
             var jenis_khs = $('#filter-addendum-khs').val();
             tableAddendum.columns(2).search(jenis_khs).draw();
         });
+        $(document).on("change", "#items2", function() {
+            var flags = $(this).closest('ul').find("input:checkbox[name=filter]:checked").map(function() {
+                return this.value;
+            }).get();
+            tableAddendum.columns(1).search(flags.join('|'), true, false, true).draw();
+
+            // console.log(flags);
+        })
+    </script>
+    <script>
+        var checkList2 = document.getElementById('list2');
+        var items2 = document.getElementById('items2');
+        checkList2.getElementsByClassName('anchor')[0].onclick = function (evt) {
+            if (items2.classList.contains('visible')){
+                items2.classList.remove('visible');
+                items2.style.display = "none";
+            }
+            else{
+                items2.classList.add('visible');
+                items2.style.display = "block";
+            }
+        }
+        items2.onblur = function(evt) {
+            items2.classList.remove('visible');
+        }
     </script>
 @endsection
 

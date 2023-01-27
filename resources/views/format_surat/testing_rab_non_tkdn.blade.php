@@ -13,7 +13,7 @@
 
 <body>
     <header class="mt-1">
-        <img class="mt-1 header-rab" src="{{ public_path('/') }}./asset/frontend/images/header_pln.jpg" alt="">
+        <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.jpg" alt="">
     </header>
 
     <footer>
@@ -229,11 +229,11 @@
                 @endforeach
             @endforeach
             <tr style="page-break-before: avoid">
+                <td class="tabelnormalkiri" rowspan="5" colspan="3"></td>
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Material</b></td>
                 <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($sub_jumlah_material)</b></td>
             </tr>
             <tr>
-                <td class="tabelnormalkiri" rowspan="5" colspan="3"></td>
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Jasa</b></td>
                 <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($sub_jumlah_jasa)</b></td>
             </tr>

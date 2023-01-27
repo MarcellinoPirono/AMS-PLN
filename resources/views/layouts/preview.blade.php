@@ -25,14 +25,14 @@
 
                     @if (auth()->user()->role === 'Manager' || auth()->user()->role === 'Admin')
                         @if ($rabs->status != 'Disetujui' && $rabs->status != 'Ditolak')
-                            <div class="col-md-12 d-flex justify-content-end">
+                            <div class="col-md-12 d-flex justify-content-end mt-5 mb-3">
                                 {{-- <form name="terima" id="terima" action="#"> --}}
                                     {{-- @csrf --}}
                                     <input type="hidden" value="{{ $slug }}" id="slug_rab" name="slug_rab">
                                     <button value="Disetujui"
                                         class="btn btn-success" onclick="setuju(this)"><i class="bi bi-check-circle"></i> Disetujui</button>
                                     <button value="Ditolak"
-                                        class="btn btn-danger" onclick="setuju(this)"><i class="bi bi-x-circle"></i> Ditolak</button>
+                                        class="btn btn-danger ml-3" onclick="setuju(this)"><i class="bi bi-x-circle"></i> Ditolak</button>
                                 {{-- </form> --}}
                                 {{-- <a type="button" class="btn btn-danger mr-3 ml-3" href="/"><i class="bi bi-x-circle"></i> Ditolak</a> --}}
                             </div>
