@@ -69,6 +69,7 @@ particlesJS("particles-js", {
       },
       "image": {
         "src": "https://raw.githubusercontent.com/fadhil27/Image/main/login/logo.png",
+        // "src": "{{ asset('/') }}./asset/frontend/images/login/logo.png",
         "width": 100,
         "height": 100
       }

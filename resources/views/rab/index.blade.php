@@ -51,10 +51,13 @@
                     <div class="col-xl-3 col-l-4 col-m-3 col-sm-2 mt-3">
                         <select id="filter-status" class="form-control filter">
                             <option value="">Pilih Status</option>
-                            @foreach ($rabs as $rab)
+                            <option value="Progress">Progress</option>
+                            <option value="Disetujui">Disetujui</option>
+                            <option value="Ditolak">Ditolak</option>
+                            {{-- @foreach ($rabs as $rab)
                                 <option value="{{ $rab->status}}">
                                     {{ $rab->status }}</option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                     </div>
 

@@ -295,7 +295,12 @@
                                         buttons: false
                                     })
                                     .then((result) => {
-                                        window.location.href = "/user";
+                                        // window.location.href = "/user";
+                                        // window.history.back(window.location.reload());
+                                        window.location.replace(document.referrer);
+                                        // window.location.reload(history.back());
+                                        // window.history.back();
+                                        // window.location.reload();
                                     });
                             }
                         });
@@ -318,6 +323,7 @@
                                     })
                                     .then((result) => {
                                         window.history.back();
+                                        window.location.reload();
                                     });
                             }
                         });

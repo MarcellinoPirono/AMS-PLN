@@ -48,10 +48,10 @@ class LoginController extends Controller
                 return redirect('skk');
 
             }
-            else{
+            else if (auth()->user()->role === 'Admin' || auth()->user()->role === 'Manager' ){
                 $request->session()->regenerate();
                 Alert::success('Login Telah Berhasil', 'Selamat Datang di SIPAKAINGA '.$request->username.'');
-                return redirect()->route('dashboard');
+                return redirect('/dashboard');
             }
         }
 

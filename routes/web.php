@@ -250,7 +250,7 @@ Route::get('download/{slug}', [PdfkhsController::class, 'download'])->middleware
 // Route::resource('user', UserController::class);
 
 Route::controller(UserController::class)->group(function () {
-    Route::get('/user', 'index')->name('index')->middleware('AdminMiddleware');
+    Route::get('/user', 'index')->middleware('AdminMiddleware');
     Route::get('/user/create', 'create')->name('user.create')->middleware('AdminMiddleware');
     Route::post('/edit-profile', 'edit')->name('user.edit_profile')->middleware('StaffMiddleware');
     // Route::post('/user/{username}/edit', 'edit_admin')->middleware('AdminMiddleware');

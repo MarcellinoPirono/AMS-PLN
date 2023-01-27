@@ -104,8 +104,14 @@ font-family:verdana, Helvetica;
     /* border: 1px solid #ccc; */
   }
   @media (prefers-reduced-motion: reduce) {
-    .dropdown-check-list {
+    .dropdown-check-list .anchor{
         transition: none;
+        }
+    }
+
+    @media only screen and (max-width: 1400px) {
+        .dropdown-check-list .anchor {
+            height: 41px;
         }
     }
 
