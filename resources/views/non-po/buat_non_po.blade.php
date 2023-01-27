@@ -37,7 +37,8 @@
                                 </li>
                             </ul>
                             <div class="tab-content mt-3 tab-flex">
-                                <div id="kak" class="tab-pane", role="tabpanel" aria-labelledby="step-1">
+                                <div id="kak" class="tab-pane", role="tabpanel" aria-labelledby="step-1"
+                                style="height: auto !important; display: flex !important; flex-direction: column !important;">
                                     <form id="form-1" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
                                         <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                                         <div class="row">
@@ -160,17 +161,24 @@
                                                     </div>
                                                     <div class="row ml-2">
                                                         <div class="table-responsive">
-                                                            <table class="table table-responsive-sm height-100"
-                                                                id="tabelNonPO">
+                                                            <table id="tabelNonPO" class="table table-responsive-lg tabel-daftar1"
+                                                                style="width: 1520px" cellpadding="0" cellspacing="0" border="0">
                                                                 <thead>
-                                                                    <tr class="">
-                                                                        <th>No.</th>
-                                                                        <th>Uraian</th>
-                                                                        <th>Satuan</th>
-                                                                        <th>Volume</th>
-                                                                        <th>Harga Satuan</th>
-                                                                        <th>Jumlah</th>
-                                                                        <th>Aksi</th>
+                                                                    <tr align="center" valign="middle" class="">
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 60px vertical-align: middle;">No.</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 322px; vertical-align: middle;">Uraian</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 134px; vertical-align: middle;">Satuan</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 134px; vertical-align: middle;">Volume</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 209px; vertical-align: middle;">Harga Satuan</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 230px; vertical-align: middle;">Jumlah</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 80px; vertical-align: middle !important;">Aksi</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-kategori">

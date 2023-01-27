@@ -44,10 +44,10 @@
                                         <td>@currency($hpe->non_pos->total_harga)</td>
                                         <td>@currency($hpe->total_harga_hpe)</td>
                                         @if ($hpe->non_pos->status == 1)
-                                        <td><span class="badge light badge-warning">Proses HPE</span></td>
-                                        @elseif ($hpe->non_pos->status == 2)
-                                        <td><span class="badge light badge-warning">Sedang Menunggu Persetujuan Manager</span></td>
-                                        @elseif ($hpe->non_pos->status == 3)
+                                        <td><span class="badge light badge-warning">OnProcess (HPE)</span></td>
+                                        @elseif ($nonpo->status == 2)
+                                        <td><span class="badge light badge-warning">OnProcess (Persetujuan Manager)</span></td>
+                                        @elseif ($nonpo->status == 3)
                                         <td><span class="badge light badge-success">Disetujui</span></td>
                                         @endif
                                         <td>

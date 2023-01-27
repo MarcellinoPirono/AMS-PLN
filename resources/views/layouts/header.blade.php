@@ -69,7 +69,6 @@
                             </div>
                         </li>
                     @endauth
-
                 </ul>
             </div>
         </nav>
@@ -86,7 +85,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form name="form_reset_password" id="form_reset_password" action="/check-password" method="post">
+            <form name="form_reset_password" id="form_reset_password" action="/check-password" method="post" method="post">
                 @csrf
                 {{-- @method('put') --}}
                 <div class="modal-body">

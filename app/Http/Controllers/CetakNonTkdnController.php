@@ -270,9 +270,31 @@ class CetakNonTkdnController extends Controller
         $kln_material = $sub_jumlah_material - $kdn_material;
         $total_jasa = $kdn_jasa + $kln_jasa;
         $total_material = $kdn_material + $kln_material;
-        $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
-        $total_tkdn_material = ($kdn_material / $total_material) * 100;
+        if ($total_jasa > 0 ){
+            $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
+        }
+        else{
+            $total_tkdn_jasa = 0;
+        }
 
+
+        if ($total_material > 0 ){
+            $total_tkdn_material = ($kdn_material / $total_material) * 100;
+        }
+        else{
+            $total_tkdn_material = 0;
+        }
+
+        $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
+        $total_kln_jasa_material = $kln_jasa + $kln_material;
+        $total_jasa_material = $total_jasa + $total_material;
+
+        if ($total_jasa_material > 0 ){
+            $total_tkdn_jasa_material = ($total_kdn_jasa_material /  $total_jasa_material) * 100;
+        }
+        else{
+            $total_tkdn_jasa_material = 0;
+        }
         $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
         $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
 
@@ -584,8 +606,31 @@ class CetakNonTkdnController extends Controller
         $kln_material = $sub_jumlah_material - $kdn_material;
         $total_jasa = $kdn_jasa + $kln_jasa;
         $total_material = $kdn_material + $kln_material;
-        $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
-        $total_tkdn_material = ($kdn_material / $total_material) * 100;
+        if ($total_jasa > 0 ){
+            $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
+        }
+        else{
+            $total_tkdn_jasa = 0;
+        }
+
+
+        if ($total_material > 0 ){
+            $total_tkdn_material = ($kdn_material / $total_material) * 100;
+        }
+        else{
+            $total_tkdn_material = 0;
+        }
+
+        $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
+        $total_kln_jasa_material = $kln_jasa + $kln_material;
+        $total_jasa_material = $total_jasa + $total_material;
+
+        if ($total_jasa_material > 0 ){
+            $total_tkdn_jasa_material = ($total_kdn_jasa_material /  $total_jasa_material) * 100;
+        }
+        else{
+            $total_tkdn_jasa_material = 0;
+        }
 
 
         $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');

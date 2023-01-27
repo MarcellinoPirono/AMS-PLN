@@ -164,19 +164,26 @@
                                                     </div>
                                                     <div class="row ml-2">
                                                         <div class="table-responsive">
-                                                            <table class="table table-responsive-sm height-100"
-                                                                id="tabelNonPO">
+                                                            <table id="tabelNonPO" class="table table-responsive-lg tabel-daftar1"
+                                                                style="width: 1428px" cellpadding="0" cellspacing="0" border="0">
                                                                 <thead>
-                                                                    <tr class="">
-                                                                        <th>No.</th>
-                                                                        <th>Uraian</th>
-                                                                        <th>Satuan</th>
-                                                                        <th>Volume</th>
-                                                                        <th>Harga Satuan</th>
-                                                                        <th>Jumlah</th>
-                                                                        <th>Harga Perkiraan</th>
-                                                                        <th>Jumlah Harga Perkiraan</th>
-                                                                        <th>Aksi</th>
+                                                                    <tr align="center" valign="middle" class="">
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 60px vertical-align: middle;">No.</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 322px; vertical-align: middle;">Uraian</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 134px; vertical-align: middle;">Satuan</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 134px; vertical-align: middle;">Volume</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 209px; vertical-align: middle;">Harga Satuan</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 230px; vertical-align: middle;">Jumlah</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 209px; vertical-align: middle;">Harga Perkiraan</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 230px; vertical-align: middle;">Jumlah Harga Perkiraan</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-kategori">
@@ -259,35 +266,31 @@
                                                                 </thead>
                                                                 <tfoot>
                                                                     <tr>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th>Jumlah:</th>
-                                                                        <th id="jumlah">Rp. @currency2($jumlah_harga)</th>
-                                                                        <th>Jumlah HPE:</th>
-                                                                        <th id="jumlah-hpe"></th>
-                                                                        <th></th>
+                                                                        <th style="width: 20%; padding-left: 35px">
+                                                                            Jumlah</th>
+                                                                        <th style="width: 1%">:</th>
+                                                                        <th style="width: 55%" id="jumlah"></th>
+                                                                        <th >
+                                                                            Jumlah HPE:</th>
+                                                                        <th style="width: 1%">:</th>
+                                                                        <th style="width: 55%" id="jumlah-hpe"></th>
+                                                                        <th style="width: 24%"></th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th>PPN {{ $ppn[0]->ppn }}%:</th>
-                                                                        <th id="pajak">Rp. @currency2($ppn_nonpo)</th>
-                                                                        <th>PPN {{ $ppn[0]->ppn }}%:</th>
+                                                                        <th style="padding-left: 35px">PPN {{ str_replace('.',',', $ppn[0]->ppn) }}%</th>
+                                                                        <th>:</th>
+                                                                        <th id="pajak"></th>
+                                                                        <th >PPN {{ str_replace('.',',', $ppn[0]->ppn) }}%</th>
+                                                                        <th>:</th>
                                                                         <th id="pajak-hpe"></th>
                                                                         <th></th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th>Total Harga:</th>
-                                                                        <th id="total">Rp. @currency2($total_harga)</th>
-                                                                        <th>Total Harga HPE:</th>
+                                                                        <th style="padding-left: 35px">Total Harga</th>
+                                                                        <th>:</th>
+                                                                        <th id="total"></th>
+                                                                        <th >Total Harga HPE</th>
+                                                                        <th>:</th>
                                                                         <th id="total-hpe"></th>
                                                                         <th></th>
                                                                     </tr>

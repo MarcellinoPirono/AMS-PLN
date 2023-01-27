@@ -85,7 +85,7 @@
                  </ul>
              </li>
 
-             <h5>
+             <!-- <h5>
                  <p class="fs-12 ml-3 mt-4 mb-1 text-black">PO Non KHS</p>
              </h5>
              <li>
@@ -105,7 +105,7 @@
                              <strong>Detail Non KHS</strong>
                          </a>
                          <ul aria-expanded="false">
-                             <!-- <li><a class="" href="/categories">Kategori</a></li> -->
+                             <li><a class="" href="/categories">Kategori</a></li>
                              <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
                                      href="/rincian">&ensp; &ensp;Vendor Non KHS</a></li>
                              <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
@@ -113,7 +113,7 @@
                          </ul>
                      </li>
                  </ul>
-             </li>
+             </li> -->
              <h5>
                  <p class="fs-12 ml-3 mt-4 mb-1 text-black">Non PO</p>
              </h5>

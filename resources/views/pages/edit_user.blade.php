@@ -3,9 +3,9 @@
 @section('content')
     <div class="page-titles">
         <ol class="breadcrumb">
-            @if (auth()->user()->role === "Admin")
-            <li class="breadcrumb-item"><a href="/user">{{ $active }}</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $active1 }}</a></li>
+            @if (auth()->user()->role === 'Admin')
+                <li class="breadcrumb-item"><a href="/user">{{ $active }}</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $active1 }}</a></li>
             @endif
         </ol>
     </div>
@@ -16,10 +16,10 @@
                 <div class="card-header">
                     <h4 class="card-title">{{ $title }}</h4>
                 </div>
-                <input type="hidden" id="admin" value="{{ auth()->user()->role }}">
                 <div class="card-body">
                     <div class="basic-form">
                         <form name="edit_user" id="edit_user" action="#">
+                            <input type="hidden" id="admin" name="admin" value="{{ auth()->user()->role }}">
                             <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                             <div class="form-row justify-content-center">
                                 <div class="form-group col-md-3">
@@ -45,43 +45,48 @@
                                 <div class="form-group col-md-6">
                                     <label class="text-label">No. HP :</label>
                                     <input type="text" class="form-control" id="no_hp" name="no_hp"
-                                        placeholder="No. HP" value="{{ old('no_hp', $users->no_hp) }}" onkeypress="return onlyNumberKey(event)">
+                                        placeholder="No. HP" value="{{ old('no_hp', $users->no_hp) }}"
+                                        onkeypress="return onlyNumberKey(event)">
                                     <input type="hidden" class="form-control" id="old_pic_profile" name="old_pic_profile"
                                         value="{{ old('pic_profile', $users->pic_profile) }}">
                                 </div>
-                                @if (auth()->user()->role === "Admin")
-                                    @if ($users->role != "Admin")
-                                    <div class="form group justify-content-center col-6">
-                                        <label class="text-label">Pilih Role User :</label>
-                                        <select  id="role" class="form-control filter-role">
-                                            <option value="" disabled>Pilih Role</option>
-                                            <option value="Manager" @if($users->role == "Manager")selected @endif>Manager
-                                            </option>
-                                            <option value="Keuangan" @if($users->role == "Keuangan")selected @endif>Keuangan
-                                            </option>
-                                            <option value="Perencanaan" @if($users->role == "Perencanaan")selected @endif>Perencanaan
-                                            </option>
-                                            <option value="Staff" @if($users->role == "Staff")selected @endif>Staff
-                                            </option>
-                                        </select>
-                                    </div>
+                                @if (auth()->user()->role === 'Admin')
+                                    @if ($users->role != 'Admin')
+                                        <div class="form group justify-content-center col-6">
+                                            <label class="text-label">Pilih Role User :</label>
+                                            <select id="role" class="form-control filter-role">
+                                                <option value="" disabled>Pilih Role</option>
+                                                <option value="Manager" @if ($users->role == 'Manager') selected @endif>
+                                                    Manager
+                                                </option>
+                                                <option value="Keuangan" @if ($users->role == 'Keuangan') selected @endif>
+                                                    Keuangan
+                                                </option>
+                                                <option value="Perencanaan"
+                                                    @if ($users->role == 'Perencanaan') selected @endif>Perencanaan
+                                                </option>
+                                                <option value="Staff" @if ($users->role == 'Staff') selected @endif>
+                                                    Staff
+                                                </option>
+                                            </select>
+                                        </div>
                                     @endif
                                 @endif
                                 <input type="hidden" id="role_user" value="{{ $users->role }}">
                                 <div class="form-group col-md-6">
                                     <label class="text-label">Username</label>
                                     <div class="input-group">
-                                        <input style="border-radius: 1.5rem" type="text" class="form-control" id="new_username" name="new_username"
-                                            placeholder="Enter a username.."
+                                        <input style="border-radius: 1.5rem" type="text" class="form-control"
+                                            id="new_username" name="new_username" placeholder="Enter a username.."
                                             value="{{ old('new_username', $users->username) }}">
-                                        <input type="hidden" id="old_username" name="old_username" value="{{ $old_username }}">
+                                        <input type="hidden" id="old_username" name="old_username"
+                                            value="{{ $old_username }}">
                                         {{-- <i style="padding-top: 3px;" class="fa-solid fa-user" ></i> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-12 d-flex justify-content-center">
-                                    <a type="button" class="btn btn-danger mr-3" href="/">Back</a>
-                                    <button type="submit" id="btntambah"
-                                        class="btn btn-primary">Edit User</button>
+                                    <a type="button" class="btn btn-danger mr-3" onclick="window.location.replace(document.referrer);">Back</a>
+                                    <button type="submit" id="btntambah" class="btn btn-primary">Edit User</button>
                                 </div>
                         </form>
                     </div>
@@ -267,47 +272,70 @@
                     fd.append("name", name);
                     fd.append("email", email);
                     fd.append("no_hp", no_hp);
-                    if(document.getElementById("admin").value == "Admin") {
-                        fd.append("role", role);
-                    } else {
+                    if (role_lama == "Admin") {
                         fd.append("role", role_lama);
+                    } else {
+                        if(document.getElementById("admin").value == "Admin") {
+                            fd.append("role", role);
+                        } else {
+                            fd.append("role", role_lama);
+                        }
                     }
                     fd.append("old_pic_profile", old_pic_profile);
                     // var pic_profile = pond.files;
 
-                    console.log(fd);
+                    // console.log(fd);
 
-                    if(document.getElementById("admin").value == "Admin") {
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{ route('user.update')}}",
-                            data: fd,
-                            contentType: false,
-                            processData: false,
-                            dataType: 'json',
+                    if (document.getElementById("admin").value == "Admin") {
+                        if(role_lama == "Admin") {
+                            $.ajax({
+                                type: 'POST',
+                                url: "{{ route('user.update') }}",
+                                data: fd,
+                                contentType: false,
+                                processData: false,
+                                dataType: 'json',
 
-                            success: function(response) {
-                                swal({
-                                        title: "Data User Diedit ",
-                                        text: "Telah Berhasil Diedit",
-                                        icon: "success",
-                                        timer: 2e3,
-                                        buttons: false
-                                    })
-                                    .then((result) => {
-                                        // window.location.href = "/user";
-                                        // window.history.back(window.location.reload());
-                                        window.location.replace(document.referrer);
-                                        // window.location.reload(history.back());
-                                        // window.history.back();
-                                        // window.location.reload();
-                                    });
-                            }
-                        });
+                                success: function(response) {
+                                    swal({
+                                            title: "Data User Diedit ",
+                                            text: "Telah Berhasil Diedit",
+                                            icon: "success",
+                                            timer: 2e3,
+                                            buttons: false
+                                        })
+                                        .then((result) => {
+                                            window.location.replace(document.referrer);
+                                        });
+                                }
+                            });
+                        } else {
+                            $.ajax({
+                                type: 'POST',
+                                url: "{{ route('user.update') }}",
+                                data: fd,
+                                contentType: false,
+                                processData: false,
+                                dataType: 'json',
+
+                                success: function(response) {
+                                    swal({
+                                            title: "Data User Diedit ",
+                                            text: "Telah Berhasil Diedit",
+                                            icon: "success",
+                                            timer: 2e3,
+                                            buttons: false
+                                        })
+                                        .then((result) => {
+                                            window.location.href = "/user";
+                                        });
+                                }
+                            });
+                        }
                     } else {
                         $.ajax({
                             type: 'POST',
-                            url: "{{ route('user.update')}}",
+                            url: "{{ route('user.update') }}",
                             data: fd,
                             contentType: false,
                             processData: false,
@@ -322,8 +350,7 @@
                                         buttons: false
                                     })
                                     .then((result) => {
-                                        window.history.back();
-                                        window.location.reload();
+                                        window.location.replace(document.referrer);
                                     });
                             }
                         });

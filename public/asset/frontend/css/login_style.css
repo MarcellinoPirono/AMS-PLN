@@ -13,6 +13,12 @@ body, html {
   background-color: #13213f;
   padding: 0;
   margin: 0;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  /* background: url(pln_bg.jpg); */
+  /* background-repeat: no-repeat;
+  background-size: cover; */
 }
 
 #particles-js {

@@ -171,17 +171,24 @@
                                                     </div>
                                                     <div class="row ml-2">
                                                         <div class="table-responsive">
-                                                            <table class="table table-responsive-sm height-100"
-                                                                id="tabelNonPO">
+                                                            <table id="tabelNonPO" class="table table-responsive-lg tabel-daftar1"
+                                                                style="width: 1169px" cellpadding="0" cellspacing="0" border="0">
                                                                 <thead>
-                                                                    <tr class="">
-                                                                        <th>No.</th>
-                                                                        <th>Uraian</th>
-                                                                        <th>Satuan</th>
-                                                                        <th>Volume</th>
-                                                                        <th>Harga Satuan</th>
-                                                                        <th>Jumlah</th>
-                                                                        <th>Aksi</th>
+                                                                    <tr align="center" valign="middle" class="">
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 60px vertical-align: middle;">No.</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 322px; vertical-align: middle;">Uraian</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 134px; vertical-align: middle;">Satuan</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 134px; vertical-align: middle;">Volume</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 209px; vertical-align: middle;">Harga Satuan</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 230px; vertical-align: middle;">Jumlah</th>
+                                                                        <th align="center" valign="middle"
+                                                                            style="width: 80px; vertical-align: middle !important;">Aksi</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-kategori">
@@ -240,43 +247,25 @@
                                                                         <th></th>
                                                                         <th></th>
                                                                         <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tfoot>
                                                                     <tr>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th>Jumlah:</th>
-                                                                        <th id="jumlah"></th>
-                                                                        <th></th>
+                                                                        <th style="width: 20%; padding-left: 35px">
+                                                                            Jumlah</th>
+                                                                        <th style="width: 1%">:</th>
+                                                                        <th style="width: 55%" id="jumlah"></th>
+                                                                        <th style="width: 24%"></th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th>PPN {{ $ppn[0]->ppn }}%:</th>
+                                                                        <th style="padding-left: 35px">PPN {{ str_replace('.',',', $ppn[0]->ppn) }}%</th>
+                                                                        <th>:</th>
                                                                         <th id="pajak"></th>
                                                                         <th></th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th>Total Harga:</th>
+                                                                        <th style="padding-left: 35px">Total Harga</th>
+                                                                        <th>:</th>
                                                                         <th id="total"></th>
                                                                         <th></th>
                                                                     </tr>

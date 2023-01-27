@@ -255,10 +255,10 @@
                 </td>
             </tr>
             <tr style="height: 92px; page-break-before: avoid">
-                <td class="noborder" colspan="4" style="height: 92px;" align="center" valign="bottom">
+                <td class="noborder centertb" colspan="4" style="height: 92px;" align="center" valign="bottom" style="float:left;">
                     <b>{{ $nama_manager }}</b>
                 </td>
-                <td class="noborder" colspan="6" align="center" valign="bottom">
+                <td class="noborder centertb" colspan="6" align="center" valign="bottom" style="float:left;">
                     <b>{{ $pokhs->pejabats->nama_pejabat }}</b>
                 </td>
             </tr>

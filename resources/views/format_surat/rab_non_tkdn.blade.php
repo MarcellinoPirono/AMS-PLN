@@ -31,7 +31,7 @@
     @foreach ($po_khs as $pokhs)
     <table class="sub-judul" width="95%" cellspacing="0" cellpadding="0" align="center">
         <tr>
-            <td colspan="3" class="judul">RINCIAN ANGGARAN BIAYA</td>
+            <td colspan="3" class="judul">RINCIAN ANGGARAN BIAYA RAB CONTOHH</td>
         </tr>
         <tr>
             <td width="18%" style="height: 4px;">PEKERJAAN</td>
@@ -81,7 +81,7 @@
     </table>
 @endforeach
 <div class="wrapword" id="firstTable">
-    <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="rab_non">
         <tr class="warna">
             <td class="tabelataskiri" style="width:4%;" rowspan="2" align="center" valign="middle">No</td>
             <td class="tabelatas" rowspan="2" align="center" valign="middle">Uraian Pekerjaan</td>
@@ -94,9 +94,6 @@
             <td class="tabelnormal" style="width:12%;" align="center" valign="middle">Satuan (RP)</td>
             <td class="tabelnormalkanan"style="width:12%;" align="center" valign="middle">Jumlah (RP)</td>
         </tr>
-
-
-
         @if (count($kategori_material) > 0)
             <tr id="tr_material">
                 <td class="firstkiri" align="center" valign="middle"></td>
@@ -123,6 +120,16 @@
                     </td>
                 </tr>
             @endforeach
+            @if (count($kategori_jasa) > 0)
+                <tr>
+                    <td class="firstkiri" align="center" valign="middle"><br></td>
+                    <td class="first tabellkiri" style="font-weight: bold" align="left" valign="middle"></td>
+                    <td class="first" align="center" valign="middle"></td>
+                    <td class="first" align="center" valign="middle"></td>
+                    <td class="first tabellkanan" align="right" valign="middle"></td>
+                    <td class="firstkanan tabellkanan" align="right" valign="middle"></td>
+                </tr>
+            @endif
         @endif
 
         @if (count($kategori_jasa) > 0)
@@ -147,7 +154,15 @@
                     <td class="firstkanan tabellkanan" align="right" valign="middle">@currency2($jasa->jumlah_harga)</td>
                 </tr>
             @endforeach
-            @if (count($kategori_material) > 0)
+            <tr>
+                <td class="firstkiri" align="center" valign="middle"><br></td>
+                <td class="first tabellkiri" style="font-weight: bold" align="left" valign="middle"></td>
+                <td class="first" align="center" valign="middle"></td>
+                <td class="first" align="center" valign="middle"></td>
+                <td class="first tabellkanan" align="right" valign="middle"></td>
+                <td class="firstkanan tabellkanan" align="right" valign="middle"></td>
+            </tr>
+            {{-- @if (count($kategori_material) > 0)
                 <tr>
                     <td class="firstkiri" align="center" valign="middle"><br></td>
                     <td class="first tabellkiri" style="font-weight: bold" align="left" valign="middle"></td>
@@ -156,7 +171,7 @@
                     <td class="first tabellkanan" align="right" valign="middle"></td>
                     <td class="firstkanan tabellkanan" align="right" valign="middle"></td>
                 </tr>
-            @endif
+            @endif --}}
         @endif
         <tr>
             <td class="tabelnormalkiri" rowspan="3" colspan="3"></td>
@@ -189,8 +204,8 @@
                 {{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</td>
         </tr>
         <tr style="page-break-before: avoid">
-            <td style="text-align: center" class="noborder centertb" colspan="2" align="center" valign="top">{{ $jabatan_manager }}</td>
-            <td style="text-align: center" class="noborder centertb" colspan="4" align="center" valign="middle" style="text-align: center;">{{ $pokhs->pejabats->jabatan }}
+            <td style="text-align: center" class="noborder centertb" colspan="2" align="center" valign="top" style="float:left;">{{ $jabatan_manager }}</td>
+            <td style="text-align: center" class="noborder centertb" colspan="4" align="center" valign="middle" style="float:left;">{{ $pokhs->pejabats->jabatan }}
             </td>
         </tr>
         <tr style="height: 92px; page-break-before: avoid">
@@ -201,6 +216,26 @@
                 <b>{{ $pokhs->pejabats->nama_pejabat }}</b>
             </td>
         </tr>
+
+
+        <!-- <tr style="page-break-before: avoid">
+            <td class="tabelnormal" colspan="2" style="height: 30px;" align="center" valign="bottom">Mengetahui
+            </td>
+            <td class="tabelnormal" colspan="4" style="width:35%;" align="center" valign="bottom">Makassar,
+                {{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</td>
+        </tr>
+        <tr style="page-break-before: avoid" class="back-img">
+            <td style="text-align: center" class="tabelnormal centertb" colspan="2" align="center" valign="top" style="float:left;">{{ $jabatan_manager }}</td>
+            <td class="tabelnormal centertb" colspan="4" align="center" valign="middle" style="float:left;">{{ $pokhs->pejabats->jabatan }}</td>
+        </tr>
+        <tr style="height: 92px; page-break-before: avoid">
+            <td class="tabelnormal" colspan="2" style="height: 92px;" align="center" valign="bottom">
+                <b>{{ $nama_manager }}</b>
+            </td>
+            <td class="tabelnormal" colspan="4" align="center" valign="bottom">
+                <b>{{ $pokhs->pejabats->nama_pejabat }}</b>
+            </td>
+        </tr> -->
     </table>
 </div>
 

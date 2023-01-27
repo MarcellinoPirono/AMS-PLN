@@ -33,9 +33,9 @@
                                         <td>{{ $nonpo->prks->no_prk }}</td>
                                         <td>{{ $nonpo->supervisor }}</td>
                                         @if ($nonpo->status == 1)
-                                        <td><span class="badge light badge-warning">Proses HPE</span></td>
+                                        <td><span class="badge light badge-warning">OnProcess (HPE)</span></td>
                                         @elseif ($nonpo->status == 2)
-                                        <td><span class="badge light badge-warning">Sedang Menunggu Persetujuan Manager</span></td>
+                                        <td><span class="badge light badge-warning">OnProcess (Persetujuan Manager)</span></td>
                                         @elseif ($nonpo->status == 3)
                                         <td><span class="badge light badge-success">Disetujui</span></td>
                                         @endif

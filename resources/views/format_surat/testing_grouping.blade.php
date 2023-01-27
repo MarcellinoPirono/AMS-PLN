@@ -380,8 +380,8 @@
                     {{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</td>
             </tr>
             <tr style="page-break-before: avoid">
-                <td style="text-align: center" class="noborder centertb" colspan="4" align="center" valign="top">{{ $jabatan_manager }}</td>
-                <td style="text-align: center" class="noborder centertb" colspan="6" align="center" valign="middle"
+                <td style="text-align: center" class="noborder centertb" colspan="4" align="center" valign="top" style="float:left;">{{ $jabatan_manager }}</td>
+                <td style="text-align: center" class="noborder centertb" colspan="6" align="center" valign="middle" style="float:left;"
                     style="padding-left: 30px; padding-right: 30px; text-align: center;">
                     {{ $pokhs->pejabats->jabatan }}
                 </td>

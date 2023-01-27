@@ -214,6 +214,8 @@ function SubmitTKDN() {
                             timer: 2e3,
                             buttons: false
                         });
+                        document.getElementById('main-wrapper').style.cursor = "default"
+                        document.getElementById('btnFinish').removeAttribute('disabled');
                     }
                 })
 
@@ -283,6 +285,8 @@ function SubmitTKDN() {
                             timer: 2e3,
                             buttons: false
                         });
+                        document.getElementById('main-wrapper').style.cursor = "default"
+                        document.getElementById('btnFinish').removeAttribute('disabled');
                     }
                 })
 
@@ -597,6 +601,8 @@ function SubmitTKDN() {
                             timer: 2e3,
                             buttons: false
                         });
+                        document.getElementById('main-wrapper').style.cursor = "default"
+                        document.getElementById('btnFinish').removeAttribute('disabled');
                     }
                 })
 
@@ -669,6 +675,8 @@ function SubmitTKDN() {
                                 timer: 2e3,
                                 buttons: false
                             });
+                            document.getElementById('main-wrapper').style.cursor = "default"
+                            document.getElementById('btnFinish').removeAttribute('disabled');
                         }
                     })
 
@@ -935,6 +943,8 @@ function SubmitNONTKDN() {
                                 timer: 2e3,
                                 buttons: false
                             });
+                            document.getElementById('main-wrapper').style.cursor = "default"
+                            document.getElementById('btnFinish').removeAttribute('disabled');
                         }
                     })
 
@@ -1010,6 +1020,8 @@ function SubmitNONTKDN() {
                                 timer: 2e3,
                                 buttons: false
                             });
+                            document.getElementById('main-wrapper').style.cursor = "default"
+                            document.getElementById('btnFinish').removeAttribute('disabled');
                         }
                     })
 
@@ -1311,6 +1323,8 @@ function SubmitNONTKDN() {
                                 timer: 2e3,
                                 buttons: false
                             });
+                            document.getElementById('main-wrapper').style.cursor = "default"
+                            document.getElementById('btnFinish').removeAttribute('disabled');
                         }
                     })
 
@@ -1383,6 +1397,8 @@ function SubmitNONTKDN() {
                                     timer: 2e3,
                                     buttons: false
                                 });
+                                document.getElementById('main-wrapper').style.cursor = "default"
+                                document.getElementById('btnFinish').removeAttribute('disabled');
                             }
                         })
 

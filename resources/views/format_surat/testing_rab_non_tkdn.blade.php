@@ -228,26 +228,30 @@
 
                 @endforeach
             @endforeach
-            <tr style="page-break-before: avoid">
+            <tr>
+                {{-- <td></td> --}}
                 <td class="tabelnormalkiri" rowspan="5" colspan="3"></td>
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Material</b></td>
                 <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($sub_jumlah_material)</b></td>
             </tr>
-            <tr>
+            <tr style="page-break-before: avoid">
+                <!-- <td class="tabelnormalkiri" colspan="3"></td> -->
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Jasa</b></td>
                 <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($sub_jumlah_jasa)</b></td>
             </tr>
-
             <tr style="page-break-before: avoid">
+                <!-- <td class="tabelnormalkiri" colspan="3"></td> -->
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>Jumlah Keseluruhan</b></td>
                 <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($jumlah)</b></td>
             </tr>
             <tr style="page-break-before: avoid">
+                <!-- <td class="tabelnormalkiri" colspan="3"></td> -->
                 <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>PPN {{$ppn_id[0]->ppn}}%</b></td>
                 <td class="tabelnormalkanan tabellkanan" align="right"><b>@currency2($ppn)</b></td>
             </tr>
             @foreach ($po_khs as $pokhs)
                 <tr style="page-break-before: avoid">
+                    <!-- <td class="tabelnormalkiri" colspan="3"></td> -->
                     <td class="tabelnormal" colspan="2" align="center" valign="middle"><b>TOTAL</b></td>
                     <td class="tabelnormalkanan tabellkanan kuning" align="right"><b>@currency2($pokhs->total_harga)</b></td>
                 </tr>
@@ -267,12 +271,9 @@
                 <td class="first10" colspan="4" style="width:35%;" align="center" valign="bottom">Makassar,
                     {{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</td>
             </tr>
-            <tr style="page-break-before: avoid">
-                <td style="text-align: center" class="noborder centertb" colspan="2" align="center" valign="top">{{ $jabatan_manager }}</td>
-                <td style="text-align: center" class="noborder centertb" colspan="4" align="center" valign="middle"
-                    style="padding-left: 30px; padding-right: 30px; text-align: center;">
-                    {{ $pokhs->pejabats->jabatan }}
-                </td>
+            <tr style="page-break-before: avoid;">
+                <td style="text-align: center" class="noborder centertb" colspan="2" align="center" valign="top" style="float:left;">{{ $jabatan_manager }} sasa asasa sa </td>
+                <td style="text-align: center" class="noborder centertb" colspan="4" align="center" valign="middle" style="float:left;">{{ $pokhs->pejabats->jabatan }}</td>
             </tr>
             <tr style="height: 92px; page-break-before: avoid">
                 <td class="noborder" colspan="2" style="height: 92px;" align="center" valign="bottom">
@@ -282,6 +283,9 @@
                     <b>{{ $pokhs->pejabats->nama_pejabat }}</b>
                 </td>
             </tr>
+        </table>
+        <table>
+
         </table>
     </div>
 

@@ -1436,488 +1436,488 @@ class PdfkhsController extends Controller
     public function download($nama_pdf)
     {
         // dd($nama_pdf);
-        $document = Rab::where('slug', $nama_pdf)->value('pdf_file');
+        // $document = Rab::where('slug', $nama_pdf)->value('pdf_file');
 
-        return response()->download($document);
+        // return response()->download($document);
 
-        $values_pdf_page1 = Rab::where('slug', $nama_pdf)->get();
+    //     $values_pdf_page1 = Rab::where('slug', $nama_pdf)->get();
 
-        $id = Rab::where('slug', $nama_pdf)->value('id');
-        // dd($values_pdf_page1);
+    //     $id = Rab::where('slug', $nama_pdf)->value('id');
+    //     // dd($values_pdf_page1);
 
-        $startdate = Rab::where('id', $id)->value('startdate');
-        $enddate = Rab::where('id', $id)->value('enddate');
-        $datetime1 = new DateTime($startdate);
-        $datetime2 = new DateTime($enddate);
-        $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
-        $d = 0;
-        $days = 0;
-        $datetime2 = 1;
+    //     $startdate = Rab::where('id', $id)->value('startdate');
+    //     $enddate = Rab::where('id', $id)->value('enddate');
+    //     $datetime1 = new DateTime($startdate);
+    //     $datetime2 = new DateTime($enddate);
+    //     $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
+    //     $d = 0;
+    //     $days = 0;
+    //     $datetime2 = 1;
 
-        foreach($interval as $date) {
-            $interval = $date->format("Y-m-d");
-            $datetime = DateTime::createFromFormat('Y-m-d', $interval);
+    //     foreach($interval as $date) {
+    //         $interval = $date->format("Y-m-d");
+    //         $datetime = DateTime::createFromFormat('Y-m-d', $interval);
 
-            $day = $datetime->format('D');
+    //         $day = $datetime->format('D');
 
-            if($day != "Sun" && $day != "Sat") {
-                $days += $datetime2 - $d;
-            }
+    //         if($day != "Sun" && $day != "Sat") {
+    //             $days += $datetime2 - $d;
+    //         }
 
-            $datetime2++;
-            $d++;
-        }
-        // $days = $interval->format('%a');
+    //         $datetime2++;
+    //         $d++;
+    //     }
+    //     // $days = $interval->format('%a');
 
-        $rab_id = Rab::where('id', $id)->value('id');
-        // dd($rab_id);
-        // $paket = [];
-        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+    //     $rab_id = Rab::where('id', $id)->value('id');
+    //     // dd($rab_id);
+    //     // $paket = [];
+    //     $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
 
-        $paket_id = OrderKhs::select('order_paket_id')->where('rab_id', $rab_id)->groupBy('order_paket_id')->get();
-        // dd($values_pdf_page2);
-        $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
-        $lokasis = lokasi::where('rab_id', $rab_id)->get();
-        // dd($lokasis, $redaksis);
-        // dd($paket_id);
-        // for($i = 0; $i < count($values_pdf_page2); $i++) {
-        //     $paket[$i] =
-        // }
-        // dd($values_pdf_page2);
-        // dd($redaksis);
-        // $sub_redaksi = RabRedaksi::select('subdeskripsi_id')->where('rab_id', $rab_id)->whereNotNull('subdeskripsi_id')->get();
-        // dd($sub_redaksi);
-        // $name_sub_redaksi = [];
-        // for($i = 0; $i < count($redaksis); $i++) {
-        //     $name_sub_redaksi[$i] = SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get();
-        // }
-        // dd($name_sub_redaksi);
-        // dd($sub_redaksi[0]->subdeskripsi_id);
-        // $sub_redaksi = SubRedaksi::where('');
+    //     $paket_id = OrderKhs::select('order_paket_id')->where('rab_id', $rab_id)->groupBy('order_paket_id')->get();
+    //     // dd($values_pdf_page2);
+    //     $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
+    //     $lokasis = lokasi::where('rab_id', $rab_id)->get();
+    //     // dd($lokasis, $redaksis);
+    //     // dd($paket_id);
+    //     // for($i = 0; $i < count($values_pdf_page2); $i++) {
+    //     //     $paket[$i] =
+    //     // }
+    //     // dd($values_pdf_page2);
+    //     // dd($redaksis);
+    //     // $sub_redaksi = RabRedaksi::select('subdeskripsi_id')->where('rab_id', $rab_id)->whereNotNull('subdeskripsi_id')->get();
+    //     // dd($sub_redaksi);
+    //     // $name_sub_redaksi = [];
+    //     // for($i = 0; $i < count($redaksis); $i++) {
+    //     //     $name_sub_redaksi[$i] = SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get();
+    //     // }
+    //     // dd($name_sub_redaksi);
+    //     // dd($sub_redaksi[0]->subdeskripsi_id);
+    //     // $sub_redaksi = SubRedaksi::where('');
 
-        $rabredaksi = RabRedaksi::where('rab_id', $rab_id)->get();
-        // dd($rabredaksi);
+    //     $rabredaksi = RabRedaksi::where('rab_id', $rab_id)->get();
+    //     // dd($rabredaksi);
 
-        // dd($sub_redaksi);
-
-
-        $rabredaksi_array = [];
-        for($i = 0; $i < count($redaksis); $i++) {
-            $rabredaksi_array[$i] = [
-                'redaksi' => $redaksis[$i]->deskripsi_id,
-                'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
-            ];
-        }
-
-        // dd($rabredaksi_array);
-
-        // dd($values_pdf_page2[0]->kategori_order);
-        // $jasa = [];
-        // $material = [];
-
-        // for($i = 0; $i < count($values_pdf_page2); $i++) {
-        //     if($values_pdf_page2[$i]->kategori_order == "Jasa") {
-        //         $jasa[$i] = $values_pdf_page2[$i];
-        //     } else {
-        //         $material[$i] = $values_pdf_page2[$i];
-        //     }
-        // }
-        $jasa = [];
-        $jasa_volume = [];
-        $jasa_jumlah_harga = [];
-        $sub_jumlah_jasa = [];
-        $kdn_jasa = [];
-        $ubah_volume_jasa = [];
-        $material = [];
-        $material_volume = [];
-        $material_jumlah_harga= [];
-        $sub_jumlah_material = [];
-        $kdn_material = [];
-        $ubah_volume_material = [];
-        $values_pdf_page2 = [];
-
-        $nama_paket = [];
-
-        for($k = 0; $k < count($lokasis); $k++){
-            $jasa[$k] = [];
-            $jasa_volume[$k] = [];
-            $jasa_jumlah_harga[$k] = [];
-            $sub_jumlah_jasa_paket[$k] = [];
-            $ubah_volume_jasa[$k] = [];
-            $material[$k] = [];
-            $material_volume[$k] = [];
-            $material_jumlah_harga[$k] = [];
-            $sub_jumlah_material_paket[$k] = [];
-            $values_pdf_page2[$k] = [];
-            $ubah_volume_material[$k] = [];
-            // $paket_id[$k] = OrderPaket::where('');
-            $paket_id[$k] = OrderPaket::where('lokasi_id', $lokasis[$k]->id)->get();
-            // if($paket_id[$k][0]->nama_paket != null) {
-                for($j = 0; $j < count($paket_id[$k]); $j++){
-                    // dd($paket_id[$k][$j]->id);
-                    $values_pdf_page2[$k][$j] = OrderKhs::where('order_paket_id', $paket_id[$k][$j]->id)->get();
-                    // dd($values_pdf_page2[$k][$j]);
-                    // $nama_paket[$k][$j] = $paket_id[$k][$j]->nama_paket;
-                    $jasa[$k][$j] = [];
-                    $jasa_volume[$k][$j] = [];
-                    $jasa_jumlah_harga[$k][$j] = [];
-                    $sub_jumlah_jasa_paket[$k][$j] = [];
-                    $ubah_volume_jasa[$k][$j] = [];
-                    $material[$k][$j] = [];
-                    $material_volume[$k][$j] = [];
-                    $material_jumlah_harga[$k][$j] = [];
-                    $sub_jumlah_material_paket[$k][$j] = [];
-                    $ubah_volume_material[$k][$j] = [];
-                    for($i = 0; $i < count($values_pdf_page2[$k][$j]); $i++) {
-                        if($values_pdf_page2[$k][$j][$i]->kategori_order == "Jasa") {
-                            $jasa[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
-                            $jasa_volume[$k][$j][$i] = $jasa[$k][$j][$i]->volume;
-                            $jasa_jumlah_harga[$k][$j][$i] = $jasa[$k][$j][$i]->jumlah_harga;
-                            $sub_jumlah_jasa_paket[$k][$j][$i] = $jasa_jumlah_harga[$k][$j][$i];
-                            array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$k][$j][$i]);
-                            array_push($kdn_jasa, $jasa[$k][$j][$i]->kdn);
-                            $ubah_volume_jasa[$k][$j][$i] = str_replace(".", ",", $jasa_volume[$k][$j][$i]);
-                            $jasa[$k][$j][$i]->volume = $ubah_volume_jasa[$k][$j][$i];
-                        } else {
-                            $material[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
-                            $material_volume[$k][$j][$i] = $material[$k][$j][$i]->volume;
-                            $material_jumlah_harga[$k][$j][$i] = $material[$k][$j][$i]->jumlah_harga;
-                            $sub_jumlah_material_paket[$k][$j][$i] = $material_jumlah_harga[$k][$j][$i];
-                            array_push($sub_jumlah_material, $material_jumlah_harga[$k][$j][$i]);
-                            array_push($kdn_material, $material[$k][$j][$i]->kdn);
-                            $ubah_volume_material[$k][$j][$i] = str_replace(".", ",", $material_volume[$k][$j][$i]);
-                            $material[$k][$j][$i]->volume = $ubah_volume_material[$k][$j][$i];
-                        }
-                    }
-                    // dd(array_sum($sub_jumlah_jasa_paket[$k][$j]), array_sum($sub_jumlah_material_paket[$k][$j]));
-                    $sub_jumlah_jasa_paket[$k][$j] = array_sum($sub_jumlah_jasa_paket[$k][$j]);
-                    $sub_jumlah_material_paket[$k][$j] = array_sum($sub_jumlah_material_paket[$k][$j]);
-
-                    // $sub_jumlah_jasa[$k][$j] = $values_pdf_page2[$k][$j]->harga->sum();
-                }
-                // }
-        }
-        // dd($sub_jumlah_jasa_paket, $sub_jumlah_material_paket, $paket_id);
-        $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
-        $sub_jumlah_material = array_sum($sub_jumlah_material);
-        $kdn_jasa = array_sum($kdn_jasa);
-        $kdn_material = array_sum($kdn_material);
-        $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
-        $kln_material = $sub_jumlah_material - $kdn_material;
-        $total_jasa = $kdn_jasa + $kln_jasa;
-        $total_material = $kdn_material + $kln_material;
-        if ($total_jasa > 0 ){
-            $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
-        }
-        else{
-            $total_tkdn_jasa = 0;
-        }
+    //     // dd($sub_redaksi);
 
 
-        if ($total_material > 0 ){
-            $total_tkdn_material = ($kdn_material / $total_material) * 100;
-        }
-        else{
-            $total_tkdn_material = 0;
-        }
-
-        $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
-        $total_kln_jasa_material = $kln_jasa + $kln_material;
-        $total_jasa_material = $total_jasa + $total_material;
-
-        if ($total_jasa_material > 0 ){
-            $total_tkdn_jasa_material = ($total_kdn_jasa_material /  $total_jasa_material) * 100;
-        }
-        else{
-            $total_tkdn_jasa_material = 0;
-        }
-
-        // dd($material);
-
-        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
-        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
-
-        $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn_id = PpnModel::all();
-        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
-        // $tes = [
-        //     "po_khs" => $values_pdf_page1,
-        //     "kategori_jasa" => $jasa,
-        //     "kategori_material" => $material,
-        //     "jumlah" => $jumlah,
-        //     "ppn" => $ppn,
-        //     "days" => $days,
-        //     "jabatan_manager" => $jabatan_manager,
-        //     "nama_manager" => $nama_manager,
-        //     "redaksis" => $redaksis,
-        //     "lokasis" => $lokasis,
-        //     "title" => 'PO-KHS (SP-APP)',
-        // ];
-        // dd($tes);
-
-
-        $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
-            "po_khs" => $values_pdf_page1,
-            // "kategori_jasa" => $jasa,
-            // "kategori_material" => $material,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            "days" => $days,
-            "jabatan_manager" => $jabatan_manager,
-            "nama_manager" => $nama_manager,
-            "redaksis" => $redaksis,
-            "lokasis" => $lokasis,
-            "rabredaksi" => $rabredaksi,
-            "rabredaksi_array" => $rabredaksi_array,
-            "title" => 'PO-KHS (SP-APP)',
-            "ppn_id"=>$ppn_id,
-        ]);
-        $path1 = 'SPBJ.pdf';
-        Storage::disk('local')->put($path1, $pdf->output());
-
-        // dd($jasa);
-
-
-        // $pdf2 = Pdf::loadView('format_surat.te',[
-        //     "po_khs" => $values_pdf_page1,
-        //     "kategori_jasa" => $jasa,
-        //     "kategori_material" => $material,
-        //     "jumlah" => $jumlah,
-        //     "ppn" => $ppn,
-        //     "days" => $days,
-        //     "jabatan_manager" => $jabatan_manager,
-        //     "nama_manager" => $nama_manager,
-        //     "redaksis" => $redaksis,
-        //     "lokasis" => $lokasis,
-        //     "title" => 'PO-KHS (SP-APP)',
-        // ]);
-    $pdf2 = Pdf::loadView('format_surat.testing_rab_non_tkdn',[
-            "po_khs" => $values_pdf_page1,
-            "kategori_jasa" => $jasa,
-            "kategori_material" => $material,
-            "sub_jumlah_jasa" => $sub_jumlah_jasa,
-            "sub_jumlah_material" => $sub_jumlah_material,
-            "sub_jumlah_jasa_paket" => $sub_jumlah_jasa_paket,
-            "sub_jumlah_material_paket" => $sub_jumlah_material_paket,
-            "kdn_jasa" => $kdn_jasa,
-            "kdn_material" => $kdn_material,
-            "kln_jasa" => $kln_jasa,
-            "kln_material" => $kln_material,
-            "total_jasa" => $total_jasa,
-            "total_material" => $total_material,
-            "total_tkdn_jasa" => $total_tkdn_jasa,
-            "total_tkdn_material" => $total_tkdn_material,
-            "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
-            "total_kdn_jasa_material" => $total_kdn_jasa_material,
-            "total_kln_jasa_material" => $total_kln_jasa_material,
-            "total_jasa_material" => $total_jasa_material,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            "days" => $days,
-            "jabatan_manager" => $jabatan_manager,
-            "nama_manager" => $nama_manager,
-            "title" => $nama_pdf,
-            // "redaksis" => $redaksis,
-            "lokasis" => $lokasis,
-            "paket_id" => $paket_id,
-            "ppn_id"=>$ppn_id,
-        ]);
-        $pdf2->setPaper('A4', 'landscape');
-        // dd($pdf2);
-        $path2 = 'RAB.pdf';
-        Storage::disk('local')->put($path2, $pdf2->output());
-
-        $oMerger = PDFMerger::init();
-
-        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
-        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
-
-        $filename = $nama_pdf.'.pdf';
-        $oMerger->merge();
-
-        return $oMerger->download();
-
-    // $values_pdf_page1 = Rab::where('slug', $nama_pdf)->get();
-
-    // $id = Rab::where('slug', $nama_pdf)->value('id');
-
-    // // dd($id);
-
-    // $startdate = Rab::where('id', $id)->value('startdate');
-    // $enddate = Rab::where('id', $id)->value('enddate');
-    // $datetime1 = new DateTime($startdate);
-    // $datetime2 = new DateTime($enddate);
-    // $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
-    // $d = 0;
-    // $days = 0;
-    // $datetime2 = 1;
-
-    // foreach($interval as $date) {
-    //     $interval = $date->format("Y-m-d");
-    //     $datetime = DateTime::createFromFormat('Y-m-d', $interval);
-
-    //     $day = $datetime->format('D');
-
-    //     if($day != "Sun" && $day != "Sat") {
-    //         $days += $datetime2 - $d;
+    //     $rabredaksi_array = [];
+    //     for($i = 0; $i < count($redaksis); $i++) {
+    //         $rabredaksi_array[$i] = [
+    //             'redaksi' => $redaksis[$i]->deskripsi_id,
+    //             'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
+    //         ];
     //     }
 
-    //     $datetime2++;
-    //     $d++;
-    // }
+    //     // dd($rabredaksi_array);
 
-    // $rab_id = Rab::where('id', $id)->value('id');
-    // $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+    //     // dd($values_pdf_page2[0]->kategori_order);
+    //     // $jasa = [];
+    //     // $material = [];
 
-    // $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
+    //     // for($i = 0; $i < count($values_pdf_page2); $i++) {
+    //     //     if($values_pdf_page2[$i]->kategori_order == "Jasa") {
+    //     //         $jasa[$i] = $values_pdf_page2[$i];
+    //     //     } else {
+    //     //         $material[$i] = $values_pdf_page2[$i];
+    //     //     }
+    //     // }
+    //     $jasa = [];
+    //     $jasa_volume = [];
+    //     $jasa_jumlah_harga = [];
+    //     $sub_jumlah_jasa = [];
+    //     $kdn_jasa = [];
+    //     $ubah_volume_jasa = [];
+    //     $material = [];
+    //     $material_volume = [];
+    //     $material_jumlah_harga= [];
+    //     $sub_jumlah_material = [];
+    //     $kdn_material = [];
+    //     $ubah_volume_material = [];
+    //     $values_pdf_page2 = [];
 
+    //     $nama_paket = [];
 
-    // $rabredaksi_array = [];
-    // for($i = 0; $i < count($redaksis); $i++) {
-    //     $rabredaksi_array[$i] = [
-    //         'redaksi' => $redaksis[$i]->deskripsi_id,
-    //         'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
-    //     ];
-    // }
-    // $lokasis = lokasi::where('rab_id', $rab_id)->get();
+    //     for($k = 0; $k < count($lokasis); $k++){
+    //         $jasa[$k] = [];
+    //         $jasa_volume[$k] = [];
+    //         $jasa_jumlah_harga[$k] = [];
+    //         $sub_jumlah_jasa_paket[$k] = [];
+    //         $ubah_volume_jasa[$k] = [];
+    //         $material[$k] = [];
+    //         $material_volume[$k] = [];
+    //         $material_jumlah_harga[$k] = [];
+    //         $sub_jumlah_material_paket[$k] = [];
+    //         $values_pdf_page2[$k] = [];
+    //         $ubah_volume_material[$k] = [];
+    //         // $paket_id[$k] = OrderPaket::where('');
+    //         $paket_id[$k] = OrderPaket::where('lokasi_id', $lokasis[$k]->id)->get();
+    //         // if($paket_id[$k][0]->nama_paket != null) {
+    //             for($j = 0; $j < count($paket_id[$k]); $j++){
+    //                 // dd($paket_id[$k][$j]->id);
+    //                 $values_pdf_page2[$k][$j] = OrderKhs::where('order_paket_id', $paket_id[$k][$j]->id)->get();
+    //                 // dd($values_pdf_page2[$k][$j]);
+    //                 // $nama_paket[$k][$j] = $paket_id[$k][$j]->nama_paket;
+    //                 $jasa[$k][$j] = [];
+    //                 $jasa_volume[$k][$j] = [];
+    //                 $jasa_jumlah_harga[$k][$j] = [];
+    //                 $sub_jumlah_jasa_paket[$k][$j] = [];
+    //                 $ubah_volume_jasa[$k][$j] = [];
+    //                 $material[$k][$j] = [];
+    //                 $material_volume[$k][$j] = [];
+    //                 $material_jumlah_harga[$k][$j] = [];
+    //                 $sub_jumlah_material_paket[$k][$j] = [];
+    //                 $ubah_volume_material[$k][$j] = [];
+    //                 for($i = 0; $i < count($values_pdf_page2[$k][$j]); $i++) {
+    //                     if($values_pdf_page2[$k][$j][$i]->kategori_order == "Jasa") {
+    //                         $jasa[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
+    //                         $jasa_volume[$k][$j][$i] = $jasa[$k][$j][$i]->volume;
+    //                         $jasa_jumlah_harga[$k][$j][$i] = $jasa[$k][$j][$i]->jumlah_harga;
+    //                         $sub_jumlah_jasa_paket[$k][$j][$i] = $jasa_jumlah_harga[$k][$j][$i];
+    //                         array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$k][$j][$i]);
+    //                         array_push($kdn_jasa, $jasa[$k][$j][$i]->kdn);
+    //                         $ubah_volume_jasa[$k][$j][$i] = str_replace(".", ",", $jasa_volume[$k][$j][$i]);
+    //                         $jasa[$k][$j][$i]->volume = $ubah_volume_jasa[$k][$j][$i];
+    //                     } else {
+    //                         $material[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
+    //                         $material_volume[$k][$j][$i] = $material[$k][$j][$i]->volume;
+    //                         $material_jumlah_harga[$k][$j][$i] = $material[$k][$j][$i]->jumlah_harga;
+    //                         $sub_jumlah_material_paket[$k][$j][$i] = $material_jumlah_harga[$k][$j][$i];
+    //                         array_push($sub_jumlah_material, $material_jumlah_harga[$k][$j][$i]);
+    //                         array_push($kdn_material, $material[$k][$j][$i]->kdn);
+    //                         $ubah_volume_material[$k][$j][$i] = str_replace(".", ",", $material_volume[$k][$j][$i]);
+    //                         $material[$k][$j][$i]->volume = $ubah_volume_material[$k][$j][$i];
+    //                     }
+    //                 }
+    //                 // dd(array_sum($sub_jumlah_jasa_paket[$k][$j]), array_sum($sub_jumlah_material_paket[$k][$j]));
+    //                 $sub_jumlah_jasa_paket[$k][$j] = array_sum($sub_jumlah_jasa_paket[$k][$j]);
+    //                 $sub_jumlah_material_paket[$k][$j] = array_sum($sub_jumlah_material_paket[$k][$j]);
 
-
-
-
-    // $jasa = [];
-    // $jasa_volume = [];
-    // $kdn_jasa = [];
-    // $kdn_material = [];
-    // $sub_jumlah_material = [];
-    // $sub_jumlah_jasa = [];
-    // $ubah_volume_jasa = [];
-    // $material = [];
-    // $material_volume = [];
-    // $ubah_volume_material = [];
-
-    // for($i = 0; $i < count($values_pdf_page2); $i++) {
-    //     if($values_pdf_page2[$i]->kategori_order == "Jasa") {
-    //         $jasa[$i] = $values_pdf_page2[$i];
-    //         $jasa_volume[$i] = $jasa[$i]->volume;
-    //         $ubah_volume_jasa[$i] = str_replace(".", ",", "$jasa_volume[$i]");
-    //         $jasa[$i]->volume = $ubah_volume_jasa[$i];
-    //         $jasa_jumlah_harga[$i] = $jasa[$i]->jumlah_harga;
-    //         array_push($kdn_jasa, $jasa[$i]->kdn);
-    //         array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$i]);
-    //         // $jasa[$i]->volume = str_replace()
-    //     } else {
-    //         $material[$i] = $values_pdf_page2[$i];
-    //         $material_volume[$i] = $material[$i]->volume;
-    //         $ubah_volume_material[$i] = str_replace(".", ",", $material_volume[$i]);
-    //         $material[$i]->volume = $ubah_volume_material[$i];
-    //         $material_jumlah_harga[$i] = $material[$i]->jumlah_harga;
-    //         array_push($kdn_material, $material[$i]->kdn);
-    //         array_push($sub_jumlah_material, $material_jumlah_harga[$i]);
+    //                 // $sub_jumlah_jasa[$k][$j] = $values_pdf_page2[$k][$j]->harga->sum();
+    //             }
+    //             // }
     //     }
-    // }
+    //     // dd($sub_jumlah_jasa_paket, $sub_jumlah_material_paket, $paket_id);
+    //     $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
+    //     $sub_jumlah_material = array_sum($sub_jumlah_material);
+    //     $kdn_jasa = array_sum($kdn_jasa);
+    //     $kdn_material = array_sum($kdn_material);
+    //     $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
+    //     $kln_material = $sub_jumlah_material - $kdn_material;
+    //     $total_jasa = $kdn_jasa + $kln_jasa;
+    //     $total_material = $kdn_material + $kln_material;
+    //     if ($total_jasa > 0 ){
+    //         $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
+    //     }
+    //     else{
+    //         $total_tkdn_jasa = 0;
+    //     }
+
+
+    //     if ($total_material > 0 ){
+    //         $total_tkdn_material = ($kdn_material / $total_material) * 100;
+    //     }
+    //     else{
+    //         $total_tkdn_material = 0;
+    //     }
+
+    //     $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
+    //     $total_kln_jasa_material = $kln_jasa + $kln_material;
+    //     $total_jasa_material = $total_jasa + $total_material;
+
+    //     if ($total_jasa_material > 0 ){
+    //         $total_tkdn_jasa_material = ($total_kdn_jasa_material /  $total_jasa_material) * 100;
+    //     }
+    //     else{
+    //         $total_tkdn_jasa_material = 0;
+    //     }
+
+    //     // dd($material);
+
+    //     $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
+    //     $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
+
+    //     $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
+    //     $ppn_id = PpnModel::all();
+    //     $ppn = $jumlah * ($ppn_id[0]->ppn/100);
+    //     // $tes = [
+    //     //     "po_khs" => $values_pdf_page1,
+    //     //     "kategori_jasa" => $jasa,
+    //     //     "kategori_material" => $material,
+    //     //     "jumlah" => $jumlah,
+    //     //     "ppn" => $ppn,
+    //     //     "days" => $days,
+    //     //     "jabatan_manager" => $jabatan_manager,
+    //     //     "nama_manager" => $nama_manager,
+    //     //     "redaksis" => $redaksis,
+    //     //     "lokasis" => $lokasis,
+    //     //     "title" => 'PO-KHS (SP-APP)',
+    //     // ];
+    //     // dd($tes);
+
+
+    //     $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
+    //         "po_khs" => $values_pdf_page1,
+    //         // "kategori_jasa" => $jasa,
+    //         // "kategori_material" => $material,
+    //         "jumlah" => $jumlah,
+    //         "ppn" => $ppn,
+    //         "days" => $days,
+    //         "jabatan_manager" => $jabatan_manager,
+    //         "nama_manager" => $nama_manager,
+    //         "redaksis" => $redaksis,
+    //         "lokasis" => $lokasis,
+    //         "rabredaksi" => $rabredaksi,
+    //         "rabredaksi_array" => $rabredaksi_array,
+    //         "title" => 'PO-KHS (SP-APP)',
+    //         "ppn_id"=>$ppn_id,
+    //     ]);
+    //     $path1 = 'SPBJ.pdf';
+    //     Storage::disk('local')->put($path1, $pdf->output());
+
     //     // dd($jasa);
-    //     // $jabatan = Pejabat::select('jabatan');
-    // // dd($sub_jumlah_jasa);
-    // $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
-    // $sub_jumlah_material = array_sum($sub_jumlah_material);
-    // $kdn_jasa = array_sum($kdn_jasa);
-    // $kdn_material = array_sum($kdn_material);
-    // $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
-    // $kln_material = $sub_jumlah_material - $kdn_material;
-    // $total_jasa = $kdn_jasa + $kln_jasa;
-    // $total_material = $kdn_material + $kln_material;
 
-    // if($total_jasa > 0){
-    //     $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
-    // }
-    // else{
-    //     $total_tkdn_jasa = 0;
-    // }
 
-    // if($total_material > 0){
-    //     $total_tkdn_material = ($kdn_material / $total_material) * 100;
-    // }
-    // else{
-    //     $total_tkdn_material = 0;
-    // }
-    // $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
-    // $total_kln_jasa_material = $kln_jasa + $kln_material;
-    // $total_jasa_material = $total_jasa + $total_material;
-
-    // if($total_jasa_material > 0){
-    //     $total_tkdn_jasa_material = ($total_kdn_jasa_material / $total_jasa_material) * 100;
-    // }
-    // else{
-    //     $total_tkdn_jasa_material = 0;
-    // }
-
-    // $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
-    // $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
-
-    // $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-    // $ppn_id = PpnModel::all();
-    // $ppn = $jumlah * ($ppn_id[0]->ppn/100);
-
-    // $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
-    //     "po_khs" => $values_pdf_page1,
-    //     "jumlah" => $jumlah,
-    //     "ppn" => $ppn,
-    //     "days" => $days,
-    //     "jabatan_manager" => $jabatan_manager,
-    //     "nama_manager" => $nama_manager,
-    //     "title" => $nama_pdf,
-    //     "rabredaksi_array" => $rabredaksi_array,
-    //     "lokasis" => $lokasis,
-    //     "ppn_id"=>$ppn_id,
-    // ]);
-
-    // $path1 = 'SPBJ.pdf';
-    // Storage::disk('local')->put($path1, $pdf->output());
-
+    //     // $pdf2 = Pdf::loadView('format_surat.te',[
+    //     //     "po_khs" => $values_pdf_page1,
+    //     //     "kategori_jasa" => $jasa,
+    //     //     "kategori_material" => $material,
+    //     //     "jumlah" => $jumlah,
+    //     //     "ppn" => $ppn,
+    //     //     "days" => $days,
+    //     //     "jabatan_manager" => $jabatan_manager,
+    //     //     "nama_manager" => $nama_manager,
+    //     //     "redaksis" => $redaksis,
+    //     //     "lokasis" => $lokasis,
+    //     //     "title" => 'PO-KHS (SP-APP)',
+    //     // ]);
     // $pdf2 = Pdf::loadView('format_surat.testing_rab_non_tkdn',[
-    //     "po_khs" => $values_pdf_page1,
-    //     "kategori_jasa" => $jasa,
-    //     "kategori_material" => $material,
-    //     "sub_jumlah_jasa" =>$sub_jumlah_jasa,
-    //     "sub_jumlah_material" =>$sub_jumlah_material,
-    //     "kdn_jasa" => $kdn_jasa,
-    //     "kdn_material" => $kdn_material,
-    //     "kln_jasa" => $kln_jasa,
-    //     "kln_material" => $kln_material,
-    //     "total_jasa" => $total_jasa,
-    //     "total_material" => $total_material,
-    //     "total_tkdn_jasa" => $total_tkdn_jasa,
-    //     "total_tkdn_material" => $total_tkdn_material,
-    //     "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
-    //     "total_kdn_jasa_material" => $total_kdn_jasa_material,
-    //     "total_kln_jasa_material" => $total_kln_jasa_material,
-    //     "total_jasa_material" => $total_jasa_material,
-    //     "jumlah" => $jumlah,
-    //     "ppn" => $ppn,
-    //     "days" => $days,
-    //     "jabatan_manager" => $jabatan_manager,
-    //     "nama_manager" => $nama_manager,
-    //     "title" => $nama_pdf,
-    //     "redaksis" => $redaksis,
-    //     "lokasis" => $lokasis,
-    //     "ppn_id"=>$ppn_id,
-
-    // ]);
-
-    //     // $content = $pdf->download()->getOriginalContent();
-    //     // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
+    //         "po_khs" => $values_pdf_page1,
+    //         "kategori_jasa" => $jasa,
+    //         "kategori_material" => $material,
+    //         "sub_jumlah_jasa" => $sub_jumlah_jasa,
+    //         "sub_jumlah_material" => $sub_jumlah_material,
+    //         "sub_jumlah_jasa_paket" => $sub_jumlah_jasa_paket,
+    //         "sub_jumlah_material_paket" => $sub_jumlah_material_paket,
+    //         "kdn_jasa" => $kdn_jasa,
+    //         "kdn_material" => $kdn_material,
+    //         "kln_jasa" => $kln_jasa,
+    //         "kln_material" => $kln_material,
+    //         "total_jasa" => $total_jasa,
+    //         "total_material" => $total_material,
+    //         "total_tkdn_jasa" => $total_tkdn_jasa,
+    //         "total_tkdn_material" => $total_tkdn_material,
+    //         "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
+    //         "total_kdn_jasa_material" => $total_kdn_jasa_material,
+    //         "total_kln_jasa_material" => $total_kln_jasa_material,
+    //         "total_jasa_material" => $total_jasa_material,
+    //         "jumlah" => $jumlah,
+    //         "ppn" => $ppn,
+    //         "days" => $days,
+    //         "jabatan_manager" => $jabatan_manager,
+    //         "nama_manager" => $nama_manager,
+    //         "title" => $nama_pdf,
+    //         // "redaksis" => $redaksis,
+    //         "lokasis" => $lokasis,
+    //         "paket_id" => $paket_id,
+    //         "ppn_id"=>$ppn_id,
+    //     ]);
     //     $pdf2->setPaper('A4', 'potrait');
+    //     // dd($pdf2);
     //     $path2 = 'RAB.pdf';
     //     Storage::disk('local')->put($path2, $pdf2->output());
 
     //     $oMerger = PDFMerger::init();
+
     //     $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
     //     $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+
+    //     $filename = $nama_pdf.'.pdf';
     //     $oMerger->merge();
 
-
-
     //     return $oMerger->download();
+
+    $values_pdf_page1 = Rab::where('slug', $nama_pdf)->get();
+
+    $id = Rab::where('slug', $nama_pdf)->value('id');
+
+    // dd($id);
+
+    $startdate = Rab::where('id', $id)->value('startdate');
+    $enddate = Rab::where('id', $id)->value('enddate');
+    $datetime1 = new DateTime($startdate);
+    $datetime2 = new DateTime($enddate);
+    $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
+    $d = 0;
+    $days = 0;
+    $datetime2 = 1;
+
+    foreach($interval as $date) {
+        $interval = $date->format("Y-m-d");
+        $datetime = DateTime::createFromFormat('Y-m-d', $interval);
+
+        $day = $datetime->format('D');
+
+        if($day != "Sun" && $day != "Sat") {
+            $days += $datetime2 - $d;
+        }
+
+        $datetime2++;
+        $d++;
+    }
+
+    $rab_id = Rab::where('id', $id)->value('id');
+    $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+
+    $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
+
+
+    $rabredaksi_array = [];
+    for($i = 0; $i < count($redaksis); $i++) {
+        $rabredaksi_array[$i] = [
+            'redaksi' => $redaksis[$i]->deskripsi_id,
+            'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
+        ];
+    }
+    $lokasis = lokasi::where('rab_id', $rab_id)->get();
+
+
+
+
+    $jasa = [];
+    $jasa_volume = [];
+    $kdn_jasa = [];
+    $kdn_material = [];
+    $sub_jumlah_material = [];
+    $sub_jumlah_jasa = [];
+    $ubah_volume_jasa = [];
+    $material = [];
+    $material_volume = [];
+    $ubah_volume_material = [];
+
+    for($i = 0; $i < count($values_pdf_page2); $i++) {
+        if($values_pdf_page2[$i]->kategori_order == "Jasa") {
+            $jasa[$i] = $values_pdf_page2[$i];
+            $jasa_volume[$i] = $jasa[$i]->volume;
+            $ubah_volume_jasa[$i] = str_replace(".", ",", "$jasa_volume[$i]");
+            $jasa[$i]->volume = $ubah_volume_jasa[$i];
+            $jasa_jumlah_harga[$i] = $jasa[$i]->jumlah_harga;
+            array_push($kdn_jasa, $jasa[$i]->kdn);
+            array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$i]);
+            // $jasa[$i]->volume = str_replace()
+        } else {
+            $material[$i] = $values_pdf_page2[$i];
+            $material_volume[$i] = $material[$i]->volume;
+            $ubah_volume_material[$i] = str_replace(".", ",", $material_volume[$i]);
+            $material[$i]->volume = $ubah_volume_material[$i];
+            $material_jumlah_harga[$i] = $material[$i]->jumlah_harga;
+            array_push($kdn_material, $material[$i]->kdn);
+            array_push($sub_jumlah_material, $material_jumlah_harga[$i]);
+        }
+    }
+        // dd($jasa);
+        // $jabatan = Pejabat::select('jabatan');
+    // dd($sub_jumlah_jasa);
+    $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
+    $sub_jumlah_material = array_sum($sub_jumlah_material);
+    $kdn_jasa = array_sum($kdn_jasa);
+    $kdn_material = array_sum($kdn_material);
+    $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
+    $kln_material = $sub_jumlah_material - $kdn_material;
+    $total_jasa = $kdn_jasa + $kln_jasa;
+    $total_material = $kdn_material + $kln_material;
+
+    if($total_jasa > 0){
+        $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
+    }
+    else{
+        $total_tkdn_jasa = 0;
+    }
+
+    if($total_material > 0){
+        $total_tkdn_material = ($kdn_material / $total_material) * 100;
+    }
+    else{
+        $total_tkdn_material = 0;
+    }
+    $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
+    $total_kln_jasa_material = $kln_jasa + $kln_material;
+    $total_jasa_material = $total_jasa + $total_material;
+
+    if($total_jasa_material > 0){
+        $total_tkdn_jasa_material = ($total_kdn_jasa_material / $total_jasa_material) * 100;
+    }
+    else{
+        $total_tkdn_jasa_material = 0;
+    }
+
+    $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
+    $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
+
+    $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
+    $ppn_id = PpnModel::all();
+    $ppn = $jumlah * ($ppn_id[0]->ppn/100);
+
+    $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
+        "po_khs" => $values_pdf_page1,
+        "jumlah" => $jumlah,
+        "ppn" => $ppn,
+        "days" => $days,
+        "jabatan_manager" => $jabatan_manager,
+        "nama_manager" => $nama_manager,
+        "title" => $nama_pdf,
+        "rabredaksi_array" => $rabredaksi_array,
+        "lokasis" => $lokasis,
+        "ppn_id"=>$ppn_id,
+    ]);
+
+    $path1 = 'SPBJ.pdf';
+    Storage::disk('local')->put($path1, $pdf->output());
+
+    $pdf2 = Pdf::loadView('format_surat.rab_non_tkdn',[
+        "po_khs" => $values_pdf_page1,
+        "kategori_jasa" => $jasa,
+        "kategori_material" => $material,
+        "sub_jumlah_jasa" =>$sub_jumlah_jasa,
+        "sub_jumlah_material" =>$sub_jumlah_material,
+        "kdn_jasa" => $kdn_jasa,
+        "kdn_material" => $kdn_material,
+        "kln_jasa" => $kln_jasa,
+        "kln_material" => $kln_material,
+        "total_jasa" => $total_jasa,
+        "total_material" => $total_material,
+        "total_tkdn_jasa" => $total_tkdn_jasa,
+        "total_tkdn_material" => $total_tkdn_material,
+        "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
+        "total_kdn_jasa_material" => $total_kdn_jasa_material,
+        "total_kln_jasa_material" => $total_kln_jasa_material,
+        "total_jasa_material" => $total_jasa_material,
+        "jumlah" => $jumlah,
+        "ppn" => $ppn,
+        "days" => $days,
+        "jabatan_manager" => $jabatan_manager,
+        "nama_manager" => $nama_manager,
+        "title" => $nama_pdf,
+        "redaksis" => $redaksis,
+        "lokasis" => $lokasis,
+        "ppn_id"=>$ppn_id,
+
+    ]);
+
+        // $content = $pdf->download()->getOriginalContent();
+        // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
+        $pdf2->setPaper('A4', 'potrait');
+        $path2 = 'RAB.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
+
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        $oMerger->merge();
+
+
+
+        return $oMerger->download();
 
     }
 }

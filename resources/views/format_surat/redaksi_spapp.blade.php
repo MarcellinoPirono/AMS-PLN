@@ -31,22 +31,22 @@
 
         @foreach ($po_khs as $pokhs)
             <div class="contents">
-                <table class="uprightTbl noborder ml-2" style="width:92%;" id="rincian" cellspacing="0"
+                <table class=" ml-2" style="width:84%;" id="rincian" cellspacing="0"
                     cellpadding="0" align="center" border="0">
-                    <tr class="noborder">
-                        <td style="width:12%; padding-left: 27px;">Nomor
+                    <tr class="">
+                        <td style="width:12%;">Nomor
                         </td>
                         <td style="width:45%">: {{ $pokhs->nomor_po }}</td>
                         <td colspan="2">
                             {{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('dddd, DD MMMM YYYY') }}</td>
                     </tr>
                     <tr class="noborder">
-                        <td style="padding-left: 27px;">Lamp.</td>
+                        <td style="">Lamp.</td>
                         <td>: 1(satu) Set</td>
                         <td colspan="2"></td>
                     </tr>
                     <tr class="noborder">
-                        <td style="padding-left: 27px;">Perihal</td>
+                        <td style="">Perihal</td>
                         <td>: Surat Pesanan Barang / Jasa (SPBJ)</td>
                         <td colspan="2">Kepada :</td>
                     </tr>
@@ -59,7 +59,12 @@
                         <td></td>
                         <td></td>
                         <td style="width:7%" valign="top">Alamat : </td>
-                        <td class="coba">{{ $pokhs->nomor_kontraks->vendors->alamat_kantor_1 }}</td>
+                        <td></td>
+                    </tr>
+                    <tr class="noborder">
+                        <td></td>
+                        <td></td>
+                        <td colspan="2" class="" style="text-align: justify; padding-right: 7px;">{{ $pokhs->nomor_kontraks->vendors->alamat_kantor_1 }}</td>
                     </tr>
                     <tr class="noborder">
                         <td></td>
@@ -109,7 +114,7 @@
                 </table>
                 @if (count($lokasis) == 1)
                     <ol type="none"
-                        style="text-transform:uppercase; margin-top:10px; margin-left: 40px; margin-right: 10px; font-weight:bold; text-align:justify;">
+                        style="text-transform:uppercase; margin-top:10px; margin-left: 150px; margin-right: 10px; font-weight:bold; text-align:justify;">
                         @foreach ($lokasis as $lokasi)
                             <li>{{ $lokasi->nama_lokasi }}</li>
                         @endforeach

@@ -47,6 +47,14 @@
     margin-top:50px;
 } */
 
+.low {
+    display: inline-block;
+    /* justify-content: center; */
+    /* flex-direction: column; */
+    text-align: center;
+  }
+
+
  header:last-child {
      display: none;
  }
@@ -311,17 +319,30 @@
  }
 
  .coba {
-     -ms-word-break: break-all;
-     word-break: break-all;
+     /* -ms-word-break: break-all;
+     word-break: break-all; */
 
+     /* -ms-word-break: break-word; */
+    /* word-break: break-word; */
      /* Non standard for webkit */
-     word-break: break-word;
+    /* word-break: break-word; */
 
-     -webkit-hyphens: auto;
-     -moz-hyphens: auto;
-     -ms-hyphens: auto;
-     hyphens: auto;
+     /* -webkit-hyphens: auto; */
+     /* -moz-hyphens: auto; */
+     /* -ms-hyphens: auto; */
+    hyphens: auto;
+    text-align: justify;
+    /* padding-right: 65px; */
+    text-align-last: justify;
+
  }
+
+
+ .coba:after {
+    /* content: "";
+    display: inline-block;
+    width: 100%; */
+  }
 
 .black {
 border-color: #000;
@@ -533,9 +554,17 @@ border-color: #000;
   }
 
 .centertb {
-    hyphens: auto;
-    text-align: center;
-    text-align-last: center;
+    hyphens: auto !important;
+    text-align: center !important;
+    align-items: top !important;
+    text-align-last: center !important;
+    align-content: top;
+    margin: auto;
+    /* display: flex; */
+    /* word-break: break-word;
+    word-wrap: break-word; */
+    /* hyphens: auto;
+    white-space: pre-wrap; */
   }
 
   table.tableSection {

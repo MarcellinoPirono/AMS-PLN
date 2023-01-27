@@ -221,7 +221,7 @@ class UserController extends Controller
 
         Alert::success('Reset Password', 'Telah Berhasil');
 
-        return redirect()->route('dashboard');
+        return back();
         // return response()->json([
         //     'success'   => true
         // ]);
