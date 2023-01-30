@@ -1272,8 +1272,11 @@
             ppn_id = parseFloat(ppn_id);
             var ppn = bef_ppn_total_harga * ppn_id / 100;
             ppn = Math.round(ppn);
+            console.log("bef_ppn_total_harga", bef_ppn_total_harga);
+            console.log("ppn", ppn);
             var total_harga = bef_ppn_total_harga + ppn;
             total_harga = Math.round(total_harga);
+            console.log("total_harga", total_harga);
 
             if (kak.length > 0) {
                 fd.append("_token", token)

@@ -61,6 +61,7 @@
                                                         <li>
                                                         {{ str_replace('.',',', $paket2->volume)}}<br>
                                                         </li>
+                                                       
                                                     </ol>
                                                 @endif
                                             @endforeach

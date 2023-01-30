@@ -865,9 +865,12 @@ class RabController extends Controller
 
         $data = [
             'status' => $request->terima,
+            'pdf_file' => $request->terima,
         ];
 
         $rab->update($data);
+
+
 
         return response()->json([
             'success'   => true

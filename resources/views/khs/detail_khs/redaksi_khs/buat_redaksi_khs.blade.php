@@ -4,7 +4,7 @@
 
 <div class="page-titles">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/vendor-khs">{{$active}}</a></li>
+        <li class="breadcrumb-item"><a href="/redaksi-khs">{{$active}}</a></li>
         <li class="breadcrumb-item active"><a href="javascript:void(0)">{{$active1}}</a></li>
     </ol>
 </div>
@@ -170,11 +170,14 @@ function reindex2() {
 }
 
     $(document).ready(function() {
-
         $('#valid_redaksi').validate({
             rules:{
                 nama_redaksi:{
-                    required: true
+                    required: true,
+                    remote: {
+                        url: "/checkRedaksi",
+                        type: "post"
+                    }
                 },
                 deskripsi_redaksi:{
                     required:true
@@ -185,7 +188,8 @@ function reindex2() {
             },
             messages:{
                 nama_redaksi:{
-                    required: "Silakan Isi Nama Redaksi"
+                    required: "Silakan Isi Nama Redaksi",
+                    remote: "Redaksi Ini Sudah Ada"
                 },
                 deskripsi_redaksi:{
                     required: "Silakan Isi Deskripsi Redaksi"

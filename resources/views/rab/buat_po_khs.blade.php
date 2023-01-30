@@ -8,6 +8,9 @@
         </ol>
     </div>
     <input type="hidden" value="{{ auth()->user()->id }}" id="user_id">
+    <input type="hidden" value="TKDN" id="user_id">
+    <input type="hidden" value="tkdn" id="tkdn">
+    <input type="hidden" value="non_tkdn" id="non_tkdn">
     <div class="row">
         <div class="col-xxl-12">
             <div class="card">

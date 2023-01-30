@@ -169,6 +169,7 @@ class NonPOController extends Controller
 
         $values_pdf_page1 = NonPo::where('id', $id)->get();
 
+
         $non_po_id = NonPo::where('id', $id)->value('id');
         $values_pdf_page2 = RabNonPo::where('non_po_id', $non_po_id)->get();
 
@@ -295,9 +296,10 @@ class NonPOController extends Controller
 
         $non_po_id = NonPo::where('id', $id)->value('id');
         $values_pdf_page2 = RabNonPo::where('non_po_id', $non_po_id)->get();
+        $ppn_default = PpnModel::all();
 
         $jumlah = RabNonPo::where('non_po_id', $non_po_id)->sum('jumlah_harga');
-        $ppn = $jumlah * 0.11;
+        $ppn = $jumlah * ($ppn_default[0]->ppn / 100);
         // dd($values_pdf_page1);
 
         $pdf = Pdf::loadView('layouts.nota_dinas',[

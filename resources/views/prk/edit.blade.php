@@ -59,12 +59,22 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-25 col-form-label">PRK Terkontrak (Rp) :</label>
+                                <label class="col-sm-25 col-form-label">Terkontrak (Rp) :</label>
                                 <div class="col-sm-6">
                                     <input type="text"
                                         class="form-control input-default"
                                         placeholder="PRK Terkontrak" name="prk_terkontrak" id="prk_terkontrak" required readonly disabled
                                         autofocus value="@currency2($prk->prk_terkontrak)" onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">Progress (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        placeholder="PRK Progress" name="prk_progress" id="prk_progress" required readonly disabled
+                                        autofocus value="@currency2($prk->prk_progress)" onkeydown="return numbersonly(this, event);"
                                         onkeyup="javascript:tandaPemisahTitik(this);">
                                 </div>
                             </div>
@@ -177,6 +187,9 @@
                 var prk_terkontrak = $("#prk_terkontrak").val();
                 prk_terkontrak = prk_terkontrak.replace(/\./g, "");
                 prk_terkontrak = parseInt(prk_terkontrak);
+                var prk_progress = $("#prk_progress").val();
+                prk_progress = prk_progress.replace(/\./g, "");
+                prk_progress = parseInt(prk_progress);
                 var prk_realisasi = $("#prk_realisasi").val();
                 prk_realisasi = prk_realisasi.replace(/\./g, "");
                 prk_realisasi = parseInt(prk_realisasi);
@@ -193,6 +206,7 @@
                     "uraian_prk": uraian_prk,
                     "pagu_prk": pagu_prk,
                     "prk_terkontrak": prk_terkontrak,
+                    "prk_progress": prk_progress,
                     "prk_realisasi": prk_realisasi,
                     "prk_terbayar": prk_terbayar,
                     "prk_sisa": prk_sisa,
@@ -313,7 +327,10 @@
             var prk_terkontrak = $("#prk_terkontrak").val();
             prk_terkontrak = prk_terkontrak.replace(/\./g, "");
             prk_terkontrak = parseInt(prk_terkontrak);
-            var prk_sisa = pagu_prk - prk_terkontrak;
+            var prk_progress = $("#prk_progress").val();
+            prk_progress = prk_progress.replace(/\./g, "");
+            prk_progress = parseInt(prk_progress);
+            var prk_sisa = pagu_prk - (prk_terkontrak + prk_progress);
             prk_sisa = prk_sisa.toString();
             prk_sisa_2 = "";
             if(prk_sisa.charAt(0) == "-") {

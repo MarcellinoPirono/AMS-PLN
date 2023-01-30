@@ -39,7 +39,8 @@
                                     <th>No. SKK</th>
                                     <th>Uraian SKK</th>
                                     <th>Pagu SKK</th>
-                                    <th>SKK Terkontrak</th>
+                                    <th>Terkontrak</th>
+                                    <th>Progress</th>
                                     <!-- <th>SKK Realisasi</th>
                                     <th>SKK Terbayar</th> -->
                                     <th>SKK Sisa</th>
@@ -55,6 +56,7 @@
                                         <td>{{ $skk->uraian_skk }}</td>
                                         <td>@currency($skk->pagu_skk)</td>
                                         <td>@currency($skk->skk_terkontrak)</td>
+                                        <td>@currency($skk->skk_progress)</td>
                                         <!-- <td>@currency($skk->skk_realisasi)</td>
                                         <td>@currency($skk->skk_terbayar)</td> -->
                                         <td>@currency($skk->skk_sisa)</td>
@@ -63,8 +65,8 @@
                                                 <a href="/skk/{{ $skk->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp" onclick="deleteSkk(this)"><i
-                                                        class="fa fa-trash"></i></button>
+                                                {{-- <button class="btn btn-danger shadow btn-xs sharp" onclick="deleteSkk(this)"><i
+                                                        class="fa fa-trash"></i></button> --}}
                                             </div>
                                         </td>
                                     </tr>

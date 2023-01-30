@@ -59,6 +59,7 @@ class PrkController extends Controller
             'uraian_prk' => 'required',
             'pagu_prk' => 'required|max:250',
             'prk_terkontrak' => 'required|max:250',
+            'prk_progress' => 'required|max:250',
             'prk_realisasi' => 'required|max:250',
             'prk_terbayar' => 'required|max:250',
             'prk_sisa' => 'required|max:250'
@@ -67,15 +68,31 @@ class PrkController extends Controller
 
         // Update Pagu SKK
         $total_pagu_prk = 0;
+        $total_prk_terkontrak = 0;
+        $total_prk_progress = 0;
         $previous_pagu_prk = Prk::where('no_skk_prk', $request->no_skk_prk)->get("pagu_prk");
         foreach($previous_pagu_prk as $pagu_prk)
             $total_pagu_prk += (Double)$pagu_prk->pagu_prk;
         $updated_pagu_skk = $request->pagu_prk + $total_pagu_prk;
         Skk::where('id', $request->no_skk_prk)->update(array('pagu_skk'=>(Double)$updated_pagu_skk));
 
+        $previous_prk_terkontrak = Prk::where('no_skk_prk', $request->no_skk_prk)->get("prk_terkontrak");
+        foreach($previous_prk_terkontrak as $prk_terkontrak) {
+            $total_prk_terkontrak += (Double)$prk_terkontrak->prk_terkontrak;
+        }
+        $updated_prk_terkontrak = $request->prk_terkontrak + $total_prk_terkontrak;
+        Skk::where('id', $request->no_skk_prk)->update(array('skk_terkontrak'=>(Double)$updated_prk_terkontrak));
+
+        $previous_prk_progress = Prk::where('no_skk_prk', $request->no_skk_prk)->get("prk_progress");
+        foreach($previous_prk_progress as $prk_progress)
+            $total_prk_progress += (Double)$prk_progress->prk_progress;
+        $updated_prk_progress = $request->prk_progress + $total_prk_progress;
+        Skk::where('id', $request->no_skk_prk)->update(array('skk_progress'=>(Double)$updated_prk_progress));
+
         $pagu_skk = Skk::where('id', $request->no_skk_prk)->value("pagu_skk");
         $skk_terkontrak = Skk::where('id', $request->no_skk_prk)->value("skk_terkontrak");
-        $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
+        $skk_progress = Skk::where('id', $request->no_skk_prk)->value("skk_progress");
+        $updated_skk_sisa = (float)$pagu_skk - ((float)$skk_terkontrak + (float)$skk_progress);
         Skk::where('id', $request->no_skk_prk)->update(array('skk_sisa'=>(Double)$updated_skk_sisa));
 
         Prk::create($validatedData);
@@ -144,16 +161,41 @@ class PrkController extends Controller
         $prk->update($input);
 
         //Update Pagu SKK
+        // $updated_pagu_skk = 0;
+        // $previous_pagu_prk = Prk::where('no_skk_prk', $request->no_skk_prk)->get("pagu_prk");
+        // foreach($previous_pagu_prk as $pagu_prk)
+        //     $updated_pagu_skk += (Double)$pagu_prk->pagu_prk;
+        // Skk::where('id', $request->no_skk_prk)->update(array('pagu_skk'=>(Double)$updated_pagu_skk));
+
+        // //Update SKK Sisa
+        // $pagu_skk = Skk::where('id', $request->no_skk_prk)->value("pagu_skk");
+        // $skk_terkontrak = Skk::where('id', $request->no_skk_prk)->value("skk_terkontrak");
+        // $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
+        // Skk::where('id', $request->no_skk_prk)->update(array('skk_sisa'=>(Double)$updated_skk_sisa));
+
         $updated_pagu_skk = 0;
+        $updated_prk_terkontrak = 0;
+        $updated_prk_progress = 0;
         $previous_pagu_prk = Prk::where('no_skk_prk', $request->no_skk_prk)->get("pagu_prk");
         foreach($previous_pagu_prk as $pagu_prk)
             $updated_pagu_skk += (Double)$pagu_prk->pagu_prk;
         Skk::where('id', $request->no_skk_prk)->update(array('pagu_skk'=>(Double)$updated_pagu_skk));
 
-        //Update SKK Sisa
+        $previous_prk_terkontrak = Prk::where('no_skk_prk', $request->no_skk_prk)->get("prk_terkontrak");
+        foreach($previous_prk_terkontrak as $prk_terkontrak) {
+            $updated_prk_terkontrak += (Double)$prk_terkontrak->prk_terkontrak;
+        }
+        Skk::where('id', $request->no_skk_prk)->update(array('skk_terkontrak'=>(Double)$updated_prk_terkontrak));
+
+        $previous_prk_progress = Prk::where('no_skk_prk', $request->no_skk_prk)->get("prk_progress");
+        foreach($previous_prk_progress as $prk_progress)
+            $updated_prk_progress += (Double)$prk_progress->prk_progress;
+        Skk::where('id', $request->no_skk_prk)->update(array('skk_progress'=>(Double)$updated_prk_progress));
+
         $pagu_skk = Skk::where('id', $request->no_skk_prk)->value("pagu_skk");
         $skk_terkontrak = Skk::where('id', $request->no_skk_prk)->value("skk_terkontrak");
-        $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
+        $skk_progress = Skk::where('id', $request->no_skk_prk)->value("skk_progress");
+        $updated_skk_sisa = (float)$pagu_skk - ((float)$skk_terkontrak + (float)$skk_progress);
         Skk::where('id', $request->no_skk_prk)->update(array('skk_sisa'=>(Double)$updated_skk_sisa));
 
         return response()->json(['success' => true]);
@@ -170,7 +212,34 @@ class PrkController extends Controller
         // dd($id);
 
         $prk = Prk::find($id);
+        $no_skk_prk = Prk::where('id', $id)->value('no_skk_prk');
         $prk->delete();
+
+        $updated_pagu_skk = 0;
+        $updated_prk_terkontrak = 0;
+        $updated_prk_progress = 0;
+        $previous_pagu_prk = Prk::where('no_skk_prk', $no_skk_prk)->get("pagu_prk");
+        foreach($previous_pagu_prk as $pagu_prk)
+            $updated_pagu_skk += (Double)$pagu_prk->pagu_prk;
+        Skk::where('id', $no_skk_prk)->update(array('pagu_skk'=>(Double)$updated_pagu_skk));
+
+        $previous_prk_terkontrak = Prk::where('no_skk_prk', $no_skk_prk)->get("prk_terkontrak");
+        foreach($previous_prk_terkontrak as $prk_terkontrak) {
+            $updated_prk_terkontrak += (Double)$prk_terkontrak->prk_terkontrak;
+        }
+        Skk::where('id', $no_skk_prk)->update(array('skk_terkontrak'=>(Double)$updated_prk_terkontrak));
+
+        $previous_prk_progress = Prk::where('no_skk_prk', $no_skk_prk)->get("prk_progress");
+        foreach($previous_prk_progress as $prk_progress)
+            $updated_prk_progress += (Double)$prk_progress->prk_progress;
+        Skk::where('id', $no_skk_prk)->update(array('skk_progress'=>(Double)$updated_prk_progress));
+
+        $pagu_skk = Skk::where('id', $no_skk_prk)->value("pagu_skk");
+        $skk_terkontrak = Skk::where('id', $no_skk_prk)->value("skk_terkontrak");
+        $skk_progress = Skk::where('id', $no_skk_prk)->value("skk_progress");
+        $updated_skk_sisa = (float)$pagu_skk - ((float)$skk_terkontrak + (float)$skk_progress);
+        Skk::where('id', $no_skk_prk)->update(array('skk_sisa'=>(Double)$updated_skk_sisa));
+
 
         return response()->json([
             'success'   => true

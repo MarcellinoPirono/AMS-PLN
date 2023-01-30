@@ -139,4 +139,32 @@ class PejabatController extends Controller
 
        return response($output);
     }
+
+    public function checkPejabat(Request $request) {
+        $jabatan = $request->post('jabatan');
+        $check_jabatan = Pejabat::where('jabatan', $jabatan)->get();
+
+        if(count($check_jabatan) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
+
+    public function checkPejabat_edit(Request $request) {
+        $jabatan = $request->post('jabatan');
+        $old_jabatan = $request->post('old_pejabat');
+        $check_jabatan = Pejabat::where('jabatan', $jabatan)->get();
+        // dd($check_jabatan);
+
+        if(count($check_jabatan) > 0) {
+            if($check_jabatan[0]->jabatan == $old_jabatan) {
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+            }
+        } else {
+            echo json_encode(true);
+        }
+    }
 }

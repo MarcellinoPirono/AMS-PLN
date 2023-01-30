@@ -7,7 +7,13 @@
                         {{ $title }}
                     </div>
                 </div>
+                <div class="add-menu-sidebar" id="products">
+                    <img style="width: 20px" src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt=""
+                        class="mr-2" />
+                    <p class="font-w500 mb-0" id="reload" name="reload">{{ date('D, d-M-Y H:i:s') }} </p>
+                </div>
                 <ul class="navbar-nav header-right">
+
                     @auth
                         <li class="nav-item dropdown header-profile">
                             <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
@@ -49,7 +55,7 @@
                                             d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z" />
                                         <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                                     </svg>
-                                    <span class="ml-2">Reset Password </span>
+                                    <span class="ml-2">Ganti Password </span>
                                 </button>
                                 <form action="{{ route('logout') }}" method="post">
                                     @csrf
@@ -80,20 +86,36 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Ganti Password</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form name="form_reset_password" id="form_reset_password" action="/check-password" method="post" method="post">
+            <form name="form_reset_password" id="form_reset_password" action="/check-password" method="post"
+                method="post">
                 @csrf
                 {{-- @method('put') --}}
                 <div class="modal-body">
                     {{-- <input type="hidden" class="edit_id" value="{{ $khs->jenis_khs }}"> --}}
 
                     <div class="form-group">
-                        <input type="hidden" id="username" name="username" value="{{ auth()->user()->username }}">
-                        <label for="recipient-name" class="col-form-label">Password Baru :</label>
+                        <label for="recipient-name" class="col-form-label">Masukkan Password Lama :</label>
+                        <div class="input-group transparent-append" style="border-radius: 1.5rem">
+                            <div class="input-group-append show-pass4" style="border-radius: 1.5rem">
+                                <span class="input-group-text"
+                                    style="border-top-left-radius: 1.5rem; border-bottom-left-radius: 1.5rem">
+                                    <i class="fa fa-eye-slash"></i>
+                                    <i class="fa fa-eye"></i>
+                                </span>
+                            </div>
+                            <input type="password" class="form-control" style="border-radius-right: 1.5rem"
+                                placeholder="Password Lama" id="password_lama" name="password_lama">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" id="username" name="username"
+                            value="{{ auth()->user()->username }}">
+                        <label for="recipient-name" class="col-form-label">Masukkan Password Baru :</label>
                         <div class="input-group transparent-append" style="border-radius: 1.5rem">
                             <div class="input-group-append show-pass2" style="border-radius: 1.5rem">
                                 <span class="input-group-text"
@@ -108,7 +130,7 @@
                     </div>
                     {{-- <input type="hidden" class="edit_id" value="{{ $khs->nama_pekerjaan }}"> --}}
                     <div class="form-group">
-                        <label class="col-form-label">Konfirmasi Password :</label>
+                        <label class="col-form-label">Konfirmasi Password Baru :</label>
                         <div class="input-group transparent-append" style="border-radius: 1.5rem">
                             <div class="input-group-append show-pass3" style="border-radius: 1.5rem">
                                 <span class="input-group-text"
@@ -145,6 +167,15 @@
                 jQuery('#new_password').attr('type', 'password');
             }
         });
+        jQuery('.show-pass4').on('click', function() {
+            console.log(this);
+            jQuery(this).toggleClass('active');
+            if (jQuery('#password_lama').attr('type') == 'password') {
+                jQuery('#password_lama').attr('type', 'text');
+            } else if (jQuery('#password_lama').attr('type') == 'text') {
+                jQuery('#password_lama').attr('type', 'password');
+            }
+        });
         jQuery('.show-pass3').on('click', function() {
             jQuery(this).toggleClass('active');
             if (jQuery('#konfirmasi_password').attr('type') == 'password') {
@@ -174,11 +205,25 @@
             }, "Silakan Masukkan Minimal 1 Spesial Karakter"
         )
 
+        var password_lama = document.getElementById('password_lama').value;
+        console.log(password_lama);
         $('.btnpass').click(function(e) {
             $('#resetpassword').modal('show');
 
+
             $('#form_reset_password').validate({
                 rules: {
+                    password_lama: {
+                        required: true,
+                        // minlength: 5,
+                        // uppercaseCheck: true,
+                        // nomorCheck: true,
+                        // spesialcharCheck: true,
+                        remote: {
+                            url: "/password-lama",
+                            type: "post",
+                        }
+                    },
                     new_password: {
                         required: true,
                         minlength: 5,
@@ -193,6 +238,12 @@
                     }
                 },
                 messages: {
+                    password_lama: {
+                        required: "Silahkan Isi Terlebih Dahulu",
+                        // minlength: "Minimal 5 Karakter",
+                        remote: "Password Salah",
+
+                    },
                     new_password: {
                         required: "Silahkan Isi Terlebih Dahulu",
                         minlength: "Minimal 5 Karakter",

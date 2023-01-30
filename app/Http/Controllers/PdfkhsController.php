@@ -87,6 +87,7 @@ class PdfkhsController extends Controller
         $rab = [
             'nomor_po' => $request->nomor_po,
             'status' => $request->status,
+            'jenis_cetak' => $request->jenis_cetak,
             'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
@@ -311,6 +312,7 @@ class PdfkhsController extends Controller
             "lokasis" => $lokasis,
             "ppn_id"=>$ppn_id,
         ]);
+        $this->make_watermark($pdf, $values_pdf_page1);
 
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
@@ -348,6 +350,7 @@ class PdfkhsController extends Controller
             // $content = $pdf->download()->getOriginalContent();
             // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
             $pdf2->setPaper('A4', 'landscape');
+            $this->make_watermark($pdf2, $values_pdf_page1);
             $path2 = 'RAB.pdf';
             Storage::disk('local')->put($path2, $pdf2->output());
 
@@ -432,6 +435,7 @@ class PdfkhsController extends Controller
         $rab = [
             'nomor_po' => $request->nomor_po,
             'status' => $request->status,
+            'jenis_cetak' => $request->jenis_cetak,
             'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
@@ -479,6 +483,10 @@ class PdfkhsController extends Controller
                 'harga_satuan' => $request->harga_satuan[$j],
                 'volume' => $request->volume[$j],
                 'jumlah_harga' => $request->jumlah_harga[$j],
+                'tkdn' => $request->tkdn[$j],
+                'kdn' => $request->kdn[$j],
+                'kln' => $request->kln[$j],
+                'total_tkdn' => $request->total_tkdn[$j],
             ];
             OrderKhs::create($order_khs);
         }
@@ -662,6 +670,7 @@ class PdfkhsController extends Controller
             "rabredaksi_array" => $rabredaksi_array,
             "ppn_id"=>$ppn_id,
         ]);
+        $this->make_watermark($pdf, $values_pdf_page1);
 
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
@@ -698,6 +707,7 @@ class PdfkhsController extends Controller
         // $content = $pdf->download()->getOriginalContent();
         // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
         $pdf2->setPaper('A4', 'landscape');
+        $this->make_watermark($pdf2, $values_pdf_page1);
         $path2 = 'RAB.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 
@@ -759,6 +769,7 @@ class PdfkhsController extends Controller
         $rab = [
             'nomor_po' => $request->nomor_po,
             'status' => $request->status,
+            'jenis_cetak' => $request->jenis_cetak,
             'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
@@ -1009,6 +1020,7 @@ class PdfkhsController extends Controller
             "title" => 'PO-KHS (SP-APP)',
             "ppn_id"=>$ppn_id,
         ]);
+        $this->make_watermark($pdf, $values_pdf_page1);
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
@@ -1044,6 +1056,7 @@ class PdfkhsController extends Controller
         ]);
 
         $pdf2->setPaper('A4', 'landscape');
+        $this->make_watermark($pdf2, $values_pdf_page1);
         $path2 = 'RAB_Paket_TKDN.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 
@@ -1099,6 +1112,7 @@ class PdfkhsController extends Controller
         $rab = [
             'nomor_po' => $request->nomor_po,
             'status' => $request->status,
+            'jenis_cetak' => $request->jenis_cetak,
             'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
@@ -1359,6 +1373,7 @@ class PdfkhsController extends Controller
             "title" => 'PO-KHS (SP-APP)',
             "ppn_id"=>$ppn_id,
         ]);
+        $this->make_watermark($pdf, $values_pdf_page1);
 
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
@@ -1395,6 +1410,8 @@ class PdfkhsController extends Controller
         ]);
 
         $pdf2->setPaper('A4', 'landscape');
+        $this->make_watermark($pdf2, $values_pdf_page1);
+
         $path2 = 'RAB_Paket_TKDN.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 
@@ -1870,11 +1887,12 @@ class PdfkhsController extends Controller
         "lokasis" => $lokasis,
         "ppn_id"=>$ppn_id,
     ]);
+    $this->make_watermark($pdf, $values_pdf_page1);
 
     $path1 = 'SPBJ.pdf';
     Storage::disk('local')->put($path1, $pdf->output());
 
-    $pdf2 = Pdf::loadView('format_surat.rab_non_tkdn',[
+    $pdf2 = Pdf::loadView('format_surat.rab_tkdn',[
         "po_khs" => $values_pdf_page1,
         "kategori_jasa" => $jasa,
         "kategori_material" => $material,
@@ -1901,23 +1919,66 @@ class PdfkhsController extends Controller
         "redaksis" => $redaksis,
         "lokasis" => $lokasis,
         "ppn_id"=>$ppn_id,
-
     ]);
 
-        // $content = $pdf->download()->getOriginalContent();
-        // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
-        $pdf2->setPaper('A4', 'potrait');
-        $path2 = 'RAB.pdf';
-        Storage::disk('local')->put($path2, $pdf2->output());
+    // $content = $pdf->download()->getOriginalContent();
+    // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
+    $pdf2->setPaper('A4', 'potrait');
+    $this->make_watermark($pdf2, $values_pdf_page1);
 
-        $oMerger = PDFMerger::init();
-        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
-        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
-        $oMerger->merge();
+    $path2 = 'RAB.pdf';
+    // return $pdf2->download();
+    Storage::disk('local')->put($path2, $pdf2->output());
+
+    $oMerger = PDFMerger::init();
+    $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+    $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+    $oMerger->merge();
 
 
 
-        return $oMerger->download();
+    return $oMerger->download();
+
+    }
+
+    public function make_watermark($pdf, $values_pdf_page1){
+        // $pdf->output();
+        // $watermark = $pdf->open_object();
+        $pdf->render();
+        $canvas = $pdf->getCanvas();
+        $height = $canvas->get_height();
+        $width = $canvas->get_width();
+
+        // $canvas->set_opacity(.2,"Multiply");
+
+
+        // $canvas->page_script('$pdf->set_opacity(.2, "Multiply");');
+        // $canvas->set_opacity(.2);
+
+        $status = $values_pdf_page1[0]->status;
+        if($status == "Disetujui"){
+            $status = '';
+        }
+        else if($status == "Progress"){
+            $status = "On Progress";
+        }
+        // dd($status);
+        $canvas->page_script('
+        $pdf->set_opacity(.2, "Multiply");
+        $pdf->text('.($width/5).', '.($height/2).', "'.($status).'",
+        "Calibri",75, array(0,0,0), 10, 10, -30);');
+
+        // $canvas->text($width/5, $height/2, $status, 'Calibri',
+        // 75, array(0,0,0), 10, 10, -30);
+        // $pdf->close_object();
+        // $pdf->add_object($watermark, "all");
+        // return $pdf;
+    }
+
+    public function load_view_tkdn(){
+
+    }
+    public function load_view_redaksi_spapp(){
 
     }
 }

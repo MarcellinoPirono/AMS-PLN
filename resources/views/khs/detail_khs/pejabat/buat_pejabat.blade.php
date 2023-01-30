@@ -3,7 +3,7 @@
 @section('content')
     <div class="page-titles">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/vendor-khs">{{ $active }}</a></li>
+            <li class="breadcrumb-item"><a href="/pejabat">{{ $active }}</a></li>
             <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $active1 }}</a></li>
         </ol>
     </div>
@@ -55,14 +55,17 @@
 
 <script>
     $(document).ready(function() {
-
         $('#valid_pejabat').validate({
             rules: {
                 nama_pejabat: {
                     required: true
                 },
                 jabatan: {
-                    required: true
+                    required: true,
+                    remote: {
+                        url: '/checkPejabat',
+                        type: 'post'
+                    }
                 },
                 unit_up3: {
                     required: true
@@ -76,7 +79,8 @@
                     required: "Silakan Isi Nama Pejabat"
                 },
                 jabatan: {
-                    required: "Silakan Isi Jabatan"
+                    required: "Silakan Isi Jabatan",
+                    remote: "Jabatan Ini Sudah Ada"
                 },
                 unit_up3: {
                     required: "Silakan Isi Unit UP3"

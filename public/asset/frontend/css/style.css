@@ -6349,6 +6349,25 @@ a.badge-success.focus {
     box-shadow: 0 0 0 0.2rem rgba(43, 193, 85, 0.5);
 }
 
+/* badge success 1 */
+.badge-success1 {
+    color: #2bc155;
+    background-color: #2bc155;
+}
+
+a.badge-success1:hover,
+a.badge-success1:focus {
+    color: #fff;
+    background-color: #2bc155;
+}
+
+a.badge-success1:focus,
+a.badge-success1.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(43, 193, 85, 0.5);
+}
+
+
 .badge-info {
     color: #fff;
     background-color: #1ea7c5;
@@ -6379,6 +6398,23 @@ a.badge-warning:focus {
 
 a.badge-warning:focus,
 a.badge-warning.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(255, 188, 17, 0.5);
+}
+
+.badge-warning1 {
+    color: #ff8411;
+    background-color: #ff8411;
+}
+
+a.badge-warning1:hover,
+a.badge-warning1:focus {
+    color: #ff8411;
+    background-color: #dd9f00;
+}
+
+a.badge-warning1:focus,
+a.badge-warning1.focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(255, 188, 17, 0.5);
 }
@@ -35954,6 +35990,25 @@ input[type="checkbox"]:checked:after {
 .show-pass3.accordion-no-gutter .fa-eye {
     display: inline-block;
 }
+.show-pass4 {
+    cursor: pointer;
+}
+
+.show-pass4 .fa-eye {
+    display: none;
+}
+
+.show-pass4.active .fa-eye-slash {
+    display: none;
+}
+
+.show-pass4.active .fa-eye {
+    display: inline-block;
+}
+
+.show-pass4.accordion-no-gutter .fa-eye {
+    display: inline-block;
+}
 
 .asColorPicker-dropdown {
     max-width: 26rem;
@@ -38494,6 +38549,10 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     background-color: #ffbc11;
 }
 
+.badge-warning1 {
+    background-color: #ff8411;
+}
+
 .badge-danger {
     background-color: #f94687;
 }
@@ -38512,6 +38571,11 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 
 .light.badge-success {
     background-color: #e3f9e9;
+    color: #2bc155;
+}
+
+.light.badge-success1 {
+    background-color: #2bc155;
     color: #2bc155;
 }
 
@@ -38552,12 +38616,22 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     color: #ffbc11;
 }
 
+.light.badge-warning1 {
+    background-color: #ff8411;
+    color: #ff8411;
+}
+
 [data-theme-version="dark"] .light.badge-warning {
     background-color: rgba(255, 188, 17, 0.1);
 }
 
 .light.badge-danger {
     background-color: #fff3f7;
+    color: #f94687;
+}
+
+.light.badge-danger1 {
+    background-color: #f94687;
     color: #f94687;
 }
 
@@ -44767,12 +44841,14 @@ span#counter {
 /* add menu sidebar */
 .add-menu-sidebar {
     background: #28406F;
+    background-color: transparent;
     padding: 20px 18px;
     display: flex;
     align-items: center;
     border-radius: 1.25rem;
     position: relative;
     margin: 50px 50px;
+    opacity: 1;
 }
 
 .add-menu-sidebar p {

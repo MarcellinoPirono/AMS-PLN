@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-25 col-form-label">PRK Terkontrak (Rp) :</label>
+                                <label class="col-sm-25 col-form-label">Terkontrak (Rp) :</label>
                                 <div class="col-sm-6">
                                     <input type="text"
                                         class="form-control input-default"
@@ -64,6 +64,17 @@
                                         onkeyup="javascript:tandaPemisahTitik(this);" value="0"
                                         placeholder="PRK Terkontrak" name="prk_terkontrak" id="prk_terkontrak" required
                                         autofocus value="{{ old('prk_terkontrak') }}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">Progress (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);" value="0"
+                                        placeholder="PRK Progress" name="prk_onprogress" id="prk_onprogress" required
+                                        autofocus value="{{ old('prk_onprogress') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -123,7 +134,10 @@
             var prk_terkontrak = $("#prk_terkontrak").val();
             prk_terkontrak = prk_terkontrak.replace(/\./g, "");
             prk_terkontrak = parseInt(prk_terkontrak);
-            var prk_sisa = pagu_prk - prk_terkontrak;
+            var prk_onprogress = $("#prk_onprogress").val();
+            prk_onprogress = prk_onprogress.replace(/\./g, "");
+            prk_onprogress = parseInt(prk_onprogress);
+            var prk_sisa = pagu_prk - (prk_terkontrak + prk_onprogress);
             prk_sisa = prk_sisa.toString();
             prk_sisa_2 = "";
             if(prk_sisa.charAt(0) == "-") {
@@ -162,7 +176,52 @@
             var pagu_prk = $("#pagu_prk").val();
             pagu_prk = pagu_prk.replace(/\./g, "");
             pagu_prk = parseInt(pagu_prk);
-            var prk_sisa = pagu_prk - prk_terkontrak;
+            var prk_onprogress = $("#prk_onprogress").val();
+            prk_onprogress = prk_onprogress.replace(/\./g, "");
+            prk_onprogress = parseInt(prk_onprogress);
+            var prk_sisa = pagu_prk - (prk_terkontrak + prk_onprogress);
+            prk_sisa = prk_sisa.toString();
+            prk_sisa_2 = "";
+            if(prk_sisa.charAt(0) == "-") {
+                prk_sisa = prk_sisa.replace(/\-/g, "");
+                panjang = prk_sisa.length;
+                j = 0;
+                for (i = panjang; i > 0; i--) {
+                    j = j + 1;
+                    if (((j % 3) == 1) && (j != 1)) {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + "." + prk_sisa_2;
+                    } else {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + prk_sisa_2;
+                    }
+                }
+                prk_sisa_2 = "-" + prk_sisa_2;
+                $('#prk_sisa').val(prk_sisa_2);
+            } else {
+                panjang = prk_sisa.length;
+                j = 0;
+                for (i = panjang; i > 0; i--) {
+                    j = j + 1;
+                    if (((j % 3) == 1) && (j != 1)) {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + "." + prk_sisa_2;
+                    } else {
+                        prk_sisa_2 = prk_sisa.substr(i - 1, 1) + prk_sisa_2;
+                    }
+                }
+                $('#prk_sisa').val(prk_sisa_2);
+            }
+        })
+
+        $('#prk_onprogress').blur(function(){
+            var prk_onprogress = $(this).val();
+            prk_onprogress = prk_onprogress.replace(/\./g, "");
+            prk_onprogress = parseInt(prk_onprogress);
+            var prk_terkontrak = $("#prk_terkontrak").val();
+            prk_terkontrak = prk_terkontrak.replace(/\./g, "");
+            prk_terkontrak = parseInt(prk_terkontrak);
+            var pagu_prk = $("#pagu_prk").val();
+            pagu_prk = pagu_prk.replace(/\./g, "");
+            pagu_prk = parseInt(pagu_prk);
+            var prk_sisa = pagu_prk - (prk_terkontrak + prk_onprogress);
             prk_sisa = prk_sisa.toString();
             prk_sisa_2 = "";
             if(prk_sisa.charAt(0) == "-") {
@@ -257,6 +316,9 @@
                 var prk_terkontrak = $("#prk_terkontrak").val();
                 prk_terkontrak = prk_terkontrak.replace(/\./g, "");
                 prk_terkontrak = parseInt(prk_terkontrak);
+                var prk_onprogress = $("#prk_onprogress").val();
+                prk_onprogress = prk_onprogress.replace(/\./g, "");
+                prk_onprogress = parseInt(prk_onprogress);
                 var prk_realisasi = $("#prk_realisasi").val();
                 prk_realisasi = prk_realisasi.replace(/\./g, "");
                 prk_realisasi = parseInt(prk_realisasi);
@@ -274,6 +336,7 @@
                     "uraian_prk": uraian_prk,
                     "pagu_prk": pagu_prk,
                     "prk_terkontrak": prk_terkontrak,
+                    "prk_progress": prk_onprogress,
                     "prk_realisasi": prk_realisasi,
                     "prk_terbayar": prk_terbayar,
                     "prk_sisa": prk_sisa,

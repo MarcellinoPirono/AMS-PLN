@@ -16,7 +16,7 @@
         <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.jpg" alt="">
     </header>
     @foreach ($non_po as $nonpo)
-        <table class="sub-judul" width="100%" cellspacing="0" cellpadding="0">
+        <table class="sub-judul" width="95%" cellspacing="0" cellpadding="0" align="center">
             <tr>
                 <td colspan="3" class="judul1" valign="bottom">Rencana Pengadaan Barang & Jasa </td>
                 <!-- <td colspan="3" class="sub-judul">{{ $nonpo->nomor_rpbj }}</td> -->
@@ -27,7 +27,7 @@
             <tr>
                 <td width="18%" style="height: 4px;">PEKERJAAN</td>
                 <td width="2%" style="height: 4px;">:</td>
-                <td width="80%" style="height: 4px;">{{ $nonpo->pekerjaan }}</td>
+                <td width="75%" style="height: 4px;">{{ $nonpo->pekerjaan }}</td>
             </tr>
             <tr>
                 <td>SUMBER ANGGARAN</td>
@@ -42,7 +42,7 @@
         </table>
     @endforeach
     <div class="wrapword" id="firstTable">
-        <table class="black" width="100%" border="2" cellspacing="0" cellpadding="0">
+        <table class="black" width="95%" border="2" cellspacing="0" cellpadding="0" align="center">
             <tr class="warna">
                 <td style="width:4%;" rowspan="2" align="center" valign="middle">No</td>
                 <td rowspan="2" align="center" valign="middle">Uraian Pekerjaan</td>
@@ -90,17 +90,17 @@
         </table>
     </div>
 
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <table width="95%" border="0" cellspacing="0" cellpadding="0">
         <tr style="page-break-before: avoid">
             <td style="height: 50px;" align="center" valign="bottom">Dibuat Oleh</td>
             <td style="width:40%;" align="center" valign="bottom">Mengetahui</td>
         </tr>
         <tr style="page-break-before: avoid">
             <td align="center" valign="top">{{ $nonpo->supervisor }}</td>
-            <td align="center" valign="middle">{{ $nonpo->pejabats->jabatan }}</td>
+            <td align="center" valign="middle" style="float:left;">{{ $nonpo->pejabats->jabatan }}</td>
         </tr>
         <tr style="height: 150px; page-break-before: avoid">
-            <td style="height: 150px;" align="center" valign="bottom">Rajab KH</td>
+            <td style="height: 150px;" align="center" valign="bottom">{{$nonpo->users->name}}</td>
             <td align="center" valign="bottom">{{ $nonpo->pejabats->nama_pejabat }}</td>
         </tr>
     </table>

@@ -73,6 +73,7 @@ class SKKController extends Controller
             'skk_terkontrak' => 'required|max:250',
             'skk_realisasi' => 'required|max:250',
             'skk_terbayar' => 'required|max:250',
+            'skk_progress' => 'required|max:250',
             'skk_sisa' => 'required|max:250',
 
         ]);

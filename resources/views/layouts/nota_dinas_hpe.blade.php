@@ -16,7 +16,7 @@
         <img class="mt-1" src="{{ public_path('/') }}./asset/frontend/images/header_pln.jpg" alt="">
     </header>
     @foreach ($non_po as $nonpo)
-        <table class="sub-judul" width="100%" cellspacing="0" cellpadding="0">
+        <table class="sub-judul" width="95%" cellspacing="0" cellpadding="0" align="center">
             <tr>
                 <td colspan="3" class="judul1" valign="bottom">Rencana Pengadaan Barang & Jasa </td>
                 <!-- <td colspan="3" class="sub-judul">{{ $nonpo->nomor_rpbj }}</td> -->
@@ -27,7 +27,7 @@
             <tr>
                 <td width="18%">PEKERJAAN</td>
                 <td width="2%">:</td>
-                <td width="80%">{{ $nonpo->pekerjaan }}</td>
+                <td width="75%">{{ $nonpo->pekerjaan }}</td>
             </tr>
             <tr>
                 <td>SUMBER ANGGARAN</td>
@@ -42,7 +42,7 @@
         </table>
     @endforeach
     <div class="wrapword" id="firstTable">
-        <table width="100%" border="2" cellspacing="0" cellpadding="0">
+        <table width="95%" border="2" cellspacing="0" cellpadding="0" align="center">
             <tr class="warna">
                 <td style="width:4%;" rowspan="2" align="center" valign="middle">No</td>
                 <td rowspan="2" align="center" valign="middle">Uraian</td>

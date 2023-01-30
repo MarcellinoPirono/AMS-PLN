@@ -84,8 +84,25 @@
                                         {{-- <i style="padding-top: 3px;" class="fa-solid fa-user" ></i> --}}
                                     </div>
                                 </div>
+                                <!-- <div class="form-group col-md-6">
+                                    <input type="hidden" id="username" name="username"
+                                        value="{{ auth()->user()->username }}">
+                                    <label for="recipient-name" class="col-form-label">Masukkan Password:</label>
+                                    <div class="input-group transparent-append" style="border-radius: 1.5rem">
+                                        <div class="input-group-append show-pass" style="border-radius: 1.5rem">
+                                            <span class="input-group-text"
+                                                style="border-top-left-radius: 1.5rem; border-bottom-left-radius: 1.5rem">
+                                                <i class="fa fa-eye-slash"></i>
+                                                <i class="fa fa-eye"></i>
+                                            </span>
+                                        </div>
+                                        <input type="password" class="form-control" style="border-radius-right: 1.5rem"
+                                            placeholder="Password Baru" id="new_password" name="new_password">
+                                    </div>
+                                </div> -->
                                 <div class="col-md-12 d-flex justify-content-center">
-                                    <a type="button" class="btn btn-danger mr-3" onclick="window.location.replace(document.referrer);">Back</a>
+                                    <a type="button" class="btn btn-danger mr-3"
+                                        onclick="window.location.replace(document.referrer);">Back</a>
                                     <button type="submit" id="btntambah" class="btn btn-primary">Edit User</button>
                                 </div>
                         </form>
@@ -275,7 +292,7 @@
                     if (role_lama == "Admin") {
                         fd.append("role", role_lama);
                     } else {
-                        if(document.getElementById("admin").value == "Admin") {
+                        if (document.getElementById("admin").value == "Admin") {
                             fd.append("role", role);
                         } else {
                             fd.append("role", role_lama);
@@ -287,7 +304,7 @@
                     // console.log(fd);
 
                     if (document.getElementById("admin").value == "Admin") {
-                        if(role_lama == "Admin") {
+                        if (role_lama == "Admin") {
                             $.ajax({
                                 type: 'POST',
                                 url: "{{ route('user.update') }}",

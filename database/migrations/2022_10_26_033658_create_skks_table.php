@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('uraian_skk');
             $table->string('pagu_skk');
             $table->string('skk_terkontrak');
+            $table->string('skk_progress');
             $table->string('skk_realisasi');
             $table->string('skk_terbayar');
             $table->string('skk_sisa');

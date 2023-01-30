@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-25 col-form-label">SKK Terkontrak (Rp) :</label>
+                                <label class="col-sm-25 col-form-label">Terkontrak (Rp) :</label>
                                 <div class="col-sm-6">
                                     <input type="text"
                                         class="form-control input-default"
@@ -57,6 +57,17 @@
                                         onkeydown="return numbersonly(this, event);"
                                         onkeyup="javascript:tandaPemisahTitik(this);"
                                         value="@currency2($skk->skk_terkontrak)">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">Progress (Rp) :</label>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control input-default"
+                                        name="skk_progress" id="skk_progress" autofocus readonly disabled placeholder="SKK Progress"
+                                        onkeydown="return numbersonly(this, event);"
+                                        onkeyup="javascript:tandaPemisahTitik(this);"
+                                        value="@currency2($skk->skk_progress)">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -242,6 +253,9 @@
                 var skk_terkontrak = $("#skk_terkontrak").val();
                 skk_terkontrak = skk_terkontrak.replace(/\./g, "");
                 skk_terkontrak = parseInt(skk_terkontrak);
+                var skk_progress = $("#skk_progress").val();
+                skk_progress = skk_progress.replace(/\./g, "");
+                skk_progress = parseInt(skk_progress);
                 var skk_realisasi = $("#skk_realisasi").val();
                 skk_realisasi = skk_realisasi.replace(/\./g, "");
                 skk_realisasi = parseInt(skk_realisasi);

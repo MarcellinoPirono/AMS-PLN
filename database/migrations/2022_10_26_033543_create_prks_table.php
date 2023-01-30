@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('uraian_prk');
             $table->string('pagu_prk');
             $table->string('prk_terkontrak');
+            $table->string('prk_progress');
             $table->string('prk_realisasi');
             $table->string('prk_terbayar');
             $table->string('prk_sisa');

@@ -225,7 +225,6 @@
                             </tr>
                         @endif
                     @endif
-
                 @endforeach
             @endforeach
             <tr>
@@ -272,7 +271,7 @@
                     {{ \Carbon\Carbon::parse($pokhs->startdate)->isoFormat('DD MMMM YYYY') }}</td>
             </tr>
             <tr style="page-break-before: avoid;">
-                <td style="text-align: center" class="noborder centertb" colspan="2" align="center" valign="top" style="float:left;">{{ $jabatan_manager }} sasa asasa sa </td>
+                <td style="text-align: center" class="noborder centertb" colspan="2" align="center" valign="top" style="float:left;">{{ $jabatan_manager }}</td>
                 <td style="text-align: center" class="noborder centertb" colspan="4" align="center" valign="middle" style="float:left;">{{ $pokhs->pejabats->jabatan }}</td>
             </tr>
             <tr style="height: 92px; page-break-before: avoid">

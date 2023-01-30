@@ -137,9 +137,35 @@ class RedaksiController extends Controller
                 'redaksi_id' => $id,
                 'sub_deskripsi' => $request->sub_deskripsi[$k][0]
             ];
-            // dd($sub_redaksi);
             SubRedaksi::create($sub_redaksi);
         }
 
+    }
+
+    public function checkRedaksi(Request $request) {
+        $nama_redaksi = $request->post('nama_redaksi');
+        $check_nama_redaksi = Redaksi::where('nama_redaksi', $nama_redaksi)->get();
+
+        if(count($check_nama_redaksi) > 0) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+    }
+
+    public function checkRedaksi_edit(Request $request) {
+        $nama_redaksi = $request->post('nama_redaksi');
+        $old_nama_redaksi = $request->post('old_nama_redaksi');
+        $check_nama_redaksi = Redaksi::where('nama_redaksi', $nama_redaksi)->get();
+
+        if(count($check_nama_redaksi) > 0) {
+            if($check_nama_redaksi[0]->nama_redaksi == $old_nama_redaksi) {
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+            }
+        } else {
+            echo json_encode(true);
+        }
     }
 }

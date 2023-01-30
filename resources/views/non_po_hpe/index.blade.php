@@ -11,35 +11,21 @@
                         <table class="table table-responsive-md" id="ListTabelNonPoHpe">
                             <thead>
                                 <tr>
+                                    <th>Aksi</th>
                                     <th class="width80">No.</th>
+                                    <th>Status</th>
                                     <th>Nomor RPBJ</th>
                                     <th>Pekerjaan</th>
                                     <th>No. SKK</th>
                                     <th>No. PRK</th>
                                     <th>Supervisor</th>
-                                    <th>Status</th>
                                     <th>Total Harga</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($nonpos as $nonpo)
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $nonpo->id }}">
-                                        <td><strong>{{ $loop->iteration }}</strong></td>
-                                        <td>{{ $nonpo->nomor_rpbj }}</td>
-                                        <td>{{ $nonpo->pekerjaan }}</td>
-                                        <td>{{ $nonpo->skks->nomor_skk }}</td>
-                                        <td>{{ $nonpo->prks->no_prk }}</td>
-                                        <td>{{ $nonpo->supervisor }}</td>
-                                        @if ($nonpo->status == 1)
-                                        <td><span class="badge light badge-warning">OnProcess (HPE)</span></td>
-                                        @elseif ($nonpo->status == 2)
-                                        <td><span class="badge light badge-warning">OnProcess (Persetujuan Manager)</span></td>
-                                        @elseif ($nonpo->status == 3)
-                                        <td><span class="badge light badge-success">Disetujui</span></td>
-                                        @endif
-                                        <td>@currency($nonpo->total_harga)</td>
                                         <td align="center">
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
@@ -51,6 +37,20 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        <td><strong>{{ $loop->iteration }}</strong></td>
+                                        @if ($nonpo->status == 1)
+                                        <td><span class="badge light badge-warning">OnProcess (HPE)</span></td>
+                                        @elseif ($nonpo->status == 2)
+                                        <td><span class="badge light badge-warning">OnProcess (Persetujuan Manager)</span></td>
+                                        @elseif ($nonpo->status == 3)
+                                        <td><span class="badge light badge-success">Disetujui</span></td>
+                                        @endif
+                                        <td>{{ $nonpo->nomor_rpbj }}</td>
+                                        <td>{{ $nonpo->pekerjaan }}</td>
+                                        <td>{{ $nonpo->skks->nomor_skk }}</td>
+                                        <td>{{ $nonpo->prks->no_prk }}</td>
+                                        <td>{{ $nonpo->supervisor }}</td>
+                                        <td>@currency($nonpo->total_harga)</td>
                                     </tr>
                                 @endforeach
                             </tbody>

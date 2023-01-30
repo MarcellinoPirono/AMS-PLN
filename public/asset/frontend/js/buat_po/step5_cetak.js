@@ -24,6 +24,8 @@ function SubmitTKDN() {
     var pengawas_lapangan = document.getElementById('pengawas_lapangan').value;
     var status = "Progress";
     var user_id = document.getElementById('user_id').value;
+    var jenis_cetak = document.getElementById('tkdn').value;
+
     if(clickpaket == 0) {
         // console.log(pondfiles);
         var item_id = [];
@@ -171,6 +173,7 @@ function SubmitTKDN() {
             fd.append("clickredaksi", clickredaksi);
             fd.append("status", status);
             fd.append("user_id", user_id);
+            fd.append("jenis_cetak", jenis_cetak);
 
             swal({
                 title: "Apakah anda yakin?",
@@ -195,8 +198,8 @@ function SubmitTKDN() {
                             dataType: 'json',
                             success: function (response) {
                                 swal({
-                                    title: "Data Ditambah",
-                                    text: "Data Berhasil Ditambah",
+                                    title: "PO-KHS Dibuat",
+                                    text: "PO-KHS Telah Berhasil Dibuat",
                                     icon: "success",
                                     timer: 2e3,
                                     buttons: false
@@ -208,7 +211,7 @@ function SubmitTKDN() {
                         });
                     } else {
                         swal({
-                            title: "Data Belum Ditambah",
+                            title: "Data Belum Dibuat",
                             text: "Silakan Cek Kembali Data Anda",
                             icon: "error",
                             timer: 2e3,
@@ -244,6 +247,7 @@ function SubmitTKDN() {
             fd.append("clickredaksi", clickredaksi);
             fd.append("status", status);
             fd.append("user_id", user_id);
+            fd.append("jenis_cetak", jenis_cetak);
 
             swal({
                 title: "Apakah anda yakin?",
@@ -266,8 +270,8 @@ function SubmitTKDN() {
                             dataType: 'json',
                             success: function (response) {
                                 swal({
-                                    title: "Data Ditambah",
-                                    text: "Data Berhasil Ditambah",
+                                    title: "PO-KHS Dibuat",
+                                    text: "PO-KHS Telah Berhasil Dibuat",
                                     icon: "success",
                                     timer: 2e3,
                                     buttons: false
@@ -279,7 +283,7 @@ function SubmitTKDN() {
                         });
                     } else {
                         swal({
-                            title: "Data Belum Ditambah",
+                            title: "Data Belum Dibuat",
                             text: "Silakan Cek Kembali Data Anda",
                             icon: "error",
                             timer: 2e3,
@@ -518,6 +522,7 @@ function SubmitTKDN() {
             fd.append("clickredaksi", clickredaksi);
             fd.append("status", status);
             fd.append("user_id", user_id);
+            fd.append("jenis_cetak", jenis_cetak);
 
             var data = {
                 // "fd" : fd,
@@ -582,8 +587,8 @@ function SubmitTKDN() {
                             success: function (response) {
 
                                 swal({
-                                    title: "Data Ditambah",
-                                    text: "Data Berhasil Ditambah",
+                                    title: "PO-KHS Dibuat",
+                                    text: "PO-KHS Telah Berhasil Dibuat",
                                     icon: "success",
                                     timer: 2e3,
                                     buttons: false
@@ -595,7 +600,7 @@ function SubmitTKDN() {
                         });
                     } else {
                         swal({
-                            title: "Data Belum Ditambah",
+                            title: "Data Belum Dibuat",
                             text: "Silakan Cek Kembali Data Anda",
                             icon: "error",
                             timer: 2e3,
@@ -631,6 +636,7 @@ function SubmitTKDN() {
                 fd.append("clickredaksi", clickredaksi);
                 fd.append("status", status);
                 fd.append("user_id", user_id);
+                fd.append("jenis_cetak", jenis_cetak);
 
                 swal({
                     title: "Apakah anda yakin?",
@@ -656,8 +662,8 @@ function SubmitTKDN() {
                                 success: function (response) {
 
                                     swal({
-                                        title: "Data Ditambah",
-                                        text: "Data Berhasil Ditambah",
+                                        title: "PO-KHS Dibuat",
+                                        text: "PO-KHS Telah Berhasil Dibuat",
                                         icon: "success",
                                         timer: 2e3,
                                         buttons: false
@@ -669,7 +675,7 @@ function SubmitTKDN() {
                             });
                         } else {
                             swal({
-                                title: "Data Belum Ditambah",
+                                title: "Data Belum Dibuat",
                                 text: "Silakan Cek Kembali Data Anda",
                                 icon: "error",
                                 timer: 2e3,
@@ -717,6 +723,7 @@ function SubmitNONTKDN() {
         var pengawas_lapangan = document.getElementById('pengawas_lapangan').value;
         var status = "Progress";
         var user_id = document.getElementById('user_id').value;
+        var jenis_cetak = document.getElementById('non_tkdn').value;
         if(clickpaket == 0) {
             // console.log(pondfiles);
             var item_id = [];
@@ -899,6 +906,7 @@ function SubmitNONTKDN() {
                 fd.append("clickredaksi", clickredaksi);
                 fd.append("status", status);
                 fd.append("user_id", user_id);
+                fd.append("jenis_cetak", jenis_cetak);
 
                 swal({
                     title: "Apakah anda yakin?",
@@ -924,8 +932,8 @@ function SubmitNONTKDN() {
                                 success: function (response) {
 
                                     swal({
-                                        title: "Data Ditambah",
-                                        text: "Data Berhasil Ditambah",
+                                        title: "PO-KHS Dibuat",
+                                        text: "PO-KHS Telah Berhasil Dibuat",
                                         icon: "success",
                                         timer: 2e3,
                                         buttons: false
@@ -937,7 +945,7 @@ function SubmitNONTKDN() {
                             });
                         } else {
                             swal({
-                                title: "Data Belum Ditambah",
+                                title: "Data Belum Dibuat",
                                 text: "Silakan Cek Kembali Data Anda",
                                 icon: "error",
                                 timer: 2e3,
@@ -976,6 +984,7 @@ function SubmitNONTKDN() {
                 fd.append("clickredaksi", clickredaksi);
                 fd.append("status", status);
                 fd.append("user_id", user_id);
+                fd.append("jenis_cetak", jenis_cetak);
 
                 swal({
                     title: "Apakah anda yakin?",
@@ -1001,8 +1010,8 @@ function SubmitNONTKDN() {
                                 success: function (response) {
 
                                     swal({
-                                        title: "Data Ditambah",
-                                        text: "Data Berhasil Ditambah",
+                                        title: "PO-KHS Dibuat",
+                                        text: "PO-KHS Telah Berhasil Dibuat",
                                         icon: "success",
                                         timer: 2e3,
                                         buttons: false
@@ -1014,7 +1023,7 @@ function SubmitNONTKDN() {
                             });
                         } else {
                             swal({
-                                title: "Data Belum Ditambah",
+                                title: "Data Belum Dibuat",
                                 text: "Silakan Cek Kembali Data Anda",
                                 icon: "error",
                                 timer: 2e3,
@@ -1240,7 +1249,7 @@ function SubmitNONTKDN() {
                 fd.append("clickredaksi", clickredaksi);
                 fd.append("status", status);
                 fd.append("user_id", user_id);
-
+                fd.append("jenis_cetak", jenis_cetak);
                 var data = {
                     // "fd" : fd,
                     "_token" : token,
@@ -1304,8 +1313,8 @@ function SubmitNONTKDN() {
                                 success: function (response) {
 
                                     swal({
-                                        title: "Data Ditambah",
-                                        text: "Data Berhasil Ditambah",
+                                        title: "PO-KHS Dibuat",
+                                        text: "PO-KHS Telah Berhasil Dibuat",
                                         icon: "success",
                                         timer: 2e3,
                                         buttons: false
@@ -1317,7 +1326,7 @@ function SubmitNONTKDN() {
                             });
                         } else {
                             swal({
-                                title: "Data Belum Ditambah",
+                                title: "Data Belum Dibuat",
                                 text: "Silakan Cek Kembali Data Anda",
                                 icon: "error",
                                 timer: 2e3,
@@ -1353,6 +1362,7 @@ function SubmitNONTKDN() {
                     fd.append("clickredaksi", clickredaksi);
                     fd.append("status", status);
                     fd.append("user_id", user_id);
+                    fd.append("jenis_cetak", jenis_cetak);
 
                     swal({
                         title: "Apakah anda yakin?",
@@ -1378,8 +1388,8 @@ function SubmitNONTKDN() {
                                     success: function (response) {
 
                                         swal({
-                                            title: "Data Ditambah",
-                                            text: "Data Berhasil Ditambah",
+                                            title: "PO-KHS Dibuat",
+                                            text: "PO-KHS Telah Berhasil Dibuat",
                                             icon: "success",
                                             timer: 2e3,
                                             buttons: false
@@ -1391,7 +1401,7 @@ function SubmitNONTKDN() {
                                 });
                             } else {
                                 swal({
-                                    title: "Data Belum Ditambah",
+                                    title: "Data Belum Dibuat",
                                     text: "Silakan Cek Kembali Data Anda",
                                     icon: "error",
                                     timer: 2e3,

@@ -61,6 +61,7 @@ class CetakNonTkdnController extends Controller
         $rab = [
             'nomor_po' => $request->nomor_po,
             'status' => $request->status,
+            'jenis_cetak' => $request->jenis_cetak,
             'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
@@ -315,6 +316,8 @@ class CetakNonTkdnController extends Controller
             "rabredaksi_array" => $rabredaksi_array,
             "title" => 'PO-KHS (SP-APP)',
         ]);
+        $this->make_watermark($pdf, $values_pdf_page1);
+
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
@@ -337,6 +340,8 @@ class CetakNonTkdnController extends Controller
             "paket_id" => $paket_id,
             "ppn_id" => $ppn_id,
         ]);
+        $this->make_watermark($pdf2, $values_pdf_page1);
+
         $path2 = 'RAB_Paket_NON_TKDN.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 
@@ -392,6 +397,7 @@ class CetakNonTkdnController extends Controller
         $rab = [
             'nomor_po' => $request->nomor_po,
             'status' => $request->status,
+            'jenis_cetak' => $request->jenis_cetak,
             'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
@@ -653,6 +659,8 @@ class CetakNonTkdnController extends Controller
             "title" => 'PO-KHS (SP-APP)',
             "ppn_id" => $ppn_id,
         ]);
+        $this->make_watermark($pdf, $values_pdf_page1);
+
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
@@ -674,6 +682,8 @@ class CetakNonTkdnController extends Controller
             "paket_id" => $paket_id,
             "ppn_id" => $ppn_id,
         ]);
+        $this->make_watermark($pdf2, $values_pdf_page1);
+
 
         $path2 = 'RAB_Paket_NON_TKDN.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
@@ -718,7 +728,7 @@ class CetakNonTkdnController extends Controller
      {
 
 
-         // dd($request);
+        //  dd($request);
          // $request->validate([
          //     'nomor_po' => 'required|unique:rabs|max:250',
          //     'tanggal_po' => 'required|max:250',
@@ -759,6 +769,7 @@ class CetakNonTkdnController extends Controller
          $rab = [
              'nomor_po' => $request->nomor_po,
              'status' => $request->status,
+             'jenis_cetak' => $request->jenis_cetak,
              'user_id' => $request->user_id,
              'tanggal_po' => $request->tanggal_po,
              'skk_id' => $request->skk_id,
@@ -952,6 +963,8 @@ class CetakNonTkdnController extends Controller
              "rabredaksi_array" => $rabredaksi_array,
              "ppn_id" => $ppn_id
          ]);
+        //  dd($pdf);
+         $this->make_watermark($pdf, $values_pdf_page1);
 
          $path1 = 'SPBJ.pdf';
          Storage::disk('local')->put($path1, $pdf->output());
@@ -969,6 +982,9 @@ class CetakNonTkdnController extends Controller
             "lokasis" => $lokasis,
             "ppn_id" => $ppn_id
         ]);
+        // dd($pdf2);
+        $this->make_watermark($pdf2, $values_pdf_page1);
+
 
         // $content = $pdf->download()->getOriginalContent();
         // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
@@ -1055,6 +1071,7 @@ class CetakNonTkdnController extends Controller
          $rab = [
              'nomor_po' => $request->nomor_po,
              'status' => $request->status,
+             'jenis_cetak' => $request->jenis_cetak,
              'user_id' => $request->user_id,
              'status' => $request->status,
              'user_id' => $request->user_id,
@@ -1241,6 +1258,7 @@ class CetakNonTkdnController extends Controller
              "ppn_id"=>$ppn_id,
 
          ]);
+         $this->make_watermark($pdf, $values_pdf_page1);
 
          $path1 = 'SPBJ.pdf';
          Storage::disk('local')->put($path1, $pdf->output());
@@ -1259,6 +1277,7 @@ class CetakNonTkdnController extends Controller
              "ppn_id"=>$ppn_id,
 
          ]);
+         $this->make_watermark($pdf2, $values_pdf_page1);
 
          // $content = $pdf->download()->getOriginalContent();
          // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
@@ -1302,4 +1321,35 @@ class CetakNonTkdnController extends Controller
 
          return response()->json($nama_pdf);
      }
+
+     public function make_watermark($pdf, $values_pdf_page1){
+        // $pdf->output();
+        // dd($pdf);
+        // $watermark = $pdf->open_object();
+        $pdf->render();
+
+        $canvas = $pdf->getCanvas();
+        $height = $canvas->get_height();
+        $width = $canvas->get_width();
+
+        $canvas->set_opacity(.2,"Multiply");
+
+        $canvas->set_opacity(.2);
+
+        $status = $values_pdf_page1[0]->status;
+        if($status == "Disetujui"){
+            $status = '';
+        }
+        else if($status == "Progress"){
+            $status = "On Progress";
+        }
+        // $pdf->close_object();
+        // $pdf->add_object($watermark, "all");
+        // dd($status);
+
+        $canvas->text($width/5, $height/2, $status, 'Calibri',
+        75, array(0,0,0), 10, 10, -30);
+
+        // return $pdf;
+    }
 }

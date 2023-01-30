@@ -38,17 +38,17 @@
                         </select>
                     </div>
 
-                    <div class="col-xl-3 col-l-4 col-m-3 col-sm-2 mt-3">
+                    <div class="col-xl-4 col-l-4 col-m-3 col-sm-2 mt-3">
                         <select id="filter-addendum-kontrak-induk" class="form-control filter">
                             <option value="">Pilih Nomor Kontrak Induk</option>
                             @foreach ($kontraks as $kontrak)
-                                <option  value="{{ $kontrak->nomor_kontraks->nomor_kontrak_induk }}">
+                                <option value="{{ $kontrak->nomor_kontraks->nomor_kontrak_induk }}">
                                     {{ $kontrak->nomor_kontraks->nomor_kontrak_induk }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                    <div class="col-xl-3 col-l-4 col-m-3 col-sm-2 mt-3">
+                    <div class="col-xl-2 col-l-4 col-m-3 col-sm-2 mt-3">
                         <select id="filter-status" class="form-control filter">
                             <option value="">Pilih Status</option>
                             <option value="Progress">Progress</option>
@@ -68,13 +68,14 @@
                         <table class="table table-responsive-md" id="ListTabelRab">
                             <thead>
                                 <tr align="center" valign="middle">
-                                    <th>Aksi</th>
                                     <th class="width80">No.</th>
+                                    <th>Aksi</th>
                                     <th>Status</th>
                                     {{-- <th>Date</th> --}}
                                     {{-- <th>Nomor Surat</th> --}}
                                     <th>No. PO</th>
                                     <th>Tanggal PO</th>
+                                    <th>Total Harga</th>
                                     <th>No SKK</th>
                                     <th>No PRK</th>
                                     <th>Judul / Pekerjaan</th>
@@ -82,56 +83,46 @@
                                     <th>End Date</th>
                                     {{-- <th>Vendor</th> --}}
                                     <th>Nomor Kontrak Induk</th>
-                                    <th>Total Harga</th>
+
 
                                 </tr>
                             </thead>
                             <tbody class="alldata">
                                 @foreach ($rabs as $rab)
                                     <tr>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-info light sharp"
-                                                    data-toggle="dropdown">
-                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-                                                        <g stroke="none" stroke-width="1" fill="none"
-                                                            fill-rule="evenodd">
-                                                            <rect x="0" y="0" width="24"
-                                                                height="24" />
-                                                            <circle fill="#000000" cx="5" cy="12"
-                                                                r="2" />
-                                                            <circle fill="#000000" cx="12" cy="12"
-                                                                r="2" />
-                                                            <circle fill="#000000" cx="19" cy="12"
-                                                                r="2" />
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item"
-                                                        href="preview-pdf-khs/{{ $rab->slug }}">Preview <i
-                                                            class="bi bi-eye"></i></a>
-                                                    <a class="dropdown-item" href="download/{{ $rab->slug }}">Export
-                                                        (pdf) <i class="bi bi-file-earmark-pdf"></i></a>
-                                                    <a class="dropdown-item"
-                                                        href="export-excel-khs/{{ $rab->slug }}">Export (excel) <i
-                                                            class="bi bi-file-earmark-excel"></i></a>
-                                                </div>
-                                            </div>
-                                        </td>
                                         <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
-                                        @if ($rab->status == "Progress")
-                                        <td><span class="badge light badge-warning">{{$rab->status}}</span></td>
-                                        @elseif ($rab->status == "Disetujui")
-                                        <td><span class="badge light badge-success">{{$rab->status}}</span></td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+
+                                                <a class="btn light btn-success btn-xs sharp" href="download/{{ $rab->slug }}"><i
+                                                    class="bi bi-download"></i></a>
+                                                <a class="btn light btn-info btn-xs sharp ml-1"
+                                                        href="preview-pdf-khs/{{ $rab->slug }}"><i
+                                                            class="bi bi-eye"></i></a>
+
+                                            </div>
+
+
+                                        </td>
+
+
+                                        @if ($rab->status == 'Progress')
+                                            {{-- <td><span class="badge light badge-warning">{{ $rab->status }}</span></td> --}}
+                                            <td align="center"><span class="badge light badge-warning1">-</span></span></td>
+                                        @elseif ($rab->status == 'Disetujui')
+                                            {{-- <td><span class="badge light badge-success">{{ $rab->status }}</span></td> --}}
+                                            <td align="center"><span class="badge light badge-success1">-</span></span></td>
                                         @else
-                                        <td><span class="badge light badge-danger">{{$rab->status}}</span></td>
+                                            {{-- <td><span class="badge light badge-danger">{{ $rab->status }}</span></td> --}}
+                                            <td align="center"><span class="badge light badge-danger1">-</span></td>
                                         @endif
+
                                         <td>{{ $rab->nomor_po }}</td>
                                         <td>{{ \Carbon\Carbon::parse($rab->tanggal_po)->isoFormat('dddd, DD-MMMM-YYYY') }}
                                         </td>
+                                        <td>@currency($rab->total_harga) </td>
                                         <td>{{ $rab->skks->nomor_skk }}</td>
-                                        <td>{{ $rab->prks->no_prk }}</td>
+                                        {{-- <td>{{ $rab->prks->no_prk }}</td> --}}
                                         <td>{{ $rab->pekerjaan }}</td>
                                         <td>{{ \Carbon\Carbon::parse($rab->startdate)->isoFormat('dddd, DD-MMMM-YYYY') }}
                                         </td>
@@ -139,7 +130,7 @@
                                         </td>
                                         {{-- <td>{{ $rab->vendors->nama_vendor }}</td> --}}
                                         <td>{{ $rab->nomor_kontraks->nomor_kontrak_induk }}</td>
-                                        <td>@currency($rab->total_harga) </td>
+
 
 
 
@@ -150,6 +141,12 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div style="color: #000; padding-left:45px;">
+                    <span class="" style="padding-bottom: 30px">Keterangan : </span><br>
+                    <span class="badge light badge-success1 mb-2 mt-2">-</span> = Disetujui<br>
+                    <span class="badge light badge-warning1 mb-2">-</span> = Menunggu<br>
+                    <span class="badge light badge-danger1 mb-1">-</span> = Ditolak<br>
                 </div>
             </div>
         </div>
@@ -162,8 +159,8 @@
     <script data-require="jquery@2.1.1" data-semver="2.1.1"
         src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-        <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script>
+    <script src="{{ asset('/') }}./asset/frontend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    {{-- <script src="{{ asset('/') }}./asset/frontend/js/plugins-init/datatables.init.js"></script> --}}
 
     <script>
         var ListTabelRab = $('#ListTabelRab').DataTable({

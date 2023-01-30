@@ -21,26 +21,34 @@
                     <table class="table table-responsive-md" id="tableNonPo">
                         <thead>
                             <tr align="center" valign="middle">
+                                <th>Aksi</th>
                                 <th class="width80">No.</th>
+                                <th>Status</th>
                                 <th>Nomor RPBJ</th>
                                 <th>Pekerjaan</th>
                                 <th>No. SKK</th>
                                 <th>No. PRK</th>
                                 <th>Supervisor</th>
-                                <th>Status</th>
                                 <th>Total Harga</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="alldata">
                             @foreach ($nonpos as $nonpo)
                                 <tr>
+                                    <td align="center">
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
+                                                <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="preview-pdf-khs">Download KAK</a>
+                                                <a class="dropdown-item" href="non-po/export-pdf-khs/{{$nonpo->id}}">Export (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
+                                                <a class="dropdown-item" href="download-non-po/{{$nonpo->id}}">Download (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
+                                                <a class="dropdown-item" href="export-excel-khs">Export (excel) <i class="bi bi-file-earmark-excel-fill"></i></a>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td align="center" valign="middle"><strong>{{$loop->iteration}}</strong></td>
-                                    <td>{{$nonpo->nomor_rpbj}}</td>
-                                    <td>{{ $nonpo->pekerjaan }}</td>
-                                    <td>{{$nonpo->skks->nomor_skk}}</td>
-                                    <td>{{$nonpo->prks->no_prk}}</td>
-                                    <td>{{ $nonpo->supervisor }}</td>
                                     @if ($nonpo->status == 1)
                                     <td><span class="badge light badge-warning">OnProcess (HPE)</span></td>
                                     @elseif ($nonpo->status == 2)
@@ -48,20 +56,12 @@
                                     @elseif ($nonpo->status == 3)
                                     <td><span class="badge light badge-success">Disetujui</span></td>
                                     @endif
+                                    <td>{{$nonpo->nomor_rpbj}}</td>
+                                    <td>{{ $nonpo->pekerjaan }}</td>
+                                    <td>{{$nonpo->skks->nomor_skk}}</td>
+                                    <td>{{$nonpo->prks->no_prk}}</td>
+                                    <td>{{ $nonpo->supervisor }}</td>
                                     <td>@currency($nonpo->total_harga)</td>
-                                <td align="center">
-                                    <div class="dropdown">
-                                        <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
-                                            <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="preview-pdf-khs">Download KAK</a>
-                                            <a class="dropdown-item" href="non-po/export-pdf-khs/{{$nonpo->id}}">Export (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
-                                            <a class="dropdown-item" href="download-non-po/{{$nonpo->id}}">Download (pdf) <i class="bi bi-file-earmark-pdf-fill"></i></a>
-                                            <a class="dropdown-item" href="export-excel-khs">Export (excel) <i class="bi bi-file-earmark-excel-fill"></i></a>
-                                        </div>
-                                    </div>
-                                </td>
                                 </tr>
                             @endforeach
                         </tbody>

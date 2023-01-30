@@ -44,7 +44,8 @@
                                     <th>No.PRK</th>
                                     <th>Uraian PRK</th>
                                     <th>Pagu PRK</th>
-                                    <th>PRK Terkontrak</th>
+                                    <th>Terkontrak</th>
+                                    <th>Progress</th>
                                     <!-- <th>PRK Realisasi</th>
                                     <th>PRK Terbayar</th> -->
                                     <th>PRK Sisa</th>
@@ -61,6 +62,7 @@
                                         <td>{{ $prk->uraian_prk }}</td>
                                         <td> @currency($prk->pagu_prk)</td>
                                         <td> @currency($prk->prk_terkontrak)</td>
+                                        <td> @currency($prk->prk_progress)</td>
                                         <!-- <td> @currency($prk->prk_realisasi)</td>
                                         <td> @currency($prk->prk_terbayar)</td> -->
                                         <td> @currency($prk->prk_sisa)</td>
@@ -70,8 +72,8 @@
                                                 <a href="/prk/{{ $prk->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
-                                                        class="fa fa-trash"></i></button>
+                                                {{-- <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                        class="fa fa-trash"></i></button> --}}
                                         </td>
                                     </tr>
                                 @endforeach

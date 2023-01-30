@@ -20,19 +20,19 @@
                 <div class="card-body">
                     {{--
                 <iframe src="{{ asset('storage/storage/file-pdf-khs/'.$filename.'.pdf') }}"  type="application/pdf" width="100%" height="600px"/> --}}
-                    <embed src="{{ asset('storage/storage/file-pdf-khs/tkdn/' . $filename . '.pdf') }}" type="application/pdf"
-                        width="100%" height="600px" />
+                    <embed src="{{ asset('storage/storage/file-pdf-khs/tkdn/' . $filename . '.pdf') }}"
+                        type="application/pdf" width="100%" height="600px" />
 
                     @if (auth()->user()->role === 'Manager' || auth()->user()->role === 'Admin')
                         @if ($rabs->status != 'Disetujui' && $rabs->status != 'Ditolak')
                             <div class="col-md-12 d-flex justify-content-end mt-5 mb-3">
                                 {{-- <form name="terima" id="terima" action="#"> --}}
-                                    {{-- @csrf --}}
-                                    <input type="hidden" value="{{ $slug }}" id="slug_rab" name="slug_rab">
-                                    <button value="Disetujui"
-                                        class="btn btn-success" onclick="setuju(this)"><i class="bi bi-check-circle"></i> Disetujui</button>
-                                    <button value="Ditolak"
-                                        class="btn btn-danger ml-3" onclick="setuju(this)"><i class="bi bi-x-circle"></i> Ditolak</button>
+                                {{-- @csrf --}}
+                                <input type="hidden" value="{{ $slug }}" id="slug_rab" name="slug_rab">
+                                <button value="Disetujui" class="btn btn-success" onclick="setuju(this)"><i
+                                        class="bi bi-check-circle"></i> Disetujui</button>
+                                <button value="Ditolak" class="btn btn-danger ml-3" onclick="setuju(this)"><i
+                                        class="bi bi-x-circle"></i> Ditolak</button>
                                 {{-- </form> --}}
                                 {{-- <a type="button" class="btn btn-danger mr-3 ml-3" href="/"><i class="bi bi-x-circle"></i> Ditolak</a> --}}
                             </div>
@@ -49,61 +49,97 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
     <script data-require="jquery@2.1.1" data-semver="2.1.1"
-    src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript">
+        // $("#terima").validate({
+        //     submitHandler: function(form) {
+        //         var terima = document.getElementById("")
+        //     }
+        // })
+        function setuju(ini) {
+            // ini.preventDefault();
+            var terima = ini.value;
+            var slug = $("#slug_rab").val();
+            var data = {
+                'terima': terima,
+                'slug': slug
+            };
 
-            // $("#terima").validate({
-            //     submitHandler: function(form) {
-            //         var terima = document.getElementById("")
-            //     }
-            // })
-            function setuju(ini) {
-                // ini.preventDefault();
-                var terima = ini.value;
-                var slug = $("#slug_rab").val();
-                var data = {
-                    'terima': terima,
-                    'slug': slug
-                };
-
-                if(terima == "Disetujui") {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/konfirmasi',
-                        data: data,
-                        success: function(response) {
+            if (terima == "Disetujui") {
+                swal({
+                        title: "Apakah anda yakin?",
+                        text: "Setelah Surat disetujui, Anda tidak dapat menolak Surat ini lagi!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willCreate) => {
+                        if (willCreate) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/konfirmasi',
+                                data: data,
+                                success: function(response) {
+                                    swal({
+                                            title: "PO-KHS Disetujui",
+                                            text: "PO-KHS Telah Disetujui",
+                                            icon: "success",
+                                            timer: 2e3,
+                                            buttons: false
+                                        })
+                                        .then((result) => {
+                                            window.location.href = "/po-khs";
+                                        });
+                                }
+                            });
+                        } else {
                             swal({
-                                    title: "PO-KHS Disetujui",
-                                    text: "PO-KHS Telah Disetujui",
-                                    icon: "success",
-                                    timer: 2e3,
-                                    buttons: false
-                                })
-                                .then((result) => {
-                                    window.location.href = "/po-khs";
-                                });
+                                title: "Surat Belum Disetujui",
+                                text: "Silakan Perhatikan Surat Lagi Sebelum Disetujui",
+                                icon: "error",
+                                timer: 2e3,
+                                buttons: false
+                            });
                         }
                     });
-                } else {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/konfirmasi',
-                        data: data,
-                        success: function(response) {
+            } else {
+                swal({
+                        title: "Apakah anda yakin?",
+                        text: "Setelah Surat ditolak, Anda tidak dapat menyetujui Surat ini lagi!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willCreate) => {
+                        if (willCreate) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/konfirmasi',
+                                data: data,
+                                success: function(response) {
+                                    swal({
+                                            title: "PO-KHS Ditolak",
+                                            text: "PO-KHS Telah Ditolak",
+                                            icon: "error",
+                                            timer: 2e3,
+                                            buttons: false
+                                        })
+                                        .then((result) => {
+                                            window.location.href = "/po-khs";
+                                        });
+                                }
+                            });
+                        } else {
                             swal({
-                                    title: "PO-KHS Ditolak",
-                                    text: "PO-KHS Telah Ditolak",
-                                    icon: "error",
-                                    timer: 2e3,
-                                    buttons: false
-                                })
-                                .then((result) => {
-                                    window.location.href = "/po-khs";
-                                });
+                                title: "Surat Belum Ditolak",
+                                text: "Silakan Perhatikan Surat Lagi Sebelum Ditolak",
+                                icon: "error",
+                                timer: 2e3,
+                                buttons: false
+                            });
                         }
                     });
-                }
             }
-
+        }
     </script>
 @endsection

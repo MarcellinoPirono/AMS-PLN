@@ -117,11 +117,14 @@ Route::get('/search-addendum-khs', [AddendumController::class, 'searchaddendumkh
 
 //Redaksi KHS
 Route::resource('redaksi-khs', RedaksiController::class)->middleware('Manager');
+Route::post('/checkRedaksi', [RedaksiController::class, 'checkRedaksi'])->middleware('Manager');
+Route::post('/checkRedaksi_edit', [RedaksiController::class, 'checkRedaksi_edit'])->middleware('Manager');
 
 //Pejabat
 Route::resource('pejabat', PejabatController::class)->middleware('Manager');
+Route::post('/checkPejabat', [PejabatController::class, 'checkPejabat'])->middleware('Manager');
+Route::post('/checkPejabat_edit', [PejabatController::class, 'checkPejabat_edit'])->middleware('Manager');
 Route::get('/search-pejabat', [PejabatController::class, 'searchpejabat'])->middleware('Manager');
-
 Route::get('ppn', [PpnController::class, 'index'])->middleware('Manager');
 Route::get('ppn/{ppn}/edit', [PpnController::class, 'edit'])->middleware('Manager');
 Route::put('ppn/{ppn}', [PpnController::class, 'update'])->middleware('Manager');
@@ -258,6 +261,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/edit-profile-update', 'update')->name('user.update')->middleware('StaffMiddleware');
     Route::get('/edit-password', 'edit_password')->name('user.edit_password')->middleware('StaffMiddleware');
     Route::post('/check-password', 'check_password')->name('user.check_password')->middleware('StaffMiddleware');
+    Route::post('/password-lama', 'password_lama')->middleware('StaffMiddleware');
     Route::post('/user', 'store')->name('user')->middleware('AdminMiddleware');
     Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile')->middleware('StaffMiddleware');
     Route::delete('/deleteuser/{id}', 'destroy')->name('hapus')->middleware('AdminMiddleware');

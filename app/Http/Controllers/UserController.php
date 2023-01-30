@@ -238,6 +238,17 @@ class UserController extends Controller
             echo json_encode(true);
         }
     }
+    public function password_lama(Request $request) {
+        $password_lama = $request->post('password_lama');
+        // dd(auth()->user()->password);
+
+        if(Hash::check($password_lama, auth()->user()->password) != auth()->user()->password) {
+            echo json_encode(false);
+        } else {
+            echo json_encode(true);
+        }
+
+    }
 
     public function checkUsername_edit(Request $request) {
         $username = $request->post('username');
