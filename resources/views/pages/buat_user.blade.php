@@ -54,9 +54,9 @@
                                         </option>
                                         <option value="Keuangan">Keuangan
                                         </option>
-                                        <option value="Perencanaan">Perencanaan
+                                        <option value="REN">REN
                                         </option>
-                                        <option value="Staff">Staff
+                                        <option value="Supervisor">Supervisor
                                         </option>
                                     </select>
                                 </div>

@@ -38439,7 +38439,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     border-radius: 1.25rem;
     font-size: 14px;
     font-weight: 600;
-    padding: 4px 10px;
+    padding: 0px 6px;
     border: 1px solid transparent;
 }
 
@@ -38575,8 +38575,8 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .light.badge-success1 {
-    background-color: #2bc155;
-    color: #2bc155;
+    background-color: #1ad80f;
+    color: #1ad80f;
 }
 
 [data-theme-version="dark"] .light.badge-success {
@@ -38617,8 +38617,9 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .light.badge-warning1 {
-    background-color: #ff8411;
-    color: #ff8411;
+    background-color: #ffdb11;
+    /* color: #ff8411; */
+    color: #ffdb11;
 }
 
 [data-theme-version="dark"] .light.badge-warning {
@@ -38631,8 +38632,8 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .light.badge-danger1 {
-    background-color: #f94687;
-    color: #f94687;
+    background-color: #ed0b4c;
+    color: #ed0b4c;
 }
 
 [data-theme-version="dark"] .light.badge-danger {
@@ -44855,15 +44856,17 @@ span#counter {
     font-size: 16px;
     font-weight: 500;
     color: #fff;
+    width: 170px;
 }
 
 @media only screen and (max-width: 1400px) {
     .add-menu-sidebar {
-        margin: 50px 25px 50px;
+        margin: 50px -19px 50px;
     }
 
     .add-menu-sidebar p {
         font-size: 14px;
+        width: 170px;
     }
 }
 

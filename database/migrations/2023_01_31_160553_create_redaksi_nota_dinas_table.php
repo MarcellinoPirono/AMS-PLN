@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -13,13 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hpes', function (Blueprint $table) {
+        Schema::create('redaksi_nota_dinas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('non_po_id');
-            $table->double('total_harga_hpe');
-            $table->string("pdf_file");
-            // $table->double('jumlah_harga_perkiraan');
+            $table->string('nama_redaksi');
+            $table->text('deskripsi_redaksi');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hpes');
+        Schema::dropIfExists('redaksi_nota_dinas');
     }
 };

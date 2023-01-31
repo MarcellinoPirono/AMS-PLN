@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
     <div class="page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/po-khs">{{ $active }}</a></li>
@@ -63,7 +63,8 @@
                                                     <label for="first-name" class="form-label">No. Purchase
                                                         Order(PO) <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="po" name="po"
-                                                        value="{{ old('po') }}" placeholder="No. PO" required autofocus onblur="validunique(this)">
+                                                        value="{{ old('po') }}" placeholder="No. PO" required autofocus
+                                                        onblur="validunique(this)">
                                                     <div class="valid-feedback">Data Terisi</div>
                                                     <div id="invalid_po" class="invalid-feedback">Silakan Isi No. PO</div>
                                                 </div>
@@ -96,7 +97,8 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Judul Pekerjaan <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Judul Pekerjaan <span
+                                                            class="text-danger">*</span></label>
                                                     <textarea type="text" class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan" id="pekerjaan"
                                                         placeholder="Pekerjaan" required>{{ old('pekerjaan') }}</textarea>
                                                     <div class="valid-feedback">
@@ -110,8 +112,10 @@
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Pilih Direksi Pekerjaan <span class="text-danger">*</span></label>
-                                                    <select class="form-control input-default" id="pejabat" name="pejabat"
+                                                    <label class="text-label">Pilih Direksi Pekerjaan <span
+                                                            class="text-danger">*</span></label>
+                                                    <select class="form-control input-default" id="pejabat"
+                                                        name="pejabat"
                                                         style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
                                                         required>
                                                         <option value="" selected disabled>Direksi Pekerjaan
@@ -135,7 +139,8 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Start Date <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Start Date <span
+                                                            class="text-danger">*</span></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i
@@ -157,7 +162,8 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">End Date <span class="text-danger">*</span></label>
+                                                    <label class="text-label">End Date <span
+                                                            class="text-danger">*</span></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i
@@ -194,7 +200,8 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input No.SKK <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Input No.SKK <span
+                                                            class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="skk_id"
                                                         name="skk_id" required>
                                                         <option value="" selected disabled>Pilih No. SKK</option>
@@ -213,7 +220,8 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input No. PRK <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Input No. PRK <span
+                                                            class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="prk_id"
                                                         name="prk_id" required>
                                                         <option value="" selected disabled>Pilih PRK</option>
@@ -228,7 +236,8 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input Pengawas Pekerjaan <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Input Pengawas Pekerjaan <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text"
                                                         class="form-control @error('pengawas') is-invalid @enderror"
                                                         name="pengawas_pekerjaan" id="pengawas_pekerjaan"
@@ -263,18 +272,16 @@
                                                         <div class="custom-file">
                                                             <input id="lampiran" type="file" name="lampiran"
                                                                 class="form-control custom-file-input"
-                                                                onchange="fileValidation();" accept=".pdf" />
+                                                                onchange="fileValidation(this);" accept=".pdf" />
                                                             <label id="labelfile" class="custom-file-label">Choose or Drag
                                                                 file</label>
-
-
                                                         </div>
                                                         <!-- <button class="btn btn-danger btn-xxs mt-1 ml-3"
-                                                                onclick="onclear()">Delete file <i
-                                                                    class='fa fa-trash'></i></button>
-                                                            <button class="btn btn-secondary btn-xxs mt-1 ml-3"
-                                                                onclick="toggle()" type="button">Show/Hide <i
-                                                                    class='fa fa-eye'></i> -->
+                                                                    onclick="onclear()">Delete file <i
+                                                                        class='fa fa-trash'></i></button>
+                                                                <button class="btn btn-secondary btn-xxs mt-1 ml-3"
+                                                                    onclick="toggle()" type="button">Show/Hide <i
+                                                                        class='fa fa-eye'></i> -->
                                                     </div>
                                                     {{-- <img class="m-auto justify-content-center" src="#"
                                                         id="img-lampiran" width="300px" /> --}}
@@ -288,9 +295,8 @@
                                             </div>
                                             <div class="col-lg-6 mb-2 mt-45">
                                                 <div class="form-group">
-                                                    <button class="btn btn-danger btn-xxs mt-1"
-                                                        onclick="onclear()">Delete file <i
-                                                            class='fa fa-trash'></i></button>
+                                                    <button class="btn btn-danger btn-xxs mt-1" onclick="onclear()">Delete
+                                                        file <i class='fa fa-trash'></i></button>
                                                     <button class="btn btn-secondary btn-xxs mt-1" onclick="toggle()"
                                                         type="button">Show/Hide <i class='fa fa-eye'></i>
                                                 </div>
@@ -332,7 +338,8 @@
 
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label class="text-label">Input Lokasi <span class="text-danger">*</span></label>
+                                                <label class="text-label">Input Lokasi <span
+                                                        class="text-danger">*</span></label>
                                             </div>
                                         </div>
                                         <table class="table table-responsive-sm height-100" width="100%"
@@ -432,7 +439,8 @@
                                 </div>
                                 <div id="daftar_rab" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <form id="form-3" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
-                                        <input type="hidden" name="ppn" id="ppn" value="{{ $ppn[0]->ppn }}">
+                                        <input type="hidden" name="ppn" id="ppn"
+                                            value="{{ $ppn[0]->ppn }}">
                                         <div class="row">
                                             <div class="col-xl-12 col-xxl-12">
                                                 <div class="card">
@@ -592,7 +600,9 @@
                                                                             <th style="width: 24%"></th>
                                                                         </tr>
                                                                         <tr>
-                                                                            <th style="padding-left: 35px">PPN {{ str_replace('.',',', $ppn[0]->ppn) }}%</th>
+                                                                            <th style="padding-left: 35px">PPN
+                                                                                {{ str_replace('.', ',', $ppn[0]->ppn) }}%
+                                                                            </th>
                                                                             <th>:</th>
                                                                             <th id="pajak"></th>
                                                                             <th></th>
@@ -661,18 +671,18 @@
                                                                             </p>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                                                                <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
-                                                                                                                                    placeholder="Deskripsi" value="" disabled required></textarea>
-                                                                                                                            </td> -->
+                                                                                                                                    <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
+                                                                                                                                        placeholder="Deskripsi" value="" disabled required></textarea>
+                                                                                                                                </td> -->
                                                                         <td style="vertical-++++++++++++++++align: top">
                                                                             <!-- <p id="sub_deskripsi_id[1]"></p> -->
                                                                             <ol id="sub_deskripsi_id[1]">
                                                                             </ol>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                                                                <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
-                                                                                                                                    placeholder="Sub Deskripsi" value="" disabled required></textarea>
-                                                                                                                            </td> -->
+                                                                                                                                    <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
+                                                                                                                                        placeholder="Sub Deskripsi" value="" disabled required></textarea>
+                                                                                                                                </td> -->
 
                                                                         <td style="vertical-align: top"><button
                                                                                 onclick="deleteRow1(this)"
@@ -1014,7 +1024,9 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="2" align="center"
-                                                                                    valign="middle"><b>PPN {{ str_replace('.',',', $ppn[0]->ppn) }}%</b></td>
+                                                                                    valign="middle"><b>PPN
+                                                                                        {{ str_replace('.', ',', $ppn[0]->ppn) }}%</b>
+                                                                                </td>
                                                                                 <td class="tabellkanan" id="td_ppn"
                                                                                     style="font-weight: bold"
                                                                                     align="right">
@@ -1176,9 +1188,9 @@
 
     <!-- Search and Select -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                                                                            <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
-                                                                                integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-                                                                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
+                                                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+                                                                                    integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+                                                                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
             <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
@@ -1272,11 +1284,6 @@ console.log(pond);
             } else {
                 $('#embedLink')[0].src = "";
             }
-
-
-
-
-
         }
 
         function onclear() {
@@ -1295,28 +1302,57 @@ console.log(pond);
 
         }
 
-        function fileValidation() {
+        function fileValidation(ini) {
+            // console.log(ini.files[0].size);
+            if (ini.files[0].size > 20000000) {
+                // onclear();
+                // var files = document.getElementById('lampiran');
+                // files.value = "";
 
+                // document.getElementById('labelfile').innerText = 'Choose or Drag file';
+                // // labelfile.innerHTML = 'Choose or Drag file';
 
+                // var embed = document.getElementById('embedLink');
+                // embed.src = "";
+                // embed.style.display = "none";
 
-            var fileInput = document.getElementById('lampiran');
-            var feedback = document.getElementById('lampiranfile');
+                // event.preventDefault();
+                swal({
+                    title: "Size PDF Terlalu Besar",
+                    text: "File PDF Harus Dibawah 20 Mb",
+                    icon: "error",
+                    timer: 2e3,
+                    buttons: false
+                })
+                .then((willDefault) => {
+                    var files = document.getElementById('lampiran');
+                    files.value = "";
 
-            var labelfile = $('#labelfile');
+                    var embed = document.getElementById('embedLink');
+                    embed.src = "";
+                    embed.style.display = "none";
 
+                    var labelfile = document.getElementById('labelfile');
+                    labelfile.innerHTML = 'Choose or Drag file';
 
+                    event.preventDefault();
+                });
+            } else {
+                var fileInput = document.getElementById('lampiran');
+                var feedback = document.getElementById('lampiranfile');
 
-            var filePath = fileInput.value;
+                var labelfile = $('#labelfile');
 
-            // Allowing file type
-            var allowedExtensions = filePath.split('.').pop();
+                var filePath = fileInput.value;
 
-            console.log(allowedExtensions);
+                // Allowing file type
+                var allowedExtensions = filePath.split('.').pop();
 
-            if (allowedExtensions != 'pdf') {
+                if (allowedExtensions != 'pdf') {
 
-                fileInput.value = '';
+                    fileInput.value = '';
 
+                }
             }
         }
 
@@ -1330,8 +1366,8 @@ console.log(pond);
 
 
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     window.onload = function() {
         window.location.href = "http://127.0.0.1:8000/po-khs/buat-po#spbj"
     }
-</script> -->
+</script>

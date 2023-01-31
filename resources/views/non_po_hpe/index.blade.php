@@ -11,8 +11,8 @@
                         <table class="table table-responsive-md" id="ListTabelNonPoHpe">
                             <thead>
                                 <tr>
-                                    <th>Aksi</th>
                                     <th class="width80">No.</th>
+                                    <th>Aksi</th>
                                     <th>Status</th>
                                     <th>Nomor RPBJ</th>
                                     <th>Pekerjaan</th>
@@ -25,6 +25,7 @@
                             <tbody>
                                 @foreach ($nonpos as $nonpo)
                                     <tr>
+                                        <td><strong>{{ $loop->iteration }}</strong></td>
                                         <input type="hidden" class="delete_id" value="{{ $nonpo->id }}">
                                         <td align="center">
                                             <div class="dropdown">
@@ -37,7 +38,6 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><strong>{{ $loop->iteration }}</strong></td>
                                         @if ($nonpo->status == 1)
                                         <td><span class="badge light badge-warning">OnProcess (HPE)</span></td>
                                         @elseif ($nonpo->status == 2)

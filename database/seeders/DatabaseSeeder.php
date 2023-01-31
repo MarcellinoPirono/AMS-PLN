@@ -86,10 +86,10 @@ class DatabaseSeeder extends Seeder
 
         ]);
         User::create([
-            'name'=> 'Perencanaan',
+            'name'=> 'REN',
             'username' => 'perencanaan',
             'password' => bcrypt('perencanaan'),
-            'role'=>'Perencanaan',
+            'role'=>'REN',
             'email'=>'perencanaan@gmail.com',
             'no_hp'=>'08123456789',
             'email_verified_at' => now(),
@@ -100,7 +100,7 @@ class DatabaseSeeder extends Seeder
             'name'=> 'Fadhil',
             'username' => 'dhil',
             'password' => bcrypt('dhilkh@123'),
-            'role'=>'Staff',
+            'role'=>'Supervisor',
             'email'=>'dhilkh@gmail.com',
             'no_hp'=>'0812666779',
             'email_verified_at' => now(),

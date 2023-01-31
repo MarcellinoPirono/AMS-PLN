@@ -2,7 +2,7 @@
 <div class="deznav">
      <div class="deznav-scroll">
          <ul class="metismenu" id="menu">
-            @if (auth()->user()->role == "Admin" || auth()->user()->role == "Manager" )
+            @if (auth()->user()->role == "Admin" || auth()->user()->role == "Manager" || auth()->user()->role === 'Supervisor' || auth()->user()->role === 'REN' || auth()->user()->role === 'Keuangan' )
 
              <li><a class="nav-link" href="/dashboard">
                      <i class="flaticon-381-networking"></i>
@@ -34,7 +34,7 @@
 
              @endif
 
-             @if (auth()->user()->role === "Staff" || auth()->user()->role === "Admin" || auth()->user()->role === "Manager")
+             @if (auth()->user()->role === "Supervisor" || auth()->user()->role === "Admin" || auth()->user()->role === "Manager" || auth()->user()->role === "REN")
 
              <h5>
                  <p class="fs-12 ml-3 mt-4 mb-1 text-black">KHS</p>
@@ -76,6 +76,9 @@
                                      href="/addendum-khs">&ensp; &ensp; Addendum KHS</a></li>
                              <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
                                      href="/menu-paket-pekerjaan">&ensp; &ensp; Paket Pekerjaan </a></li>
+                             <li><a class="nav-link {{ Request::is('redaksi*') ? 'active' : '' }}"
+                                        href="/redaksi-khs">&ensp; &ensp; Redaksi PO-KHS</a>
+                             </li>
                              {{-- <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
                                      href="/menu-klasifikasi-paket-pekerjaan">&ensp; &ensp; Klasifikasi Paket </a></li> --}}
                          </ul>
@@ -128,12 +131,13 @@
                              <strong>NON-PO</strong>
                          </a>
                      </li>
+                     @if (auth()->user()->role === "REN" || auth()->user()->role === "Admin" || auth()->user()->role === "Manager")
                      <li>
                          <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/non-po-hpe">
-                             <strong>Buat HPE</strong>
+                             <strong>HPE</strong>
                          </a>
                      </li>
-                     <li>
+                     {{-- <li>
                          <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/hpe">
                              <strong>HPE</strong>
                          </a>
@@ -142,20 +146,20 @@
                          <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/pengesahan-hpe">
                              <strong>Pengesahan HPE</strong>
                          </a>
-                     </li>
+                     </li> --}}
                      <li>
                          <a class="has-arrow ai-icon nav-link {{ Request::is('detailkhs*') ? 'active' : '' }}"
                              href="javascript:void()">
                              <strong>Detail Non PO</strong>
                          </a>
                          <ul aria-expanded="false">
-                             <!-- <li><a class="" href="/categories">Kategori</a></li> -->
-                             <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
-                                     href="/rincian">&ensp; &ensp;Vendor Non PO</a></li>
-                             <li><a class="nav-link {{ $title === 'Kontrak Induk' ? 'active' : '' }}"
-                                     href="/rincian">&ensp; &ensp;Addendum Non PO</a></li>
+
+                            <li><a class="nav-link {{ Request::is('redaksi*') ? 'active' : '' }}"
+                            href="/redaksi-nota-dinas">&ensp; &ensp; Redaksi NON-PO</a>
+                             </li>
                          </ul>
                      </li>
+                     @endif
                  </ul>
              </li>
              @endif
@@ -175,9 +179,7 @@
                     <li><a class="nav-link {{ Request::is('pejabat*') ? 'active' : '' }}"
                             href="/pejabat"><strong>Data Pejabat</strong></a>
                     </li>
-                    <li><a class="nav-link {{ Request::is('redaksi*') ? 'active' : '' }}"
-                            href="/redaksi-khs"><strong>Data Redaksi</strong></a>
-                    </li>
+
                     <li><a class="nav-link {{ Request::is('ppn*') ? 'active' : '' }}"
                             href="/ppn"><strong>Data PPN</strong></a>
                     </li>
@@ -216,14 +218,14 @@
                         </a>
                     </li> --}}
          </ul>
-         <div class="add-menu-sidebar" id="products">
+         <!-- <div class="add-menu-sidebar" id="products">
              <img src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt="" class="mr-2" />
              <p class="font-w500 mb-0" id="reload" name="reload">{{ date('D, d-M-Y H:i:s') }} </p>
-         </div>
+         </div> -->
      </div>
  </div>
 
- <!-- <script>
+ <!-- \<script>
      $(document).ready(function() {
          $('.nav-link').click(function(event) {
              // Avoid the link click from loading a new page

@@ -44,7 +44,29 @@
                                         <div class="row m-auto">
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Upload KAK</label>
+                                                    <label class="text-label">Input Nota Dinas <span class="text-danger">*</span></label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Upload</span>
+                                                        </div>
+                                                        <div class="custom-file">
+                                                            <input id="nota_dinas" type="file"
+                                                                class="form-control custom-file-input"
+                                                                style="border-radius: 0 20px 20px 0" required />
+                                                            <label class="custom-file-label">Choose Nota</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan Upload Nota Dinas
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Upload KAK <span class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">Upload</span>
@@ -65,15 +87,15 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input No. RPBJ</label>
+                                                    <label class="text-label">Input No. Nota Dinas <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="nomor_rpbj"
-                                                        id="nomor_rpbj" placeholder="Nomor RPBJ" required autofocus
+                                                        id="nomor_rpbj" placeholder="Nomor Nota Dinas" required autofocus
                                                         value="{{ old('nomor_rpbj') }}">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input Pekerjaan</label>
+                                                    <label class="text-label">Input Pekerjaan <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="pekerjaan"
                                                         id="pekerjaan" placeholder="Pekerjaan" required autofocus
                                                         value="{{ old('pekerjaan') }}">
@@ -87,9 +109,55 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input No.SKK</label>
-                                                    <select class="form-control input-default" id="skk_id" name="skk_id"
-                                                        required>
+                                                    <label class="text-label">Start Date <span
+                                                            class="text-danger">*</span></label>
+                                                     <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i
+                                                                    class="bi bi-calendar2-minus"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" name="start_date" id="start_date"
+                                                            class="form-control datepicker-default2"required
+                                                            placeholder="Tanggal mulainya pekerjaan"
+                                                            style="border-radius: 0 20px 20px 0">
+                                                        <div class="valid-feedback">
+                                                            Data Terisi
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Silakan Atur Jadwal Start Date
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">End Date <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i
+                                                                    class="bi bi-calendar2-minus"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" name="end_date" id="end_date"
+                                                            class="form-control datepicker-default2"
+                                                            placeholder="Tanggal pekerjaan selesai" readonly="false" required
+                                                            autofocus style="border-radius: 0 20px 20px 0">
+                                                        <div class="valid-feedback">
+                                                            Data Terisi
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Silakan Atur Jadwal End Date
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Input No.SKK <span class="text-danger">*</span></label>
+                                                    <select class="form-control input-default" id="skk_id"
+                                                        name="skk_id" required>
                                                         <option value="" selected disabled>Pilih No. SKK</option>
                                                         @foreach ($skks as $skk)
                                                             <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}
@@ -107,9 +175,9 @@
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input No. PRK</label>
-                                                    <select class="form-control input-default" id="prk_id" name="prk_id"
-                                                        required>
+                                                    <label class="text-label">Input No. PRK <span class="text-danger">*</span></label>
+                                                    <select class="form-control input-default" id="prk_id"
+                                                        name="prk_id" required>
                                                         <option value="" selected disabled>Pilih PRK</option>
                                                     </select>
                                                     <div class="valid-feedback">
@@ -123,7 +191,7 @@
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Supervisor</label>
+                                                    <label class="text-label">Supervisor <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="supervisor"
                                                         id="supervisor" placeholder="Supervisor" required autofocus
                                                         value="{{ old('supervisor') }}">
@@ -137,7 +205,7 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Pilih Manager</label>
+                                                    <label class="text-label">Pilih Manager <span class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="pejabat_id"
                                                         name="pejabat_id" required>
                                                         <option value="" selected disabled>Manager
@@ -162,7 +230,8 @@
                                 </div>
                                 <div id="daftar_rab" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                                     <form id="form-2" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
-                                    <input type="hidden" name="ppn" id="ppn" value="{{ $ppn[0]->ppn }}">
+                                        <input type="hidden" name="ppn" id="ppn"
+                                            value="{{ $ppn[0]->ppn }}">
                                         <div class="row">
                                             <div class="col-xl-12 col-xxl-12">
                                                 <div class="card">
@@ -171,24 +240,33 @@
                                                     </div>
                                                     <div class="row ml-2">
                                                         <div class="table-responsive">
-                                                            <table id="tabelNonPO" class="table table-responsive-lg tabel-daftar1"
-                                                                style="width: 1169px" cellpadding="0" cellspacing="0" border="0">
+                                                            <table id="tabelNonPO"
+                                                                class="table table-responsive-lg tabel-daftar1"
+                                                                style="width: 1169px" cellpadding="0" cellspacing="0"
+                                                                border="0">
                                                                 <thead>
                                                                     <tr align="center" valign="middle" class="">
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 60px vertical-align: middle;">No.</th>
+                                                                            style="width: 60px vertical-align: middle;">No.
+                                                                        </th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 322px; vertical-align: middle;">Uraian</th>
+                                                                            style="width: 322px; vertical-align: middle;">
+                                                                            Uraian</th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 134px; vertical-align: middle;">Satuan</th>
+                                                                            style="width: 134px; vertical-align: middle;">
+                                                                            Satuan</th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 134px; vertical-align: middle;">Volume</th>
+                                                                            style="width: 134px; vertical-align: middle;">
+                                                                            Volume</th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 209px; vertical-align: middle;">Harga Satuan</th>
+                                                                            style="width: 209px; vertical-align: middle;">
+                                                                            Harga Satuan</th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 230px; vertical-align: middle;">Jumlah</th>
+                                                                            style="width: 230px; vertical-align: middle;">
+                                                                            Jumlah</th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 80px; vertical-align: middle !important;">Aksi</th>
+                                                                            style="width: 80px; vertical-align: middle !important;">
+                                                                            Aksi</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-kategori">
@@ -258,7 +336,8 @@
                                                                         <th style="width: 24%"></th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th style="padding-left: 35px">PPN {{ str_replace('.',',', $ppn[0]->ppn) }}%</th>
+                                                                        <th style="padding-left: 35px">PPN
+                                                                            {{ str_replace('.', ',', $ppn[0]->ppn) }}%</th>
                                                                         <th>:</th>
                                                                         <th id="pajak"></th>
                                                                         <th></th>
@@ -376,8 +455,8 @@
                                                                             </tr>
                                                                         </tfoot>
                                                                         <!-- <tr>
-                                                                                <td class="first1"></td>
-                                                                            </tr> -->
+                                                                                        <td class="first1"></td>
+                                                                                    </tr> -->
                                                                     </table>
                                                                     {{-- <div>
                                                                         <button id="prevpdf">Previous</button>
@@ -389,8 +468,8 @@
                                                                     {{-- <embed width="100%" height="600px" type="application/pdf" id="embedLink"/> --}}
 
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
-                                                                            <embed id="pdfViewer2" width="100%" height="600px" >
-                                                                        </object> -->
+                                                                                    <embed id="pdfViewer2" width="100%" height="600px" >
+                                                                                </object> -->
 
                                                                 </div>
 
@@ -662,7 +741,7 @@
                             var array_length = result_rab_non_po.length;
                             for (var j = 0; j < array_length; j++) {
                                 html_rab += ("<tr> <td class='first' align='center' valign='middle'>" + (j +
-                                    1) + "</td> <td class='first' align='left' valign='middle'>" +
+                                        1) + "</td> <td class='first' align='left' valign='middle'>" +
                                     result_rab_non_po[j][0] +
                                     "</td> <td class='first' align='center' valign='middle'>" +
                                     result_rab_non_po[j][1] +
@@ -675,13 +754,13 @@
                             }
                             console.log("html_rab", html_rab);
                             document.getElementById("uraian_rab").innerHTML =
-                            "<tr> <td class='first' align='center' valign='middle'><td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
-                            html_rab;
+                                "<tr> <td class='first' align='center' valign='middle'><td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
+                                html_rab;
                         }
                         document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah")
                             .innerHTML;
                         document.getElementById("td_ppn").innerHTML = document.getElementById("pajak")
-                        .innerHTML;
+                            .innerHTML;
                         document.getElementById("td_total").innerHTML = document.getElementById("total")
                             .innerHTML;
 
@@ -1341,10 +1420,11 @@
                                 //         .then((result) => {
                                 //         });
                             },
-                            error: function (xhr) {
+                            error: function(xhr) {
                                 $('#validation-errors').html('');
-                                $.each(xhr.responseJSON.errors, function(key,value) {
-                                    $('#validation-errors').append('<div class="alert alert-danger">'+value+'</div');
+                                $.each(xhr.responseJSON.errors, function(key, value) {
+                                    $('#validation-errors').append(
+                                        '<div class="alert alert-danger">' + value + '</div');
                                 });
                             },
                         });

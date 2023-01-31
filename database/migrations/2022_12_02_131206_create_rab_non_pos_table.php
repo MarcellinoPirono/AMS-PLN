@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string("uraian");
             $table->string("satuan");
             $table->double("volume");
-            $table->double("harga_satuan");            
-            $table->double("jumlah_harga");            
+            $table->double("harga_satuan");
+            $table->double("jumlah_harga");
+            $table->double('harga_perkiraan')->nullable();
+            $table->double('jumlah_harga_perkiraan')->nullable();
             $table->timestamps();
         });
     }

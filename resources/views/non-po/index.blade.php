@@ -21,8 +21,8 @@
                     <table class="table table-responsive-md" id="tableNonPo">
                         <thead>
                             <tr align="center" valign="middle">
-                                <th>Aksi</th>
                                 <th class="width80">No.</th>
+                                <th>Aksi</th>
                                 <th>Status</th>
                                 <th>Nomor RPBJ</th>
                                 <th>Pekerjaan</th>
@@ -35,6 +35,7 @@
                         <tbody class="alldata">
                             @foreach ($nonpos as $nonpo)
                                 <tr>
+                                    <td align="center" valign="middle"><strong>{{$loop->iteration}}</strong></td>
                                     <td align="center">
                                         <div class="dropdown">
                                             <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
@@ -48,7 +49,6 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td align="center" valign="middle"><strong>{{$loop->iteration}}</strong></td>
                                     @if ($nonpo->status == 1)
                                     <td><span class="badge light badge-warning">OnProcess (HPE)</span></td>
                                     @elseif ($nonpo->status == 2)

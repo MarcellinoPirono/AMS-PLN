@@ -297,9 +297,9 @@
             this.querySelector("thead").style.transform = translate;
 
         });
-    </script>
+    </script> --}}
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         function updateDiv() {
             document.getElementById("reload").innerHTML = document.getElementById("reload").innerHTML;
         }

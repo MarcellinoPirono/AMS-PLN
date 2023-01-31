@@ -37,6 +37,10 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 
+use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
+
+use App\Http\Controllers\PdfkhsController;
+
 // use Carbon\Carbon
 // use Carbon\Carbon;
 
@@ -54,11 +58,11 @@ class RabController extends Controller
      */
     public function index()
     {
-        Gate::allows('Staff');
+        // Gate::allows('Supervisor');
 
         $id = auth()->user()->id;
         // dd($id);
-        if(auth()->user()->role == "Staff") {
+        if(auth()->user()->role == "Supervisor") {
             return view('rab.index', [
                 'title' => 'PO KHS',
                 'title1' => 'RAB',
@@ -122,7 +126,7 @@ class RabController extends Controller
             'rab.buat_po_khs',
             [
                 'active1' => 'Buat PO-KHS',
-                'title' => 'Kontrak Harga Satuan (KHS)',
+                'title' => 'PO-KHS',
                 'title1' => 'PO-KHS',
                 'active' => 'PO-KHS',
                 'skks' => Skk::all(),
@@ -859,16 +863,79 @@ class RabController extends Controller
         // dd($request);
 
         $id = Rab::where('slug', $request->slug)->value('id');
+        $total_harga = Rab::where('slug', $request->slug)->value('total_harga');
+        $prk_id = Rab::where('slug', $request->slug)->value('prk_id');
+        $skk_id = Rab::where('slug', $request->slug)->value('skk_id');
+        $status = Rab::where('slug', $request->slug)->value('status');
+        $jenis_cetak = Rab::where('slug', $request->slug)->value('jenis_cetak');
+        $values_pdf_page1 = Rab::where('slug', $request->slug)->get();
+
+        $prk = Prk::where('id', $prk_id)->get();
+        $skk = Skk::where('id', $skk_id)->get();
+
+        //update prk progress
+        $updated_prk_progress = (float)$prk[0]->prk_progress - (float)$total_harga;
+        Prk::where('id', $prk_id)->update(array('prk_progress'=>(Double)$updated_prk_progress));
+
+        //update skk progress
+        $updated_skk_progress = (float)$skk[0]->skk_progress - (float)$total_harga;
+        Skk::where('id', $skk_id)->update(array('skk_progress'=>(Double)$updated_skk_progress));
+
+        if($request->terima == "Disetujui") {
+            //update prk terkontrak
+            $updated_prk_terkontrak = (float)$prk[0]->prk_terkontrak + (float)$total_harga;
+            Prk::where('id', $prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
+
+            //update skk terkontrak
+            $updated_skk_terkontrak = (float)$skk[0]->skk_terkontrak + (float)$total_harga;
+            Skk::where('id', $skk_id)->update(array('skk_terkontrak'=>(Double)$updated_skk_terkontrak));
+        } else {
+            //update prk sisa
+            $updated_prk_sisa = (float)$prk[0]->prk_sisa + (float)$total_harga;
+            Prk::where('id', $prk_id)->update(array('prk_sisa'=>(Double)$updated_prk_sisa));
+
+            //update skk sisa
+            $updated_skk_sisa = (float)$skk[0]->skk_sisa + (float)$total_harga;
+            Skk::where('id', $skk_id)->update(array('skk_sisa'=>(Double)$updated_skk_sisa));
+        }
+
+        // $nama_pdf = Rab::where('slug', $request->slug)->value('nomor_po');
+        // $nama_pdf = str_replace('.', '_', $nama_pdf);
+        // $nama_pdf = str_replace('/','-', $nama_pdf);
+        // $nama_pdf = str_replace(' ','-', $nama_pdf);
+
+        // $mypdf = 'storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf';
 
         $rab = Rab::find($id);
 
-
         $data = [
             'status' => $request->terima,
-            'pdf_file' => $request->terima,
+            // 'pdf_file' => $mypdf,
         ];
 
         $rab->update($data);
+
+        // $nama_pdf = $request->nomor_po;
+        // $pdf = (new PdfkhsController)->load_view_redaksi_spapp($id, $id, $id, $nama_pdf);
+        // $path1 = 'SPBJ.pdf';
+        // Storage::disk('local')->put($path1, $pdf->output());
+        // if($jenis_cetak == "tkdn"){
+        //     $pdf2 = (new PdfkhsController)->load_view_rab_tkdn($id, $id, $id, $nama_pdf, $values_pdf_page1);
+        //     $pdf2->setPaper('A4', 'landscape');
+        //     (new PdfkhsController)->make_watermark($pdf2, $values_pdf_page1);
+        //     $path2 = 'RAB.pdf';
+        //     Storage::disk('local')->put($path2, $pdf2->output());
+
+        //     $oMerger = PDFMerger::init();
+        //     $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        //     $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        //     $oMerger->merge();
+        //     $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
+        // }
+
+        // dd($rab);
+
+
 
 
 

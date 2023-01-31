@@ -62,11 +62,11 @@
                                                 <option value="Keuangan" @if ($users->role == 'Keuangan') selected @endif>
                                                     Keuangan
                                                 </option>
-                                                <option value="Perencanaan"
-                                                    @if ($users->role == 'Perencanaan') selected @endif>Perencanaan
+                                                <option value="REN"
+                                                    @if ($users->role == 'REN') selected @endif>REN
                                                 </option>
-                                                <option value="Staff" @if ($users->role == 'Staff') selected @endif>
-                                                    Staff
+                                                <option value="Supervisor" @if ($users->role == 'Supervisor') selected @endif>
+                                                    Supervisor
                                                 </option>
                                             </select>
                                         </div>

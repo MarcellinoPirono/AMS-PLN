@@ -38,10 +38,32 @@
                             </ul>
                             <div class="tab-content mt-3 tab-flex">
                                 <div id="kak" class="tab-pane", role="tabpanel" aria-labelledby="step-1"
-                                style="height: auto !important; display: flex !important; flex-direction: column !important;">
+                                    style="height: auto !important; display: flex !important; flex-direction: column !important;">
                                     <form id="form-1" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
                                         <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                                         <div class="row">
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Input Nota Dinas</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Upload</span>
+                                                        </div>
+                                                        <div class="custom-file">
+                                                            <input id="nota_dinas" type="file"
+                                                                class="form-control custom-file-input"
+                                                                style="border-radius: 0 20px 20px 0" required />
+                                                            <label class="custom-file-label">Choose </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan Upload Nota Dinas
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Input KAK</label>
@@ -161,24 +183,33 @@
                                                     </div>
                                                     <div class="row ml-2">
                                                         <div class="table-responsive">
-                                                            <table id="tabelNonPO" class="table table-responsive-lg tabel-daftar1"
-                                                                style="width: 1520px" cellpadding="0" cellspacing="0" border="0">
+                                                            <table id="tabelNonPO"
+                                                                class="table table-responsive-lg tabel-daftar1"
+                                                                style="width: 1520px" cellpadding="0" cellspacing="0"
+                                                                border="0">
                                                                 <thead>
                                                                     <tr align="center" valign="middle" class="">
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 60px vertical-align: middle;">No.</th>
+                                                                            style="width: 60px vertical-align: middle;">No.
+                                                                        </th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 322px; vertical-align: middle;">Uraian</th>
+                                                                            style="width: 322px; vertical-align: middle;">
+                                                                            Uraian</th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 134px; vertical-align: middle;">Satuan</th>
+                                                                            style="width: 134px; vertical-align: middle;">
+                                                                            Satuan</th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 134px; vertical-align: middle;">Volume</th>
+                                                                            style="width: 134px; vertical-align: middle;">
+                                                                            Volume</th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 209px; vertical-align: middle;">Harga Satuan</th>
+                                                                            style="width: 209px; vertical-align: middle;">
+                                                                            Harga Satuan</th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 230px; vertical-align: middle;">Jumlah</th>
+                                                                            style="width: 230px; vertical-align: middle;">
+                                                                            Jumlah</th>
                                                                         <th align="center" valign="middle"
-                                                                            style="width: 80px; vertical-align: middle !important;">Aksi</th>
+                                                                            style="width: 80px; vertical-align: middle !important;">
+                                                                            Aksi</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-kategori">

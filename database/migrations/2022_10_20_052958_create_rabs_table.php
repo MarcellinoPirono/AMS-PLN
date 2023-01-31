@@ -35,9 +35,12 @@ return new class extends Migration
             $table->text('pengawas_pekerjaan');
             $table->text('pengawas_lapangan')->nullable();
             $table->string('total_harga');
-            $table->string('pdf_file_progress');
-            $table->string('pdf_file_disetujui');
-            $table->string('pdf_file_ditolak');
+            $table->string('pdf_file');
+            // $table->string('pdf_progress');
+            // $table->string('pdf_ditolak');
+            // $table->string('lampiran')->nullable();
+            // $table->string('pdf_file_disetujui');
+            // $table->string('pdf_file_ditolak');
             $table->string('jenis_cetak');
 
 

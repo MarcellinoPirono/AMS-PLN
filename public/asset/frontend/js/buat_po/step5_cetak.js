@@ -569,6 +569,7 @@ function SubmitTKDN() {
                     document.getElementById('main-wrapper').style.cursor = "wait"
                     document.getElementById('btnFinish').setAttribute('disabled', true);
                     if (willCreate) {
+                        
                         // document.getElementById('main-wrapper').style.cursor = "wait"
                         // document.getElementById('btnFinish').setAttribute('disabled', true);
                         // console.log(fd);

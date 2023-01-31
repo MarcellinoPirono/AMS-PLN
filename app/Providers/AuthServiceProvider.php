@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role;
 
          });
-        Gate::define('Staff', function(User $user){
+        Gate::define('Supervisor', function(User $user){
             return $user->role;
 
          });
@@ -42,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role;
 
          });
-        Gate::define('Perencanaan', function(User $user){
+        Gate::define('REN', function(User $user){
             return $user->role;
 
          });

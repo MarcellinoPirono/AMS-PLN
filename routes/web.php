@@ -3,6 +3,7 @@
 use App\Models\Rab;
 use App\Http\Controllers\ItemRincianInduk;
 use App\Http\Controllers\ItemRincianIndukController;
+use App\Http\Controllers\RedaksiNotaDinasController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\RabController;
 use App\Http\Controllers\LoginController;
@@ -44,9 +45,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [MainController::class, 'index'])->middleware('Manager');
+Route::get('/', [MainController::class, 'index'])->middleware('SupervisorMiddleware');
 
-Route::get('/dashboard', [MainController::class, 'index'])->name('dashboard')->middleware('Manager');/*->middleware('admin')*/;
+Route::get('/dashboard', [MainController::class, 'index'])->name('dashboard')->middleware('SupervisorMiddleware');/*->middleware('admin')*/;
 
 //LOGIN
 Route::get('/login', [LoginController::class, 'login'])->middleware('guest');
@@ -120,6 +121,12 @@ Route::resource('redaksi-khs', RedaksiController::class)->middleware('Manager');
 Route::post('/checkRedaksi', [RedaksiController::class, 'checkRedaksi'])->middleware('Manager');
 Route::post('/checkRedaksi_edit', [RedaksiController::class, 'checkRedaksi_edit'])->middleware('Manager');
 
+
+//Redaksi KHS
+Route::resource('redaksi-nota-dinas', RedaksiNotaDinasController::class)->middleware('Manager');
+Route::post('/checkRedaksiNota', [RedaksiNotaDinasController::class, 'checkRedaksi'])->middleware('Manager');
+Route::post('/checkRedaksi_edit_nota', [RedaksiNotaDinasController::class, 'checkRedaksi_edit'])->middleware('Manager');
+
 //Pejabat
 Route::resource('pejabat', PejabatController::class)->middleware('Manager');
 Route::post('/checkPejabat', [PejabatController::class, 'checkPejabat'])->middleware('Manager');
@@ -144,20 +151,20 @@ Route::post('/checkItem', [RincianIndukController::class, 'checkItem'])->middlew
 Route::post('/checkItem_edit', [RincianIndukController::class, 'checkItem_edit'])->middleware('Manager');
 
 //PO KHS
-Route::get('po-khs/buat-po', [RabController::class, 'buat_po_khs'])->middleware('StaffMiddleware');
-Route::get('po-khs/edit-po/{slug}', [RabController::class, 'edit_po_khs'])->middleware('StaffMiddleware');
-Route::put('po-khs/edit-po/{slug}', [RabController::class, 'update_po_khs'])->middleware('StaffMiddleware');
-Route::post('simpan-po-khs', [RabController::class, 'simpan_po_khs'])->middleware('StaffMiddleware');
-Route::post('/checkPO', [RabController::class, 'checkPO'])->middleware('StaffMiddleware');
-Route::resource('po-khs', RabController::class)->middleware('StaffMiddleware');
-Route::get('export-pdf-khs/{slug}', [RabController::class, 'export_pdf_khs'])->middleware('StaffMiddleware');
-Route::get('preview-pdf-khs/{slug}', [RabController::class, 'preview_pdf_khs'])->middleware('StaffMiddleware');
-Route::get('/search-pokhs', [RabController::class, 'searchpokhs'])->middleware('StaffMiddleware');
-Route::post('/getAddendum', [RabController::class, 'getAddendum'])->middleware('StaffMiddleware');
-Route::post('/getVendor', [RabController::class, 'getVendor'])->middleware('StaffMiddleware');
-Route::get('/getRedaksi', [RabController::class, 'getRedaksi'])->middleware('StaffMiddleware');
-Route::post('/getDeskripsi', [RabController::class, 'getDeskripsi'])->middleware('StaffMiddleware');
-Route::post('/getSubDeskripsi', [RabController::class, 'getSubDeskripsi'])->middleware('StaffMiddleware');
+Route::get('po-khs/buat-po', [RabController::class, 'buat_po_khs'])->middleware('SupervisorMiddleware');
+Route::get('po-khs/edit-po/{slug}', [RabController::class, 'edit_po_khs'])->middleware('SupervisorMiddleware');
+Route::put('po-khs/edit-po/{slug}', [RabController::class, 'update_po_khs'])->middleware('SupervisorMiddleware');
+Route::post('simpan-po-khs', [RabController::class, 'simpan_po_khs'])->middleware('SupervisorMiddleware');
+Route::post('/checkPO', [RabController::class, 'checkPO'])->middleware('SupervisorMiddleware');
+Route::get('/po-khs', [RabController::class, 'index'])->middleware('SupervisorMiddleware');
+Route::get('export-pdf-khs/{slug}', [RabController::class, 'export_pdf_khs'])->middleware('SupervisorMiddleware');
+Route::get('preview-pdf-khs/{slug}', [RabController::class, 'preview_pdf_khs'])->middleware('SupervisorMiddleware');
+Route::get('/search-pokhs', [RabController::class, 'searchpokhs'])->middleware('SupervisorMiddleware');
+Route::post('/getAddendum', [RabController::class, 'getAddendum'])->middleware('SupervisorMiddleware');
+Route::post('/getVendor', [RabController::class, 'getVendor'])->middleware('SupervisorMiddleware');
+Route::get('/getRedaksi', [RabController::class, 'getRedaksi'])->middleware('SupervisorMiddleware');
+Route::post('/getDeskripsi', [RabController::class, 'getDeskripsi'])->middleware('SupervisorMiddleware');
+Route::post('/getSubDeskripsi', [RabController::class, 'getSubDeskripsi'])->middleware('SupervisorMiddleware');
 
 Route::resource('prk', PrkController::class)->middleware('Keuangan');
 Route::any('prk/filter', [PrkController::class, 'filterprk'])->middleware('Keuangan');
@@ -168,13 +175,13 @@ Route::post('/checkPRK_edit', [PrkController::class, 'checkPRK_edit'])->middlewa
 
 Route::resource('skk', SkkController::class)->middleware('Keuangan');
 Route::get('/search-skk', [SkkController::class, 'searchskk'])->middleware('Keuangan');
-Route::post('/getSKK', [SkkController::class, 'getSKK'])->middleware('StaffMiddleware');
-Route::post('/getPRK', [SkkController::class, 'getPRK'])->middleware('StaffMiddleware');
-Route::post('/getCategory', [SkkController::class, 'getCategory'])->middleware('StaffMiddleware');
-Route::post('/getItem', [SkkController::class, 'getItem'])->middleware('StaffMiddleware');
-Route::post('/getKontrakInduk', [SkkController::class, 'getKontrakInduk'])->middleware('StaffMiddleware');
-Route::post('/getKontrak_Induk', [SkkController::class, 'getKontrak_Induk'])->middleware('StaffMiddleware');
-Route::post('/checkSKK', [SkkController::class, 'checkSKK'])->middleware('StaffMiddleware');
+Route::post('/getSKK', [SkkController::class, 'getSKK'])->middleware('SupervisorMiddleware');
+Route::post('/getPRK', [SkkController::class, 'getPRK'])->middleware('SupervisorMiddleware');
+Route::post('/getCategory', [SkkController::class, 'getCategory'])->middleware('SupervisorMiddleware');
+Route::post('/getItem', [SkkController::class, 'getItem'])->middleware('SupervisorMiddleware');
+Route::post('/getKontrakInduk', [SkkController::class, 'getKontrakInduk'])->middleware('SupervisorMiddleware');
+Route::post('/getKontrak_Induk', [SkkController::class, 'getKontrak_Induk'])->middleware('SupervisorMiddleware');
+Route::post('/checkSKK', [SkkController::class, 'checkSKK'])->middleware('SupervisorMiddleware');
 Route::post('/checkSKK_edit', [SkkController::class, 'checkSKK_edit'])->middleware('Keuangan');
 // Route::post('skk/check-no-skk.php');
 
@@ -192,10 +199,10 @@ Route::delete('paket-pekerjaan/{jenis_khs}/{slug}', [PaketPekerjaanController::c
 Route::any('paket-pekerjaan/{jenis_khs}/filter', [PaketPekerjaanController::class, 'filterPaket'])->middleware('Manager');
 Route::put('paket-pekerjaan/{jenis_khs}/{slug}/edit', [PaketPekerjaanController::class, 'update'])->middleware('Manager');
 
-Route::post('/getPaket', [PaketPekerjaanController::class, 'getPaketPekerjaan'])->middleware('StaffMiddleware');
-Route::post('/change-paket', [PaketPekerjaanController::class, 'changePaket'])->middleware('StaffMiddleware');
-Route::post('/change-paket2', [PaketPekerjaanController::class, 'changePaket2'])->middleware('StaffMiddleware');
-Route::post('/gantiPaket', [PaketPekerjaanController::class, 'ganti_paket'])->middleware('StaffMiddleware');
+Route::post('/getPaket', [PaketPekerjaanController::class, 'getPaketPekerjaan'])->middleware('SupervisorMiddleware');
+Route::post('/change-paket', [PaketPekerjaanController::class, 'changePaket'])->middleware('SupervisorMiddleware');
+Route::post('/change-paket2', [PaketPekerjaanController::class, 'changePaket2'])->middleware('SupervisorMiddleware');
+Route::post('/gantiPaket', [PaketPekerjaanController::class, 'ganti_paket'])->middleware('SupervisorMiddleware');
 // Route::get('/paket-pekerjaan/createSlug', [PaketPekerjaanController::class, 'checkSlug'])->middleware('Manager');
 
 //Paket Pekerjaan
@@ -212,42 +219,42 @@ Route::post('/gantiPaket', [PaketPekerjaanController::class, 'ganti_paket'])->mi
 // ]);{{  }}
 
 //Non-PO
-Route::get('non-po/buat-non-po', [NonPOController::class, 'buat_non_po'])->middleware('StaffMiddleware');
-Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po'])->middleware('StaffMiddleware');
-Route::get('non-po/export-pdf-khs/{id}', [NonPOController::class, 'export_pdf_khs'])->middleware('StaffMiddleware');
-Route::get('download-non-po/{id}', [NonPOController::class, 'download'])->middleware('StaffMiddleware');
-Route::resource('non-po', NonPOController::class)->middleware('StaffMiddleware');
+Route::get('non-po/buat-non-po', [NonPOController::class, 'buat_non_po'])->middleware('SupervisorMiddleware');
+Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po'])->middleware('SupervisorMiddleware');
+Route::get('non-po/export-pdf-khs/{id}', [NonPOController::class, 'export_pdf_khs'])->middleware('SupervisorMiddleware');
+Route::get('download-non-po/{id}', [NonPOController::class, 'download'])->middleware('SupervisorMiddleware');
+Route::resource('non-po', NonPOController::class)->middleware('SupervisorMiddleware');
 
-Route::get('non-po-hpe/{id}/buat-non-po-hpe', [NonPoHpeController::class, 'buat_non_po_hpe'])->middleware('StaffMiddleware');
-Route::post('simpan-non-po-hpe', [NonPoHpeController::class, 'simpan_non_po_hpe'])->middleware('StaffMiddleware');
-Route::resource('non-po-hpe', NonPoHpeController::class)->middleware('StaffMiddleware');
+Route::get('non-po-hpe/{id}/buat-non-po-hpe', [NonPoHpeController::class, 'buat_non_po_hpe'])->middleware('SupervisorMiddleware');
+Route::post('simpan-non-po-hpe', [NonPoHpeController::class, 'simpan_non_po_hpe'])->middleware('SupervisorMiddleware');
+Route::resource('non-po-hpe', NonPoHpeController::class)->middleware('SupervisorMiddleware');
 // Route::resource('non-po-hpe', NonPOHPEController::class);
 
-Route::get('hpe/export-pdf-khs/{id}', [HpeController::class, 'export_pdf_khs'])->middleware('StaffMiddleware');
-Route::resource('hpe', HpeController::class)->middleware('StaffMiddleware');
+Route::get('hpe/export-pdf-khs/{id}', [HpeController::class, 'export_pdf_khs'])->middleware('SupervisorMiddleware');
+Route::resource('hpe', HpeController::class)->middleware('SupervisorMiddleware');
 
-Route::resource('pengesahan-hpe', PengesahanHpeController::class)->middleware('StaffMiddleware');
+Route::resource('pengesahan-hpe', PengesahanHpeController::class)->middleware('SupervisorMiddleware');
 
-Route::get('download-hpe/{id}', [HpeController::class, 'download'])->middleware('StaffMiddleware');
+Route::get('download-hpe/{id}', [HpeController::class, 'download'])->middleware('SupervisorMiddleware');
 
 
 
 //TKDN
-Route::post('cetak-pdf-tkdn', [PdfkhsController::class, 'cetak_tkdn_lampiran'])->middleware('StaffMiddleware');
-Route::post('cetak-tkdn', [PdfkhsController::class, 'cetak_tkdn_non_lampiran'])->middleware('StaffMiddleware');
-Route::post('cetak-paket-pdf-tkdn', [PdfkhsController::class, 'cetak_paket_tkdn_lampiran'])->middleware('StaffMiddleware');
-Route::post('cetak-paket-tkdn-non-lampiran', [PdfkhsController::class, 'cetak_paket_tkdn_non_lampiran'])->middleware('StaffMiddleware');
+Route::post('cetak-pdf-tkdn', [PdfkhsController::class, 'cetak_tkdn_lampiran'])->middleware('SupervisorMiddleware');
+Route::post('cetak-tkdn', [PdfkhsController::class, 'cetak_tkdn_non_lampiran'])->middleware('SupervisorMiddleware');
+Route::post('cetak-paket-pdf-tkdn', [PdfkhsController::class, 'cetak_paket_tkdn_lampiran'])->middleware('SupervisorMiddleware');
+Route::post('cetak-paket-tkdn-non-lampiran', [PdfkhsController::class, 'cetak_paket_tkdn_non_lampiran'])->middleware('SupervisorMiddleware');
 
 
 
 //NON-TKDN
-Route::post('cetak-paket-pdf-non-tkdn', [CetakNonTkdnController::class, 'cetak_paket_non_tkdn_lampiran'])->middleware('StaffMiddleware');
-Route::post('cetak-paket-non-tkdn-non-lampiran', [CetakNonTkdnController::class, 'cetak_paket_non_tkdn_non_lampiran'])->middleware('StaffMiddleware');
-Route::post('cetak-non-tkdn-pdf', [CetakNonTkdnController::class, 'cetak_non_tkdn_lampiran'])->middleware('StaffMiddleware');
-Route::post('cetak-non-tkdn', [CetakNonTkdnController::class, 'cetak_non_tkdn_non_lampiran'])->middleware('StaffMiddleware');
+Route::post('cetak-paket-pdf-non-tkdn', [CetakNonTkdnController::class, 'cetak_paket_non_tkdn_lampiran'])->middleware('SupervisorMiddleware');
+Route::post('cetak-paket-non-tkdn-non-lampiran', [CetakNonTkdnController::class, 'cetak_paket_non_tkdn_non_lampiran'])->middleware('SupervisorMiddleware');
+Route::post('cetak-non-tkdn-pdf', [CetakNonTkdnController::class, 'cetak_non_tkdn_lampiran'])->middleware('SupervisorMiddleware');
+Route::post('cetak-non-tkdn', [CetakNonTkdnController::class, 'cetak_non_tkdn_non_lampiran'])->middleware('SupervisorMiddleware');
 
 
-Route::get('download/{slug}', [PdfkhsController::class, 'download'])->middleware('StaffMiddleware');
+Route::get('download/{slug}', [PdfkhsController::class, 'download'])->middleware('SupervisorMiddleware');
 
 //USER
 // Route::resource('user', UserController::class);
@@ -255,21 +262,21 @@ Route::get('download/{slug}', [PdfkhsController::class, 'download'])->middleware
 Route::controller(UserController::class)->group(function () {
     Route::get('/user', 'index')->middleware('AdminMiddleware');
     Route::get('/user/create', 'create')->name('user.create')->middleware('AdminMiddleware');
-    Route::post('/edit-profile', 'edit')->name('user.edit_profile')->middleware('StaffMiddleware');
+    Route::post('/edit-profile', 'edit')->name('user.edit_profile')->middleware('SupervisorMiddleware');
     // Route::post('/user/{username}/edit', 'edit_admin')->middleware('AdminMiddleware');
     // Route::put('/user/{username}/edit', 'update_admin')->middleware('AdminMiddleware');
-    Route::post('/edit-profile-update', 'update')->name('user.update')->middleware('StaffMiddleware');
-    Route::get('/edit-password', 'edit_password')->name('user.edit_password')->middleware('StaffMiddleware');
-    Route::post('/check-password', 'check_password')->name('user.check_password')->middleware('StaffMiddleware');
-    Route::post('/password-lama', 'password_lama')->middleware('StaffMiddleware');
+    Route::post('/edit-profile-update', 'update')->name('user.update')->middleware('SupervisorMiddleware');
+    Route::get('/edit-password', 'edit_password')->name('user.edit_password')->middleware('SupervisorMiddleware');
+    Route::post('/check-password', 'check_password')->name('user.check_password')->middleware('SupervisorMiddleware');
+    Route::post('/password-lama', 'password_lama')->middleware('SupervisorMiddleware');
     Route::post('/user', 'store')->name('user')->middleware('AdminMiddleware');
-    Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile')->middleware('StaffMiddleware');
+    Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile')->middleware('SupervisorMiddleware');
     Route::delete('/deleteuser/{id}', 'destroy')->name('hapus')->middleware('AdminMiddleware');
 });
 
 Route::fallback([UserController::class,'not_found']);
 
-Route::post('/checkUsername', [UserController::class, 'checkUsername'])->middleware('StaffMiddleware');
-Route::post('/konfirmasi', [RabController::class, 'setuju'])->name('setuju');
-Route::post('/checkUsername_edit', [UserController::class, 'checkUsername_edit'])->middleware('StaffMiddleware');
+Route::post('/checkUsername', [UserController::class, 'checkUsername'])->middleware('SupervisorMiddleware');
+Route::post('/konfirmasi', [RabController::class, 'setuju'])->middleware('Manager');
+Route::post('/checkUsername_edit', [UserController::class, 'checkUsername_edit'])->middleware('SupervisorMiddleware');
 

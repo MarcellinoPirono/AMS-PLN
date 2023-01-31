@@ -36,6 +36,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 
+use App\Http\Controllers\CetakNonTkdnController;
+
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 
 
@@ -82,7 +84,11 @@ class PdfkhsController extends Controller
         // dd($nama_pdf);
 
 
-        $mypdf = 'storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf';
+        $mypdf = 'storage/file-pdf-khs/tkdn/'.$nama_pdf.'';
+
+        // $fileName = $nama_pdf.'_'.$request->file('lampiran')->getClientOriginalName();
+        // $lampiran = $request->file('lampiran')->storeAs('storage/lampiran-po', $fileName, 'public');
+        // dd($lampiran);
 
         $rab = [
             'nomor_po' => $request->nomor_po,
@@ -102,8 +108,9 @@ class PdfkhsController extends Controller
             'pengawas_pekerjaan' => $request->pengawas_pekerjaan,
             'pengawas_lapangan' => $request->pengawas_lapangan,
             'total_harga' => $request->total_harga,
-            'pdf_file' =>$mypdf,
-            'slug' =>$nama_pdf,
+            'pdf_file' => $mypdf,
+            // 'lampiran' => $lampiran,
+            'slug' => $nama_pdf,
         ];
 
         Rab::create($rab);
@@ -112,7 +119,6 @@ class PdfkhsController extends Controller
         $id = Rab::where('nomor_po', $request->nomor_po)->value('id');
 
         $total_tabel = $request->click;
-
 
         $rab_id = [];
         $satuan_id = [];
@@ -123,8 +129,6 @@ class PdfkhsController extends Controller
             $satuan_id[$i] = Satuan::where('kepanjangan', $request->satuan_id[$i])->value('id');
             $nama_item_id[$i] = RincianINduk::where('nama_item', $request->item_order[$i])->value('id');
         }
-
-
 
         for ($j = 0; $j < $total_tabel; $j++) {
             $order_khs = [
@@ -174,221 +178,100 @@ class PdfkhsController extends Controller
             $order_lokasi = [
                 'rab_id' => $rab_id[$j],
                 'nama_lokasi' => $request->lokasi[$j],
-
             ];
             lokasi::create($order_lokasi);
         }
 
-
-
-
-        $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
-
-
-        $rabredaksi_array = [];
-        for($i = 0; $i < count($redaksis); $i++) {
-            $rabredaksi_array[$i] = [
-                'redaksi' => $redaksis[$i]->deskripsi_id,
-                'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
-            ];
-        }
-
-
-        $lokasis = lokasi::where('rab_id', $rab_id)->get();
-        // dd($rabredaksi);
-
         $values_pdf_page1 = Rab::where('id', $id)->get();
+        $rab_id2 = Rab::where('id', $id)->value('id');
 
-        $startdate = Rab::where('id', $id)->value('startdate');
-        $enddate = Rab::where('id', $id)->value('enddate');
-        $datetime1 = new DateTime($startdate);
-        $datetime2 = new DateTime($enddate);
-        $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
-        $d = 0;
-        $days = 0;
-        $datetime2 = 1;
-
-        foreach($interval as $date) {
-            $interval = $date->format("Y-m-d");
-            $datetime = DateTime::createFromFormat('Y-m-d', $interval);
-
-            $day = $datetime->format('D');
-
-            if($day != "Sun" && $day != "Sat") {
-                $days += $datetime2 - $d;
-            }
-
-            $datetime2++;
-            $d++;
-        }
-
-        $rab_id = Rab::where('id', $id)->value('id');
-        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
-
-        $jasa = [];
-        $jasa_volume = [];
-        $kdn_jasa = [];
-        $kdn_material = [];
-        $sub_jumlah_material = [];
-        $sub_jumlah_jasa = [];
-        $ubah_volume_jasa = [];
-        $material = [];
-        $material_volume = [];
-        $ubah_volume_material = [];
-
-        for($i = 0; $i < count($values_pdf_page2); $i++) {
-            if($values_pdf_page2[$i]->kategori_order == "Jasa") {
-                $jasa[$i] = $values_pdf_page2[$i];
-                $jasa_volume[$i] = $jasa[$i]->volume;
-                $ubah_volume_jasa[$i] = str_replace(".", ",", "$jasa_volume[$i]");
-                $jasa[$i]->volume = $ubah_volume_jasa[$i];
-                $jasa_jumlah_harga[$i] = $jasa[$i]->jumlah_harga;
-                array_push($kdn_jasa, $jasa[$i]->kdn);
-                array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$i]);
-                // $jasa[$i]->volume = str_replace()
-            } else {
-                $material[$i] = $values_pdf_page2[$i];
-                $material_volume[$i] = $material[$i]->volume;
-                $ubah_volume_material[$i] = str_replace(".", ",", $material_volume[$i]);
-                $material[$i]->volume = $ubah_volume_material[$i];
-                $material_jumlah_harga[$i] = $material[$i]->jumlah_harga;
-                array_push($kdn_material, $material[$i]->kdn);
-                array_push($sub_jumlah_material, $material_jumlah_harga[$i]);
-            }
-        }
-            // dd($jasa);
-            // $jabatan = Pejabat::select('jabatan');
-        // dd($sub_jumlah_jasa);
-        $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
-        $sub_jumlah_material = array_sum($sub_jumlah_material);
-        $kdn_jasa = array_sum($kdn_jasa);
-        $kdn_material = array_sum($kdn_material);
-        $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
-        $kln_material = $sub_jumlah_material - $kdn_material;
-        $total_jasa = $kdn_jasa + $kln_jasa;
-        $total_material = $kdn_material + $kln_material;
-
-        if($total_jasa > 0){
-            $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
-        }
-        else{
-            $total_tkdn_jasa = 0;
-        }
-
-        if($total_material > 0){
-            $total_tkdn_material = ($kdn_material / $total_material) * 100;
-        }
-        else{
-            $total_tkdn_material = 0;
-        }
-        $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
-        $total_kln_jasa_material = $kln_jasa + $kln_material;
-        $total_jasa_material = $total_jasa + $total_material;
-
-        if($total_jasa_material > 0){
-            $total_tkdn_jasa_material = ($total_kdn_jasa_material / $total_jasa_material) * 100;
-        }
-        else{
-            $total_tkdn_jasa_material = 0;
-        }
-
-        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
-        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
-
-        $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn_id = PpnModel::all();
-        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
-
-
-        $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
-            "po_khs" => $values_pdf_page1,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            "days" => $days,
-            "jabatan_manager" => $jabatan_manager,
-            "nama_manager" => $nama_manager,
-            "title" => $nama_pdf,
-            "rabredaksi_array" => $rabredaksi_array,
-            "lokasis" => $lokasis,
-            "ppn_id"=>$ppn_id,
-        ]);
-        $this->make_watermark($pdf, $values_pdf_page1);
-
+        //PDF ON PROGRESS
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "On Progress");
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
-        $pdf2 = Pdf::loadView('format_surat.rab_tkdn',[
-            "po_khs" => $values_pdf_page1,
-            "kategori_jasa" => $jasa,
-            "kategori_material" => $material,
-            "sub_jumlah_jasa" =>$sub_jumlah_jasa,
-            "sub_jumlah_material" =>$sub_jumlah_material,
-            "kdn_jasa" => $kdn_jasa,
-            "kdn_material" => $kdn_material,
-            "kln_jasa" => $kln_jasa,
-            "kln_material" => $kln_material,
-            "total_jasa" => $total_jasa,
-            "total_material" => $total_material,
-            "total_tkdn_jasa" => $total_tkdn_jasa,
-            "total_tkdn_material" => $total_tkdn_material,
-            "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
-            "total_kdn_jasa_material" => $total_kdn_jasa_material,
-            "total_kln_jasa_material" => $total_kln_jasa_material,
-            "total_jasa_material" => $total_jasa_material,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            "days" => $days,
-            "jabatan_manager" => $jabatan_manager,
-            "nama_manager" => $nama_manager,
-            "title" => $nama_pdf,
-            "redaksis" => $redaksis,
-            "lokasis" => $lokasis,
-            "ppn_id"=>$ppn_id,
+        $pdf2 = $this->load_view_rab_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "On Progress");
+        $path2 = 'RAB.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
 
-        ]);
 
-            // $content = $pdf->download()->getOriginalContent();
-            // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
-            $pdf2->setPaper('A4', 'landscape');
-            $this->make_watermark($pdf2, $values_pdf_page1);
-            $path2 = 'RAB.pdf';
-            Storage::disk('local')->put($path2, $pdf2->output());
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        // $lampiran_file = $request->file('lampiran')->store('temp');
+        $oMerger->addPDF($request->file('lampiran')->getPathName(), 'all');
 
-            $oMerger = PDFMerger::init();
-            $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
-            $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
-            // $lampiran_file = $request->file('lampiran')->store('temp');
-            $oMerger->addPDF($request->file('lampiran')->getPathName(), 'all');
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_progress.pdf');
 
-            $oMerger->merge();
-            $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
 
-            $updated_prk_terkontrak = 0;
-            $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
-            foreach ($previous_prk_terkontrak as $prk_terkontrak)
-                $updated_prk_terkontrak += (float)$prk_terkontrak->total_harga;
-            Prk::where('id', $request->prk_id)->update(array('prk_terkontrak' => (float)$updated_prk_terkontrak));
+        //PDF KEDUA DITOLAK
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
 
-            //Update PRK Sisa
-            $pagu_prk = Prk::where('id', $request->prk_id)->value('pagu_prk');
-            $prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
-            $updated_prk_sisa = (float)$pagu_prk - (float)$prk_terkontrak;
-            Prk::where('id', $request->prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
+        $path1 = 'SPBJ.pdf';
+        Storage::disk('local')->put($path1, $pdf->output());
+        $pdf2 = $this->load_view_rab_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $path2 = 'RAB.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
 
-            //Update SKK Terkontrak
-            $updated_skk_terkontrak = 0;
-            $previous_skk_terkontrak = Prk::where('no_skk_prk', $request->skk_id)->get('prk_terkontrak');
-            foreach ($previous_skk_terkontrak as $skk_terkontrak)
-                $updated_skk_terkontrak += (float)$skk_terkontrak->prk_terkontrak;
-            Skk::where('id', $request->skk_id)->update(array('skk_terkontrak' => (float)$updated_skk_terkontrak));
 
-            //Update SKK Sisa
-            $pagu_skk = Skk::where('id', $request->skk_id)->value('pagu_skk');
-            $skk_terkontrak = Skk::where('id', $request->skk_id)->value('skk_terkontrak');
-            $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
-            Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
-            // $id = compact('id');
-            return response()->json($nama_pdf);
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        // $lampiran_file = $request->file('lampiran')->store('temp');
+        $oMerger->addPDF($request->file('lampiran')->getPathName(), 'all');
+
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_ditolak.pdf');
+
+
+
+        //PDF KETIGA
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "");
+
+        $path1 = 'SPBJ.pdf';
+        Storage::disk('local')->put($path1, $pdf->output());
+        $pdf2 = $this->load_view_rab_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "");
+        $path2 = 'RAB.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
+
+
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        // $lampiran_file = $request->file('lampiran')->store('temp');
+        $oMerger->addPDF($request->file('lampiran')->getPathName(), 'all');
+
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
+
+        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id);
+        // $updated_prk_progress = 0;
+        // $previous_prk_progress = Rab::where('prk_id', $request->prk_id)->get('total_harga');
+        // foreach ($previous_prk_progress as $prk_progress)
+        //     $updated_prk_progress += (float)$prk_progress->total_harga;
+        // Prk::where('id', $request->prk_id)->update(array('prk_progress' => (float)$updated_prk_progress));
+
+        // //Update PRK Sisa
+        // $pagu_prk = Prk::where('id', $request->prk_id)->value('pagu_prk');
+        // $prk_progress = Prk::where('id', $request->prk_id)->value('prk_progress');
+        // $updated_prk_sisa = (float)$pagu_prk - (float)$prk_progress;
+        // Prk::where('id', $request->prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
+
+        // //Update SKK progress
+        // $updated_skk_progress = 0;
+        // $previous_skk_progress = Prk::where('no_skk_prk', $request->skk_id)->get('prk_progress');
+        // foreach ($previous_skk_progress as $skk_progress)
+        //     $updated_skk_progress += (float)$skk_progress->prk_progress;
+        // Skk::where('id', $request->skk_id)->update(array('skk_progress' => (float)$updated_skk_progress));
+
+        // //Update SKK Sisa
+        // $pagu_skk = Skk::where('id', $request->skk_id)->value('pagu_skk');
+        // $skk_progress = Skk::where('id', $request->skk_id)->value('skk_progress');
+        // $updated_skk_sisa = (float)$pagu_skk - (float)$skk_progress;
+        // Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
+        // $id = compact('id');
+        return response()->json($nama_pdf);
     }
 
 
@@ -429,8 +312,9 @@ class PdfkhsController extends Controller
 
         // dd($nama_pdf);
 
-
-        $mypdf = 'storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf';
+        // $fileName = $nama_pdf.'_'.$request->file('lampiran')->getClientOriginalName();
+        // $lampiran = $request->file('lampiran')->storeAs('storage/lampiran-po', $fileName, 'public');
+        $mypdf = 'storage/file-pdf-khs/tkdn/'.$nama_pdf.'';
 
         $rab = [
             'nomor_po' => $request->nomor_po,
@@ -451,6 +335,7 @@ class PdfkhsController extends Controller
             'pengawas_lapangan' => $request->pengawas_lapangan,
             'total_harga' => $request->total_harga,
             'pdf_file' =>$mypdf,
+            // 'lampiran' =>"ea",
             'slug' =>$nama_pdf,
         ];
 
@@ -536,178 +421,15 @@ class PdfkhsController extends Controller
             $rab_id[$i] = $id;
         }
 
-        $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
-
-        $rabredaksi_array = [];
-        for($i = 0; $i < count($redaksis); $i++) {
-            $rabredaksi_array[$i] = [
-                'redaksi' => $redaksis[$i]->deskripsi_id,
-                'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
-            ];
-        }
-                $lokasis = lokasi::where('rab_id', $rab_id)->get();
-        // dd($redaksis);
-
         $values_pdf_page1 = Rab::where('id', $id)->get();
+        $rab_id2 = Rab::where('id', $id)->value('id');
 
-        $startdate = Rab::where('id', $id)->value('startdate');
-        $enddate = Rab::where('id', $id)->value('enddate');
-        $datetime1 = new DateTime($startdate);
-        $datetime2 = new DateTime($enddate);
-        $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
-        $d = 0;
-        $days = 0;
-        $datetime2 = 1;
-
-        foreach($interval as $date) {
-            $interval = $date->format("Y-m-d");
-            $datetime = DateTime::createFromFormat('Y-m-d', $interval);
-
-            $day = $datetime->format('D');
-
-            if($day != "Sun" && $day != "Sat") {
-                $days += $datetime2 - $d;
-            }
-
-            $datetime2++;
-            $d++;
-        }
-
-        $rab_id = Rab::where('id', $id)->value('id');
-        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
-
-        $jasa = [];
-        $jasa_volume = [];
-        $kdn_jasa = [];
-        $kdn_material = [];
-        $sub_jumlah_material = [];
-        $sub_jumlah_jasa = [];
-        $ubah_volume_jasa = [];
-        $material = [];
-        $material_volume = [];
-        $ubah_volume_material = [];
-
-        for($i = 0; $i < count($values_pdf_page2); $i++) {
-            if($values_pdf_page2[$i]->kategori_order == "Jasa") {
-                $jasa[$i] = $values_pdf_page2[$i];
-                $jasa_volume[$i] = $jasa[$i]->volume;
-                $ubah_volume_jasa[$i] = str_replace(".", ",", "$jasa_volume[$i]");
-                $jasa[$i]->volume = $ubah_volume_jasa[$i];
-                $jasa_jumlah_harga[$i] = $jasa[$i]->jumlah_harga;
-                array_push($kdn_jasa, $jasa[$i]->kdn);
-                array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$i]);
-                // $jasa[$i]->volume = str_replace()
-            } else {
-                $material[$i] = $values_pdf_page2[$i];
-                $material_volume[$i] = $material[$i]->volume;
-                $ubah_volume_material[$i] = str_replace(".", ",", $material_volume[$i]);
-                $material[$i]->volume = $ubah_volume_material[$i];
-                $material_jumlah_harga[$i] = $material[$i]->jumlah_harga;
-                array_push($kdn_material, $material[$i]->kdn);
-                array_push($sub_jumlah_material, $material_jumlah_harga[$i]);
-            }
-        }
-            // dd($jasa);
-            // $jabatan = Pejabat::select('jabatan');
-        // dd($sub_jumlah_jasa);
-        $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
-        $sub_jumlah_material = array_sum($sub_jumlah_material);
-        $kdn_jasa = array_sum($kdn_jasa);
-        $kdn_material = array_sum($kdn_material);
-        $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
-        $kln_material = $sub_jumlah_material - $kdn_material;
-        $total_jasa = $kdn_jasa + $kln_jasa;
-        $total_material = $kdn_material + $kln_material;
-
-        if ($total_jasa > 0 ){
-            $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
-        }
-        else{
-            $total_tkdn_jasa = 0;
-        }
-
-
-        if ($total_material > 0 ){
-            $total_tkdn_material = ($kdn_material / $total_material) * 100;
-        }
-        else{
-            $total_tkdn_material = 0;
-        }
-        // dd($total_tkdn_material);
-
-
-        $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
-        $total_kln_jasa_material = $kln_jasa + $kln_material;
-        $total_jasa_material = $total_jasa + $total_material;
-
-        if ($total_jasa_material > 0 ){
-            $total_tkdn_jasa_material = ($total_kdn_jasa_material /  $total_jasa_material) * 100;
-        }
-        else{
-            $total_tkdn_jasa_material = 0;
-        }
-
-        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
-        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
-
-        $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn_id = PpnModel::all();
-        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
-
-
-        $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
-            "po_khs" => $values_pdf_page1,
-            "kategori_jasa" => $jasa,
-            "kategori_material" => $material,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            "days" => $days,
-            "jabatan_manager" => $jabatan_manager,
-            "nama_manager" => $nama_manager,
-            "title" => $nama_pdf,
-            "redaksis" => $redaksis,
-            "lokasis" => $lokasis,
-            "rabredaksi_array" => $rabredaksi_array,
-            "ppn_id"=>$ppn_id,
-        ]);
-        $this->make_watermark($pdf, $values_pdf_page1);
-
+        //PDF ON PROGRESS
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "On Progress");
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
-        $pdf2 = Pdf::loadView('format_surat.rab_tkdn',[
-            "po_khs" => $values_pdf_page1,
-            "kategori_jasa" => $jasa,
-            "kategori_material" => $material,
-            "sub_jumlah_jasa" =>$sub_jumlah_jasa,
-            "sub_jumlah_material" =>$sub_jumlah_material,
-            "kdn_jasa" => $kdn_jasa,
-            "kdn_material" => $kdn_material,
-            "kln_jasa" => $kln_jasa,
-            "kln_material" => $kln_material,
-            "total_jasa" => $total_jasa,
-            "total_material" => $total_material,
-            "total_tkdn_jasa" => $total_tkdn_jasa,
-            "total_tkdn_material" => $total_tkdn_material,
-            "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
-            "total_kdn_jasa_material" => $total_kdn_jasa_material,
-            "total_kln_jasa_material" => $total_kln_jasa_material,
-            "total_jasa_material" => $total_jasa_material,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            "days" => $days,
-            "jabatan_manager" => $jabatan_manager,
-            "nama_manager" => $nama_manager,
-            "title" => $nama_pdf,
-            "redaksis" => $redaksis,
-            "lokasis" => $lokasis,
-            "ppn_id"=>$ppn_id,
-        ]);
-
-        // $content = $pdf->download()->getOriginalContent();
-        // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
-        $pdf2->setPaper('A4', 'landscape');
-        $this->make_watermark($pdf2, $values_pdf_page1);
+        $pdf2 = $this->load_view_rab_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "On Progress");
         $path2 = 'RAB.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 
@@ -716,32 +438,64 @@ class PdfkhsController extends Controller
         $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
 
         $oMerger->merge();
-        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
+        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_progress.pdf');
 
-        $updated_prk_terkontrak = 0;
-        $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
-        foreach ($previous_prk_terkontrak as $prk_terkontrak)
-            $updated_prk_terkontrak += (float)$prk_terkontrak->total_harga;
-        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak' => (float)$updated_prk_terkontrak));
+        //PDF ON PROGRESS
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $path1 = 'SPBJ.pdf';
+        Storage::disk('local')->put($path1, $pdf->output());
 
-        //Update PRK Sisa
-        $pagu_prk = Prk::where('id', $request->prk_id)->value('pagu_prk');
-        $prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
-        $updated_prk_sisa = (float)$pagu_prk - (float)$prk_terkontrak;
-        Prk::where('id', $request->prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
+        $pdf2 = $this->load_view_rab_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $path2 = 'RAB.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
 
-        //Update SKK Terkontrak
-        $updated_skk_terkontrak = 0;
-        $previous_skk_terkontrak = Prk::where('no_skk_prk', $request->skk_id)->get('prk_terkontrak');
-        foreach ($previous_skk_terkontrak as $skk_terkontrak)
-            $updated_skk_terkontrak += (float)$skk_terkontrak->prk_terkontrak;
-        Skk::where('id', $request->skk_id)->update(array('skk_terkontrak' => (float)$updated_skk_terkontrak));
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
 
-        //Update SKK Sisa
-        $pagu_skk = Skk::where('id', $request->skk_id)->value('pagu_skk');
-        $skk_terkontrak = Skk::where('id', $request->skk_id)->value('skk_terkontrak');
-        $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
-        Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_ditolak.pdf');
+        //PDF ON PROGRESS
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "");
+        $path1 = 'SPBJ.pdf';
+        Storage::disk('local')->put($path1, $pdf->output());
+
+        $pdf2 = $this->load_view_rab_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "");
+        $path2 = 'RAB.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
+
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_diterima.pdf');
+
+        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id);
+        // $updated_prk_progress = 0;
+        // $previous_prk_progress = Rab::where('prk_id', $request->prk_id)->get('total_harga');
+        // foreach ($previous_prk_progress as $prk_progress)
+        //     $updated_prk_progress += (float)$prk_progress->total_harga;
+        // Prk::where('id', $request->prk_id)->update(array('prk_progress' => (float)$updated_prk_progress));
+
+        // //Update PRK Sisa
+        // $pagu_prk = Prk::where('id', $request->prk_id)->value('pagu_prk');
+        // $prk_progress = Prk::where('id', $request->prk_id)->value('prk_progress');
+        // $updated_prk_sisa = (float)$pagu_prk - (float)$prk_progress;
+        // Prk::where('id', $request->prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
+
+        // //Update SKK progress
+        // $updated_skk_progress = 0;
+        // $previous_skk_progress = Prk::where('no_skk_prk', $request->skk_id)->get('prk_progress');
+        // foreach ($previous_skk_progress as $skk_progress)
+        //     $updated_skk_progress += (float)$skk_progress->prk_progress;
+        // Skk::where('id', $request->skk_id)->update(array('skk_progress' => (float)$updated_skk_progress));
+
+        // //Update SKK Sisa
+        // $pagu_skk = Skk::where('id', $request->skk_id)->value('pagu_skk');
+        // $skk_progress = Skk::where('id', $request->skk_id)->value('skk_progress');
+        // $updated_skk_sisa = (float)$pagu_skk - (float)$skk_progress;
+        // Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
         // $id = compact('id');
         return response()->json($nama_pdf);
     }
@@ -764,7 +518,9 @@ class PdfkhsController extends Controller
         $nama_pdf = str_replace('/','-', $nama_pdf);
         $nama_pdf = str_replace(' ','-', $nama_pdf);
 
-        $mypdf = 'storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf';
+
+
+        $mypdf = 'storage/file-pdf-khs/tkdn/'.$nama_pdf.'';
 
         $rab = [
             'nomor_po' => $request->nomor_po,
@@ -784,6 +540,7 @@ class PdfkhsController extends Controller
             'pengawas_lapangan' => $request->pengawas_lapangan,
             'total_harga' => $request->total_harga,
             'pdf_file' =>$mypdf,
+            // 'lampiran' =>$lampiran,
             'slug' =>$nama_pdf,
         ];
 
@@ -863,200 +620,15 @@ class PdfkhsController extends Controller
             $rab_id[$i] = $id;
         }
 
-        $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
-
-        $rabredaksi_array = [];
-        for($i = 0; $i < count($redaksis); $i++) {
-            $rabredaksi_array[$i] = [
-                'redaksi' => $redaksis[$i]->deskripsi_id,
-                'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
-            ];
-        }
-
-
-        $lokasis = lokasi::where('rab_id', $rab_id)->get();
-
         $values_pdf_page1 = Rab::where('id', $id)->get();
+        $rab_id2 = Rab::where('id', $id)->value('id');
 
-        $startdate = Rab::where('id', $id)->value('startdate');
-        $enddate = Rab::where('id', $id)->value('enddate');
-        $datetime1 = new DateTime($startdate);
-        $datetime2 = new DateTime($enddate);
-        $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
-        $d = 0;
-        $days = 0;
-        $datetime2 = 1;
-
-        foreach($interval as $date) {
-            $interval = $date->format("Y-m-d");
-            $datetime = DateTime::createFromFormat('Y-m-d', $interval);
-
-            $day = $datetime->format('D');
-
-            if($day != "Sun" && $day != "Sat") {
-                $days += $datetime2 - $d;
-            }
-
-            $datetime2++;
-            $d++;
-        }
-
-        $jasa = [];
-        $jasa_volume = [];
-        $jasa_jumlah_harga = [];
-        $sub_jumlah_jasa = [];
-        $kdn_jasa = [];
-        $ubah_volume_jasa = [];
-        $material = [];
-        $material_volume = [];
-        $material_jumlah_harga= [];
-        $sub_jumlah_material = [];
-        $kdn_material = [];
-        $ubah_volume_material = [];
-        $values_pdf_page2 = [];
-
-        $nama_paket = [];
-
-        for($k = 0; $k < count($lokasis); $k++){
-            $jasa[$k] = [];
-            $jasa_volume[$k] = [];
-            $jasa_jumlah_harga[$k] = [];
-            $sub_jumlah_jasa_paket[$k] = [];
-            $ubah_volume_jasa[$k] = [];
-            $material[$k] = [];
-            $material_volume[$k] = [];
-            $material_jumlah_harga[$k] = [];
-            $sub_jumlah_material_paket[$k] = [];
-            $values_pdf_page2[$k] = [];
-            $ubah_volume_material[$k] = [];
-            $paket_id[$k] = OrderPaket::where('lokasi_id', $lokasis[$k]->id)->get();
-                for($j = 0; $j < count($paket_id[$k]); $j++){
-                    $values_pdf_page2[$k][$j] = OrderKhs::where('order_paket_id', $paket_id[$k][$j]->id)->get();
-                    $jasa[$k][$j] = [];
-                    $jasa_volume[$k][$j] = [];
-                    $jasa_jumlah_harga[$k][$j] = [];
-                    $sub_jumlah_jasa_paket[$k][$j] = [];
-                    $ubah_volume_jasa[$k][$j] = [];
-                    $material[$k][$j] = [];
-                    $material_volume[$k][$j] = [];
-                    $material_jumlah_harga[$k][$j] = [];
-                    $sub_jumlah_material_paket[$k][$j] = [];
-                    $ubah_volume_material[$k][$j] = [];
-                    for($i = 0; $i < count($values_pdf_page2[$k][$j]); $i++) {
-                        if($values_pdf_page2[$k][$j][$i]->kategori_order == "Jasa") {
-                            $jasa[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
-                            $jasa_volume[$k][$j][$i] = $jasa[$k][$j][$i]->volume;
-                            $jasa_jumlah_harga[$k][$j][$i] = $jasa[$k][$j][$i]->jumlah_harga;
-                            $sub_jumlah_jasa_paket[$k][$j][$i] = $jasa_jumlah_harga[$k][$j][$i];
-                            array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$k][$j][$i]);
-                            array_push($kdn_jasa, $jasa[$k][$j][$i]->kdn);
-                            $ubah_volume_jasa[$k][$j][$i] = str_replace(".", ",", $jasa_volume[$k][$j][$i]);
-                            $jasa[$k][$j][$i]->volume = $ubah_volume_jasa[$k][$j][$i];
-                        } else {
-                            $material[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
-                            $material_volume[$k][$j][$i] = $material[$k][$j][$i]->volume;
-                            $material_jumlah_harga[$k][$j][$i] = $material[$k][$j][$i]->jumlah_harga;
-                            $sub_jumlah_material_paket[$k][$j][$i] = $material_jumlah_harga[$k][$j][$i];
-                            array_push($sub_jumlah_material, $material_jumlah_harga[$k][$j][$i]);
-                            array_push($kdn_material, $material[$k][$j][$i]->kdn);
-                            $ubah_volume_material[$k][$j][$i] = str_replace(".", ",", $material_volume[$k][$j][$i]);
-                            $material[$k][$j][$i]->volume = $ubah_volume_material[$k][$j][$i];
-                        }
-                    }
-                    $sub_jumlah_jasa_paket[$k][$j] = array_sum($sub_jumlah_jasa_paket[$k][$j]);
-                    $sub_jumlah_material_paket[$k][$j] = array_sum($sub_jumlah_material_paket[$k][$j]);
-                }
-        }
-        $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
-        $sub_jumlah_material = array_sum($sub_jumlah_material);
-        $kdn_jasa = array_sum($kdn_jasa);
-        $kdn_material = array_sum($kdn_material);
-        $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
-        $kln_material = $sub_jumlah_material - $kdn_material;
-        $total_jasa = $kdn_jasa + $kln_jasa;
-        $total_material = $kdn_material + $kln_material;
-        if ($total_jasa > 0 ){
-            $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
-        }
-        else{
-            $total_tkdn_jasa = 0;
-        }
-
-        if ($total_material > 0 ){
-            $total_tkdn_material = ($kdn_material / $total_material) * 100;
-        }
-        else{
-            $total_tkdn_material = 0;
-        }
-
-        $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
-        $total_kln_jasa_material = $kln_jasa + $kln_material;
-        $total_jasa_material = $total_jasa + $total_material;
-
-        if ($total_jasa_material > 0 ){
-            $total_tkdn_jasa_material = ($total_kdn_jasa_material /  $total_jasa_material) * 100;
-        }
-        else{
-            $total_tkdn_jasa_material = 0;
-        }
-
-        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
-        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
-
-        $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn_id = PpnModel::all();
-        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
-
-        $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
-            "po_khs" => $values_pdf_page1,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            "days" => $days,
-            "jabatan_manager" => $jabatan_manager,
-            "nama_manager" => $nama_manager,
-            "redaksis" => $redaksis,
-            "lokasis" => $lokasis,
-            "rabredaksi_array" => $rabredaksi_array,
-            "title" => 'PO-KHS (SP-APP)',
-            "ppn_id"=>$ppn_id,
-        ]);
-        $this->make_watermark($pdf, $values_pdf_page1);
+        //PDF ONPROGRESS
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "On Progress");
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
-        $pdf2 = Pdf::loadView('format_surat.testing_grouping',[
-            "po_khs" => $values_pdf_page1,
-            "kategori_jasa" => $jasa,
-            "kategori_material" => $material,
-            "sub_jumlah_jasa" => $sub_jumlah_jasa,
-            "sub_jumlah_material" => $sub_jumlah_material,
-            "sub_jumlah_jasa_paket" => $sub_jumlah_jasa_paket,
-            "sub_jumlah_material_paket" => $sub_jumlah_material_paket,
-            "kdn_jasa" => $kdn_jasa,
-            "kdn_material" => $kdn_material,
-            "kln_jasa" => $kln_jasa,
-            "kln_material" => $kln_material,
-            "total_jasa" => $total_jasa,
-            "total_material" => $total_material,
-            "total_tkdn_jasa" => $total_tkdn_jasa,
-            "total_tkdn_material" => $total_tkdn_material,
-            "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
-            "total_kdn_jasa_material" => $total_kdn_jasa_material,
-            "total_kln_jasa_material" => $total_kln_jasa_material,
-            "total_jasa_material" => $total_jasa_material,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            "days" => $days,
-            "jabatan_manager" => $jabatan_manager,
-            "nama_manager" => $nama_manager,
-            "title" => $nama_pdf,
-            "lokasis" => $lokasis,
-            "paket_id" => $paket_id,
-            "ppn_id"=>$ppn_id,
-        ]);
-
-        $pdf2->setPaper('A4', 'landscape');
-        $this->make_watermark($pdf2, $values_pdf_page1);
+        $pdf2 = $this->load_view_testing_grouping($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "On Progress");
         $path2 = 'RAB_Paket_TKDN.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 
@@ -1066,32 +638,73 @@ class PdfkhsController extends Controller
         $oMerger->addPDF($request->file('lampiran')->getPathName(), 'all');
 
         $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_progress.pdf');
+
+        //PDF DITOLAK
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+
+        $path1 = 'SPBJ.pdf';
+        Storage::disk('local')->put($path1, $pdf->output());
+        $pdf2 = $this->load_view_testing_grouping($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $path2 = 'RAB.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
+
+
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        // $lampiran_file = $request->file('lampiran')->store('temp');
+        $oMerger->addPDF($request->file('lampiran')->getPathName(), 'all');
+
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_ditolak.pdf');
+
+
+
+        //PDF DITERIMA
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "");
+
+        $path1 = 'SPBJ.pdf';
+        Storage::disk('local')->put($path1, $pdf->output());
+        $pdf2 = $this->load_view_testing_grouping($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "");
+        $path2 = 'RAB.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
+
+
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        // $lampiran_file = $request->file('lampiran')->store('temp');
+        $oMerger->addPDF($request->file('lampiran')->getPathName(), 'all');
+
+        $oMerger->merge();
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
 
-        $updated_prk_terkontrak = 0;
-        $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
-        foreach ($previous_prk_terkontrak as $prk_terkontrak)
-            $updated_prk_terkontrak += (float)$prk_terkontrak->total_harga;
-        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak' => (float)$updated_prk_terkontrak));
+        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id);
+        // $updated_prk_progress = 0;
+        // $previous_prk_progress = Rab::where('prk_id', $request->prk_id)->get('total_harga');
+        // foreach ($previous_prk_progress as $prk_progress)
+        //     $updated_prk_progress += (float)$prk_progress->total_harga;
+        // Prk::where('id', $request->prk_id)->update(array('prk_progress' => (float)$updated_prk_progress));
 
-        //Update PRK Sisa
-        $pagu_prk = Prk::where('id', $request->prk_id)->value('pagu_prk');
-        $prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
-        $updated_prk_sisa = (float)$pagu_prk - (float)$prk_terkontrak;
-        Prk::where('id', $request->prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
+        // //Update PRK Sisa
+        // $pagu_prk = Prk::where('id', $request->prk_id)->value('pagu_prk');
+        // $prk_progress = Prk::where('id', $request->prk_id)->value('prk_progress');
+        // $updated_prk_sisa = (float)$pagu_prk - (float)$prk_progress;
+        // Prk::where('id', $request->prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
 
-        //Update SKK Terkontrak
-        $updated_skk_terkontrak = 0;
-        $previous_skk_terkontrak = Prk::where('no_skk_prk', $request->skk_id)->get('prk_terkontrak');
-        foreach ($previous_skk_terkontrak as $skk_terkontrak)
-            $updated_skk_terkontrak += (float)$skk_terkontrak->prk_terkontrak;
-        Skk::where('id', $request->skk_id)->update(array('skk_terkontrak' => (float)$updated_skk_terkontrak));
+        // //Update SKK progress
+        // $updated_skk_progress = 0;
+        // $previous_skk_progress = Prk::where('no_skk_prk', $request->skk_id)->get('prk_progress');
+        // foreach ($previous_skk_progress as $skk_progress)
+        //     $updated_skk_progress += (float)$skk_progress->prk_progress;
+        // Skk::where('id', $request->skk_id)->update(array('skk_progress' => (float)$updated_skk_progress));
 
-        //Update SKK Sisa
-        $pagu_skk = Skk::where('id', $request->skk_id)->value('pagu_skk');
-        $skk_terkontrak = Skk::where('id', $request->skk_id)->value('skk_terkontrak');
-        $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
-        Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
+        // //Update SKK Sisa
+        // $pagu_skk = Skk::where('id', $request->skk_id)->value('pagu_skk');
+        // $skk_progress = Skk::where('id', $request->skk_id)->value('skk_progress');
+        // $updated_skk_sisa = (float)$pagu_skk - (float)$skk_progress;
+        // Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
         // $id = compact('id');
         return response()->json($nama_pdf);
     }
@@ -1107,7 +720,9 @@ class PdfkhsController extends Controller
         $nama_pdf = str_replace('/','-', $nama_pdf);
         $nama_pdf = str_replace(' ','-', $nama_pdf);
 
-        $mypdf = 'storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf';
+        $mypdf = 'storage/file-pdf-khs/tkdn/'.$nama_pdf.'';
+        // $fileName = $nama_pdf.'_'.$request->file('lampiran')->getClientOriginalName();
+        // $lampiran = $request->file('lampiran')->storeAs('storage/lampiran-po', $fileName, 'public');
 
         $rab = [
             'nomor_po' => $request->nomor_po,
@@ -1127,6 +742,7 @@ class PdfkhsController extends Controller
             'pengawas_lapangan' => $request->pengawas_lapangan,
             'total_harga' => $request->total_harga,
             'pdf_file' =>$mypdf,
+            // 'lampiran' =>$lampiran,
             'slug' =>$nama_pdf,
         ];
 
@@ -1203,215 +819,15 @@ class PdfkhsController extends Controller
             OrderRedaksiKHS::create($order_redaksi);
         }
 
-        $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
-
-        $rabredaksi_array = [];
-        for($i = 0; $i < count($redaksis); $i++) {
-            $rabredaksi_array[$i] = [
-                'redaksi' => $redaksis[$i]->deskripsi_id,
-                'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
-            ];
-        }
-
-
-
-        $lokasis = lokasi::where('rab_id', $rab_id)->get();
-        $lokasi_id = [];
-        for($i = 0; $i < count($lokasis); $i++){
-            $paket_id[$i] = OrderPaket::where('lokasi_id', $lokasis[$i]->id)->get();
-        }
-
         $values_pdf_page1 = Rab::where('id', $id)->get();
+        $rab_id2 = Rab::where('id', $id)->value('id');
 
-        $startdate = Rab::where('id', $id)->value('startdate');
-        $enddate = Rab::where('id', $id)->value('enddate');
-        $datetime1 = new DateTime($startdate);
-        $datetime2 = new DateTime($enddate);
-        $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
-        $d = 0;
-        $days = 0;
-        $datetime2 = 1;
-
-        foreach($interval as $date) {
-            $interval = $date->format("Y-m-d");
-            $datetime = DateTime::createFromFormat('Y-m-d', $interval);
-
-            $day = $datetime->format('D');
-
-            if($day != "Sun" && $day != "Sat") {
-                $days += $datetime2 - $d;
-            }
-
-            $datetime2++;
-            $d++;
-        }
-
-        $rab_id = Rab::where('id', $id)->value('id');
-        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
-
-
-        $jasa = [];
-        $jasa_volume = [];
-        $jasa_jumlah_harga = [];
-        $sub_jumlah_jasa = [];
-        $kdn_jasa = [];
-        $ubah_volume_jasa = [];
-        $material = [];
-        $material_volume = [];
-        $material_jumlah_harga= [];
-        $sub_jumlah_material = [];
-        $kdn_material = [];
-        $ubah_volume_material = [];
-        $values_pdf_page2 = [];
-
-        $nama_paket = [];
-
-        for($k = 0; $k < count($lokasis); $k++){
-            $jasa[$k] = [];
-            $jasa_volume[$k] = [];
-            $jasa_jumlah_harga[$k] = [];
-            $sub_jumlah_jasa_paket[$k] = [];
-            $ubah_volume_jasa[$k] = [];
-            $material[$k] = [];
-            $material_volume[$k] = [];
-            $material_jumlah_harga[$k] = [];
-            $sub_jumlah_material_paket[$k] = [];
-            $values_pdf_page2[$k] = [];
-            $ubah_volume_material[$k] = [];
-            $paket_id[$k] = OrderPaket::where('lokasi_id', $lokasis[$k]->id)->get();
-                for($j = 0; $j < count($paket_id[$k]); $j++){
-                    $values_pdf_page2[$k][$j] = OrderKhs::where('order_paket_id', $paket_id[$k][$j]->id)->get();
-                    $jasa[$k][$j] = [];
-                    $jasa_volume[$k][$j] = [];
-                    $jasa_jumlah_harga[$k][$j] = [];
-                    $sub_jumlah_jasa_paket[$k][$j] = [];
-                    $ubah_volume_jasa[$k][$j] = [];
-                    $material[$k][$j] = [];
-                    $material_volume[$k][$j] = [];
-                    $material_jumlah_harga[$k][$j] = [];
-                    $sub_jumlah_material_paket[$k][$j] = [];
-                    $ubah_volume_material[$k][$j] = [];
-                    for($i = 0; $i < count($values_pdf_page2[$k][$j]); $i++) {
-                        if($values_pdf_page2[$k][$j][$i]->kategori_order == "Jasa") {
-                            $jasa[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
-                            $jasa_volume[$k][$j][$i] = $jasa[$k][$j][$i]->volume;
-                            $jasa_jumlah_harga[$k][$j][$i] = $jasa[$k][$j][$i]->jumlah_harga;
-                            $sub_jumlah_jasa_paket[$k][$j][$i] = $jasa_jumlah_harga[$k][$j][$i];
-                            array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$k][$j][$i]);
-                            array_push($kdn_jasa, $jasa[$k][$j][$i]->kdn);
-                            $ubah_volume_jasa[$k][$j][$i] = str_replace(".", ",", $jasa_volume[$k][$j][$i]);
-                            $jasa[$k][$j][$i]->volume = $ubah_volume_jasa[$k][$j][$i];
-                        } else {
-                            $material[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
-                            $material_volume[$k][$j][$i] = $material[$k][$j][$i]->volume;
-                            $material_jumlah_harga[$k][$j][$i] = $material[$k][$j][$i]->jumlah_harga;
-                            $sub_jumlah_material_paket[$k][$j][$i] = $material_jumlah_harga[$k][$j][$i];
-                            array_push($sub_jumlah_material, $material_jumlah_harga[$k][$j][$i]);
-                            array_push($kdn_material, $material[$k][$j][$i]->kdn);
-                            $ubah_volume_material[$k][$j][$i] = str_replace(".", ",", $material_volume[$k][$j][$i]);
-                            $material[$k][$j][$i]->volume = $ubah_volume_material[$k][$j][$i];
-                        }
-                    }
-                    $sub_jumlah_jasa_paket[$k][$j] = array_sum($sub_jumlah_jasa_paket[$k][$j]);
-                    $sub_jumlah_material_paket[$k][$j] = array_sum($sub_jumlah_material_paket[$k][$j]);
-                }
-        }
-
-        $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
-        $sub_jumlah_material = array_sum($sub_jumlah_material);
-        $kdn_jasa = array_sum($kdn_jasa);
-        $kdn_material = array_sum($kdn_material);
-        $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
-        $kln_material = $sub_jumlah_material - $kdn_material;
-        $total_jasa = $kdn_jasa + $kln_jasa;
-        $total_material = $kdn_material + $kln_material;
-
-        if ($total_jasa > 0 ){
-            $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
-        }
-        else{
-            $total_tkdn_jasa = 0;
-        }
-
-
-        if ($total_material > 0 ){
-            $total_tkdn_material = ($kdn_material / $total_material) * 100;
-        }
-        else{
-            $total_tkdn_material = 0;
-        }
-
-
-        $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
-        $total_kln_jasa_material = $kln_jasa + $kln_material;
-        $total_jasa_material = $total_jasa + $total_material;
-
-        if ($total_jasa_material > 0 ){
-            $total_tkdn_jasa_material = ($total_kdn_jasa_material /  $total_jasa_material) * 100;
-        }
-        else{
-            $total_tkdn_jasa_material = 0;
-        }
-
-        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
-        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
-
-        $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-        $ppn_id = PpnModel::all();
-        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
-
-        $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
-            "po_khs" => $values_pdf_page1,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            "days" => $days,
-            "jabatan_manager" => $jabatan_manager,
-            "nama_manager" => $nama_manager,
-            "redaksis" => $redaksis,
-            "lokasis" => $lokasis,
-            "rabredaksi_array" => $rabredaksi_array,
-            "title" => 'PO-KHS (SP-APP)',
-            "ppn_id"=>$ppn_id,
-        ]);
-        $this->make_watermark($pdf, $values_pdf_page1);
-
+        //PDF ONPROGRESS
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "On Progress");
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
-        $pdf2 = Pdf::loadView('format_surat.testing_grouping',[
-            "po_khs" => $values_pdf_page1,
-            "kategori_jasa" => $jasa,
-            "kategori_material" => $material,
-            "sub_jumlah_jasa" => $sub_jumlah_jasa,
-            "sub_jumlah_material" => $sub_jumlah_material,
-            "sub_jumlah_jasa_paket" => $sub_jumlah_jasa_paket,
-            "sub_jumlah_material_paket" => $sub_jumlah_material_paket,
-            "kdn_jasa" => $kdn_jasa,
-            "kdn_material" => $kdn_material,
-            "kln_jasa" => $kln_jasa,
-            "kln_material" => $kln_material,
-            "total_jasa" => $total_jasa,
-            "total_material" => $total_material,
-            "total_tkdn_jasa" => $total_tkdn_jasa,
-            "total_tkdn_material" => $total_tkdn_material,
-            "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
-            "total_kdn_jasa_material" => $total_kdn_jasa_material,
-            "total_kln_jasa_material" => $total_kln_jasa_material,
-            "total_jasa_material" => $total_jasa_material,
-            "jumlah" => $jumlah,
-            "ppn" => $ppn,
-            "days" => $days,
-            "jabatan_manager" => $jabatan_manager,
-            "nama_manager" => $nama_manager,
-            "title" => $nama_pdf,
-            "lokasis" => $lokasis,
-            "paket_id" => $paket_id,
-            "ppn_id"=>$ppn_id,
-        ]);
-
-        $pdf2->setPaper('A4', 'landscape');
-        $this->make_watermark($pdf2, $values_pdf_page1);
-
+        $pdf2 = $this->load_view_testing_grouping($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "On Progress");
         $path2 = 'RAB_Paket_TKDN.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 
@@ -1419,32 +835,63 @@ class PdfkhsController extends Controller
         $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
         $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
         $oMerger->merge();
-        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
+        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_progress.pdf');
 
-        $updated_prk_terkontrak = 0;
-        $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
-        foreach ($previous_prk_terkontrak as $prk_terkontrak)
-            $updated_prk_terkontrak += (float)$prk_terkontrak->total_harga;
-        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak' => (float)$updated_prk_terkontrak));
+        //PDF DITOLAK
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $path1 = 'SPBJ.pdf';
+        Storage::disk('local')->put($path1, $pdf->output());
 
-        //Update PRK Sisa
-        $pagu_prk = Prk::where('id', $request->prk_id)->value('pagu_prk');
-        $prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
-        $updated_prk_sisa = (float)$pagu_prk - (float)$prk_terkontrak;
-        Prk::where('id', $request->prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
+        $pdf2 = $this->load_view_testing_grouping($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $path2 = 'RAB_Paket_TKDN.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
 
-        //Update SKK Terkontrak
-        $updated_skk_terkontrak = 0;
-        $previous_skk_terkontrak = Prk::where('no_skk_prk', $request->skk_id)->get('prk_terkontrak');
-        foreach ($previous_skk_terkontrak as $skk_terkontrak)
-            $updated_skk_terkontrak += (float)$skk_terkontrak->prk_terkontrak;
-        Skk::where('id', $request->skk_id)->update(array('skk_terkontrak' => (float)$updated_skk_terkontrak));
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_ditolak.pdf');
 
-        //Update SKK Sisa
-        $pagu_skk = Skk::where('id', $request->skk_id)->value('pagu_skk');
-        $skk_terkontrak = Skk::where('id', $request->skk_id)->value('skk_terkontrak');
-        $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
-        Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
+        //PDF DITERIMA
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "");
+        $path1 = 'SPBJ.pdf';
+        Storage::disk('local')->put($path1, $pdf->output());
+
+        $pdf2 = $this->load_view_testing_grouping($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "");
+        $path2 = 'RAB_Paket_TKDN.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
+
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_diterima.pdf');
+
+        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id);
+        // $updated_prk_progress = 0;
+        // $previous_prk_progress = Rab::where('prk_id', $request->prk_id)->get('total_harga');
+        // foreach ($previous_prk_progress as $prk_progress)
+        //     $updated_prk_progress += (float)$prk_progress->total_harga;
+        // Prk::where('id', $request->prk_id)->update(array('prk_progress' => (float)$updated_prk_progress));
+
+        // //Update PRK Sisa
+        // $pagu_prk = Prk::where('id', $request->prk_id)->value('pagu_prk');
+        // $prk_progress = Prk::where('id', $request->prk_id)->value('prk_progress');
+        // $updated_prk_sisa = (float)$pagu_prk - (float)$prk_progress;
+        // Prk::where('id', $request->prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
+
+        // //Update SKK progress
+        // $updated_skk_progress = 0;
+        // $previous_skk_progress = Prk::where('no_skk_prk', $request->skk_id)->get('prk_progress');
+        // foreach ($previous_skk_progress as $skk_progress)
+        //     $updated_skk_progress += (float)$skk_progress->prk_progress;
+        // Skk::where('id', $request->skk_id)->update(array('skk_progress' => (float)$updated_skk_progress));
+
+        // //Update SKK Sisa
+        // $pagu_skk = Skk::where('id', $request->skk_id)->value('pagu_skk');
+        // $skk_progress = Skk::where('id', $request->skk_id)->value('skk_progress');
+        // $updated_skk_sisa = (float)$pagu_skk - (float)$skk_progress;
+        // Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
         return response()->json($nama_pdf);
     }
 
@@ -1453,9 +900,30 @@ class PdfkhsController extends Controller
     public function download($nama_pdf)
     {
         // dd($nama_pdf);
-        // $document = Rab::where('slug', $nama_pdf)->value('pdf_file');
 
-        // return response()->download($document);
+        $status = Rab::where('slug', $nama_pdf)->value('status');
+        $document = Rab::where('slug', $nama_pdf)->value('pdf_file');
+        // dd($status);
+
+        if ($status === "Disetujui"){
+
+            // $document = Rab::where('slug', $nama_pdf)->value('pdf_file');
+
+            return Storage::download('public/'.$document.'.pdf');
+        }
+        else if ($status === "Ditolak"){
+
+            // $document = Rab::where('slug', $nama_pdf)->value('pdf_file');
+
+            return Storage::download('public/'.$document.'_ditolak.pdf');
+        }
+        else{
+
+            // $document = Rab::where('slug', $nama_pdf)->value('pdf_file');
+
+            return  Storage::download('public/'.$document.'_progress.pdf');
+        }
+
 
     //     $values_pdf_page1 = Rab::where('slug', $nama_pdf)->get();
 
@@ -1754,194 +1222,194 @@ class PdfkhsController extends Controller
 
     //     return $oMerger->download();
 
-    $values_pdf_page1 = Rab::where('slug', $nama_pdf)->get();
+    // $values_pdf_page1 = Rab::where('slug', $nama_pdf)->get();
 
-    $id = Rab::where('slug', $nama_pdf)->value('id');
+    // $id = Rab::where('slug', $nama_pdf)->value('id');
 
-    // dd($id);
+    // // dd($id);
 
-    $startdate = Rab::where('id', $id)->value('startdate');
-    $enddate = Rab::where('id', $id)->value('enddate');
-    $datetime1 = new DateTime($startdate);
-    $datetime2 = new DateTime($enddate);
-    $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
-    $d = 0;
-    $days = 0;
-    $datetime2 = 1;
+    // $startdate = Rab::where('id', $id)->value('startdate');
+    // $enddate = Rab::where('id', $id)->value('enddate');
+    // $datetime1 = new DateTime($startdate);
+    // $datetime2 = new DateTime($enddate);
+    // $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
+    // $d = 0;
+    // $days = 0;
+    // $datetime2 = 1;
 
-    foreach($interval as $date) {
-        $interval = $date->format("Y-m-d");
-        $datetime = DateTime::createFromFormat('Y-m-d', $interval);
+    // foreach($interval as $date) {
+    //     $interval = $date->format("Y-m-d");
+    //     $datetime = DateTime::createFromFormat('Y-m-d', $interval);
 
-        $day = $datetime->format('D');
+    //     $day = $datetime->format('D');
 
-        if($day != "Sun" && $day != "Sat") {
-            $days += $datetime2 - $d;
-        }
+    //     if($day != "Sun" && $day != "Sat") {
+    //         $days += $datetime2 - $d;
+    //     }
 
-        $datetime2++;
-        $d++;
+    //     $datetime2++;
+    //     $d++;
+    // }
+
+    // $rab_id = Rab::where('id', $id)->value('id');
+    // $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
+
+    // $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
+
+
+    // $rabredaksi_array = [];
+    // for($i = 0; $i < count($redaksis); $i++) {
+    //     $rabredaksi_array[$i] = [
+    //         'redaksi' => $redaksis[$i]->deskripsi_id,
+    //         'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
+    //     ];
+    // }
+    // $lokasis = lokasi::where('rab_id', $rab_id)->get();
+
+
+
+
+    // $jasa = [];
+    // $jasa_volume = [];
+    // $kdn_jasa = [];
+    // $kdn_material = [];
+    // $sub_jumlah_material = [];
+    // $sub_jumlah_jasa = [];
+    // $ubah_volume_jasa = [];
+    // $material = [];
+    // $material_volume = [];
+    // $ubah_volume_material = [];
+
+    // for($i = 0; $i < count($values_pdf_page2); $i++) {
+    //     if($values_pdf_page2[$i]->kategori_order == "Jasa") {
+    //         $jasa[$i] = $values_pdf_page2[$i];
+    //         $jasa_volume[$i] = $jasa[$i]->volume;
+    //         $ubah_volume_jasa[$i] = str_replace(".", ",", "$jasa_volume[$i]");
+    //         $jasa[$i]->volume = $ubah_volume_jasa[$i];
+    //         $jasa_jumlah_harga[$i] = $jasa[$i]->jumlah_harga;
+    //         array_push($kdn_jasa, $jasa[$i]->kdn);
+    //         array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$i]);
+    //         // $jasa[$i]->volume = str_replace()
+    //     } else {
+    //         $material[$i] = $values_pdf_page2[$i];
+    //         $material_volume[$i] = $material[$i]->volume;
+    //         $ubah_volume_material[$i] = str_replace(".", ",", $material_volume[$i]);
+    //         $material[$i]->volume = $ubah_volume_material[$i];
+    //         $material_jumlah_harga[$i] = $material[$i]->jumlah_harga;
+    //         array_push($kdn_material, $material[$i]->kdn);
+    //         array_push($sub_jumlah_material, $material_jumlah_harga[$i]);
+    //     }
+    // }
+    //     // dd($jasa);
+    //     // $jabatan = Pejabat::select('jabatan');
+    // // dd($sub_jumlah_jasa);
+    // $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
+    // $sub_jumlah_material = array_sum($sub_jumlah_material);
+    // $kdn_jasa = array_sum($kdn_jasa);
+    // $kdn_material = array_sum($kdn_material);
+    // $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
+    // $kln_material = $sub_jumlah_material - $kdn_material;
+    // $total_jasa = $kdn_jasa + $kln_jasa;
+    // $total_material = $kdn_material + $kln_material;
+
+    // if($total_jasa > 0){
+    //     $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
+    // }
+    // else{
+    //     $total_tkdn_jasa = 0;
+    // }
+
+    // if($total_material > 0){
+    //     $total_tkdn_material = ($kdn_material / $total_material) * 100;
+    // }
+    // else{
+    //     $total_tkdn_material = 0;
+    // }
+    // $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
+    // $total_kln_jasa_material = $kln_jasa + $kln_material;
+    // $total_jasa_material = $total_jasa + $total_material;
+
+    // if($total_jasa_material > 0){
+    //     $total_tkdn_jasa_material = ($total_kdn_jasa_material / $total_jasa_material) * 100;
+    // }
+    // else{
+    //     $total_tkdn_jasa_material = 0;
+    // }
+
+    // $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
+    // $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
+
+    // $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
+    // $ppn_id = PpnModel::all();
+    // $ppn = $jumlah * ($ppn_id[0]->ppn/100);
+
+    // $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
+    //     "po_khs" => $values_pdf_page1,
+    //     "jumlah" => $jumlah,
+    //     "ppn" => $ppn,
+    //     "days" => $days,
+    //     "jabatan_manager" => $jabatan_manager,
+    //     "nama_manager" => $nama_manager,
+    //     "title" => $nama_pdf,
+    //     "rabredaksi_array" => $rabredaksi_array,
+    //     "lokasis" => $lokasis,
+    //     "ppn_id"=>$ppn_id,
+    // ]);
+    // $this->make_watermark($pdf, $values_pdf_page1);
+
+    // $path1 = 'SPBJ.pdf';
+    // Storage::disk('local')->put($path1, $pdf->output());
+
+    // $pdf2 = Pdf::loadView('format_surat.rab_tkdn',[
+    //     "po_khs" => $values_pdf_page1,
+    //     "kategori_jasa" => $jasa,
+    //     "kategori_material" => $material,
+    //     "sub_jumlah_jasa" =>$sub_jumlah_jasa,
+    //     "sub_jumlah_material" =>$sub_jumlah_material,
+    //     "kdn_jasa" => $kdn_jasa,
+    //     "kdn_material" => $kdn_material,
+    //     "kln_jasa" => $kln_jasa,
+    //     "kln_material" => $kln_material,
+    //     "total_jasa" => $total_jasa,
+    //     "total_material" => $total_material,
+    //     "total_tkdn_jasa" => $total_tkdn_jasa,
+    //     "total_tkdn_material" => $total_tkdn_material,
+    //     "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
+    //     "total_kdn_jasa_material" => $total_kdn_jasa_material,
+    //     "total_kln_jasa_material" => $total_kln_jasa_material,
+    //     "total_jasa_material" => $total_jasa_material,
+    //     "jumlah" => $jumlah,
+    //     "ppn" => $ppn,
+    //     "days" => $days,
+    //     "jabatan_manager" => $jabatan_manager,
+    //     "nama_manager" => $nama_manager,
+    //     "title" => $nama_pdf,
+    //     "redaksis" => $redaksis,
+    //     "lokasis" => $lokasis,
+    //     "ppn_id"=>$ppn_id,
+    // ]);
+
+    // // $content = $pdf->download()->getOriginalContent();
+    // // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
+    // $pdf2->setPaper('A4', 'potrait');
+    // $this->make_watermark($pdf2, $values_pdf_page1);
+
+    // $path2 = 'RAB.pdf';
+    // // return $pdf2->download();
+    // Storage::disk('local')->put($path2, $pdf2->output());
+
+    // $oMerger = PDFMerger::init();
+    // $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+    // $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+    // $oMerger->merge();
+
+
+
+    // return $oMerger->download();
+
     }
 
-    $rab_id = Rab::where('id', $id)->value('id');
-    $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id)->get();
-
-    $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
-
-
-    $rabredaksi_array = [];
-    for($i = 0; $i < count($redaksis); $i++) {
-        $rabredaksi_array[$i] = [
-            'redaksi' => $redaksis[$i]->deskripsi_id,
-            'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
-        ];
-    }
-    $lokasis = lokasi::where('rab_id', $rab_id)->get();
-
-
-
-
-    $jasa = [];
-    $jasa_volume = [];
-    $kdn_jasa = [];
-    $kdn_material = [];
-    $sub_jumlah_material = [];
-    $sub_jumlah_jasa = [];
-    $ubah_volume_jasa = [];
-    $material = [];
-    $material_volume = [];
-    $ubah_volume_material = [];
-
-    for($i = 0; $i < count($values_pdf_page2); $i++) {
-        if($values_pdf_page2[$i]->kategori_order == "Jasa") {
-            $jasa[$i] = $values_pdf_page2[$i];
-            $jasa_volume[$i] = $jasa[$i]->volume;
-            $ubah_volume_jasa[$i] = str_replace(".", ",", "$jasa_volume[$i]");
-            $jasa[$i]->volume = $ubah_volume_jasa[$i];
-            $jasa_jumlah_harga[$i] = $jasa[$i]->jumlah_harga;
-            array_push($kdn_jasa, $jasa[$i]->kdn);
-            array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$i]);
-            // $jasa[$i]->volume = str_replace()
-        } else {
-            $material[$i] = $values_pdf_page2[$i];
-            $material_volume[$i] = $material[$i]->volume;
-            $ubah_volume_material[$i] = str_replace(".", ",", $material_volume[$i]);
-            $material[$i]->volume = $ubah_volume_material[$i];
-            $material_jumlah_harga[$i] = $material[$i]->jumlah_harga;
-            array_push($kdn_material, $material[$i]->kdn);
-            array_push($sub_jumlah_material, $material_jumlah_harga[$i]);
-        }
-    }
-        // dd($jasa);
-        // $jabatan = Pejabat::select('jabatan');
-    // dd($sub_jumlah_jasa);
-    $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
-    $sub_jumlah_material = array_sum($sub_jumlah_material);
-    $kdn_jasa = array_sum($kdn_jasa);
-    $kdn_material = array_sum($kdn_material);
-    $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
-    $kln_material = $sub_jumlah_material - $kdn_material;
-    $total_jasa = $kdn_jasa + $kln_jasa;
-    $total_material = $kdn_material + $kln_material;
-
-    if($total_jasa > 0){
-        $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
-    }
-    else{
-        $total_tkdn_jasa = 0;
-    }
-
-    if($total_material > 0){
-        $total_tkdn_material = ($kdn_material / $total_material) * 100;
-    }
-    else{
-        $total_tkdn_material = 0;
-    }
-    $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
-    $total_kln_jasa_material = $kln_jasa + $kln_material;
-    $total_jasa_material = $total_jasa + $total_material;
-
-    if($total_jasa_material > 0){
-        $total_tkdn_jasa_material = ($total_kdn_jasa_material / $total_jasa_material) * 100;
-    }
-    else{
-        $total_tkdn_jasa_material = 0;
-    }
-
-    $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
-    $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
-
-    $jumlah = OrderKhs::where('rab_id', $rab_id)->sum('jumlah_harga');
-    $ppn_id = PpnModel::all();
-    $ppn = $jumlah * ($ppn_id[0]->ppn/100);
-
-    $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
-        "po_khs" => $values_pdf_page1,
-        "jumlah" => $jumlah,
-        "ppn" => $ppn,
-        "days" => $days,
-        "jabatan_manager" => $jabatan_manager,
-        "nama_manager" => $nama_manager,
-        "title" => $nama_pdf,
-        "rabredaksi_array" => $rabredaksi_array,
-        "lokasis" => $lokasis,
-        "ppn_id"=>$ppn_id,
-    ]);
-    $this->make_watermark($pdf, $values_pdf_page1);
-
-    $path1 = 'SPBJ.pdf';
-    Storage::disk('local')->put($path1, $pdf->output());
-
-    $pdf2 = Pdf::loadView('format_surat.rab_tkdn',[
-        "po_khs" => $values_pdf_page1,
-        "kategori_jasa" => $jasa,
-        "kategori_material" => $material,
-        "sub_jumlah_jasa" =>$sub_jumlah_jasa,
-        "sub_jumlah_material" =>$sub_jumlah_material,
-        "kdn_jasa" => $kdn_jasa,
-        "kdn_material" => $kdn_material,
-        "kln_jasa" => $kln_jasa,
-        "kln_material" => $kln_material,
-        "total_jasa" => $total_jasa,
-        "total_material" => $total_material,
-        "total_tkdn_jasa" => $total_tkdn_jasa,
-        "total_tkdn_material" => $total_tkdn_material,
-        "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
-        "total_kdn_jasa_material" => $total_kdn_jasa_material,
-        "total_kln_jasa_material" => $total_kln_jasa_material,
-        "total_jasa_material" => $total_jasa_material,
-        "jumlah" => $jumlah,
-        "ppn" => $ppn,
-        "days" => $days,
-        "jabatan_manager" => $jabatan_manager,
-        "nama_manager" => $nama_manager,
-        "title" => $nama_pdf,
-        "redaksis" => $redaksis,
-        "lokasis" => $lokasis,
-        "ppn_id"=>$ppn_id,
-    ]);
-
-    // $content = $pdf->download()->getOriginalContent();
-    // Storage::put('public/storage/file-pdf-khs/'.$nama_pdf.'.pdf',$content);
-    $pdf2->setPaper('A4', 'potrait');
-    $this->make_watermark($pdf2, $values_pdf_page1);
-
-    $path2 = 'RAB.pdf';
-    // return $pdf2->download();
-    Storage::disk('local')->put($path2, $pdf2->output());
-
-    $oMerger = PDFMerger::init();
-    $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
-    $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
-    $oMerger->merge();
-
-
-
-    return $oMerger->download();
-
-    }
-
-    public function make_watermark($pdf, $values_pdf_page1){
+    public function make_watermark($pdf, $status){
         // $pdf->output();
         // $watermark = $pdf->open_object();
         $pdf->render();
@@ -1955,13 +1423,13 @@ class PdfkhsController extends Controller
         // $canvas->page_script('$pdf->set_opacity(.2, "Multiply");');
         // $canvas->set_opacity(.2);
 
-        $status = $values_pdf_page1[0]->status;
-        if($status == "Disetujui"){
-            $status = '';
-        }
-        else if($status == "Progress"){
-            $status = "On Progress";
-        }
+        // $status = $values_pdf_page1[0]->status;
+        // if($status == "Disetujui"){
+        //     $status = '';
+        // }
+        // else if($status == "Progress"){
+        //     $status = "On Progress";
+        // }
         // dd($status);
         $canvas->page_script('
         $pdf->set_opacity(.2, "Multiply");
@@ -1975,10 +1443,329 @@ class PdfkhsController extends Controller
         // return $pdf;
     }
 
-    public function load_view_tkdn(){
+    public function load_view_testing_grouping($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, $status){
+        $lokasis = lokasi::where('rab_id', $rab_id)->get();
+        $rab_id = Rab::where('id', $id)->value('id');
+        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id2)->get();
+
+        $jasa = [];
+        $jasa_volume = [];
+        $jasa_jumlah_harga = [];
+        $sub_jumlah_jasa = [];
+        $kdn_jasa = [];
+        $ubah_volume_jasa = [];
+        $material = [];
+        $material_volume = [];
+        $material_jumlah_harga= [];
+        $sub_jumlah_material = [];
+        $kdn_material = [];
+        $ubah_volume_material = [];
+        $values_pdf_page2 = [];
+
+        $nama_paket = [];
+
+        for($k = 0; $k < count($lokasis); $k++){
+            $jasa[$k] = [];
+            $jasa_volume[$k] = [];
+            $jasa_jumlah_harga[$k] = [];
+            $sub_jumlah_jasa_paket[$k] = [];
+            $ubah_volume_jasa[$k] = [];
+            $material[$k] = [];
+            $material_volume[$k] = [];
+            $material_jumlah_harga[$k] = [];
+            $sub_jumlah_material_paket[$k] = [];
+            $values_pdf_page2[$k] = [];
+            $ubah_volume_material[$k] = [];
+            $paket_id[$k] = OrderPaket::where('lokasi_id', $lokasis[$k]->id)->get();
+                for($j = 0; $j < count($paket_id[$k]); $j++){
+                    $values_pdf_page2[$k][$j] = OrderKhs::where('order_paket_id', $paket_id[$k][$j]->id)->get();
+                    $jasa[$k][$j] = [];
+                    $jasa_volume[$k][$j] = [];
+                    $jasa_jumlah_harga[$k][$j] = [];
+                    $sub_jumlah_jasa_paket[$k][$j] = [];
+                    $ubah_volume_jasa[$k][$j] = [];
+                    $material[$k][$j] = [];
+                    $material_volume[$k][$j] = [];
+                    $material_jumlah_harga[$k][$j] = [];
+                    $sub_jumlah_material_paket[$k][$j] = [];
+                    $ubah_volume_material[$k][$j] = [];
+                    for($i = 0; $i < count($values_pdf_page2[$k][$j]); $i++) {
+                        if($values_pdf_page2[$k][$j][$i]->kategori_order == "Jasa") {
+                            $jasa[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
+                            $jasa_volume[$k][$j][$i] = $jasa[$k][$j][$i]->volume;
+                            $jasa_jumlah_harga[$k][$j][$i] = $jasa[$k][$j][$i]->jumlah_harga;
+                            $sub_jumlah_jasa_paket[$k][$j][$i] = $jasa_jumlah_harga[$k][$j][$i];
+                            array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$k][$j][$i]);
+                            array_push($kdn_jasa, $jasa[$k][$j][$i]->kdn);
+                            $ubah_volume_jasa[$k][$j][$i] = str_replace(".", ",", $jasa_volume[$k][$j][$i]);
+                            $jasa[$k][$j][$i]->volume = $ubah_volume_jasa[$k][$j][$i];
+                        } else {
+                            $material[$k][$j][$i] = $values_pdf_page2[$k][$j][$i];
+                            $material_volume[$k][$j][$i] = $material[$k][$j][$i]->volume;
+                            $material_jumlah_harga[$k][$j][$i] = $material[$k][$j][$i]->jumlah_harga;
+                            $sub_jumlah_material_paket[$k][$j][$i] = $material_jumlah_harga[$k][$j][$i];
+                            array_push($sub_jumlah_material, $material_jumlah_harga[$k][$j][$i]);
+                            array_push($kdn_material, $material[$k][$j][$i]->kdn);
+                            $ubah_volume_material[$k][$j][$i] = str_replace(".", ",", $material_volume[$k][$j][$i]);
+                            $material[$k][$j][$i]->volume = $ubah_volume_material[$k][$j][$i];
+                        }
+                    }
+                    $sub_jumlah_jasa_paket[$k][$j] = array_sum($sub_jumlah_jasa_paket[$k][$j]);
+                    $sub_jumlah_material_paket[$k][$j] = array_sum($sub_jumlah_material_paket[$k][$j]);
+                }
+        }
+
+        $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
+        $sub_jumlah_material = array_sum($sub_jumlah_material);
+        $kdn_jasa = array_sum($kdn_jasa);
+        $kdn_material = array_sum($kdn_material);
+        $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
+        $kln_material = $sub_jumlah_material - $kdn_material;
+        $total_jasa = $kdn_jasa + $kln_jasa;
+        $total_material = $kdn_material + $kln_material;
+
+        if ($total_jasa > 0 ){
+            $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
+        }
+        else{
+            $total_tkdn_jasa = 0;
+        }
+
+
+        if ($total_material > 0 ){
+            $total_tkdn_material = ($kdn_material / $total_material) * 100;
+        }
+        else{
+            $total_tkdn_material = 0;
+        }
+
+
+        $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
+        $total_kln_jasa_material = $kln_jasa + $kln_material;
+        $total_jasa_material = $total_jasa + $total_material;
+
+        if ($total_jasa_material > 0 ){
+            $total_tkdn_jasa_material = ($total_kdn_jasa_material /  $total_jasa_material) * 100;
+        }
+        else{
+            $total_tkdn_jasa_material = 0;
+        }
+
+        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
+        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
+
+        $jumlah = OrderKhs::where('rab_id', $rab_id2)->sum('jumlah_harga');
+        $ppn_id = PpnModel::all();
+        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
+
+        $pdf2 = Pdf::loadView('format_surat.testing_grouping',[
+            "po_khs" => $values_pdf_page1,
+            "kategori_jasa" => $jasa,
+            "kategori_material" => $material,
+            "sub_jumlah_jasa" => $sub_jumlah_jasa,
+            "sub_jumlah_material" => $sub_jumlah_material,
+            "sub_jumlah_jasa_paket" => $sub_jumlah_jasa_paket,
+            "sub_jumlah_material_paket" => $sub_jumlah_material_paket,
+            "kdn_jasa" => $kdn_jasa,
+            "kdn_material" => $kdn_material,
+            "kln_jasa" => $kln_jasa,
+            "kln_material" => $kln_material,
+            "total_jasa" => $total_jasa,
+            "total_material" => $total_material,
+            "total_tkdn_jasa" => $total_tkdn_jasa,
+            "total_tkdn_material" => $total_tkdn_material,
+            "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
+            "total_kdn_jasa_material" => $total_kdn_jasa_material,
+            "total_kln_jasa_material" => $total_kln_jasa_material,
+            "total_jasa_material" => $total_jasa_material,
+            "jumlah" => $jumlah,
+            "ppn" => $ppn,
+            // "days" => $days,
+            "jabatan_manager" => $jabatan_manager,
+            "nama_manager" => $nama_manager,
+            "title" => $nama_pdf,
+            "lokasis" => $lokasis,
+            "paket_id" => $paket_id,
+            "ppn_id"=>$ppn_id,
+        ]);
+        $pdf2->setPaper('A4', 'landscape');
+        $this->make_watermark($pdf2, $status);
+
+        return $pdf2;
+    }
+
+    public function load_view_rab_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, $status){
+
+        // $values_pdf_page1 = Rab::where('id', $id)->get();
+        $lokasis = lokasi::where('rab_id', $rab_id)->get();
+        $values_pdf_page2 = OrderKhs::where('rab_id', $rab_id2)->get();
+
+        $jasa = [];
+        $jasa_volume = [];
+        $kdn_jasa = [];
+        $kdn_material = [];
+        $sub_jumlah_material = [];
+        $sub_jumlah_jasa = [];
+        $ubah_volume_jasa = [];
+        $material = [];
+        $material_volume = [];
+        $ubah_volume_material = [];
+
+        for($i = 0; $i < count($values_pdf_page2); $i++) {
+            if($values_pdf_page2[$i]->kategori_order == "Jasa") {
+                $jasa[$i] = $values_pdf_page2[$i];
+                $jasa_volume[$i] = $jasa[$i]->volume;
+                $ubah_volume_jasa[$i] = str_replace(".", ",", "$jasa_volume[$i]");
+                $jasa[$i]->volume = $ubah_volume_jasa[$i];
+                $jasa_jumlah_harga[$i] = $jasa[$i]->jumlah_harga;
+                array_push($kdn_jasa, $jasa[$i]->kdn);
+                array_push($sub_jumlah_jasa, $jasa_jumlah_harga[$i]);
+                // $jasa[$i]->volume = str_replace()
+            } else {
+                $material[$i] = $values_pdf_page2[$i];
+                $material_volume[$i] = $material[$i]->volume;
+                $ubah_volume_material[$i] = str_replace(".", ",", $material_volume[$i]);
+                $material[$i]->volume = $ubah_volume_material[$i];
+                $material_jumlah_harga[$i] = $material[$i]->jumlah_harga;
+                array_push($kdn_material, $material[$i]->kdn);
+                array_push($sub_jumlah_material, $material_jumlah_harga[$i]);
+            }
+        }
+            // dd($jasa);
+            // $jabatan = Pejabat::select('jabatan');
+        // dd($sub_jumlah_jasa);
+        $sub_jumlah_jasa = array_sum($sub_jumlah_jasa);
+        $sub_jumlah_material = array_sum($sub_jumlah_material);
+        $kdn_jasa = array_sum($kdn_jasa);
+        $kdn_material = array_sum($kdn_material);
+        $kln_jasa = $sub_jumlah_jasa - $kdn_jasa;
+        $kln_material = $sub_jumlah_material - $kdn_material;
+        $total_jasa = $kdn_jasa + $kln_jasa;
+        $total_material = $kdn_material + $kln_material;
+
+        if($total_jasa > 0){
+            $total_tkdn_jasa = ($kdn_jasa / $total_jasa) * 100;
+        }
+        else{
+            $total_tkdn_jasa = 0;
+        }
+
+        if($total_material > 0){
+            $total_tkdn_material = ($kdn_material / $total_material) * 100;
+        }
+        else{
+            $total_tkdn_material = 0;
+        }
+        $total_kdn_jasa_material = $kdn_jasa + $kdn_material;
+        $total_kln_jasa_material = $kln_jasa + $kln_material;
+        $total_jasa_material = $total_jasa + $total_material;
+
+        if($total_jasa_material > 0){
+            $total_tkdn_jasa_material = ($total_kdn_jasa_material / $total_jasa_material) * 100;
+        }
+        else{
+            $total_tkdn_jasa_material = 0;
+        }
+        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
+        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
+
+        $jumlah = OrderKhs::where('rab_id', $rab_id2)->sum('jumlah_harga');
+        $ppn_id = PpnModel::all();
+        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
+
+        $pdf2 = Pdf::loadView('format_surat.rab_tkdn',[
+            "po_khs" => $values_pdf_page1,
+            "kategori_jasa" => $jasa,
+            "kategori_material" => $material,
+            "sub_jumlah_jasa" =>$sub_jumlah_jasa,
+            "sub_jumlah_material" =>$sub_jumlah_material,
+            "kdn_jasa" => $kdn_jasa,
+            "kdn_material" => $kdn_material,
+            "kln_jasa" => $kln_jasa,
+            "kln_material" => $kln_material,
+            "total_jasa" => $total_jasa,
+            "total_material" => $total_material,
+            "total_tkdn_jasa" => $total_tkdn_jasa,
+            "total_tkdn_material" => $total_tkdn_material,
+            "total_tkdn_jasa_material" => $total_tkdn_jasa_material,
+            "total_kdn_jasa_material" => $total_kdn_jasa_material,
+            "total_kln_jasa_material" => $total_kln_jasa_material,
+            "total_jasa_material" => $total_jasa_material,
+            "jumlah" => $jumlah,
+            "ppn" => $ppn,
+            // "days" => $days,
+            "jabatan_manager" => $jabatan_manager,
+            "nama_manager" => $nama_manager,
+            "title" => $nama_pdf,
+            // "redaksis" => $redaksis,
+            "lokasis" => $lokasis,
+            "ppn_id"=>$ppn_id,
+        ]);
+        $pdf2->setPaper('A4', 'landscape');
+        $this->make_watermark($pdf2, $status);
+
+        return $pdf2;
 
     }
-    public function load_view_redaksi_spapp(){
+    public function load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, $status){
 
+        $redaksis = OrderRedaksiKHS::where('rab_id', $rab_id)->get();
+        $rabredaksi_array = [];
+        for($i = 0; $i < count($redaksis); $i++) {
+            $rabredaksi_array[$i] = [
+                'redaksi' => $redaksis[$i]->deskripsi_id,
+                'sub_redaksi' => SubRedaksi::where('redaksi_id', $redaksis[$i]->redaksi_id)->get()
+            ];
+        }
+
+        $lokasis = lokasi::where('rab_id', $rab_id)->get();
+        // dd($rabredaksi);
+        // $values_pdf_page1 = Rab::where('id', $id)->get();
+
+        $startdate = Rab::where('id', $id)->value('startdate');
+        $enddate = Rab::where('id', $id)->value('enddate');
+        $datetime1 = new DateTime($startdate);
+        $datetime2 = new DateTime($enddate);
+        $interval = new DatePeriod($datetime1, new DateInterval('P1D'), $datetime2);
+        $d = 0;
+        $days = 0;
+        $datetime2 = 1;
+
+        foreach($interval as $date) {
+            $interval = $date->format("Y-m-d");
+            $datetime = DateTime::createFromFormat('Y-m-d', $interval);
+
+            $day = $datetime->format('D');
+
+            if($day != "Sun" && $day != "Sat") {
+                $days += $datetime2 - $d;
+            }
+
+            $datetime2++;
+            $d++;
+        }
+
+        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
+        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
+
+        $jumlah = OrderKhs::where('rab_id', $rab_id2)->sum('jumlah_harga');
+        $ppn_id = PpnModel::all();
+        $ppn = $jumlah * ($ppn_id[0]->ppn/100);
+
+        $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
+            "po_khs" => $values_pdf_page1,
+            "jumlah" => $jumlah,
+            "ppn" => $ppn,
+            "days" => $days,
+            "jabatan_manager" => $jabatan_manager,
+            "nama_manager" => $nama_manager,
+            "title" => $nama_pdf,
+            "rabredaksi_array" => $rabredaksi_array,
+            "lokasis" => $lokasis,
+            "ppn_id"=>$ppn_id,
+        ]);
+        $this->make_watermark($pdf, $status);
+
+        return $pdf;
     }
 }

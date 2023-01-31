@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
-class StaffMiddleware
+class SupervisorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -23,7 +23,7 @@ class StaffMiddleware
 
         }
         else{
-            if (auth()->user()->role === 'Staff' || auth()->user()->role === 'Admin' || auth()->user()->role === 'Manager'){
+            if (auth()->user()->role === 'Supervisor' || auth()->user()->role === 'Admin' || auth()->user()->role === 'Manager' || auth()->user()->role === 'Keuangan' || auth()->user()->role === 'REN'){
                 return $next($request);
             }
             else{

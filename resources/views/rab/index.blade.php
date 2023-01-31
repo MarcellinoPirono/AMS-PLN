@@ -6,7 +6,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="d-flex justify-content-end mr-5 mt-5">
-                    @if (auth()->user()->role === 'Staff' || auth()->user()->role === 'Admin')
+                    @if (auth()->user()->role === 'Supervisor' || auth()->user()->role === 'Admin')
                         <a href="/po-khs/buat-po" type="button" class="btn btn-primary ml-3 mt-3">Buat Kontrak (PO) <i
                                 class="bi bi-pencil-square"></i>
                         </a>
@@ -122,7 +122,7 @@
                                         </td>
                                         <td>@currency($rab->total_harga) </td>
                                         <td>{{ $rab->skks->nomor_skk }}</td>
-                                        {{-- <td>{{ $rab->prks->no_prk }}</td> --}}
+                                        <td>{{ $rab->prks->no_prk }}</td>
                                         <td>{{ $rab->pekerjaan }}</td>
                                         <td>{{ \Carbon\Carbon::parse($rab->startdate)->isoFormat('dddd, DD-MMMM-YYYY') }}
                                         </td>
@@ -145,7 +145,7 @@
                 <div style="color: #000; padding-left:45px;">
                     <span class="" style="padding-bottom: 30px">Keterangan : </span><br>
                     <span class="badge light badge-success1 mb-2 mt-2">-</span> = Disetujui<br>
-                    <span class="badge light badge-warning1 mb-2">-</span> = Menunggu<br>
+                    <span class="badge light badge-warning1 mb-2">-</span> = On Progress<br>
                     <span class="badge light badge-danger1 mb-1">-</span> = Ditolak<br>
                 </div>
             </div>
@@ -175,17 +175,17 @@
 
         $('#filter-prk1').on("change", function(event) {
             var status = $('#filter-prk1').val();
-            ListTabelRab.columns(6).search(status).draw();
+            ListTabelRab.columns(7).search(status).draw();
         });
 
         $('#filter-skk1').on("change", function(event) {
             var status = $('#filter-skk1').val();
-            ListTabelRab.columns(5).search(status).draw();
+            ListTabelRab.columns(6).search(status).draw();
         });
 
         $('#filter-addendum-kontrak-induk').on("change", function(event) {
             var status = $('#filter-addendum-kontrak-induk').val();
-            ListTabelRab.columns(10).search(status).draw();
+            ListTabelRab.columns(11).search(status).draw();
         });
 
         $('#filter-status').on("change", function(event) {

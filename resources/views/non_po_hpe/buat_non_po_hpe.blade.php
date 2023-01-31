@@ -30,282 +30,443 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link " href="#preview_non_po">
+                                    <a class="nav-link " href="#surat_dinas">
                                         <span class="num">3</span>
+                                        Buat Surat Dinas
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="#preview_non_po">
+                                        <span class="num">4</span>
                                         Preview Kontrak Non PO HPE
                                     </a>
                                 </li>
                             </ul>
                             <div class="tab-content mt-3 tab-flex">
                                 @foreach ($nonpos as $nonpo)
-                                <div id="informasi_umum" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-                                    <form id="form-1" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
-                                        <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
-                                        <input type="hidden" name="non_po_id" id="non_po_id" value="{{ $non_po_id }}">
-                                        <input type="hidden" name="user_id" id="user_id" value="{{ $user_id }}">
-                                        <div class="row m-auto">
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Input No. RPBJ</label>
-                                                    <input type="text" class="form-control" name="nomor_rpbj"
-                                                        id="nomor_rpbj" placeholder="Nomor RPBJ" required autofocus disabled
-                                                        value="{{ old('nomor_rpbj', $nonpo->nomor_rpbj) }}">
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan isi No. RPBJ
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Input Pekerjaan</label>
-                                                    <input type="text" class="form-control" name="pekerjaan"
-                                                        id="pekerjaan" placeholder="Pekerjaan" required autofocus disabled
-                                                        value="{{ old('pekerjaan', $nonpo->pekerjaan) }}">
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan isi Pekerjaan
+                                    <div id="informasi_umum" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
+                                        <form id="form-1" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
+                                            <input type="hidden" name="_token" id="csrf"
+                                                value="{{ Session::token() }}">
+                                            <input type="hidden" name="non_po_id" id="non_po_id"
+                                                value="{{ $non_po_id }}">
+                                            <input type="hidden" name="user_id" id="user_id" value="{{ $user_id }}">
+                                            <div class="row m-auto">
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Input No. RPBJ</label>
+                                                        <input type="text" class="form-control" name="nomor_rpbj"
+                                                            id="nomor_rpbj" placeholder="Nomor RPBJ" required autofocus
+                                                            disabled value="{{ old('nomor_rpbj', $nonpo->nomor_rpbj) }}">
+                                                        <div class="valid-feedback">
+                                                            Data Terisi
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Silakan isi No. RPBJ
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Input No.SKK</label>
-                                                    <select class="form-control input-default" id="skk_id" name="skk_id"
-                                                        required disabled>
-                                                        <option value="" selected disabled>Pilih No. SKK</option>
-                                                        @foreach ($skks as $skk)
-                                                            <option value="{{ $skk->id }}" @if($nonpo->skk_id == $skk->id)selected @endif>{{ $skk->nomor_skk }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div class="valid-feedback">
-                                                        Data Terpilih
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan Pilih No. SKK
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Input Pekerjaan</label>
+                                                        <input type="text" class="form-control" name="pekerjaan"
+                                                            id="pekerjaan" placeholder="Pekerjaan" required autofocus
+                                                            disabled value="{{ old('pekerjaan', $nonpo->pekerjaan) }}">
+                                                        <div class="valid-feedback">
+                                                            Data Terisi
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Silakan isi Pekerjaan
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Input No.SKK</label>
+                                                        <select class="form-control input-default" id="skk_id"
+                                                            name="skk_id" required disabled>
+                                                            <option value="" selected disabled>Pilih No. SKK</option>
+                                                            @foreach ($skks as $skk)
+                                                                <option value="{{ $skk->id }}"
+                                                                    @if ($nonpo->skk_id == $skk->id) selected @endif>
+                                                                    {{ $skk->nomor_skk }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        <div class="valid-feedback">
+                                                            Data Terpilih
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Silakan Pilih No. SKK
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Input No. PRK</label>
-                                                    <select class="form-control input-default" id="prk_id" name="prk_id"
-                                                        required disabled>
-                                                        <option value="" selected disabled>Pilih PRK</option>
-                                                        @foreach ($prks as $prk)
-                                                            <option value="{{ $prk->id }}"
-                                                                @if ($nonpo->prk_id == $prk->id) selected @endif>
-                                                                {{ $prk->no_prk }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div class="valid-feedback">
-                                                        Data Terpilih
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan Pilih No. PRK
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Input No. PRK</label>
+                                                        <select class="form-control input-default" id="prk_id"
+                                                            name="prk_id" required disabled>
+                                                            <option value="" selected disabled>Pilih PRK</option>
+                                                            @foreach ($prks as $prk)
+                                                                <option value="{{ $prk->id }}"
+                                                                    @if ($nonpo->prk_id == $prk->id) selected @endif>
+                                                                    {{ $prk->no_prk }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <div class="valid-feedback">
+                                                            Data Terpilih
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Silakan Pilih No. PRK
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Supervisor</label>
-                                                    <input type="text" class="form-control" name="supervisor"
-                                                        id="supervisor" placeholder="Supervisor" required autofocus disabled
-                                                        value="{{ old('supervisor', $nonpo->supervisor) }}">
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan isi Supervisor
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Supervisor</label>
+                                                        <input type="text" class="form-control" name="supervisor"
+                                                            id="supervisor" placeholder="Supervisor" required autofocus
+                                                            disabled value="{{ old('supervisor', $nonpo->supervisor) }}">
+                                                        <div class="valid-feedback">
+                                                            Data Terisi
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Silakan isi Supervisor
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label class="text-label">Pilih Manager</label>
-                                                    <select class="form-control input-default" id="pejabat_id"
-                                                        name="pejabat_id" required disabled>
-                                                        <option value="" selected disabled>Manager
-                                                        </option>
-                                                        @foreach ($pejabats as $pejabat)
-                                                            <option value="{{ $pejabat->id }}" @if ($nonpo->pejabat_id == $pejabat->id) selected
-                                                            @endif>
-                                                                {{ $pejabat->jabatan }} -
-                                                                {{ $pejabat->nama_pejabat }}
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Pilih Manager</label>
+                                                        <select class="form-control input-default" id="pejabat_id"
+                                                            name="pejabat_id" required disabled>
+                                                            <option value="" selected disabled>Manager
                                                             </option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div class="valid-feedback">
-                                                        Data Terpilih
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan Pilih Manager
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div id="daftar_rab" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                                    <form id="form-2" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
-                                    <input type="hidden" name="ppn" id="ppn" value="{{ $ppn[0]->ppn }}">
-                                        <div class="row">
-                                            <div class="col-xl-12 col-xxl-12">
-                                                <div class="card">
-                                                    <div class="card-header justify-content-center">
-                                                        <h4 class="card-title">Daftar RAB</h4>
-                                                    </div>
-                                                    <div class="row ml-2">
-                                                        <div class="table-responsive">
-                                                            <table id="tabelNonPO" class="table table-responsive-lg tabel-daftar1"
-                                                                style="width: 1428px" cellpadding="0" cellspacing="0" border="0">
-                                                                <thead>
-                                                                    <tr align="center" valign="middle" class="">
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 60px vertical-align: middle;">No.</th>
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 322px; vertical-align: middle;">Uraian</th>
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 134px; vertical-align: middle;">Satuan</th>
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 134px; vertical-align: middle;">Volume</th>
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 209px; vertical-align: middle;">Harga Satuan</th>
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 230px; vertical-align: middle;">Jumlah</th>
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 209px; vertical-align: middle;">Harga Perkiraan</th>
-                                                                        <th align="center" valign="middle"
-                                                                            style="width: 230px; vertical-align: middle;">Jumlah Harga Perkiraan</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody id="tbody-kategori">
-                                                                    @foreach ($rabnonpos as $rabnonpo)
-                                                                    <tr>
-                                                                        <td><strong id="nomor"
-                                                                                value="1">{{$loop->iteration}}</strong>
-                                                                        </td>
-                                                                        <td><input type="text"
-                                                                                class="form-control uraian" id="uraian[{{$loop->iteration}}]"
-                                                                                name="uraian" placeholder="Uraian"
-                                                                                value="{{ old('uraian', $rabnonpo->uraian) }}" required disabled></td>
-                                                                        <td><input type="text"
-                                                                                class="form-control satuan" id="satuan[{{$loop->iteration}}]"
-                                                                                name="satuan" placeholder="Satuan"
-                                                                                value="{{ old('satuan', $rabnonpo->satuan) }}" required disabled></td>
-                                                                        <td><input type="text"
-                                                                                class="form-control volume" id="volume[{{$loop->iteration}}]"
-                                                                                name="volume" placeholder="volume"
-                                                                                value="{{ old('volume', $rabnonpo->volume) }}"
-                                                                                onkeydown="return numbersonly(this, event);"
-                                                                                onkeyup="javascript:tandaPemisahTitik(this);"
-                                                                                required disabled></td>
-                                                                        <td><input type="text"
-                                                                                class="form-control harga_satuan"
-                                                                                id="harga_satuan[{{$loop->iteration}}]" name="harga_satuan"
-                                                                                placeholder="Harga Satuan" value="@currency2($rabnonpo->harga_satuan)"
-                                                                                onblur="hitung_harga(this)"
-                                                                                onkeydown="return numbersonly(this, event);"
-                                                                                onkeyup="javascript:tandaPemisahTitik(this);"
-                                                                                required disabled>
-                                                                        </td>
-                                                                        <td><input type="text"
-                                                                                class="form-control harga" id="harga[{{$loop->iteration}}]"
-                                                                                name="harga" placeholder="Jumlah"
-                                                                                value="@currency2($rabnonpo->jumlah_harga)" disabled readonly required>
-                                                                        </td>
-                                                                        <td><input type="text"
-                                                                                class="form-control harga_hpe"
-                                                                                id="harga_hpe[{{$loop->iteration}}]" name="harga_hpe"
-                                                                                placeholder="Harga Perkiraan" value=""
-                                                                                onblur="hitung_harga_hpe(this)"
-                                                                                onkeydown="return numbersonly(this, event);"
-                                                                                onkeyup="javascript:tandaPemisahTitik(this);"
-                                                                                required>
-                                                                        </td>
-                                                                        <td><input type="text"
-                                                                                class="form-control jumlah_harga_hpe" id="jumlah_harga_hpe[{{$loop->iteration}}]"
-                                                                                name="jumlah_harga_hpe" placeholder="Jumlah"
-                                                                                value="" disabled readonly required>
-                                                                        </td>
-                                                                        <!-- <td><button onclick="deleteRow(this)"
-                                                                                class="btn btn-danger shadow btn-xs sharp"><i
-                                                                                    class='fa fa-trash'></i></button></td> -->
-                                                                    </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
-                                                            <!-- <div class="col-lg-12 mb-2">
-                                                                <div
-                                                                    class="position-relative justify-content-end float-left">
-                                                                    <a type="button" id="tambah-pekerjaan"
-                                                                        class="btn btn-primary position-relative justify-content-end"
-                                                                        onclick="updateform()" required>Tambah</a>
-                                                                </div>
-                                                            </div> -->
-                                                            <table class="table table-responsive-sm height-100"
-                                                                id="tabelRAB1">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tfoot>
-                                                                    <tr>
-                                                                        <th style="width: 20%; padding-left: 35px">
-                                                                            Jumlah</th>
-                                                                        <th style="width: 1%">:</th>
-                                                                        <th style="width: 55%" id="jumlah"></th>
-                                                                        <th >
-                                                                            Jumlah HPE:</th>
-                                                                        <th style="width: 1%">:</th>
-                                                                        <th style="width: 55%" id="jumlah-hpe"></th>
-                                                                        <th style="width: 24%"></th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style="padding-left: 35px">PPN {{ str_replace('.',',', $ppn[0]->ppn) }}%</th>
-                                                                        <th>:</th>
-                                                                        <th id="pajak"></th>
-                                                                        <th >PPN {{ str_replace('.',',', $ppn[0]->ppn) }}%</th>
-                                                                        <th>:</th>
-                                                                        <th id="pajak-hpe"></th>
-                                                                        <th></th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style="padding-left: 35px">Total Harga</th>
-                                                                        <th>:</th>
-                                                                        <th id="total"></th>
-                                                                        <th >Total Harga HPE</th>
-                                                                        <th>:</th>
-                                                                        <th id="total-hpe"></th>
-                                                                        <th></th>
-                                                                    </tr>
-                                                                </tfoot>
-                                                            </table>
+                                                            @foreach ($pejabats as $pejabat)
+                                                                <option value="{{ $pejabat->id }}"
+                                                                    @if ($nonpo->pejabat_id == $pejabat->id) selected @endif>
+                                                                    {{ $pejabat->jabatan }} -
+                                                                    {{ $pejabat->nama_pejabat }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        <div class="valid-feedback">
+                                                            Data Terpilih
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Silakan Pilih Manager
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </form>
+                                    </div>
+                                    <div id="daftar_rab" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+                                        <form id="form-2" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
+                                            <input type="hidden" name="ppn" id="ppn"
+                                                value="{{ $ppn[0]->ppn }}">
+                                            <div class="row">
+                                                <div class="col-xl-12 col-xxl-12">
+                                                    <div class="card">
+                                                        <div class="card-header justify-content-center">
+                                                            <h4 class="card-title">Daftar RAB</h4>
+                                                        </div>
+                                                        <div class="row ml-2">
+                                                            <div class="table-responsive">
+                                                                <table id="tabelNonPO"
+                                                                    class="table table-responsive-lg tabel-daftar1"
+                                                                    style="width: 1428px" cellpadding="0" cellspacing="0"
+                                                                    border="0">
+                                                                    <thead>
+                                                                        <tr align="center" valign="middle"
+                                                                            class="">
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 60px vertical-align: middle;">
+                                                                                No.</th>
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 322px; vertical-align: middle;">
+                                                                                Uraian</th>
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 134px; vertical-align: middle;">
+                                                                                Satuan</th>
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 134px; vertical-align: middle;">
+                                                                                Volume</th>
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 209px; vertical-align: middle;">
+                                                                                Harga Satuan</th>
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 230px; vertical-align: middle;">
+                                                                                Jumlah</th>
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 209px; vertical-align: middle;">
+                                                                                Harga Perkiraan</th>
+                                                                            <th align="center" valign="middle"
+                                                                                style="width: 230px; vertical-align: middle;">
+                                                                                Jumlah Harga Perkiraan</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="tbody-kategori">
+                                                                        @foreach ($rabnonpos as $rabnonpo)
+                                                                            <tr>
+                                                                                <td><strong id="nomor"
+                                                                                        value="1">{{ $loop->iteration }}</strong>
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        class="form-control uraian"
+                                                                                        id="uraian[{{ $loop->iteration }}]"
+                                                                                        name="uraian"
+                                                                                        placeholder="Uraian"
+                                                                                        value="{{ old('uraian', $rabnonpo->uraian) }}"
+                                                                                        required disabled></td>
+                                                                                <td><input type="text"
+                                                                                        class="form-control satuan"
+                                                                                        id="satuan[{{ $loop->iteration }}]"
+                                                                                        name="satuan"
+                                                                                        placeholder="Satuan"
+                                                                                        value="{{ old('satuan', $rabnonpo->satuan) }}"
+                                                                                        required disabled></td>
+                                                                                <td><input type="text"
+                                                                                        class="form-control volume"
+                                                                                        id="volume[{{ $loop->iteration }}]"
+                                                                                        name="volume"
+                                                                                        placeholder="volume"
+                                                                                        value="{{ old('volume', $rabnonpo->volume) }}"
+                                                                                        onkeydown="return numbersonly(this, event);"
+                                                                                        onkeyup="javascript:tandaPemisahTitik(this);"
+                                                                                        required disabled></td>
+                                                                                <td><input type="text"
+                                                                                        class="form-control harga_satuan"
+                                                                                        id="harga_satuan[{{ $loop->iteration }}]"
+                                                                                        name="harga_satuan"
+                                                                                        placeholder="Harga Satuan"
+                                                                                        value="@currency2($rabnonpo->harga_satuan)"
+                                                                                        onblur="hitung_harga(this)"
+                                                                                        onkeydown="return numbersonly(this, event);"
+                                                                                        onkeyup="javascript:tandaPemisahTitik(this);"
+                                                                                        required disabled>
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        class="form-control harga"
+                                                                                        id="harga[{{ $loop->iteration }}]"
+                                                                                        name="harga"
+                                                                                        placeholder="Jumlah"
+                                                                                        value="@currency2($rabnonpo->jumlah_harga)" disabled
+                                                                                        readonly required>
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        class="form-control harga_hpe"
+                                                                                        id="harga_hpe[{{ $loop->iteration }}]"
+                                                                                        name="harga_hpe"
+                                                                                        placeholder="Harga Perkiraan"
+                                                                                        value=""
+                                                                                        onblur="hitung_harga_hpe(this)"
+                                                                                        onkeydown="return numbersonly(this, event);"
+                                                                                        onkeyup="javascript:tandaPemisahTitik(this);"
+                                                                                        required>
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        class="form-control jumlah_harga_hpe"
+                                                                                        id="jumlah_harga_hpe[{{ $loop->iteration }}]"
+                                                                                        name="jumlah_harga_hpe"
+                                                                                        placeholder="Jumlah"
+                                                                                        value="" disabled readonly
+                                                                                        required>
+                                                                                </td>
+                                                                                <!-- <td><button onclick="deleteRow(this)"
+                                                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                                                    class='fa fa-trash'></i></button></td> -->
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                                <!-- <div class="col-lg-12 mb-2">
+                                                                                <div
+                                                                                    class="position-relative justify-content-end float-left">
+                                                                                    <a type="button" id="tambah-pekerjaan"
+                                                                                        class="btn btn-primary position-relative justify-content-end"
+                                                                                        onclick="updateform()" required>Tambah</a>
+                                                                                </div>
+                                                                            </div> -->
+                                                                <table class="table table-responsive-sm height-100"
+                                                                    id="tabelRAB1">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <th style="width: 20%; padding-left: 35px">
+                                                                                Jumlah</th>
+                                                                            <th style="width: 1%">:</th>
+                                                                            <th style="width: 55%" id="jumlah"></th>
+                                                                            <th>
+                                                                                Jumlah HPE:</th>
+                                                                            <th style="width: 1%">:</th>
+                                                                            <th style="width: 55%" id="jumlah-hpe"></th>
+                                                                            <th style="width: 24%"></th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th style="padding-left: 35px">PPN
+                                                                                {{ str_replace('.', ',', $ppn[0]->ppn) }}%
+                                                                            </th>
+                                                                            <th>:</th>
+                                                                            <th id="pajak"></th>
+                                                                            <th>PPN
+                                                                                {{ str_replace('.', ',', $ppn[0]->ppn) }}%
+                                                                            </th>
+                                                                            <th>:</th>
+                                                                            <th id="pajak-hpe"></th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th style="padding-left: 35px">Total Harga</th>
+                                                                            <th>:</th>
+                                                                            <th id="total"></th>
+                                                                            <th>Total Harga HPE</th>
+                                                                            <th>:</th>
+                                                                            <th id="total-hpe"></th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </tfoot>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                @endforeach
+                                <div id="surat_dinas" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
+                                    <form id="form-3" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
+                                        <div class="row m-auto">
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Kepada : </label>
+                                                    <input type="text" class="form-control" name="tujuan"
+                                                        id="tujuan" placeholder="Kepada...." required autofocus
+                                                        value="">
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan isi Tujuan Surat
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label for="first-name" class="form-label">Pilih Tujuan Surat : <span
+                                                            class="text-danger">*</span></label>
+                                                    <select class="form-control input-default" id="tujuan"
+                                                        name="tujuan"
+                                                        style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                        required onchange="ganti_item()">
+                                                        <option selected disabled value="">Pilih Tujuan Surat
+                                                        </option>
+                                                        <option value="1">tes</option>
+                                                        <option value="2">tes2</option>
+                                                        <option value="3">tes3</option>
+                                                        <option value="4">tes4</option>
+                                                    </select>
+                                                    <div class="valid-feedback">
+                                                        Data Terpilih
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan Pilih Tujuan Surat
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label for="first-name" class="form-label">Pilih Sumber Surat : <span
+                                                            class="text-danger">*</span></label>
+                                                    <select class="form-control input-default" id="sumber"
+                                                        name="sumber"
+                                                        style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                        required onchange="ganti_item()">
+                                                        <option selected disabled value="">Pilih Sumber Surat
+                                                        </option>
+                                                        <option value="1">tes</option>
+                                                        <option value="2">tes2</option>
+                                                        <option value="3">tes3</option>
+                                                        <option value="4">tes4</option>
+                                                    </select>
+                                                    <div class="valid-feedback">
+                                                        Data Terpilih
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan Pilih Sumber Surat
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label for="first-name" class="form-label">Pilih Sifat Surat <span
+                                                            class="text-danger">*</span></label>
+                                                    <select class="form-control input-default" id="sifat"
+                                                        name="sifat"
+                                                        style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                        required onchange="ganti_item()">
+                                                        <option selected disabled value="">Pilih Sumber Surat
+                                                        </option>
+                                                        <option value="1">Biasa</option>
+                                                        <option value="2">Segera</option>
+                                                        <option value="3">Sangat Segera</option>
+                                                    </select>
+                                                    <div class="valid-feedback">
+                                                        Data Terpilih
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan Pilih Sifat Surat
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Input halaman lampiran</label>
+                                                    <input type="text" class="form-control" name="lampiran"
+                                                        id="lampiran" placeholder="Jumlah Lampiran" required autofocus
+                                                        value="">
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan isi halaman lampiran
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Perihal :</label>
+                                                    <input type="text" class="form-control" name="perihal"
+                                                        id="perihal" placeholder="Jumlah Lampiran" required autofocus
+                                                        value="">
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan isi Perihal
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
-                                @endforeach
-                                <div id="preview_non_po" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
-                                    <form id="form-3" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
+                                <div id="preview_non_po" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
+                                    <form id="form-4" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
                                         <div class="row">
                                             <div class="col-xl-12 col-xxl-12">
                                                 <div class="card">
@@ -359,7 +520,8 @@
                                                                                     align="center" valign="middle">Harga
                                                                                 </td>
                                                                                 <td style="width:25%;" colspan="2"
-                                                                                    align="center" valign="middle">Harga HPE
+                                                                                    align="center" valign="middle">Harga
+                                                                                    HPE
                                                                                 </td>
                                                                             </tr>
                                                                             <tr class="warna">
@@ -373,7 +535,7 @@
                                                                                     valign="middle">Jumlah HPE (RP)</td>
                                                                             </tr>
                                                                             <!-- <tr class="warna">
-                                                                            </tr> -->
+                                                                                            </tr> -->
                                                                         </thead>
                                                                         <tbody id="uraian_rab">
                                                                         </tbody>
@@ -386,10 +548,10 @@
                                                                                     style="font-weight: bold"
                                                                                     align="right"></td>
                                                                                 <td colspan="1" align="center"
-                                                                                valign="middle"><b>Jumlah HPE:</b></td>
+                                                                                    valign="middle"><b>Jumlah HPE:</b></td>
                                                                                 <td id="td_jumlah_hpe"
-                                                                                style="font-weight: bold"
-                                                                                align="right"></td>
+                                                                                    style="font-weight: bold"
+                                                                                    align="right"></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td colspan="2" align="center"
@@ -426,8 +588,8 @@
                                                                             </tr>
                                                                         </tfoot>
                                                                         <!-- <tr>
-                                                                                <td class="first1"></td>
-                                                                            </tr> -->
+                                                                                                <td class="first1"></td>
+                                                                                            </tr> -->
                                                                     </table>
                                                                     {{-- <div>
                                                                         <button id="prevpdf">Previous</button>
@@ -439,8 +601,8 @@
                                                                     {{-- <embed width="100%" height="600px" type="application/pdf" id="embedLink"/> --}}
 
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
-                                                                            <embed id="pdfViewer2" width="100%" height="600px" >
-                                                                        </object> -->
+                                                                                            <embed id="pdfViewer2" width="100%" height="600px" >
+                                                                                        </object> -->
 
                                                                 </div>
 
@@ -684,7 +846,7 @@
                         $("#no_prk_3").html(prk_id);
 
                         baris = [];
-                        var banyak_data =document.querySelectorAll("#tbody-kategori tr");
+                        var banyak_data = document.querySelectorAll("#tbody-kategori tr");
 
                         for (var i = 0; i < banyak_data.length; i++) {
                             baris[i] = [
@@ -712,7 +874,7 @@
                             var array_length = result_rab_non_po.length;
                             for (var j = 0; j < array_length; j++) {
                                 html_rab += ("<tr> <td class='first' align='center' valign='middle'>" + (j +
-                                    1) + "</td> <td class='first' align='left' valign='middle'>" +
+                                        1) + "</td> <td class='first' align='left' valign='middle'>" +
                                     result_rab_non_po[j][0] +
                                     "</td> <td class='first' align='center' valign='middle'>" +
                                     result_rab_non_po[j][1] +
@@ -729,17 +891,18 @@
                             }
                             console.log("html_rab", html_rab);
                             document.getElementById("uraian_rab").innerHTML =
-                            "<tr> <td class='first' align='center' valign='middle'><td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
-                            html_rab;
+                                "<tr> <td class='first' align='center' valign='middle'><td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
+                                html_rab;
                         }
                         document.getElementById("td_jumlah").innerHTML = document.getElementById("jumlah")
                             .innerHTML;
-                        document.getElementById("td_jumlah_hpe").innerHTML = document.getElementById("jumlah-hpe")
+                        document.getElementById("td_jumlah_hpe").innerHTML = document.getElementById(
+                                "jumlah-hpe")
                             .innerHTML;
                         document.getElementById("td_ppn").innerHTML = document.getElementById("pajak")
-                        .innerHTML;
+                            .innerHTML;
                         document.getElementById("td_ppn_hpe").innerHTML = document.getElementById("pajak-hpe")
-                        .innerHTML;
+                            .innerHTML;
                         document.getElementById("td_total").innerHTML = document.getElementById("total")
                             .innerHTML;
                         document.getElementById("td_total_hpe").innerHTML = document.getElementById("total-hpe")
@@ -963,7 +1126,7 @@
                         //     "jumlah_harga": harga,
                         //     "click": click,
                         // }
-                        console.log("fd",fd);
+                        console.log("fd", fd);
                         // console.log(data);
 
                         $.ajax({

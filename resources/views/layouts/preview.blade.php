@@ -18,10 +18,22 @@
                 </div>
             </div> --}}
                 <div class="card-body">
+
                     {{--
                 <iframe src="{{ asset('storage/storage/file-pdf-khs/'.$filename.'.pdf') }}"  type="application/pdf" width="100%" height="600px"/> --}}
-                    <embed src="{{ asset('storage/storage/file-pdf-khs/tkdn/' . $filename . '.pdf') }}"
-                        type="application/pdf" width="100%" height="600px" />
+                @if ($rabs->status === 'Progress')
+
+                <embed src="{{ asset('storage/storage/file-pdf-khs/tkdn/' . $filename . '_progress.pdf') }}"
+                    type="application/pdf" width="100%" height="600px" />
+                @elseif ($rabs->status === 'Ditolak')
+                <embed src="{{ asset('storage/storage/file-pdf-khs/tkdn/' . $filename . '_ditolak.pdf') }}"
+                    type="application/pdf" width="100%" height="600px" />
+                @else
+                <embed src="{{ asset('storage/storage/file-pdf-khs/tkdn/' . $filename . '.pdf') }}"
+                    type="application/pdf" width="100%" height="600px" />
+
+                @endif
+
 
                     @if (auth()->user()->role === 'Manager' || auth()->user()->role === 'Admin')
                         @if ($rabs->status != 'Disetujui' && $rabs->status != 'Ditolak')

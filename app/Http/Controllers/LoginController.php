@@ -36,7 +36,7 @@ class LoginController extends Controller
             // dd($credentials);
 
 
-            if (auth()->user()->role === 'Staff') {
+            if (auth()->user()->role === 'Supervisor') {
                 $request->session()->regenerate();
                 Alert::success('Login Telah Berhasil', 'Selamat Datang di SIPAKAINGA '.$request->username.'');
                 return redirect('po-khs');
