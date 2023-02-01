@@ -15,7 +15,7 @@ class PengesahanHpeController extends Controller
             'title' => 'Pengesahan HPE',
             'title1' => 'Pengesahan HPE',
             // 'nonpos'=> NonPo::all(),
-            'hpes' => Hpe::orderBy('id', 'DESC')->get(),
+            'hpes' => NonPo::orderBy('id', 'DESC')->get(),
         ]);
     }
 

@@ -27,9 +27,6 @@ class NonPo extends Model
         return $this->belongsTo(Pejabat::class, 'pejabat_id', 'id');
     }
 
-    public function hpes(){
-        return $this->hasOne(Hpe::class, 'non_po_id');
-    }
 
     public function users(){
         return $this->belongsTo(User::class, 'user_id');

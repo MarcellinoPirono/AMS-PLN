@@ -36,18 +36,18 @@
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $hpe->id }}">
                                         <td><strong>{{ $loop->iteration }}</strong></td>
-                                        <td>{{ $hpe->non_pos->nomor_rpbj }}</td>
-                                        <td>{{ $hpe->non_pos->pekerjaan }}</td>
-                                        <td>{{ $hpe->non_pos->skks->nomor_skk }}</td>
-                                        <td>{{ $hpe->non_pos->prks->no_prk }}</td>
-                                        <td>{{ $hpe->non_pos->supervisor }}</td>
-                                        <td>@currency($hpe->non_pos->total_harga)</td>
+                                        <td>{{ $hpe->nomor_rpbj }}</td>
+                                        <td>{{ $hpe->pekerjaan }}</td>
+                                        <td>{{ $hpe->skks->nomor_skk }}</td>
+                                        <td>{{ $hpe->prks->no_prk }}</td>
+                                        <td>{{ $hpe->supervisor }}</td>
+                                        <td>@currency($hpe->total_harga)</td>
                                         <td>@currency($hpe->total_harga_hpe)</td>
-                                        @if ($hpe->non_pos->status == 1)
+                                        @if ($hpe->status == 1)
                                         <td><span class="badge light badge-warning">OnProcess (HPE)</span></td>
-                                        @elseif ($hpe->non_pos->status == 2)
+                                        @elseif ($hpe->status == 2)
                                         <td><span class="badge light badge-warning">OnProcess (Persetujuan Manager)</span></td>
-                                        @elseif ($hpe->non_pos->status == 3)
+                                        @elseif ($hpe->status == 3)
                                         <td><span class="badge light badge-success">Disetujui</span></td>
                                         @endif
                                         <td>

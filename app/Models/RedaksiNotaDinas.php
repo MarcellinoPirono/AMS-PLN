@@ -10,4 +10,6 @@ class RedaksiNotaDinas extends Model
     use HasFactory;
 
     protected $guarded = [''];
+
+    
 }

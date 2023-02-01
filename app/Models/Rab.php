@@ -52,10 +52,6 @@ class Rab extends Model
 
         ]);
     }
-    public function hpes()
-    {
-        return $this->belongsTo(Hpe::class, 'rab_id', 'id');
-    }
 
     public function lokasis()
     {

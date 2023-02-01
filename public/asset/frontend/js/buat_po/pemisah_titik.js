@@ -125,7 +125,6 @@ function numbersonly(ini, e) {
 }
 
 function numbersonly2(ini, e) {
-
     var txt = String.fromCharCode(e.which);
     if(!txt.match(/[0-9.,]/)) {
         return false;

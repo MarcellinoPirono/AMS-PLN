@@ -327,11 +327,6 @@
                                             </div> --}}
                                         </div>
 
-
-
-
-
-
                                         <embed style="display:none; overflow-x: visible; overflow-y: visible;"
                                             width="100%" height="650px" name="embedLink" id="embedLink"
                                             type="application/pdf" />
@@ -651,7 +646,8 @@
                                                                                 id="nomor1" value="1">1</strong>
                                                                         </td>
                                                                         <td valign="top"
-                                                                            style="vertical-align: top !important;"><select
+                                                                            style="vertical-align: top !important;">
+                                                                            <select
                                                                                 name="redaksi_id" id="redaksi_id[1]"
                                                                                 class="form-control input-default"
                                                                                 onchange="change_redaksi(this)"
@@ -1304,19 +1300,7 @@ console.log(pond);
 
         function fileValidation(ini) {
             // console.log(ini.files[0].size);
-            if (ini.files[0].size > 20000000) {
-                // onclear();
-                // var files = document.getElementById('lampiran');
-                // files.value = "";
-
-                // document.getElementById('labelfile').innerText = 'Choose or Drag file';
-                // // labelfile.innerHTML = 'Choose or Drag file';
-
-                // var embed = document.getElementById('embedLink');
-                // embed.src = "";
-                // embed.style.display = "none";
-
-                // event.preventDefault();
+            if (ini.files[0].size > 20971520) {
                 swal({
                     title: "Size PDF Terlalu Besar",
                     text: "File PDF Harus Dibawah 20 Mb",
@@ -1325,17 +1309,7 @@ console.log(pond);
                     buttons: false
                 })
                 .then((willDefault) => {
-                    var files = document.getElementById('lampiran');
-                    files.value = "";
-
-                    var embed = document.getElementById('embedLink');
-                    embed.src = "";
-                    embed.style.display = "none";
-
-                    var labelfile = document.getElementById('labelfile');
-                    labelfile.innerHTML = 'Choose or Drag file';
-
-                    event.preventDefault();
+                    onclear();
                 });
             } else {
                 var fileInput = document.getElementById('lampiran');
@@ -1364,10 +1338,8 @@ console.log(pond);
     </script>
 @endsection
 
-
-
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     window.onload = function() {
         window.location.href = "http://127.0.0.1:8000/po-khs/buat-po#spbj"
     }
-</script>
+</script> --}}

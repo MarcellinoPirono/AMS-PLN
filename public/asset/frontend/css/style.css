@@ -39370,7 +39370,7 @@ button:focus {
 
 @media only screen and (max-width: 1400px) {
     .btn-xs {
-        font-size: 0.75rem;
+        font-size: 1rem;
         padding: 0.25rem 0.5rem;
         font-weight: 500;
     }

@@ -415,9 +415,9 @@ function deleteRow2(r) {
     clicklokasi--;
 
     if (clicklokasi == 1) {
-        for(var i = 0; i < clicklokasi; i++) {
-            document.getElementById('lokasi_id['+(i+1)+']').removeAttribute('disabled');
-            document.getElementById('deletePaket['+(i+1)+']').removeAttribute('disabled');
+        for (var i = 0; i < clicklokasi; i++) {
+            document.getElementById('lokasi_id[' + (i + 1) + ']').removeAttribute('disabled');
+            document.getElementById('deletePaket[' + (i + 1) + ']').removeAttribute('disabled');
         }
     }
     var select_id_lokasi = document.querySelectorAll("#tabelSPBJ tr td:nth-child(2) textarea");
@@ -463,7 +463,7 @@ function deleteRow2(r) {
         }
     }
 
-    if(clicklokasi > 1) {
+    if (clicklokasi > 1) {
         for (var i = 0; i < clickpaket; i++) {
             document.getElementById('lokasi_id[' + (i + 1) + ']').value = document.getElementById('lokasi[' + (i + 1) + ']').value;
             document.getElementById('lokasi_id[' + (i + 1) + ']').setAttribute('disabled', true);
@@ -539,41 +539,41 @@ function deleteRow(r) {
         pagu_prk = pagu_prk.replace(/\./g, "");
         pagu_prk = parseInt(pagu_prk);
         var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-        if (pagu_prk >= total_harga_all) {
-            total_harga_all = total_harga_all.toString();
-            total_harga_all_2 = "";
-            panjang_2 = total_harga_all.length;
-            k = 0;
-            for (i = panjang_2; i > 0; i--) {
-                k = k + 1;
-                if (((k % 3) == 1) && (k != 1)) {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                } else {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-                }
+        total_harga_all = total_harga_all.toString();
+        total_harga_all_2 = "";
+        panjang_2 = total_harga_all.length;
+        k = 0;
+        for (i = panjang_2; i > 0; i--) {
+            k = k + 1;
+            if (((k % 3) == 1) && (k != 1)) {
+                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+            } else {
+                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
             }
-            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-            total_harga_all = parseInt(total_harga_all);
-            var ppn_id = document.getElementById('ppn').value;
-            ppn_id = parseFloat(ppn_id);
-            var ppn = total_harga_all * ppn_id / 100;
-            ppn = Math.round(ppn);
-            ppn = ppn.toString();
-            ppn_2 = ""
-            panjang_3 = ppn.length;
-            l = 0;
-            for (i = panjang_3; i > 0; i--) {
-                l = l + 1;
-                if (((l % 3) == 1) && (l != 1)) {
-                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                } else {
-                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-                }
+        }
+        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+        total_harga_all = parseInt(total_harga_all);
+        var ppn_id = document.getElementById('ppn').value;
+        ppn_id = parseFloat(ppn_id);
+        var ppn = total_harga_all * ppn_id / 100;
+        ppn = Math.round(ppn);
+        ppn = ppn.toString();
+        ppn_2 = ""
+        panjang_3 = ppn.length;
+        l = 0;
+        for (i = panjang_3; i > 0; i--) {
+            l = l + 1;
+            if (((l % 3) == 1) && (l != 1)) {
+                ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+            } else {
+                ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
             }
-            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-            ppn = parseInt(ppn);
-            var total = total_harga_all + ppn;
-            total = Math.round(total);
+        }
+        document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+        ppn = parseInt(ppn);
+        var total = total_harga_all + ppn;
+        total = Math.round(total);
+        if (pagu_prk >= total) {
             total = total.toString();
             total_2 = "";
             panjang_4 = total.length;
@@ -589,40 +589,6 @@ function deleteRow(r) {
             document.getElementById("total").innerHTML = "Rp. " + total_2;
             document.getElementById("total").style.color = '#7E7E7E';
         } else {
-            total_harga_all = total_harga_all.toString();
-            total_harga_all_2 = "";
-            panjang_2 = total_harga_all.length;
-            k = 0;
-            for (i = panjang_2; i > 0; i--) {
-                k = k + 1;
-                if (((k % 3) == 1) && (k != 1)) {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                } else {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-                }
-            }
-            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-            total_harga_all = parseInt(total_harga_all);
-            var ppn_id = document.getElementById('ppn').value;
-            ppn_id = parseFloat(ppn_id);
-            var ppn = total_harga_all * ppn_id / 100;
-            ppn = Math.round(ppn);
-            ppn = ppn.toString();
-            ppn_2 = ""
-            panjang_3 = ppn.length;
-            l = 0;
-            for (i = panjang_3; i > 0; i--) {
-                l = l + 1;
-                if (((l % 3) == 1) && (l != 1)) {
-                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                } else {
-                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-                }
-            }
-            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-            ppn = parseInt(ppn);
-            var total = total_harga_all + ppn;
-            total = Math.round(total);
             total = total.toString();
             total_2 = "";
             panjang_4 = total.length;
@@ -976,7 +942,7 @@ function change_item(c) {
             // console.log(change);
             // console.log(response["nama_items"][0].kategori);
             // console.log(response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")");
-            document.getElementById('item_id['+ change +']').title = response["nama_items"][0].nama_item;
+            document.getElementById('item_id[' + change + ']').title = response["nama_items"][0].nama_item;
             // row.getElementsByName("kategory_id")[0].value = response["nama_items"][0].kategori;
             document.getElementById("kategory_id[" + change + "]").value = response["nama_items"][0].kategori;
             document.getElementById("satuan[" + change + "]").value = response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")";
@@ -1022,43 +988,42 @@ function change_item(c) {
             var pagu_prk = document.getElementById("rupiah").innerHTML;
             pagu_prk = pagu_prk.replace(/\./g, "");
             pagu_prk = parseInt(pagu_prk);
-            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator +
-                currentvalue);
-            if (pagu_prk >= total_harga_all) {
-                total_harga_all = total_harga_all.toString();
-                total_harga_all_2 = "";
-                panjang_2 = total_harga_all.length;
-                k = 0;
-                for (i = panjang_2; i > 0; i--) {
-                    k = k + 1;
-                    if (((k % 3) == 1) && (k != 1)) {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                    } else {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-                    }
+            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+            total_harga_all = total_harga_all.toString();
+            total_harga_all_2 = "";
+            panjang_2 = total_harga_all.length;
+            k = 0;
+            for (i = panjang_2; i > 0; i--) {
+                k = k + 1;
+                if (((k % 3) == 1) && (k != 1)) {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                } else {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
                 }
-                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-                total_harga_all = parseInt(total_harga_all);
-                var ppn_id = document.getElementById('ppn').value;
-                ppn_id = parseFloat(ppn_id);
-                var ppn = total_harga_all * ppn_id / 100;
-                ppn = Math.round(ppn);
-                ppn = ppn.toString();
-                ppn_2 = ""
-                panjang_3 = ppn.length;
-                l = 0;
-                for (i = panjang_3; i > 0; i--) {
-                    l = l + 1;
-                    if (((l % 3) == 1) && (l != 1)) {
-                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                    } else {
-                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-                    }
+            }
+            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+            total_harga_all = parseInt(total_harga_all);
+            var ppn_id = document.getElementById('ppn').value;
+            ppn_id = parseFloat(ppn_id);
+            var ppn = total_harga_all * ppn_id / 100;
+            ppn = Math.round(ppn);
+            ppn = ppn.toString();
+            ppn_2 = ""
+            panjang_3 = ppn.length;
+            l = 0;
+            for (i = panjang_3; i > 0; i--) {
+                l = l + 1;
+                if (((l % 3) == 1) && (l != 1)) {
+                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                } else {
+                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
                 }
-                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-                ppn = parseInt(ppn);
-                var total = total_harga_all + ppn;
-                total = Math.round(total);
+            }
+            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+            ppn = parseInt(ppn);
+            var total = total_harga_all + ppn;
+            total = Math.round(total);
+            if (pagu_prk >= total) {
                 total = total.toString();
                 total_2 = "";
                 panjang_4 = total.length;
@@ -1074,40 +1039,6 @@ function change_item(c) {
                 document.getElementById("total").innerHTML = "Rp. " + total_2;
                 document.getElementById("total").style.color = '#7E7E7E';
             } else {
-                total_harga_all = total_harga_all.toString();
-                total_harga_all_2 = "";
-                panjang_2 = total_harga_all.length;
-                k = 0;
-                for (i = panjang_2; i > 0; i--) {
-                    k = k + 1;
-                    if (((k % 3) == 1) && (k != 1)) {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                    } else {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-                    }
-                }
-                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-                total_harga_all = parseInt(total_harga_all);
-                var ppn_id = document.getElementById('ppn').value;
-                ppn_id = parseFloat(ppn_id);
-                var ppn = total_harga_all * ppn_id / 100;
-                ppn = Math.round(ppn);
-                ppn = ppn.toString();
-                ppn_2 = ""
-                panjang_3 = ppn.length;
-                l = 0;
-                for (i = panjang_3; i > 0; i--) {
-                    l = l + 1;
-                    if (((l % 3) == 1) && (l != 1)) {
-                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                    } else {
-                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-                    }
-                }
-                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-                ppn = parseInt(ppn);
-                var total = total_harga_all + ppn;
-                total = Math.round(total);
                 total = total.toString();
                 total_2 = "";
                 panjang_4 = total.length;
@@ -1216,43 +1147,42 @@ function change_item_with_paket(c) {
             var pagu_prk = document.getElementById("rupiah").innerHTML;
             pagu_prk = pagu_prk.replace(/\./g, "");
             pagu_prk = parseInt(pagu_prk);
-            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator +
-                currentvalue);
-            if (pagu_prk >= total_harga_all) {
-                total_harga_all = total_harga_all.toString();
-                total_harga_all_2 = "";
-                panjang_2 = total_harga_all.length;
-                k = 0;
-                for (i = panjang_2; i > 0; i--) {
-                    k = k + 1;
-                    if (((k % 3) == 1) && (k != 1)) {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                    } else {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-                    }
+            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+            total_harga_all = total_harga_all.toString();
+            total_harga_all_2 = "";
+            panjang_2 = total_harga_all.length;
+            k = 0;
+            for (i = panjang_2; i > 0; i--) {
+                k = k + 1;
+                if (((k % 3) == 1) && (k != 1)) {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                } else {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
                 }
-                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-                total_harga_all = parseInt(total_harga_all);
-                var ppn_id = document.getElementById('ppn').value;
-                ppn_id = parseFloat(ppn_id);
-                var ppn = total_harga_all * ppn_id / 100;
-                ppn = Math.round(ppn);
-                ppn = ppn.toString();
-                ppn_2 = ""
-                panjang_3 = ppn.length;
-                l = 0;
-                for (i = panjang_3; i > 0; i--) {
-                    l = l + 1;
-                    if (((l % 3) == 1) && (l != 1)) {
-                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                    } else {
-                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-                    }
+            }
+            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+            total_harga_all = parseInt(total_harga_all);
+            var ppn_id = document.getElementById('ppn').value;
+            ppn_id = parseFloat(ppn_id);
+            var ppn = total_harga_all * ppn_id / 100;
+            ppn = Math.round(ppn);
+            ppn = ppn.toString();
+            ppn_2 = ""
+            panjang_3 = ppn.length;
+            l = 0;
+            for (i = panjang_3; i > 0; i--) {
+                l = l + 1;
+                if (((l % 3) == 1) && (l != 1)) {
+                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                } else {
+                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
                 }
-                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-                ppn = parseInt(ppn);
-                var total = total_harga_all + ppn;
-                total = Math.round(total);
+            }
+            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+            ppn = parseInt(ppn);
+            var total = total_harga_all + ppn;
+            total = Math.round(total);
+            if (pagu_prk >= total) {
                 total = total.toString();
                 total_2 = "";
                 panjang_4 = total.length;
@@ -1268,40 +1198,6 @@ function change_item_with_paket(c) {
                 document.getElementById("total").innerHTML = "Rp. " + total_2;
                 document.getElementById("total").style.color = '#7E7E7E';
             } else {
-                total_harga_all = total_harga_all.toString();
-                total_harga_all_2 = "";
-                panjang_2 = total_harga_all.length;
-                k = 0;
-                for (i = panjang_2; i > 0; i--) {
-                    k = k + 1;
-                    if (((k % 3) == 1) && (k != 1)) {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                    } else {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-                    }
-                }
-                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-                total_harga_all = parseInt(total_harga_all);
-                var ppn_id = document.getElementById('ppn').value;
-                ppn_id = parseFloat(ppn_id);
-                var ppn = total_harga_all * ppn_id / 100;
-                ppn = Math.round(ppn);
-                ppn = ppn.toString();
-                ppn_2 = ""
-                panjang_3 = ppn.length;
-                l = 0;
-                for (i = panjang_3; i > 0; i--) {
-                    l = l + 1;
-                    if (((l % 3) == 1) && (l != 1)) {
-                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                    } else {
-                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-                    }
-                }
-                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-                ppn = parseInt(ppn);
-                var total = total_harga_all + ppn;
-                total = Math.round(total);
                 total = total.toString();
                 total_2 = "";
                 panjang_4 = total.length;
@@ -1410,41 +1306,41 @@ function blur_volume(c) {
     pagu_prk = pagu_prk.replace(/\./g, "");
     pagu_prk = parseInt(pagu_prk);
     var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-    if (pagu_prk >= total_harga_all) {
-        total_harga_all = total_harga_all.toString();
-        total_harga_all_2 = "";
-        panjang_2 = total_harga_all.length;
-        k = 0;
-        for (i = panjang_2; i > 0; i--) {
-            k = k + 1;
-            if (((k % 3) == 1) && (k != 1)) {
-                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-            } else {
-                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-            }
+    total_harga_all = total_harga_all.toString();
+    total_harga_all_2 = "";
+    panjang_2 = total_harga_all.length;
+    k = 0;
+    for (i = panjang_2; i > 0; i--) {
+        k = k + 1;
+        if (((k % 3) == 1) && (k != 1)) {
+            total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+        } else {
+            total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
         }
-        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-        total_harga_all = parseInt(total_harga_all);
-        var ppn_id = document.getElementById('ppn').value;
-        ppn_id = parseFloat(ppn_id);
-        var ppn = total_harga_all * ppn_id / 100;
-        ppn = Math.round(ppn);
-        ppn = ppn.toString();
-        ppn_2 = ""
-        panjang_3 = ppn.length;
-        l = 0;
-        for (i = panjang_3; i > 0; i--) {
-            l = l + 1;
-            if (((l % 3) == 1) && (l != 1)) {
-                ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-            } else {
-                ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-            }
+    }
+    document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+    total_harga_all = parseInt(total_harga_all);
+    var ppn_id = document.getElementById('ppn').value;
+    ppn_id = parseFloat(ppn_id);
+    var ppn = total_harga_all * ppn_id / 100;
+    ppn = Math.round(ppn);
+    ppn = ppn.toString();
+    ppn_2 = ""
+    panjang_3 = ppn.length;
+    l = 0;
+    for (i = panjang_3; i > 0; i--) {
+        l = l + 1;
+        if (((l % 3) == 1) && (l != 1)) {
+            ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+        } else {
+            ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
         }
-        document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-        ppn = parseInt(ppn);
-        var total = total_harga_all + ppn;
-        total = Math.round(total);
+    }
+    document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+    ppn = parseInt(ppn);
+    var total = total_harga_all + ppn;
+    total = Math.round(total);
+    if (pagu_prk >= total) {
         total = total.toString();
         total_2 = "";
         panjang_4 = total.length;
@@ -1460,40 +1356,6 @@ function blur_volume(c) {
         document.getElementById("total").innerHTML = "Rp. " + total_2;
         document.getElementById("total").style.color = '#7E7E7E';
     } else {
-        total_harga_all = total_harga_all.toString();
-        total_harga_all_2 = "";
-        panjang_2 = total_harga_all.length;
-        k = 0;
-        for (i = panjang_2; i > 0; i--) {
-            k = k + 1;
-            if (((k % 3) == 1) && (k != 1)) {
-                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-            } else {
-                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-            }
-        }
-        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-        total_harga_all = parseInt(total_harga_all);
-        var ppn_id = document.getElementById('ppn').value;
-        ppn_id = parseFloat(ppn_id);
-        var ppn = total_harga_all * ppn_id / 100;
-        ppn = Math.round(ppn);
-        ppn = ppn.toString();
-        ppn_2 = ""
-        panjang_3 = ppn.length;
-        l = 0;
-        for (i = panjang_3; i > 0; i--) {
-            l = l + 1;
-            if (((l % 3) == 1) && (l != 1)) {
-                ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-            } else {
-                ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-            }
-        }
-        document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-        ppn = parseInt(ppn);
-        var total = total_harga_all + ppn;
-        total = Math.round(total);
         total = total.toString();
         total_2 = "";
         panjang_4 = total.length;
@@ -1564,41 +1426,41 @@ function blur_volume_with_paket(c) {
     pagu_prk = pagu_prk.replace(/\./g, "");
     pagu_prk = parseInt(pagu_prk);
     var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-    if (pagu_prk >= total_harga_all) {
-        total_harga_all = total_harga_all.toString();
-        total_harga_all_2 = "";
-        panjang_2 = total_harga_all.length;
-        k = 0;
-        for (i = panjang_2; i > 0; i--) {
-            k = k + 1;
-            if (((k % 3) == 1) && (k != 1)) {
-                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-            } else {
-                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-            }
+    total_harga_all = total_harga_all.toString();
+    total_harga_all_2 = "";
+    panjang_2 = total_harga_all.length;
+    k = 0;
+    for (i = panjang_2; i > 0; i--) {
+        k = k + 1;
+        if (((k % 3) == 1) && (k != 1)) {
+            total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+        } else {
+            total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
         }
-        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-        total_harga_all = parseInt(total_harga_all);
-        var ppn_id = document.getElementById('ppn').value;
-        ppn_id = parseFloat(ppn_id);
-        var ppn = total_harga_all * ppn_id / 100;
-        ppn = Math.round(ppn);
-        ppn = ppn.toString();
-        ppn_2 = ""
-        panjang_3 = ppn.length;
-        l = 0;
-        for (i = panjang_3; i > 0; i--) {
-            l = l + 1;
-            if (((l % 3) == 1) && (l != 1)) {
-                ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-            } else {
-                ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-            }
+    }
+    document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+    total_harga_all = parseInt(total_harga_all);
+    var ppn_id = document.getElementById('ppn').value;
+    ppn_id = parseFloat(ppn_id);
+    var ppn = total_harga_all * ppn_id / 100;
+    ppn = Math.round(ppn);
+    ppn = ppn.toString();
+    ppn_2 = ""
+    panjang_3 = ppn.length;
+    l = 0;
+    for (i = panjang_3; i > 0; i--) {
+        l = l + 1;
+        if (((l % 3) == 1) && (l != 1)) {
+            ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+        } else {
+            ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
         }
-        document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-        ppn = parseInt(ppn);
-        var total = total_harga_all + ppn;
-        total = Math.round(total);
+    }
+    document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+    ppn = parseInt(ppn);
+    var total = total_harga_all + ppn;
+    total = Math.round(total);
+    if (pagu_prk >= total) {
         total = total.toString();
         total_2 = "";
         panjang_4 = total.length;
@@ -1614,40 +1476,6 @@ function blur_volume_with_paket(c) {
         document.getElementById("total").innerHTML = "Rp. " + total_2;
         document.getElementById("total").style.color = '#7E7E7E';
     } else {
-        total_harga_all = total_harga_all.toString();
-        total_harga_all_2 = "";
-        panjang_2 = total_harga_all.length;
-        k = 0;
-        for (i = panjang_2; i > 0; i--) {
-            k = k + 1;
-            if (((k % 3) == 1) && (k != 1)) {
-                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-            } else {
-                total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-            }
-        }
-        document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-        total_harga_all = parseInt(total_harga_all);
-        var ppn_id = document.getElementById('ppn').value;
-        ppn_id = parseFloat(ppn_id);
-        var ppn = total_harga_all * ppn_id / 100;
-        ppn = Math.round(ppn);
-        ppn = ppn.toString();
-        ppn_2 = ""
-        panjang_3 = ppn.length;
-        l = 0;
-        for (i = panjang_3; i > 0; i--) {
-            l = l + 1;
-            if (((l % 3) == 1) && (l != 1)) {
-                ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-            } else {
-                ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-            }
-        }
-        document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-        ppn = parseInt(ppn);
-        var total = total_harga_all + ppn;
-        total = Math.round(total);
         total = total.toString();
         total_2 = "";
         panjang_4 = total.length;
@@ -1679,7 +1507,7 @@ function blur_lokasi(ini) {
         }
     }
 
-    if(clicklokasi > 1) {
+    if (clicklokasi > 1) {
         for (var i = 0; i < clickpaket; i++) {
             document.getElementById('lokasi_id[' + (i + 1) + ']').value = document.getElementById('lokasi[' + (i + 1) + ']').value;
             document.getElementById('lokasi_id[' + (i + 1) + ']').setAttribute('disabled', true);
@@ -1764,11 +1592,11 @@ function onSubmitData() {
     var total_harga = bef_ppn_total_harga + ppn;
     total_harga = Math.round(total_harga);
     swal({
-            title: "Apakah anda yakin?",
-            text: "Anda tidak dapat mengedit Data ini lagi!",
-            icon: "warning",
-            buttons: true,
-        })
+        title: "Apakah anda yakin?",
+        text: "Anda tidak dapat mengedit Data ini lagi!",
+        icon: "warning",
+        buttons: true,
+    })
         .then((willCreate) => {
             if (willCreate) {
                 var data = {

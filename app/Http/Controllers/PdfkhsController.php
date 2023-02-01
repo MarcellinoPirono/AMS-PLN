@@ -86,9 +86,9 @@ class PdfkhsController extends Controller
 
         $mypdf = 'storage/file-pdf-khs/tkdn/'.$nama_pdf.'';
 
-        // $fileName = $nama_pdf.'_'.$request->file('lampiran')->getClientOriginalName();
-        // $lampiran = $request->file('lampiran')->storeAs('storage/lampiran-po', $fileName, 'public');
-        // dd($lampiran);
+        $fileName = $nama_pdf.'_'.$request->file('lampiran')->getClientOriginalName();
+        $lampiran = $request->file('lampiran')->storeAs('storage/lampiran-po', $fileName, 'public');
+        dd($lampiran);
 
         $rab = [
             'nomor_po' => $request->nomor_po,

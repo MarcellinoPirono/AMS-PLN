@@ -221,11 +221,13 @@ Route::post('/gantiPaket', [PaketPekerjaanController::class, 'ganti_paket'])->mi
 //Non-PO
 Route::get('non-po/buat-non-po', [NonPOController::class, 'buat_non_po'])->middleware('SupervisorMiddleware');
 Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po'])->middleware('SupervisorMiddleware');
-Route::get('non-po/export-pdf-khs/{id}', [NonPOController::class, 'export_pdf_khs'])->middleware('SupervisorMiddleware');
-Route::get('download-non-po/{id}', [NonPOController::class, 'download'])->middleware('SupervisorMiddleware');
+Route::post('/checkNotaDinas', [NonPOController::class, 'checkNotaDinas'])->middleware('SupervisorMiddleware');
+Route::get('download-non-po/{slug}', [NonPOController::class, 'download'])->middleware('SupervisorMiddleware');
+Route::get('preview-non-po/{slug}', [NonPOController::class, 'preview_non_po'])->middleware('SupervisorMiddleware');
 Route::resource('non-po', NonPOController::class)->middleware('SupervisorMiddleware');
 
-Route::get('non-po-hpe/{id}/buat-non-po-hpe', [NonPoHpeController::class, 'buat_non_po_hpe'])->middleware('SupervisorMiddleware');
+Route::get('buat-non-po-hpe/{slug}', [NonPoHpeController::class, 'buat_non_po_hpe'])->middleware('SupervisorMiddleware');
+Route::post('/getDeskripsiNota', [NonPoHpeController::class, 'getDeskripsi'])->middleware('SupervisorMiddleware');
 Route::post('simpan-non-po-hpe', [NonPoHpeController::class, 'simpan_non_po_hpe'])->middleware('SupervisorMiddleware');
 Route::resource('non-po-hpe', NonPoHpeController::class)->middleware('SupervisorMiddleware');
 // Route::resource('non-po-hpe', NonPOHPEController::class);

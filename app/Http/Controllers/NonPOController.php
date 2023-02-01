@@ -11,6 +11,8 @@ use App\Models\PpnModel;
 use App\Models\Pejabat;
 use App\Models\RabNonPo;
 use App\Models\Redaksi;
+use App\Http\Controllers\CetakNonTkdnController;
+use App\Http\Controllers\PdfkhsController;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +35,6 @@ class NonPOController extends Controller
 
     public function create()
     {
-
         return view(
             'non-po.duplicate_buat_non_po',
             [
@@ -69,22 +70,22 @@ class NonPOController extends Controller
     {
         // dd($request);
         // dd($errors);
-        $request->validate([
-            'user_id' => 'required|max:250',
-            'nomor_rpbj' => 'required|unique:non_pos|max:250',
-            'pekerjaan' => 'required|max:250',
-            'skk_id' => 'required|max:250',
-            'prk_id' => 'required|max:250',
-            'supervisor' => 'required|max:250',
-            'pejabat_id' => 'required|max:250',
-            'total_harga' => 'required|max:250',
-            'kak' => 'required|mimes:pdf',
-            'uraian' => 'required|max:250',
-            'satuan' => 'required|max:250',
-            'harga_satuan' => 'required|max:250',
-            'volume' => 'required|max:250',
-            'jumlah_harga' => 'required|max:250',
-        ]);
+        // $request->validate([
+        //     'user_id' => 'required|max:250',
+        //     // 'nomor_rpbj' => 'required|unique:non_pos|max:250',
+        //     'pekerjaan' => 'required|max:250',
+        //     'skk_id' => 'required|max:250',
+        //     'prk_id' => 'required|max:250',
+        //     'supervisor' => 'required|max:250',
+        //     'pejabat_id' => 'required|max:250',
+        //     'total_harga' => 'required|max:250',
+        //     'kak' => 'required|mimes:pdf',
+        //     'uraian' => 'required|max:250',
+        //     'satuan' => 'required|max:250',
+        //     'harga_satuan' => 'required|max:250',
+        //     'volume' => 'required|max:250',
+        //     'jumlah_harga' => 'required|max:250',
+        // ]);
 
 
         // $file = $request->file('kak')->getClientOriginalName();
@@ -115,8 +116,16 @@ class NonPOController extends Controller
         // dd($nama_pdf);
 
 
-        $mypdf = 'storage/storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf';
-        $status = 1;
+        $mypdf = 'storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf';
+
+        $filename_kak = $nama_pdf.'_'.$request->file('kak')->getClientOriginalName();
+        $kak = $request->file('kak')->storeAs('storage/kak-non-po', $filename_kak, 'public');
+
+        // dd($kak);
+        $filename_nota_dinas = $nama_pdf.'_'.$request->file('nota_dinas')->getClientOriginalName();
+        $nota_dinas = $request->file('nota_dinas')->storeAs('storage/nota-dinas-non-po', $filename_nota_dinas, 'public');
+        // dd($nota_dinas);
+        $status = "Progress";
 
 
         $non_po = [
@@ -126,11 +135,15 @@ class NonPOController extends Controller
             'skk_id' => $request->skk_id,
             'prk_id' => $request->prk_id,
             'supervisor' => $request->supervisor,
+            'startdate' => $request->start_date,
+            'enddate' => $request->end_date,
             'pejabat_id' => $request->pejabat_id,
-            'kak' => 'asasasa',
+            'kak' => $kak,
+            'nota_dinas' => $nota_dinas,
             'total_harga' => $request->total_harga,
             'pdf_file' => $mypdf,
             'status' => $status,
+            'slug' => $nama_pdf,
         ];
 
         NonPo::create($non_po);
@@ -184,6 +197,9 @@ class NonPOController extends Controller
             "ppn" => $ppn,
             "title" => $nama_pdf,
         ]);
+        (new PdfkhsController)->make_watermark($pdf, "On Progress");
+
+
 
         // $dom_pdf1 = $pdf->getDomPDF();
         // $canvas = $dom_pdf1->get_canvas();
@@ -243,50 +259,51 @@ class NonPOController extends Controller
         // $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
         // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
 
-        // Update PRK Terkontrak
-        $updated_prk_terkontrak = 0;
-        $previous_prk_terkontrak = NonPo::where('prk_id', $request->prk_id)->get('total_harga');
-        foreach ($previous_prk_terkontrak as $prk_terkontrak)
-            $updated_prk_terkontrak += (float)$prk_terkontrak->total_harga;
-        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak' => (float)$updated_prk_terkontrak));
+        // (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id);
 
-        //Update PRK Sisa
-        $pagu_prk = Prk::where('id', $request->prk_id)->value('pagu_prk');
-        $prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
-        $updated_prk_sisa = (float)$pagu_prk - (float)$prk_terkontrak;
-        Prk::where('id', $request->prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
+        // // Update PRK Terkontrak
+        // $updated_prk_terkontrak = 0;
+        // $previous_prk_terkontrak = NonPo::where('prk_id', $request->prk_id)->get('total_harga');
+        // foreach ($previous_prk_terkontrak as $prk_terkontrak)
+        //     $updated_prk_terkontrak += (float)$prk_terkontrak->total_harga;
+        // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak' => (float)$updated_prk_terkontrak));
 
-        //Update SKK Terkontrak
-        $updated_skk_terkontrak = 0;
-        $previous_skk_terkontrak = Prk::where('no_skk_prk', $request->skk_id)->get('prk_terkontrak');
-        foreach ($previous_skk_terkontrak as $skk_terkontrak)
-            $updated_skk_terkontrak += (float)$skk_terkontrak->prk_terkontrak;
-        Skk::where('id', $request->skk_id)->update(array('skk_terkontrak' => (float)$updated_skk_terkontrak));
+        // //Update PRK Sisa
+        // $pagu_prk = Prk::where('id', $request->prk_id)->value('pagu_prk');
+        // $prk_terkontrak = Prk::where('id', $request->prk_id)->value('prk_terkontrak');
+        // $updated_prk_sisa = (float)$pagu_prk - (float)$prk_terkontrak;
+        // Prk::where('id', $request->prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
 
-        //Update SKK Sisa
-        $pagu_skk = Skk::where('id', $request->skk_id)->value('pagu_skk');
-        $skk_terkontrak = Skk::where('id', $request->skk_id)->value('skk_terkontrak');
-        $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
-        Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
+        // //Update SKK Terkontrak
+        // $updated_skk_terkontrak = 0;
+        // $previous_skk_terkontrak = Prk::where('no_skk_prk', $request->skk_id)->get('prk_terkontrak');
+        // foreach ($previous_skk_terkontrak as $skk_terkontrak)
+        //     $updated_skk_terkontrak += (float)$skk_terkontrak->prk_terkontrak;
+        // Skk::where('id', $request->skk_id)->update(array('skk_terkontrak' => (float)$updated_skk_terkontrak));
+
+        // //Update SKK Sisa
+        // $pagu_skk = Skk::where('id', $request->skk_id)->value('pagu_skk');
+        // $skk_terkontrak = Skk::where('id', $request->skk_id)->value('skk_terkontrak');
+        // $updated_skk_sisa = (float)$pagu_skk - (float)$skk_terkontrak;
+        // Skk::where('id', $request->skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
 
 
-        return response()->json($id);
-    }
-
-    public function export_pdf_khs(Request $request, $id)
-    {
-        $document = NonPo::findorFail($id);
-
-        $filePath = $document->pdf_file;
-
-        // dd($filePath);
-
-        return response()->download($filePath);
+        return response()->json($nama_pdf);
 
     }
+
+
 
     public function download(Request $request, $id)
     {
+        // $document = NonPo::findorFail($id);
+
+        // $filePath = $document->pdf_file;
+
+        // // dd($filePath);
+
+        // return Storage::download('public/'.$filePath.'');
+
         $nama_pdf =NonPo::where('id', $id)->value('nomor_rpbj');
         $nama_pdf = str_replace('.', '_', $nama_pdf);
         $nama_pdf = str_replace('/','-', $nama_pdf);
@@ -295,6 +312,7 @@ class NonPOController extends Controller
         $values_pdf_page1 = NonPo::where('id', $id)->get();
 
         $non_po_id = NonPo::where('id', $id)->value('id');
+        $status = NonPo::where('id', $id)->value('status');
         $values_pdf_page2 = RabNonPo::where('non_po_id', $non_po_id)->get();
         $ppn_default = PpnModel::all();
 
@@ -309,6 +327,7 @@ class NonPOController extends Controller
             "ppn" => $ppn,
             "title" => $nama_pdf,
         ]);
+        (new PdfkhsController)->make_watermark($pdf, $status);
 
         // $dom_pdf1 = $pdf->getDomPDF();
         // $canvas = $dom_pdf1->get_canvas();
@@ -328,7 +347,7 @@ class NonPOController extends Controller
 
         // ]);
 
-        $pdf->setPaper('A4', 'potrait');
+        // $pdf->setPaper('A4', 'potrait');
 
         // $dom_pdf2 = $pdf2->getDomPDF();
         // $canvas2 = $dom_pdf2->get_canvas();
@@ -352,6 +371,46 @@ class NonPOController extends Controller
         return $oMerger->download();
     }
 
+    public function checkNotaDinas(Request $request) {
+        $nota_dinas = $request->post('nota_dinas');
+        $check_nota_dinas = NonPo::where('nomor_rpbj', $nota_dinas)->get();
+
+        return response()->json($check_nota_dinas);
+    }
+
+    public function preview_non_po($nama_pdf)
+    {
+
+        $document = NonPo::where('slug', $nama_pdf)->value('pdf_file');
+
+        $filePath = $document;
+
+        $fileName = NonPo::where('slug', $nama_pdf)->value('nomor_rpbj');
+        $id = NonPo::where('slug', $nama_pdf)->value('id');
+
+        $rabs = NonPo::find($id);
+
+        $fileName = str_replace('/', '-', $fileName);
+        $fileName = str_replace('.', '_', $fileName);
+        $fileName = str_replace(' ', '-', $fileName);
+
+
+
+        return view('non-po.preview_non_po', [
+            'title' =>'Preview NON-PO '.$fileName,
+            'filename' => $fileName,
+            'rabs' => $rabs,
+            'slug' => $nama_pdf,
+            'active' => $fileName
+
+        ]);
+
+
+
+
+
+
+    }
 
 
 }

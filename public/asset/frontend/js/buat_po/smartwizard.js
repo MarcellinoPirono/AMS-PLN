@@ -89,22 +89,6 @@ function showConfirm() {
     $('#smartwizard').smartWizard("fixHeight");
 }
 
-// $('#form-1').validate({
-//     rules: {
-//         po: {
-//             remote: {
-//                 url: "/checkPO",
-//                 type: "post"
-//             }
-//         }
-//     },
-//     messages: {
-//         po: {
-//             remote: 'Nomor PO Sudah Ada'
-//         }
-//     }
-// })
-
 function validunique(ini) {
     var data = ini.value;
 
@@ -117,6 +101,7 @@ function validunique(ini) {
         async: false,
         success: function(response) {
             check = response.length;
+            // console.log(response);
         }
     })
 
@@ -162,28 +147,15 @@ $(function () {
                             }
                         })
                         if(check > 0) {
-                            // console.log("error", check);
                             form.classList.add('was-validated');
-                            // document.getElementById('po').setCustomValidity('Nomor PO Sudah Ada');
-                            // document.getElementById('po').reportValidity();
-                            // document.getElementById('valid_po').innerHTML = "Nomor PO Sudah Ada";
-                            // document.getElementById('valid_po').style.color = "#f94687";
                             $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
                             $("#smartwizard").smartWizard('fixHeight');
                             return false;
                         }
-                        // else {
-                        //     console.log("success", check);
-                        //     document.getElementById('po').setCustomValidity('');
-                        //     $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
-                        //     $("#smartwizard").smartWizard('fixHeight');
-                        // }
                     }
 
                     $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
                 }
-
-                // console.log(smart1);
             }
         }
     });

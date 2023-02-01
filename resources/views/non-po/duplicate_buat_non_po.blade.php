@@ -44,7 +44,8 @@
                                         <div class="row m-auto">
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input Nota Dinas <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Input Nota Dinas <span
+                                                            class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">Upload</span>
@@ -52,8 +53,10 @@
                                                         <div class="custom-file">
                                                             <input id="nota_dinas" type="file"
                                                                 class="form-control custom-file-input"
-                                                                style="border-radius: 0 20px 20px 0" required />
-                                                            <label class="custom-file-label">Choose Nota</label>
+                                                                style="border-radius: 0 20px 20px 0" required
+                                                                onchange="fileValidation1(this);" />
+                                                            <label id="label_nota_dinas" class="custom-file-label">Choose or
+                                                                Drag file</label>
                                                         </div>
                                                     </div>
                                                     <div class="valid-feedback">
@@ -66,15 +69,18 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Upload KAK <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Upload KAK <span
+                                                            class="text-danger">*</span></label>
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">Upload</span>
                                                         </div>
                                                         <div class="custom-file">
                                                             <input id="kak" type="file"
-                                                                class="form-control custom-file-input" required />
-                                                            <label class="custom-file-label">Choose or Drag file</label>
+                                                                class="form-control custom-file-input" required
+                                                                onchange="fileValidation2(this);" />
+                                                            <label id="label_kak" class="custom-file-label">Choose or Drag
+                                                                file</label>
                                                         </div>
                                                     </div>
                                                     <div class="valid-feedback">
@@ -87,15 +93,23 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input No. Nota Dinas <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Input No. Nota Dinas <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="nomor_rpbj"
                                                         id="nomor_rpbj" placeholder="Nomor Nota Dinas" required autofocus
-                                                        value="{{ old('nomor_rpbj') }}">
+                                                        value="{{ old('nomor_rpbj') }}" onblur="validunique(this)">
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
+                                                    </div>
+                                                    <div id="invalid_nota_dinas" class="invalid-feedback">
+                                                        Silakan Isi Nomor Nota Dinas
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input Pekerjaan <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Input Pekerjaan <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="pekerjaan"
                                                         id="pekerjaan" placeholder="Pekerjaan" required autofocus
                                                         value="{{ old('pekerjaan') }}">
@@ -111,14 +125,14 @@
                                                 <div class="form-group">
                                                     <label class="text-label">Start Date <span
                                                             class="text-danger">*</span></label>
-                                                     <div class="input-group">
+                                                    <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i
                                                                     class="bi bi-calendar2-minus"></i>
                                                             </span>
                                                         </div>
                                                         <input type="text" name="start_date" id="start_date"
-                                                            class="form-control datepicker-default2"required
+                                                            class="form-control datepicker-default"required
                                                             placeholder="Tanggal mulainya pekerjaan"
                                                             style="border-radius: 0 20px 20px 0">
                                                         <div class="valid-feedback">
@@ -141,9 +155,9 @@
                                                             </span>
                                                         </div>
                                                         <input type="text" name="end_date" id="end_date"
-                                                            class="form-control datepicker-default2"
-                                                            placeholder="Tanggal pekerjaan selesai" readonly="false" required
-                                                            autofocus style="border-radius: 0 20px 20px 0">
+                                                            class="form-control datepicker-default"
+                                                            placeholder="Tanggal pekerjaan selesai" readonly="false"
+                                                            required autofocus style="border-radius: 0 20px 20px 0">
                                                         <div class="valid-feedback">
                                                             Data Terisi
                                                         </div>
@@ -155,7 +169,8 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input No.SKK <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Input No.SKK <span
+                                                            class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="skk_id"
                                                         name="skk_id" required>
                                                         <option value="" selected disabled>Pilih No. SKK</option>
@@ -175,7 +190,8 @@
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input No. PRK <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Input No. PRK <span
+                                                            class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="prk_id"
                                                         name="prk_id" required>
                                                         <option value="" selected disabled>Pilih PRK</option>
@@ -191,7 +207,8 @@
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Supervisor <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Supervisor <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="supervisor"
                                                         id="supervisor" placeholder="Supervisor" required autofocus
                                                         value="{{ old('supervisor') }}">
@@ -205,16 +222,19 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Pilih Manager <span class="text-danger">*</span></label>
+                                                    <label class="text-label">Pilih Manager <span
+                                                            class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="pejabat_id"
                                                         name="pejabat_id" required>
                                                         <option value="" selected disabled>Manager
                                                         </option>
                                                         @foreach ($pejabats as $pejabat)
-                                                            <option value="{{ $pejabat->id }}">
-                                                                {{ $pejabat->jabatan }} -
-                                                                {{ $pejabat->nama_pejabat }}
-                                                            </option>
+                                                            @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                                <option value="{{ $pejabat->id }}">
+                                                                    {{ $pejabat->jabatan }} -
+                                                                    {{ $pejabat->nama_pejabat }}
+                                                                </option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                     <div class="valid-feedback">
@@ -237,6 +257,10 @@
                                                 <div class="card">
                                                     <div class="card-header justify-content-center">
                                                         <h4 class="card-title">Daftar RAB</h4>
+                                                    </div>
+                                                    <div class="card-header justify-content-start">
+                                                        <h5 id="pagu_prk" class="card-title" style="font-size: 14px;">
+                                                        </h5>
                                                     </div>
                                                     <div class="row ml-2">
                                                         <div class="table-responsive">
@@ -285,10 +309,9 @@
                                                                         <td><input type="text"
                                                                                 class="form-control volume" id="volume[1]"
                                                                                 name="volume" placeholder="volume"
-                                                                                value=""
-                                                                                onkeydown="return numbersonly(this, event);"
-                                                                                onkeyup="javascript:tandaPemisahTitik(this);"
-                                                                                required></td>
+                                                                                value="" onblur="blur_volume(this)"
+                                                                                onkeypress="return numbersonly2(this, event);"
+                                                                                onkeyup="format(this);" required></td>
                                                                         <td><input type="text"
                                                                                 class="form-control harga_satuan"
                                                                                 id="harga_satuan[1]" name="harga_satuan"
@@ -455,8 +478,8 @@
                                                                             </tr>
                                                                         </tfoot>
                                                                         <!-- <tr>
-                                                                                        <td class="first1"></td>
-                                                                                    </tr> -->
+                                                                                                                                        <td class="first1"></td>
+                                                                                                                                    </tr> -->
                                                                     </table>
                                                                     {{-- <div>
                                                                         <button id="prevpdf">Previous</button>
@@ -468,8 +491,8 @@
                                                                     {{-- <embed width="100%" height="600px" type="application/pdf" id="embedLink"/> --}}
 
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
-                                                                                    <embed id="pdfViewer2" width="100%" height="600px" >
-                                                                                </object> -->
+                                                                                                                                    <embed id="pdfViewer2" width="100%" height="600px" >
+                                                                                                                                </object> -->
 
                                                                 </div>
 
@@ -478,19 +501,36 @@
                                                     </div>
                                                     <hr>
 
-                                                    <div class="row ml-2 justify-content-center">
-                                                        <h5 class="card-title">Preview KAK </h5>
+                                                    <div class="row ml-2">
+                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
+                                                            <div class=" align-items-start text-center">
+                                                                <h5 class="card-title" style="text-align: center">Preview
+                                                                    KAK </h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
+                                                            <div class=" align-items-center text-center">
+                                                                <h5 class="card-title" style="text-align: center">Preview
+                                                                    Nota Dinas </h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
+                                                            <embed width="100%" height="450px" name="plugin"
+                                                                id="embedLink" type="application/pdf" />
+                                                        </div>
                                                         {{-- <div class="position-relative justify-content-end float-right sweetalert">
-                                                            <button type="button" id="btnPrvw"
-                                                                    class="btn btn-primary position-relative justify-content-end">Preview <i class="bi bi-eye"></i></button>
-                                                        </div> --}}
-
-
-
+                                                                <button type="button" id="btnPrvw"
+                                                                        class="btn btn-primary position-relative justify-content-end">Preview <i class="bi bi-eye"></i></button>
+                                                            </div> --}}
+                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
+                                                            <embed width="100%" height="450px" name="embedlink2"
+                                                                id="embedlink2" type="application/pdf" />
+                                                        </div>
                                                     </div>
 
-                                                    <embed width="100%" height="650px" name="plugin" id="embedLink"
-                                                        type="application/pdf" />
+
+
+
 
 
                                                 </div>
@@ -590,6 +630,15 @@
                         }));
                     }
                 });
+                var filename2;
+                $('#nota_dinas').change(function() {
+                    if (this.files[0].name != "") {
+                        filename2 = this.files[0]
+                        $('#embedlink2')[0].src = window.URL.createObjectURL(new Blob([filename2], {
+                            "type": "application/pdf"
+                        }));
+                    }
+                });
                 // $('#btnPrvw').click(function() {
                 // });
             });
@@ -678,6 +727,74 @@
                 $('#smartwizard').smartWizard("fixHeight");
             }
 
+            function fileValidation1(ini) {
+                // console.log(ini.files[0].size);
+                if (ini.files[0].size > 20971520) {
+                    swal({
+                            title: "Size PDF Terlalu Besar",
+                            text: "File PDF Harus Dibawah 20 Mb",
+                            icon: "error",
+                            timer: 2e3,
+                            buttons: false
+                        })
+                        .then((willDefault) => {
+                            var files = document.getElementById('nota_dinas');
+                            files.value = "";
+
+                            var labelfile = document.getElementById('label_nota_dinas');
+                            labelfile.innerHTML = 'Choose or Drag file';
+
+                            event.preventDefault();
+                        });
+                }
+            }
+
+            function fileValidation2(ini) {
+                // console.log(ini.files[0].size);
+                if (ini.files[0].size > 20971520) {
+                    swal({
+                            title: "Size PDF Terlalu Besar",
+                            text: "File PDF Harus Dibawah 20 Mb",
+                            icon: "error",
+                            timer: 2e3,
+                            buttons: false
+                        })
+                        .then((willDefault) => {
+                            var files = document.getElementById('kak');
+                            files.value = "";
+
+                            var labelfile = document.getElementById('label_kak');
+                            labelfile.innerHTML = 'Choose or Drag file';
+
+                            event.preventDefault();
+                        });
+                }
+            }
+
+            function validunique(ini) {
+                var data = ini.value;
+
+                $.ajax({
+                    type: 'post',
+                    url: '/checkNotaDinas',
+                    data: {
+                        'nota_dinas': data
+                    },
+                    async: false,
+                    success: function(response) {
+                        check = response.length;
+                    }
+                })
+
+                if (check > 0) {
+                    ini.setCustomValidity('Nomor Nota Dinas Sudah Ada');
+                    document.getElementById('invalid_nota_dinas').innerHTML = "Nomor Nota Dinas Sudah Ada";
+                } else {
+                    ini.setCustomValidity('');
+                    document.getElementById('invalid_nota_dinas').innerHTML = "Silakan Isi Nomor Nota Dinas";
+                }
+            }
+
             $(function() {
                 // Leave step event is used for validating the forms
                 $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIdx, nextStepIdx,
@@ -694,8 +811,30 @@
                                 $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
                                 $("#smartwizard").smartWizard('fixHeight');
                                 return false;
+                            } else {
+                                if (document.getElementById('nomor_rpbj').value != "") {
+                                    var data = document.getElementById('nomor_rpbj').value;
+
+                                    $.ajax({
+                                        type: 'post',
+                                        url: '/checkNotaDinas',
+                                        data: {
+                                            'nota_dinas': data
+                                        },
+                                        async: false,
+                                        success: function(response) {
+                                            check = response.length;
+                                        }
+                                    })
+                                    if (check > 0) {
+                                        form.classList.add('was-validated');
+                                        $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
+                                        $("#smartwizard").smartWizard('fixHeight');
+                                        return false;
+                                    }
+                                }
+                                $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
                             }
-                            $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
                         }
                     }
                 });
@@ -803,7 +942,7 @@
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
                         position: 'bottom', // none/ top/ both bottom
-                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Complete Order</button>
+                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Submit</button>
                               <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
                     },
                     anchor: {
@@ -844,9 +983,170 @@
                     });
                 })
 
+                jQuery('#prk_id').change(function() {
+                    let prk_id = jQuery(this).val();
+                    let token = $('#csrf').val();;
+                    jQuery.ajax({
+                        url: '/getPRK',
+                        type: 'POST',
+                        data: {
+                            'prk_id': prk_id,
+                            '_token': token,
+                        },
+
+                        success: function(result) {
+                            var pemisah_titik = result;
+                            pemisah_titik = parseInt(pemisah_titik);
+                            console.log(pemisah_titik);
+                            var total = document.getElementById('total').innerText;
+                            if (document.getElementById('total').innerHTML != "") {
+                                // console.log(document.getElementById('total').innerHTML);
+                                // console.log(total);
+                                total = total.replace(/\Rp. /g, "");
+                                total = total.replace(/\./g, "");
+                                total = parseInt(total);
+                                if (pemisah_titik >= total) {
+                                    pemisah_titik = pemisah_titik.toString();
+                                    if (pemisah_titik.charAt(0) == "-") {
+                                        pemisah_titik = pemisah_titik.replace(/\-/g, "");
+                                        pemisah_titik = pemisah_titik.toString();
+                                        pemisah_titik2 = "";
+                                        panjang = pemisah_titik.length;
+                                        j = 0;
+                                        for (i = panjang; i > 0; i--) {
+                                            j = j + 1;
+                                            if (((j % 3) == 1) && (j != 1)) {
+                                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                                    "." +
+                                                    pemisah_titik2;
+                                            } else {
+                                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                                    pemisah_titik2;
+                                            }
+                                        }
+                                        pemisah_titik2 = "-" + pemisah_titik2;
+                                        jQuery('#pagu_prk').html(
+                                            "Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                                            pemisah_titik2 + "</b>")
+
+                                        document.getElementById("total").style.color = '#7E7E7E';
+                                    } else {
+                                        pemisah_titik = pemisah_titik.toString();
+                                        pemisah_titik2 = "";
+                                        panjang = pemisah_titik.length;
+                                        j = 0;
+                                        for (i = panjang; i > 0; i--) {
+                                            j = j + 1;
+                                            if (((j % 3) == 1) && (j != 1)) {
+                                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                                    "." +
+                                                    pemisah_titik2;
+                                            } else {
+                                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                                    pemisah_titik2;
+                                            }
+                                        }
+                                        jQuery('#pagu_prk').html(
+                                            "Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                                            pemisah_titik2 + "</b>")
+
+                                        document.getElementById("total").style.color = '#7E7E7E';
+                                    }
+                                } else {
+                                    pemisah_titik = pemisah_titik.toString();
+                                    if (pemisah_titik.charAt(0) == "-") {
+                                        pemisah_titik = pemisah_titik.replace(/\-/g, "");
+                                        pemisah_titik = pemisah_titik.toString();
+                                        pemisah_titik2 = "";
+                                        panjang = pemisah_titik.length;
+                                        j = 0;
+                                        for (i = panjang; i > 0; i--) {
+                                            j = j + 1;
+                                            if (((j % 3) == 1) && (j != 1)) {
+                                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                                    "." +
+                                                    pemisah_titik2;
+                                            } else {
+                                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                                    pemisah_titik2;
+                                            }
+                                        }
+                                        pemisah_titik2 = "-" + pemisah_titik2;
+                                        jQuery('#pagu_prk').html(
+                                            "Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                                            pemisah_titik2 + "</b>")
+
+                                        document.getElementById("total").style.color = '#F94687';
+                                    } else {
+                                        pemisah_titik = pemisah_titik.toString();
+                                        pemisah_titik2 = "";
+                                        panjang = pemisah_titik.length;
+                                        j = 0;
+                                        for (i = panjang; i > 0; i--) {
+                                            j = j + 1;
+                                            if (((j % 3) == 1) && (j != 1)) {
+                                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                                    "." +
+                                                    pemisah_titik2;
+                                            } else {
+                                                pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                                    pemisah_titik2;
+                                            }
+                                        }
+                                        jQuery('#pagu_prk').html(
+                                            "Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                                            pemisah_titik2 + "</b>")
+
+                                        document.getElementById("total").style.color = '#F94687';
+                                    }
+                                }
+                            } else {
+                                pemisah_titik = pemisah_titik.toString();
+                                if (pemisah_titik.charAt(0) == "-") {
+                                    pemisah_titik = pemisah_titik.replace(/\-/g, "");
+                                    pemisah_titik = pemisah_titik.toString();
+                                    pemisah_titik2 = "";
+                                    panjang = pemisah_titik.length;
+                                    j = 0;
+                                    for (i = panjang; i > 0; i--) {
+                                        j = j + 1;
+                                        if (((j % 3) == 1) && (j != 1)) {
+                                            pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." +
+                                                pemisah_titik2;
+                                        } else {
+                                            pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                                pemisah_titik2;
+                                        }
+                                    }
+                                    pemisah_titik2 = "-" + pemisah_titik2;
+                                    jQuery('#pagu_prk').html(
+                                        "Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                                        pemisah_titik2 + "</b>")
+                                } else {
+                                    pemisah_titik = pemisah_titik.toString();
+                                    pemisah_titik2 = "";
+                                    panjang = pemisah_titik.length;
+                                    j = 0;
+                                    for (i = panjang; i > 0; i--) {
+                                        j = j + 1;
+                                        if (((j % 3) == 1) && (j != 1)) {
+                                            pemisah_titik2 = pemisah_titik.substr(i - 1, 1) + "." +
+                                                pemisah_titik2;
+                                        } else {
+                                            pemisah_titik2 = pemisah_titik.substr(i - 1, 1) +
+                                                pemisah_titik2;
+                                        }
+                                    }
+                                    jQuery('#pagu_prk').html(
+                                        "Pagu PRK: <b>Rp.</b> <b id='rupiah'>" +
+                                        pemisah_titik2 + "</b>")
+                                }
+                            }
+                        }
+                    });
+                })
             });
         </script>
-        <!-- <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/buat_po/step3_redaksi.js"></script> -->
     @endsection
 
     <script>
@@ -884,9 +1184,9 @@
             input3.setAttribute("name", "volume");
             input3.setAttribute("placeholder", "Volume");
             input3.setAttribute("value", "");
-            // input3.setAttribute("onblur", "hitung_harga(this)");
-            input3.setAttribute("onkeydown", "return numbersonly(this, event);");
-            input3.setAttribute("onkeyup", "javascript:tandaPemisahTitik(this);");
+            input3.setAttribute("onblur", "blur_volume(this)");
+            input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
+            input3.setAttribute("onkeyup", "format(this);");
             input3.setAttribute("required", true);
 
             var input4 = document.createElement("input");
@@ -981,8 +1281,7 @@
                 total_harga[i] = parseInt(total_harga[i])
             }
 
-            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator +
-                currentvalue);
+            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
             total_harga_all = total_harga_all.toString();
             total_harga_all_2 = "";
             panjang_2 = total_harga_all.length;
@@ -1017,19 +1316,37 @@
             ppn = parseInt(ppn);
             var total = total_harga_all + ppn;
             total = Math.round(total);
-            total = total.toString();
-            total_2 = "";
-            panjang_4 = total.length;
-            m = 0;
-            for (i = panjang_4; i > 0; i--) {
-                m = m + 1;
-                if (((m % 3) == 1) && (m != 1)) {
-                    total_2 = total.substr(i - 1, 1) + "." + total_2;
-                } else {
-                    total_2 = total.substr(i - 1, 1) + total_2;
+            if (pagu_prk >= total) {
+                total = total.toString();
+                total_2 = "";
+                panjang_4 = total.length;
+                m = 0;
+                for (i = panjang_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                    } else {
+                        total_2 = total.substr(i - 1, 1) + total_2;
+                    }
                 }
+                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                document.getElementById("total").style.color = '#7E7E7E';
+            } else {
+                total = total.toString();
+                total_2 = "";
+                panjang_4 = total.length;
+                m = 0;
+                for (i = panjang_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                    } else {
+                        total_2 = total.substr(i - 1, 1) + total_2;
+                    }
+                }
+                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                document.getElementById("total").style.color = '#F94687';
             }
-            document.getElementById("total").innerHTML = "Rp. " + total_2;
 
         }
 
@@ -1170,13 +1487,16 @@
             var change = c.parentNode.parentNode.rowIndex;
             var volume = document.getElementById("volume[" + change + "]").value;
             volume = volume.replace(/\./g, "");
+            volume = volume.replace(/\,/g, ".");
             volume = parseInt(volume);
             var harga_satuan = document.getElementById("harga_satuan[" + change + "]").value;
             harga_satuan = harga_satuan.replace(/\./g, "");
             harga_satuan = parseInt(harga_satuan);
 
             var harga = volume * harga_satuan;
+            harga = Math.round(harga);
             harga = harga.toString();
+            harga = harga.replace(/\./g, "");
             harga_2 = "";
             panjang = harga.length;
             j = 0;
@@ -1189,15 +1509,15 @@
                 }
             }
             document.getElementById("harga[" + change + "]").value = harga_2;
-
             var total_harga = [];
-
             for (var i = 0; i < click; i++) {
                 total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
                 total_harga[i] = total_harga[i].replace(/\./g, "");
                 total_harga[i] = parseInt(total_harga[i])
             }
-
+            var pagu_prk = document.getElementById("rupiah").innerHTML;
+            pagu_prk = pagu_prk.replace(/\./g, "");
+            pagu_prk = parseInt(pagu_prk);
             var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
             total_harga_all = total_harga_all.toString();
             total_harga_all_2 = "";
@@ -1233,19 +1553,147 @@
             ppn = parseInt(ppn);
             var total = total_harga_all + ppn;
             total = Math.round(total);
-            total = total.toString();
-            total_2 = "";
-            panjang_4 = total.length;
-            m = 0;
-            for (i = panjang_4; i > 0; i--) {
-                m = m + 1;
-                if (((m % 3) == 1) && (m != 1)) {
-                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+            // if()
+
+            if (pagu_prk >= total) {
+                total = total.toString();
+                total_2 = "";
+                panjang_4 = total.length;
+                m = 0;
+                for (i = panjang_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                    } else {
+                        total_2 = total.substr(i - 1, 1) + total_2;
+                    }
+                }
+                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                document.getElementById("total").style.color = '#7E7E7E';
+            } else {
+                total = total.toString();
+                total_2 = "";
+                panjang_4 = total.length;
+                m = 0;
+                for (i = panjang_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                    } else {
+                        total_2 = total.substr(i - 1, 1) + total_2;
+                    }
+                }
+                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                document.getElementById("total").style.color = '#F94687';
+            }
+        }
+
+        function blur_volume(c) {
+            var change = c.parentNode.parentNode.rowIndex;
+            var volume = document.getElementById("volume[" + change + "]").value;
+            if (volume.charAt(volume.length - 1) == ",") {
+                document.getElementById("volume[" + change + "]").value = volume + "0";
+            }
+            if (volume.charAt(0) == ",") {
+                document.getElementById("volume[" + change + "]").value = "0" + volume;
+            }
+            volume = volume.replace(/\./g, "");
+            volume = volume.replace(/\,/g, ".");
+            volume = parseFloat(volume);
+            var harga_satuan = document.getElementById("harga_satuan[" + change + "]").value;
+            harga_satuan = harga_satuan.replace(/\./g, "");
+            harga_satuan = parseInt(harga_satuan);
+            var harga = volume * harga_satuan;
+            harga = Math.round(harga);
+            harga = harga.toString();
+            harga = harga.replace(/\./g, "");
+            harga_2 = "";
+            panjang = harga.length;
+            j = 0;
+            for (i = panjang; i > 0; i--) {
+                j = j + 1;
+                if (((j % 3) == 1) && (j != 1)) {
+                    harga_2 = harga.substr(i - 1, 1) + "." + harga_2;
                 } else {
-                    total_2 = total.substr(i - 1, 1) + total_2;
+                    harga_2 = harga.substr(i - 1, 1) + harga_2;
                 }
             }
-            document.getElementById("total").innerHTML = "Rp. " + total_2;
+            document.getElementById("harga[" + change + "]").value = harga_2;
+            var total_harga = [];
+            for (var i = 0; i < click; i++) {
+                total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+                total_harga[i] = total_harga[i].replace(/\./g, "");
+                total_harga[i] = parseInt(total_harga[i])
+            }
+            var pagu_prk = document.getElementById("rupiah").innerHTML;
+            pagu_prk = pagu_prk.replace(/\./g, "");
+            pagu_prk = parseInt(pagu_prk);
+            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+            total_harga_all = total_harga_all.toString();
+            total_harga_all_2 = "";
+            panjang_2 = total_harga_all.length;
+            k = 0;
+            for (i = panjang_2; i > 0; i--) {
+                k = k + 1;
+                if (((k % 3) == 1) && (k != 1)) {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                } else {
+                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                }
+            }
+            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+            total_harga_all = parseInt(total_harga_all);
+            var ppn_id = document.getElementById('ppn').value;
+            ppn_id = parseFloat(ppn_id);
+            var ppn = total_harga_all * ppn_id / 100;
+            ppn = Math.round(ppn);
+            ppn = ppn.toString();
+            ppn_2 = ""
+            panjang_3 = ppn.length;
+            l = 0;
+            for (i = panjang_3; i > 0; i--) {
+                l = l + 1;
+                if (((l % 3) == 1) && (l != 1)) {
+                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                } else {
+                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                }
+            }
+            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+            ppn = parseInt(ppn);
+            var total = total_harga_all + ppn;
+            total = Math.round(total);
+            if (pagu_prk >= total) {
+                total = total.toString();
+                total_2 = "";
+                panjang_4 = total.length;
+                m = 0;
+                for (i = panjang_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                    } else {
+                        total_2 = total.substr(i - 1, 1) + total_2;
+                    }
+                }
+                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                document.getElementById("total").style.color = '#7E7E7E';
+            } else {
+                total = total.toString();
+                total_2 = "";
+                panjang_4 = total.length;
+                m = 0;
+                for (i = panjang_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                    } else {
+                        total_2 = total.substr(i - 1, 1) + total_2;
+                    }
+                }
+                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                document.getElementById("total").style.color = '#F94687';
+            }
         }
 
         function next1() {
@@ -1309,11 +1757,19 @@
             var pekerjaan = document.getElementById('pekerjaan').value;
             var skk_id = document.getElementById('skk_id').value;
             var prk_id = document.getElementById('prk_id').value;
+            var start_date = document.getElementById('start_date').value;
+            var end_date = document.getElementById('end_date').value;
+            start_date = new Date(start_date);
+            end_date = new Date(end_date);
+            start_date = new Date(start_date.getTime() - (start_date.getTimezoneOffset() * 60000)).toISOString().split("T")[
+                0];
+            end_date = new Date(end_date.getTime() - (end_date.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
             var supervisor = document.getElementById('supervisor').value;
             var pejabat_id = document.getElementById('pejabat_id').value;
 
             //upload kak
             var kak = $('#kak')[0].files;
+            var nota_dinas = $('#nota_dinas')[0].files;
 
             var uraian = [];
             var satuan = [];
@@ -1364,7 +1820,10 @@
                 fd.append("pekerjaan", pekerjaan);
                 fd.append("skk_id", skk_id);
                 fd.append("prk_id", prk_id);
+                fd.append("start_date", start_date);
+                fd.append("end_date", end_date);
                 fd.append('kak', kak[0]);
+                fd.append('nota_dinas', nota_dinas[0]);
                 fd.append("supervisor", supervisor);
                 fd.append("pejabat_id", pejabat_id);
                 fd.append("total_harga", total_harga);
@@ -1410,13 +1869,13 @@
                             dataType: 'json',
                             success: function(response) {
                                 swal({
-                                    title: "Data Ditambah",
-                                    text: "Data Berhasil Ditambah",
+                                    title: "NON-PO Dibuat",
+                                    text: "Telah Berhasil Dibuat",
                                     icon: "success",
                                     timer: 2e3,
                                     buttons: false
                                 })
-                                window.location.href = "/non-po";
+                                window.location.href = "../preview-non-po/" + response;
                                 //         .then((result) => {
                                 //         });
                             },
@@ -1544,5 +2003,34 @@
                 //alert (e.keyCode);
                 return false;
             }
+        }
+
+        function numbersonly2(ini, e) {
+            var txt = String.fromCharCode(e.which);
+            if (!txt.match(/[0-9.,]/)) {
+                return false;
+            } else {
+                if (e.keyCode >= 48) {
+                    if (e.keyCode <= 57) {
+                        if (ini.value == "0") {
+                            ini.value = ""
+                        }
+                    }
+                }
+
+            }
+        }
+
+        function format(input) {
+            var nStr = input.value + '';
+            nStr = nStr.replace(/\./g, "");
+            x = nStr.split(',');
+            x1 = x[0];
+            x2 = x.length > 1 ? ',' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + '.' + '$2');
+            }
+            input.value = x1 + x2;
         }
     </script>

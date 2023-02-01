@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hpe;
 use App\Models\RabHpe;
 use App\Models\NonPo;
 use App\Models\RabNonPo;
 use App\Models\Skk;
 use App\Models\Prk;
-use App\Models\Pejabat;
 use App\Models\RincianInduk;
+use App\Models\Pejabat;
+use App\Models\RedaksiNotaDinas;
 use App\Models\ItemRincianInduk;
 use App\Models\Rab;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -31,16 +31,20 @@ class HpeController extends Controller
             'title' => 'HPE',
             'title1' => 'HPE',
             // 'nonpos'=> NonPo::all(),
-            'hpes' => Hpe::orderBy('id', 'DESC')->get(),
+            'hpes' => NonPo::orderBy('id', 'DESC')->get(),
         ]);
     }
 
     public function buat_non_po_hpe(Request $request)
     {
+        dd($redaksis);
+
         $nonpo_id = $request->id;
-        $jumlah_harga = RabNonPO::where('non_po_id', $nonpo_id)->sum("jumlah_harga");
+        $jumlah_harga = RabNonPo::where('non_po_id', $nonpo_id)->sum("jumlah_harga");
         $ppn = 0.11 * $jumlah_harga;
         $total_harga = $jumlah_harga + $ppn;
+
+        $redaksis = RedaksiNotaDinas::all();
 
         return view('hpe.buat_non_po_hpe',[
                 'active1' => 'Buat HPE-Non-PO ',
@@ -52,8 +56,9 @@ class HpeController extends Controller
                 'total_harga' => $total_harga,
                 'non_po_id' => $nonpo_id,
                 'nonpos'=> NonPo::where('id', $nonpo_id)->get(),
-                'rabnonpos'=> RabNonPO::where('non_po_id', $nonpo_id)->get(),
+                'rabnonpos'=> RabNonPo::where('non_po_id', $nonpo_id)->get(),
                 'skks' => Skk::all(),
+                'redaksis' => RedaksiNotaDinas::all(),
                 'prks' => Prk::all(),
                 'pejabats' => Pejabat::all(),
         ]);
@@ -112,9 +117,9 @@ class HpeController extends Controller
             'non_po_id' => $non_po_id,
             'total_harga_hpe' => $request->total_harga,
         ];
-        Hpe::create($non_po_hpe);
+        NonPo::create($non_po_hpe);
 
-        $id = Hpe::where('non_po_id', $non_po_id)->value('id');
+        $id = NonPo::where('non_po_id', $non_po_id)->value('id');
 
         $hpe_id = [];
         $rab_non_po_id = [];
@@ -135,7 +140,7 @@ class HpeController extends Controller
                 'harga_perkiraan' => $request->harga_perkiraan[$j],
                 'jumlah_harga_perkiraan' => $request->jumlah_harga_perkiraan[$j],
             ];
-            RabHpe::create($rab_hpe);
+            RabNonPo::create($rab_hpe);
         }
 
         // dd($rab_non_po);
@@ -334,7 +339,7 @@ class HpeController extends Controller
 
     public function export_pdf_khs(Request $request, $id)
     {
-        $document = Hpe::findorFail($id);
+        $document = NonPo::findorFail($id);
         $filePath = $document->pdf_file;
 
         return response()->download($filePath);
@@ -347,16 +352,16 @@ class HpeController extends Controller
         $nama_pdf = str_replace('/','-', $nama_pdf);
         $nama_pdf = str_replace(' ','-', $nama_pdf);
 
-        $non_po_id = Hpe::where('id', $id)->value('non_po_id');
+        $non_po_id = NonPo::where('id', $id)->value('non_po_id');
         // $hpe_id = NonPo::where('non_po_id', $non_po_id)->value('id');
         // $values_pdf_page2 = RabNonPo::where('non_po_id', $non_po_id)->get();
         // $rab_non_po_id = RabNonPo::where('non_po_id', $non_po_id)->get();
-        $values_pdf_page1 = Hpe::where('id', $id)->get();
-        $values_pdf_page2 = RabHpe::where('hpe_id', $id)->get();
+        $values_pdf_page1 = NonPo::where('id', $id)->get();
+        $values_pdf_page2 = RabNonPo::where('hpe_id', $id)->get();
         $values_pdf_page3 = NonPo::where('id', $non_po_id)->get();
 
         $jumlah = RabNonPo::where('non_po_id', $non_po_id)->sum('jumlah_harga');
-        $jumlah_hpe = RabHpe::where('hpe_id', $id)->sum('jumlah_harga_perkiraan');
+        $jumlah_hpe = RabNonPo::where('hpe_id', $id)->sum('jumlah_harga_perkiraan');
         $ppn = $jumlah * 0.11;
         $ppn_hpe = $jumlah_hpe * 0.11;
         // dd($values_pdf_page1, $values_pdf_page2, $values_pdf_page3);

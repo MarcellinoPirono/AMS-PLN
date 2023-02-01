@@ -32,13 +32,13 @@
                                 <li class="nav-item">
                                     <a class="nav-link " href="#surat_dinas">
                                         <span class="num">3</span>
-                                        Buat Surat Dinas
+                                        Buat Nota Dinas
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link " href="#preview_non_po">
                                         <span class="num">4</span>
-                                        Preview Kontrak Non PO HPE
+                                        Preview HPE
                                     </a>
                                 </li>
                             </ul>
@@ -54,7 +54,7 @@
                                             <div class="row m-auto">
                                                 <div class="col-lg-6 mb-2">
                                                     <div class="form-group">
-                                                        <label class="text-label">Input No. RPBJ</label>
+                                                        <label class="text-label">Input No. Nota Dinas</label>
                                                         <input type="text" class="form-control" name="nomor_rpbj"
                                                             id="nomor_rpbj" placeholder="Nomor RPBJ" required autofocus
                                                             disabled value="{{ old('nomor_rpbj', $nonpo->nomor_rpbj) }}">
@@ -62,7 +62,7 @@
                                                             Data Terisi
                                                         </div>
                                                         <div class="invalid-feedback">
-                                                            Silakan isi No. RPBJ
+                                                            Silakan isi No. Nota Dinas
                                                         </div>
                                                     </div>
                                                 </div>
@@ -119,6 +119,56 @@
                                                         </div>
                                                         <div class="invalid-feedback">
                                                             Silakan Pilih No. PRK
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Start Date <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-calendar2-minus"></i>
+                                                                </span>
+                                                            </div>
+                                                            <input type="text" name="start_date" id="start_date"
+                                                                class="form-control datepicker-default2"required
+                                                                placeholder="Tanggal mulainya pekerjaan"
+                                                                style="border-radius: 0 20px 20px 0"
+                                                                value="{{ old('start_date', $nonpo->startdate) }}"
+                                                                disabled>
+                                                            <div class="valid-feedback">
+                                                                Data Terisi
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Silakan Atur Jadwal Start Date
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label class="text-label">End Date <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="bi bi-calendar2-minus"></i>
+                                                                </span>
+                                                            </div>
+                                                            <input type="text" name="end_date" id="end_date"
+                                                                class="form-control datepicker-default2"
+                                                                placeholder="Tanggal pekerjaan selesai" readonly="false"
+                                                                required autofocus style="border-radius: 0 20px 20px 0"
+                                                                value="{{ old('end_date', $nonpo->enddate) }}" disabled>
+                                                            <div class="valid-feedback">
+                                                                Data Terisi
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Silakan Atur Jadwal End Date
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -276,20 +326,20 @@
                                                                                         required>
                                                                                 </td>
                                                                                 <!-- <td><button onclick="deleteRow(this)"
-                                                                                                class="btn btn-danger shadow btn-xs sharp"><i
-                                                                                                    class='fa fa-trash'></i></button></td> -->
+                                                                                                    class="btn btn-danger shadow btn-xs sharp"><i
+                                                                                                        class='fa fa-trash'></i></button></td> -->
                                                                             </tr>
                                                                         @endforeach
                                                                     </tbody>
                                                                 </table>
                                                                 <!-- <div class="col-lg-12 mb-2">
-                                                                                <div
-                                                                                    class="position-relative justify-content-end float-left">
-                                                                                    <a type="button" id="tambah-pekerjaan"
-                                                                                        class="btn btn-primary position-relative justify-content-end"
-                                                                                        onclick="updateform()" required>Tambah</a>
-                                                                                </div>
-                                                                            </div> -->
+                                                                                    <div
+                                                                                        class="position-relative justify-content-end float-left">
+                                                                                        <a type="button" id="tambah-pekerjaan"
+                                                                                            class="btn btn-primary position-relative justify-content-end"
+                                                                                            onclick="updateform()" required>Tambah</a>
+                                                                                    </div>
+                                                                                </div> -->
                                                                 <table class="table table-responsive-sm height-100"
                                                                     id="tabelRAB1">
                                                                     <thead>
@@ -309,7 +359,8 @@
                                                                             <th style="width: 20%; padding-left: 35px">
                                                                                 Jumlah</th>
                                                                             <th style="width: 1%">:</th>
-                                                                            <th style="width: 55%" id="jumlah"></th>
+                                                                            <th style="width: 55%" id="jumlah">
+                                                                                @currency($jumlah_harga)</th>
                                                                             <th>
                                                                                 Jumlah HPE:</th>
                                                                             <th style="width: 1%">:</th>
@@ -321,7 +372,7 @@
                                                                                 {{ str_replace('.', ',', $ppn[0]->ppn) }}%
                                                                             </th>
                                                                             <th>:</th>
-                                                                            <th id="pajak"></th>
+                                                                            <th id="pajak">@currency($ppn_nonpo)</th>
                                                                             <th>PPN
                                                                                 {{ str_replace('.', ',', $ppn[0]->ppn) }}%
                                                                             </th>
@@ -332,7 +383,7 @@
                                                                         <tr>
                                                                             <th style="padding-left: 35px">Total Harga</th>
                                                                             <th>:</th>
-                                                                            <th id="total"></th>
+                                                                            <th id="total">@currency($total_harga)</th>
                                                                             <th>Total Harga HPE</th>
                                                                             <th>:</th>
                                                                             <th id="total-hpe"></th>
@@ -350,59 +401,60 @@
                                 @endforeach
                                 <div id="surat_dinas" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
                                     <form id="form-3" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
+                                        <div class="col-xl-12 col-xxl-12">
+                                            <div class="card-header justify-content-center">
+                                                <h4 class="card-title">Nota Dinas</h4>
+                                            </div>
+                                        </div>
                                         <div class="row m-auto">
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Kepada : </label>
-                                                    <input type="text" class="form-control" name="tujuan"
-                                                        id="tujuan" placeholder="Kepada...." required autofocus
-                                                        value="">
+                                                    <select
+                                                    name="tujuan" id="tujuan"
+                                                    class="form-control input-default"
+                                                    onchange="change_redaksi(this)"
+                                                    style="height: 60px !important; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                    required>
+                                                    <option value="" selected disabled
+                                                        required>Pilih Sumber</option>
+                                                    @foreach ($pejabats as $pejabat)
+                                                        @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                            <option value="{{ $pejabat->id }}">
+                                                                {{ $pejabat->jabatan }} -
+                                                                {{ $pejabat->nama_pejabat }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
                                                     <div class="invalid-feedback">
-                                                        Silakan isi Tujuan Surat
-                                                    </div>
+                                                        Silakan Pilih Tujuan </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label for="first-name" class="form-label">Pilih Tujuan Surat : <span
+                                                    <label for="first-name" class="form-label">Dari : <span
                                                             class="text-danger">*</span></label>
-                                                    <select class="form-control input-default" id="tujuan"
-                                                        name="tujuan"
-                                                        style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
-                                                        required onchange="ganti_item()">
-                                                        <option selected disabled value="">Pilih Tujuan Surat
-                                                        </option>
-                                                        <option value="1">tes</option>
-                                                        <option value="2">tes2</option>
-                                                        <option value="3">tes3</option>
-                                                        <option value="4">tes4</option>
-                                                    </select>
-                                                    <div class="valid-feedback">
-                                                        Data Terpilih
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan Pilih Tujuan Surat
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 mb-2">
-                                                <div class="form-group">
-                                                    <label for="first-name" class="form-label">Pilih Sumber Surat : <span
-                                                            class="text-danger">*</span></label>
-                                                    <select class="form-control input-default" id="sumber"
-                                                        name="sumber"
-                                                        style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
-                                                        required onchange="ganti_item()">
-                                                        <option selected disabled value="">Pilih Sumber Surat
-                                                        </option>
-                                                        <option value="1">tes</option>
-                                                        <option value="2">tes2</option>
-                                                        <option value="3">tes3</option>
-                                                        <option value="4">tes4</option>
-                                                    </select>
+                                                    <select
+                                                            name="sumber" id="sumber"
+                                                            class="form-control input-default"
+                                                            onchange="change_redaksi(this)"
+                                                            style="height: 60px !important; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                            required>
+                                                            <option value="" selected disabled
+                                                                required>Pilih Sumber</option>
+                                                                @foreach ($pejabats as $pejabat)
+                                                                    @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                                        <option value="{{ $pejabat->id }}">
+                                                                            {{ $pejabat->jabatan }} -
+                                                                            {{ $pejabat->nama_pejabat }}
+                                                                        </option>
+                                                                    @endif
+                                                                @endforeach
+                                                        </select>
                                                     <div class="valid-feedback">
                                                         Data Terpilih
                                                     </div>
@@ -411,6 +463,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label for="first-name" class="form-label">Pilih Sifat Surat <span
@@ -434,9 +487,10 @@
                                                 </div>
                                             </div>
 
+
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input halaman lampiran</label>
+                                                    <label class="text-label">Input jumlah lampiran</label>
                                                     <input type="text" class="form-control" name="lampiran"
                                                         id="lampiran" placeholder="Jumlah Lampiran" required autofocus
                                                         value="">
@@ -450,10 +504,31 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
+                                                    <label for="first-name" class="form-label">Pilih Jenis Lampiran Surat
+                                                        <span class="text-danger">*</span></label>
+                                                    <select class="form-control input-default" id="sifat"
+                                                        name="sifat"
+                                                        style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                        required onchange="ganti_item()">
+                                                        <option selected disabled value="">Pilih Jenis Lampiran
+                                                        </option>
+                                                        <option value="1">Set</option>
+                                                        <option value="2">Lembar</option>
+                                                    </select>
+                                                    <div class="valid-feedback">
+                                                        Data Terpilih
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan Pilih Jenis Lampiran
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
                                                     <label class="text-label">Perihal :</label>
-                                                    <input type="text" class="form-control" name="perihal"
-                                                        id="perihal" placeholder="Jumlah Lampiran" required autofocus
-                                                        value="">
+
+                                                    <textarea class="form-control" name="perihal"
+                                                    id="perihal" placeholder="Perihal" cols="30" rows="2"></textarea>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -462,6 +537,46 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-12 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Isi Surat :</label>
+
+                                                    <textarea class="form-control" name="isi_surat"
+                                                    id="isi_surat" placeholder="Isi Surat" cols="60" rows="2"></textarea>
+                                                    <div class="valid-feedback">
+                                                        Data Terisi
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Silakan isi Surat
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Redaksi Nota Dinas :</label>
+                                                    <select
+                                                        name="redaksi_id" id="redaksi_id"
+                                                        class="form-control input-default"
+                                                        onchange="change_redaksi(this)"
+                                                        style="height: 60px !important; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                        required>
+                                                        <option value="" selected disabled
+                                                            required>Pilih Redaksi</option>
+                                                        @foreach ($redaksis as $redaksi)
+                                                            <option value="{{ $redaksi->id }}">
+                                                                {{ $redaksi->nama_redaksi }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label class="text-label">Deskripsi Redaksi Nota Dinas :</label>
+                                                    <p id="deskripsi_id" name="deskripsi_id">
+                                                    </p>
+                                                </div>
+                                            </div> --}}
                                         </div>
                                     </form>
                                 </div>
@@ -535,7 +650,7 @@
                                                                                     valign="middle">Jumlah HPE (RP)</td>
                                                                             </tr>
                                                                             <!-- <tr class="warna">
-                                                                                            </tr> -->
+                                                                                                </tr> -->
                                                                         </thead>
                                                                         <tbody id="uraian_rab">
                                                                         </tbody>
@@ -588,8 +703,8 @@
                                                                             </tr>
                                                                         </tfoot>
                                                                         <!-- <tr>
-                                                                                                <td class="first1"></td>
-                                                                                            </tr> -->
+                                                                                                    <td class="first1"></td>
+                                                                                                </tr> -->
                                                                     </table>
                                                                     {{-- <div>
                                                                         <button id="prevpdf">Previous</button>
@@ -601,8 +716,8 @@
                                                                     {{-- <embed width="100%" height="600px" type="application/pdf" id="embedLink"/> --}}
 
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
-                                                                                            <embed id="pdfViewer2" width="100%" height="600px" >
-                                                                                        </object> -->
+                                                                                                <embed id="pdfViewer2" width="100%" height="600px" >
+                                                                                            </object> -->
 
                                                                 </div>
 
@@ -611,19 +726,73 @@
                                                     </div>
                                                     <hr>
 
-                                                    <div class="row ml-2 justify-content-center">
-                                                        <h5 class="card-title">Preview KAK </h5>
-                                                        {{-- <div class="position-relative justify-content-end float-right sweetalert">
-                                                            <button type="button" id="btnPrvw"
-                                                                    class="btn btn-primary position-relative justify-content-end">Preview <i class="bi bi-eye"></i></button>
-                                                        </div> --}}
-
-
-
+                                                    <div class="row ml-2 justify-content-start">
+                                                        <h5 class="card-title">Step 3: Nota Dinas </h5>
+                                                        <table class="uprightTbl noborder" style="width:100%;"
+                                                            id="rincian" cellspacing="0" cellpadding="0">
+                                                            <tr class="noborder">
+                                                                <td style="width:20%;">Kepada
+                                                                </td>
+                                                                <td style="width:1%">:</td>
+                                                                <td id="tujuan">
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Dari</td>
+                                                                <td>:</td>
+                                                                <td id="sumber"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Sifat</td>
+                                                                <td>:</td>
+                                                                <td id="sifat"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Lampiran</td>
+                                                                <td>:</td>
+                                                                <td id="no_prk_3"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Perihal</td>
+                                                                <td>:</td>
+                                                                <td id="perihal"></td>
+                                                            </tr>
+                                                            <tr class="noborder">
+                                                                <td>Isi Surat</td>
+                                                                <td>:</td>
+                                                                <td id="no_prk_3"></td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
 
-                                                    <embed width="100%" height="650px" name="plugin" id="embedLink"
-                                                        type="application/pdf" />
+                                                    <hr>
+
+                                                    <div class="row ml-2">
+                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
+                                                            <div class=" align-items-start text-center">
+                                                                <h5 class="card-title" style="text-align: center">Preview
+                                                                    KAK </h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
+                                                            <div class=" align-items-center text-center">
+                                                                <h5 class="card-title" style="text-align: center">Preview
+                                                                    Nota Dinas </h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
+                                                            <embed src="{{ asset('storage/' . $lampiran->kak . '') }}" width="100%" height="450px" name="plugin"
+                                                                id="embedLink" type="application/pdf" />
+                                                        </div>
+                                                        {{-- <div class="position-relative justify-content-end float-right sweetalert">
+                                                                <button type="button" id="btnPrvw"
+                                                                        class="btn btn-primary position-relative justify-content-end">Preview <i class="bi bi-eye"></i></button>
+                                                            </div> --}}
+                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
+                                                            <embed src="{{ asset('storage/' . $lampiran->nota_dinas . '') }}" width="100%" height="450px" name="embedlink2"
+                                                                id="embedlink2" type="application/pdf" />
+                                                        </div>
+                                                    </div>
 
 
                                                 </div>
@@ -687,39 +856,9 @@
         <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/wizard.js"></script>
 
         <script type="text/javascript">
-            //  var srcContent;
-            //         function readURL(input) {
-            //             if (input.files && input.files[0]) {
-            //                 var reader = new FileReader();
-            //                 reader.onload = function (e) {
-            //                     srcContent=  e.target.result;
-            //                 }
-            //                 reader.readAsDataURL(input.files[0]);
-            //             }
-            //         }
-            //         $(document).ready(function () {
-            //             $("#kak").change(function () {
-            //                 if (this.files[0].name != "") {
-            //                     readURL(this);
-            //                 }
-            //             });
-            //             // $('#btnPrvw').click(function () {
-            //             //     $('#embdLink').attr('src', srcContent);
-            //             // });
-            //             $('#embedLink').attr('src', srcContent);
-
-            //         });
 
             $(document).ready(function() {
-                var filename;
-                $('#kak').change(function() {
-                    if (this.files[0].name != "") {
-                        filename = this.files[0]
-                        $('#embedLink')[0].src = window.URL.createObjectURL(new Blob([filename], {
-                            "type": "application/pdf"
-                        }));
-                    }
-                });
+
                 // $('#btnPrvw').click(function() {
                 // });
             });
@@ -764,6 +903,31 @@
 
             //     myModal.hide();
             // }
+
+        function change_redaksi(c) {
+            let token = $('#csrf').val();
+            // alert(token);
+            var redaksi_id = document.getElementById("redaksi_id").value;
+            // alert(redaksi_id);
+
+            $.ajax({
+                url: '/getDeskripsiNota',
+                type: "POST",
+
+                data: {
+                    'redaksi_id':  redaksi_id,
+                    '_token' : token,
+
+
+                },
+                success: function (response) {
+                    document.getElementById("deskripsi_id").innerHTML = response.deskripsi_redaksi;
+                }
+            })
+
+        }
+
+
 
             function showConfirm() {
                 const name = $('#lokasi').val() + ' ' + $('#lokasi').val();
@@ -920,7 +1084,7 @@
                     $("#sw-current-step").text(stepInfo.currentStep + 1);
                     $("#sw-total-step").text(stepInfo.totalSteps);
 
-                    if (stepPosition == 'dua') {
+                    if (stepPosition == 'tiga') {
                         showConfirm();
                         $("#btnFinish").prop('disabled', false);
                     } else {
@@ -947,7 +1111,7 @@
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
                         position: 'bottom', // none/ top/ both bottom
-                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Complete Order</button>
+                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Submit</button>
                               <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
                     },
                     anchor: {
@@ -1095,11 +1259,11 @@
             ppn_id = parseFloat(ppn_id);
             var ppn = bef_ppn_total_harga * ppn_id / 100;
             ppn = Math.round(ppn);
-            var total_harga = bef_ppn_total_harga + ppn;
-            total_harga = Math.round(total_harga);
+            var total_harga_hpe = bef_ppn_total_harga + ppn;
+            total_harga_hpe = Math.round(total_harga_hpe);
 
             // if (kak.length > 0) {
-            fd.append("total_harga", total_harga);
+            fd.append("total_harga_hpe", total_harga_hpe);
             fd.append("non_po_id", non_po_id);
             fd.append("user_id", user_id);
             // }

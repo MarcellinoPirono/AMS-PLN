@@ -38,12 +38,14 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        @if ($nonpo->status == 1)
+                                        @if ($nonpo->status == "Progress")
                                         <td><span class="badge light badge-warning">OnProcess (HPE)</span></td>
-                                        @elseif ($nonpo->status == 2)
+                                        @elseif ($nonpo->status == "Waiting List")
                                         <td><span class="badge light badge-warning">OnProcess (Persetujuan Manager)</span></td>
-                                        @elseif ($nonpo->status == 3)
+                                        @elseif ($nonpo->status == "Disetujui")
                                         <td><span class="badge light badge-success">Disetujui</span></td>
+                                        @elseif ($nonpo->status == "Ditolak")
+                                        <td><span class="badge light badge-success">Ditolak</span></td>
                                         @endif
                                         <td>{{ $nonpo->nomor_rpbj }}</td>
                                         <td>{{ $nonpo->pekerjaan }}</td>
