@@ -122,8 +122,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="hidden" id="username" name="username"
-                            value="{{ auth()->user()->username }}">
+                        {{-- <input type="hidden" id="username" name="username"
+                            value="{{ auth()->user()->username }}"> --}}
                         <label for="recipient-name" class="col-form-label">Masukkan Password Baru :</label>
                         <div class="input-group transparent-append" style="border-radius: 1.5rem">
                             <div class="input-group-append show-pass2" style="border-radius: 1.5rem">

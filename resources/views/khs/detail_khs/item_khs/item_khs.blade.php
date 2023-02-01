@@ -43,7 +43,7 @@
                 <div class="card-body">
                     @if (session('success'))
                         <div class="sweetalert sweet-success">
-                            {{ session('success') }}
+                            {{-- {{ session('success') }} --}}
                         </div>
                     @endif
                     <div class="table-responsive" id="read">
