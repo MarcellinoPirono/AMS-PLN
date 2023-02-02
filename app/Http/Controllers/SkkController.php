@@ -176,7 +176,6 @@ class SKKController extends Controller
 
     public function getPRK(Request $request)
     {
-
         $prk_id = $request->post('prk_id');
         $pagu_prk = DB::table('prks')->where('id',$prk_id)->get();
         $html = $pagu_prk[0]->prk_sisa;

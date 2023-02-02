@@ -272,7 +272,7 @@
           var toolbar       = $('<div></div>').addClass('toolbar toolbar-' + position).attr('role', 'toolbar');
           // Create the toolbar buttons
           let btnNext       = this.options.toolbarSettings.showNextButton !== false ? $('<button></button>').text(this.options.lang.next).addClass('btn sw-btn-next').attr('type', 'button') : null;
-          let btnPrevious   = this.options.toolbarSettings.showPreviousButton !== false ? $('<button></button>').text(this.options.lang.previous).addClass('btn sw-btn-prev').attr('type', 'button') : null;
+          let btnPrevious   = this.options.toolbarSettings.showPreviousButton !== false ? $('<button></button>').text(this.options.lang.previous).addClass('btn sw-btn-prev').attr('type', 'button').attr('id', 'prev1') : null;
           toolbar.append(btnPrevious, btnNext);
 
           // Add extra toolbar buttons

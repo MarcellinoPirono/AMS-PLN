@@ -118,11 +118,11 @@ class NonPOController extends Controller
 
         $mypdf = 'storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf';
 
-        $filename_kak = $nama_pdf.'_'.$request->file('kak')->getClientOriginalName();
+        $filename_kak = time().'_'.$nama_pdf.'_'.$request->file('kak')->getClientOriginalName();
         $kak = $request->file('kak')->storeAs('storage/kak-non-po', $filename_kak, 'public');
 
         // dd($kak);
-        $filename_nota_dinas = $nama_pdf.'_'.$request->file('nota_dinas')->getClientOriginalName();
+        $filename_nota_dinas = time().'_'.$nama_pdf.'_'.$request->file('nota_dinas')->getClientOriginalName();
         $nota_dinas = $request->file('nota_dinas')->storeAs('storage/nota-dinas-non-po', $filename_nota_dinas, 'public');
         // dd($nota_dinas);
         $status = "Progress";
@@ -259,7 +259,7 @@ class NonPOController extends Controller
         // $updated_prk_terkontrak = $request->total_harga + (Double)$previous_prk_terkontrak;
         // Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
 
-        // (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id);
+        // (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id, $status);
 
         // // Update PRK Terkontrak
         // $updated_prk_terkontrak = 0;
@@ -406,11 +406,32 @@ class NonPOController extends Controller
         ]);
 
 
-
-
-
-
     }
+
+    public function download_nonpo($nama_pdf)
+    {
+        // dd($nama_pdf);
+
+        $status = NonPo::where('slug', $nama_pdf)->value('status');
+        $document = NonPo::where('slug', $nama_pdf)->value('pdf_file');
+        // dd($status);
+
+        if ($status === "Disetujui"){
+
+
+            return Storage::download('public/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'.pdf');
+        }
+        else if ($status === "Ditolak"){
+
+
+            return Storage::download('public/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'-HPE_ditolak.pdf');
+        }
+        else{
+
+            return  Storage::download('public/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'-HPE_onprogress.pdf');
+        }
+    }
+
 
 
 }

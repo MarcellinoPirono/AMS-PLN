@@ -99,8 +99,8 @@
             <td align="center" valign="top">{{ $nonpo->supervisor }}</td>
             <td align="center" valign="middle" style="float:left;">{{ $nonpo->pejabats->jabatan }}</td>
         </tr>
-        <tr style="height: 150px; page-break-before: avoid">
-            <td style="height: 150px;" align="center" valign="bottom">{{$nonpo->users->name}}</td>
+        <tr style="height: 110px; page-break-before: avoid">
+            <td style="height: 110px;" align="center" valign="bottom">{{$nonpo->users->name}}</td>
             <td align="center" valign="bottom">{{ $nonpo->pejabats->nama_pejabat }}</td>
         </tr>
     </table>

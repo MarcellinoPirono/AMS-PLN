@@ -222,13 +222,18 @@ Route::post('/gantiPaket', [PaketPekerjaanController::class, 'ganti_paket'])->mi
 Route::get('non-po/buat-non-po', [NonPOController::class, 'buat_non_po'])->middleware('SupervisorMiddleware');
 Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po'])->middleware('SupervisorMiddleware');
 Route::post('/checkNotaDinas', [NonPOController::class, 'checkNotaDinas'])->middleware('SupervisorMiddleware');
-Route::get('download-non-po/{slug}', [NonPOController::class, 'download'])->middleware('SupervisorMiddleware');
+Route::get('download-non-po/{slug}', [NonPOController::class, 'download_nonpo'])->middleware('SupervisorMiddleware');
 Route::get('preview-non-po/{slug}', [NonPOController::class, 'preview_non_po'])->middleware('SupervisorMiddleware');
 Route::resource('non-po', NonPOController::class)->middleware('SupervisorMiddleware');
 
 Route::get('buat-non-po-hpe/{slug}', [NonPoHpeController::class, 'buat_non_po_hpe'])->middleware('SupervisorMiddleware');
 Route::post('/getDeskripsiNota', [NonPoHpeController::class, 'getDeskripsi'])->middleware('SupervisorMiddleware');
 Route::post('simpan-non-po-hpe', [NonPoHpeController::class, 'simpan_non_po_hpe'])->middleware('SupervisorMiddleware');
+Route::get('preview-hpe/{slug}', [NonPoHpeController::class, 'preview_hpe'])->middleware('SupervisorMiddleware');
+Route::get('download-hpe/{slug}', [NonPoHpeController::class, 'download'])->middleware('SupervisorMiddleware');
+Route::get('download-test/{slug}', [NonPoHpeController::class, 'download_test'])->middleware('SupervisorMiddleware');
+
+
 Route::resource('non-po-hpe', NonPoHpeController::class)->middleware('SupervisorMiddleware');
 // Route::resource('non-po-hpe', NonPOHPEController::class);
 
@@ -280,5 +285,6 @@ Route::fallback([UserController::class,'not_found']);
 
 Route::post('/checkUsername', [UserController::class, 'checkUsername'])->middleware('SupervisorMiddleware');
 Route::post('/konfirmasi', [RabController::class, 'setuju'])->middleware('Manager');
+Route::post('/konfirmasi-non-po', [NonPoHpeController::class, 'setuju'])->middleware('Manager');
 Route::post('/checkUsername_edit', [UserController::class, 'checkUsername_edit'])->middleware('SupervisorMiddleware');
 

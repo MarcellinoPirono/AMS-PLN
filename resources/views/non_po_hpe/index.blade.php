@@ -19,7 +19,7 @@
                                     <th>No. SKK</th>
                                     <th>No. PRK</th>
                                     <th>Supervisor</th>
-                                    <th>Total Harga</th>
+                                    <th>Total HPE</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -28,14 +28,12 @@
                                         <td><strong>{{ $loop->iteration }}</strong></td>
                                         <input type="hidden" class="delete_id" value="{{ $nonpo->id }}">
                                         <td align="center">
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
-                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="non-po-hpe/{{$nonpo->id}}/buat-non-po-hpe">Buat HPE<i class="bi bi-file-earmark-pdf-fill"></i></a>
-                                                    <a class="dropdown-item" href="non-po/export-pdf-khs/{{$nonpo->id}}">Download Non-PO <i class="bi bi-file-earmark-excel-fill"></i></a>
-                                                </div>
+                                            <div class="d-flex justify-content-center">
+                                                <a class="btn light btn-success btn-xs1 sharp" href="download-test/{{ $nonpo->slug }}"><i
+                                                    class="bi bi-download"></i></a>
+                                                <a class="btn light btn-info btn-xs1 sharp ml-1"
+                                                        href="preview-hpe/{{ $nonpo->slug }}"><i
+                                                            class="mt-1 bi bi-eye"></i></a>
                                             </div>
                                         </td>
                                         @if ($nonpo->status == "Progress")
@@ -52,7 +50,7 @@
                                         <td>{{ $nonpo->skks->nomor_skk }}</td>
                                         <td>{{ $nonpo->prks->no_prk }}</td>
                                         <td>{{ $nonpo->supervisor }}</td>
-                                        <td>@currency($nonpo->total_harga)</td>
+                                        <td>@currency($nonpo->total_harga_hpe)</td>
                                     </tr>
                                 @endforeach
                             </tbody>

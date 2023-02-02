@@ -52,7 +52,7 @@
                                                         <div class="custom-file">
                                                             <input id="nota_dinas" type="file"
                                                                 class="form-control custom-file-input"
-                                                                style="border-radius: 0 20px 20px 0" required />
+                                                                style="border-radius: 0 20px 20px 0" accept=".pdf" required />
                                                             <label class="custom-file-label">Choose </label>
                                                         </div>
                                                     </div>
@@ -74,7 +74,7 @@
                                                         <div class="custom-file">
                                                             <input id="kak" type="file"
                                                                 class="form-control custom-file-input"
-                                                                style="border-radius: 0 20px 20px 0" required />
+                                                                style="border-radius: 0 20px 20px 0" accept=".pdf" required />
                                                             <label class="custom-file-label">Choose </label>
                                                         </div>
                                                     </div>

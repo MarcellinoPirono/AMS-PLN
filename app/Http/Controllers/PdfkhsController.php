@@ -245,7 +245,7 @@ class PdfkhsController extends Controller
         $oMerger->merge();
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
 
-        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id);
+        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id, $request->status);
         // $updated_prk_progress = 0;
         // $previous_prk_progress = Rab::where('prk_id', $request->prk_id)->get('total_harga');
         // foreach ($previous_prk_progress as $prk_progress)
@@ -471,7 +471,7 @@ class PdfkhsController extends Controller
         $oMerger->merge();
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_diterima.pdf');
 
-        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id);
+        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id, $request->status);
         // $updated_prk_progress = 0;
         // $previous_prk_progress = Rab::where('prk_id', $request->prk_id)->get('total_harga');
         // foreach ($previous_prk_progress as $prk_progress)
@@ -680,7 +680,7 @@ class PdfkhsController extends Controller
         $oMerger->merge();
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
 
-        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id);
+        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id, $request->status);
         // $updated_prk_progress = 0;
         // $previous_prk_progress = Rab::where('prk_id', $request->prk_id)->get('total_harga');
         // foreach ($previous_prk_progress as $prk_progress)
@@ -867,7 +867,7 @@ class PdfkhsController extends Controller
         $oMerger->merge();
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_diterima.pdf');
 
-        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id);
+        (new CetakNonTkdnController)->update_skk_prk($request->skk_id, $request->prk_id, $request->status);
         // $updated_prk_progress = 0;
         // $previous_prk_progress = Rab::where('prk_id', $request->prk_id)->get('total_harga');
         // foreach ($previous_prk_progress as $prk_progress)
@@ -1410,13 +1410,12 @@ class PdfkhsController extends Controller
     }
 
     public function make_watermark($pdf, $status){
-        // $pdf->output();
-        // $watermark = $pdf->open_object();
         $pdf->render();
         $canvas = $pdf->getCanvas();
         $height = $canvas->get_height();
         $width = $canvas->get_width();
-
+        $height_divider = 1;
+        $width_divider = 1;
         // $canvas->set_opacity(.2,"Multiply");
 
 
@@ -1424,16 +1423,18 @@ class PdfkhsController extends Controller
         // $canvas->set_opacity(.2);
 
         // $status = $values_pdf_page1[0]->status;
-        // if($status == "Disetujui"){
-        //     $status = '';
-        // }
-        // else if($status == "Progress"){
-        //     $status = "On Progress";
-        // }
+        if($status == "Ditolak"){
+            $height_divider = 2;
+            $width_divider = 3;
+        }
+        else if($status == "On Progress"){
+            $height_divider = 2;
+            $width_divider = 5;
+        }
         // dd($status);
         $canvas->page_script('
         $pdf->set_opacity(.2, "Multiply");
-        $pdf->text('.($width/5).', '.($height/2).', "'.($status).'",
+        $pdf->text('.($width/$width_divider).', '.($height/$height_divider).', "'.($status).'",
         "Calibri",75, array(0,0,0), 10, 10, -30);');
 
         // $canvas->text($width/5, $height/2, $status, 'Calibri',

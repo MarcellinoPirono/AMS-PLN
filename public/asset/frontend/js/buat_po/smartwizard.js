@@ -9,6 +9,9 @@ function onCancel() {
     document.getElementById("form-3").reset();
     document.getElementById("form-4").reset();
     document.getElementById("form-5").reset();
+    document.getElementById("jumlah").innerHTML = "";
+    document.getElementById("pajak").innerHTML = "";
+    document.getElementById("total").innerHTML = "";
 }
 
 function onConfirm() {

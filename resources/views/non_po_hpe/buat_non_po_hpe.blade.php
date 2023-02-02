@@ -223,6 +223,12 @@
                                                         <div class="card-header justify-content-center">
                                                             <h4 class="card-title">Daftar RAB</h4>
                                                         </div>
+                                                        <div class="card-header justify-content-start">
+                                                            <h5 id="pagu_prk" class="card-title"
+                                                                style="font-size: 14px;">Pagu PRK: <b>Rp.</b> <b
+                                                                    id="rupiah">{{ $nonpos[0]->prks->pagu_prk }}</b>
+                                                            </h5>
+                                                        </div>
                                                         <div class="row ml-2">
                                                             <div class="table-responsive">
                                                                 <table id="tabelNonPO"
@@ -283,7 +289,7 @@
                                                                                         id="volume[{{ $loop->iteration }}]"
                                                                                         name="volume"
                                                                                         placeholder="volume"
-                                                                                        value="{{ old('volume', $rabnonpo->volume) }}"
+                                                                                        value="{{ str_replace('.', ',', $rabnonpo->volume) }}"
                                                                                         onkeydown="return numbersonly(this, event);"
                                                                                         onkeyup="javascript:tandaPemisahTitik(this);"
                                                                                         required disabled></td>
@@ -326,20 +332,20 @@
                                                                                         required>
                                                                                 </td>
                                                                                 <!-- <td><button onclick="deleteRow(this)"
-                                                                                                    class="btn btn-danger shadow btn-xs sharp"><i
-                                                                                                        class='fa fa-trash'></i></button></td> -->
+                                                                                                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                                                                                                    class='fa fa-trash'></i></button></td> -->
                                                                             </tr>
                                                                         @endforeach
                                                                     </tbody>
                                                                 </table>
                                                                 <!-- <div class="col-lg-12 mb-2">
-                                                                                    <div
-                                                                                        class="position-relative justify-content-end float-left">
-                                                                                        <a type="button" id="tambah-pekerjaan"
-                                                                                            class="btn btn-primary position-relative justify-content-end"
-                                                                                            onclick="updateform()" required>Tambah</a>
-                                                                                    </div>
-                                                                                </div> -->
+                                                                                                                                <div
+                                                                                                                                    class="position-relative justify-content-end float-left">
+                                                                                                                                    <a type="button" id="tambah-pekerjaan"
+                                                                                                                                        class="btn btn-primary position-relative justify-content-end"
+                                                                                                                                        onclick="updateform()" required>Tambah</a>
+                                                                                                                                </div>
+                                                                                                                            </div> -->
                                                                 <table class="table table-responsive-sm height-100"
                                                                     id="tabelRAB1">
                                                                     <thead>
@@ -359,13 +365,13 @@
                                                                             <th style="width: 20%; padding-left: 35px">
                                                                                 Jumlah</th>
                                                                             <th style="width: 1%">:</th>
-                                                                            <th style="width: 55%" id="jumlah">
+                                                                            <th style="width: 35%" id="jumlah">
                                                                                 @currency($jumlah_harga)</th>
-                                                                            <th>
+                                                                            <th style="width: 20%">
                                                                                 Jumlah HPE:</th>
                                                                             <th style="width: 1%">:</th>
-                                                                            <th style="width: 55%" id="jumlah-hpe"></th>
-                                                                            <th style="width: 24%"></th>
+                                                                            <th style="width: 45%" id="jumlah-hpe"></th>
+                                                                            <th style="width: 1%"></th>
                                                                         </tr>
                                                                         <tr>
                                                                             <th style="padding-left: 35px">PPN
@@ -381,9 +387,21 @@
                                                                             <th></th>
                                                                         </tr>
                                                                         <tr>
-                                                                            <th style="padding-left: 35px">Total Harga</th>
-                                                                            <th>:</th>
-                                                                            <th id="total">@currency($total_harga)</th>
+                                                                            @if ($nonpos[0]->prks->pagu_prk >= $total_harga)
+                                                                                <th style="padding-left: 35px">Total Harga
+                                                                                </th>
+                                                                                <th>:</th>
+                                                                                <th id="total"
+                                                                                    style="color: rgb(126, 126, 126);">
+                                                                                    @currency($total_harga)</th>
+                                                                            @else
+                                                                                <th style="padding-left: 35px">Total Harga
+                                                                                </th>
+                                                                                <th>:</th>
+                                                                                <th id="total"
+                                                                                    style="color: rgb(249, 70, 135);">
+                                                                                    @currency($total_harga)</th>
+                                                                            @endif
                                                                             <th>Total Harga HPE</th>
                                                                             <th>:</th>
                                                                             <th id="total-hpe"></th>
@@ -409,24 +427,23 @@
                                         <div class="row m-auto">
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Kepada : </label>
-                                                    <select
-                                                    name="tujuan" id="tujuan"
-                                                    class="form-control input-default"
-                                                    onchange="change_redaksi(this)"
-                                                    style="height: 60px !important; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
-                                                    required>
-                                                    <option value="" selected disabled
-                                                        required>Pilih Sumber</option>
-                                                    @foreach ($pejabats as $pejabat)
-                                                        @if ($pejabat->jabatan != 'MANAGER UP3')
-                                                            <option value="{{ $pejabat->id }}">
-                                                                {{ $pejabat->jabatan }} -
-                                                                {{ $pejabat->nama_pejabat }}
-                                                            </option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
+                                                    <label class="text-label">Kepada : <span
+                                                            class="text-danger">*</span></label>
+                                                    <select name="tujuan" id="tujuan"
+                                                        class="form-control input-default"
+                                                        style="height: 60px !important; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                        required>
+                                                        <option value="" selected disabled required>Pilih Sumber
+                                                        </option>
+                                                        @foreach ($pejabats as $pejabat)
+                                                            @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                                <option value="{{ $pejabat->id }}">
+                                                                    {{ $pejabat->jabatan }} -
+                                                                    {{ $pejabat->nama_pejabat }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -438,23 +455,21 @@
                                                 <div class="form-group">
                                                     <label for="first-name" class="form-label">Dari : <span
                                                             class="text-danger">*</span></label>
-                                                    <select
-                                                            name="sumber" id="sumber"
-                                                            class="form-control input-default"
-                                                            onchange="change_redaksi(this)"
-                                                            style="height: 60px !important; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
-                                                            required>
-                                                            <option value="" selected disabled
-                                                                required>Pilih Sumber</option>
-                                                                @foreach ($pejabats as $pejabat)
-                                                                    @if ($pejabat->jabatan != 'MANAGER UP3')
-                                                                        <option value="{{ $pejabat->id }}">
-                                                                            {{ $pejabat->jabatan }} -
-                                                                            {{ $pejabat->nama_pejabat }}
-                                                                        </option>
-                                                                    @endif
-                                                                @endforeach
-                                                        </select>
+                                                    <select name="sumber" id="sumber"
+                                                        class="form-control input-default"
+                                                        style="height: 60px !important; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                        required>
+                                                        <option value="" selected disabled required>Pilih Sumber
+                                                        </option>
+                                                        @foreach ($pejabats as $pejabat)
+                                                            @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                                <option value="{{ $pejabat->id }}">
+                                                                    {{ $pejabat->jabatan }} -
+                                                                    {{ $pejabat->nama_pejabat }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
                                                     <div class="valid-feedback">
                                                         Data Terpilih
                                                     </div>
@@ -471,12 +486,12 @@
                                                     <select class="form-control input-default" id="sifat"
                                                         name="sifat"
                                                         style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
-                                                        required onchange="ganti_item()">
+                                                        required>
                                                         <option selected disabled value="">Pilih Sumber Surat
                                                         </option>
-                                                        <option value="1">Biasa</option>
-                                                        <option value="2">Segera</option>
-                                                        <option value="3">Sangat Segera</option>
+                                                        <option value="Biasa">Biasa</option>
+                                                        <option value="Segera">Segera</option>
+                                                        <option value="Sangat Segera">Sangat Segera</option>
                                                     </select>
                                                     <div class="valid-feedback">
                                                         Data Terpilih
@@ -490,7 +505,8 @@
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input jumlah lampiran</label>
+                                                    <label class="text-label">Input jumlah lampiran <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="lampiran"
                                                         id="lampiran" placeholder="Jumlah Lampiran" required autofocus
                                                         value="">
@@ -506,14 +522,14 @@
                                                 <div class="form-group">
                                                     <label for="first-name" class="form-label">Pilih Jenis Lampiran Surat
                                                         <span class="text-danger">*</span></label>
-                                                    <select class="form-control input-default" id="sifat"
-                                                        name="sifat"
+                                                    <select class="form-control input-default" id="sifat_lampiran"
+                                                        name="sifat_lampiran"
                                                         style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
-                                                        required onchange="ganti_item()">
+                                                        required>
                                                         <option selected disabled value="">Pilih Jenis Lampiran
                                                         </option>
-                                                        <option value="1">Set</option>
-                                                        <option value="2">Lembar</option>
+                                                        <option value="Set">Set</option>
+                                                        <option value="Lembar">Lembar</option>
                                                     </select>
                                                     <div class="valid-feedback">
                                                         Data Terpilih
@@ -525,10 +541,10 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Perihal :</label>
+                                                    <label class="text-label">Perihal : <span
+                                                            class="text-danger">*</span></label>
 
-                                                    <textarea class="form-control" name="perihal"
-                                                    id="perihal" placeholder="Perihal" cols="30" rows="2"></textarea>
+                                                    <textarea class="form-control" name="perihal" id="perihal" placeholder="Perihal" cols="30" rows="2"></textarea>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -539,10 +555,11 @@
                                             </div>
                                             <div class="col-lg-12 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Isi Surat :</label>
+                                                    <label class="text-label">Isi Surat : <span
+                                                            class="text-danger">*</span></label>
 
-                                                    <textarea class="form-control" name="isi_surat"
-                                                    id="isi_surat" placeholder="Isi Surat" cols="60" rows="2"></textarea>
+                                                    <textarea class="form-control" name="isi_surat" id="isi_surat" placeholder="Isi Surat" cols="60"
+                                                        rows="2"></textarea>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -650,7 +667,7 @@
                                                                                     valign="middle">Jumlah HPE (RP)</td>
                                                                             </tr>
                                                                             <!-- <tr class="warna">
-                                                                                                </tr> -->
+                                                                                                                                            </tr> -->
                                                                         </thead>
                                                                         <tbody id="uraian_rab">
                                                                         </tbody>
@@ -703,8 +720,8 @@
                                                                             </tr>
                                                                         </tfoot>
                                                                         <!-- <tr>
-                                                                                                    <td class="first1"></td>
-                                                                                                </tr> -->
+                                                                                                                                                <td class="first1"></td>
+                                                                                                                                            </tr> -->
                                                                     </table>
                                                                     {{-- <div>
                                                                         <button id="prevpdf">Previous</button>
@@ -716,8 +733,8 @@
                                                                     {{-- <embed width="100%" height="600px" type="application/pdf" id="embedLink"/> --}}
 
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
-                                                                                                <embed id="pdfViewer2" width="100%" height="600px" >
-                                                                                            </object> -->
+                                                                                                                                            <embed id="pdfViewer2" width="100%" height="600px" >
+                                                                                                                                        </object> -->
 
                                                                 </div>
 
@@ -734,33 +751,33 @@
                                                                 <td style="width:20%;">Kepada
                                                                 </td>
                                                                 <td style="width:1%">:</td>
-                                                                <td id="tujuan">
+                                                                <td id="tujuan1">
                                                                 </td>
                                                             </tr>
                                                             <tr class="noborder">
                                                                 <td>Dari</td>
                                                                 <td>:</td>
-                                                                <td id="sumber"></td>
+                                                                <td id="sumber1"></td>
                                                             </tr>
                                                             <tr class="noborder">
                                                                 <td>Sifat</td>
                                                                 <td>:</td>
-                                                                <td id="sifat"></td>
+                                                                <td id="sifat1"></td>
                                                             </tr>
                                                             <tr class="noborder">
                                                                 <td>Lampiran</td>
                                                                 <td>:</td>
-                                                                <td id="no_prk_3"></td>
+                                                                <td id="lampiran1"></td>
                                                             </tr>
                                                             <tr class="noborder">
                                                                 <td>Perihal</td>
                                                                 <td>:</td>
-                                                                <td id="perihal"></td>
+                                                                <td id="perihal1"></td>
                                                             </tr>
                                                             <tr class="noborder">
                                                                 <td>Isi Surat</td>
                                                                 <td>:</td>
-                                                                <td id="no_prk_3"></td>
+                                                                <td id="isi_surat1"></td>
                                                             </tr>
                                                         </table>
                                                     </div>
@@ -781,7 +798,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
-                                                            <embed src="{{ asset('storage/' . $lampiran->kak . '') }}" width="100%" height="450px" name="plugin"
+                                                            <embed src="{{ asset('storage/' . $lampiran->kak . '') }}"
+                                                                width="100%" height="450px" name="plugin"
                                                                 id="embedLink" type="application/pdf" />
                                                         </div>
                                                         {{-- <div class="position-relative justify-content-end float-right sweetalert">
@@ -789,7 +807,9 @@
                                                                         class="btn btn-primary position-relative justify-content-end">Preview <i class="bi bi-eye"></i></button>
                                                             </div> --}}
                                                         <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
-                                                            <embed src="{{ asset('storage/' . $lampiran->nota_dinas . '') }}" width="100%" height="450px" name="embedlink2"
+                                                            <embed
+                                                                src="{{ asset('storage/' . $lampiran->nota_dinas . '') }}"
+                                                                width="100%" height="450px" name="embedlink2"
                                                                 id="embedlink2" type="application/pdf" />
                                                         </div>
                                                     </div>
@@ -852,11 +872,14 @@
             integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
 
         <!-- Include SmartWizard JavaScript source -->
-        <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/jquery.smartWizard.min.js"></script>
-        <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/wizard.js"></script>
+        {{-- <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/jquery.smartWizard.min.js"></script>
+        <script type="text/javascript" src="{{ asset('/') }}./asset/frontend/js/wizard.js"></script> --}}
+
+        <script src="{{ asset('/') }}./asset/frontend/vendor/global/global.min.js"></script>
+        <script src="{{ asset('/') }}./asset/frontend/js/custom.min.js"></script>
+        <script src="{{ asset('/') }}./asset/frontend/js/deznav-init.js"></script>
 
         <script type="text/javascript">
-
             $(document).ready(function() {
 
                 // $('#btnPrvw').click(function() {
@@ -865,16 +888,19 @@
 
             const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
 
-            // function onCancel() {
-            //     // Reset wizard
-            //     $('#smartwizard').smartWizard("reset");
+            function onCancel() {
+                // Reset wizard
+                $('#smartwizard').smartWizard("reset");
 
-            //     // Reset form
-            //     document.getElementById("form-1").reset();
-            //     document.getElementById("form-2").reset();
-            //     document.getElementById("form-3").reset();
-            //     // document.getElementById("form-4").reset();
-            // }
+                // Reset form
+                document.getElementById("form-1").reset();
+                document.getElementById("form-2").reset();
+                document.getElementById("form-3").reset();
+                document.getElementById("form-4").reset();
+                document.getElementById("jumlah-hpe").innerHTML = "";
+                document.getElementById("pajak-hpe").innerHTML = "";
+                document.getElementById("total-hpe").innerHTML = "";
+            }
 
             // function onConfirm() {
             //     let form = document.getElementById('form-3');
@@ -904,28 +930,28 @@
             //     myModal.hide();
             // }
 
-        function change_redaksi(c) {
-            let token = $('#csrf').val();
-            // alert(token);
-            var redaksi_id = document.getElementById("redaksi_id").value;
-            // alert(redaksi_id);
+            function change_redaksi(c) {
+                let token = $('#csrf').val();
+                // alert(token);
+                var redaksi_id = document.getElementById("redaksi_id").value;
+                // alert(redaksi_id);
 
-            $.ajax({
-                url: '/getDeskripsiNota',
-                type: "POST",
+                $.ajax({
+                    url: '/getDeskripsiNota',
+                    type: "POST",
 
-                data: {
-                    'redaksi_id':  redaksi_id,
-                    '_token' : token,
+                    data: {
+                        'redaksi_id': redaksi_id,
+                        '_token': token,
 
 
-                },
-                success: function (response) {
-                    document.getElementById("deskripsi_id").innerHTML = response.deskripsi_redaksi;
-                }
-            })
+                    },
+                    success: function(response) {
+                        document.getElementById("deskripsi_id").innerHTML = response.deskripsi_redaksi;
+                    }
+                })
 
-        }
+            }
 
 
 
@@ -1000,7 +1026,19 @@
                     $("#next-btn").removeClass('disabled').prop('disabled', false);
                     if (stepPosition === 'first') {
                         $("#prev-btn").addClass('disabled').prop('disabled', true);
-                    } else if (stepPosition === 'dua') {
+                        $(".sw-btn-next").prop('disabled', false)
+                    } else if (stepPosition === 'second') {
+                        if (document.getElementById('total-hpe').innerHTML != "") {
+                            var total = document.getElementById('total-hpe').innerHTML;
+                            total = total.replace(/\Rp. /g, "");
+                            total = total.replace(/\./g, "");
+                            total = parseFloat(total);
+                            // console.log(total);
+                            if (total >= 100000000) {
+                                $(".sw-btn-next").prop('disabled', true)
+                            }
+                        }
+                    } else if (stepPosition === 'fourth') {
                         var nomor_rpbj = $("#nomor_rpbj").val();
                         var skk_id = $("#skk_id option:selected").text();
                         var prk_id = $("#prk_id option:selected").text();
@@ -1008,6 +1046,27 @@
                         $("#nomor_rpbj_3").html(nomor_rpbj);
                         $("#no_skk_3").html(skk_id);
                         $("#no_prk_3").html(prk_id);
+
+
+                        var tujuan = $("#tujuan option:selected").text();
+                        console.log(tujuan);
+                        var sumber = $("#sumber option:selected").text();
+                        var sifat = $("#sifat option:selected").text();
+                        var lampiran = $("#lampiran").val();
+                        console.log(lampiran);
+                        var sifat_lampiran = $("#sifat_lampiran option:selected").text();
+                        var perihal = $("#perihal").val();
+                        var isi_surat = $("#isi_surat").val();
+
+                        $("#tujuan1").html(tujuan);
+                        $("#sumber1").html(sumber);
+                        $("#sifat1").html(sifat);
+                        $("#lampiran1").html(lampiran + " " + sifat_lampiran);
+                        $("#perihal1").html(perihal);
+                        $("#isi_surat1").html(isi_surat);
+
+
+
 
                         baris = [];
                         var banyak_data = document.querySelectorAll("#tbody-kategori tr");
@@ -1030,7 +1089,7 @@
                             return element !== null;
                         })
 
-                        console.log("result_rab_non_po", result_rab_non_po);
+                        // console.log("result_rab_non_po", result_rab_non_po);
 
                         if (result_rab_non_po.length > 0) {
                             var html_rab = [""];
@@ -1084,7 +1143,7 @@
                     $("#sw-current-step").text(stepInfo.currentStep + 1);
                     $("#sw-total-step").text(stepInfo.totalSteps);
 
-                    if (stepPosition == 'tiga') {
+                    if (stepPosition == 'fourth') {
                         showConfirm();
                         $("#btnFinish").prop('disabled', false);
                     } else {
@@ -1138,296 +1197,711 @@
 
             });
         </script>
-    @endsection
 
-    <script>
-        function hitung_harga_hpe(c) {
-            var row = c.parentNode.parentNode;
-            var change = row.rowIndex;
-            var banyak_data = document.querySelectorAll("#tbody-kategori tr");
-            // tbody.querySelectorAll()
-            var volume = document.getElementById("volume[" + change + "]").value;
-            volume = volume.replace(/\./g, "");
-            volume = parseInt(volume);
-            var harga_perkiraan = document.getElementById("harga_hpe[" + change + "]").value;
-            harga_perkiraan = harga_perkiraan.replace(/\./g, "");
-            harga_perkiraan = parseInt(harga_perkiraan);
+        <script>
+            function hitung_harga_hpe(c) {
+                var row = c.parentNode.parentNode;
+                var change = row.rowIndex;
+                var banyak_data = document.querySelectorAll("#tbody-kategori tr");
+                // tbody.querySelectorAll()
+                var volume = document.getElementById("volume[" + change + "]").value;
+                volume = volume.replace(/\./g, "");
+                volume = volume.replace(/\,/g, ".");
+                volume = parseFloat(volume);
+                var harga_perkiraan = document.getElementById("harga_hpe[" + change + "]").value;
+                harga_perkiraan = harga_perkiraan.replace(/\./g, "");
+                harga_perkiraan = parseInt(harga_perkiraan);
 
-            var jumlah_harga_perkiraan = volume * harga_perkiraan;
-            jumlah_harga_perkiraan = jumlah_harga_perkiraan.toString();
-            jumlah_harga_perkiraan_2 = "";
-            panjang = jumlah_harga_perkiraan.length;
-            j = 0;
-            for (i = panjang; i > 0; i--) {
-                j = j + 1;
-                if (((j % 3) == 1) && (j != 1)) {
-                    jumlah_harga_perkiraan_2 = jumlah_harga_perkiraan.substr(i - 1, 1) + "." + jumlah_harga_perkiraan_2;
-                } else {
-                    jumlah_harga_perkiraan_2 = jumlah_harga_perkiraan.substr(i - 1, 1) + jumlah_harga_perkiraan_2;
+                var jumlah_harga_perkiraan = volume * harga_perkiraan;
+                jumlah_harga_perkiraan = jumlah_harga_perkiraan.toString();
+                jumlah_harga_perkiraan_2 = "";
+                panjang = jumlah_harga_perkiraan.length;
+                j = 0;
+                for (i = panjang; i > 0; i--) {
+                    j = j + 1;
+                    if (((j % 3) == 1) && (j != 1)) {
+                        jumlah_harga_perkiraan_2 = jumlah_harga_perkiraan.substr(i - 1, 1) + "." + jumlah_harga_perkiraan_2;
+                    } else {
+                        jumlah_harga_perkiraan_2 = jumlah_harga_perkiraan.substr(i - 1, 1) + jumlah_harga_perkiraan_2;
+                    }
                 }
-            }
-            document.getElementById("jumlah_harga_hpe[" + change + "]").value = jumlah_harga_perkiraan_2;
-
-            var total_harga = [];
-
-            for (var i = 0; i < banyak_data.length; i++) {
-                total_harga[i] = document.getElementById("jumlah_harga_hpe[" + (i + 1) + "]").value;
-                total_harga[i] = total_harga[i].replace(/\./g, "");
-                total_harga[i] = parseInt(total_harga[i])
-            }
-
-            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-            total_harga_all = total_harga_all.toString();
-            total_harga_all_2 = "";
-            panjang_2 = total_harga_all.length;
-            k = 0;
-            for (i = panjang_2; i > 0; i--) {
-                k = k + 1;
-                if (((k % 3) == 1) && (k != 1)) {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                } else {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                if (document.getElementById('volume[' + change + ']').value != "" && document.getElementById('harga_hpe[' +
+                        change + ']').value != "") {
+                    document.getElementById("jumlah_harga_hpe[" + change + "]").value = jumlah_harga_perkiraan_2;
                 }
-            }
-            document.getElementById("jumlah-hpe").innerHTML = "Rp. " + total_harga_all_2;
-            total_harga_all = parseInt(total_harga_all);
-            var ppn_id = document.getElementById('ppn').value;
-            ppn_id = parseFloat(ppn_id);
-            var ppn = total_harga_all * ppn_id / 100;
-            ppn = Math.round(ppn);
-            ppn = ppn.toString();
-            ppn_2 = ""
-            panjang_3 = ppn.length;
-            l = 0;
-            for (i = panjang_3; i > 0; i--) {
-                l = l + 1;
-                if (((l % 3) == 1) && (l != 1)) {
-                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                } else {
-                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+
+                var volume_check = [];
+                var harga_perkiraan_check = [];
+                var jumlah_harga_perkiraan_check = [];
+
+                for (var i = 0; i < banyak_data.length; i++) {
+                    volume_check[i] = document.getElementById('volume[' + (i + 1) + ']').value
+                    harga_perkiraan_check[i] = document.getElementById('harga_hpe[' + (i + 1) + ']').value
+                    jumlah_harga_perkiraan_check[i] = document.getElementById('jumlah_harga_hpe[' + (i + 1) + ']').value
                 }
-            }
-            document.getElementById("pajak-hpe").innerHTML = "Rp. " + ppn_2;
-            ppn = parseInt(ppn);
-            var total = total_harga_all + ppn;
-            total = Math.round(total);
-            total = total.toString();
-            total_2 = "";
-            panjang_4 = total.length;
-            m = 0;
-            for (i = panjang_4; i > 0; i--) {
-                m = m + 1;
-                if (((m % 3) == 1) && (m != 1)) {
-                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+
+                if (volume_check.includes('') || harga_perkiraan_check.includes('') || jumlah_harga_perkiraan_check.includes(
+                        '')) {
+                    return false;
                 } else {
-                    total_2 = total.substr(i - 1, 1) + total_2;
+
                 }
-            }
-            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
-        }
 
-        function onSubmitData() {
-            var token = $('#csrf').val();
-            var non_po_id = $('#non_po_id').val();
-            var user_id = $('#user_id').val();
+                var total_harga = [];
+                for (var i = 0; i < banyak_data.length; i++) {
+                    total_harga[i] = document.getElementById("jumlah_harga_hpe[" + (i + 1) + "]").value;
+                    total_harga[i] = total_harga[i].replace(/\./g, "");
+                    total_harga[i] = parseInt(total_harga[i])
+                }
+                var pagu_prk = document.getElementById("rupiah").innerHTML;
+                pagu_prk = pagu_prk.replace(/\./g, "");
+                pagu_prk = parseInt(pagu_prk);
+                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                total_harga_all = total_harga_all.toString();
+                total_harga_all_2 = "";
+                panjang_2 = total_harga_all.length;
+                k = 0;
+                for (i = panjang_2; i > 0; i--) {
+                    k = k + 1;
+                    if (((k % 3) == 1) && (k != 1)) {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                    } else {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                    }
+                }
+                document.getElementById("jumlah-hpe").innerHTML = "Rp. " + total_harga_all_2;
+                total_harga_all = parseInt(total_harga_all);
+                var ppn_id = document.getElementById('ppn').value;
+                ppn_id = parseFloat(ppn_id);
+                var ppn = total_harga_all * ppn_id / 100;
+                ppn = Math.round(ppn);
+                ppn = ppn.toString();
+                ppn_2 = ""
+                panjang_3 = ppn.length;
+                l = 0;
+                for (i = panjang_3; i > 0; i--) {
+                    l = l + 1;
+                    if (((l % 3) == 1) && (l != 1)) {
+                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                    } else {
+                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                    }
+                }
+                document.getElementById("pajak-hpe").innerHTML = "Rp. " + ppn_2;
+                ppn = parseInt(ppn);
+                var total = total_harga_all + ppn;
+                total = Math.round(total);
 
-            var harga_hpe = [];
-            var jumlah_harga_hpe = [];
+                if (document.getElementById('total-hpe').innerHTML == "") {
+                    if (total < 50000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total-hpe").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total-hpe").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
+                    } else if (total >= 50000000 && total < 100000000) {
+                        swal({
+                                title: "Total Harga Telah Mencapai 50 Juta",
+                                text: "Total Harga HPE Telah Mencapai 50 Juta",
+                                icon: "warning",
+                                timer: 2e3,
+                                buttons: false
+                            })
+                            .then((willContinue) => {
+                                if (pagu_prk >= total) {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total-hpe").style.color = '#7E7E7E';
+                                } else {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total-hpe").style.color = '#F94687';
+                                }
+                                $(".sw-btn-next").prop('disabled', false);
+                            })
+                    } else {
+                        swal({
+                                title: "Total Harga Telah Mencapai 100 Juta",
+                                text: "Anda Tidak Dapat Melanjutkan Pembuatan HPE",
+                                icon: "error",
+                                timer: 2e3,
+                                buttons: false
+                            })
+                            .then((willContinue) => {
+                                if (pagu_prk >= total) {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total-hpe").style.color = '#7E7E7E';
+                                } else {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total-hpe").style.color = '#F94687';
+                                }
+                                $(".sw-btn-next").prop('disabled', true);
+                            })
+                    }
+                } else {
+                    var total_step2 = document.getElementById('total-hpe').innerHTML;
+                    total_step2 = total_step2.replace(/\Rp. /g, "");
+                    total_step2 = total_step2.replace(/\./g, "");
+                    total_step2 = parseFloat(total_step2);
 
-            var banyak_data = document.querySelectorAll("#tbody-kategori tr");
-
-            var fd = new FormData();
-
-            for (var i = 0; i < banyak_data.length; i++) {
-                harga_hpe[i] = document.getElementById("harga_hpe[" + (i + 1) + "]").value;
-                harga_hpe[i] = harga_hpe[i].replace(/\./g, "");
-                harga_hpe[i] = parseInt(harga_hpe[i]);
-                fd.append("harga_perkiraan[]", harga_hpe[i]);
-                jumlah_harga_hpe[i] = document.getElementById("jumlah_harga_hpe[" + (i + 1) + "]").value;
-                jumlah_harga_hpe[i] = jumlah_harga_hpe[i].replace(/\./g, "");
-                jumlah_harga_hpe[i] = parseInt(jumlah_harga_hpe[i]);
-                fd.append("jumlah_harga_perkiraan[]", jumlah_harga_hpe[i]);
-            }
-            // console.log(uraian);
-            // console.log(satuan);
-            // console.log(volume);
-            // console.log(harga_satuan);
-            // console.log(harga);
-
-            const bef_ppn_total_harga = jumlah_harga_hpe.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-            var ppn_id = document.getElementById('ppn').value;
-            ppn_id = parseFloat(ppn_id);
-            var ppn = bef_ppn_total_harga * ppn_id / 100;
-            ppn = Math.round(ppn);
-            var total_harga_hpe = bef_ppn_total_harga + ppn;
-            total_harga_hpe = Math.round(total_harga_hpe);
-
-            // if (kak.length > 0) {
-            fd.append("total_harga_hpe", total_harga_hpe);
-            fd.append("non_po_id", non_po_id);
-            fd.append("user_id", user_id);
-            // }
-
-            swal({
-                    title: "Apakah anda yakin?",
-                    text: "Silakan cek kembali apabila data masih keliru",
-                    icon: "warning",
-                    buttons: true,
-                })
-                .then((willCreate) => {
-                    if (willCreate) {
-                        // var data = {
-                        //     "_token": token,
-                        //     "nomor_rpbj": nomor_rpbj,
-                        //     "skk_id": skk_id,
-                        //     "prk_id": prk_id,
-                        //     "kak": kak[0],
-                        //     "total_harga": total_harga,
-                        //     "uraian": uraian,
-                        //     "satuan": satuan,
-                        //     "harga_satuan": harga_satuan,
-                        //     "volume": volume,
-                        //     "jumlah_harga": harga,
-                        //     "click": click,
-                        // }
-                        console.log("fd", fd);
-                        // console.log(data);
-
-                        $.ajax({
-                            url: "/simpan-non-po-hpe",
-                            method: 'POST',
-                            data: fd,
-                            contentType: false,
-                            processData: false,
-                            dataType: 'json',
-                            success: function(response) {
-                                swal({
-                                    title: "Data Ditambah",
-                                    text: "Data Berhasil Ditambah",
-                                    icon: "success",
+                    if (total_step2 < 50000000 && total < 50000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total-hpe").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total-hpe").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
+                    } else if (total_step2 < 50000000 && total >= 50000000) {
+                        if (total >= 100000000) {
+                            swal({
+                                    title: "Total Harga Telah Mencapai 100 Juta",
+                                    text: "Anda Tidak Dapat Melanjutkan Pembuatan HPE",
+                                    icon: "error",
                                     timer: 2e3,
                                     buttons: false
                                 })
-                                window.location.href = "/non-po-hpe";
-                                //         .then((result) => {
-                                //         });
+                                .then((willContinue) => {
+                                    if (pagu_prk >= total) {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total-hpe").style.color = '#7E7E7E';
+                                    } else {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total-hpe").style.color = '#F94687';
+                                    }
+                                    $(".sw-btn-next").prop('disabled', true);
+                                })
+                        } else {
+                            swal({
+                                    title: "Total Harga Telah Mencapai 50 Juta",
+                                    text: "Total Harga HPE Telah Mencapai 50 Juta",
+                                    icon: "warning",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((willContinue) => {
+                                    if (pagu_prk >= total) {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total-hpe").style.color = '#7E7E7E';
+                                    } else {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total-hpe").style.color = '#F94687';
+                                    }
+                                    $(".sw-btn-next").prop('disabled', false);
+                                })
+                        }
+                    } else if (total_step2 >= 50000000 && total >= 100000000) {
+                        if (total_step2 < 100000000) {
+                            swal({
+                                    title: "Total Harga Telah Mencapai 100 Juta",
+                                    text: "Anda Tidak Dapat Melanjutkan Pembuatan HPE",
+                                    icon: "error",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((willContinue) => {
+                                    if (pagu_prk >= total) {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total-hpe").style.color = '#7E7E7E';
+                                    } else {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total-hpe").style.color = '#F94687';
+                                    }
+                                    $(".sw-btn-next").prop('disabled', true);
+                                })
+                        } else {
+                            if (pagu_prk >= total) {
+                                total = total.toString();
+                                total_2 = "";
+                                panjang_4 = total.length;
+                                m = 0;
+                                for (i = panjang_4; i > 0; i--) {
+                                    m = m + 1;
+                                    if (((m % 3) == 1) && (m != 1)) {
+                                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                    } else {
+                                        total_2 = total.substr(i - 1, 1) + total_2;
+                                    }
+                                }
+                                document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                document.getElementById("total-hpe").style.color = '#7E7E7E';
+                            } else {
+                                total = total.toString();
+                                total_2 = "";
+                                panjang_4 = total.length;
+                                m = 0;
+                                for (i = panjang_4; i > 0; i--) {
+                                    m = m + 1;
+                                    if (((m % 3) == 1) && (m != 1)) {
+                                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                    } else {
+                                        total_2 = total.substr(i - 1, 1) + total_2;
+                                    }
+                                }
+                                document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                document.getElementById("total-hpe").style.color = '#F94687';
                             }
-                        });
-                    } else {
-                        swal({
-                            title: "Data Belum Ditambah",
-                            text: "Silakan Cek Kembali Data Anda",
-                            icon: "error",
-                            timer: 2e3,
-                            buttons: false
-                        });
+                            $(".sw-btn-next").prop('disabled', true);
+                        }
+                    } else if (total_step2 >= 100000000 && total < 100000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total-hpe").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total-hpe").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
+                    } else if (total_step2 >= 50000000 && total < 50000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total-hpe").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total-hpe").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
                     }
-                })
-        }
-
-        function prev4() {
-            btn_next4 = document.getElementById('btnnext4');
-            btn_next4.innerText = "Next";
-            btn_next4.setAttribute("id", "btnnext3");
-            btn_next4.setAttribute("onclick", "next3()");
-
-            btn_prev4 = document.getElementById('btnprev4');
-            btn_prev4.setAttribute("id", "btnprev3");
-            btn_prev4.setAttribute("onclick", "prev3()");
-        }
-
-        function prev3() {
-            btn_next3 = document.getElementById('btnnext3');
-            btn_next3.setAttribute("id", "btnnext2");
-            btn_next3.setAttribute("onclick", "next2()");
-
-            btn_prev3 = document.getElementById('btnprev3');
-            btn_prev3.setAttribute("id", "btnprev2");
-            btn_prev3.setAttribute("onclick", "prev2()");
-        }
-    </script>
-
-    <script type="text/javascript">
-        function tandaPemisahTitik(b) {
-            var _minus = false;
-            if (b < 0) _minus = true;
-            b = b.toString();
-            b = b.replace(".", "");
-            b = b.replace("-", "");
-            c = "";
-            panjang = b.length;
-            j = 0;
-            for (i = panjang; i > 0; i--) {
-                j = j + 1;
-                if (((j % 3) == 1) && (j != 1)) {
-                    c = b.substr(i - 1, 1) + "." + c;
-                } else {
-                    c = b.substr(i - 1, 1) + c;
                 }
             }
-            if (_minus) c = "-" + c;
-            return c;
-        }
 
-        function numbersonly(ini, e) {
-            if (e.keyCode >= 49) {
-                if (e.keyCode <= 57) {
-                    a = ini.value.toString().replace(".", "");
-                    b = a.replace(/[^\d]/g, "");
-                    b = (b == "0") ? String.fromCharCode(e.keyCode) : b + String.fromCharCode(e.keyCode);
-                    ini.value = tandaPemisahTitik(b);
-                    return false;
-                } else if (e.keyCode <= 105) {
-                    if (e.keyCode >= 96) {
-                        //e.keycode = e.keycode - 47;
+            function onSubmitData() {
+                var token = $('#csrf').val();
+                var non_po_id = $('#non_po_id').val();
+                var user_id = $('#user_id').val();
+                var tujuan = $('#tujuan option:selected').val();
+                var sumber = $('#sumber option:selected').val();
+                var sifat = $('#sifat option:selected').val();
+                var lampiran = $('#lampiran1').text();
+                var sifat_lampiran = $('#sifat_lampiran option:selected').val();
+                var perihal = $('#perihal').val();
+                var isi_surat = $('#isi_surat').val();
+
+
+                var harga_hpe = [];
+                var jumlah_harga_hpe = [];
+
+                var banyak_data = document.querySelectorAll("#tbody-kategori tr");
+
+                var fd = new FormData();
+
+                for (var i = 0; i < banyak_data.length; i++) {
+                    harga_hpe[i] = document.getElementById("harga_hpe[" + (i + 1) + "]").value;
+                    harga_hpe[i] = harga_hpe[i].replace(/\./g, "");
+                    harga_hpe[i] = parseInt(harga_hpe[i]);
+                    fd.append("harga_perkiraan[]", harga_hpe[i]);
+                    jumlah_harga_hpe[i] = document.getElementById("jumlah_harga_hpe[" + (i + 1) + "]").value;
+                    jumlah_harga_hpe[i] = jumlah_harga_hpe[i].replace(/\./g, "");
+                    jumlah_harga_hpe[i] = parseInt(jumlah_harga_hpe[i]);
+                    fd.append("jumlah_harga_perkiraan[]", jumlah_harga_hpe[i]);
+                }
+                // console.log(uraian);
+                // console.log(satuan);
+                // console.log(volume);
+                // console.log(harga_satuan);
+                // console.log(harga);
+
+                const bef_ppn_total_harga = jumlah_harga_hpe.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                var ppn_id = document.getElementById('ppn').value;
+                ppn_id = parseFloat(ppn_id);
+                var ppn = bef_ppn_total_harga * ppn_id / 100;
+                ppn = Math.round(ppn);
+                var total_harga_hpe = bef_ppn_total_harga + ppn;
+                total_harga_hpe = Math.round(total_harga_hpe);
+
+                // if (kak.length > 0) {
+                fd.append("total_harga_hpe", total_harga_hpe);
+                fd.append("non_po_id", non_po_id);
+                fd.append("user_id", user_id);
+
+
+                fd.append("tujuan", tujuan);
+                fd.append("sumber", sumber);
+                fd.append("sifat", sifat);
+                fd.append("lampiran", lampiran);
+                fd.append("perihal", perihal);
+                fd.append("isi_surat", isi_surat);
+                // }
+
+                swal({
+                        title: "Apakah anda yakin?",
+                        text: "Silakan cek kembali apabila data masih keliru",
+                        icon: "warning",
+                        buttons: true,
+                    })
+                    .then((willCreate) => {
+                        if (willCreate) {
+                            // var data = {
+                            //     "_token": token,
+                            //     "nomor_rpbj": nomor_rpbj,
+                            //     "skk_id": skk_id,
+                            //     "prk_id": prk_id,
+                            //     "kak": kak[0],
+                            //     "total_harga": total_harga,
+                            //     "uraian": uraian,
+                            //     "satuan": satuan,
+                            //     "harga_satuan": harga_satuan,
+                            //     "volume": volume,
+                            //     "jumlah_harga": harga,
+                            //     "click": click,
+                            // }
+                            console.log("fd", fd);
+                            // console.log(data);
+
+                            $.ajax({
+                                url: "/simpan-non-po-hpe",
+                                method: 'POST',
+                                data: fd,
+                                contentType: false,
+                                processData: false,
+                                dataType: 'json',
+                                success: function(response) {
+                                    swal({
+                                        title: "Data Ditambah",
+                                        text: "Data Berhasil Ditambah",
+                                        icon: "success",
+                                        timer: 2e3,
+                                        buttons: false
+                                    })
+                                    window.location.href = "../preview-hpe/" + response;
+                                    //         .then((result) => {
+                                    //         });
+                                }
+                            });
+                        } else {
+                            swal({
+                                title: "Data Belum Ditambah",
+                                text: "Silakan Cek Kembali Data Anda",
+                                icon: "error",
+                                timer: 2e3,
+                                buttons: false
+                            });
+                        }
+                    })
+            }
+
+            function prev4() {
+                btn_next4 = document.getElementById('btnnext4');
+                btn_next4.innerText = "Next";
+                btn_next4.setAttribute("id", "btnnext3");
+                btn_next4.setAttribute("onclick", "next3()");
+
+                btn_prev4 = document.getElementById('btnprev4');
+                btn_prev4.setAttribute("id", "btnprev3");
+                btn_prev4.setAttribute("onclick", "prev3()");
+            }
+
+            function prev3() {
+                btn_next3 = document.getElementById('btnnext3');
+                btn_next3.setAttribute("id", "btnnext2");
+                btn_next3.setAttribute("onclick", "next2()");
+
+                btn_prev3 = document.getElementById('btnprev3');
+                btn_prev3.setAttribute("id", "btnprev2");
+                btn_prev3.setAttribute("onclick", "prev2()");
+            }
+        </script>
+
+        <script type="text/javascript">
+            function tandaPemisahTitik(b) {
+                var _minus = false;
+                if (b < 0) _minus = true;
+                b = b.toString();
+                b = b.replace(".", "");
+                b = b.replace("-", "");
+                c = "";
+                panjang = b.length;
+                j = 0;
+                for (i = panjang; i > 0; i--) {
+                    j = j + 1;
+                    if (((j % 3) == 1) && (j != 1)) {
+                        c = b.substr(i - 1, 1) + "." + c;
+                    } else {
+                        c = b.substr(i - 1, 1) + c;
+                    }
+                }
+                if (_minus) c = "-" + c;
+                return c;
+            }
+
+            function numbersonly(ini, e) {
+                if (e.keyCode >= 49) {
+                    if (e.keyCode <= 57) {
                         a = ini.value.toString().replace(".", "");
                         b = a.replace(/[^\d]/g, "");
-                        b = (b == "0") ? String.fromCharCode(e.keyCode - 48) : b + String.fromCharCode(e.keyCode - 48);
+                        b = (b == "0") ? String.fromCharCode(e.keyCode) : b + String.fromCharCode(e.keyCode);
                         ini.value = tandaPemisahTitik(b);
-                        //alert(e.keycode);
+                        return false;
+                    } else if (e.keyCode <= 105) {
+                        if (e.keyCode >= 96) {
+                            //e.keycode = e.keycode - 47;
+                            a = ini.value.toString().replace(".", "");
+                            b = a.replace(/[^\d]/g, "");
+                            b = (b == "0") ? String.fromCharCode(e.keyCode - 48) : b + String.fromCharCode(e.keyCode - 48);
+                            ini.value = tandaPemisahTitik(b);
+                            //alert(e.keycode);
+                            return false;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else if (e.keyCode == 48) {
+                    a = ini.value.replace(".", "") + String.fromCharCode(e.keyCode);
+                    b = a.replace(/[^\d]/g, "");
+                    if (parseFloat(b) != 0) {
+                        ini.value = tandaPemisahTitik(b);
                         return false;
                     } else {
                         return false;
                     }
-                } else {
-                    return false;
-                }
-            } else if (e.keyCode == 48) {
-                a = ini.value.replace(".", "") + String.fromCharCode(e.keyCode);
-                b = a.replace(/[^\d]/g, "");
-                if (parseFloat(b) != 0) {
-                    ini.value = tandaPemisahTitik(b);
-                    return false;
-                } else {
-                    return false;
-                }
-            } else if (e.keyCode == 95) {
-                a = ini.value.replace(".", "") + String.fromCharCode(e.keyCode - 48);
-                b = a.replace(/[^\d]/g, "");
-                if (parseFloat(b) != 0) {
-                    ini.value = tandaPemisahTitik(b);
-                    return false;
-                } else {
-                    return false;
-                }
-            } else if (e.keyCode == 8 || e.keycode == 46) {
-                a = ini.value.replace(".", "");
-                b = a.replace(/[^\d]/g, "");
-                b = b.substr(0, b.length - 1);
-                if (tandaPemisahTitik(b) != "") {
-                    ini.value = tandaPemisahTitik(b);
-                } else {
-                    ini.value = "";
-                }
+                } else if (e.keyCode == 95) {
+                    a = ini.value.replace(".", "") + String.fromCharCode(e.keyCode - 48);
+                    b = a.replace(/[^\d]/g, "");
+                    if (parseFloat(b) != 0) {
+                        ini.value = tandaPemisahTitik(b);
+                        return false;
+                    } else {
+                        return false;
+                    }
+                } else if (e.keyCode == 8 || e.keycode == 46) {
+                    a = ini.value.replace(".", "");
+                    b = a.replace(/[^\d]/g, "");
+                    b = b.substr(0, b.length - 1);
+                    if (tandaPemisahTitik(b) != "") {
+                        ini.value = tandaPemisahTitik(b);
+                    } else {
+                        ini.value = "";
+                    }
 
-                return false;
-            } else if (e.keyCode == 9) {
-                return true;
-            } else if (e.keyCode == 17) {
-                return true;
-            } else {
-                //alert (e.keyCode);
-                return false;
+                    return false;
+                } else if (e.keyCode == 9) {
+                    return true;
+                } else if (e.keyCode == 17) {
+                    return true;
+                } else {
+                    //alert (e.keyCode);
+                    return false;
+                }
             }
-        }
-    </script>
+        </script>
+    @endsection

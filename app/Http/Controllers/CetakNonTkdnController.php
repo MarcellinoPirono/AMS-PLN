@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Rab;
+use App\Models\NonPo;
 use App\Models\lokasi;
 use App\Models\Prk;
 use App\Models\ItemRincianInduk;
@@ -205,7 +206,7 @@ class CetakNonTkdnController extends Controller
         $oMerger->merge();
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
 
-        $this->update_skk_prk($request->skk_id, $request->prk_id);
+        $this->update_skk_prk($request->skk_id, $request->prk_id, $request->status);
         // $updated_prk_terkontrak = 0;
         // $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
         // foreach ($previous_prk_terkontrak as $prk_terkontrak)
@@ -391,7 +392,7 @@ class CetakNonTkdnController extends Controller
         $oMerger->merge();
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
 
-        $this->update_skk_prk($request->skk_id, $request->prk_id);
+        $this->update_skk_prk($request->skk_id, $request->prk_id, $request->status);
         // $updated_prk_terkontrak = 0;
         // $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
         // foreach ($previous_prk_terkontrak as $prk_terkontrak)
@@ -614,7 +615,7 @@ class CetakNonTkdnController extends Controller
         $oMerger->merge();
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
 
-        $this->update_skk_prk($request->skk_id, $request->prk_id);
+        $this->update_skk_prk($request->skk_id, $request->prk_id, $request->status);
         // $updated_prk_terkontrak = 0;
         // $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
         // foreach ($previous_prk_terkontrak as $prk_terkontrak)
@@ -784,6 +785,7 @@ class CetakNonTkdnController extends Controller
         }
 
         $values_pdf_page1 = Rab::where('id', $id)->get();
+        $rab_id2 = Rab::where('id', $id)->value('id');
 
         //PO ON PROGRESS
         $pdf = (new PdfkhsController)->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "On Progress");
@@ -835,7 +837,7 @@ class CetakNonTkdnController extends Controller
         $oMerger->merge();
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
 
-        $this->update_skk_prk($request->skk_id, $request->prk_id);
+        $this->update_skk_prk($request->skk_id, $request->prk_id, $request->status);
         // $updated_prk_terkontrak = 0;
         // $previous_prk_terkontrak = Rab::where('prk_id', $request->prk_id)->get('total_harga');
         // foreach ($previous_prk_terkontrak as $prk_terkontrak)
@@ -1020,18 +1022,22 @@ class CetakNonTkdnController extends Controller
         return $pdf2;
     }
 
-    public function update_skk_prk($skk_id, $prk_id){
+    public function update_skk_prk($skk_id, $prk_id, $status){
 
         $updated_prk_progress = 0;
-        $previous_prk_progress = Rab::where('prk_id', $prk_id)->get('total_harga');
-        foreach ($previous_prk_progress as $prk_progress)
+        $previous_prk_progress_po_khs = Rab::where('prk_id', $prk_id)->where('status', $status)->get('total_harga');
+        foreach ($previous_prk_progress_po_khs as $prk_progress)
             $updated_prk_progress += (float)$prk_progress->total_harga;
+        $previous_prk_progress_non_po = NonPo::where('prk_id', $prk_id)->where('status', 'Waiting List')->get('total_harga_hpe');
+        foreach ($previous_prk_progress_non_po as $prk_progress)
+            $updated_prk_progress += (float)$prk_progress->total_harga_hpe;
         Prk::where('id', $prk_id)->update(array('prk_progress' => (float)$updated_prk_progress));
 
         //Update PRK Sisa
         $pagu_prk = Prk::where('id', $prk_id)->value('pagu_prk');
         $prk_progress = Prk::where('id', $prk_id)->value('prk_progress');
-        $updated_prk_sisa = (float)$pagu_prk - (float)$prk_progress;
+        $prk_terkontrak = Prk::where('id', $prk_id)->value('prk_terkontrak');
+        $updated_prk_sisa = (float)$pagu_prk - (float)$prk_progress - (float)$prk_terkontrak;
         Prk::where('id', $prk_id)->update(array('prk_sisa' => (float)$updated_prk_sisa));
 
         //Update SKK progress
@@ -1044,7 +1050,8 @@ class CetakNonTkdnController extends Controller
         //Update SKK Sisa
         $pagu_skk = Skk::where('id', $skk_id)->value('pagu_skk');
         $skk_progress = Skk::where('id', $skk_id)->value('skk_progress');
-        $updated_skk_sisa = (float)$pagu_skk - (float)$skk_progress;
+        $skk_terkontrak = Skk::where('id', $skk_id)->value('skk_terkontrak');
+        $updated_skk_sisa = (float)$pagu_skk - (float)$skk_progress - (float)$skk_terkontrak;
         Skk::where('id', $skk_id)->update(array('skk_sisa' => (float)$updated_skk_sisa));
     }
 }

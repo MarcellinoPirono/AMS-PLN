@@ -37,6 +37,32 @@
      /* : 150px ; */
  }
 
+ header1 {
+    position: fixed;
+    margin-top: 20px;
+    top: -150px;
+    left: 20px;
+    /* right: -20px; */
+    width: 94%;
+    margin-left: 20px;
+    /* height: 3cm; */
+    /* height: 100%; */
+    /* background-color: yellowgreen; */
+    /* position: static;
+   top: 0cm;
+   left: 0cm;
+   right: 0cm;
+   height: 3cm; */
+    /* width: 100%; */
+
+    /** Extra personal styles **/
+    /* color: white; */
+    /* text-align: center; */
+    /* line-height: 35px; */
+    /* margin-bottom: 350px ; */
+    /* : 150px ; */
+}
+
  /* .header{
     background-color: aqua;
     height:100px;
@@ -616,6 +642,13 @@ background-color: #FFF000;
     border-right: 3px solid black;
     border-top: 1px solid black;
     border-bottom: none;
+}
+
+.atasbawah {
+    border-left: none;
+    border-right: none;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
 }
 
 /* label.checkbox-label input[type=checkbox]{

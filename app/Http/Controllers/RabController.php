@@ -824,7 +824,19 @@ class RabController extends Controller
         return response()->json($redaksi);
     }
 
-   
+    public function getDeskripsi(Request $request){
+        $redaksi_id = $request->post('redaksi_id');
+
+        // dd($redaksi_id);
+        $deskripsi_redaksi = Redaksi::where('id', $redaksi_id)->value('deskripsi_redaksi');
+
+        $deskripsi = DB::table('redaksis')->where('deskripsi_redaksi', $deskripsi_redaksi)->first();
+        // dd($deskripsi);
+
+        return response()->json($deskripsi);
+    }
+
+
     public function getSubDeskripsi(Request $request){
         $redaksi_id = $request->post('redaksi_id');
 

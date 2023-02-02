@@ -94,9 +94,9 @@
                                         <td>
                                             <div class="d-flex justify-content-center">
 
-                                                <a class="btn light btn-success btn-xs sharp" href="download/{{ $rab->slug }}"><i
+                                                <a class="btn light btn-success btn-xs1 sharp" href="download/{{ $rab->slug }}"><i
                                                     class="bi bi-download"></i></a>
-                                                <a class="btn light btn-info btn-xs sharp ml-1"
+                                                <a class="btn light btn-info btn-xs1 sharp ml-1"
                                                         href="preview-pdf-khs/{{ $rab->slug }}"><i
                                                             class="bi bi-eye"></i></a>
 

@@ -13,7 +13,7 @@
 
                 <div class="card-body">
                 @if (auth()->user()->role === 'Manager' || auth()->user()->role === 'Admin')
-                    @if ($rabs->status != 'Disetujui' && $rabs->status != 'Ditolak')
+                    @if ($rabs->status === 'Progress')
                         <div class="col-md-12 d-flex justify-content-end mt-5 mb-3">
 
                             <input type="hidden" value="{{ $slug }}" id="slug_rab" name="slug_rab">
@@ -30,13 +30,13 @@
                 <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/' . $filename . '.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
                 @elseif ($rabs->status === 'Ditolak')
-                <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/' . $filename . '_ditolak.pdf') }}"
+                <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/hpe/' . $filename . '-HPE_ditolak.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
                 @elseif ($rabs->status === 'Waiting List')
-                <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/hpe/' . $filename . '-HPE.pdf') }}"
+                <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/hpe/' . $filename . '-HPE_onprogress.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
                 @else
-                <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/' . $filename . '.pdf') }}"
+                <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/hpe/' . $filename . '.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
 
                 @endif
@@ -82,7 +82,7 @@
                         if (willCreate) {
                             $.ajax({
                                 type: 'POST',
-                                url: '/konfirmasi',
+                                url: '/konfirmasi-non-po',
                                 data: data,
                                 success: function(response) {
                                     swal({
@@ -93,7 +93,7 @@
                                             buttons: false
                                         })
                                         .then((result) => {
-                                            window.location.href = "/po-khs";
+                                            window.location.href = "/non-po-hpe";
                                         });
                                 }
                             });
@@ -119,7 +119,7 @@
                         if (willCreate) {
                             $.ajax({
                                 type: 'POST',
-                                url: '/konfirmasi',
+                                url: '/konfirmasi-non-po',
                                 data: data,
                                 success: function(response) {
                                     swal({
@@ -130,7 +130,7 @@
                                             buttons: false
                                         })
                                         .then((result) => {
-                                            window.location.href = "/po-khs";
+                                            window.location.href = "/non-po-hpe";
                                         });
                                 }
                             });

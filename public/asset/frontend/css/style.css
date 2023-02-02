@@ -38437,9 +38437,9 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 .badge {
     line-height: 1.5;
     border-radius: 1.25rem;
-    font-size: 14px;
+    font-size: 7px;
     font-weight: 600;
-    padding: 0px 6px;
+    padding: 3px 6px;
     border: 1px solid transparent;
 }
 
@@ -38620,6 +38620,11 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     background-color: #ffdb11;
     /* color: #ff8411; */
     color: #ffdb11;
+}
+.light.badge-warning2 {
+    background-color: #ee7a18;
+    /* color: #ff8411; */
+    color: #ee7a18;
 }
 
 [data-theme-version="dark"] .light.badge-warning {
@@ -38842,6 +38847,13 @@ button:focus {
 }
 
 .sharp.btn-xs {
+    padding: 3px;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+}
+.sharp.btn-xs1 {
     padding: 3px;
     width: 26px;
     height: 26px;
@@ -39367,9 +39379,21 @@ button:focus {
     padding: 0.438rem 1rem;
     font-weight: 600;
 }
+.btn-xs1 {
+    font-size: 0.75rem;
+    padding: 0.438rem 1rem;
+    font-weight: 600;
+}
 
 @media only screen and (max-width: 1400px) {
     .btn-xs {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        font-weight: 500;
+    }
+}
+@media only screen and (max-width: 1400px) {
+    .btn-xs1 {
         font-size: 1rem;
         padding: 0.25rem 0.5rem;
         font-weight: 500;

@@ -986,7 +986,7 @@ function change_item(c) {
                     jumlah_2 = jumlah.substr(i - 1, 1) + jumlah_2;
                 }
             }
-            if(document.getElementById('volume['+ change +']').value != "") {
+            if(document.getElementById('volume['+ change +']').value != "" && document.getElementById('harga_satuan['+ change +']').value != "") {
                 document.getElementById("harga[" + change + "]").value = jumlah_2;
             }
             // document.getElementById("harga[" + change + "]").value = jumlah_2;
@@ -1156,7 +1156,7 @@ function change_item_with_paket(c) {
                     jumlah_2 = jumlah.substr(i - 1, 1) + jumlah_2;
                 }
             }
-            if(row.querySelector('input[name="volume"]').value != "") {
+            if(row.querySelector('input[name="volume"]').value != "" && row.querySelector('input[name="harga_satuan"]').value != "") {
                 row.querySelector('input[name="harga"]').value = jumlah_2;
             }
             // console.log("document.querySelectorAll('input[name=harga]')", document.querySelectorAll('input[name="harga"]'));
@@ -1347,7 +1347,7 @@ function blur_volume(c) {
             harga_2 = harga.substr(i - 1, 1) + harga_2;
         }
     }
-    if(document.getElementById('harga_satuan['+ change +']').value != "") {
+    if(document.getElementById('harga_satuan['+ change +']').value != "" && document.getElementById('volume['+ change +']').value != "") {
         document.getElementById("harga[" + change + "]").value = harga_2;
     }
 
@@ -1475,7 +1475,7 @@ function blur_volume_with_paket(c) {
             harga_2 = harga.substr(i - 1, 1) + harga_2;
         }
     }
-    if(row.querySelector('input[name="harga_satuan"]').value != "") {
+    if(row.querySelector('input[name="harga_satuan"]').value != "" && row.querySelector('input[name="volume"]').value != "") {
         row.querySelector('input[name="harga"]').value = harga_2;
     }
     const harga_input = document.querySelectorAll('input[name="harga"]');

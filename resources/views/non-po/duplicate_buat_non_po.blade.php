@@ -54,7 +54,7 @@
                                                             <input id="nota_dinas" type="file"
                                                                 class="form-control custom-file-input"
                                                                 style="border-radius: 0 20px 20px 0" required
-                                                                onchange="fileValidation1(this);" />
+                                                                onchange="fileValidation1(this);" accept=".pdf" />
                                                             <label id="label_nota_dinas" class="custom-file-label">Choose or
                                                                 Drag file</label>
                                                         </div>
@@ -78,7 +78,7 @@
                                                         <div class="custom-file">
                                                             <input id="kak" type="file"
                                                                 class="form-control custom-file-input" required
-                                                                onchange="fileValidation2(this);" />
+                                                                onchange="fileValidation2(this);" accept=".pdf" />
                                                             <label id="label_kak" class="custom-file-label">Choose or Drag
                                                                 file</label>
                                                         </div>
@@ -478,8 +478,8 @@
                                                                             </tr>
                                                                         </tfoot>
                                                                         <!-- <tr>
-                                                                                                                                        <td class="first1"></td>
-                                                                                                                                    </tr> -->
+                                                                                                                                                                                            <td class="first1"></td>
+                                                                                                                                                                                        </tr> -->
                                                                     </table>
                                                                     {{-- <div>
                                                                         <button id="prevpdf">Previous</button>
@@ -491,8 +491,8 @@
                                                                     {{-- <embed width="100%" height="600px" type="application/pdf" id="embedLink"/> --}}
 
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
-                                                                                                                                    <embed id="pdfViewer2" width="100%" height="600px" >
-                                                                                                                                </object> -->
+                                                                                                                                                                                        <embed id="pdfViewer2" width="100%" height="600px" >
+                                                                                                                                                                                    </object> -->
 
                                                                 </div>
 
@@ -645,16 +645,19 @@
 
             const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
 
-            // function onCancel() {
-            //     // Reset wizard
-            //     $('#smartwizard').smartWizard("reset");
+            function onCancel() {
+                // Reset wizard
+                $('#smartwizard').smartWizard("reset");
 
-            //     // Reset form
-            //     document.getElementById("form-1").reset();
-            //     document.getElementById("form-2").reset();
-            //     document.getElementById("form-3").reset();
-            //     // document.getElementById("form-4").reset();
-            // }
+                // Reset form
+                document.getElementById("form-1").reset();
+                document.getElementById("form-2").reset();
+                document.getElementById("form-3").reset();
+                document.getElementById("jumlah").innerHTML = "";
+                document.getElementById("pajak").innerHTML = "";
+                document.getElementById("total").innerHTML = "";
+                // document.getElementById("form-4").reset();
+            }
 
             // function onConfirm() {
             //     let form = document.getElementById('form-3');
@@ -802,6 +805,10 @@
                     // Validate only on forward movement
                     $('#start_date').removeAttr('readonly');
                     $('#end_date').removeAttr('readonly');
+                    // console.log($('.sw-btn-next'));
+                    // $('.sw-btn-next').removeAttr('type');
+                    // console.log(document.getElementsByClassName("sw-btn-next"));
+                    // document.getElementsByClassName("sw-btn-next").setAttribute("id", "next1");
 
                     if (stepDirection == 'forward') {
                         let form = document.getElementById('form-' + (currentStepIdx + 1));
@@ -845,7 +852,20 @@
                     $("#next-btn").removeClass('disabled').prop('disabled', false);
                     if (stepPosition === 'first') {
                         $("#prev-btn").addClass('disabled').prop('disabled', true);
-                    } else if (stepPosition === 'dua') {
+                        $(".sw-btn-next").prop('disabled', false);
+                        // $("#next-btn").attr('id', 'next1');
+                    } else if (stepPosition === 'second') {
+                        if (document.getElementById('total').innerHTML != "") {
+                            var total = document.getElementById('total').innerHTML;
+                            total = total.replace(/\Rp. /g, "");
+                            total = total.replace(/\./g, "");
+                            total = parseFloat(total);
+                            // console.log(total);
+                            if (total >= 100000000) {
+                                $(".sw-btn-next").prop('disabled', true)
+                            }
+                        }
+                    } else if (stepPosition === 'third') {
                         var nomor_rpbj = $("#nomor_rpbj").val();
                         var skk_id = $("#skk_id option:selected").text();
                         var prk_id = $("#prk_id option:selected").text();
@@ -866,7 +886,7 @@
                                 document.getElementById("harga[" + (i + 1) + "]").value
                             ]
                         }
-                        console.log("baris", baris);
+                        // console.log("baris", baris);
 
                         const result_rab_non_po = baris.filter(element => {
                             return element !== null;
@@ -915,7 +935,7 @@
                     $("#sw-current-step").text(stepInfo.currentStep + 1);
                     $("#sw-total-step").text(stepInfo.totalSteps);
 
-                    if (stepPosition == 'dua') {
+                    if (stepPosition == 'third') {
                         showConfirm();
                         $("#btnFinish").prop('disabled', false);
                     } else {
@@ -1267,87 +1287,103 @@
                 select_id_harga[i].id = "harga[" + (i + 1) + "]";
             }
 
+            if (click == 0) {
+                document.getElementById("jumlah").innerHTML = "";
+                document.getElementById("pajak").innerHTML = "";
+                document.getElementById("total").innerHTML = "";
+            } else {
+                var volume_check = [];
+                var harga_satuan_check = [];
+                var harga_check = [];
+                for (var i = 0; i < click; i++) {
+                    volume_check[i] = document.getElementById('volume[' + (i + 1) + ']').value
+                    harga_satuan_check[i] = document.getElementById('harga_satuan[' + (i + 1) + ']').value
+                    harga_check[i] = document.getElementById('harga[' + (i + 1) + ']').value
+                }
+                if (volume_check.includes('') || harga_satuan_check.includes('') || harga_check.includes('')) {
+                    return false;
+                } else {
+                    var total_harga = [];
+                    for (var i = 0; i < click; i++) {
+                        total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+                        total_harga[i] = total_harga[i].replace(/\./g, "");
+                        total_harga[i] = parseInt(total_harga[i])
+                    }
+                    var pagu_prk = document.getElementById("rupiah").innerHTML;
+                    pagu_prk = pagu_prk.replace(/\./g, "");
+                    pagu_prk = parseInt(pagu_prk);
+                    var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                    total_harga_all = total_harga_all.toString();
+                    total_harga_all_2 = "";
+                    panjang_2 = total_harga_all.length;
+                    k = 0;
+                    for (i = panjang_2; i > 0; i--) {
+                        k = k + 1;
+                        if (((k % 3) == 1) && (k != 1)) {
+                            total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                        } else {
+                            total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                        }
+                    }
+                    document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+                    total_harga_all = parseInt(total_harga_all);
+                    var ppn_id = document.getElementById('ppn').value;
+                    ppn_id = parseFloat(ppn_id);
+                    var ppn = total_harga_all * ppn_id / 100;
+                    ppn = Math.round(ppn);
+                    ppn = ppn.toString();
+                    ppn_2 = ""
+                    panjang_3 = ppn.length;
+                    l = 0;
+                    for (i = panjang_3; i > 0; i--) {
+                        l = l + 1;
+                        if (((l % 3) == 1) && (l != 1)) {
+                            ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                        } else {
+                            ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                        }
+                    }
+                    document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+                    ppn = parseInt(ppn);
+                    var total = total_harga_all + ppn;
+                    total = Math.round(total);
+                    if (pagu_prk >= total) {
+                        total = total.toString();
+                        total_2 = "";
+                        panjang_4 = total.length;
+                        m = 0;
+                        for (i = panjang_4; i > 0; i--) {
+                            m = m + 1;
+                            if (((m % 3) == 1) && (m != 1)) {
+                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                            } else {
+                                total_2 = total.substr(i - 1, 1) + total_2;
+                            }
+                        }
+                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                        document.getElementById("total").style.color = '#7E7E7E';
+                    } else {
+                        total = total.toString();
+                        total_2 = "";
+                        panjang_4 = total.length;
+                        m = 0;
+                        for (i = panjang_4; i > 0; i--) {
+                            m = m + 1;
+                            if (((m % 3) == 1) && (m != 1)) {
+                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                            } else {
+                                total_2 = total.substr(i - 1, 1) + total_2;
+                            }
+                        }
+                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                        document.getElementById("total").style.color = '#F94687';
+                    }
+                }
+            }
             reindex();
-
             if (click == 0) {
                 updateform();
             }
-
-            var total_harga = [];
-
-            for (var i = 0; i < click; i++) {
-                total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
-                total_harga[i] = total_harga[i].replace(/\./g, "");
-                total_harga[i] = parseInt(total_harga[i])
-            }
-
-            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-            total_harga_all = total_harga_all.toString();
-            total_harga_all_2 = "";
-            panjang_2 = total_harga_all.length;
-            k = 0;
-            for (i = panjang_2; i > 0; i--) {
-                k = k + 1;
-                if (((k % 3) == 1) && (k != 1)) {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                } else {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-                }
-            }
-            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-            total_harga_all = parseInt(total_harga_all);
-            var ppn_id = document.getElementById('ppn').value;
-            ppn_id = parseFloat(ppn_id);
-            var ppn = total_harga_all * ppn_id / 100;
-            ppn = Math.round(ppn);
-            ppn = ppn.toString();
-            ppn_2 = ""
-            panjang_3 = ppn.length;
-            l = 0;
-            for (i = panjang_3; i > 0; i--) {
-                l = l + 1;
-                if (((l % 3) == 1) && (l != 1)) {
-                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                } else {
-                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-                }
-            }
-            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-            ppn = parseInt(ppn);
-            var total = total_harga_all + ppn;
-            total = Math.round(total);
-            if (pagu_prk >= total) {
-                total = total.toString();
-                total_2 = "";
-                panjang_4 = total.length;
-                m = 0;
-                for (i = panjang_4; i > 0; i--) {
-                    m = m + 1;
-                    if (((m % 3) == 1) && (m != 1)) {
-                        total_2 = total.substr(i - 1, 1) + "." + total_2;
-                    } else {
-                        total_2 = total.substr(i - 1, 1) + total_2;
-                    }
-                }
-                document.getElementById("total").innerHTML = "Rp. " + total_2;
-                document.getElementById("total").style.color = '#7E7E7E';
-            } else {
-                total = total.toString();
-                total_2 = "";
-                panjang_4 = total.length;
-                m = 0;
-                for (i = panjang_4; i > 0; i--) {
-                    m = m + 1;
-                    if (((m % 3) == 1) && (m != 1)) {
-                        total_2 = total.substr(i - 1, 1) + "." + total_2;
-                    } else {
-                        total_2 = total.substr(i - 1, 1) + total_2;
-                    }
-                }
-                document.getElementById("total").innerHTML = "Rp. " + total_2;
-                document.getElementById("total").style.color = '#F94687';
-            }
-
         }
 
         function reindex() {
@@ -1488,7 +1524,7 @@
             var volume = document.getElementById("volume[" + change + "]").value;
             volume = volume.replace(/\./g, "");
             volume = volume.replace(/\,/g, ".");
-            volume = parseInt(volume);
+            volume = parseFloat(volume);
             var harga_satuan = document.getElementById("harga_satuan[" + change + "]").value;
             harga_satuan = harga_satuan.replace(/\./g, "");
             harga_satuan = parseInt(harga_satuan);
@@ -1508,83 +1544,456 @@
                     harga_2 = harga.substr(i - 1, 1) + harga_2;
                 }
             }
-            document.getElementById("harga[" + change + "]").value = harga_2;
-            var total_harga = [];
-            for (var i = 0; i < click; i++) {
-                total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
-                total_harga[i] = total_harga[i].replace(/\./g, "");
-                total_harga[i] = parseInt(total_harga[i])
+            if (document.getElementById('volume[' + change + ']').value != "" && document.getElementById('harga_satuan[' +
+                    change + ']').value != "") {
+                document.getElementById("harga[" + change + "]").value = harga_2;
             }
-            var pagu_prk = document.getElementById("rupiah").innerHTML;
-            pagu_prk = pagu_prk.replace(/\./g, "");
-            pagu_prk = parseInt(pagu_prk);
-            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-            total_harga_all = total_harga_all.toString();
-            total_harga_all_2 = "";
-            panjang_2 = total_harga_all.length;
-            k = 0;
-            for (i = panjang_2; i > 0; i--) {
-                k = k + 1;
-                if (((k % 3) == 1) && (k != 1)) {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                } else {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-                }
-            }
-            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-            total_harga_all = parseInt(total_harga_all);
-            var ppn_id = document.getElementById('ppn').value;
-            ppn_id = parseFloat(ppn_id);
-            var ppn = total_harga_all * ppn_id / 100;
-            ppn = Math.round(ppn);
-            ppn = ppn.toString();
-            ppn_2 = ""
-            panjang_3 = ppn.length;
-            l = 0;
-            for (i = panjang_3; i > 0; i--) {
-                l = l + 1;
-                if (((l % 3) == 1) && (l != 1)) {
-                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                } else {
-                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-                }
-            }
-            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-            ppn = parseInt(ppn);
-            var total = total_harga_all + ppn;
-            total = Math.round(total);
-            // if()
 
-            if (pagu_prk >= total) {
-                total = total.toString();
-                total_2 = "";
-                panjang_4 = total.length;
-                m = 0;
-                for (i = panjang_4; i > 0; i--) {
-                    m = m + 1;
-                    if (((m % 3) == 1) && (m != 1)) {
-                        total_2 = total.substr(i - 1, 1) + "." + total_2;
-                    } else {
-                        total_2 = total.substr(i - 1, 1) + total_2;
-                    }
-                }
-                document.getElementById("total").innerHTML = "Rp. " + total_2;
-                document.getElementById("total").style.color = '#7E7E7E';
+            var volume_check = [];
+            var harga_satuan_check = [];
+            var harga_check = [];
+            for (var i = 0; i < click; i++) {
+                volume_check[i] = document.getElementById('volume[' + (i + 1) + ']').value
+                harga_satuan_check[i] = document.getElementById('harga_satuan[' + (i + 1) + ']').value
+                harga_check[i] = document.getElementById('harga[' + (i + 1) + ']').value
+            }
+            if (volume_check.includes('') || harga_satuan_check.includes('') || harga_check.includes('')) {
+                return false;
             } else {
-                total = total.toString();
-                total_2 = "";
-                panjang_4 = total.length;
-                m = 0;
-                for (i = panjang_4; i > 0; i--) {
-                    m = m + 1;
-                    if (((m % 3) == 1) && (m != 1)) {
-                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                var total_harga = [];
+                for (var i = 0; i < click; i++) {
+                    total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+                    total_harga[i] = total_harga[i].replace(/\./g, "");
+                    total_harga[i] = parseInt(total_harga[i])
+                }
+                var pagu_prk = document.getElementById("rupiah").innerHTML;
+                pagu_prk = pagu_prk.replace(/\./g, "");
+                pagu_prk = parseInt(pagu_prk);
+                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                total_harga_all = total_harga_all.toString();
+                total_harga_all_2 = "";
+                panjang_2 = total_harga_all.length;
+                k = 0;
+                for (i = panjang_2; i > 0; i--) {
+                    k = k + 1;
+                    if (((k % 3) == 1) && (k != 1)) {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
                     } else {
-                        total_2 = total.substr(i - 1, 1) + total_2;
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
                     }
                 }
-                document.getElementById("total").innerHTML = "Rp. " + total_2;
-                document.getElementById("total").style.color = '#F94687';
+                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+                total_harga_all = parseInt(total_harga_all);
+                var ppn_id = document.getElementById('ppn').value;
+                ppn_id = parseFloat(ppn_id);
+                var ppn = total_harga_all * ppn_id / 100;
+                ppn = Math.round(ppn);
+                ppn = ppn.toString();
+                ppn_2 = ""
+                panjang_3 = ppn.length;
+                l = 0;
+                for (i = panjang_3; i > 0; i--) {
+                    l = l + 1;
+                    if (((l % 3) == 1) && (l != 1)) {
+                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                    } else {
+                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                    }
+                }
+                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+                ppn = parseInt(ppn);
+                var total = total_harga_all + ppn;
+                total = Math.round(total);
+
+                if (document.getElementById('total').innerHTML == "") {
+                    if (total < 50000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
+                    } else if (total >= 50000000 && total < 100000000) {
+                        swal({
+                                title: "Total Harga Telah Mencapai 50 Juta",
+                                text: "Total Harga Non PO Telah Mencapai 50 Juta",
+                                icon: "warning",
+                                timer: 2e3,
+                                buttons: false
+                            })
+                            .then((willContinue) => {
+                                if (pagu_prk >= total) {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total").style.color = '#7E7E7E';
+                                } else {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total").style.color = '#F94687';
+                                }
+                            })
+                        $(".sw-btn-next").prop('disabled', false);
+                    } else {
+                        swal({
+                                title: "Total Harga Telah Mencapai 100 Juta",
+                                text: "Anda Tidak Dapat Melanjutkan Pembuatan Non PO",
+                                icon: "error",
+                                timer: 2e3,
+                                buttons: false
+                            })
+                            .then((willContinue) => {
+                                if (pagu_prk >= total) {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total").style.color = '#7E7E7E';
+                                } else {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total").style.color = '#F94687';
+                                }
+                                $(".sw-btn-next").prop('disabled', true);
+                            })
+                    }
+                } else {
+                    var total_step2 = document.getElementById('total').innerHTML;
+                    total_step2 = total_step2.replace(/\Rp. /g, "");
+                    total_step2 = total_step2.replace(/\./g, "");
+                    total_step2 = parseFloat(total_step2);
+
+                    if (total_step2 < 50000000 && total < 50000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
+                    } else if (total_step2 < 50000000 && total >= 50000000) {
+                        if (total >= 100000000) {
+                            swal({
+                                    title: "Total Harga Telah Mencapai 100 Juta",
+                                    text: "Anda Tidak Dapat Melanjutkan Pembuatan Non PO",
+                                    icon: "error",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((willContinue) => {
+                                    if (pagu_prk >= total) {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#7E7E7E';
+                                    } else {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#F94687';
+                                    }
+                                    $(".sw-btn-next").prop('disabled', true);
+                                })
+                        } else {
+                            swal({
+                                    title: "Total Harga Telah Mencapai 50 Juta",
+                                    text: "Total Harga Non PO Telah Mencapai 50 Juta",
+                                    icon: "warning",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((willContinue) => {
+                                    if (pagu_prk >= total) {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#7E7E7E';
+                                    } else {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#F94687';
+                                    }
+                                })
+                            $(".sw-btn-next").prop('disabled', false);
+                        }
+                    } else if (total_step2 >= 50000000 && total >= 100000000) {
+                        if (total_step2 < 100000000) {
+                            swal({
+                                    title: "Total Harga Telah Mencapai 100 Juta",
+                                    text: "Anda Tidak Dapat Melanjutkan Pembuatan Non PO",
+                                    icon: "error",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((willContinue) => {
+                                    if (pagu_prk >= total) {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#7E7E7E';
+                                    } else {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#F94687';
+                                    }
+                                })
+                            $(".sw-btn-next").prop('disabled', true);
+                        } else {
+                            if (pagu_prk >= total) {
+                                total = total.toString();
+                                total_2 = "";
+                                panjang_4 = total.length;
+                                m = 0;
+                                for (i = panjang_4; i > 0; i--) {
+                                    m = m + 1;
+                                    if (((m % 3) == 1) && (m != 1)) {
+                                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                    } else {
+                                        total_2 = total.substr(i - 1, 1) + total_2;
+                                    }
+                                }
+                                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                document.getElementById("total").style.color = '#7E7E7E';
+                            } else {
+                                total = total.toString();
+                                total_2 = "";
+                                panjang_4 = total.length;
+                                m = 0;
+                                for (i = panjang_4; i > 0; i--) {
+                                    m = m + 1;
+                                    if (((m % 3) == 1) && (m != 1)) {
+                                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                    } else {
+                                        total_2 = total.substr(i - 1, 1) + total_2;
+                                    }
+                                }
+                                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                document.getElementById("total").style.color = '#F94687';
+                            }
+                            $(".sw-btn-next").prop('disabled', true);
+                        }
+                    } else if (total_step2 >= 100000000 && total < 100000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
+                    } else if (total_step2 >= 50000000 && total < 50000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
+                    }
+                }
             }
         }
 
@@ -1618,137 +2027,512 @@
                     harga_2 = harga.substr(i - 1, 1) + harga_2;
                 }
             }
-            document.getElementById("harga[" + change + "]").value = harga_2;
-            var total_harga = [];
+            if (document.getElementById('harga_satuan[' + change + ']').value != "" && document.getElementById('volume[' +
+                    change + ']').value != "") {
+                document.getElementById("harga[" + change + "]").value = harga_2;
+            }
+
+            var volume_check = [];
+            var harga_satuan_check = [];
+            var harga_check = [];
             for (var i = 0; i < click; i++) {
-                total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
-                total_harga[i] = total_harga[i].replace(/\./g, "");
-                total_harga[i] = parseInt(total_harga[i])
+                volume_check[i] = document.getElementById('volume[' + (i + 1) + ']').value
+                harga_satuan_check[i] = document.getElementById('harga_satuan[' + (i + 1) + ']').value
+                harga_check[i] = document.getElementById('harga[' + (i + 1) + ']').value
             }
-            var pagu_prk = document.getElementById("rupiah").innerHTML;
-            pagu_prk = pagu_prk.replace(/\./g, "");
-            pagu_prk = parseInt(pagu_prk);
-            var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-            total_harga_all = total_harga_all.toString();
-            total_harga_all_2 = "";
-            panjang_2 = total_harga_all.length;
-            k = 0;
-            for (i = panjang_2; i > 0; i--) {
-                k = k + 1;
-                if (((k % 3) == 1) && (k != 1)) {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
-                } else {
-                    total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
-                }
-            }
-            document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
-            total_harga_all = parseInt(total_harga_all);
-            var ppn_id = document.getElementById('ppn').value;
-            ppn_id = parseFloat(ppn_id);
-            var ppn = total_harga_all * ppn_id / 100;
-            ppn = Math.round(ppn);
-            ppn = ppn.toString();
-            ppn_2 = ""
-            panjang_3 = ppn.length;
-            l = 0;
-            for (i = panjang_3; i > 0; i--) {
-                l = l + 1;
-                if (((l % 3) == 1) && (l != 1)) {
-                    ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
-                } else {
-                    ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
-                }
-            }
-            document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
-            ppn = parseInt(ppn);
-            var total = total_harga_all + ppn;
-            total = Math.round(total);
-            if (pagu_prk >= total) {
-                total = total.toString();
-                total_2 = "";
-                panjang_4 = total.length;
-                m = 0;
-                for (i = panjang_4; i > 0; i--) {
-                    m = m + 1;
-                    if (((m % 3) == 1) && (m != 1)) {
-                        total_2 = total.substr(i - 1, 1) + "." + total_2;
-                    } else {
-                        total_2 = total.substr(i - 1, 1) + total_2;
-                    }
-                }
-                document.getElementById("total").innerHTML = "Rp. " + total_2;
-                document.getElementById("total").style.color = '#7E7E7E';
+            if (volume_check.includes('') || harga_satuan_check.includes('') || harga_check.includes('')) {
+                return false;
             } else {
-                total = total.toString();
-                total_2 = "";
-                panjang_4 = total.length;
-                m = 0;
-                for (i = panjang_4; i > 0; i--) {
-                    m = m + 1;
-                    if (((m % 3) == 1) && (m != 1)) {
-                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                var total_harga = [];
+                for (var i = 0; i < click; i++) {
+                    total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+                    total_harga[i] = total_harga[i].replace(/\./g, "");
+                    total_harga[i] = parseInt(total_harga[i])
+                }
+                var pagu_prk = document.getElementById("rupiah").innerHTML;
+                pagu_prk = pagu_prk.replace(/\./g, "");
+                pagu_prk = parseInt(pagu_prk);
+                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                total_harga_all = total_harga_all.toString();
+                total_harga_all_2 = "";
+                panjang_2 = total_harga_all.length;
+                k = 0;
+                for (i = panjang_2; i > 0; i--) {
+                    k = k + 1;
+                    if (((k % 3) == 1) && (k != 1)) {
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
                     } else {
-                        total_2 = total.substr(i - 1, 1) + total_2;
+                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
                     }
                 }
-                document.getElementById("total").innerHTML = "Rp. " + total_2;
-                document.getElementById("total").style.color = '#F94687';
+                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all_2;
+                total_harga_all = parseInt(total_harga_all);
+                var ppn_id = document.getElementById('ppn').value;
+                ppn_id = parseFloat(ppn_id);
+                var ppn = total_harga_all * ppn_id / 100;
+                ppn = Math.round(ppn);
+                ppn = ppn.toString();
+                ppn_2 = ""
+                panjang_3 = ppn.length;
+                l = 0;
+                for (i = panjang_3; i > 0; i--) {
+                    l = l + 1;
+                    if (((l % 3) == 1) && (l != 1)) {
+                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                    } else {
+                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                    }
+                }
+                document.getElementById("pajak").innerHTML = "Rp. " + ppn_2;
+                ppn = parseInt(ppn);
+                var total = total_harga_all + ppn;
+                total = Math.round(total);
+
+                if (document.getElementById('total').innerHTML == "") {
+                    if (total < 50000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
+                    } else if (total >= 50000000 && total < 100000000) {
+                        swal({
+                                title: "Total Harga Telah Mencapai 50 Juta",
+                                text: "Total Harga Non PO Telah Mencapai 50 Juta",
+                                icon: "warning",
+                                timer: 2e3,
+                                buttons: false
+                            })
+                            .then((willContinue) => {
+                                if (pagu_prk >= total) {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total").style.color = '#7E7E7E';
+                                } else {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total").style.color = '#F94687';
+                                }
+                                $(".sw-btn-next").prop('disabled', false);
+                            })
+                    } else {
+                        swal({
+                                title: "Total Harga Telah Mencapai 100 Juta",
+                                text: "Anda Tidak Dapat Melanjutkan Pembuatan Non PO",
+                                icon: "error",
+                                timer: 2e3,
+                                buttons: false
+                            })
+                            .then((willContinue) => {
+                                if (pagu_prk >= total) {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total").style.color = '#7E7E7E';
+                                } else {
+                                    total = total.toString();
+                                    total_2 = "";
+                                    panjang_4 = total.length;
+                                    m = 0;
+                                    for (i = panjang_4; i > 0; i--) {
+                                        m = m + 1;
+                                        if (((m % 3) == 1) && (m != 1)) {
+                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                        } else {
+                                            total_2 = total.substr(i - 1, 1) + total_2;
+                                        }
+                                    }
+                                    document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                    document.getElementById("total").style.color = '#F94687';
+                                }
+                                $(".sw-btn-next").prop('disabled', true);
+                            })
+                    }
+                } else {
+                    var total_step2 = document.getElementById('total').innerHTML;
+                    total_step2 = total_step2.replace(/\Rp. /g, "");
+                    total_step2 = total_step2.replace(/\./g, "");
+                    total_step2 = parseFloat(total_step2);
+
+                    if (total_step2 < 50000000 && total < 50000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
+                    } else if (total_step2 < 50000000 && total >= 50000000) {
+                        if (total >= 100000000) {
+                            swal({
+                                    title: "Total Harga Telah Mencapai 100 Juta",
+                                    text: "Anda Tidak Dapat Melanjutkan Pembuatan Non PO",
+                                    icon: "error",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((willContinue) => {
+                                    if (pagu_prk >= total) {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#7E7E7E';
+                                    } else {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#F94687';
+                                    }
+                                    $(".sw-btn-next").prop('disabled', true);
+                                })
+                        } else {
+                            swal({
+                                    title: "Total Harga Telah Mencapai 50 Juta",
+                                    text: "Total Harga Non PO Telah Mencapai 50 Juta",
+                                    icon: "warning",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((willContinue) => {
+                                    if (pagu_prk >= total) {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#7E7E7E';
+                                    } else {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#F94687';
+                                    }
+                                    $(".sw-btn-next").prop('disabled', false);
+                                })
+                        }
+                    } else if (total_step2 >= 50000000 && total >= 100000000) {
+                        if (total_step2 < 100000000) {
+                            swal({
+                                    title: "Total Harga Telah Mencapai 100 Juta",
+                                    text: "Anda Tidak Dapat Melanjutkan Pembuatan Non PO",
+                                    icon: "error",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((willContinue) => {
+                                    if (pagu_prk >= total) {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#7E7E7E';
+                                    } else {
+                                        total = total.toString();
+                                        total_2 = "";
+                                        panjang_4 = total.length;
+                                        m = 0;
+                                        for (i = panjang_4; i > 0; i--) {
+                                            m = m + 1;
+                                            if (((m % 3) == 1) && (m != 1)) {
+                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                            } else {
+                                                total_2 = total.substr(i - 1, 1) + total_2;
+                                            }
+                                        }
+                                        document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                        document.getElementById("total").style.color = '#F94687';
+                                    }
+                                    $(".sw-btn-next").prop('disabled', true);
+                                })
+                        } else {
+                            if (pagu_prk >= total) {
+                                total = total.toString();
+                                total_2 = "";
+                                panjang_4 = total.length;
+                                m = 0;
+                                for (i = panjang_4; i > 0; i--) {
+                                    m = m + 1;
+                                    if (((m % 3) == 1) && (m != 1)) {
+                                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                    } else {
+                                        total_2 = total.substr(i - 1, 1) + total_2;
+                                    }
+                                }
+                                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                document.getElementById("total").style.color = '#7E7E7E';
+                            } else {
+                                total = total.toString();
+                                total_2 = "";
+                                panjang_4 = total.length;
+                                m = 0;
+                                for (i = panjang_4; i > 0; i--) {
+                                    m = m + 1;
+                                    if (((m % 3) == 1) && (m != 1)) {
+                                        total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                    } else {
+                                        total_2 = total.substr(i - 1, 1) + total_2;
+                                    }
+                                }
+                                document.getElementById("total").innerHTML = "Rp. " + total_2;
+                                document.getElementById("total").style.color = '#F94687';
+                            }
+                            $(".sw-btn-next").prop('disabled', true);
+                        }
+                    } else if (total_step2 >= 100000000 && total < 100000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
+                    } else if (total_step2 >= 50000000 && total < 50000000) {
+                        if (pagu_prk >= total) {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#7E7E7E';
+                        } else {
+                            total = total.toString();
+                            total_2 = "";
+                            panjang_4 = total.length;
+                            m = 0;
+                            for (i = panjang_4; i > 0; i--) {
+                                m = m + 1;
+                                if (((m % 3) == 1) && (m != 1)) {
+                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
+                                } else {
+                                    total_2 = total.substr(i - 1, 1) + total_2;
+                                }
+                            }
+                            document.getElementById("total").innerHTML = "Rp. " + total_2;
+                            document.getElementById("total").style.color = '#F94687';
+                        }
+                        $(".sw-btn-next").prop('disabled', false);
+                    }
+                }
             }
         }
 
-        function next1() {
-            // var elm = 0;
-            // alert("Halo");
-            // window.location.hash =
-            // delete next;
-            // this.main.find('.sw-btn-prev').removeClass("sw-btn-prev");
-            // delete SmartWizard;
-            // _this._showNext().disable();
-            // return false;
-            // alert("HALO AGAIN!!!")
-            // $('[class$="done"],[class*="done "]').each(function(){$(this).removeClass($(this).attr('class').match(/\S+done\b/)[0])})
-            // window.location.href = "#informasi_umum";
-            // $('[class$="done"],[class*="done "]').each(function(){$(this).removeClass(this.className.match(/\S+done\b/))})
-            // $('[class$="valid2"]').each(function(i){$(this).removeClass(this.className)});
-            // console.log($('.valid2'));
-            // $('.valid2').removeClass('active');
-            // console.log($('.valid2')[0].className);
+        // function next1() {
+        //     // var elm = 0;
+        //     // alert("Halo");
+        //     // window.location.hash =
+        //     // delete next;
+        //     // this.main.find('.sw-btn-prev').removeClass("sw-btn-prev");
+        //     // delete SmartWizard;
+        //     // _this._showNext().disable();
+        //     // return false;
+        //     // alert("HALO AGAIN!!!")
+        //     // $('[class$="done"],[class*="done "]').each(function(){$(this).removeClass($(this).attr('class').match(/\S+done\b/)[0])})
+        //     // window.location.href = "#informasi_umum";
+        //     // $('[class$="done"],[class*="done "]').each(function(){$(this).removeClass(this.className.match(/\S+done\b/))})
+        //     // $('[class$="valid2"]').each(function(i){$(this).removeClass(this.className)});
+        //     // console.log($('.valid2'));
+        //     // $('.valid2').removeClass('active');
+        //     // console.log($('.valid2')[0].className);
 
-            // reset();
+        //     // reset();
 
-            // event.stopPropagation();
-            // alert("Halo again");
-            btn_next1 = document.getElementById('btnnext1');
-            btn_next1.setAttribute("id", "btnnext2");
-            btn_next1.setAttribute("onclick", "next2()");
+        //     // event.stopPropagation();
+        //     // alert("Halo again");
+        //     btn_next1 = document.getElementById('btnnext1');
+        //     btn_next1.setAttribute("id", "btnnext2");
+        //     btn_next1.setAttribute("onclick", "next2()");
 
-            btn_prev1 = document.getElementById('btnprev1');
-            btn_prev1.setAttribute("id", "btnprev2");
-            btn_prev1.setAttribute("onclick", "prev2()");
-        }
+        //     btn_prev1 = document.getElementById('btnprev1');
+        //     btn_prev1.setAttribute("id", "btnprev2");
+        //     btn_prev1.setAttribute("onclick", "prev2()");
+        // }
 
-        function next2() {
-            btn_next2 = document.getElementById('btnnext2');
-            btn_next2.setAttribute("id", "btnnext3");
-            btn_next2.setAttribute("onclick", "next3()");
+        // function next2() {
+        //     btn_next2 = document.getElementById('btnnext2');
+        //     btn_next2.setAttribute("id", "btnnext3");
+        //     btn_next2.setAttribute("onclick", "next3()");
 
-            btn_prev2 = document.getElementById('btnprev2');
-            btn_prev2.setAttribute("id", "btnprev3");
-            btn_prev2.setAttribute("onclick", "prev3()");
+        //     btn_prev2 = document.getElementById('btnprev2');
+        //     btn_prev2.setAttribute("id", "btnprev3");
+        //     btn_prev2.setAttribute("onclick", "prev3()");
 
-        }
+        // }
 
-        function next3() {
-            btn_next3 = document.getElementById('btnnext3');
-            btn_next3.innerText = "Simpan Data";
-            btn_next3.setAttribute("id", "btnnext4");
-            btn_next3.setAttribute("onclick", "next4()");
-            btn_next3.setAttribute("class", "btn btn-success sw-btn-next");
+        // function next3() {
+        //     btn_next3 = document.getElementById('btnnext3');
+        //     btn_next3.innerText = "Simpan Data";
+        //     btn_next3.setAttribute("id", "btnnext4");
+        //     btn_next3.setAttribute("onclick", "next4()");
+        //     btn_next3.setAttribute("class", "btn btn-success sw-btn-next");
 
-            btn_prev3 = document.getElementById('btnprev3');
-            btn_prev3.setAttribute("id", "btnprev4");
-            btn_prev3.setAttribute("onclick", "prev4()");
-        }
+        //     btn_prev3 = document.getElementById('btnprev3');
+        //     btn_prev3.setAttribute("id", "btnprev4");
+        //     btn_prev3.setAttribute("onclick", "prev4()");
+        // }
 
         function onSubmitData() {
             var token = $('#csrf').val();
@@ -1785,7 +2569,9 @@
                 satuan[i] = document.getElementById("satuan[" + (i + 1) + "]").value;
                 fd.append("satuan[]", satuan[i]);
                 volume[i] = document.getElementById("volume[" + (i + 1) + "]").value;
-                volume[i] = parseInt(volume[i]);
+                volume[i] = volume[i].replace(/\./g, "");
+                volume[i] = volume[i].replace(/\,/g, ".");
+                volume[i] = parseFloat(volume[i]);
                 fd.append("volume[]", volume[i]);
                 harga_satuan[i] = document.getElementById("harga_satuan[" + (i + 1) + "]").value;
                 harga_satuan[i] = harga_satuan[i].replace(/\./g, "");

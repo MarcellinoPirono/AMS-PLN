@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('nama_vendor');
             $table->string('nama_direktur');
             $table->string('alamat_kantor_1');
-            $table->string('alamat_kantor_2');
+            $table->string('alamat_kantor_2')->nullable();
             $table->string('no_rek_1');
             $table->string('nama_bank_1');
-            $table->string('no_rek_2');
-            $table->string('nama_bank_2');
+            $table->string('no_rek_2')->nullable();
+            $table->string('nama_bank_2')->nullable();
             $table->string('npwp');
             $table->timestamps();
         });
