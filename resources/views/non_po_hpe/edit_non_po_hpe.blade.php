@@ -210,42 +210,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label class="text-label">Input Tembusan <span
-                                                                class="text-danger">*</span></label>
-                                                    </div>
-                                                </div>
-                                                <table class="table table-responsive-sm height-100" width="100%"
-                                                    id="tabel_tembusan">
-                                                    <thead>
-                                                        <tr align="center" valign="middle" class="">
-                                                            <th style="width:5%;" align="center" valign="middle">No.</th>
-                                                            <th align="center" valign="middle">Tembusan</th>
-                                                            <th style="width:10%;" align="center" valign="middle">Aksi</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="tbody-tembusan">
-                                                    @foreach ($tembusans as $tembusan)
-                                                    <tr>
-                                                        <td><strong id="nomor" value="1">{{$loop->iteration}}</strong></td>
-                                                        <td> <input type="text" class="form-control" name="tembusan"
-                                                                id="tembusan[{{$loop->iteration}}]" placeholder="Tembusan" autofocus
-                                                                value="{{ old('tembusan', $tembusan->isi_tembusan) }}"></td>
-                                                        <td align="center"><button onclick="deleteRow2(this)"
-                                                                class="btn btn-danger shadow btn-xs sharp"><i
-                                                                    class='fa fa-trash'></i></button></td>
-                                                    </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                </table>
-                                                <div class="col-lg-12 mb-2">
-                                                    <div class="position-relative justify-content-center float-center">
-                                                        <a type="button" id="tambah-pekerjaan"
-                                                            class="btn btn-secondary btn-xs position-relative justify-content-end"
-                                                            onclick="updatetembusan()" required>Tambah</a>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -631,6 +595,42 @@
                                                     </p>
                                                 </div>
                                             </div> --}}
+                                            <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Input Tembusan <span
+                                                                class="text-danger">*</span></label>
+                                                    </div>
+                                                </div>
+                                                <table class="table table-responsive-sm height-100" width="100%"
+                                                    id="tabel_tembusan">
+                                                    <thead>
+                                                        <tr align="center" valign="middle" class="">
+                                                            <th style="width:5%;" align="center" valign="middle">No.</th>
+                                                            <th align="center" valign="middle">Tembusan</th>
+                                                            <th style="width:10%;" align="center" valign="middle">Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbody-tembusan">
+                                                    @foreach ($tembusans as $tembusan)
+                                                    <tr>
+                                                        <td><strong id="nomor" value="1">{{$loop->iteration}}</strong></td>
+                                                        <td> <input type="text" class="form-control" name="tembusan"
+                                                                id="tembusan[{{$loop->iteration}}]" placeholder="Tembusan" autofocus
+                                                                value="{{ old('tembusan', $tembusan->isi_tembusan) }}"></td>
+                                                        <td align="center"><button onclick="deleteRow3(this)"
+                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                    class='fa fa-trash'></i></button></td>
+                                                    </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                                <div class="col-lg-12 mb-2">
+                                                    <div class="position-relative justify-content-center float-center">
+                                                        <a type="button" id="tambah-pekerjaan"
+                                                            class="btn btn-secondary btn-xs position-relative justify-content-end"
+                                                            onclick="updatetembusan()" required>Tambah</a>
+                                                    </div>
+                                                </div>
                                         </div>
                                     </form>
                                 </div>

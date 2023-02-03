@@ -426,11 +426,12 @@ function deleteRow2(r) {
     }
     reindex2();
 
+
     var lokasi_2 = [""];
     for (var i = 0; i < clicklokasi; i++) {
         value_lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value
         lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi +
-            "</option>")
+        "</option>")
     }
 
     if (clickpaket != 0) {
@@ -446,9 +447,9 @@ function deleteRow2(r) {
     for (var i = 0; i < (clicklokasi - 1); i++) {
         var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (i +
             5) + ')');
-        console.log(lokasi_tabel);
+            console.log(lokasi_tabel);
 
-        $('<tr id="location' + (i + 1) + '" class="noborder"><td></td><td></td><td id="location_label' + (i + 1) + '"></td></tr>').insertAfter(lokasi_tabel);
+            $('<tr id="location' + (i + 1) + '" class="noborder"><td></td><td></td><td id="location_label' + (i + 1) + '"></td></tr>').insertAfter(lokasi_tabel);
     }
 
     for (var i = 0; i < clicklokasi; i++) {
@@ -471,11 +472,11 @@ function deleteRow2(r) {
         }
     }
 
-    // if (clicklokasi)
-
     if (clicklokasi == 0) {
         updatelokasi();
     }
+    // if (clicklokasi)
+
 }
 
 function reindex2() {

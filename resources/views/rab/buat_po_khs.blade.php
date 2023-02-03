@@ -337,32 +337,65 @@
                                                         class="text-danger">*</span></label>
                                             </div>
                                         </div>
-                                        <table class="table table-responsive-sm height-100" width="100%"
-                                            id="tabelSPBJ">
-                                            <tr align="center" valign="middle" class="">
-                                                <th style="width:5%;" align="center" valign="middle">No.</th>
-                                                <th align="center" valign="middle">Lokasi</th>
-                                                <th style="width:10%; text-align: left; align-items-content: left" align="left" valign="middle">Aksi</th>
-                                                <th align="center" valign="middle">Tembusan</th>
-                                                <th style="width:10%;" align="center" valign="middle">Aksi</th>
-                                            </tr>
-                                            <tr>
-                                                <td><strong id="nomor" value="1">1</strong></td>
-                                                <td>
-                                                    <textarea type="text" class="form-control lokasi" id="lokasi[1]" name="lokasi" placeholder="Lokasi" required
-                                                        onblur="blur_lokasi(this)">{{ old('lokasi') }}</textarea>
-                                                </td>
-                                                <td><button onclick="deleteRow2(this)"
-                                                        class="btn btn-danger shadow btn-xs sharp"><i
-                                                            class='fa fa-trash'></i></button></td>
-                                                <td> <input type="text" class="form-control" name="tembusan"
-                                                        id="tembusan" placeholder="Tembusan" autofocus
-                                                        value="{{ old('tembusan') }}"></td>
-                                                <td align="center"><button onclick="deleteRow3(this)"
-                                                        class="btn btn-danger shadow btn-xs sharp"><i
-                                                            class='fa fa-trash'></i></button></td>
-                                            </tr>
-                                        </table>
+                                        <div class="d-flex">
+                                            <table class="table table-responsive-sm height-100" width="100%"
+                                                id="tabelSPBJ">
+                                                <thead>
+                                                    <tr align="center" valign="middle" class="">
+                                                        <th style="width:5%;" align="center" valign="middle">No.</th>
+                                                        <th align="center" valign="middle">Lokasi</th>
+                                                        <th style="width:10%; text-align: left; align-items-content: left" align="left" valign="middle">Aksi</th>
+                                                        {{-- <th align="center" valign="middle">Tembusan</th>
+                                                        <th style="width:10%;" align="center" valign="middle">Aksi</th> --}}
+                                                    </tr>
+                                                </thead>
+                                                <tr>
+                                                    <td><strong id="nomor" value="1">1</strong></td>
+                                                    <td>
+                                                        <textarea type="text" class="form-control lokasi" id="lokasi[1]" name="lokasi" placeholder="Lokasi" required
+                                                            onblur="blur_lokasi(this)">{{ old('lokasi') }}</textarea>
+                                                    </td>
+                                                    <td><button onclick="deleteRow2(this)"
+                                                            class="btn btn-danger shadow btn-xs sharp"><i
+                                                                class='fa fa-trash'></i></button></td>
+                                                    {{-- <td> <input type="text" class="form-control" name="tembusan"
+                                                            id="tembusan" placeholder="Tembusan" autofocus
+                                                            value="{{ old('tembusan') }}"></td>
+                                                    <td align="center"><button onclick="deleteRow3(this)"
+                                                            class="btn btn-danger shadow btn-xs sharp"><i
+                                                                class='fa fa-trash'></i></button></td> --}}
+                                                </tr>
+                                            </table>
+                                            <table class="table table-responsive-sm height-100" width="100%"
+                                                id="tableTembusan">
+                                                <thead>
+                                                    <tr align="center" valign="middle" class="">
+                                                        <th style="width:5%;" align="center" valign="middle">No.</th>
+                                                        <th align="center" valign="middle">Tembusan</th>
+                                                        <th style="width:10%; text-align: left; align-items-content: left" align="left" valign="middle">Aksi</th>
+                                                        {{-- <th align="center" valign="middle">Tembusan</th>
+                                                        <th style="width:10%;" align="center" valign="middle">Aksi</th> --}}
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody-tembusan">
+                                                </tbody>
+                                                {{-- <tr> --}}
+                                                    {{-- <td><strong id="nomor" value="1">1</strong></td>
+                                                    <td>
+                                                        <input type="text" class="form-control lokasi" id="tembusan[1]" name="tembusan" placeholder="Tembusan" >
+                                                    </td>
+                                                    <td><button onclick="deleteRow4(this)"
+                                                            class="btn btn-danger shadow btn-xs sharp"><i
+                                                                class='fa fa-trash'></i></button></td> --}}
+                                                    {{-- <td> <input type="text" class="form-control" name="tembusan"
+                                                            id="tembusan" placeholder="Tembusan" autofocus
+                                                            value="{{ old('tembusan') }}"></td>
+                                                    <td align="center"><button onclick="deleteRow3(this)"
+                                                            class="btn btn-danger shadow btn-xs sharp"><i
+                                                                class='fa fa-trash'></i></button></td> --}}
+                                                {{-- </tr> --}}
+                                            </table>
+                                        </div>
                                         <div class="col-lg-12 mb-2">
                                             <div class="position-relative justify-content-center float-center">
                                                 <a type="button" id="tambah-pekerjaan"
@@ -370,7 +403,13 @@
                                                     onclick="updatelokasi()" required>Tambah</a>
                                             </div>
                                         </div>
-
+                                        <div class="col-lg-12 mb-2">
+                                            <div class="position-relative justify-content-center float-center">
+                                                <a type="button" id="tambah-tembusan"
+                                                    class="btn btn-secondary btn-xs position-relative justify-content-end"
+                                                    onclick="updatetembusan()" required>Tambah</a>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                                 <div id="paket_rab" class="tab-pane" role="tabpanel" aria-labelledby="step-2"
@@ -405,24 +444,6 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="tbody-paket">
-                                                                    {{-- <tr>
-                                                                        <td>
-                                                                            <select class="select-search form-control input-default" id="pejabat" name="pejabat"
-                                                                                style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
-                                                                                required>
-                                                                                <option value="" selected disabled>Direksi Pekerjaan
-                                                                                </option>
-                                                                                @foreach ($pejabats as $pejabat)
-                                                                                    @if ($pejabat->jabatan != 'MANAGER UP3')
-                                                                                        <option value="{{ $pejabat->id }}">
-                                                                                            {{ $pejabat->jabatan }} -
-                                                                                            {{ $pejabat->nama_pejabat }}
-                                                                                        </option>
-                                                                                    @endif
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </td>
-                                                                    </tr> --}}
                                                                 </tbody>
                                                             </table>
                                                             <div class="col-lg-12 mb-2">

@@ -104,7 +104,7 @@ class NonPoHpeController extends Controller
     public function simpan_non_po_hpe(Request $request)
     {
         // dd($request);
-        dd(count($request->tembusan));
+        // dd(count($request->tembusan));
 
         $non_po_id = $request->non_po_id;
         $nama_pdf = NonPo::where('id', $non_po_id)->value("nomor_rpbj");
@@ -145,7 +145,11 @@ class NonPoHpeController extends Controller
         $order_surat_dinas_id = OrderSuratDinas::where('non_po_id', $non_po_id)->value('id');
 
         for($i = 0; $i<count($request->tembusan); $i++){
-            Tembusan::create(['isi_tembusan'=>$request->tembusan[$i]]);
+            $tembusan = [
+                "order_surat_dinas_id" => $order_surat_dinas_id,
+                "isi_tembusan" => $request->tembusan[$i]
+            ];
+            Tembusan::create($tembusan);
         }
 
 
@@ -267,13 +271,15 @@ class NonPoHpeController extends Controller
         ];
         OrderSuratDinas::where('non_po_id', $non_po_id)->update($surat_dinas);
         $order_surat_dinas_id = OrderSuratDinas::where('non_po_id', $non_po_id)->value('id');
+        Tembusan::where('order_surat_dinas_id', $order_surat_dinas_id)->delete();
 
-        $tembusan_all_id = Tembusan::where('order_surat_dinas_id', $order_surat_dinas_id)->get();
-
-        for($i = 0; $i < count($tembusan_all_id); $i++){
-            Tembusan::where()
+        for($j=0; $j < count($request->tembusan); $j++){
+            $tembusan = [
+                "order_surat_dinas_id" => $order_surat_dinas_id,
+                "isi_tembusan" => $request->tembusan[$j]
+            ];
+            Tembusan::create($tembusan);
         }
-
 
 
 
