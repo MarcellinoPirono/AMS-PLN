@@ -277,11 +277,11 @@
                                                                 file</label>
                                                         </div>
                                                         <!-- <button class="btn btn-danger btn-xxs mt-1 ml-3"
-                                                                    onclick="onclear()">Delete file <i
-                                                                        class='fa fa-trash'></i></button>
-                                                                <button class="btn btn-secondary btn-xxs mt-1 ml-3"
-                                                                    onclick="toggle()" type="button">Show/Hide <i
-                                                                        class='fa fa-eye'></i> -->
+                                                                            onclick="onclear()">Delete file <i
+                                                                                class='fa fa-trash'></i></button>
+                                                                        <button class="btn btn-secondary btn-xxs mt-1 ml-3"
+                                                                            onclick="toggle()" type="button">Show/Hide <i
+                                                                                class='fa fa-eye'></i> -->
                                                     </div>
                                                     {{-- <img class="m-auto justify-content-center" src="#"
                                                         id="img-lampiran" width="300px" /> --}}
@@ -332,21 +332,22 @@
                                             type="application/pdf" />
 
                                         <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label class="text-label">Input Lokasi <span
-                                                        class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="text-label">Input Lokasi <span
+                                                            class="text-danger">*</span></label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="d-flex">
                                             <table class="table table-responsive-sm height-100" width="100%"
                                                 id="tabelSPBJ">
                                                 <thead>
                                                     <tr align="center" valign="middle" class="">
                                                         <th style="width:5%;" align="center" valign="middle">No.</th>
                                                         <th align="center" valign="middle">Lokasi</th>
-                                                        <th style="width:10%; text-align: left; align-items-content: left" align="left" valign="middle">Aksi</th>
+                                                        <th style="width:10%; text-align: left; align-items-content: left"
+                                                            align="left" valign="middle">Aksi</th>
                                                         {{-- <th align="center" valign="middle">Tembusan</th>
-                                                        <th style="width:10%;" align="center" valign="middle">Aksi</th> --}}
+                                                            <th style="width:10%;" align="center" valign="middle">Aksi</th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tr>
@@ -359,55 +360,63 @@
                                                             class="btn btn-danger shadow btn-xs sharp"><i
                                                                 class='fa fa-trash'></i></button></td>
                                                     {{-- <td> <input type="text" class="form-control" name="tembusan"
-                                                            id="tembusan" placeholder="Tembusan" autofocus
-                                                            value="{{ old('tembusan') }}"></td>
-                                                    <td align="center"><button onclick="deleteRow3(this)"
-                                                            class="btn btn-danger shadow btn-xs sharp"><i
-                                                                class='fa fa-trash'></i></button></td> --}}
+                                                                id="tembusan" placeholder="Tembusan" autofocus
+                                                                value="{{ old('tembusan') }}"></td>
+                                                        <td align="center"><button onclick="deleteRow3(this)"
+                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                    class='fa fa-trash'></i></button></td> --}}
                                                 </tr>
                                             </table>
+                                            <div class="col-lg-12 mb-4">
+                                                <div class="position-relative justify-content-center float-center">
+                                                    <a type="button" id="tambah-pekerjaan"
+                                                        class="btn btn-secondary btn-xs position-relative justify-content-end"
+                                                        onclick="updatelokasi()" required>Tambah</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label class="text-label">Input Tembusan (Opsional) </label>
+                                                </div>
+                                            </div>
                                             <table class="table table-responsive-sm height-100" width="100%"
                                                 id="tableTembusan">
                                                 <thead>
                                                     <tr align="center" valign="middle" class="">
                                                         <th style="width:5%;" align="center" valign="middle">No.</th>
                                                         <th align="center" valign="middle">Tembusan</th>
-                                                        <th style="width:10%; text-align: left; align-items-content: left" align="left" valign="middle">Aksi</th>
+                                                        <th style="width:10%; text-align: left; align-items-content: left"
+                                                            align="left" valign="middle">Aksi</th>
                                                         {{-- <th align="center" valign="middle">Tembusan</th>
-                                                        <th style="width:10%;" align="center" valign="middle">Aksi</th> --}}
+                                                            <th style="width:10%;" align="center" valign="middle">Aksi</th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody-tembusan">
                                                 </tbody>
                                                 {{-- <tr> --}}
-                                                    {{-- <td><strong id="nomor" value="1">1</strong></td>
-                                                    <td>
-                                                        <input type="text" class="form-control lokasi" id="tembusan[1]" name="tembusan" placeholder="Tembusan" >
-                                                    </td>
-                                                    <td><button onclick="deleteRow4(this)"
-                                                            class="btn btn-danger shadow btn-xs sharp"><i
-                                                                class='fa fa-trash'></i></button></td> --}}
-                                                    {{-- <td> <input type="text" class="form-control" name="tembusan"
-                                                            id="tembusan" placeholder="Tembusan" autofocus
-                                                            value="{{ old('tembusan') }}"></td>
-                                                    <td align="center"><button onclick="deleteRow3(this)"
-                                                            class="btn btn-danger shadow btn-xs sharp"><i
-                                                                class='fa fa-trash'></i></button></td> --}}
+                                                {{-- <td><strong id="nomor" value="1">1</strong></td>
+                                                        <td>
+                                                            <input type="text" class="form-control lokasi" id="tembusan[1]" name="tembusan" placeholder="Tembusan" >
+                                                        </td>
+                                                        <td><button onclick="deleteRow4(this)"
+                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                    class='fa fa-trash'></i></button></td> --}}
+                                                {{-- <td> <input type="text" class="form-control" name="tembusan"
+                                                                id="tembusan" placeholder="Tembusan" autofocus
+                                                                value="{{ old('tembusan') }}"></td>
+                                                        <td align="center"><button onclick="deleteRow3(this)"
+                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                    class='fa fa-trash'></i></button></td> --}}
                                                 {{-- </tr> --}}
                                             </table>
-                                        </div>
-                                        <div class="col-lg-12 mb-2">
-                                            <div class="position-relative justify-content-center float-center">
-                                                <a type="button" id="tambah-pekerjaan"
-                                                    class="btn btn-secondary btn-xs position-relative justify-content-end"
-                                                    onclick="updatelokasi()" required>Tambah</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 mb-2">
-                                            <div class="position-relative justify-content-center float-center">
-                                                <a type="button" id="tambah-tembusan"
-                                                    class="btn btn-secondary btn-xs position-relative justify-content-end"
-                                                    onclick="updatetembusan()" required>Tambah</a>
+                                            <div class="col-lg-12 mb-2">
+                                                <div class="position-relative justify-content-center float-center">
+                                                    <a type="button" id="tambah-tembusan"
+                                                        class="btn btn-secondary btn-xs position-relative justify-content-end"
+                                                        onclick="updatetembusan()" required>Tambah</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -676,8 +685,7 @@
                                                                         </td>
                                                                         <td valign="top"
                                                                             style="vertical-align: top !important;">
-                                                                            <select
-                                                                                name="redaksi_id" id="redaksi_id[1]"
+                                                                            <select name="redaksi_id" id="redaksi_id[1]"
                                                                                 class="form-control input-default"
                                                                                 onchange="change_redaksi(this)"
                                                                                 style="height: 60px !important; width: 200px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
@@ -689,25 +697,26 @@
                                                                                         {{ $redaksi->nama_redaksi }}
                                                                                     </option>
                                                                                 @endforeach
-                                                                            </select></td>
+                                                                            </select>
+                                                                        </td>
                                                                         <td
                                                                             style="vertical-align: top; text-align: justify;">
                                                                             <p id="deskripsi_id[1]" name="deskripsi_id">
                                                                             </p>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                                                                    <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
-                                                                                                                                        placeholder="Deskripsi" value="" disabled required></textarea>
-                                                                                                                                </td> -->
+                                                                                                                                            <textarea type="text" class="form-control deskripsi_id" id="deskripsi_id[1]" name="deskripsi_id"
+                                                                                                                                                placeholder="Deskripsi" value="" disabled required></textarea>
+                                                                                                                                        </td> -->
                                                                         <td style="vertical-++++++++++++++++align: top">
                                                                             <!-- <p id="sub_deskripsi_id[1]"></p> -->
                                                                             <ol id="sub_deskripsi_id[1]">
                                                                             </ol>
                                                                         </td>
                                                                         <!-- <td>
-                                                                                                                                    <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
-                                                                                                                                        placeholder="Sub Deskripsi" value="" disabled required></textarea>
-                                                                                                                                </td> -->
+                                                                                                                                            <textarea type="text" class="form-control deskripsi_id" id="sub_deskripsi_id[1]" name="sub_deskripsi_id"
+                                                                                                                                                placeholder="Sub Deskripsi" value="" disabled required></textarea>
+                                                                                                                                        </td> -->
 
                                                                         <td style="vertical-align: top"><button
                                                                                 onclick="deleteRow1(this)"
@@ -1213,9 +1222,9 @@
 
     <!-- Search and Select -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                                                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
-                                                                                    integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-                                                                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
+                                                                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+                                                                                            integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+                                                                                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" /> -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
             <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
@@ -1331,15 +1340,15 @@ console.log(pond);
             // console.log(ini.files[0].size);
             if (ini.files[0].size > 20971520) {
                 swal({
-                    title: "Size PDF Terlalu Besar",
-                    text: "File PDF Harus Dibawah 20 Mb",
-                    icon: "error",
-                    timer: 2e3,
-                    buttons: false
-                })
-                .then((willDefault) => {
-                    onclear();
-                });
+                        title: "Size PDF Terlalu Besar",
+                        text: "File PDF Harus Dibawah 20 Mb",
+                        icon: "error",
+                        timer: 2e3,
+                        buttons: false
+                    })
+                    .then((willDefault) => {
+                        onclear();
+                    });
             } else {
                 var fileInput = document.getElementById('lampiran');
                 var feedback = document.getElementById('lampiranfile');

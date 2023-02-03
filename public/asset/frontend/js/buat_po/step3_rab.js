@@ -2,6 +2,7 @@ var click = 1;
 var nomor_tabel = 1;
 var k = 0;
 var clicklokasi = 1;
+var clicktembusan = 0;
 var nomor_tabel_lokasi = 1;
 var l = 0;
 
@@ -313,6 +314,52 @@ function updateform() {
     });
 }
 
+function updatetembusan() {
+    var table_tembusan = document.getElementById('tableTembusan');
+    clicktembusan++;
+    var input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("class", "form-control tembusan");
+    input.setAttribute("id", "tembusan["+ clicktembusan +"]");
+    input.setAttribute("name", "tembusan");
+    input.setAttribute("placeholder", "Tembusan");
+    input.setAttribute("required", true);
+    // input.setAttribute("onblur", "blur_tembusan(this)");
+    var button = document.createElement("button");
+    button.innerHTML = "<i class='fa fa-trash'></i>";
+    button.setAttribute("onclick", "deleteRow3(this)");
+    button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
+    var row = table_tembusan.insertRow(-1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    cell1.innerHTML = "1";
+    cell2.appendChild(input);
+    cell3.appendChild(button);
+    reindex3();
+}
+
+function deleteRow3(r) {
+    var table = r.parentNode.parentNode.rowIndex;
+    // console.log(table);
+    document.getElementById("tableTembusan").deleteRow(table);
+    clicktembusan--;
+
+    var tembusan = document.querySelectorAll("#tableTembusan tr td:nth-child(2) input");
+    for (var i = 0; i < tembusan.length; i++) {
+        tembusan[i].id = "tembusan[" + (i + 1) + "]";
+    }
+
+    reindex3();
+}
+
+function reindex3() {
+    const ids = document.querySelectorAll("#tableTembusan tr > td:nth-child(1)");
+    ids.forEach((e, i) => {
+        e.innerHTML = "<strong id=nomor1[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
+        nomor_tabel_lokasi = i + 1;
+    });
+}
 
 function updatelokasi() {
     var table_lokasi = document.getElementById('tabelSPBJ');
@@ -338,8 +385,9 @@ function updatelokasi() {
     cell3.appendChild(button);
     reindex2();
     var lokasi_2 = [""];
-    var lokasi_3 = [""];
+    // var lokasi_3 = [""];
     for (var i = 0; i < clicklokasi; i++) {
+        var value_lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value
         lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi + "</option>");
     }
 
@@ -381,6 +429,7 @@ function updatelokasi() {
 }
 
 function deleteRow2(r) {
+    // console.log(clicklokasi);
     // console.log(r);
     var table = r.parentNode.parentNode.rowIndex;
     document.getElementById("tabelSPBJ").deleteRow(table);
@@ -413,6 +462,7 @@ function deleteRow2(r) {
     }
 
     clicklokasi--;
+    // console.log(clicklokasi);
 
     if (clicklokasi == 1) {
         for (var i = 0; i < clicklokasi; i++) {
@@ -425,7 +475,6 @@ function deleteRow2(r) {
         select_id_lokasi[i].id = "lokasi[" + (i + 1) + "]";
     }
     reindex2();
-
 
     var lokasi_2 = [""];
     for (var i = 0; i < clicklokasi; i++) {
@@ -477,6 +526,19 @@ function deleteRow2(r) {
     }
     // if (clicklokasi)
 
+}
+
+function reindexPaket() {
+    // $('#tabelPaket tr td:nth-child(3) select').amsifySelect({
+    //     type: amsify,
+    // });
+
+
+    const ids = document.querySelectorAll("#tabelPaket tr > td:nth-child(1)");
+    ids.forEach((e, i) => {
+        e.innerHTML = "<strong id=nomor1[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
+        nomor_tabel = i + 1;
+    });
 }
 
 function reindex2() {

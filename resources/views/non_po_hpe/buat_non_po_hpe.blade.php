@@ -332,20 +332,20 @@
                                                                                         required>
                                                                                 </td>
                                                                                 <!-- <td><button onclick="deleteRow(this)"
-                                                                                                                                                class="btn btn-danger shadow btn-xs sharp"><i
-                                                                                                                                                    class='fa fa-trash'></i></button></td> -->
+                                                                                                                                                    class="btn btn-danger shadow btn-xs sharp"><i
+                                                                                                                                                        class='fa fa-trash'></i></button></td> -->
                                                                             </tr>
                                                                         @endforeach
                                                                     </tbody>
                                                                 </table>
                                                                 <!-- <div class="col-lg-12 mb-2">
-                                                                                                                                <div
-                                                                                                                                    class="position-relative justify-content-end float-left">
-                                                                                                                                    <a type="button" id="tambah-pekerjaan"
-                                                                                                                                        class="btn btn-primary position-relative justify-content-end"
-                                                                                                                                        onclick="updateform()" required>Tambah</a>
-                                                                                                                                </div>
-                                                                                                                            </div> -->
+                                                                                                                                    <div
+                                                                                                                                        class="position-relative justify-content-end float-left">
+                                                                                                                                        <a type="button" id="tambah-pekerjaan"
+                                                                                                                                            class="btn btn-primary position-relative justify-content-end"
+                                                                                                                                            onclick="updateform()" required>Tambah</a>
+                                                                                                                                    </div>
+                                                                                                                                </div> -->
                                                                 <table class="table table-responsive-sm height-100"
                                                                     id="tabelRAB1">
                                                                     <thead>
@@ -697,7 +697,7 @@
                                                                                     valign="middle">Jumlah HPE (RP)</td>
                                                                             </tr>
                                                                             <!-- <tr class="warna">
-                                                                                                                                            </tr> -->
+                                                                                                                                                </tr> -->
                                                                         </thead>
                                                                         <tbody id="uraian_rab">
                                                                         </tbody>
@@ -750,8 +750,8 @@
                                                                             </tr>
                                                                         </tfoot>
                                                                         <!-- <tr>
-                                                                                                                                                <td class="first1"></td>
-                                                                                                                                            </tr> -->
+                                                                                                                                                    <td class="first1"></td>
+                                                                                                                                                </tr> -->
                                                                     </table>
                                                                     {{-- <div>
                                                                         <button id="prevpdf">Previous</button>
@@ -763,8 +763,8 @@
                                                                     {{-- <embed width="100%" height="600px" type="application/pdf" id="embedLink"/> --}}
 
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
-                                                                                                                                            <embed id="pdfViewer2" width="100%" height="600px" >
-                                                                                                                                        </object> -->
+                                                                                                                                                <embed id="pdfViewer2" width="100%" height="600px" >
+                                                                                                                                            </object> -->
 
                                                                 </div>
 
@@ -811,40 +811,43 @@
                                                             </tr>
                                                         </table>
                                                     </div>
-
                                                     <hr>
 
-                                                    <div class="row ml-2">
-                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
-                                                            <div class=" align-items-start text-center">
-                                                                <h5 class="card-title" style="text-align: center">Preview
-                                                                    KAK </h5>
+                                                    <div class="d-flex">
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-12">
+                                                                <div class=" align-items-start text-center">
+                                                                    <h5 class="card-title" style="text-align: center">
+                                                                        Preview
+                                                                        KAK </h5>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
-                                                            <div class=" align-items-center text-center">
-                                                                <h5 class="card-title" style="text-align: center">Preview
-                                                                    Nota Dinas </h5>
+                                                            <div class="col-lg-12">
+                                                                <embed src="{{ asset('storage/' . $lampiran->kak . '') }}"
+                                                                    width="100%" height="450px" name="plugin"
+                                                                    id="embedLink" type="application/pdf" />
                                                             </div>
-                                                        </div>
-                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
-                                                            <embed src="{{ asset('storage/' . $lampiran->kak . '') }}"
-                                                                width="100%" height="450px" name="plugin"
-                                                                id="embedLink" type="application/pdf" />
                                                         </div>
                                                         {{-- <div class="position-relative justify-content-end float-right sweetalert">
                                                                 <button type="button" id="btnPrvw"
-                                                                        class="btn btn-primary position-relative justify-content-end">Preview <i class="bi bi-eye"></i></button>
+                                                                class="btn btn-primary position-relative justify-content-end">Preview <i class="bi bi-eye"></i></button>
                                                             </div> --}}
-                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
-                                                            <embed
-                                                                src="{{ asset('storage/' . $lampiran->nota_dinas . '') }}"
-                                                                width="100%" height="450px" name="embedlink2"
-                                                                id="embedlink2" type="application/pdf" />
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-12">
+                                                                <div class=" align-items-center text-center">
+                                                                    <h5 class="card-title" style="text-align: center">
+                                                                        Preview
+                                                                        Nota Dinas </h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <embed
+                                                                    src="{{ asset('storage/' . $lampiran->nota_dinas . '') }}"
+                                                                    width="100%" height="450px" name="embedlink2"
+                                                                    id="embedlink2" type="application/pdf" />
+                                                            </div>
                                                         </div>
                                                     </div>
-
-
                                                 </div>
                                             </div>
                                         </div>
@@ -1230,6 +1233,7 @@
 
         <script>
             var clicktembusan = 1;
+
             function hitung_harga_hpe(c) {
                 var row = c.parentNode.parentNode;
                 var change = row.rowIndex;
@@ -1713,6 +1717,7 @@
                     }
                 }
             }
+
             function updatetembusan() {
                 var tabel_tembusan = document.getElementById('tabel_tembusan');
                 clicktembusan++;
@@ -1746,7 +1751,7 @@
                 });
             }
 
-            function deleteRow3(r){
+            function deleteRow3(r) {
                 var table = r.parentNode.parentNode.rowIndex;
                 document.getElementById("tabel_tembusan").deleteRow(table);
 
@@ -1791,7 +1796,7 @@
                 }
 
                 tembusan = [];
-                for(var i = 0; i < clicktembusan; i++){
+                for (var i = 0; i < clicktembusan; i++) {
                     tembusan[i] = document.getElementById("tembusan[" + (i + 1) + "]").value;
                     fd.append("tembusan[]", tembusan[i]);
                 }

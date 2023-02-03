@@ -478,8 +478,8 @@
                                                                             </tr>
                                                                         </tfoot>
                                                                         <!-- <tr>
-                                                                                                                                                                                            <td class="first1"></td>
-                                                                                                                                                                                        </tr> -->
+                                                                                                                                                                                                            <td class="first1"></td>
+                                                                                                                                                                                                        </tr> -->
                                                                     </table>
                                                                     {{-- <div>
                                                                         <button id="prevpdf">Previous</button>
@@ -491,8 +491,8 @@
                                                                     {{-- <embed width="100%" height="600px" type="application/pdf" id="embedLink"/> --}}
 
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
-                                                                                                                                                                                        <embed id="pdfViewer2" width="100%" height="600px" >
-                                                                                                                                                                                    </object> -->
+                                                                                                                                                                                                        <embed id="pdfViewer2" width="100%" height="600px" >
+                                                                                                                                                                                                    </object> -->
 
                                                                 </div>
 
@@ -501,38 +501,38 @@
                                                     </div>
                                                     <hr>
 
-                                                    <div class="row ml-2">
-                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
-                                                            <div class=" align-items-start text-center">
-                                                                <h5 class="card-title" style="text-align: center">Preview
-                                                                    KAK </h5>
+                                                    <div class="d-flex">
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-12">
+                                                                <div class=" align-items-start text-center">
+                                                                    <h5 class="card-title" style="text-align: center">
+                                                                        Preview
+                                                                        KAK </h5>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
-                                                            <div class=" align-items-center text-center">
-                                                                <h5 class="card-title" style="text-align: center">Preview
-                                                                    Nota Dinas </h5>
+                                                            <div class="col-lg-12">
+                                                                <embed width="100%" height="450px" name="plugin"
+                                                                    id="embedLink" type="application/pdf" />
                                                             </div>
-                                                        </div>
-                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
-                                                            <embed width="100%" height="450px" name="plugin"
-                                                                id="embedLink" type="application/pdf" />
                                                         </div>
                                                         {{-- <div class="position-relative justify-content-end float-right sweetalert">
                                                                 <button type="button" id="btnPrvw"
-                                                                        class="btn btn-primary position-relative justify-content-end">Preview <i class="bi bi-eye"></i></button>
+                                                                class="btn btn-primary position-relative justify-content-end">Preview <i class="bi bi-eye"></i></button>
                                                             </div> --}}
-                                                        <div class="col-xxl-6 col-xl-6 col-l-6 col-md-6">
-                                                            <embed width="100%" height="450px" name="embedlink2"
-                                                                id="embedlink2" type="application/pdf" />
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-12">
+                                                                <div class=" align-items-center text-center">
+                                                                    <h5 class="card-title" style="text-align: center">
+                                                                        Preview
+                                                                        Nota Dinas </h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <embed width="100%" height="450px" name="embedlink2"
+                                                                    id="embedlink2" type="application/pdf" />
+                                                            </div>
                                                         </div>
                                                     </div>
-
-
-
-
-
-
                                                 </div>
                                             </div>
                                         </div>
