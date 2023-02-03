@@ -22,8 +22,6 @@ return new class extends Migration
             $table->string("lampiran");
             $table->text("perihal");
             $table->text("isi_surat");
-
-
             $table->timestamps();
         });
     }

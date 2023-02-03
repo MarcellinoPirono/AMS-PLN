@@ -12,6 +12,7 @@ use App\Models\Skk;
 use App\Models\Prk;
 use App\Models\PpnModel;
 use App\Models\Pejabat;
+use App\Models\Tembusan;
 use App\Models\RincianInduk;
 use App\Models\ItemRincianInduk;
 use App\Models\Rab;
@@ -68,6 +69,7 @@ class NonPoHpeController extends Controller
 
     public function buat_non_po_hpe(Request $request)
     {
+        // dd($request);
         $id = NonPo::where('slug', $request->slug)->value('id');
 
         $nonpo_id = $id;
@@ -75,6 +77,8 @@ class NonPoHpeController extends Controller
         $ppn_default = PpnModel::all();
         $ppn = ($ppn_default[0]->ppn / 100) * $jumlah_harga;
         $total_harga = $jumlah_harga + $ppn;
+        $lampiran = NonPo::where('id', $nonpo_id)->firstOrFail();
+        // dd(asset('storage/' . $lampiran->kak . ''), $lampiran);
 
         return view('non_po_hpe.buat_non_po_hpe',[
                 'active1' => 'Buat HPE-Non-PO ',
@@ -100,6 +104,7 @@ class NonPoHpeController extends Controller
     public function simpan_non_po_hpe(Request $request)
     {
         // dd($request);
+        dd(count($request->tembusan));
 
         $non_po_id = $request->non_po_id;
         $nama_pdf = NonPo::where('id', $non_po_id)->value("nomor_rpbj");
@@ -136,6 +141,13 @@ class NonPoHpeController extends Controller
 
         ];
         OrderSuratDinas::create($surat_dinas);
+
+        $order_surat_dinas_id = OrderSuratDinas::where('non_po_id', $non_po_id)->value('id');
+
+        for($i = 0; $i<count($request->tembusan); $i++){
+            Tembusan::create(['isi_tembusan'=>$request->tembusan[$i]]);
+        }
+
 
         //Edit Status Non-PO
 
@@ -176,6 +188,95 @@ class NonPoHpeController extends Controller
         // $hpe_id = NonPO::where('non_po_id', $non_po_id)->value('id');
         // $values_pdf_page2 = RabNonPo::where('non_po_id', $non_po_id)->get();
         // $rab_non_po_id = RabNonPo::where('non_po_id', $non_po_id)->get();
+        $kak = NonPo::where('id', $non_po_id)->value('kak');
+        $pdf = $this->load_view_nota_dinas_hpe($non_po_id, $nama_pdf);
+        $pdf2 = $this->view_surat_dinas($non_po_id, $nama_pdf);
+        (new PdfkhsController)->make_watermark($pdf, "On Progress");
+        (new PdfkhsController)->make_watermark($pdf2, "On Progress");
+        $path2 = 'surat_dinas.pdf';
+        $path1 = 'newFileName.pdf';
+        Storage::disk('local')->put($path2, $pdf2->output());
+        Storage::disk('local')->put($path1, $pdf->output());
+
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path('public/'.$kak), 'all');
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'-HPE_onprogress.pdf');
+
+        //PDF DITOLAK
+        $pdf = $this->load_view_nota_dinas_hpe($non_po_id, $nama_pdf);
+        $pdf2 = $this->view_surat_dinas($non_po_id, $nama_pdf);
+
+        (new PdfkhsController)->make_watermark($pdf, "Ditolak");
+        (new PdfkhsController)->make_watermark($pdf2, "Ditolak");
+        $path1 = 'newFileName.pdf';
+        $path2 = 'surat_dinas.pdf';
+
+        Storage::disk('local')->put($path1, $pdf->output());
+        Storage::disk('local')->put($path2, $pdf2->output());
+
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path('public/'.$kak), 'all');
+
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'-HPE_ditolak.pdf');
+
+        //PDF DITERIMA
+        $pdf = $this->load_view_nota_dinas_hpe($non_po_id, $nama_pdf);
+        $pdf2 = $this->view_surat_dinas($non_po_id, $nama_pdf);
+
+        (new PdfkhsController)->make_watermark($pdf, "");
+        (new PdfkhsController)->make_watermark($pdf2, "");
+
+        $path1 = 'newFileName.pdf';
+        $path2 = 'surat_dinas.pdf';
+
+        Storage::disk('local')->put($path1, $pdf->output());
+        Storage::disk('local')->put($path2, $pdf2->output());
+
+
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF(Storage::disk('local')->path($path2), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path($path1), 'all');
+        $oMerger->addPDF(Storage::disk('local')->path('public/'.$kak), 'all');
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'.pdf');
+
+        return response()->json($nama_pdf);
+    }
+
+    public function simpan_edit_hpe(Request $request){
+        // dd($request);
+        $non_po_id = $request->non_po_id;
+        $nama_pdf = NonPo::where('id', $non_po_id)->value("nomor_rpbj");
+        $nama_pdf = str_replace('.', '_', $nama_pdf);
+        $nama_pdf = str_replace('/','-', $nama_pdf);
+        $nama_pdf = str_replace(' ','-', $nama_pdf);
+        $surat_dinas = [
+            // 'non_po_id' => $request->non_po_id,
+            'pengirim_id' => $request->sumber,
+            'penerima_id' => $request->tujuan,
+            'sifat' => $request->sifat,
+            'lampiran' => $request->lampiran,
+            'perihal' => $request->perihal,
+            'isi_surat' => $request->isi_surat,
+        ];
+        OrderSuratDinas::where('non_po_id', $non_po_id)->update($surat_dinas);
+        $order_surat_dinas_id = OrderSuratDinas::where('non_po_id', $non_po_id)->value('id');
+
+        $tembusan_all_id = Tembusan::where('order_surat_dinas_id', $order_surat_dinas_id)->get();
+
+        for($i = 0; $i < count($tembusan_all_id); $i++){
+            Tembusan::where()
+        }
+
+
+
+
         $kak = NonPo::where('id', $non_po_id)->value('kak');
         $pdf = $this->load_view_nota_dinas_hpe($non_po_id, $nama_pdf);
         $pdf2 = $this->view_surat_dinas($non_po_id, $nama_pdf);
@@ -362,6 +463,57 @@ class NonPoHpeController extends Controller
         ]);
 
     }
+    public function edit_hpe($slug){
+        // $non_pos = NonPo::where('slug', $slug)->get();
+        // $non_po_id = NonPo::where('slug', $slug)->value('id');
+        // $rab_non_pos = RabNonPo::where('non_po_id', $non_po_id)->get();
+        // dd($non_pos);
+
+        $id = NonPo::where('slug', $slug)->value('id');
+
+        $nonpo_id = $id;
+        $jumlah_harga = RabNonPO::where('non_po_id', $nonpo_id)->sum("jumlah_harga");
+        $jumlah_harga_perkiraan = RabNonPO::where('non_po_id', $nonpo_id)->sum("jumlah_harga_perkiraan");
+        $orders_surat_dinas = OrderSuratDinas::where('non_po_id', $nonpo_id)->get();
+        // dd($orders_surat_dinas);
+        $order_surat_dinas_id = OrderSuratDinas::where('non_po_id', $nonpo_id)->value('id');
+        $tembusans = Tembusan::where('order_surat_dinas_id', $order_surat_dinas_id)->get();
+
+        $ppn_default = PpnModel::all();
+        $ppn = ($ppn_default[0]->ppn / 100) * $jumlah_harga;
+        $ppn_hpe = ($ppn_default[0]->ppn / 100) * $jumlah_harga_perkiraan;
+        $total_harga = $jumlah_harga + $ppn;
+        $total_harga_perkiraan = $jumlah_harga_perkiraan + $ppn_hpe;
+        // dd(RabNonPO::where('non_po_id', $nonpo_id)->get());
+
+        return view('non_po_hpe.edit_non_po_hpe',[
+            'active1' => 'Buat HPE-Non-PO ',
+            'title' => 'Non Purchase Order HPE',
+            'title1' => 'Non-PO HPE',
+            'active' => 'Non-PO HPE',
+            'jumlah_harga' => $jumlah_harga,
+            'jumlah_harga_perkiraan' => $jumlah_harga_perkiraan,
+            'ppn_nonpo' => $ppn,
+            'ppn_hpe' => $ppn_hpe,
+            'total_harga' => $total_harga,
+            'total_harga_perkiraan' => $total_harga_perkiraan,
+            'non_po_id' => $nonpo_id,
+            'orders_surat_dinas' => $orders_surat_dinas,
+            'nonpos'=> NonPo::where('id', $nonpo_id)->get(),
+            'lampiran'=> NonPo::find($nonpo_id),
+            'rabnonpos'=> RabNonPO::where('non_po_id', $nonpo_id)->get(),
+            'skks' => Skk::all(),
+            'prks' => Prk::all(),
+            'redaksis' => RedaksiNotaDinas::all(),
+            'pejabats' => Pejabat::all(),
+            'tembusans' => $tembusans,
+            'ppn' => $ppn_default,
+            'user_id'=> User::find(Auth::id())->value('id'),
+        ]);
+        // dd($data);
+        return view('non_po_hpe.edit_non_po_hpe', $data);
+    }
+
     public function download($nama_pdf)
     {
         // dd($nama_pdf);

@@ -9,6 +9,10 @@ use App\Models\KontrakInduk;
 use App\Models\Khs;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class AddendumController extends Controller
 {
@@ -17,6 +21,7 @@ class AddendumController extends Controller
         // $addendums = DB::table('addendums')->join('kontrak_induks', 'addendums.nomor_kontrak_induk', '=', 'kontrak_induks.nomor_kontrak_induk')->join('khs', 'kontrak_induks.jenis_khs', '=', 'khs.jenis_khs')->get(['addendums.*', 'kontrak_induks.*', 'khs.*']);
         // dd($addendums);
         // $addendums = Khs::with();
+        // dd(Addendum::orderby('id', 'DESC')->get());
         return view('khs.detail_khs.addendum_khs.addendum_khs', [
             'title' => 'Addendum',
             'active' => 'Addendum',
@@ -67,21 +72,46 @@ class AddendumController extends Controller
 
     public function store(Request $request)
     {
+        if(count($request->file()) > 0) {
+            $filename_addendum = time().'_'.$request->file('pdf_file')->getClientOriginalName();
+            $pdf_file = $request->file('pdf_file')->storeAs('storage/addendum-po', $filename_addendum, 'public');
+
+            $addendum = [
+                'kontrak_induk_id' => $request->kontrak_induk_id,
+                'nomor_addendum' => $request->nomor_addendum,
+                'tanggal_addendum' => $request->tanggal_addendum,
+                'pdf_file' => $filename_addendum,
+            ];
+            // dd($addendum);
+
+            Addendum::create($addendum);
+            return response()->json($addendum);
+        } else {
+            $addendum = [
+                'kontrak_induk_id' => $request->kontrak_induk_id,
+                'nomor_addendum' => $request->nomor_addendum,
+                'tanggal_addendum' => $request->tanggal_addendum,
+                'pdf_file' => null,
+            ];
+            // dd($addendum);
+
+            Addendum::create($addendum);
+            return response()->json($addendum);
+        }
         // dd($request);
-        $validatedData = $request->validate([
+        // $validatedData = $request->validate([
 
-            'kontrak_induk_id' => 'required',
-            'nomor_addendum' => 'required',
-            'tanggal_addendum' => 'required',
+        //     'kontrak_induk_id' => 'required',
+        //     'nomor_addendum' => 'required',
+        //     'tanggal_addendum' => 'required',
 
-        ]);
-        Addendum::create($validatedData);
-        return redirect('/addendum-khs')->with('success', 'Addendum Berhasil Ditambahkan');
+        // ]);
+        // Addendum::create($validatedData);
+        // return redirect('/addendum-khs')->with('success', 'Addendum Berhasil Ditambahkan');
     }
 
     public function edit($id)
     {
-
         $addendums = Addendum::findOrFail($id);
 
         $data = [
@@ -91,21 +121,52 @@ class AddendumController extends Controller
             'active1' => 'Edit Addendum',
             'kontrakinduks' => KontrakInduk::orderBy('id', 'DESC')->get(),
         ];
+
+        // dd($data);
         return view('khs.detail_khs.addendum_khs.edit_addendum', $data);
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'kontrak_induk_id' => 'required',
-            'nomor_addendum' => 'required',
-            'tanggal_addendum' => 'required',
-        ]);
+        if(count($request->file()) > 0) {
+            $filename_addendum = time().'_'.$request->file('pdf_file')->getClientOriginalName();
+            $pdf_file = $request->file('pdf_file')->storeAs('storage/addendum-po', $filename_addendum, 'public');
 
-        $addendums = Addendum::findOrFail($id);
+            $addendum = [
+                'kontrak_induk_id' => $request->kontrak_induk_id,
+                'nomor_addendum' => $request->nomor_addendum,
+                'tanggal_addendum' => $request->tanggal_addendum,
+                'pdf_file' => $filename_addendum,
+            ];
+            // dd($addendum);
+            $addendums = Addendum::findOrFail($id);
+            $addendums->update($addendum);
+            // Addendum::create($addendum);
+            return response()->json($addendums);
+        } else {
+            $addendum = [
+                'kontrak_induk_id' => $request->kontrak_induk_id,
+                'nomor_addendum' => $request->nomor_addendum,
+                'tanggal_addendum' => $request->tanggal_addendum,
+                'pdf_file' => null,
+            ];
+            // dd($addendum);
 
-        $input = $request->all();
-        $addendums->update($input);
+            // Addendum::create($addendum);
+            $addendums = Addendum::findOrFail($id);
+            $addendums->update($addendum);
+            return response()->json($addendums);
+        }
+        // $request->validate([
+        //     'kontrak_induk_id' => 'required',
+        //     'nomor_addendum' => 'required',
+        //     'tanggal_addendum' => 'required',
+        // ]);
+
+        // $addendums = Addendum::findOrFail($id);
+
+        // $input = $request->all();
+        // $addendums->update($input);
 
 
     }
@@ -204,4 +265,16 @@ class AddendumController extends Controller
         }
     }
 
+    public function download_addendum($id) {
+        $addendum_file = Addendum::where('id', $id)->value('pdf_file');
+        // dd($addendum_file);
+        if($addendum_file == null) {
+            Alert::error('Download Gagal', 'File PDF Tidak Tersedia');
+
+            return back();
+        } else {
+            return Storage::download('public/storage/addendum-po/'.$addendum_file);
+        }
+        // dd($addendum_file);
+    }
 }

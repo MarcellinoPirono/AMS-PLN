@@ -29,21 +29,15 @@
                                         <input type="hidden" class="delete_id" value="{{ $nonpo->id }}">
                                         <td align="center">
                                             <div class="d-flex justify-content-center">
-                                                <a class="btn light btn-success btn-xs1 sharp" href="download-test/{{ $nonpo->slug }}"><i
+                                                <a class="btn light btn-success btn-xs1 sharp" href="download-hpe/{{ $nonpo->slug }}"><i
                                                     class="bi bi-download"></i></a>
                                                 <a class="btn light btn-info btn-xs1 sharp ml-1"
                                                         href="preview-hpe/{{ $nonpo->slug }}"><i
                                                             class="mt-1 bi bi-eye"></i></a>
                                             </div>
                                         </td>
-                                        @if ($nonpo->status == "Progress")
-                                        <td><span class="badge light badge-warning">OnProcess (HPE)</span></td>
-                                        @elseif ($nonpo->status == "Waiting List")
-                                        <td><span class="badge light badge-warning">OnProcess (Persetujuan Manager)</span></td>
-                                        @elseif ($nonpo->status == "Disetujui")
-                                        <td><span class="badge light badge-success">Disetujui</span></td>
-                                        @elseif ($nonpo->status == "Ditolak")
-                                        <td><span class="badge light badge-success">Ditolak</span></td>
+                                        @if ($nonpo->status == 'Waiting List')
+                                        <td align="center"><span class="badge light badge-warning2">-</span></span></td>
                                         @endif
                                         <td>{{ $nonpo->nomor_rpbj }}</td>
                                         <td>{{ $nonpo->pekerjaan }}</td>
@@ -57,6 +51,12 @@
                         </table>
                     </div>
                 </div>
+
+                <div style="color: #000; padding-left:45px;">
+                    <span class="" style="padding-bottom: 30px">Keterangan : </span><br>
+                    <span class="badge light badge-warning2 mb-2">-</span> = Telah Dibuatkan HPE <i>(On Progress)</i><br>
+                </div>
+
             </div>
         </div>
     </div>

@@ -64,9 +64,9 @@
     <div class="content3 justifytb" style="margin-left: 120px; margin-right: 70px;">
         <p type="1" style="justify-content: space-between">
             {{$surat->isi_surat}}
-            Sehubungan dengan minimnya persediaan MCCB untuk melayani Pasang Baru dan Perubahan Daya. Dengan ini kami
+            {{-- Sehubungan dengan minimnya persediaan MCCB untuk melayani Pasang Baru dan Perubahan Daya. Dengan ini kami
             moho dibuatkan kontrak sesuai dengan Rincian Material dan Biaya terlampir. Pengadaan MCCB ini bertujuan
-            untuk menunjang kelancaran pekerjaan tersebut dengan rincian sebagai berikut:
+            untuk menunjang kelancaran pekerjaan tersebut dengan rincian sebagai berikut: --}}
         </p>
 
     </div>

@@ -31,4 +31,8 @@ class NonPo extends Model
     public function users(){
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function order_surat_dinas(){
+        return $this->hasMany(OrderSuratDinas::class, 'non_po_id');
+    }
 }

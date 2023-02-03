@@ -43,7 +43,7 @@
                                     <input type="text" class="form-control input-default" placeholder="Nomor Addendum"
                                         name="nomor_addendum" id="nomor_addendum" required autofocus>
                                 </div>
-                                <div class="form-group col-md-6 mt-4">
+                                <div class="form-group col-md-6 mt-4 mb-2">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="bi bi-calendar2-minus"></i>
@@ -55,7 +55,7 @@
                                             required>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 mb-2">
+                                <div class="col-lg-5 col-sm-10 mb-2">
                                     <div class="form-group">
                                         <label class="text-label">Input File Addendum</label>
                                         <div class="input-group mb-3">
@@ -63,18 +63,20 @@
                                                 <span class="input-group-text">Upload</span>
                                             </div>
                                             <div class="custom-file">
-                                                <input id="kak" type="file"
+                                                <input id="file_addendum" type="file"
                                                     class="form-control custom-file-input"
-                                                    style="border-radius: 0 20px 20px 0" required />
-                                                <label class="custom-file-label">Choose </label>
+                                                    style="border-radius: 0 20px 20px 0" accept=".pdf"
+                                                    onchange="fileValidation(this);" />
+                                                <label id="labal_addendum" class="custom-file-label">Choose or Drag
+                                                    file</label>
                                             </div>
                                         </div>
-                                        <div class="valid-feedback">
-                                            Data Terisi
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Silakan Upload File Addendum
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-sm-1 mb-2 mt-45">
+                                    <div class="form-group">
+                                        <button class="btn btn-danger btn-xxs" onclick="onclear()">
+                                            <i class='fa fa-trash' style=" margin-top:5px; margin-bottom: 5px"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -94,6 +96,31 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 
 <script>
+    function fileValidation(ini) {
+        if (ini.files[0].size > 20971520) {
+            swal({
+                    title: "Size PDF Terlalu Besar",
+                    text: "File PDF Harus Dibawah 20 Mb",
+                    icon: "error",
+                    timer: 2e3,
+                    buttons: false
+                })
+                .then((willDefault) => {
+                    onclear();
+                });
+        }
+    }
+
+    function onclear() {
+        var files = document.getElementById('file_addendum');
+        files.value = "";
+
+        var labelfile = document.getElementById('labal_addendum');
+        labelfile.innerHTML = 'Choose or Drag file';
+
+        event.preventDefault();
+    }
+
     $(document).ready(function() {
         $('#kontrak_induk_id').on('change', function() {
             const selected = $(this).find('option:selected');
@@ -136,21 +163,38 @@
                 var kontrak_induk_id = $("#kontrak_induk_id").val();
                 var nomor_addendum = $("#nomor_addendum").val();
                 var tanggal_addendum = $("#tanggal_addendum").val();
-                var date = new Date(tanggal_addendum);
-                var tanggal_addendum = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
-                    .toISOString().split("T")[0];
+                tanggal_addendum = new Date(tanggal_addendum);
+                tanggal_addendum = new Date(tanggal_addendum.getTime() - (tanggal_addendum
+                    .getTimezoneOffset() * 60000)).toISOString().split("T")[0];
+                var pdf_file = $("#file_addendum")[0].files;
+                // console.log(pdf_file);
+                // console.log(pdf_file.length);
 
-                var data = {
-                    "_token": token,
-                    "kontrak_induk_id": kontrak_induk_id,
-                    "nomor_addendum": nomor_addendum,
-                    "tanggal_addendum": tanggal_addendum,
-                };
+                var fd = new FormData();
+
+                if (pdf_file.length > 0) {
+                    fd.append("_token", token);
+                    fd.append("kontrak_induk_id", kontrak_induk_id);
+                    fd.append("nomor_addendum", nomor_addendum);
+                    fd.append("tanggal_addendum", tanggal_addendum);
+                    fd.append("pdf_file", pdf_file[0]);
+                } else {
+                    fd.append("_token", token);
+                    fd.append("kontrak_induk_id", kontrak_induk_id);
+                    fd.append("nomor_addendum", nomor_addendum);
+                    fd.append("tanggal_addendum", tanggal_addendum);
+                    fd.append("pdf_file", null);
+                }
+
+                // console.log(fd);
 
                 $.ajax({
                     type: 'POST',
                     url: "{{ url('addendum-khs') }}",
-                    data: data,
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
                     success: function(response) {
                         swal({
                                 title: "Data Ditambah",
@@ -164,6 +208,15 @@
                             });
                     }
                 });
+                // var data = {
+                //     "_token": token,
+                //     "kontrak_induk_id": kontrak_induk_id,
+                //     "nomor_addendum": nomor_addendum,
+                //     "tanggal_addendum": tanggal_addendum,
+                //     "pdf_file": file_addendum[0],
+                // };
+                // console.log(data);
+
             }
         });
 

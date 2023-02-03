@@ -765,7 +765,7 @@ class RabController extends Controller
 
         // dd($fileName);
         // for pdf, it will be 'application/pdf'
-        $type       = Storage::mimeType($filePath);
+        $type = Storage::mimeType($filePath);
         // $fileName   = Storage::name(''.$fileName.'.pdf');
 
         $pdf =  Response::make($pdfContent, 200, [

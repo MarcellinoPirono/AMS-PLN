@@ -37,7 +37,7 @@ class HpeController extends Controller
 
     public function buat_non_po_hpe(Request $request)
     {
-        dd($redaksis);
+        dd($request);
 
         $nonpo_id = $request->id;
         $jumlah_harga = RabNonPo::where('non_po_id', $nonpo_id)->sum("jumlah_harga");

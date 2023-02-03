@@ -33,7 +33,6 @@
                                         <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
                                         <td align="center">
                                             <div class="d-flex justify-content-center">
-
                                                 <a class="btn light btn-success btn-xs1 sharp"
                                                     href="download-non-po/{{ $nonpo->slug }}"><i
                                                         class="bi bi-download"></i></a>

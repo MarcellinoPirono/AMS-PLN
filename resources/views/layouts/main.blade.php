@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>AMS - UP3 PLN Makassar</title>
+    <title>Sipakainga - PLN UP3 Makassar Selatan</title>
     <!-- Favicon icon -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -120,12 +120,12 @@
         ***********************************-->
         <div class="nav-header">
             <a href="/dashboard" class="brand-logo">
-                <img class="logo-abbr" src="{{ asset('/') }}./asset/frontend/images/logo-sq.png" width="700"
+                <img class="logo-abbr" src="{{ asset('/') }}./asset/frontend/images/logo-sq.png" width="700" height="55"
                     alt="">
-                <img class="logo-compact" src="{{ asset('/') }}./asset/frontend/images/logo-sq.png" width="700"
+                <img class="logo-compact" src="{{ asset('/') }}./asset/frontend/images/logo-sq.png" width="700" height="55"
                     alt="">
                 <img class="brand-title" src="{{ asset('/') }}./asset/frontend/images/logo-ls2.png"
-                    style="height:40px;" alt="">
+                    style="margin-left:0% !important;height:40px;" alt="">
             </a>
 
             <div class="nav-control">

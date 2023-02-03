@@ -12,6 +12,16 @@
             <div class="card">
 
                 <div class="card-body">
+                @if (auth()->user()->role === 'Manager' || auth()->user()->role === 'Admin')
+                    @if ($rabs->status === 'Waiting List')
+                        <div class="col-md-12 d-flex justify-content-end mt-5 mb-3">
+                            <input type="hidden" value="{{ $slug }}" id="slug_rab" name="slug_rab">
+                            <a href="/edit-hpe/{{$rabs->slug}}" value="Disetujui" class="btn btn-info">Edit HPE <i
+                                    class="bi bi-pencil-square"></i> </a>
+                        </div>
+                    @endif
+                @endif
+
                 @if ($rabs->status === 'Progress')
                 <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/' . $filename . '.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />

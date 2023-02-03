@@ -342,6 +342,8 @@
                                             <tr align="center" valign="middle" class="">
                                                 <th style="width:5%;" align="center" valign="middle">No.</th>
                                                 <th align="center" valign="middle">Lokasi</th>
+                                                <th style="width:10%; text-align: left; align-items-content: left" align="left" valign="middle">Aksi</th>
+                                                <th align="center" valign="middle">Tembusan</th>
                                                 <th style="width:10%;" align="center" valign="middle">Aksi</th>
                                             </tr>
                                             <tr>
@@ -351,6 +353,12 @@
                                                         onblur="blur_lokasi(this)">{{ old('lokasi') }}</textarea>
                                                 </td>
                                                 <td><button onclick="deleteRow2(this)"
+                                                        class="btn btn-danger shadow btn-xs sharp"><i
+                                                            class='fa fa-trash'></i></button></td>
+                                                <td> <input type="text" class="form-control" name="tembusan"
+                                                        id="tembusan" placeholder="Tembusan" autofocus
+                                                        value="{{ old('tembusan') }}"></td>
+                                                <td align="center"><button onclick="deleteRow3(this)"
                                                         class="btn btn-danger shadow btn-xs sharp"><i
                                                             class='fa fa-trash'></i></button></td>
                                             </tr>

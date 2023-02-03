@@ -210,6 +210,42 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Input Tembusan <span
+                                                                class="text-danger">*</span></label>
+                                                    </div>
+                                                </div>
+                                                <table class="table table-responsive-sm height-100" width="100%"
+                                                    id="tabel_tembusan">
+                                                    <thead>
+                                                        <tr align="center" valign="middle" class="">
+                                                            <th style="width:5%;" align="center" valign="middle">No.</th>
+                                                            <th align="center" valign="middle">Tembusan</th>
+                                                            <th style="width:10%;" align="center" valign="middle">Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbody-tembusan">
+                                                    @foreach ($tembusans as $tembusan)
+                                                    <tr>
+                                                        <td><strong id="nomor" value="1">{{$loop->iteration}}</strong></td>
+                                                        <td> <input type="text" class="form-control" name="tembusan"
+                                                                id="tembusan[{{$loop->iteration}}]" placeholder="Tembusan" autofocus
+                                                                value="{{ old('tembusan', $tembusan->isi_tembusan) }}"></td>
+                                                        <td align="center"><button onclick="deleteRow2(this)"
+                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                    class='fa fa-trash'></i></button></td>
+                                                    </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                                <div class="col-lg-12 mb-2">
+                                                    <div class="position-relative justify-content-center float-center">
+                                                        <a type="button" id="tambah-pekerjaan"
+                                                            class="btn btn-secondary btn-xs position-relative justify-content-end"
+                                                            onclick="updatetembusan()" required>Tambah</a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -290,6 +326,7 @@
                                                                                         name="volume"
                                                                                         placeholder="volume"
                                                                                         value="{{ str_replace('.', ',', $rabnonpo->volume) }}"
+                                                                                        onblur="hitung_harga_hpe(this)"
                                                                                         onkeydown="return numbersonly(this, event);"
                                                                                         onkeyup="javascript:tandaPemisahTitik(this);"
                                                                                         required disabled></td>
@@ -302,7 +339,7 @@
                                                                                         onblur="hitung_harga(this)"
                                                                                         onkeydown="return numbersonly(this, event);"
                                                                                         onkeyup="javascript:tandaPemisahTitik(this);"
-                                                                                        required disabled>
+                                                                                        disabled required>
                                                                                 </td>
                                                                                 <td><input type="text"
                                                                                         class="form-control harga"
@@ -310,25 +347,25 @@
                                                                                         name="harga"
                                                                                         placeholder="Jumlah"
                                                                                         value="@currency2($rabnonpo->jumlah_harga)" disabled
-                                                                                        readonly required>
+                                                                                        readonly disabled required>
                                                                                 </td>
                                                                                 <td><input type="text"
                                                                                         class="form-control harga_hpe"
                                                                                         id="harga_hpe[{{ $loop->iteration }}]"
                                                                                         name="harga_hpe"
                                                                                         placeholder="Harga Perkiraan"
-                                                                                        value=""
+                                                                                        value="@currency2($rabnonpo->harga_perkiraan)"
                                                                                         onblur="hitung_harga_hpe(this)"
                                                                                         onkeydown="return numbersonly(this, event);"
                                                                                         onkeyup="javascript:tandaPemisahTitik(this);"
-                                                                                        required>
+                                                                                        required disabled>
                                                                                 </td>
                                                                                 <td><input type="text"
                                                                                         class="form-control jumlah_harga_hpe"
                                                                                         id="jumlah_harga_hpe[{{ $loop->iteration }}]"
                                                                                         name="jumlah_harga_hpe"
                                                                                         placeholder="Jumlah"
-                                                                                        value="" disabled readonly
+                                                                                        value="@currency2($rabnonpo->jumlah_harga_perkiraan)" disabled readonly
                                                                                         required>
                                                                                 </td>
                                                                                 <!-- <td><button onclick="deleteRow(this)"
@@ -370,7 +407,7 @@
                                                                             <th style="width: 20%">
                                                                                 Jumlah HPE:</th>
                                                                             <th style="width: 1%">:</th>
-                                                                            <th style="width: 45%" id="jumlah-hpe"></th>
+                                                                            <th style="width: 45%" id="jumlah-hpe">@currency($jumlah_harga_perkiraan)</th>
                                                                             <th style="width: 1%"></th>
                                                                         </tr>
                                                                         <tr>
@@ -383,7 +420,7 @@
                                                                                 {{ str_replace('.', ',', $ppn[0]->ppn) }}%
                                                                             </th>
                                                                             <th>:</th>
-                                                                            <th id="pajak-hpe"></th>
+                                                                            <th id="pajak-hpe">@currency($ppn_hpe)</th>
                                                                             <th></th>
                                                                         </tr>
                                                                         <tr>
@@ -404,7 +441,7 @@
                                                                             @endif
                                                                             <th>Total Harga HPE</th>
                                                                             <th>:</th>
-                                                                            <th id="total-hpe"></th>
+                                                                            <th id="total-hpe">@currency($total_harga_perkiraan)</th>
                                                                             <th></th>
                                                                         </tr>
                                                                     </tfoot>
@@ -427,6 +464,7 @@
                                         <div class="row m-auto">
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
+                                                    @foreach ($orders_surat_dinas as $order_surat_dinas)
                                                     <label class="text-label">Kepada : <span
                                                             class="text-danger">*</span></label>
                                                     <select name="tujuan" id="tujuan"
@@ -437,7 +475,7 @@
                                                         </option>
                                                         @foreach ($pejabats as $pejabat)
                                                             @if ($pejabat->jabatan != 'MANAGER UP3')
-                                                                <option value="{{ $pejabat->id }}">
+                                                                <option value="{{ $pejabat->id }}" @if ($order_surat_dinas->penerima_id == $pejabat->id) selected @endif>
                                                                     {{ $pejabat->jabatan }} -
                                                                     {{ $pejabat->nama_pejabat }}
                                                                 </option>
@@ -463,7 +501,7 @@
                                                         </option>
                                                         @foreach ($pejabats as $pejabat)
                                                             @if ($pejabat->jabatan != 'MANAGER UP3')
-                                                                <option value="{{ $pejabat->id }}">
+                                                                <option value="{{ $pejabat->id }}" @if ($order_surat_dinas->pengirim_id == $pejabat->id) selected @endif>
                                                                     {{ $pejabat->jabatan }} -
                                                                     {{ $pejabat->nama_pejabat }}
                                                                 </option>
@@ -489,9 +527,9 @@
                                                         required>
                                                         <option selected disabled value="">Pilih Sumber Surat
                                                         </option>
-                                                        <option value="Biasa">Biasa</option>
-                                                        <option value="Segera">Segera</option>
-                                                        <option value="Sangat Segera">Sangat Segera</option>
+                                                        <option value="Biasa" @if ($order_surat_dinas->sifat == "Biasa") selected @endif>Biasa</option>
+                                                        <option value="Segera" @if ($order_surat_dinas->sifat == "Segera") selected @endif>Segera</option>
+                                                        <option value="Sangat Segera" @if ($order_surat_dinas->sifat == "Sangat Segera") selected @endif>Sangat Segera</option>
                                                     </select>
                                                     <div class="valid-feedback">
                                                         Data Terpilih
@@ -509,7 +547,7 @@
                                                             class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="lampiran"
                                                         id="lampiran" placeholder="Jumlah Lampiran" required autofocus
-                                                        value="">
+                                                        value="{{old('lampiran', preg_replace('/[^0-9]/', '', $order_surat_dinas->lampiran))}}">
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -528,8 +566,8 @@
                                                         required>
                                                         <option selected disabled value="">Pilih Jenis Lampiran
                                                         </option>
-                                                        <option value="Set">Set</option>
-                                                        <option value="Lembar">Lembar</option>
+                                                        <option value="Set" @if (preg_replace('/[^a-zA-Z]/', '', $order_surat_dinas->lampiran) == "Set") selected @endif>Set</option>
+                                                        <option value="Lembar" @if (preg_replace('/[^a-zA-Z]/', '', $order_surat_dinas->lampiran) == "Lembar") selected @endif>Lembar</option>
                                                     </select>
                                                     <div class="valid-feedback">
                                                         Data Terpilih
@@ -543,8 +581,7 @@
                                                 <div class="form-group">
                                                     <label class="text-label">Perihal : <span
                                                             class="text-danger">*</span></label>
-
-                                                    <textarea class="form-control" name="perihal" id="perihal" placeholder="Perihal" cols="30" rows="2"></textarea>
+                                                    <textarea class="form-control" name="perihal" id="perihal" placeholder="Perihal" cols="30" rows="2">{{$order_surat_dinas->perihal}}</textarea>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -557,9 +594,8 @@
                                                 <div class="form-group">
                                                     <label class="text-label">Isi Surat : <span
                                                             class="text-danger">*</span></label>
-
                                                     <textarea class="form-control" name="isi_surat" id="isi_surat" placeholder="Isi Surat" cols="60"
-                                                        rows="2"></textarea>
+                                                        rows="2">{{$order_surat_dinas->perihal}}</textarea>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -568,6 +604,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endforeach
                                             {{-- <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Redaksi Nota Dinas :</label>
@@ -594,36 +631,6 @@
                                                     </p>
                                                 </div>
                                             </div> --}}
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label class="text-label">Input Tembusan <span
-                                                            class="text-danger">*</span></label>
-                                                </div>
-                                            </div>
-                                            <table class="table table-responsive-sm height-100" width="100%"
-                                                id="tabel_tembusan">
-                                                <tr align="center" valign="middle" class="">
-                                                    <th style="width:5%;" align="center" valign="middle">No.</th>
-                                                    <th align="center" valign="middle">Tembusan</th>
-                                                    <th style="width:10%;" align="center" valign="middle">Aksi</th>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong id="nomor" value="1">1</strong></td>
-                                                    <td> <input type="text" class="form-control" name="tembusan"
-                                                            id="tembusan[1]" placeholder="Tembusan" autofocus
-                                                            value="{{ old('tembusan') }}"></td>
-                                                    <td align="center"><button onclick="deleteRow2(this)"
-                                                            class="btn btn-danger shadow btn-xs sharp"><i
-                                                                class='fa fa-trash'></i></button></td>
-                                                </tr>
-                                            </table>
-                                            <div class="col-lg-12 mb-2">
-                                                <div class="position-relative justify-content-center float-center">
-                                                    <a type="button" id="tambah-pekerjaan"
-                                                        class="btn btn-secondary btn-xs position-relative justify-content-end"
-                                                        onclick="updatetembusan()" required>Tambah</a>
-                                                </div>
-                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -1229,26 +1236,45 @@
         </script>
 
         <script>
-            var clicktembusan = 1;
-            function hitung_harga_hpe(c) {
-                var row = c.parentNode.parentNode;
-                var change = row.rowIndex;
-                var banyak_data = document.querySelectorAll("#tbody-kategori tr");
-                // tbody.querySelectorAll()
+            var banyak_tembusan = document.querySelectorAll("#tbody-tembusan tr");
+            var clicktembusan = banyak_tembusan.length;
+            function update_harga(change, banyak_data){
                 var volume = document.getElementById("volume[" + change + "]").value;
+                if (volume.charAt(volume.length - 1) == ",") {
+                    document.getElementById("volume[" + change + "]").value = volume + "0";
+                }
+                if (volume.charAt(0) == ",") {
+                    document.getElementById("volume[" + change + "]").value = "0" + volume;
+                }
                 volume = volume.replace(/\./g, "");
                 volume = volume.replace(/\,/g, ".");
                 volume = parseFloat(volume);
+
+                // Harga Perkiraan
                 var harga_perkiraan = document.getElementById("harga_hpe[" + change + "]").value;
                 harga_perkiraan = harga_perkiraan.replace(/\./g, "");
                 harga_perkiraan = parseInt(harga_perkiraan);
 
+                // Harga Satuan
+                var harga_satuan = document.getElementById("harga_satuan[" + change + "]").value;
+                harga_satuan = harga_satuan.replace(/\./g, "");
+                harga_satuan = parseInt(harga_satuan);
+
                 var jumlah_harga_perkiraan = volume * harga_perkiraan;
                 jumlah_harga_perkiraan = jumlah_harga_perkiraan.toString();
                 jumlah_harga_perkiraan_2 = "";
-                panjang = jumlah_harga_perkiraan.length;
+                panjang_harga_perkiraan = jumlah_harga_perkiraan.length;
+
+                var harga = volume * harga_satuan;
+                harga = Math.round(harga);
+                harga = harga.toString();
+                harga = harga.replace(/\./g, "");
+                harga_2 = "";
+                panjang_harga_satuan = harga.length;
+
                 j = 0;
-                for (i = panjang; i > 0; i--) {
+                j_1 = 0;
+                for (i = panjang_harga_perkiraan; i > 0; i--) {
                     j = j + 1;
                     if (((j % 3) == 1) && (j != 1)) {
                         jumlah_harga_perkiraan_2 = jumlah_harga_perkiraan.substr(i - 1, 1) + "." + jumlah_harga_perkiraan_2;
@@ -1261,14 +1287,31 @@
                     document.getElementById("jumlah_harga_hpe[" + change + "]").value = jumlah_harga_perkiraan_2;
                 }
 
+                for (i = panjang_harga_satuan; i > 0; i--) {
+                    j_1 = j_1 + 1;
+                    if (((j_1 % 3) == 1) && (j_1 != 1)) {
+                        harga_2 = harga.substr(i - 1, 1) + "." + harga_2;
+                    } else {
+                        harga_2 = harga.substr(i - 1, 1) + harga_2;
+                    }
+                }
+                if (document.getElementById('harga_satuan[' + change + ']').value != "" && document.getElementById('volume[' +
+                        change + ']').value != "") {
+                    document.getElementById("harga[" + change + "]").value = harga_2;
+                }
+
                 var volume_check = [];
                 var harga_perkiraan_check = [];
                 var jumlah_harga_perkiraan_check = [];
+                var harga_satuan_check = [];
+                var harga_check = [];
 
                 for (var i = 0; i < banyak_data.length; i++) {
                     volume_check[i] = document.getElementById('volume[' + (i + 1) + ']').value
                     harga_perkiraan_check[i] = document.getElementById('harga_hpe[' + (i + 1) + ']').value
                     jumlah_harga_perkiraan_check[i] = document.getElementById('jumlah_harga_hpe[' + (i + 1) + ']').value
+                    harga_satuan_check[i] = document.getElementById('harga_satuan[' + (i + 1) + ']').value
+                    harga_check[i] = document.getElementById('harga[' + (i + 1) + ']').value
                 }
 
                 if (volume_check.includes('') || harga_perkiraan_check.includes('') || jumlah_harga_perkiraan_check.includes(
@@ -1278,86 +1321,115 @@
 
                 }
 
-                var total_harga = [];
+                var total_harga_satuan = [];
+                var total_harga_perkiraan = [];
                 for (var i = 0; i < banyak_data.length; i++) {
-                    total_harga[i] = document.getElementById("jumlah_harga_hpe[" + (i + 1) + "]").value;
-                    total_harga[i] = total_harga[i].replace(/\./g, "");
-                    total_harga[i] = parseInt(total_harga[i])
+                    total_harga_satuan[i] = document.getElementById("harga[" + (i + 1) + "]").value;
+                    total_harga_satuan[i] = total_harga_satuan[i].replace(/\./g, "");
+                    total_harga_satuan[i] = parseInt(total_harga_satuan[i])
+                    total_harga_perkiraan[i] = document.getElementById("jumlah_harga_hpe[" + (i + 1) + "]").value;
+                    total_harga_perkiraan[i] = total_harga_perkiraan[i].replace(/\./g, "");
+                    total_harga_perkiraan[i] = parseInt(total_harga_perkiraan[i])
                 }
                 var pagu_prk = document.getElementById("rupiah").innerHTML;
                 pagu_prk = pagu_prk.replace(/\./g, "");
                 pagu_prk = parseInt(pagu_prk);
-                var total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-                total_harga_all = total_harga_all.toString();
-                total_harga_all_2 = "";
-                panjang_2 = total_harga_all.length;
+                var total_harga_satuan_all = total_harga_satuan.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                var total_harga_perkiraan_all = total_harga_perkiraan.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                // console.log("total_harga_perkiraan_all",total_harga_perkiraan_all);
+                total_harga_perkiraan_all = total_harga_perkiraan_all.toString();
+                total_harga_perkiraan_all_2 = "";
+                total_harga_satuan_all = total_harga_satuan_all.toString();
+                total_harga_satuan_all_2 = "";
+                panjang_satuan_2 = total_harga_satuan_all.length;
+                panjang_perkiraan_2 = total_harga_perkiraan_all.length;
                 k = 0;
-                for (i = panjang_2; i > 0; i--) {
+                k_1 = 0;
+                for (i = panjang_satuan_2; i > 0; i--) {
                     k = k + 1;
                     if (((k % 3) == 1) && (k != 1)) {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + "." + total_harga_all_2;
+                        total_harga_satuan_all_2 = total_harga_satuan_all.substr(i - 1, 1) + "." + total_harga_satuan_all_2;
                     } else {
-                        total_harga_all_2 = total_harga_all.substr(i - 1, 1) + total_harga_all_2;
+                        total_harga_satuan_all_2 = total_harga_satuan_all.substr(i - 1, 1) + total_harga_satuan_all_2;
                     }
                 }
-                document.getElementById("jumlah-hpe").innerHTML = "Rp. " + total_harga_all_2;
-                total_harga_all = parseInt(total_harga_all);
+                for (i = panjang_perkiraan_2; i > 0; i--) {
+                    k_1 = k_1 + 1;
+                    if (((k_1 % 3) == 1) && (k_1 != 1)) {
+                        total_harga_perkiraan_all_2 = total_harga_perkiraan_all.substr(i - 1, 1) + "." + total_harga_perkiraan_all_2;
+                    } else {
+                        total_harga_perkiraan_all_2 = total_harga_perkiraan_all.substr(i - 1, 1) + total_harga_perkiraan_all_2;
+                    }
+                }
+                console.log("total_harga_perkiraan_all_2",total_harga_perkiraan_all_2);
+                document.getElementById("jumlah-hpe").innerHTML = "Rp. " + total_harga_perkiraan_all_2;
+                document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_satuan_all_2;
+                total_harga_satuan_all = parseInt(total_harga_satuan_all);
+                total_harga_perkiraan_all = parseInt(total_harga_perkiraan_all);
+
+                //Ambil PPN ID Dari Database
                 var ppn_id = document.getElementById('ppn').value;
                 ppn_id = parseFloat(ppn_id);
-                var ppn = total_harga_all * ppn_id / 100;
-                ppn = Math.round(ppn);
-                ppn = ppn.toString();
-                ppn_2 = ""
-                panjang_3 = ppn.length;
+
+                //PPN Satuan
+                var ppn_satuan = total_harga_satuan_all * ppn_id / 100;
+                ppn_satuan = Math.round(ppn_satuan);
+                ppn_satuan = ppn_satuan.toString();
+
+                //PPN Perkiraan
+                var ppn_perkiraan = total_harga_perkiraan_all * ppn_id / 100;
+                ppn_perkiraan = Math.round(ppn_perkiraan);
+                ppn_perkiraan = ppn_perkiraan.toString();
+
+                ppn_satuan_2 = ""
+                panjang_satuan_3 = ppn_satuan.length;
+
+                ppn_perkiraan_2 = ""
+                panjang_perkiraan_3 = ppn_perkiraan.length;
                 l = 0;
-                for (i = panjang_3; i > 0; i--) {
+                l_1 = 0;
+                for (i = panjang_satuan_3; i > 0; i--) {
                     l = l + 1;
                     if (((l % 3) == 1) && (l != 1)) {
-                        ppn_2 = ppn.substr(i - 1, 1) + "." + ppn_2;
+                        ppn_satuan_2 = ppn_satuan.substr(i - 1, 1) + "." + ppn_satuan_2;
                     } else {
-                        ppn_2 = ppn.substr(i - 1, 1) + ppn_2;
+                        ppn_satuan_2 = ppn_satuan.substr(i - 1, 1) + ppn_satuan_2;
                     }
                 }
-                document.getElementById("pajak-hpe").innerHTML = "Rp. " + ppn_2;
-                ppn = parseInt(ppn);
-                var total = total_harga_all + ppn;
-                total = Math.round(total);
+                for (i = panjang_perkiraan_3; i > 0; i--) {
+                    l_1 = l_1 + 1;
+                    if (((l_1 % 3) == 1) && (l_1 != 1)) {
+                        ppn_perkiraan_2 = ppn_perkiraan.substr(i - 1, 1) + "." + ppn_perkiraan_2;
+                    } else {
+                        ppn_perkiraan_2 = ppn_perkiraan.substr(i - 1, 1) + ppn_perkiraan_2;
+                    }
+                }
+                document.getElementById("pajak-hpe").innerHTML = "Rp. " + ppn_perkiraan_2;
+                document.getElementById("pajak").innerHTML = "Rp. " + ppn_satuan_2;
+                ppn_satuan = parseInt(ppn_satuan);
+                ppn_perkiraan = parseInt(ppn_perkiraan);
 
-                if (document.getElementById('total-hpe').innerHTML == "") {
-                    if (total < 50000000) {
-                        if (pagu_prk >= total) {
-                            total = total.toString();
-                            total_2 = "";
-                            panjang_4 = total.length;
-                            m = 0;
-                            for (i = panjang_4; i > 0; i--) {
-                                m = m + 1;
-                                if (((m % 3) == 1) && (m != 1)) {
-                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                } else {
-                                    total_2 = total.substr(i - 1, 1) + total_2;
-                                }
-                            }
-                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                //Total Satuan
+                var total_satuan = total_harga_satuan_all + ppn_satuan;
+                total_satuan = Math.round(total_satuan);
+
+                //Total Perkiraan
+                var total_perkiraan = total_harga_perkiraan_all + ppn_perkiraan;
+                total_perkiraan = Math.round(total_perkiraan);
+
+                if (document.getElementById('total-hpe').innerHTML == "" && document.getElementById('total').innerHTML == "") {
+                    if (total_satuan < 50000000 && total_perkiraan < 50000000) {
+                        if (pagu_prk >= total_satuan && pagu_prk >= total_perkiraan) {
+                            taruh_harga(total_satuan, total_perkiraan);
                             document.getElementById("total-hpe").style.color = '#7E7E7E';
+                            document.getElementById("total").style.color = '#7E7E7E';
                         } else {
-                            total = total.toString();
-                            total_2 = "";
-                            panjang_4 = total.length;
-                            m = 0;
-                            for (i = panjang_4; i > 0; i--) {
-                                m = m + 1;
-                                if (((m % 3) == 1) && (m != 1)) {
-                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                } else {
-                                    total_2 = total.substr(i - 1, 1) + total_2;
-                                }
-                            }
-                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            taruh_harga(total_satuan, total_perkiraan);
                             document.getElementById("total-hpe").style.color = '#F94687';
+                            document.getElementById("total").style.color = '#F94687';
                         }
                         $(".sw-btn-next").prop('disabled', false);
-                    } else if (total >= 50000000 && total < 100000000) {
+                    } else if ((total_satuan >= 50000000 && total_satuan < 100000000) || (total_perkiraan >= 50000000 && total_perkiraan < 100000000)) {
                         swal({
                                 title: "Total Harga Telah Mencapai 50 Juta",
                                 text: "Total Harga HPE Telah Mencapai 50 Juta",
@@ -1366,36 +1438,14 @@
                                 buttons: false
                             })
                             .then((willContinue) => {
-                                if (pagu_prk >= total) {
-                                    total = total.toString();
-                                    total_2 = "";
-                                    panjang_4 = total.length;
-                                    m = 0;
-                                    for (i = panjang_4; i > 0; i--) {
-                                        m = m + 1;
-                                        if (((m % 3) == 1) && (m != 1)) {
-                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                        } else {
-                                            total_2 = total.substr(i - 1, 1) + total_2;
-                                        }
-                                    }
-                                    document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                if ((pagu_prk >= total_satuan) || (pagu_prk >= total_perkiraan)) {
+                                    taruh_harga(total_satuan, total_perkiraan);
                                     document.getElementById("total-hpe").style.color = '#7E7E7E';
+                                    document.getElementById("total").style.color = '#7E7E7E';
                                 } else {
-                                    total = total.toString();
-                                    total_2 = "";
-                                    panjang_4 = total.length;
-                                    m = 0;
-                                    for (i = panjang_4; i > 0; i--) {
-                                        m = m + 1;
-                                        if (((m % 3) == 1) && (m != 1)) {
-                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                        } else {
-                                            total_2 = total.substr(i - 1, 1) + total_2;
-                                        }
-                                    }
-                                    document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                    taruh_harga(total_satuan, total_perkiraan);
                                     document.getElementById("total-hpe").style.color = '#F94687';
+                                    document.getElementById("total").style.color = '#F94687';
                                 }
                                 $(".sw-btn-next").prop('disabled', false);
                             })
@@ -1408,81 +1458,42 @@
                                 buttons: false
                             })
                             .then((willContinue) => {
-                                if (pagu_prk >= total) {
-                                    total = total.toString();
-                                    total_2 = "";
-                                    panjang_4 = total.length;
-                                    m = 0;
-                                    for (i = panjang_4; i > 0; i--) {
-                                        m = m + 1;
-                                        if (((m % 3) == 1) && (m != 1)) {
-                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                        } else {
-                                            total_2 = total.substr(i - 1, 1) + total_2;
-                                        }
-                                    }
-                                    document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                if (pagu_prk >= total_satuan || pagu_prk >= total_perkiraan) {
+                                    taruh_harga(total_satuan, total_perkiraan);
                                     document.getElementById("total-hpe").style.color = '#7E7E7E';
+                                    document.getElementById("total").style.color = '#7E7E7E';
                                 } else {
-                                    total = total.toString();
-                                    total_2 = "";
-                                    panjang_4 = total.length;
-                                    m = 0;
-                                    for (i = panjang_4; i > 0; i--) {
-                                        m = m + 1;
-                                        if (((m % 3) == 1) && (m != 1)) {
-                                            total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                        } else {
-                                            total_2 = total.substr(i - 1, 1) + total_2;
-                                        }
-                                    }
-                                    document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                    taruh_harga(total_satuan, total_perkiraan);
                                     document.getElementById("total-hpe").style.color = '#F94687';
+                                    document.getElementById("total").style.color = '#F94687';
                                 }
                                 $(".sw-btn-next").prop('disabled', true);
                             })
                     }
                 } else {
-                    var total_step2 = document.getElementById('total-hpe').innerHTML;
-                    total_step2 = total_step2.replace(/\Rp. /g, "");
-                    total_step2 = total_step2.replace(/\./g, "");
-                    total_step2 = parseFloat(total_step2);
+                    var total_step_perkiraan2 = document.getElementById('total-hpe').innerHTML;
+                    var total_step_satuan2 = document.getElementById('total').innerHTML;
+                    total_step_perkiraan2 = total_step_perkiraan2.replace(/\Rp. /g, "");
+                    total_step_perkiraan2 = total_step_perkiraan2.replace(/\./g, "");
+                    total_step_perkiraan2 = parseFloat(total_step_perkiraan2);
 
-                    if (total_step2 < 50000000 && total < 50000000) {
-                        if (pagu_prk >= total) {
-                            total = total.toString();
-                            total_2 = "";
-                            panjang_4 = total.length;
-                            m = 0;
-                            for (i = panjang_4; i > 0; i--) {
-                                m = m + 1;
-                                if (((m % 3) == 1) && (m != 1)) {
-                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                } else {
-                                    total_2 = total.substr(i - 1, 1) + total_2;
-                                }
-                            }
-                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                    total_step_satuan2 = total_step_satuan2.replace(/\Rp. /g, "");
+                    total_step_satuan2 = total_step_satuan2.replace(/\./g, "");
+                    total_step_satuan2 = parseFloat(total_step_satuan2);
+
+                    if ((total_step_perkiraan2 < 50000000 && total_perkiraan < 50000000) || (total_step_satuan2 < 50000000 && total_satuan < 50000000)) {
+                        if ((pagu_prk >= total_satuan) || (pagu_prk >= total_perkiraan)) {
+                            taruh_harga(total_satuan, total_perkiraan);
                             document.getElementById("total-hpe").style.color = '#7E7E7E';
+                            document.getElementById("total").style.color = '#7E7E7E';
                         } else {
-                            total = total.toString();
-                            total_2 = "";
-                            panjang_4 = total.length;
-                            m = 0;
-                            for (i = panjang_4; i > 0; i--) {
-                                m = m + 1;
-                                if (((m % 3) == 1) && (m != 1)) {
-                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                } else {
-                                    total_2 = total.substr(i - 1, 1) + total_2;
-                                }
-                            }
-                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            taruh_harga(total_satuan, total_perkiraan);
                             document.getElementById("total-hpe").style.color = '#F94687';
+                            document.getElementById("total").style.color = '#F94687';
                         }
                         $(".sw-btn-next").prop('disabled', false);
-                    } else if (total_step2 < 50000000 && total >= 50000000) {
-                        if (total >= 100000000) {
+                    } else if ((total_step_perkiraan2 < 50000000 && total_perkiraan >= 50000000) || (total_step_satuan2 < 50000000 && total_satuan >= 50000000)) {
+                        if ((total_perkiraan >= 100000000) || (total_satuan >= 100000000)) {
                             swal({
                                     title: "Total Harga Telah Mencapai 100 Juta",
                                     text: "Anda Tidak Dapat Melanjutkan Pembuatan HPE",
@@ -1491,36 +1502,13 @@
                                     buttons: false
                                 })
                                 .then((willContinue) => {
-                                    if (pagu_prk >= total) {
-                                        total = total.toString();
-                                        total_2 = "";
-                                        panjang_4 = total.length;
-                                        m = 0;
-                                        for (i = panjang_4; i > 0; i--) {
-                                            m = m + 1;
-                                            if (((m % 3) == 1) && (m != 1)) {
-                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                            } else {
-                                                total_2 = total.substr(i - 1, 1) + total_2;
-                                            }
-                                        }
-                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                    if ((pagu_prk >= total_satuan) || (pagu_prk >= total_perkiraan)) {
                                         document.getElementById("total-hpe").style.color = '#7E7E7E';
+                                        document.getElementById("total").style.color = '#7E7E7E';
                                     } else {
-                                        total = total.toString();
-                                        total_2 = "";
-                                        panjang_4 = total.length;
-                                        m = 0;
-                                        for (i = panjang_4; i > 0; i--) {
-                                            m = m + 1;
-                                            if (((m % 3) == 1) && (m != 1)) {
-                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                            } else {
-                                                total_2 = total.substr(i - 1, 1) + total_2;
-                                            }
-                                        }
-                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                        taruh_harga(total_satuan, total_perkiraan);
                                         document.getElementById("total-hpe").style.color = '#F94687';
+                                        document.getElementById("total").style.color = '#F94687';
                                     }
                                     $(".sw-btn-next").prop('disabled', true);
                                 })
@@ -1533,42 +1521,21 @@
                                     buttons: false
                                 })
                                 .then((willContinue) => {
-                                    if (pagu_prk >= total) {
-                                        total = total.toString();
-                                        total_2 = "";
-                                        panjang_4 = total.length;
-                                        m = 0;
-                                        for (i = panjang_4; i > 0; i--) {
-                                            m = m + 1;
-                                            if (((m % 3) == 1) && (m != 1)) {
-                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                            } else {
-                                                total_2 = total.substr(i - 1, 1) + total_2;
-                                            }
-                                        }
-                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                    if (((pagu_prk >= total_satuan) || (pagu_prk >= total_perkiraan))) {
+                                        taruh_harga(total_satuan);
                                         document.getElementById("total-hpe").style.color = '#7E7E7E';
+                                        document.getElementById("total").style.color = '#7E7E7E';
                                     } else {
-                                        total = total.toString();
-                                        total_2 = "";
-                                        panjang_4 = total.length;
-                                        m = 0;
-                                        for (i = panjang_4; i > 0; i--) {
-                                            m = m + 1;
-                                            if (((m % 3) == 1) && (m != 1)) {
-                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                            } else {
-                                                total_2 = total.substr(i - 1, 1) + total_2;
-                                            }
-                                        }
-                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                        taruh_harga(total_satuan, total_perkiraan);
                                         document.getElementById("total-hpe").style.color = '#F94687';
+                                        document.getElementById("total").style.color = '#F94687';
                                     }
                                     $(".sw-btn-next").prop('disabled', false);
                                 })
                         }
-                    } else if (total_step2 >= 50000000 && total >= 100000000) {
-                        if (total_step2 < 100000000) {
+
+                    } else if ((total_step_perkiraan2 >= 50000000 && total_perkiraan >= 100000000) || (total_step_satuan2 >= 50000000 && total_satuan >= 100000000)) {
+                        if ((total_step_perkiraan2 < 100000000) || (total_step_satuan2 < 100000000)) {
                             swal({
                                     title: "Total Harga Telah Mencapai 100 Juta",
                                     text: "Anda Tidak Dapat Melanjutkan Pembuatan HPE",
@@ -1577,142 +1544,98 @@
                                     buttons: false
                                 })
                                 .then((willContinue) => {
-                                    if (pagu_prk >= total) {
-                                        total = total.toString();
-                                        total_2 = "";
-                                        panjang_4 = total.length;
-                                        m = 0;
-                                        for (i = panjang_4; i > 0; i--) {
-                                            m = m + 1;
-                                            if (((m % 3) == 1) && (m != 1)) {
-                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                            } else {
-                                                total_2 = total.substr(i - 1, 1) + total_2;
-                                            }
-                                        }
-                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                    if (((pagu_prk >= total_satuan) || (pagu_prk >= total_perkiraan))) {
+                                        taruh_harga(total_satuan, total_perkiraan);
                                         document.getElementById("total-hpe").style.color = '#7E7E7E';
+                                        document.getElementById("total").style.color = '#7E7E7E';
                                     } else {
-                                        total = total.toString();
-                                        total_2 = "";
-                                        panjang_4 = total.length;
-                                        m = 0;
-                                        for (i = panjang_4; i > 0; i--) {
-                                            m = m + 1;
-                                            if (((m % 3) == 1) && (m != 1)) {
-                                                total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                            } else {
-                                                total_2 = total.substr(i - 1, 1) + total_2;
-                                            }
-                                        }
-                                        document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                        taruh_harga(total_satuan, total_perkiraan);
                                         document.getElementById("total-hpe").style.color = '#F94687';
+                                        document.getElementById("total").style.color = '#F94687';
                                     }
                                     $(".sw-btn-next").prop('disabled', true);
                                 })
                         } else {
-                            if (pagu_prk >= total) {
-                                total = total.toString();
-                                total_2 = "";
-                                panjang_4 = total.length;
-                                m = 0;
-                                for (i = panjang_4; i > 0; i--) {
-                                    m = m + 1;
-                                    if (((m % 3) == 1) && (m != 1)) {
-                                        total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                    } else {
-                                        total_2 = total.substr(i - 1, 1) + total_2;
-                                    }
-                                }
-                                document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            if (((pagu_prk >= total_satuan) || (pagu_prk >= total_perkiraan))) {
+                                taruh_harga(total_satuan, total_perkiraan);
                                 document.getElementById("total-hpe").style.color = '#7E7E7E';
+                                document.getElementById("total").style.color = '#7E7E7E';
                             } else {
-                                total = total.toString();
-                                total_2 = "";
-                                panjang_4 = total.length;
-                                m = 0;
-                                for (i = panjang_4; i > 0; i--) {
-                                    m = m + 1;
-                                    if (((m % 3) == 1) && (m != 1)) {
-                                        total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                    } else {
-                                        total_2 = total.substr(i - 1, 1) + total_2;
-                                    }
-                                }
-                                document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                                taruh_harga(total_satuan, total_perkiraan);
                                 document.getElementById("total-hpe").style.color = '#F94687';
+                                document.getElementById("total").style.color = '#F94687';
                             }
                             $(".sw-btn-next").prop('disabled', true);
                         }
-                    } else if (total_step2 >= 100000000 && total < 100000000) {
-                        if (pagu_prk >= total) {
-                            total = total.toString();
-                            total_2 = "";
-                            panjang_4 = total.length;
-                            m = 0;
-                            for (i = panjang_4; i > 0; i--) {
-                                m = m + 1;
-                                if (((m % 3) == 1) && (m != 1)) {
-                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                } else {
-                                    total_2 = total.substr(i - 1, 1) + total_2;
-                                }
-                            }
-                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+
+                    } else if ((total_step_perkiraan2 >= 100000000 && total_perkiraan < 100000000) || (total_step_satuan2 >= 100000000 && total_satuan < 100000000)) {
+                        if (((pagu_prk >= total_satuan) || (pagu_prk >= total_perkiraan))) {
+                            taruh_harga(total_satuan, total_perkiraan);
                             document.getElementById("total-hpe").style.color = '#7E7E7E';
+                            document.getElementById("total").style.color = '#7E7E7E';
                         } else {
-                            total = total.toString();
-                            total_2 = "";
-                            panjang_4 = total.length;
-                            m = 0;
-                            for (i = panjang_4; i > 0; i--) {
-                                m = m + 1;
-                                if (((m % 3) == 1) && (m != 1)) {
-                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                } else {
-                                    total_2 = total.substr(i - 1, 1) + total_2;
-                                }
-                            }
-                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            taruh_harga(total_satuan, total_perkiraan);
                             document.getElementById("total-hpe").style.color = '#F94687';
+                            document.getElementById("total").style.color = '#F94687';
                         }
                         $(".sw-btn-next").prop('disabled', false);
-                    } else if (total_step2 >= 50000000 && total < 50000000) {
-                        if (pagu_prk >= total) {
-                            total = total.toString();
-                            total_2 = "";
-                            panjang_4 = total.length;
-                            m = 0;
-                            for (i = panjang_4; i > 0; i--) {
-                                m = m + 1;
-                                if (((m % 3) == 1) && (m != 1)) {
-                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                } else {
-                                    total_2 = total.substr(i - 1, 1) + total_2;
-                                }
-                            }
-                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+
+                    } else if ((total_step_perkiraan2 >= 50000000 && total_perkiraan < 50000000) || (total_step_satuan2 >= 50000000 && total_satuan < 50000000)) {
+                        if (((pagu_prk >= total_satuan) || (pagu_prk >= total_perkiraan))) {
+                            taruh_harga(total_satuan, total_perkiraan);
                             document.getElementById("total-hpe").style.color = '#7E7E7E';
+                            document.getElementById("total").style.color = '#7E7E7E';
                         } else {
-                            total = total.toString();
-                            total_2 = "";
-                            panjang_4 = total.length;
-                            m = 0;
-                            for (i = panjang_4; i > 0; i--) {
-                                m = m + 1;
-                                if (((m % 3) == 1) && (m != 1)) {
-                                    total_2 = total.substr(i - 1, 1) + "." + total_2;
-                                } else {
-                                    total_2 = total.substr(i - 1, 1) + total_2;
-                                }
-                            }
-                            document.getElementById("total-hpe").innerHTML = "Rp. " + total_2;
+                            taruh_harga(total_satuan, total_perkiraan);
                             document.getElementById("total-hpe").style.color = '#F94687';
+                            document.getElementById("total").style.color = '#F94687';
                         }
                         $(".sw-btn-next").prop('disabled', false);
                     }
                 }
             }
+
+            function taruh_harga(total_satuan, total_perkiraan){
+                //Total Satuan
+                total_satuan = total_satuan.toString();
+                total_satuan_2 = "";
+                panjang_satuan_4 = total_satuan.length;
+
+                //Total Perkiraan
+                total_perkiraan = total_perkiraan.toString();
+                total_perkiraan_2 = "";
+                panjang_perkiraan_4 = total_perkiraan.length;
+                m = 0;
+                m_1 = 0;
+                for (i = panjang_satuan_4; i > 0; i--) {
+                    m = m + 1;
+                    if (((m % 3) == 1) && (m != 1)) {
+                        total_satuan_2 = total_satuan.substr(i - 1, 1) + "." + total_satuan_2;
+                    } else {
+                        total_satuan_2 = total_satuan.substr(i - 1, 1) + total_satuan_2;
+                    }
+                }
+                for (i = panjang_perkiraan_4; i > 0; i--) {
+                    m_1 = m_1 + 1;
+                    if (((m_1 % 3) == 1) && (m_1 != 1)) {
+                        total_perkiraan_2 = total_perkiraan.substr(i - 1, 1) + "." + total_perkiraan_2;
+                    } else {
+                        total_perkiraan_2 = total_perkiraan.substr(i - 1, 1) + total_perkiraan_2;
+                    }
+                }
+                document.getElementById("total-hpe").innerHTML = "Rp. " + total_perkiraan_2;
+                // document.getElementById("total-hpe").style.color = '#7E7E7E';
+                document.getElementById("total").innerHTML = "Rp. " + total_satuan_2;
+                // document.getElementById("total").style.color = '#7E7E7E';
+            }
+
+            function hitung_harga_hpe(c) {
+                var row = c.parentNode.parentNode;
+                var change = row.rowIndex;
+                var banyak_data = document.querySelectorAll("#tbody-kategori tr");
+                update_harga(change, banyak_data);
+            }
+
             function updatetembusan() {
                 var tabel_tembusan = document.getElementById('tabel_tembusan');
                 clicktembusan++;
@@ -1795,8 +1718,6 @@
                     tembusan[i] = document.getElementById("tembusan[" + (i + 1) + "]").value;
                     fd.append("tembusan[]", tembusan[i]);
                 }
-
-
                 // console.log(uraian);
                 // console.log(satuan);
                 // console.log(volume);
@@ -1851,7 +1772,7 @@
                             // console.log(data);
 
                             $.ajax({
-                                url: "/simpan-non-po-hpe",
+                                url: "/simpan-edit-hpe",
                                 method: 'POST',
                                 data: fd,
                                 contentType: false,

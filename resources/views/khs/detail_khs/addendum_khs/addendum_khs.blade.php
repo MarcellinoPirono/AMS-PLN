@@ -1,14 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    @if (session()->has('status'))
-        <div class="alert alert-success alert-dismissible alert-alt fade show">
-            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i
-                        class="mdi mdi-close"></i></span>
-            </button>
-            <strong>Success!</strong> {{ session('status') }}
-        </div>
-    @endif
+@include('sweetalert::alert')
 
     <div class="row">
         <div class="col-lg-12">
@@ -18,46 +11,49 @@
                         <select id="filter-addendum-khs" class="form-control filter">
                             <option value="">Pilih Jenis KHS</option>
                             @foreach ($khss as $khs)
-                            <option value="{{ $khs->jenis_khs }}">{{ $khs->jenis_khs }}</option>
+                                <option value="{{ $khs->jenis_khs }}">{{ $khs->jenis_khs }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2 mt-3">
                         <!-- <select id="filter-addendum-kontrak-induk" class="form-control filter">
-                            <option value="">Pilih Nomor Kontrak Induk</option>
-                            @foreach ($kontrakinduks as $kontrakinduk)
-                                <option value="{{ $kontrakinduk->nomor_kontrak_induk }}">
-                                    {{ $kontrakinduk->nomor_kontrak_induk }}</option>
-                            @endforeach
-                        </select> -->
+                                <option value="">Pilih Nomor Kontrak Induk</option>
+                                @foreach ($kontrakinduks as $kontrakinduk)
+    <option value="{{ $kontrakinduk->nomor_kontrak_induk }}">
+                                        {{ $kontrakinduk->nomor_kontrak_induk }}</option>
+    @endforeach
+                            </select> -->
                         <div id="list2" class="dropdown-check-list" tabindex="100">
                             <span class="anchor">Pilih Nomor Kontrak Induk</span>
                             <ul id="items2" class="items2">
                                 @foreach ($kontrakinduks as $kontrakinduk)
-                                <li><input type="checkbox" class="custom-control-label" name="filter" value="{{ $kontrakinduk->nomor_kontrak_induk }}"/>{{ $kontrakinduk->nomor_kontrak_induk }}</li>
+                                    <li><input type="checkbox" class="custom-control-label" name="filter"
+                                            value="{{ $kontrakinduk->nomor_kontrak_induk }}" />{{ $kontrakinduk->nomor_kontrak_induk }}
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
-                    <a href="/addendum-khs/create-xlsx" class="btn btn-primary btn-xxs mr-auto ml-3" style="font-size: 13px">Via Excel <i class="fa fa-plus-circle"></i></span>
+                    <a href="/addendum-khs/create-xlsx" class="btn btn-primary btn-xxs mr-auto ml-3"
+                        style="font-size: 13px">Via Excel <i class="fa fa-plus-circle"></i></span>
                     </a>
                     <a href="/addendum-khs/create" class="btn btn-primary position-relative float-right mt-3 ml-3"
                         style="font-size: 13px">Tambah Addendum <i class="bi bi-plus-circle"></i>
                     </a>
                     <!-- <div class="input-group search-area position-relative">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><a href="javascript:void(0)"><i
-                                            class="flaticon-381-search-2"></i></a></span>
-                                <input type="search" id="search" name="search" class="form-control"
-                                    placeholder="Search here..." />
-                            </div>
-                        </div> -->
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><a href="javascript:void(0)"><i
+                                                class="flaticon-381-search-2"></i></a></span>
+                                    <input type="search" id="search" name="search" class="form-control"
+                                        placeholder="Search here..." />
+                                </div>
+                            </div> -->
                 </div>
                 <div class="card-body">
                     <!-- @if (session('success'))
     <div class="sweetalert sweet-success">
-                                {{ session('success') }}
-                            </div>
+                                    {{ session('success') }}
+                                </div>
     @endif -->
                     <div class="table-responsive" id="read">
                         <table id="tableAddendum" class="table table-responsive-md">
@@ -84,13 +80,19 @@
                                         <td>{{ \Carbon\Carbon::parse($addendum->tanggal_addendum)->isoFormat('dddd, DD-MMMM-YYYY') }}
                                         </td>
                                         <td>
-
                                             <div class="d-flex">
                                                 <a href="/addendum-khs/{{ $addendum->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="align-items-center text-center fa fa-pencil"></i></a>
+                                                {{-- @if ($addendum->pdf_file == null)
                                                 <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
                                                         class="fa fa-trash"></i></button>
+                                                @else --}}
+                                                <button class="btn btn-danger shadow btn-xs sharp btndelete mr-1"><i
+                                                        class="fa fa-trash"></i></button>
+                                                <a href="download-addendum/{{ $addendum->id }}" class="btn btn-success shadow btn-xs sharp"><i
+                                                        class="fa fa-download"></i></a>
+                                                {{-- @endif --}}
                                             </div>
                                         </td>
                                     </tr>
@@ -110,7 +112,7 @@
         </div>
     </div>
 
-    <!-- <script>
+    {{-- <script>
         $(".filter").on('change', function() {
             let filter = this.value;
             $.ajax({
@@ -128,9 +130,9 @@
                 }
             })
         });
-    </script> -->
+    </script> --}}
 
-    <!-- <script type="text/javascript">
+    {{-- <script type="text/javascript">
         $('#search').on('keyup', function() {
             $value = $(this).val();
 
@@ -159,7 +161,7 @@
             });
 
         });
-    </script> -->
+    </script> --}}
 
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -199,12 +201,11 @@
     <script>
         var checkList2 = document.getElementById('list2');
         var items2 = document.getElementById('items2');
-        checkList2.getElementsByClassName('anchor')[0].onclick = function (evt) {
-            if (items2.classList.contains('visible')){
+        checkList2.getElementsByClassName('anchor')[0].onclick = function(evt) {
+            if (items2.classList.contains('visible')) {
                 items2.classList.remove('visible');
                 items2.style.display = "none";
-            }
-            else{
+            } else {
                 items2.classList.add('visible');
                 items2.style.display = "block";
             }
@@ -213,59 +214,59 @@
             items2.classList.remove('visible');
         }
     </script>
+    <script>
+        $(document).ready(function() {
+            $('.btndelete').click(function(e) {
+                e.preventDefault();
+
+                var deleteid = $(this).closest("tr").find('.delete_id').val();
+
+                swal({
+                        title: "Apakah anda yakin?",
+                        text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+
+                            var data = {
+                                "_token": $('input[name=_token]').val(),
+                                'id': deleteid,
+                            };
+                            $.ajax({
+                                type: "DELETE",
+                                url: "{{ url('addendum-khs') }}" + '/' + deleteid,
+                                data: data,
+                                success: function(response) {
+                                    swal({
+                                            title: "Data Dihapus",
+                                            text: "Data Berhasil Dihapus",
+                                            icon: "success",
+                                            timer: 2e3,
+                                            buttons: false
+                                        })
+                                        .then((result) => {
+                                            location.reload();
+                                        });
+                                }
+                            });
+                        } else {
+                            swal({
+                                title: "Data Tidak Dihapus",
+                                text: "Data Batal Dihapus",
+                                icon: "error",
+                                timer: 2e3,
+                                buttons: false
+                            });
+                        }
+                    });
+            });
+        });
+    </script>
 @endsection
 
-<script>
-    $(document).ready(function() {
-        $('.btndelete').click(function(e) {
-            e.preventDefault();
-
-            var deleteid = $(this).closest("tr").find('.delete_id').val();
-
-            swal({
-                    title: "Apakah anda yakin?",
-                    text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-
-                        var data = {
-                            "_token": $('input[name=_token]').val(),
-                            'id': deleteid,
-                        };
-                        $.ajax({
-                            type: "DELETE",
-                            url: "{{ url('addendum-khs') }}" + '/' + deleteid,
-                            data: data,
-                            success: function(response) {
-                                swal({
-                                        title: "Data Dihapus",
-                                        text: "Data Berhasil Dihapus",
-                                        icon: "success",
-                                        timer: 2e3,
-                                        buttons: false
-                                    })
-                                    .then((result) => {
-                                        location.reload();
-                                    });
-                            }
-                        });
-                    } else {
-                        swal({
-                            title: "Data Tidak Dihapus",
-                            text: "Data Batal Dihapus",
-                            icon: "error",
-                            timer: 2e3,
-                            buttons: false
-                        });
-                    }
-                });
-        });
-    });
-</script>
 
 <!-- <script>
     function displayVals(data) {

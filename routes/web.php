@@ -107,7 +107,9 @@ Route::get('/search-kontrak-induk', [KontrakIndukController::class, 'searchkontr
 
 //Addendum KHS
 Route::get('/addendum-khs/create-xlsx', [AddendumController::class, 'create_xlsx'])->middleware('Manager');
+Route::get('download-addendum/{id}', [AddendumController::class, 'download_addendum'])->middleware('Manager');
 Route::post('addendum-khs/import', [AddendumController::class, 'import'])->middleware('Manager');
+Route::post('addendum-khs/{id}/edit', [AddendumController::class, 'update'])->middleware('Manager');
 Route::post('/checkAddendum', [AddendumController::class, 'checkAddendum'])->middleware('Manager');
 Route::post('/checkAddendum_edit', [AddendumController::class, 'checkAddendum_edit'])->middleware('Manager');
 Route::resource('addendum-khs', AddendumController::class)->middleware('Manager');
@@ -227,8 +229,10 @@ Route::get('preview-non-po/{slug}', [NonPOController::class, 'preview_non_po'])-
 Route::resource('non-po', NonPOController::class)->middleware('SupervisorMiddleware');
 
 Route::get('buat-non-po-hpe/{slug}', [NonPoHpeController::class, 'buat_non_po_hpe'])->middleware('SupervisorMiddleware');
+Route::get('edit-hpe/{slug}', [NonPoHpeController::class, 'edit_hpe'])->middleware('SupervisorMiddleware');
 Route::post('/getDeskripsiNota', [NonPoHpeController::class, 'getDeskripsi'])->middleware('SupervisorMiddleware');
 Route::post('simpan-non-po-hpe', [NonPoHpeController::class, 'simpan_non_po_hpe'])->middleware('SupervisorMiddleware');
+Route::post('simpan-edit-hpe', [NonPoHpeController::class, 'simpan_edit_hpe'])->middleware('SupervisorMiddleware');
 Route::get('preview-hpe/{slug}', [NonPoHpeController::class, 'preview_hpe'])->middleware('SupervisorMiddleware');
 Route::get('download-hpe/{slug}', [NonPoHpeController::class, 'download'])->middleware('SupervisorMiddleware');
 Route::get('download-test/{slug}', [NonPoHpeController::class, 'download_test'])->middleware('SupervisorMiddleware');

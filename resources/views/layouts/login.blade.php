@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login PLN UP3-MAKASSAR SELATAN</title>
+	<title>Login Sipakainga = PLN UP3-MAKASSAR SELATAN</title>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}./asset/frontend/images/icon.svg" />
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 
@@ -23,8 +23,8 @@
         <span class="error animated tada" id="msg"></span>
         <form method="POST" action="{{ route('login')}}" name="form1" class="box" onsubmit="return checkStuff()">
           @csrf
-          <h4>PLN <span>UP3-MAKASSAR SELATAN</span></h4>
-          <h5>Sign in to your account.</h5>
+          <h4>SIPAKAINGA <span>PLN UP3 MKS-SELATAN</span></h4>
+          <h5>Silahkan Login Dengan Akun Anda.</h5>
             <input type="text" name="username" placeholder="username" autocomplete="off">
             <i class="typcn typcn-eye" id="eye"></i>
             <input type="password" name="password" placeholder="Passsword" id="password" autocomplete="off">

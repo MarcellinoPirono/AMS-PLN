@@ -20,9 +20,4 @@ class OrderSuratDinas extends Model
     public function non_pos(){
         return $this->belongsTo(NonPo::class, 'non_po_id');
     }
-
-
-
-
-
 }
