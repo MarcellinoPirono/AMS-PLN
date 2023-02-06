@@ -51,6 +51,7 @@
                                     <th class="width30" style="vertical-align: middle">No.</th>
                                     <th style="vertical-align: middle">Jenis KHS</th>
                                     <th style="vertical-align: middle">Nama Pekerjaan</th>
+                                    <th style="vertical-align: middle">Status</th>
                                     <th style="vertical-align: middle">Aksi</th>
                                 </tr>
                             </thead>
@@ -61,6 +62,11 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $khs->jenis_khs }}</td>
                                         <td style="text-align: justify;">{{ $khs->nama_pekerjaan }}</td>
+                                        @if ($khs->isActive == True)
+                                        <td style="text-align: justify;">Aktif</td>
+                                        @else
+                                        <td style="text-align: justify;">Non-Atif</td>
+                                        @endif
                                         <td>
                                             <div class="d-flex">
                                                 <a href="#" data-id="{{ $khs->id }}"
@@ -109,6 +115,19 @@
                             <label for="recipient-name" class="col-form-label">Nama Pekerjaan:</label>
                             <textarea type="text" class="form-control edit_data" placeholder="Nama Pekerjaan" id="edit_nama_pekerjaan"
                                 name="edit_nama_pekerjaan" value=""></textarea>
+                        </div>
+                        <div class="form-group col-lg-6 mb-2">
+                            <label class="text-label">Status :</label>
+                            <div class="form-group mt-lg-2">
+                                <label class="radio-inline">
+                                    <input type="radio" name="kategori" class="kategori" value="Aktif" checked>Aktif
+                                </label>
+                                <label class="radio-inline ml-2">
+                                    <input type="radio" name="kategori"
+                                    class="kategori" value="Non-Aktif">Non-Aktif
+                                </label>
+                                <div id="radioerror"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -242,6 +261,7 @@
             $('.tombol-edit').click(function(e) {
                 var id = $(this).data('id');
                 var token = $('#csrf').val();
+                console.log(id);
 
                 $.ajax({
                     url: 'jenis-khs/' + id + '/edit',
@@ -251,6 +271,7 @@
                         $('#edit_jenis_khs').val(response.result.jenis_khs);
                         var old_jenis_khs = response.result.jenis_khs;
                         $('#edit_nama_pekerjaan').val(response.result.nama_pekerjaan);
+                        // $('#edit_nama_pekerjaan').val(response.result.nama_pekerjaan);
                         console.log("test");
                         $('#edit_valid_khs').validate({
                             rules: {
@@ -266,7 +287,10 @@
                                 },
                                 edit_nama_pekerjaan: {
                                     required: true
-                                }
+                                },
+                                kategori:{
+                                    required:true
+                                },
                             },
                             messages: {
                                 edit_jenis_khs: {
@@ -275,6 +299,17 @@
                                 },
                                 edit_nama_pekerjaan: {
                                     required: "Silakan Isi Nama Pekerjaan"
+                                },
+                                kategori:{
+                                    required: "Silakan Pilih Status"
+                                },
+                            },
+                            errorPlacement: function(error, element) {
+                                if ( element.attr("name") == "kategori" ) {
+                                    error.appendTo("#radioerror");
+                                }
+                                else { // This is the default behavior
+                                    error.insertAfter( element );
                                 }
                             },
 
@@ -289,7 +324,7 @@
                                         nama_pekerjaan: $(
                                                 '#edit_nama_pekerjaan')
                                             .val(),
-
+                                        status: $(".kategori:checked").val(),
                                     },
                                     success: function(response) {
                                         swal({

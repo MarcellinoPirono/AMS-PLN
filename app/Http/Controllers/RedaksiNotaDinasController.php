@@ -17,7 +17,7 @@ class RedaksiNotaDinasController extends Controller
     public function index()
     {
         return view('non-po.redaksi_nota.redaksi_khs', [
-            'title' => 'Redaksi NON-PO',
+            'title' => 'Redaksi Nota Dinas NON-PO',
             // 'khss' => Khs::all(),
             'redaksis' => RedaksiNotaDinas::orderBy('id', 'DESC')->get(),
         ]);

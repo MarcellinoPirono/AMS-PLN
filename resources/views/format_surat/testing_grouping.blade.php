@@ -94,7 +94,7 @@
             <tr class="warna">
                 <td class="tabelataskiri" style="width:4%;" rowspan="2" align="center" valign="middle">NO</td>
                 <td class="tabelatas" rowspan="2" align="center" valign="middle">Uraian</td>
-                <td class="tabelatas" style="width:4%;" rowspan="2" align="center" valign="middle">SAT.</td>
+                <td class="tabelatas" style="width:6%;" rowspan="2" align="center" valign="middle">SAT.</td>
                 <td class="tabelatas" style="width:6%;" rowspan="2" align="center" valign="middle">VOLUME</td>
                 <td class="tabelatas" style="width:16%;" colspan="2" align="center" valign="middle">HARGA
                 </td>
@@ -105,8 +105,8 @@
             <tr class="warna">
                 <td class="tabelnormal" style="width:8%;" align="center" valign="middle">Satuan (RP)</td>
                 <td class="tabelnormal"style="width:8%;" align="center" valign="middle">Jumlah (RP)</td>
-                <td class="tabelnormal"style="width:9%;" align="center" valign="middle">KDN</td>
-                <td class="tabelnormal"style="width:9%;" align="center" valign="middle">KLN</td>
+                <td class="tabelnormal"style="width:8%;" align="center" valign="middle">KDN</td>
+                <td class="tabelnormal"style="width:8%;" align="center" valign="middle">KLN</td>
                 <td class="tabelnormalkanan"style="width:9%;" align="center" valign="middle">TOTAL</td>
             </tr>
             @foreach ($lokasis as $key => $value)

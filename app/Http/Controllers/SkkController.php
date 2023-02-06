@@ -75,6 +75,7 @@ class SKKController extends Controller
             'skk_terbayar' => 'required|max:250',
             'skk_progress' => 'required|max:250',
             'skk_sisa' => 'required|max:250',
+            'ai_ao' => 'required',
 
         ]);
         Skk::create($validatedData);
@@ -132,6 +133,7 @@ class SKKController extends Controller
             'skk_realisasi' => 'required|numeric',
             'skk_terbayar' => 'required|numeric',
             'skk_sisa' => 'required|numeric',
+            'ai_ao' => 'required',
 
         ]);
         $skk = Skk::findorFail($id);

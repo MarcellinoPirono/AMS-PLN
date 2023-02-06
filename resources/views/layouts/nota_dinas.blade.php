@@ -32,12 +32,12 @@
             <tr>
                 <td>SUMBER ANGGARAN</td>
                 <td>:</td>
-                <td>{{ $nonpo->skks->nomor_skk }}</td>
+                <td>{{ $nonpo->skk_id }}</td>
             </tr>
             <tr>
                 <td>NOMOR PRK</td>
                 <td>:</td>
-                <td>{{ $nonpo->prks->no_prk }}</td>
+                <td>{{ $nonpo->prk_id }}</td>
             </tr>
         </table>
     @endforeach
@@ -97,11 +97,11 @@
         </tr>
         <tr style="page-break-before: avoid">
             <td align="center" valign="top">{{ $nonpo->supervisor }}</td>
-            <td align="center" valign="middle" style="float:left;">{{ $nonpo->pejabats->jabatan }}</td>
+            <td align="center" valign="middle" style="float:left;">{{ $nonpo->jabatan }}</td>
         </tr>
         <tr style="height: 110px; page-break-before: avoid">
             <td style="height: 110px;" align="center" valign="bottom">{{$nonpo->users->name}}</td>
-            <td align="center" valign="bottom">{{ $nonpo->pejabats->nama_pejabat }}</td>
+            <td align="center" valign="bottom">{{ $nonpo->nama_pejabat }}</td>
         </tr>
     </table>
 </body>

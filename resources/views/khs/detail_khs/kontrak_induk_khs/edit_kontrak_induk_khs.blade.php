@@ -29,8 +29,10 @@
                             <div class="form-group col-md-6">
                                 <select class="form-control input-default" id="khs_id" name="khs_id">
                                     @foreach ($khss as $khs)
+                                    @if ($khs->isActive == True)
                                         <option value="{{ $khs->id }}" data-namapekerjaan="{{$khs->nama_pekerjaan}}" @if($kontrakinduks->khs_id == $khs->id)selected @endif>{{$khs->jenis_khs}}
                                         </option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>

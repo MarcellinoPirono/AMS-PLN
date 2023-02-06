@@ -110,6 +110,12 @@ function SubmitTKDN() {
             fd.append("lokasi[]", lokasi[index]);
         }
 
+        tembusan = [];
+        for (var i = 0; i < clicktembusan; i++) {
+            tembusan[i] = document.getElementById("tembusan[" + (i + 1) + "]").value;
+            fd.append("tembusan[]", tembusan[i]);
+        }
+
         let redaksi_id = [];
         let deskripsi_id = [];
         let sub_deskripsi_id = [];
@@ -569,7 +575,7 @@ function SubmitTKDN() {
                     document.getElementById('main-wrapper').style.cursor = "wait"
                     document.getElementById('btnFinish').setAttribute('disabled', true);
                     if (willCreate) {
-                        
+
                         // document.getElementById('main-wrapper').style.cursor = "wait"
                         // document.getElementById('btnFinish').setAttribute('disabled', true);
                         // console.log(fd);
@@ -725,6 +731,7 @@ function SubmitNONTKDN() {
         var status = "Progress";
         var user_id = document.getElementById('user_id').value;
         var jenis_cetak = document.getElementById('non_tkdn').value;
+
         if(clickpaket == 0) {
             // console.log(pondfiles);
             var item_id = [];
@@ -812,6 +819,12 @@ function SubmitNONTKDN() {
                 lokasi[index] = document.getElementById('lokasi[' + (index + 1) + ']').value;
                 fd.append("lokasi[]", lokasi[index]);
 
+            }
+
+            tembusan = [];
+            for (var i = 0; i < clicktembusan; i++) {
+                tembusan[i] = document.getElementById("tembusan[" + (i + 1) + "]").value;
+                fd.append("tembusan[]", tembusan[i]);
             }
 
             let redaksi_id = [];

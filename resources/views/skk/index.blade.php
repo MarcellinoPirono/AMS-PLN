@@ -36,6 +36,7 @@
                             <thead>
                                 <tr align="center" valign="middle">
                                     <th class="width80">No.</th>
+                                    <th>(AI/AO)</th>
                                     <th>No. SKK</th>
                                     <th>Uraian SKK</th>
                                     <th>Pagu SKK</th>
@@ -52,6 +53,7 @@
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $skk->id }}">
                                         <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
+                                        <td>{{ $skk->ai_ao }}</td>
                                         <td>{{ $skk->nomor_skk }}</td>
                                         <td>{{ $skk->uraian_skk }}</td>
                                         <td>@currency($skk->pagu_skk)</td>

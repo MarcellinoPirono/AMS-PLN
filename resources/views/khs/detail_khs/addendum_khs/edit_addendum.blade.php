@@ -24,11 +24,13 @@
                                     <select class="form-control input-default" id="kontrak_induk_id"
                                         name="kontrak_induk_id">
                                         @foreach ($kontrakinduks as $kontrakinduk)
+                                            @if ($kontrakinduk->khs->isActive == True)
                                             <option value="{{ $kontrakinduk->id }}"
                                                 data-jeniskhs="{{ $kontrakinduk->khs->jenis_khs }}"
                                                 data-namapekerjaan="{{ $kontrakinduk->khs->nama_pekerjaan }}"
                                                 @if ($addendums->kontrak_induk_id == $kontrakinduk->id) selected @endif>
                                                 {{ $kontrakinduk->nomor_kontrak_induk }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

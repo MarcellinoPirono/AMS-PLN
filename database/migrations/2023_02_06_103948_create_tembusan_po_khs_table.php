@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tembusans', function (Blueprint $table) {
+        Schema::create('tembusan_po_khs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_surat_dinas_id')->nullable();
-            $table->string('isi_tembusan')->nullable();
+            $table->foreignId('rab_id')->nullable();
+            $table->text('isi_tembusan')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tembusans');
+        Schema::dropIfExists('tembusan_po_khs');
     }
 };

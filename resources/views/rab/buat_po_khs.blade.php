@@ -80,10 +80,12 @@
                                                         <option selected disabled value="">Pilih No. Kontrak Induk
                                                         </option>
                                                         @foreach ($kontraks as $kontrak)
+                                                            @if($kontrak->khs->isActive == True)
                                                             <option value="{{ $kontrak->id }}">
                                                                 {{ $kontrak->khs->jenis_khs }} -
                                                                 {{ $kontrak->nomor_kontrak_induk }} -
                                                                 {{ $kontrak->vendors->nama_vendor }}</option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                     <div class="valid-feedback">
@@ -821,6 +823,7 @@
                                                                 <td>:</td>
                                                                 <td id="pengawas_lapangan_4"></td>
                                                             </tr>
+                                                            <tbody id="body_tembusan"></tbody>
                                                         </table>
                                                     </div>
                                                     <hr>
@@ -972,27 +975,27 @@
                                                                                 <td class="tabellkanan"
                                                                                     id="jumlah_jasa_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan"
                                                                                     id="jumlah_jasa_tkdn"
                                                                                     style="font-weight: bold"
-                                                                                    align="center">
+                                                                                    align="center" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan"
                                                                                     id="jumlah_kdn_jasa_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan"
                                                                                     id="jumlah_kln_jasa_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan"
                                                                                     id="jumlah_total_tkdn_jasa_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                             </tr>
                                                                             <tr style="border: 1px #000">
@@ -1004,27 +1007,27 @@
                                                                                 <td class="tabellkanan"
                                                                                     id="jumlah_material_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan"
                                                                                     id="jumlah_material_tkdn"
                                                                                     style="font-weight: bold"
-                                                                                    align="center">
+                                                                                    align="center" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan"
                                                                                     id="jumlah_kdn_material_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan"
                                                                                     id="jumlah_kln_material_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan"
                                                                                     id="jumlah_total_tkdn_material_count"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -1038,22 +1041,22 @@
                                                                                 <td class="tabellkanan kuning"
                                                                                     id="jumlah_keseluruhan_tkdn"
                                                                                     style="font-weight: bold"
-                                                                                    align="center">
+                                                                                    align="center" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan kuning"
                                                                                     id="total_kdn_all"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan kuning"
                                                                                     id="total_kln_all"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan kuning"
                                                                                     id="total_tkdn_all"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -1063,7 +1066,7 @@
                                                                                 </td>
                                                                                 <td class="tabellkanan" id="td_ppn"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"
@@ -1088,7 +1091,7 @@
                                                                                 <td class="tabellkanan kuning"
                                                                                     id="td_total"
                                                                                     style="font-weight: bold"
-                                                                                    align="right">
+                                                                                    align="right" valign="middle">
                                                                                 </td>
                                                                                 <td class="tabellkanan" id=""
                                                                                     style="font-weight: bold"

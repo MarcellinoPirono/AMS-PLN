@@ -191,12 +191,13 @@
                                                     <div class="form-group">
                                                         <label class="text-label">Pilih Manager</label>
                                                         <select class="form-control input-default" id="pejabat_id"
+                                                            style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
                                                             name="pejabat_id" required disabled>
-                                                            <option value="" selected disabled>Manager
+                                                            <option value="" selected disabled>{{  $nonpo-> }}jabatan{{  - }} {{  $nonpo->nama_pejabat}}
                                                             </option>
                                                             @foreach ($pejabats as $pejabat)
                                                                 <option value="{{ $pejabat->id }}"
-                                                                    @if ($nonpo->pejabat_id == $pejabat->id) selected @endif>
+                                                                    >
                                                                     {{ $pejabat->jabatan }} -
                                                                     {{ $pejabat->nama_pejabat }}
                                                                 </option>
@@ -332,20 +333,20 @@
                                                                                         required>
                                                                                 </td>
                                                                                 <!-- <td><button onclick="deleteRow(this)"
-                                                                                                                                                    class="btn btn-danger shadow btn-xs sharp"><i
-                                                                                                                                                        class='fa fa-trash'></i></button></td> -->
+                                                                                                                                                            class="btn btn-danger shadow btn-xs sharp"><i
+                                                                                                                                                                class='fa fa-trash'></i></button></td> -->
                                                                             </tr>
                                                                         @endforeach
                                                                     </tbody>
                                                                 </table>
                                                                 <!-- <div class="col-lg-12 mb-2">
-                                                                                                                                    <div
-                                                                                                                                        class="position-relative justify-content-end float-left">
-                                                                                                                                        <a type="button" id="tambah-pekerjaan"
-                                                                                                                                            class="btn btn-primary position-relative justify-content-end"
-                                                                                                                                            onclick="updateform()" required>Tambah</a>
-                                                                                                                                    </div>
-                                                                                                                                </div> -->
+                                                                                                                                            <div
+                                                                                                                                                class="position-relative justify-content-end float-left">
+                                                                                                                                                <a type="button" id="tambah-pekerjaan"
+                                                                                                                                                    class="btn btn-primary position-relative justify-content-end"
+                                                                                                                                                    onclick="updateform()" required>Tambah</a>
+                                                                                                                                            </div>
+                                                                                                                                        </div> -->
                                                                 <table class="table table-responsive-sm height-100"
                                                                     id="tabelRAB1">
                                                                     <thead>
@@ -433,7 +434,7 @@
                                                         class="form-control input-default"
                                                         style="height: 60px !important; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
                                                         required>
-                                                        <option value="" selected disabled required>Pilih Sumber
+                                                        <option value="" selected disabled required>Pilih Tujuan
                                                         </option>
                                                         @foreach ($pejabats as $pejabat)
                                                             @if ($pejabat->jabatan != 'MANAGER UP3')
@@ -505,11 +506,12 @@
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input jumlah lampiran <span
+                                                    <label class="text-label">Input Jumlah Lampiran <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="lampiran"
                                                         id="lampiran" placeholder="Jumlah Lampiran" required autofocus
-                                                        value="">
+                                                        value="" onkeydown="return numbersonly(this, event);"
+                                                        onkeyup="javascript:tandaPemisahTitik(this);">
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -544,7 +546,8 @@
                                                     <label class="text-label">Perihal : <span
                                                             class="text-danger">*</span></label>
 
-                                                    <textarea class="form-control" name="perihal" id="perihal" placeholder="Perihal" cols="30" rows="2"></textarea>
+                                                    <textarea class="form-control" name="perihal" id="perihal" placeholder="Perihal" cols="30" rows="2"
+                                                        required></textarea>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -553,13 +556,33 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12 mb-2">
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label for="first-name" class="form-label">Pilih Isi Surat (Opsional)
+                                                    </label>
+                                                    <select class="form-control input-default" id="pilihan_surat"
+                                                        name="pilihan_surat" onchange="change_redaksi(this)"
+                                                        style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;">
+                                                        <option selected disabled value="">Pilih Isi Surat
+                                                        </option>
+                                                        @foreach ($redaksis as $redaksi)
+                                                            <option value="{{ $redaksi->id }}">
+                                                                {{ $redaksi->nama_redaksi }}</option>
+                                                        @endforeach
+
+                                                    </select>
+                                                    <div class="valid-feedback">
+                                                        Data Boleh Tidak Dipilih
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Isi Surat : <span
                                                             class="text-danger">*</span></label>
 
-                                                    <textarea class="form-control" name="isi_surat" id="isi_surat" placeholder="Isi Surat" cols="60"
-                                                        rows="2"></textarea>
+                                                    <textarea class="form-control" name="deskripsi_id" id="deskripsi_id" placeholder="Isi Surat" cols="60"
+                                                        rows="5" required autofocus></textarea>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -596,8 +619,7 @@
                                             </div> --}}
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input Tembusan <span
-                                                            class="text-danger">*</span></label>
+                                                    <label class="text-label">Input Tembusan (Opsional) </label>
                                                 </div>
                                             </div>
                                             <table class="table table-responsive-sm height-100" width="100%"
@@ -607,15 +629,15 @@
                                                     <th align="center" valign="middle">Tembusan</th>
                                                     <th style="width:10%;" align="center" valign="middle">Aksi</th>
                                                 </tr>
-                                                <tr>
+                                                {{-- <tr>
                                                     <td><strong id="nomor" value="1">1</strong></td>
                                                     <td> <input type="text" class="form-control" name="tembusan"
                                                             id="tembusan[1]" placeholder="Tembusan" autofocus
                                                             value="{{ old('tembusan') }}"></td>
-                                                    <td align="center"><button onclick="deleteRow2(this)"
+                                                    <td align="center"><button onclick="deleteRow3(this)"
                                                             class="btn btn-danger shadow btn-xs sharp"><i
                                                                 class='fa fa-trash'></i></button></td>
-                                                </tr>
+                                                </tr> --}}
                                             </table>
                                             <div class="col-lg-12 mb-2">
                                                 <div class="position-relative justify-content-center float-center">
@@ -697,7 +719,7 @@
                                                                                     valign="middle">Jumlah HPE (RP)</td>
                                                                             </tr>
                                                                             <!-- <tr class="warna">
-                                                                                                                                                </tr> -->
+                                                                                                                                                        </tr> -->
                                                                         </thead>
                                                                         <tbody id="uraian_rab">
                                                                         </tbody>
@@ -750,8 +772,8 @@
                                                                             </tr>
                                                                         </tfoot>
                                                                         <!-- <tr>
-                                                                                                                                                    <td class="first1"></td>
-                                                                                                                                                </tr> -->
+                                                                                                                                                            <td class="first1"></td>
+                                                                                                                                                        </tr> -->
                                                                     </table>
                                                                     {{-- <div>
                                                                         <button id="prevpdf">Previous</button>
@@ -763,8 +785,8 @@
                                                                     {{-- <embed width="100%" height="600px" type="application/pdf" id="embedLink"/> --}}
 
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
-                                                                                                                                                <embed id="pdfViewer2" width="100%" height="600px" >
-                                                                                                                                            </object> -->
+                                                                                                                                                        <embed id="pdfViewer2" width="100%" height="600px" >
+                                                                                                                                                    </object> -->
 
                                                                 </div>
 
@@ -805,10 +827,11 @@
                                                                 <td id="perihal1"></td>
                                                             </tr>
                                                             <tr class="noborder">
-                                                                <td>Isi Surat</td>
-                                                                <td>:</td>
+                                                                <td valign="top">Isi Surat</td>
+                                                                <td valign="top">:</td>
                                                                 <td id="isi_surat1"></td>
                                                             </tr>
+                                                            <tbody id="body_tembusan"></tbody>
                                                         </table>
                                                     </div>
                                                     <hr>
@@ -966,7 +989,7 @@
             function change_redaksi(c) {
                 let token = $('#csrf').val();
                 // alert(token);
-                var redaksi_id = document.getElementById("redaksi_id").value;
+                var redaksi_id = document.getElementById("pilihan_surat").value;
                 // alert(redaksi_id);
 
                 $.ajax({
@@ -980,7 +1003,7 @@
 
                     },
                     success: function(response) {
-                        document.getElementById("deskripsi_id").innerHTML = response.deskripsi_redaksi;
+                        document.getElementById("deskripsi_id").value = response.deskripsi_redaksi;
                     }
                 })
 
@@ -1089,7 +1112,7 @@
                         console.log(lampiran);
                         var sifat_lampiran = $("#sifat_lampiran option:selected").text();
                         var perihal = $("#perihal").val();
-                        var isi_surat = $("#isi_surat").val();
+                        var isi_surat = $("#deskripsi_id").val();
 
                         $("#tujuan1").html(tujuan);
                         $("#sumber1").html(sumber);
@@ -1203,7 +1226,7 @@
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
                         position: 'bottom', // none/ top/ both bottom
-                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Submit</button>
+                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Cetak</button>
                               <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
                     },
                     anchor: {
@@ -1232,7 +1255,7 @@
         </script>
 
         <script>
-            var clicktembusan = 1;
+            var clicktembusan = 0;
 
             function hitung_harga_hpe(c) {
                 var row = c.parentNode.parentNode;
@@ -1718,6 +1741,22 @@
                 }
             }
 
+            function blur_tembusan(ini) {
+                var tembusan_2 = [""];
+                for (var i = 0; i < clicktembusan; i++) {
+                    if (i == 0) {
+                        var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                        tembusan_2 += "<tr class='noborder'><td>Tembusan</td><td>:</td><td id='tembusan" + (i + 1) + "'>" + (i +
+                            1) + ". " + value_tembusan + "</td></tr>"
+                    } else {
+                        var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                        tembusan_2 += "<tr class='noborder'><td></td><td></td><td id='tembusan" + (i + 1) + "'>" + (i + 1) +
+                            ". " + value_tembusan + "</td></tr>"
+                    }
+                }
+                document.getElementById('body_tembusan').innerHTML = tembusan_2;
+            }
+
             function updatetembusan() {
                 var tabel_tembusan = document.getElementById('tabel_tembusan');
                 clicktembusan++;
@@ -1728,7 +1767,7 @@
                 input1.setAttribute("name", "tembusan");
                 input1.setAttribute("placeholder", "Tembusan");
                 input1.setAttribute("required", true);
-                // input1.setAttribute("onblur", 'blur_lokasi(this)');
+                input1.setAttribute("onblur", 'blur_tembusan(this)');
                 var button = document.createElement("button");
                 button.innerHTML = "<i class='fa fa-trash'></i>";
                 button.setAttribute("onclick", "deleteRow3(this)");
@@ -1741,6 +1780,20 @@
                 cell2.appendChild(input1);
                 cell3.appendChild(button);
                 reindex3();
+
+                var tembusan_2 = [""];
+                for (var i = 0; i < clicktembusan; i++) {
+                    if (i == 0) {
+                        var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                        tembusan_2 += "<tr class='noborder'><td>Tembusan</td><td>:</td><td id='tembusan" + (i + 1) + "'>" + (i +
+                            1) + ". " + value_tembusan + "</td></tr>"
+                    } else {
+                        var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                        tembusan_2 += "<tr class='noborder'><td></td><td></td><td id='tembusan" + (i + 1) + "'>" + (i + 1) +
+                            ". " + value_tembusan + "</td></tr>"
+                    }
+                }
+                document.getElementById('body_tembusan').innerHTML = tembusan_2;
             }
 
             function reindex3() {
@@ -1762,6 +1815,26 @@
                     input_id_tembusan[i].id = "tembusan[" + (i + 1) + "]";
                 }
                 reindex3();
+
+                if (clicktembusan == 0) {
+                    document.getElementById('body_tembusan').innerHTML = "";
+                } else {
+                    var tembusan_2 = [""];
+                    for (var i = 0; i < clicktembusan; i++) {
+                        if (i == 0) {
+                            var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                            tembusan_2 += "<tr class='noborder'><td>Tembusan</td><td>:</td><td id='tembusan" + (i + 1) + "'>" +
+                                (i +
+                                    1) + ". " + value_tembusan + "</td></tr>"
+                        } else {
+                            var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                            tembusan_2 += "<tr class='noborder'><td></td><td></td><td id='tembusan" + (i + 1) + "'>" + (i + 1) +
+                                ". " + value_tembusan + "</td></tr>"
+                        }
+                    }
+                    document.getElementById('body_tembusan').innerHTML = tembusan_2;
+                }
+
             }
 
             function onSubmitData() {
@@ -1774,7 +1847,7 @@
                 var lampiran = $('#lampiran1').text();
                 var sifat_lampiran = $('#sifat_lampiran option:selected').val();
                 var perihal = $('#perihal').val();
-                var isi_surat = $('#isi_surat').val();
+                var isi_surat = $('#deskripsi_id').val();
 
 
                 var harga_hpe = [];
@@ -1837,6 +1910,8 @@
                         buttons: true,
                     })
                     .then((willCreate) => {
+                        document.getElementById('main-wrapper').style.cursor = "wait"
+                        document.getElementById('btnFinish').setAttribute('disabled', true);
                         if (willCreate) {
                             // var data = {
                             //     "_token": token,
@@ -1883,6 +1958,8 @@
                                 timer: 2e3,
                                 buttons: false
                             });
+                            document.getElementById('main-wrapper').style.cursor = "default"
+                            document.getElementById('btnFinish').removeAttribute('disabled');
                         }
                     })
             }

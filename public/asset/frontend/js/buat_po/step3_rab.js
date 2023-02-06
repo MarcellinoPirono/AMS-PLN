@@ -103,7 +103,7 @@ function updateformwithpaket(c) {
             input3.setAttribute("placeholder", "Volume");
             input3.setAttribute("value", "");
             input3.setAttribute("onblur", "blur_volume_with_paket(this)");
-            // input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
+            input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
             input3.setAttribute("onkeyup", "format(this)");
             input3.setAttribute("required", true);
             var input4 = document.createElement("input");
@@ -142,7 +142,7 @@ function updateformwithpaket(c) {
             button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
             // button.setAttribute("style", "margin-top: 18px");
 
-            console.log(table);
+            // console.log(table);
             var row = table.insertRow(-1);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -248,7 +248,7 @@ function updateform() {
             input3.setAttribute("placeholder", "Volume");
             input3.setAttribute("value", "");
             input3.setAttribute("onblur", "blur_volume(this)");
-            // input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
+            input3.setAttribute("onkeypress", "return numbersonly2(this, event);");
             input3.setAttribute("onkeyup", "format(this)");
             input3.setAttribute("required", true);
             var input4 = document.createElement("input");
@@ -314,6 +314,20 @@ function updateform() {
     });
 }
 
+function blur_tembusan(ini) {
+    var tembusan_2 = [""];
+    for(var i = 0; i < clicktembusan; i++) {
+        if(i == 0) {
+            var value_tembusan = document.getElementById('tembusan['+ (i+1) +']').value
+            tembusan_2 += "<tr class='noborder'><td>Tembusan</td><td>:</td><td id='tembusan"+(i+1)+"'>"+(i+1)+". "+value_tembusan+"</td></tr>"
+        } else {
+            var value_tembusan = document.getElementById('tembusan['+ (i+1) +']').value
+            tembusan_2 += "<tr class='noborder'><td></td><td></td><td id='tembusan"+(i+1)+"'>"+(i+1)+". "+value_tembusan+"</td></tr>"
+        }
+    }
+    document.getElementById('body_tembusan').innerHTML = tembusan_2;
+}
+
 function updatetembusan() {
     var table_tembusan = document.getElementById('tableTembusan');
     clicktembusan++;
@@ -324,7 +338,7 @@ function updatetembusan() {
     input.setAttribute("name", "tembusan");
     input.setAttribute("placeholder", "Tembusan");
     input.setAttribute("required", true);
-    // input.setAttribute("onblur", "blur_tembusan(this)");
+    input.setAttribute("onblur", "blur_tembusan(this)");
     var button = document.createElement("button");
     button.innerHTML = "<i class='fa fa-trash'></i>";
     button.setAttribute("onclick", "deleteRow3(this)");
@@ -337,6 +351,18 @@ function updatetembusan() {
     cell2.appendChild(input);
     cell3.appendChild(button);
     reindex3();
+
+    var tembusan_2 = [""];
+    for(var i = 0; i < clicktembusan; i++) {
+        if(i == 0) {
+            var value_tembusan = document.getElementById('tembusan['+ (i+1) +']').value
+            tembusan_2 += "<tr class='noborder'><td>Tembusan</td><td>:</td><td id='tembusan"+(i+1)+"'>"+(i+1)+". "+value_tembusan+"</td></tr>"
+        } else {
+            var value_tembusan = document.getElementById('tembusan['+ (i+1) +']').value
+            tembusan_2 += "<tr class='noborder'><td></td><td></td><td id='tembusan"+(i+1)+"'>"+(i+1)+". "+value_tembusan+"</td></tr>"
+        }
+    }
+    document.getElementById('body_tembusan').innerHTML = tembusan_2;
 }
 
 function deleteRow3(r) {
@@ -351,6 +377,23 @@ function deleteRow3(r) {
     }
 
     reindex3();
+
+    if(clicktembusan == 0) {
+        document.getElementById('body_tembusan').innerHTML = "";
+    } else {
+        var tembusan_2 = [""];
+        for(var i = 0; i < clicktembusan; i++) {
+            if(i == 0) {
+                var value_tembusan = document.getElementById('tembusan['+ (i+1) +']').value
+                tembusan_2 += "<tr class='noborder'><td>Tembusan</td><td>:</td><td id='tembusan"+(i+1)+"'>"+(i+1)+". "+value_tembusan+"</td></tr>"
+            } else {
+                var value_tembusan = document.getElementById('tembusan['+ (i+1) +']').value
+                tembusan_2 += "<tr class='noborder'><td></td><td></td><td id='tembusan"+(i+1)+"'>"+(i+1)+". "+value_tembusan+"</td></tr>"
+            }
+        }
+        document.getElementById('body_tembusan').innerHTML = tembusan_2;
+    }
+
 }
 
 function reindex3() {
@@ -385,7 +428,6 @@ function updatelokasi() {
     cell3.appendChild(button);
     reindex2();
     var lokasi_2 = [""];
-    // var lokasi_3 = [""];
     for (var i = 0; i < clicklokasi; i++) {
         var value_lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value
         lokasi_2 += ("<option value='" + value_lokasi + "'>" + value_lokasi + "</option>");

@@ -13,7 +13,7 @@ class MenuController extends Controller
         return view('khs.detail_khs.item_khs.menu_item_khs', [
             'title' => 'Pilih Menu Item KHS',
             'title1' => 'Item KHS',
-            'jenis_khs' => Khs::all(),
+            'jenis_khs' => Khs::where('isActive', True)->get(),
 
         ]);
     }

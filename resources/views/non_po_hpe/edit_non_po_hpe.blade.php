@@ -191,8 +191,10 @@
                                                     <div class="form-group">
                                                         <label class="text-label">Pilih Manager</label>
                                                         <select class="form-control input-default" id="pejabat_id"
+                                                            style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
                                                             name="pejabat_id" required disabled>
-                                                            <option value="" selected disabled>Manager
+                                                            <option value="" selected disabled>{{ $nonpo->jabatan }}
+                                                                - {{ $nonpo->nama_pejabat }}
                                                             </option>
                                                             @foreach ($pejabats as $pejabat)
                                                                 <option value="{{ $pejabat->id }}"
@@ -329,24 +331,24 @@
                                                                                         id="jumlah_harga_hpe[{{ $loop->iteration }}]"
                                                                                         name="jumlah_harga_hpe"
                                                                                         placeholder="Jumlah"
-                                                                                        value="@currency2($rabnonpo->jumlah_harga_perkiraan)" disabled readonly
-                                                                                        required>
+                                                                                        value="@currency2($rabnonpo->jumlah_harga_perkiraan)" disabled
+                                                                                        readonly required>
                                                                                 </td>
                                                                                 <!-- <td><button onclick="deleteRow(this)"
-                                                                                                                                                class="btn btn-danger shadow btn-xs sharp"><i
-                                                                                                                                                    class='fa fa-trash'></i></button></td> -->
+                                                                                                                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                                                                                                                    class='fa fa-trash'></i></button></td> -->
                                                                             </tr>
                                                                         @endforeach
                                                                     </tbody>
                                                                 </table>
                                                                 <!-- <div class="col-lg-12 mb-2">
-                                                                                                                                <div
-                                                                                                                                    class="position-relative justify-content-end float-left">
-                                                                                                                                    <a type="button" id="tambah-pekerjaan"
-                                                                                                                                        class="btn btn-primary position-relative justify-content-end"
-                                                                                                                                        onclick="updateform()" required>Tambah</a>
-                                                                                                                                </div>
-                                                                                                                            </div> -->
+                                                                                                                                                <div
+                                                                                                                                                    class="position-relative justify-content-end float-left">
+                                                                                                                                                    <a type="button" id="tambah-pekerjaan"
+                                                                                                                                                        class="btn btn-primary position-relative justify-content-end"
+                                                                                                                                                        onclick="updateform()" required>Tambah</a>
+                                                                                                                                                </div>
+                                                                                                                                            </div> -->
                                                                 <table class="table table-responsive-sm height-100"
                                                                     id="tabelRAB1">
                                                                     <thead>
@@ -371,7 +373,8 @@
                                                                             <th style="width: 20%">
                                                                                 Jumlah HPE:</th>
                                                                             <th style="width: 1%">:</th>
-                                                                            <th style="width: 45%" id="jumlah-hpe">@currency($jumlah_harga_perkiraan)</th>
+                                                                            <th style="width: 45%" id="jumlah-hpe">
+                                                                                @currency($jumlah_harga_perkiraan)</th>
                                                                             <th style="width: 1%"></th>
                                                                         </tr>
                                                                         <tr>
@@ -403,10 +406,21 @@
                                                                                     style="color: rgb(249, 70, 135);">
                                                                                     @currency($total_harga)</th>
                                                                             @endif
-                                                                            <th>Total Harga HPE</th>
-                                                                            <th>:</th>
-                                                                            <th id="total-hpe">@currency($total_harga_perkiraan)</th>
-                                                                            <th></th>
+                                                                            @if ($nonpos[0]->prks->pagu_prk >= $total_harga_perkiraan)
+                                                                                <th>Total Harga HPE</th>
+                                                                                <th>:</th>
+                                                                                <th id="total-hpe"
+                                                                                    style="color: rgb(126, 126, 126);">
+                                                                                    @currency($total_harga_perkiraan)</th>
+                                                                                <th></th>
+                                                                            @else
+                                                                                <th>Total Harga HPE</th>
+                                                                                <th>:</th>
+                                                                                <th id="total-hpe"
+                                                                                    style="color: rgb(249, 70, 135);">
+                                                                                    @currency($total_harga_perkiraan)</th>
+                                                                                <th></th>
+                                                                            @endif
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>
@@ -429,28 +443,51 @@
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     @foreach ($orders_surat_dinas as $order_surat_dinas)
-                                                    <label class="text-label">Kepada : <span
-                                                            class="text-danger">*</span></label>
-                                                    <select name="tujuan" id="tujuan"
-                                                        class="form-control input-default"
-                                                        style="height: 60px !important; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
-                                                        required>
-                                                        <option value="" selected disabled required>Pilih Sumber
-                                                        </option>
-                                                        @foreach ($pejabats as $pejabat)
-                                                            @if ($pejabat->jabatan != 'MANAGER UP3')
-                                                                <option value="{{ $pejabat->id }}" @if ($order_surat_dinas->penerima_id == $pejabat->id) selected @endif>
-                                                                    {{ $pejabat->jabatan }} -
-                                                                    {{ $pejabat->nama_pejabat }}
+                                                        <label class="text-label">Kepada : <span
+                                                                class="text-danger">*</span></label>
+                                                        <select name="tujuan" id="tujuan"
+                                                            class="form-control input-default"
+                                                            style="height: 60px !important; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                            required>
+                                                            @if (in_array($ordersurat->jabatan_penerima, $pejabat_array) && in_array($ordersurat->nama_penerima, $nama_jabatan_array))
+                                                                <option value="" disabled required>Pilih Tujuan
                                                                 </option>
+                                                                @foreach ($pejabats as $pejabat)
+                                                                    @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                                        <option value="{{ $pejabat->id }}"
+                                                                            @if (
+                                                                                $order_surat_dinas->jabatan_penerima == $pejabat->jabatan ||
+                                                                                    $order_surat_dinas->nama_penerima == $pejabat->nama_pejabat) selected @endif>
+                                                                            {{ $pejabat->jabatan }} -
+                                                                            {{ $pejabat->nama_pejabat }}
+                                                                        </option>
+                                                                    @endif
+                                                                @endforeach
+                                                            @else
+                                                                <option value="" disabled required>Pilih Tujuan
+                                                                </option>
+                                                                <option selected
+                                                                    value="{{ $ordersurat->jabatan_penerima }} - {{ $ordersurat->nama_penerima }}">
+                                                                    {{ $ordersurat->jabatan_penerima }} -
+                                                                    {{ $ordersurat->nama_penerima }}</option>
+                                                                @foreach ($pejabats as $pejabat)
+                                                                    @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                                        <option value="{{ $pejabat->id }}">
+                                                                            {{-- @if ($order_surat_dinas->penerima_id == $pejabat->id) selected @endif> --}}
+                                                                            {{ $pejabat->jabatan }} -
+                                                                            {{ $pejabat->nama_pejabat }}
+                                                                        </option>
+                                                                    @endif
+                                                                @endforeach
                                                             @endif
-                                                        @endforeach
-                                                    </select>
-                                                    <div class="valid-feedback">
-                                                        Data Terisi
-                                                    </div>
-                                                    <div class="invalid-feedback">
-                                                        Silakan Pilih Tujuan </div>
+                                                            {{-- <option value="" selected disabled required>{{$ordersurat->jabatan_penerima}} - {{$ordersurat->nama_penerima}}
+                                                            </option> --}}
+                                                        </select>
+                                                        <div class="valid-feedback">
+                                                            Data Terisi
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            Silakan Pilih Tujuan </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 mb-2">
@@ -461,16 +498,35 @@
                                                         class="form-control input-default"
                                                         style="height: 60px !important; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
                                                         required>
-                                                        <option value="" selected disabled required>Pilih Sumber
-                                                        </option>
-                                                        @foreach ($pejabats as $pejabat)
-                                                            @if ($pejabat->jabatan != 'MANAGER UP3')
-                                                                <option value="{{ $pejabat->id }}" @if ($order_surat_dinas->pengirim_id == $pejabat->id) selected @endif>
-                                                                    {{ $pejabat->jabatan }} -
-                                                                    {{ $pejabat->nama_pejabat }}
-                                                                </option>
-                                                            @endif
-                                                        @endforeach
+                                                        @if (in_array($ordersurat->jabatan_pengirim, $pejabat_array) && in_array($ordersurat->nama_pengirim, $nama_jabatan_array))
+                                                            <option value="" disabled required>Pilih Tujuan</option>
+                                                            @foreach ($pejabats as $pejabat)
+                                                                @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                                    <option value="{{ $pejabat->id }}"
+                                                                        @if (
+                                                                            $order_surat_dinas->jabatan_pengirim == $pejabat->jabatan ||
+                                                                                $order_surat_dinas->nama_pengirim == $pejabat->nama_pejabat) selected @endif>
+                                                                        {{ $pejabat->jabatan }} -
+                                                                        {{ $pejabat->nama_pejabat }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @else
+                                                            <option value="" disabled required>Pilih Sumber</option>
+                                                            <option selected
+                                                                value="{{ $ordersurat->jabatan_pengirim }} - {{ $ordersurat->nama_pengirim }}">
+                                                                {{ $ordersurat->jabatan_pengirim }} -
+                                                                {{ $ordersurat->nama_pengirim }}</option>
+                                                            @foreach ($pejabats as $pejabat)
+                                                                @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                                    <option value="{{ $pejabat->id }}">
+                                                                        {{-- @if ($order_surat_dinas->penerima_id == $pejabat->id) selected @endif> --}}
+                                                                        {{ $pejabat->jabatan }} -
+                                                                        {{ $pejabat->nama_pejabat }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                     <div class="valid-feedback">
                                                         Data Terpilih
@@ -491,9 +547,15 @@
                                                         required>
                                                         <option selected disabled value="">Pilih Sumber Surat
                                                         </option>
-                                                        <option value="Biasa" @if ($order_surat_dinas->sifat == "Biasa") selected @endif>Biasa</option>
-                                                        <option value="Segera" @if ($order_surat_dinas->sifat == "Segera") selected @endif>Segera</option>
-                                                        <option value="Sangat Segera" @if ($order_surat_dinas->sifat == "Sangat Segera") selected @endif>Sangat Segera</option>
+                                                        <option value="Biasa"
+                                                            @if ($order_surat_dinas->sifat == 'Biasa') selected @endif>Biasa
+                                                        </option>
+                                                        <option value="Segera"
+                                                            @if ($order_surat_dinas->sifat == 'Segera') selected @endif>Segera
+                                                        </option>
+                                                        <option value="Sangat Segera"
+                                                            @if ($order_surat_dinas->sifat == 'Sangat Segera') selected @endif>Sangat Segera
+                                                        </option>
                                                     </select>
                                                     <div class="valid-feedback">
                                                         Data Terpilih
@@ -507,11 +569,13 @@
 
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Input jumlah lampiran <span
+                                                    <label class="text-label">Input Jumlah Lampiran <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="lampiran"
-                                                        id="lampiran" placeholder="Jumlah Lampiran" required autofocus
-                                                        value="{{old('lampiran', preg_replace('/[^0-9]/', '', $order_surat_dinas->lampiran))}}">
+                                                        onkeydown="return numbersonly(this, event);"
+                                                        onkeyup="javascript:tandaPemisahTitik(this);" id="lampiran"
+                                                        placeholder="Jumlah Lampiran" required autofocus
+                                                        value="{{ old('lampiran', preg_replace('/[^0-9]/', '', $order_surat_dinas->lampiran)) }}">
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -530,8 +594,11 @@
                                                         required>
                                                         <option selected disabled value="">Pilih Jenis Lampiran
                                                         </option>
-                                                        <option value="Set" @if (preg_replace('/[^a-zA-Z]/', '', $order_surat_dinas->lampiran) == "Set") selected @endif>Set</option>
-                                                        <option value="Lembar" @if (preg_replace('/[^a-zA-Z]/', '', $order_surat_dinas->lampiran) == "Lembar") selected @endif>Lembar</option>
+                                                        <option value="Set"
+                                                            @if (preg_replace('/[^a-zA-Z]/', '', $order_surat_dinas->lampiran) == 'Set') selected @endif>Set</option>
+                                                        <option value="Lembar"
+                                                            @if (preg_replace('/[^a-zA-Z]/', '', $order_surat_dinas->lampiran) == 'Lembar') selected @endif>Lembar
+                                                        </option>
                                                     </select>
                                                     <div class="valid-feedback">
                                                         Data Terpilih
@@ -545,7 +612,8 @@
                                                 <div class="form-group">
                                                     <label class="text-label">Perihal : <span
                                                             class="text-danger">*</span></label>
-                                                    <textarea class="form-control" name="perihal" id="perihal" placeholder="Perihal" cols="30" rows="2">{{$order_surat_dinas->perihal}}</textarea>
+                                                    <textarea class="form-control" name="perihal" id="perihal" placeholder="Perihal" cols="30" rows="2"
+                                                        required>{{ $order_surat_dinas->perihal }}</textarea>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -554,12 +622,33 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12 mb-2">
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="form-group">
+                                                    <label for="first-name" class="form-label">Pilih Isi Surat
+                                                    </label>
+                                                    <select class="form-control input-default" id="pilihan_surat"
+                                                        name="pilihan_surat" onchange="change_redaksi(this)"
+                                                        style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;">
+                                                        <option selected disabled value="">Pilih Isi Surat
+                                                        </option>
+                                                        @foreach ($redaksis as $redaksi)
+                                                            <option value="{{ $redaksi->id }}"
+                                                                @if ($order_surat_dinas->isi_surat == $redaksi->deskripsi_redaksi) selected @endif>
+                                                                {{ $redaksi->nama_redaksi }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div class="valid-feedback">
+                                                        Data Boleh Tidak Dipilih
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
                                                     <label class="text-label">Isi Surat : <span
                                                             class="text-danger">*</span></label>
-                                                    <textarea class="form-control" name="isi_surat" id="isi_surat" placeholder="Isi Surat" cols="60"
-                                                        rows="2">{{$order_surat_dinas->perihal}}</textarea>
+
+                                                    <textarea class="form-control" name="deskripsi_id" id="deskripsi_id" placeholder="Isi Surat" cols="60"
+                                                        rows="5" required autofocus>{{ $order_surat_dinas->isi_surat }}</textarea>
                                                     <div class="valid-feedback">
                                                         Data Terisi
                                                     </div>
@@ -596,41 +685,44 @@
                                                 </div>
                                             </div> --}}
                                             <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label class="text-label">Input Tembusan <span
-                                                                class="text-danger">*</span></label>
-                                                    </div>
+                                                <div class="form-group">
+                                                    <label class="text-label">Input Tembusan (Opsional) </label>
                                                 </div>
-                                                <table class="table table-responsive-sm height-100" width="100%"
-                                                    id="tabel_tembusan">
-                                                    <thead>
-                                                        <tr align="center" valign="middle" class="">
-                                                            <th style="width:5%;" align="center" valign="middle">No.</th>
-                                                            <th align="center" valign="middle">Tembusan</th>
-                                                            <th style="width:10%;" align="center" valign="middle">Aksi</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="tbody-tembusan">
-                                                    @foreach ($tembusans as $tembusan)
-                                                    <tr>
-                                                        <td><strong id="nomor" value="1">{{$loop->iteration}}</strong></td>
-                                                        <td> <input type="text" class="form-control" name="tembusan"
-                                                                id="tembusan[{{$loop->iteration}}]" placeholder="Tembusan" autofocus
-                                                                value="{{ old('tembusan', $tembusan->isi_tembusan) }}"></td>
-                                                        <td align="center"><button onclick="deleteRow3(this)"
-                                                                class="btn btn-danger shadow btn-xs sharp"><i
-                                                                    class='fa fa-trash'></i></button></td>
+                                            </div>
+                                            <table class="table table-responsive-sm height-100" width="100%"
+                                                id="tabel_tembusan">
+                                                <thead>
+                                                    <tr align="center" valign="middle" class="">
+                                                        <th style="width:5%;" align="center" valign="middle">No.</th>
+                                                        <th align="center" valign="middle">Tembusan</th>
+                                                        <th style="width:10%;" align="center" valign="middle">Aksi</th>
                                                     </tr>
+                                                </thead>
+                                                <tbody id="tbody-tembusan">
+                                                    @foreach ($tembusans as $tembusan)
+                                                        <tr>
+                                                            <td><strong id="nomor"
+                                                                    value="{{ $loop->iteration }}">{{ $loop->iteration }}</strong>
+                                                            </td>
+                                                            <td> <input type="text" class="form-control"
+                                                                    name="tembusan" id="tembusan[{{ $loop->iteration }}]"
+                                                                    placeholder="Tembusan" autofocus required
+                                                                    value="{{ old('tembusan', $tembusan->isi_tembusan) }}">
+                                                            </td>
+                                                            <td align="center"><button onclick="deleteRow3(this)"
+                                                                    class="btn btn-danger shadow btn-xs sharp"><i
+                                                                        class='fa fa-trash'></i></button></td>
+                                                        </tr>
                                                     @endforeach
-                                                    </tbody>
-                                                </table>
-                                                <div class="col-lg-12 mb-2">
-                                                    <div class="position-relative justify-content-center float-center">
-                                                        <a type="button" id="tambah-pekerjaan"
-                                                            class="btn btn-secondary btn-xs position-relative justify-content-end"
-                                                            onclick="updatetembusan()" required>Tambah</a>
-                                                    </div>
+                                                </tbody>
+                                            </table>
+                                            <div class="col-lg-12 mb-2">
+                                                <div class="position-relative justify-content-center float-center">
+                                                    <a type="button" id="tambah-pekerjaan"
+                                                        class="btn btn-secondary btn-xs position-relative justify-content-end"
+                                                        onclick="updatetembusan()" required>Tambah</a>
                                                 </div>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -704,7 +796,7 @@
                                                                                     valign="middle">Jumlah HPE (RP)</td>
                                                                             </tr>
                                                                             <!-- <tr class="warna">
-                                                                                                                                            </tr> -->
+                                                                                                                                                            </tr> -->
                                                                         </thead>
                                                                         <tbody id="uraian_rab">
                                                                         </tbody>
@@ -757,8 +849,8 @@
                                                                             </tr>
                                                                         </tfoot>
                                                                         <!-- <tr>
-                                                                                                                                                <td class="first1"></td>
-                                                                                                                                            </tr> -->
+                                                                                                                                                                <td class="first1"></td>
+                                                                                                                                                            </tr> -->
                                                                     </table>
                                                                     {{-- <div>
                                                                         <button id="prevpdf">Previous</button>
@@ -770,8 +862,8 @@
                                                                     {{-- <embed width="100%" height="600px" type="application/pdf" id="embedLink"/> --}}
 
                                                                     <!-- <object type="application/pdf" id="pdfViewer" type="">
-                                                                                                                                            <embed id="pdfViewer2" width="100%" height="600px" >
-                                                                                                                                        </object> -->
+                                                                                                                                                            <embed id="pdfViewer2" width="100%" height="600px" >
+                                                                                                                                                        </object> -->
 
                                                                 </div>
 
@@ -812,10 +904,34 @@
                                                                 <td id="perihal1"></td>
                                                             </tr>
                                                             <tr class="noborder">
-                                                                <td>Isi Surat</td>
-                                                                <td>:</td>
+                                                                <td valign="top">Isi Surat</td>
+                                                                <td valign="top">:</td>
                                                                 <td id="isi_surat1"></td>
                                                             </tr>
+                                                            {{-- <tr class="noborder">
+                                                                <td valign="top">Tembusan </td>
+                                                                <td valign="top">:</td>
+                                                                <td id="tembusan1"></td>
+                                                            </tr> --}}
+                                                            <tbody id="body_tembusan">
+                                                                @foreach ($tembusans as $tembusan)
+                                                                    @if ($loop->iteration == 1)
+                                                                        <tr class="noborder">
+                                                                            <td valign="top">Tembusan </td>
+                                                                            <td valign="top">:</td>
+                                                                            <td id="tembusan{{ $loop->iteration }}">
+                                                                                {{ $tembusan->isi_tembusan }}</td>
+                                                                        </tr>
+                                                                    @else
+                                                                        <tr class="noborder">
+                                                                            <td valign="top"></td>
+                                                                            <td valign="top"></td>
+                                                                            <td id="tembusan{{ $loop->iteration }}">
+                                                                                {{ $tembusan->isi_tembusan }}</td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
+                                                            </tbody>
                                                         </table>
                                                     </div>
 
@@ -974,7 +1090,7 @@
             function change_redaksi(c) {
                 let token = $('#csrf').val();
                 // alert(token);
-                var redaksi_id = document.getElementById("redaksi_id").value;
+                var redaksi_id = document.getElementById("pilihan_surat").value;
                 // alert(redaksi_id);
 
                 $.ajax({
@@ -988,7 +1104,7 @@
 
                     },
                     success: function(response) {
-                        document.getElementById("deskripsi_id").innerHTML = response.deskripsi_redaksi;
+                        document.getElementById("deskripsi_id").value = response.deskripsi_redaksi;
                     }
                 })
 
@@ -1097,7 +1213,7 @@
                         console.log(lampiran);
                         var sifat_lampiran = $("#sifat_lampiran option:selected").text();
                         var perihal = $("#perihal").val();
-                        var isi_surat = $("#isi_surat").val();
+                        var isi_surat = $("#deskripsi_id").val();
 
                         $("#tujuan1").html(tujuan);
                         $("#sumber1").html(sumber);
@@ -1211,7 +1327,7 @@
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
                         position: 'bottom', // none/ top/ both bottom
-                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Submit</button>
+                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Cetak</button>
                               <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
                     },
                     anchor: {
@@ -1242,7 +1358,8 @@
         <script>
             var banyak_tembusan = document.querySelectorAll("#tbody-tembusan tr");
             var clicktembusan = banyak_tembusan.length;
-            function update_harga(change, banyak_data){
+
+            function update_harga(change, banyak_data) {
                 var volume = document.getElementById("volume[" + change + "]").value;
                 if (volume.charAt(volume.length - 1) == ",") {
                     document.getElementById("volume[" + change + "]").value = volume + "0";
@@ -1338,8 +1455,10 @@
                 var pagu_prk = document.getElementById("rupiah").innerHTML;
                 pagu_prk = pagu_prk.replace(/\./g, "");
                 pagu_prk = parseInt(pagu_prk);
-                var total_harga_satuan_all = total_harga_satuan.reduce((accumulator, currentvalue) => accumulator + currentvalue);
-                var total_harga_perkiraan_all = total_harga_perkiraan.reduce((accumulator, currentvalue) => accumulator + currentvalue);
+                var total_harga_satuan_all = total_harga_satuan.reduce((accumulator, currentvalue) => accumulator +
+                    currentvalue);
+                var total_harga_perkiraan_all = total_harga_perkiraan.reduce((accumulator, currentvalue) => accumulator +
+                    currentvalue);
                 // console.log("total_harga_perkiraan_all",total_harga_perkiraan_all);
                 total_harga_perkiraan_all = total_harga_perkiraan_all.toString();
                 total_harga_perkiraan_all_2 = "";
@@ -1360,12 +1479,13 @@
                 for (i = panjang_perkiraan_2; i > 0; i--) {
                     k_1 = k_1 + 1;
                     if (((k_1 % 3) == 1) && (k_1 != 1)) {
-                        total_harga_perkiraan_all_2 = total_harga_perkiraan_all.substr(i - 1, 1) + "." + total_harga_perkiraan_all_2;
+                        total_harga_perkiraan_all_2 = total_harga_perkiraan_all.substr(i - 1, 1) + "." +
+                            total_harga_perkiraan_all_2;
                     } else {
                         total_harga_perkiraan_all_2 = total_harga_perkiraan_all.substr(i - 1, 1) + total_harga_perkiraan_all_2;
                     }
                 }
-                console.log("total_harga_perkiraan_all_2",total_harga_perkiraan_all_2);
+                console.log("total_harga_perkiraan_all_2", total_harga_perkiraan_all_2);
                 document.getElementById("jumlah-hpe").innerHTML = "Rp. " + total_harga_perkiraan_all_2;
                 document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_satuan_all_2;
                 total_harga_satuan_all = parseInt(total_harga_satuan_all);
@@ -1433,7 +1553,8 @@
                             document.getElementById("total").style.color = '#F94687';
                         }
                         $(".sw-btn-next").prop('disabled', false);
-                    } else if ((total_satuan >= 50000000 && total_satuan < 100000000) || (total_perkiraan >= 50000000 && total_perkiraan < 100000000)) {
+                    } else if ((total_satuan >= 50000000 && total_satuan < 100000000) || (total_perkiraan >= 50000000 &&
+                            total_perkiraan < 100000000)) {
                         swal({
                                 title: "Total Harga Telah Mencapai 50 Juta",
                                 text: "Total Harga HPE Telah Mencapai 50 Juta",
@@ -1485,7 +1606,8 @@
                     total_step_satuan2 = total_step_satuan2.replace(/\./g, "");
                     total_step_satuan2 = parseFloat(total_step_satuan2);
 
-                    if ((total_step_perkiraan2 < 50000000 && total_perkiraan < 50000000) || (total_step_satuan2 < 50000000 && total_satuan < 50000000)) {
+                    if ((total_step_perkiraan2 < 50000000 && total_perkiraan < 50000000) || (total_step_satuan2 < 50000000 &&
+                            total_satuan < 50000000)) {
                         if ((pagu_prk >= total_satuan) || (pagu_prk >= total_perkiraan)) {
                             taruh_harga(total_satuan, total_perkiraan);
                             document.getElementById("total-hpe").style.color = '#7E7E7E';
@@ -1496,7 +1618,8 @@
                             document.getElementById("total").style.color = '#F94687';
                         }
                         $(".sw-btn-next").prop('disabled', false);
-                    } else if ((total_step_perkiraan2 < 50000000 && total_perkiraan >= 50000000) || (total_step_satuan2 < 50000000 && total_satuan >= 50000000)) {
+                    } else if ((total_step_perkiraan2 < 50000000 && total_perkiraan >= 50000000) || (total_step_satuan2 <
+                            50000000 && total_satuan >= 50000000)) {
                         if ((total_perkiraan >= 100000000) || (total_satuan >= 100000000)) {
                             swal({
                                     title: "Total Harga Telah Mencapai 100 Juta",
@@ -1538,7 +1661,8 @@
                                 })
                         }
 
-                    } else if ((total_step_perkiraan2 >= 50000000 && total_perkiraan >= 100000000) || (total_step_satuan2 >= 50000000 && total_satuan >= 100000000)) {
+                    } else if ((total_step_perkiraan2 >= 50000000 && total_perkiraan >= 100000000) || (total_step_satuan2 >=
+                            50000000 && total_satuan >= 100000000)) {
                         if ((total_step_perkiraan2 < 100000000) || (total_step_satuan2 < 100000000)) {
                             swal({
                                     title: "Total Harga Telah Mencapai 100 Juta",
@@ -1572,7 +1696,8 @@
                             $(".sw-btn-next").prop('disabled', true);
                         }
 
-                    } else if ((total_step_perkiraan2 >= 100000000 && total_perkiraan < 100000000) || (total_step_satuan2 >= 100000000 && total_satuan < 100000000)) {
+                    } else if ((total_step_perkiraan2 >= 100000000 && total_perkiraan < 100000000) || (total_step_satuan2 >=
+                            100000000 && total_satuan < 100000000)) {
                         if (((pagu_prk >= total_satuan) || (pagu_prk >= total_perkiraan))) {
                             taruh_harga(total_satuan, total_perkiraan);
                             document.getElementById("total-hpe").style.color = '#7E7E7E';
@@ -1584,7 +1709,8 @@
                         }
                         $(".sw-btn-next").prop('disabled', false);
 
-                    } else if ((total_step_perkiraan2 >= 50000000 && total_perkiraan < 50000000) || (total_step_satuan2 >= 50000000 && total_satuan < 50000000)) {
+                    } else if ((total_step_perkiraan2 >= 50000000 && total_perkiraan < 50000000) || (total_step_satuan2 >=
+                            50000000 && total_satuan < 50000000)) {
                         if (((pagu_prk >= total_satuan) || (pagu_prk >= total_perkiraan))) {
                             taruh_harga(total_satuan, total_perkiraan);
                             document.getElementById("total-hpe").style.color = '#7E7E7E';
@@ -1599,7 +1725,7 @@
                 }
             }
 
-            function taruh_harga(total_satuan, total_perkiraan){
+            function taruh_harga(total_satuan, total_perkiraan) {
                 //Total Satuan
                 total_satuan = total_satuan.toString();
                 total_satuan_2 = "";
@@ -1640,6 +1766,22 @@
                 update_harga(change, banyak_data);
             }
 
+            function blur_tembusan(ini) {
+                var tembusan_2 = [""];
+                for (var i = 0; i < clicktembusan; i++) {
+                    if (i == 0) {
+                        var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                        tembusan_2 += "<tr class='noborder'><td>Tembusan</td><td>:</td><td id='tembusan" + (i + 1) + "'>" + (i +
+                            1) + ". " + value_tembusan + "</td></tr>"
+                    } else {
+                        var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                        tembusan_2 += "<tr class='noborder'><td></td><td></td><td id='tembusan" + (i + 1) + "'>" + (i + 1) +
+                            ". " + value_tembusan + "</td></tr>"
+                    }
+                }
+                document.getElementById('body_tembusan').innerHTML = tembusan_2;
+            }
+
             function updatetembusan() {
                 var tabel_tembusan = document.getElementById('tabel_tembusan');
                 clicktembusan++;
@@ -1650,7 +1792,7 @@
                 input1.setAttribute("name", "tembusan");
                 input1.setAttribute("placeholder", "Tembusan");
                 input1.setAttribute("required", true);
-                // input1.setAttribute("onblur", 'blur_lokasi(this)');
+                input1.setAttribute("onblur", 'blur_tembusan(this)');
                 var button = document.createElement("button");
                 button.innerHTML = "<i class='fa fa-trash'></i>";
                 button.setAttribute("onclick", "deleteRow3(this)");
@@ -1663,6 +1805,20 @@
                 cell2.appendChild(input1);
                 cell3.appendChild(button);
                 reindex3();
+
+                var tembusan_2 = [""];
+                for (var i = 0; i < clicktembusan; i++) {
+                    if (i == 0) {
+                        var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                        tembusan_2 += "<tr class='noborder'><td>Tembusan</td><td>:</td><td id='tembusan" + (i + 1) + "'>" + (i +
+                            1) + ". " + value_tembusan + "</td></tr>"
+                    } else {
+                        var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                        tembusan_2 += "<tr class='noborder'><td></td><td></td><td id='tembusan" + (i + 1) + "'>" + (i + 1) +
+                            ". " + value_tembusan + "</td></tr>"
+                    }
+                }
+                document.getElementById('body_tembusan').innerHTML = tembusan_2;
             }
 
             function reindex3() {
@@ -1673,7 +1829,7 @@
                 });
             }
 
-            function deleteRow3(r){
+            function deleteRow3(r) {
                 var table = r.parentNode.parentNode.rowIndex;
                 document.getElementById("tabel_tembusan").deleteRow(table);
 
@@ -1684,6 +1840,25 @@
                     input_id_tembusan[i].id = "tembusan[" + (i + 1) + "]";
                 }
                 reindex3();
+
+                if (clicktembusan == 0) {
+                    document.getElementById('body_tembusan').innerHTML = "";
+                } else {
+                    var tembusan_2 = [""];
+                    for (var i = 0; i < clicktembusan; i++) {
+                        if (i == 0) {
+                            var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                            tembusan_2 += "<tr class='noborder'><td>Tembusan</td><td>:</td><td id='tembusan" + (i + 1) + "'>" +
+                                (i +
+                                    1) + ". " + value_tembusan + "</td></tr>"
+                        } else {
+                            var value_tembusan = document.getElementById('tembusan[' + (i + 1) + ']').value
+                            tembusan_2 += "<tr class='noborder'><td></td><td></td><td id='tembusan" + (i + 1) + "'>" + (i + 1) +
+                                ". " + value_tembusan + "</td></tr>"
+                        }
+                    }
+                    document.getElementById('body_tembusan').innerHTML = tembusan_2;
+                }
             }
 
             function onSubmitData() {
@@ -1696,7 +1871,7 @@
                 var lampiran = $('#lampiran1').text();
                 var sifat_lampiran = $('#sifat_lampiran option:selected').val();
                 var perihal = $('#perihal').val();
-                var isi_surat = $('#isi_surat').val();
+                var isi_surat = $('#deskripsi_id').val();
 
 
                 var harga_hpe = [];
@@ -1718,7 +1893,7 @@
                 }
 
                 tembusan = [];
-                for(var i = 0; i < clicktembusan; i++){
+                for (var i = 0; i < clicktembusan; i++) {
                     tembusan[i] = document.getElementById("tembusan[" + (i + 1) + "]").value;
                     fd.append("tembusan[]", tembusan[i]);
                 }
@@ -1757,6 +1932,8 @@
                         buttons: true,
                     })
                     .then((willCreate) => {
+                        document.getElementById('main-wrapper').style.cursor = "wait"
+                        document.getElementById('btnFinish').setAttribute('disabled', true);
                         if (willCreate) {
                             // var data = {
                             //     "_token": token,
@@ -1784,8 +1961,8 @@
                                 dataType: 'json',
                                 success: function(response) {
                                     swal({
-                                        title: "Data Ditambah",
-                                        text: "Data Berhasil Ditambah",
+                                        title: "Non-PO Diedit",
+                                        text: "Data Berhasil Diedit",
                                         icon: "success",
                                         timer: 2e3,
                                         buttons: false
@@ -1803,6 +1980,8 @@
                                 timer: 2e3,
                                 buttons: false
                             });
+                            document.getElementById('main-wrapper').style.cursor = "default"
+                            document.getElementById('btnFinish').removeAttribute('disabled');
                         }
                     })
             }

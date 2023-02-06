@@ -26,7 +26,8 @@ return new class extends Migration
             $table->string("supervisor");
             $table->date('startdate');
             $table->date('enddate');
-            $table->foreignId("pejabat_id");
+            $table->string("nama_pejabat");
+            $table->string("jabatan");
             $table->double("total_harga");
             $table->string("pdf_file");
             $table->double('total_harga_hpe')->nullable();

@@ -800,8 +800,9 @@ class RabController extends Controller
 
     public function getAddendum(Request $request)
     {
-        $kontrak_induk = $request->post('kontrak_induk');
-        $latest_addendum = Addendum::find($request->kontrak_induk)->where('kontrak_induk_id', $kontrak_induk)->latest('tanggal_addendum')->latest('created_at')->get();
+        $kontrak_induk_id = $request->post('kontrak_induk');
+        // $kontrak_induk = KontrakInduk::where('nomor_kontrak_induk', $nomor_kontrak_induk)->value('id');
+        $latest_addendum = Addendum::find($kontrak_induk_id)->where('kontrak_induk_id', $kontrak_induk_id)->latest('tanggal_addendum')->latest('created_at')->get();
         return response()->json($latest_addendum);
     }
 

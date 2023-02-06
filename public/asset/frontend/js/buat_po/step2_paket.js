@@ -384,6 +384,8 @@ function deletePaket(r) {
                 input4.setAttribute("id", "volume[1]");
                 input4.setAttribute("placeholder", "Volume");
                 input4.setAttribute("onblur", "blur_volume(this)");
+                input4.setAttribute("onkeypress", "return numbersonly2(this, event);");
+                input4.setAttribute("onkeyup", "format(this)");
                 input4.setAttribute("required", true);
 
                 input5 = document.createElement("input");

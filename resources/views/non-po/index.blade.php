@@ -41,24 +41,26 @@
                                                         class="mt-1 bi bi-eye"></i></a>
                                             </div>
                                         </td>
-
                                         @if ($nonpo->status == 'Progress')
                                             {{-- <td><span class="badge light badge-warning">{{ $rab->status }}</span></td> --}}
-                                            <td align="center"><span class="badge light badge-warning1">-</span></span></td>
+                                            <td align="center" valign="top" style="vertical-align: top"><span
+                                                    class="badge light badge-warning1">-</span></span></td>
                                         @elseif ($nonpo->status == 'Waiting List')
-                                        {{-- <td><span class="badge light badge-success">{{ $rab->status }}</span></td> --}}
-                                        <td align="center"><span class="badge light badge-warning2">-</span></span></td>
+                                            {{-- <td><span class="badge light badge-success">{{ $rab->status }}</span></td> --}}
+                                            <td align="center" valign="top" style="vertical-align: top"><span
+                                                    class="badge light badge-warning2">-</span></span></td>
                                         @elseif ($nonpo->status == 'Disetujui')
-                                            <td align="center"><span class="badge light badge-success1">-</span></span></td>
-
+                                            <td align="center" valign="top" style="vertical-align: top"><span
+                                                    class="badge light badge-success1">-</span></span></td>
                                         @else
                                             {{-- <td><span class="badge light badge-danger">{{ $rab->status }}</span></td> --}}
-                                            <td align="center"><span class="badge light badge-danger1">-</span></td>
+                                            <td align="center" valign="top" style="vertical-align: top"><span
+                                                    class="badge light badge-danger1">-</span></td>
                                         @endif
                                         <td>{{ $nonpo->nomor_rpbj }}</td>
                                         <td>{{ $nonpo->pekerjaan }}</td>
-                                        <td>{{ $nonpo->skks->nomor_skk }}</td>
-                                        <td>{{ $nonpo->prks->no_prk }}</td>
+                                        <td>{{ $nonpo->skk_id }}</td>
+                                        <td>{{ $nonpo->prk_id }}</td>
                                         <td>{{ $nonpo->supervisor }}</td>
                                         <td>@currency($nonpo->total_harga)</td>
                                     </tr>

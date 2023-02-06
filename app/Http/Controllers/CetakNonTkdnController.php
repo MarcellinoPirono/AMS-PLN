@@ -16,6 +16,7 @@ use App\Models\Pejabat;
 use App\Models\PpnModel;
 use App\Models\Addendum;
 use App\Models\Vendor;
+use App\Models\TembusanPoKhs;
 // use App\Models\OrderedRab;
 use App\Models\OrderKhs;
 use App\Models\OrderPaket;
@@ -150,6 +151,16 @@ class CetakNonTkdnController extends Controller
                 'deskripsi_id' => $request->deskripsi_id[$j],
             ];
             OrderRedaksiKHS::create($order_redaksi);
+        }
+
+        if($request->tembusan != null){
+            for($j=0; $j < count($request->tembusan); $j++){
+                $tembusan = [
+                    "rab_id" => $id,
+                    "isi_tembusan" => $request->tembusan[$j]
+                ];
+                TembusanPoKhs::create($tembusan);
+            }
         }
 
         $values_pdf_page1 = Rab::where('id', $id)->get();
@@ -339,6 +350,16 @@ class CetakNonTkdnController extends Controller
                 'deskripsi_id' => $request->deskripsi_id[$j],
             ];
             OrderRedaksiKHS::create($order_redaksi);
+        }
+
+        if($request->tembusan != null){
+            for($j=0; $j < count($request->tembusan); $j++){
+                $tembusan = [
+                    "rab_id" => $id,
+                    "isi_tembusan" => $request->tembusan[$j]
+                ];
+                TembusanPoKhs::create($tembusan);
+            }
         }
 
         $values_pdf_page1 = Rab::where('id', $id)->get();
@@ -546,6 +567,16 @@ class CetakNonTkdnController extends Controller
                 // 'sub_deskripsi_id' => $sub_deskripsi_id[$j],
             ];
             OrderRedaksiKHS::create($order_redaksi);
+        }
+
+        if($request->tembusan != null){
+            for($j=0; $j < count($request->tembusan); $j++){
+                $tembusan = [
+                    "rab_id" => $id,
+                    "isi_tembusan" => $request->tembusan[$j]
+                ];
+                TembusanPoKhs::create($tembusan);
+            }
         }
 
         $lokasi_click = $request->clicklokasi;
@@ -769,6 +800,16 @@ class CetakNonTkdnController extends Controller
             //  'sub_deskripsi_id' => $request->sub_deskripsi_id[$j],
             ];
             OrderRedaksiKHS::create($order_redaksi);
+        }
+
+        if($request->tembusan != null){
+            for($j=0; $j < count($request->tembusan); $j++){
+                $tembusan = [
+                    "rab_id" => $id,
+                    "isi_tembusan" => $request->tembusan[$j]
+                ];
+                TembusanPoKhs::create($tembusan);
+            }
         }
 
         $lokasi_click = $request->clicklokasi;

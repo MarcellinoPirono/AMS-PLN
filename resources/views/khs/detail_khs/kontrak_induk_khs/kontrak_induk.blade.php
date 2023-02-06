@@ -79,6 +79,7 @@
                             </thead>
                             <tbody class="alldata">
                                 @foreach ($kontrakinduks as $kontrakinduk)
+                                    @if($kontrakinduk->khs->isActive == True)
                                     <tr>
                                         <input type="hidden" class="delete_id" value="{{ $kontrakinduk->id }}">
                                         <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
@@ -97,6 +98,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
 
                             </tbody>

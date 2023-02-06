@@ -23,9 +23,11 @@
                                     <select class="form-control input-default" id="khs_id" name="khs_id">
                                         <option value="0" selected disabled>Jenis KHS</option>
                                         @foreach ($khss as $khs)
+                                            @if($khs->isActive == True)
                                             <option value="{{ $khs->id }}"
                                                 data-namapekerjaan="{{ $khs->nama_pekerjaan }}">{{ $khs->jenis_khs }}
                                             </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

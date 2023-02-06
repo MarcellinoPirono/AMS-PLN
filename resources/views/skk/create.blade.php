@@ -27,6 +27,31 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-sm-25 col-form-label">Jenis SKK :</label>
+                                <div class="colm-sm-6 ml-3">
+                                    <label class="radio">
+                                        <input type="radio" name="ai_ao" class="ai_ao" value="AI" required>AI (Anggaran Investasi)
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label"></label>
+                                <div class="colm-sm-6 ml-3">
+                                    <label class="radio">
+                                        <input type="radio" name="ai_ao" class="ai_ao" value="AO" required>AO (Anggaran Operasional)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-25 col-form-label"></label>
+                                <div class="colm-sm-6 ml-3" id="radioerror">
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group row">
                                 <label class="col-sm-25 col-form-label">Uraian SKK :</label>
                                 <div class="col-sm-6">
                                     <input type="text"
@@ -141,13 +166,28 @@
                 uraian_skk: {
                     required: "Silakan Isi Uraian SKK"
                 },
+                ai_ao: {
+                    required: "Silakan Pilih Jenis SKK"
+                },
                 skk_realisasi: {
                     required: "Silakan Isi SKK Realisasi"
                 },
                 skk_terbayar: {
                     required: "Silakan Isi SKK Terbayar"
                 }
+
             },
+
+            errorPlacement: function(error, element) {
+                if ( element.attr("name") == "ai_ao" ) {
+                    error.appendTo("#radioerror");
+                }
+                else { // This is the default behavior
+                    error.insertAfter( element );
+                }
+            },
+
+
             submitHandler: function(form) {
                 var token = $('#csrf').val();
                 var nomor_skk = $("#nomor_skk").val();
@@ -170,6 +210,7 @@
                 var skk_sisa = $("#skk_sisa").val();
                 skk_sisa = skk_sisa.replace(/\./g, "");
                 skk_sisa = parseInt(skk_sisa);
+                var ai_ao = $(".ai_ao:checked").val();
 
                 var data = {
                     "_token": token,
@@ -181,6 +222,7 @@
                     "skk_realisasi": skk_realisasi,
                     "skk_terbayar": skk_terbayar,
                     "skk_sisa": skk_sisa,
+                    "ai_ao": ai_ao,
                 }
 
                 $.ajax({

@@ -225,7 +225,8 @@
                                                     <label class="text-label">Pilih Manager <span
                                                             class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="pejabat_id"
-                                                        name="pejabat_id" required>
+                                                    style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                    name="pejabat_id" required>
                                                         <option value="" selected disabled>Manager
                                                         </option>
                                                         @foreach ($pejabats as $pejabat)
@@ -962,7 +963,7 @@
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
                         position: 'bottom', // none/ top/ both bottom
-                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Submit</button>
+                        extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onSubmitData()">Cetak</button>
                               <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
                     },
                     anchor: {
@@ -989,6 +990,8 @@
 
             });
         </script>
+
+
         <script>
             jQuery(document).ready(function() {
                 jQuery('#skk_id').change(function() {
@@ -1167,7 +1170,6 @@
                 })
             });
         </script>
-    @endsection
 
     <script>
         var click = 1
@@ -2628,6 +2630,8 @@
                     buttons: true,
                 })
                 .then((willCreate) => {
+                    document.getElementById('main-wrapper').style.cursor = "wait"
+                    document.getElementById('btnFinish').setAttribute('disabled', true);
                     if (willCreate) {
                         // var data = {
                         //     "_token": token,
@@ -2681,6 +2685,8 @@
                             timer: 2e3,
                             buttons: false
                         });
+                        document.getElementById('main-wrapper').style.cursor = "default"
+                        document.getElementById('btnFinish').removeAttribute('disabled');
                     }
                 })
         }
@@ -2820,3 +2826,4 @@
             input.value = x1 + x2;
         }
     </script>
+    @endsection

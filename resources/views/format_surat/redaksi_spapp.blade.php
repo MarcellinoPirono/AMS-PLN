@@ -208,6 +208,20 @@
                     </td>
                     <td align="center" valign="bottom"><b>{{ $nama_manager }}</b></td>
                 </tr>
+                <tr style="margin-top:50px">
+                    @if (count($tembusans) > 0)
+                    <td valign="bottom" align="left">Tembusan :</td>
+                    @else
+                    <td valign="bottom" align="left"></td>
+                    @endif
+                </tr>
+                @if (count($tembusans) > 0)
+                @foreach ($tembusans as $tembusan)
+                <tr>
+                    <td colspan="3">- {{$tembusan->isi_tembusan}}</td>
+                </tr>
+                @endforeach
+                @endif
             </table>
         @endforeach
 

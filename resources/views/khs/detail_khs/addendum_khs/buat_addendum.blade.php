@@ -24,10 +24,12 @@
                                         name="kontrak_induk_id">
                                         <option value="0" selected disabled>No. Kontrak Induk</option>
                                         @foreach ($kontrakinduks as $kontrakinduk)
+                                            @if($kontrakinduk->khs->isActive == True)
                                             <option value="{{ $kontrakinduk->id }}"
                                                 data-jeniskhs="{{ $kontrakinduk->khs->jenis_khs }}"
                                                 data-namapekerjaan="{{ $kontrakinduk->khs->nama_pekerjaan }}">
                                                 {{ $kontrakinduk->nomor_kontrak_induk }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

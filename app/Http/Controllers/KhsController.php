@@ -53,9 +53,15 @@ class KhsController extends Controller
 
             'jenis_khs' => 'required',
             'nama_pekerjaan' => 'required',
-
+            // 'isActive' => True,
         ]);
-        Khs::create($validatedData);
+        $jenis_khs = [
+            'jenis_khs' => $request->jenis_khs,
+            'nama_pekerjaan' => $request->nama_pekerjaan,
+            'isActive' => True
+        ];
+        // dd($jenis_khs);
+        Khs::create($jenis_khs);
         return redirect('/jenis-khs')->with('success', 'Jenis KHS Berhasil Ditambah!');
     }
 
@@ -111,9 +117,21 @@ class KhsController extends Controller
         ]);
 
         $khs = Khs::findOrFail($id);
+        // dd($khs);
 
-        $input = $request->all();
-        $khs->update($input);
+        $status = True;
+        if($request->status == "Non-Aktif"){
+            $status = False;
+        }
+
+        $data = [
+            "jenis_khs" =>$request->jenis_khs,
+            "nama_pekerjaan" =>$request->nama_pekerjaan,
+            "isActive" =>$status
+        ];
+        // dd($data);
+        // $input = $request->all();
+        $khs->update($data);
         return response()->json(['success' => true]);
 
     }

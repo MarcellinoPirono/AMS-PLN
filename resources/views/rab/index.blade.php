@@ -89,34 +89,28 @@
                             </thead>
                             <tbody class="alldata">
                                 @foreach ($rabs as $rab)
+                                    @if ($rab->nomor_kontraks->khs->isActive == True)
                                     <tr>
                                         <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
                                         <td>
                                             <div class="d-flex justify-content-center">
-
                                                 <a class="btn light btn-success btn-xs1 sharp" href="download/{{ $rab->slug }}"><i
                                                     class="bi bi-download"></i></a>
                                                 <a class="btn light btn-info btn-xs1 sharp ml-1"
                                                         href="preview-pdf-khs/{{ $rab->slug }}"><i
                                                             class="bi bi-eye"></i></a>
-
                                             </div>
-
-
                                         </td>
-
-
                                         @if ($rab->status == 'Progress')
                                             {{-- <td><span class="badge light badge-warning">{{ $rab->status }}</span></td> --}}
-                                            <td align="center"><span class="badge light badge-warning1">-</span></span></td>
+                                            <td align="center" valign="middle" style="vertical-align: middle"><span class="badge light badge-warning1">-</span></span></td>
                                         @elseif ($rab->status == 'Disetujui')
                                             {{-- <td><span class="badge light badge-success">{{ $rab->status }}</span></td> --}}
-                                            <td align="center"><span class="badge light badge-success1">-</span></span></td>
+                                            <td align="center" valign="middle" style="vertical-align: middle"><span class="badge light badge-success1">-</span></span></td>
                                         @else
                                             {{-- <td><span class="badge light badge-danger">{{ $rab->status }}</span></td> --}}
-                                            <td align="center"><span class="badge light badge-danger1">-</span></td>
+                                            <td align="center" valign="middle" style="vertical-align: middle"><span class="badge light badge-danger1">-</span></td>
                                         @endif
-
                                         <td>{{ $rab->nomor_po }}</td>
                                         <td>{{ \Carbon\Carbon::parse($rab->tanggal_po)->isoFormat('dddd, DD-MMMM-YYYY') }}
                                         </td>
@@ -130,11 +124,8 @@
                                         </td>
                                         {{-- <td>{{ $rab->vendors->nama_vendor }}</td> --}}
                                         <td>{{ $rab->nomor_kontraks->nomor_kontrak_induk }}</td>
-
-
-
-
                                     </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                             <tbody id="Content" class="searchdata">
@@ -144,9 +135,9 @@
                 </div>
                 <div style="color: #000; padding-left:45px;">
                     <span class="" style="padding-bottom: 30px">Keterangan : </span><br>
-                    <span class="badge light badge-success1 mb-2 mt-2">-</span> = Disetujui<br>
-                    <span class="badge light badge-warning1 mb-2">-</span> = On Progress<br>
-                    <span class="badge light badge-danger1 mb-1">-</span> = Ditolak<br>
+                    <span class="badge light badge-success1 mb-2 mt-2" style="vertical-align: middle">-</span> = Disetujui<br>
+                    <span class="badge light badge-warning1 mb-2" style="vertical-align: middle">-</span> = On Progress<br>
+                    <span class="badge light badge-danger1 mb-1" style="vertical-align: middle">-</span> = Ditolak<br>
                 </div>
             </div>
         </div>

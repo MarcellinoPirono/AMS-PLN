@@ -94,7 +94,7 @@
             <tr class="warna">
                 <td class="tabelataskiri" style="width:4%;" rowspan="2" align="center" valign="middle">NO</td>
                 <td class="tabelatas" rowspan="2" align="center" valign="middle">Uraian</td>
-                <td class="tabelatas" style="width:4%;" rowspan="2" align="center" valign="middle">SAT.</td>
+                <td class="tabelatas" style="width:6%;" rowspan="2" align="center" valign="middle">SAT.</td>
                 <td class="tabelatas" style="width:6%;" rowspan="2" align="center" valign="middle">VOLUME</td>
                 <td class="tabelatas" style="width:16%;" colspan="2" align="center" valign="middle">HARGA
                 </td>

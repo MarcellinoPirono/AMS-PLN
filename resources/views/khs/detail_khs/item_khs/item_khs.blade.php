@@ -62,6 +62,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($items as $item)
+                                    @if ($item->khs->isActive == True)
                                     <tr style="width: 1135px;">
                                         <input type="hidden" class="delete_id" value="{{ $item->id }}">
                                         <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
@@ -82,6 +83,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
 
                             </tbody>

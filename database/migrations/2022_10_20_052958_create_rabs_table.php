@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->text('slug');
             $table->date('tanggal_po');
+            // $table->string('skk_id')->nullable();
+            // $table->string('prk_id')->nullable();
             $table->foreignId('skk_id')->nullable();
             $table->foreignId('prk_id')->nullable();
             // $table->foreignId('kategori_id')->nullable();
@@ -28,6 +30,7 @@ return new class extends Migration
 
             $table->date('startdate');
             $table->date('enddate');
+            // $table->string('nomor_kontrak_induk');
             $table->foreignId('nomor_kontrak_induk');
             $table->foreignId('addendum_id')->nullable();
             $table->foreignId('pejabat_id');

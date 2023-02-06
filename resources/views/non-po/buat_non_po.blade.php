@@ -107,7 +107,7 @@
                                                         name="skk_id">
                                                         <option value="0" selected disabled>Pilih No. SKK</option>
                                                         @foreach ($skks as $skk)
-                                                            <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}
+                                                            <option value="{{ $skk->nomor_skk }}">{{ $skk->nomor_skk }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -152,7 +152,8 @@
                                                 <div class="form-group">
                                                     <label class="text-label">Pilih Manager</label>
                                                     <select class="form-control input-default" id="manager"
-                                                        name="manager" required>
+                                                    style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                                    name="manager" required>
                                                         <option value="" selected disabled>Manager
                                                         </option>
                                                         @foreach ($pejabats as $pejabat)

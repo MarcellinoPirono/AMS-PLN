@@ -127,6 +127,10 @@ class NonPOController extends Controller
         // dd($nota_dinas);
         $status = "Progress";
 
+        $nama_pejabat = Pejabat::where('id', $request->pejabat_id)->value('nama_pejabat');
+        $jabatan = Pejabat::where('id', $request->pejabat_id)->value('jabatan');
+
+
 
         $non_po = [
             'user_id' => $request->user_id,
@@ -137,7 +141,8 @@ class NonPOController extends Controller
             'supervisor' => $request->supervisor,
             'startdate' => $request->start_date,
             'enddate' => $request->end_date,
-            'pejabat_id' => $request->pejabat_id,
+            'nama_pejabat' => $nama_pejabat,
+            'jabatan' => $jabatan,
             'kak' => $kak,
             'nota_dinas' => $nota_dinas,
             'total_harga' => $request->total_harga,

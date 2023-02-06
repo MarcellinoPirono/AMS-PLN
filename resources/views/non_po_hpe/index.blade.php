@@ -37,7 +37,7 @@
                                             </div>
                                         </td>
                                         @if ($nonpo->status == 'Waiting List')
-                                        <td align="center"><span class="badge light badge-warning2">-</span></span></td>
+                                        <td align="center" valign="top" style="vertical-align: top"><span class="badge light badge-warning2">-</span></span></td>
                                         @endif
                                         <td>{{ $nonpo->nomor_rpbj }}</td>
                                         <td>{{ $nonpo->pekerjaan }}</td>

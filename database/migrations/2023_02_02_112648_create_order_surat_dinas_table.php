@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('order_surat_dinas', function (Blueprint $table) {
             $table->id();
             $table->foreignId("non_po_id");
-            $table->foreignId("pengirim_id");
-            $table->foreignId("penerima_id");
+            $table->string("nama_pengirim");
+            $table->string("jabatan_pengirim");
+            $table->string("nama_penerima");
+            $table->string("jabatan_penerima");
             $table->string("sifat");
             $table->string("lampiran");
             $table->text("perihal");

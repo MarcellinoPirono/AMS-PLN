@@ -175,7 +175,7 @@
             <tr style="page-break-before: avoid">
                 <td class="tabelkiri"></td>
                 <td class="tabelkanan" colspan="2"></td>
-                <td class="tabelkanan" colspan="3" align="center" valign="middle">{{$manajer_keuangan->nama_pejabat}}</td>
+                <td class="tabelkanan centertb" colspan="3" style="text-align: center; float: left;" align="center" valign="middle">{{$manajer_keuangan->nama_pejabat}}</td>
                 <td class="tabelkanan" colspan="2" align="center" valign="middle">{{$manajer_perencanaan->nama_pejabat}}</td>
             </tr>
             <tr style="page-break-before: avoid">

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('jenis_khs');
             $table->string('nama_pekerjaan');
+            $table->boolean('isActive')->nullable();
             $table->timestamps();
         });
     }

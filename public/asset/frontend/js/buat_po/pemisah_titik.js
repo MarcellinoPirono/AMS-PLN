@@ -1,4 +1,3 @@
-
 function tandaPemisahTitik(b) {
     var _minus = false;
     if (b < 0) _minus = true;

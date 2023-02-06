@@ -31,12 +31,12 @@
         <tr>
             <td style="height: 4px; width: 10%">Kepada</td>
             <td style="height: 4px; width: 1%">:</td>
-            <td style="height: 4px;">Yth. {{$surat->pejabats_penerima->jabatan}} </td>
+            <td style="height: 4px;">Yth. {{$surat->jabatan_penerima}} </td>
         </tr>
         <tr>
             <td>Dari</td>
             <td>:</td>
-            <td>{{$surat->pejabats_pengirim->jabatan}} </td>
+            <td>{{$surat->jabatan_pengirim}} </td>
         </tr>
         <tr>
             <td>Tanggal</td>
@@ -81,12 +81,12 @@
         <tr>
             <td style="width: 20%">Sumber Dana</td>
             <td style="width: 1%">:</td>
-            <td>{{$nonpo->skks->nomor_skk}}</td>
+            <td>{{$nonpo->skk_id}}</td>
         </tr>
         <tr>
             <td>PRK</td>
             <td>:</td>
-            <td align="left">{{$nonpo->prks->no_prk}}</td>
+            <td align="left">{{$nonpo->prk_id}}</td>
         </tr>
         <tr>
             <td>Perkiraan Harga</td>
@@ -106,12 +106,22 @@
             </td>
         </tr>
         <tr>
-            <td valign="bottom" align="left">Tembusan:</td>
-            <td colspan="2" valign="bottom" align="center" style="height: 140px; padding-left: 100px">{{$surat->pejabats_pengirim->nama_pejabat}}</td>
+            @if (count($tembusans) > 0)
+            <td valign="bottom" align="left">Tembusan :</td>
+            @else
+            <td valign="bottom" align="left"></td>
+            @endif
+            <td colspan="2" valign="bottom" align="center" style="height: 140px; padding-left: 100px">{{$surat->nama_pengirim}}</td>
         </tr>
+        @if (count($tembusans) > 0)
+        @foreach ($tembusans as $tembusan)
         <tr>
-            <td colspan="3">-{{$surat->pejabats_pengirim->jabatan}}</td>
+            <td colspan="3">- {{$tembusan->isi_tembusan}}</td>
         </tr>
+        @endforeach
+        @endif
+
+
 
         @endforeach
 

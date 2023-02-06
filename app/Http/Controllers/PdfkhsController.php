@@ -18,6 +18,7 @@ use App\Models\Vendor;
 use App\Models\OrderKhs;
 use App\Models\OrderPaket;
 use App\Models\OrderRedaksiKHS;
+use App\Models\TembusanPoKhs;
 use App\Models\PpnModel;
 use App\Models\Redaksi;
 use App\Models\SubRedaksi;
@@ -88,7 +89,7 @@ class PdfkhsController extends Controller
 
         $fileName = $nama_pdf.'_'.$request->file('lampiran')->getClientOriginalName();
         $lampiran = $request->file('lampiran')->storeAs('storage/lampiran-po', $fileName, 'public');
-        dd($lampiran);
+        // dd($lampiran);
 
         $rab = [
             'nomor_po' => $request->nomor_po,
@@ -168,6 +169,16 @@ class PdfkhsController extends Controller
                 // 'sub_deskripsi_id' => $sub_deskripsi_id[$j],
             ];
             OrderRedaksiKHS::create($order_redaksi);
+        }
+
+        if($request->tembusan != null){
+            for($j=0; $j < count($request->tembusan); $j++){
+                $tembusan = [
+                    "rab_id" => $id,
+                    "isi_tembusan" => $request->tembusan[$j]
+                ];
+                TembusanPoKhs::create($tembusan);
+            }
         }
 
         $lokasi_click = $request->clicklokasi;
@@ -401,6 +412,16 @@ class PdfkhsController extends Controller
             OrderRedaksiKHS::create($order_redaksi);
         }
 
+        if($request->tembusan != null){
+            for($j=0; $j < count($request->tembusan); $j++){
+                $tembusan = [
+                    "rab_id" => $id,
+                    "isi_tembusan" => $request->tembusan[$j]
+                ];
+                TembusanPoKhs::create($tembusan);
+            }
+        }
+
         $lokasi_click = $request->clicklokasi;
         for ($i = 0; $i < $lokasi_click; $i++) {
             $rab_id[$i] = $id;
@@ -615,6 +636,16 @@ class PdfkhsController extends Controller
             OrderRedaksiKHS::create($order_redaksi);
         }
 
+        if($request->tembusan != null){
+            for($j=0; $j < count($request->tembusan); $j++){
+                $tembusan = [
+                    "rab_id" => $id,
+                    "isi_tembusan" => $request->tembusan[$j]
+                ];
+                TembusanPoKhs::create($tembusan);
+            }
+        }
+
         $redaksi_click = $request->clickredaksi;
         for ($i = 0; $i < $redaksi_click; $i++) {
             $rab_id[$i] = $id;
@@ -817,6 +848,16 @@ class PdfkhsController extends Controller
                 'deskripsi_id' => $request->deskripsi_id[$j],
             ];
             OrderRedaksiKHS::create($order_redaksi);
+        }
+
+        if($request->tembusan != null){
+            for($j=0; $j < count($request->tembusan); $j++){
+                $tembusan = [
+                    "rab_id" => $id,
+                    "isi_tembusan" => $request->tembusan[$j]
+                ];
+                TembusanPoKhs::create($tembusan);
+            }
         }
 
         $values_pdf_page1 = Rab::where('id', $id)->get();
@@ -1753,6 +1794,11 @@ class PdfkhsController extends Controller
         $ppn_id = PpnModel::all();
         $ppn = $jumlah * ($ppn_id[0]->ppn/100);
 
+        // $order_surat_dinas_id = OrderSuratDinas::where('non_po_id', $non_po_id)->value('id');
+        $tembusans = TembusanPoKhs::where('rab_id', $id)->get();
+
+
+
         $pdf = Pdf::loadView('format_surat.redaksi_spapp',[
             "po_khs" => $values_pdf_page1,
             "jumlah" => $jumlah,
@@ -1764,6 +1810,7 @@ class PdfkhsController extends Controller
             "rabredaksi_array" => $rabredaksi_array,
             "lokasis" => $lokasis,
             "ppn_id"=>$ppn_id,
+            "tembusans"=>$tembusans,
         ]);
         $this->make_watermark($pdf, $status);
 

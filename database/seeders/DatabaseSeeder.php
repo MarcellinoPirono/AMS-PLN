@@ -113,6 +113,7 @@ class DatabaseSeeder extends Seeder
         Khs::create([
             'jenis_khs' => 'SP-APP',
             'nama_pekerjaan' => 'Pengadaan Jasa Konstruksi dan Pemeliharaan SP & APP Dengan Pola Kesepakatan Harga Satuan (KHS) Tahun 2020/2021',
+            'isActive' => True,
         ]);
 
 
@@ -120,6 +121,7 @@ class DatabaseSeeder extends Seeder
             [
                 'jenis_khs' => 'JTM',
                 'nama_pekerjaan' => 'Pengadaan Jasa Konstruksi dan Pemeliharaan JTM, Gardu Distribusi, JTR Dengan Pola Kesepakatan Harga Satuan (KHS) Tahun 2020/2021',
+                'isActive' => True,
             ]
         );
 
@@ -331,6 +333,7 @@ class DatabaseSeeder extends Seeder
             'nomor_skk' => '020/DAN/2020',
             'uraian_skk' => 'Pembelian Motor',
             'pagu_skk' => '0',
+            'ai_ao' => 'AO',
             'skk_terkontrak' => '0',
             'skk_progress' => '0',
             'skk_realisasi' => '0',
@@ -341,6 +344,8 @@ class DatabaseSeeder extends Seeder
             'nomor_skk' => '021/DAN/2021',
             'uraian_skk' => 'Pembelian Mobil',
             'pagu_skk' => '0',
+            'ai_ao' => 'AI',
+
             'skk_terkontrak' => '0',
             'skk_progress' => '0',
             'skk_realisasi' => '0',
@@ -351,6 +356,8 @@ class DatabaseSeeder extends Seeder
             'nomor_skk' => '022/DAN/2022',
             'uraian_skk' => 'Pembelian Skuter',
             'pagu_skk' => '0',
+            'ai_ao' => 'AI',
+
             'skk_terkontrak' => '0',
             'skk_progress' => '0',
             'skk_realisasi' => '0',
