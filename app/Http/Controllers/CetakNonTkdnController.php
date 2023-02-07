@@ -382,11 +382,11 @@ class CetakNonTkdnController extends Controller
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_progress.pdf');
 
         //PO DITOLAK
-        $pdf =(new PdfkhsController)->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "ditolak");
+        $pdf =(new PdfkhsController)->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "Ditolak");
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
-        $pdf2 = $this->load_view_testing_rab_non_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "ditolak");
+        $pdf2 = $this->load_view_testing_rab_non_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "Ditolak");
         $path2 = 'RAB_Paket_NON_TKDN.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 

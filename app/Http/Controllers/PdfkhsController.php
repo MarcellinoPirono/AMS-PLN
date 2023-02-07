@@ -217,11 +217,11 @@ class PdfkhsController extends Controller
 
 
         //PDF KEDUA DITOLAK
-        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "Ditolak");
 
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
-        $pdf2 = $this->load_view_rab_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $pdf2 = $this->load_view_rab_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "Ditolak");
         $path2 = 'RAB.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 
@@ -437,11 +437,11 @@ class PdfkhsController extends Controller
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_progress.pdf');
 
         //PDF ON PROGRESS
-        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "Ditolak");
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
-        $pdf2 = $this->load_view_rab_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $pdf2 = $this->load_view_rab_tkdn($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "Ditolak");
         $path2 = 'RAB.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 
@@ -617,11 +617,11 @@ class PdfkhsController extends Controller
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_progress.pdf');
 
         //PDF DITOLAK
-        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "Ditolak");
 
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
-        $pdf2 = $this->load_view_testing_grouping($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $pdf2 = $this->load_view_testing_grouping($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "Ditolak");
         $path2 = 'RAB.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 
@@ -798,11 +798,11 @@ class PdfkhsController extends Controller
         $oMerger->save('storage/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_progress.pdf');
 
         //PDF DITOLAK
-        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $pdf = $this->load_view_redaksi_spapp($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "Ditolak");
         $path1 = 'SPBJ.pdf';
         Storage::disk('local')->put($path1, $pdf->output());
 
-        $pdf2 = $this->load_view_testing_grouping($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "PO Ditolak");
+        $pdf2 = $this->load_view_testing_grouping($rab_id, $rab_id2, $id, $nama_pdf, $values_pdf_page1, "Ditolak");
         $path2 = 'RAB_Paket_TKDN.pdf';
         Storage::disk('local')->put($path2, $pdf2->output());
 
