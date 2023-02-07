@@ -66,7 +66,7 @@ class RabController extends Controller
             return view('rab.index', [
                 'title' => 'PO KHS',
                 'title1' => 'RAB',
-                'rabs' => Rab::whereHas('kontrak_induks', function($q) {
+                'rabs' => Rab::whereHas('nomor_kontraks', function($q) {
                     $q->whereHas('Khs', function($q) {
                         $q->where('isActive', True);
                     });
@@ -81,7 +81,7 @@ class RabController extends Controller
             return view('rab.index', [
                 'title' => 'PO KHS',
                 'title1' => 'RAB',
-                'rabs' => Rab::whereHas('kontrak_induks', function($q) {
+                'rabs' => Rab::whereHas('nomor_kontraks', function($q) {
                     $q->whereHas('Khs', function($q) {
                         $q->where('isActive', True);
                     });
