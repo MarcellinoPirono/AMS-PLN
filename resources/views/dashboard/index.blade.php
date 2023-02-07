@@ -30,7 +30,10 @@
                         <div class="effect bg-primary"></div>
                     </div>
                 </div> --}}
-                {{-- <div class="col-sm-6">
+                <div class="col-sm-12 ml-3">
+                    <h4 class="text-black"><b>PO KHS</b></h4>
+                </div>
+                <div class="col-sm-6">
                     <div class="card avtivity-card">
                         <div class="card-body">
                             <div class="media align-items-center">
@@ -44,17 +47,15 @@
                                 </div>
                             </div>
                             <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
+                                <div class="progress-bar bg-success" style="width: 100%; height:5px;" role="progressbar">
                                     <span class="sr-only">42% Complete</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="effect bg-primary"></div>
+                        <div class="effect bg-success"></div>
                     </div>
-                </div> --}}
-                <div class="col-sm-12 ml-3">
-                    <h4] class="text-black"><b>PO KHS</b></h4>
                 </div>
+
                 <div class="col-sm-6">
                     <div class="card avtivity-card">
                         <div class="card-body">
@@ -69,15 +70,15 @@
                                 </div>
                             </div>
                             <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
+                                <div class="progress-bar bg-warning" style="width: 100%; height:5px;" role="progressbar">
                                     <span class="sr-only">42% Complete</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="effect bg-primary"></div>
+                        <div class="effect bg-warning"></div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                {{-- <div class="col-sm-6">
                     <div class="card avtivity-card">
                         <div class="card-body">
                             <div class="media align-items-center">
@@ -86,7 +87,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Non PO Diterima</p>
+                                    <p class="fs-14 mb-2">Non PO Ditolak</p>
                                     <span class="title text-black font-w600">{{$non_po_ditolak}}</span>
                                 </div>
                             </div>
@@ -98,6 +99,9 @@
                         </div>
                         <div class="effect bg-primary"></div>
                     </div>
+                </div> --}}
+                <div class="col-sm-12 ml-3">
+                    <h4 class="text-black"><b>NON PO</b></h4>
                 </div>
                 <div class="col-sm-6">
                     <div class="card avtivity-card">
@@ -113,12 +117,12 @@
                                 </div>
                             </div>
                             <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
+                                <div class="progress-bar bg-success" style="width: 100%; height:5px;" role="progressbar">
                                     <span class="sr-only">42% Complete</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="effect bg-primary"></div>
+                        <div class="effect bg-success"></div>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -131,31 +135,34 @@
                                 </span>
                                 <div class="media-body">
                                     <p class="fs-14 mb-2">Non PO On Progress</p>
-                                    <span class="title text-black font-w600">{{$non_po_waiting_list}}</span>
+                                    <span class="title text-black font-w600">{{$non_po_all_on_progress}}</span>
                                 </div>
                             </div>
                             <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-primary" style="width: 100%; height:5px;" role="progressbar">
+                                <div class="progress-bar bg-warning" style="width: 100%; height:5px;" role="progressbar">
                                     <span class="sr-only">42% Complete</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="effect bg-primary"></div>
+                        <div class="effect bg-warning"></div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="col-xl-12 col-xxl-12 ml-3">
+            <h4 class="text-black fs-20"><b>Grafik SKK</b></h4>
+        </div>
         <div class="col-xl-6 col-xxl-12">
             <div class="card">
                 <div class="card-header">
                     <div class="mr-auto pr-3 mb-sm-0 mb-3">
                         {{-- <h4 class="card-title">Basic Bar Chart</h4> --}}
-                        <h4 class="text-black fs-20">Total Harga RAB</h4>
+                        <h4 class="text-black fs-20">SKK Anggaran Investasi</h4>
                     </div>
                     <div class="dropdown mb-3 show">
 
-                        <button type="button" class="btn rounded btn-light" data-toggle="dropdown"
+                        <!-- <button type="button" class="btn rounded btn-light" data-toggle="dropdown"
                             aria-expanded="true">
                             <i class="bi bi-credit-card-2-front-fill " style="color: rgb(42, 147, 165);"></i>
                             Pilih SKK
@@ -168,12 +175,67 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="javascript:void(0);">SKK 1</a>
                             <a class="dropdown-item" href="javascript:void(0);">SKK 2</a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="card-body">
                     <canvas id="barChart_1"></canvas>
                 </div>
+                {{-- <div class="card-body">
+                    <canvas id="barChart_2"></canvas>
+                </div> --}}
+                {{-- <div class="col-lg-6">
+
+                </div>
+                <div class="col-lg-6">
+
+                </div>
+                <div class="row">
+
+                </div> --}}
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-xxl-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="mr-auto pr-3 mb-sm-0 mb-3">
+                        {{-- <h4 class="card-title">Basic Bar Chart</h4> --}}
+                        <h4 class="text-black fs-20">SKK Anggaran Operasional</h4>
+                    </div>
+                    <div class="dropdown mb-3 show">
+
+                        <!-- <button type="button" class="btn rounded btn-light" data-toggle="dropdown"
+                            aria-expanded="true">
+                            <i class="bi bi-credit-card-2-front-fill " style="color: rgb(42, 147, 165);"></i>
+                            Pilih SKK
+                            <svg class="ml-2" width="14" height="8" viewBox="0 0 14 8" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 0.999999L7 7L13 1" stroke="#1EA7C5" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="javascript:void(0);">SKK 1</a>
+                            <a class="dropdown-item" href="javascript:void(0);">SKK 2</a>
+                        </div> -->
+                    </div>
+                </div>
+                {{-- <div class="card-body">
+                    <canvas id="barChart_1"></canvas>
+                </div> --}}
+                <div class="card-body">
+                    <canvas id="barChart_2"></canvas>
+                </div>
+                {{-- <div class="col-lg-6">
+
+                </div>
+                <div class="col-lg-6">
+
+                </div>
+                <div class="row">
+
+                </div> --}}
             </div>
         </div>
 
@@ -256,4 +318,10 @@
 					</div> --}}
 
     </div>
+    <script type="text/javascript">
+        var _ydata = JSON.parse('{!! json_encode($percentage_sisa_skk_ai_this_year) !!}')
+        var _xdata = JSON.parse('{!! json_encode($nomor_skk_ai_this_year) !!}')
+        var _udata = JSON.parse('{!! json_encode($percentage_sisa_skk_ao_this_year) !!}')
+        var _vdata = JSON.parse('{!! json_encode($nomor_skk_ao_this_year) !!}')
+    </script>
 @endsection

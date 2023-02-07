@@ -608,7 +608,7 @@ $(function () {
                         group_location_step2_db[document.getElementById('lokasi['+(i+1)+']').value] = null;
                     }
                 }
-                console.log(group_location_step2_db);
+                // console.log(group_location_step2_db);
                 // for(var i = 0; i < clicklokasi; i ++) {
 
                 // }

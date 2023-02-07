@@ -1,9 +1,9 @@
 function SubmitTKDN() {
-    console.log(clickredaksi);
-    console.log(click);
+    // console.log(clickredaksi);
+    // console.log(click);
     var token = $('#csrf').val();
     var po = document.getElementById('po').value;
-    console.log(po);
+    // console.log(po);
     var today = new Date();
     today = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
     var kontrak_induk = document.getElementById('kontrak_induk').value;
@@ -210,7 +210,7 @@ function SubmitTKDN() {
                                     timer: 2e3,
                                     buttons: false
                                 });
-                                console.log(response);
+                                // console.log(response);
                                 window.location.href = '../preview-pdf-khs/' + response;
 
                             }
@@ -282,7 +282,7 @@ function SubmitTKDN() {
                                     timer: 2e3,
                                     buttons: false
                                 });
-                                console.log(response);
+                                // console.log(response);
                                 window.location.href = '../preview-pdf-khs/' + response;
 
                             }
@@ -310,12 +310,12 @@ function SubmitTKDN() {
         var baris_step2 = [];
         var baris_item = [];
 
-        console.log(baris_step2);
+        // console.log(baris_step2);
         var lampiran = $('#lampiran')[0].files;
 
 
-        console.log("clickpaket",clickpaket);
-        console.log("group_location_step2_db dari step5", group_location_step2_db);
+        // console.log("clickpaket",clickpaket);
+        // console.log("group_location_step2_db dari step5", group_location_step2_db);
 
         var lokasi_with_paket = [];
         var pakets = [];
@@ -329,7 +329,7 @@ function SubmitTKDN() {
         var fd = new FormData();
 
         for(var i =0; i < Object.keys(group_location_step2_db).length; i++){
-            console.log("lokasi",Object.keys(group_location_step2_db)[i]);
+            // console.log("lokasi",Object.keys(group_location_step2_db)[i]);
             lokasi_with_paket[i] = Object.keys(group_location_step2_db)[i];
             fd.append("lokasi_with_paket[]", lokasi_with_paket[i]);
             // fd.append("lokasi[]", JSON.stringify(lokasi_with_paket[i]));
@@ -344,7 +344,7 @@ function SubmitTKDN() {
             tkdn_with_paket[i] = [];
             if(group_location_step2_db[Object.keys(group_location_step2_db)[i]] != null) {
                 for(var j = 0; j < group_location_step2_db[Object.keys(group_location_step2_db)[i]].length; j++) {
-                    console.log("paket",group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket);
+                    // console.log("paket",group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket);
                     // console.log("j",j);
                     pakets[i][j] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket;
                     fd.append("pakets["+i+"][]", pakets[i][j]);
@@ -407,21 +407,21 @@ function SubmitTKDN() {
             // fd.append("group_location_step2_db[]", group_location_step2_db);
         }
 
-        console.log("lokasi_with_paket",lokasi_with_paket);
+        // console.log("lokasi_with_paket",lokasi_with_paket);
         // fd.append("lokasi[]", lokasi_with_paket);
-        console.log("pakets",pakets);
+        // console.log("pakets",pakets);
         // fd.append("pakets[]", pakets);
-        console.log("item_id",item_id);
+        // console.log("item_id",item_id);
         // fd.append("item_id[]", item_id);
-        console.log("satuan_id_with_paket",satuan_id_with_paket);
+        // console.log("satuan_id_with_paket",satuan_id_with_paket);
         // fd.append("satuan_id_with_paket[]", satuan_id_with_paket);
-        console.log("volume_with_paket",volume_with_paket);
+        // console.log("volume_with_paket",volume_with_paket);
         // fd.append("volume_with_paket[]", volume_with_paket);
-        console.log("harga_satuan_with_paket",harga_satuan_with_paket);
+        // console.log("harga_satuan_with_paket",harga_satuan_with_paket);
         // fd.append("harga_satuan_with_paket[]", harga_satuan_with_paket);
-        console.log("jumlah_harga_with_paket",jumlah_harga_with_paket);
+        // console.log("jumlah_harga_with_paket",jumlah_harga_with_paket);
         // fd.append("jumlah_harga_with_paket[]", jumlah_harga_with_paket);
-        console.log("tkdn_with_paket",tkdn_with_paket);
+        // console.log("tkdn_with_paket",tkdn_with_paket);
         // fd.append("tkdn_with_paket[]", tkdn_with_paket);
 
             // for (var i = 0; i < click; i++) {
@@ -501,7 +501,7 @@ function SubmitTKDN() {
         total_harga = total_harga.replace(/\./g, "");
         total_harga = total_harga.replace(/\,/g, ".");
         total_harga = parseInt(total_harga);
-        console.log(total_harga);
+        // console.log(total_harga);
         // var total_harga = bef_ppn_total_harga + ppn;
         // total_harga = Math.round(total_harga);
 
@@ -600,7 +600,7 @@ function SubmitTKDN() {
                                     timer: 2e3,
                                     buttons: false
                                 });
-                                console.log(response);
+                                // console.log(response);
                                 window.location.href = '../preview-pdf-khs/' + response;
 
                             }
@@ -675,7 +675,7 @@ function SubmitTKDN() {
                                         timer: 2e3,
                                         buttons: false
                                     });
-                                    console.log(response);
+                                    // console.log(response);
                                     window.location.href = '../preview-pdf-khs/' + response;
 
                                 }
@@ -705,11 +705,11 @@ function SubmitTKDN() {
 
 function SubmitNONTKDN() {
 
-        console.log(clickredaksi);
-        console.log(click);
+        // console.log(clickredaksi);
+        // console.log(click);
         var token = $('#csrf').val();
         var po = document.getElementById('po').value;
-        console.log(po);
+        // console.log(po);
         var today = new Date();
         today = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
         var kontrak_induk = document.getElementById('kontrak_induk').value;
@@ -751,12 +751,12 @@ function SubmitNONTKDN() {
             var lampiran = $('#lampiran')[0].files;
 
             // var lampiran = $('input[type=file]').getFiles();
-            console.log(lampiran);
+            // console.log(lampiran);
 
             // log;
 
 
-            console.log("clickpaket",clickpaket);
+            // console.log("clickpaket",clickpaket);
 
 
             var fd = new FormData();
@@ -769,7 +769,7 @@ function SubmitNONTKDN() {
                 kategory_id[i] = document.getElementById("kategory_id[" + (i + 1) + "]").value;
                 fd.append("kategori_order[]", kategory_id[i]);
                 satuan[i] = document.getElementById("satuan[" + (i + 1) + "]").value;
-                console.log(satuan);
+                // console.log(satuan);
                 satuan[i] = satuan[i].replace(/\(([^)]+)\)/, "");
                 // satuan[i] = satuan[i].replace(/\ /g, "");
 
@@ -811,7 +811,7 @@ function SubmitNONTKDN() {
                 total_tkdn[i] = kdn[i] + kln[i];
                 fd.append("total_tkdn[]", total_tkdn[i]);
             }
-            console.log("satuan", satuan);
+            // console.log("satuan", satuan);
 
             let lokasi = [];
 
@@ -952,7 +952,7 @@ function SubmitNONTKDN() {
                                         timer: 2e3,
                                         buttons: false
                                     });
-                                    console.log(response);
+                                    // console.log(response);
                                     window.location.href = '../preview-pdf-khs/' + response;
 
                                 }
@@ -1030,7 +1030,7 @@ function SubmitNONTKDN() {
                                         timer: 2e3,
                                         buttons: false
                                     });
-                                    console.log(response);
+                                    // console.log(response);
                                     window.location.href = '../preview-pdf-khs/' + response;
 
                                 }
@@ -1058,12 +1058,12 @@ function SubmitNONTKDN() {
             var baris_step2 = [];
             var baris_item = [];
 
-            console.log(baris_step2);
+            // console.log(baris_step2);
             var lampiran = $('#lampiran')[0].files;
 
 
-            console.log("clickpaket",clickpaket);
-            console.log("group_location_step2_db dari step5", group_location_step2_db);
+            // console.log("clickpaket",clickpaket);
+            // console.log("group_location_step2_db dari step5", group_location_step2_db);
 
             var lokasi_with_paket = [];
             var pakets = [];
@@ -1077,7 +1077,7 @@ function SubmitNONTKDN() {
             var fd = new FormData();
 
             for(var i =0; i < Object.keys(group_location_step2_db).length; i++){
-                console.log("lokasi",Object.keys(group_location_step2_db)[i]);
+                // console.log("lokasi",Object.keys(group_location_step2_db)[i]);
                 lokasi_with_paket[i] = Object.keys(group_location_step2_db)[i];
                 fd.append("lokasi_with_paket[]", lokasi_with_paket[i]);
                 // fd.append("lokasi[]", JSON.stringify(lokasi_with_paket[i]));
@@ -1091,7 +1091,7 @@ function SubmitNONTKDN() {
                 jumlah_harga_with_paket[i] = [];
                 tkdn_with_paket[i] = [];
                 for(var j = 0; j < group_location_step2_db[Object.keys(group_location_step2_db)[i]].length; j++) {
-                    console.log("paket",group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket);
+                    // console.log("paket",group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket);
                     // console.log("j",j);
                     pakets[i][j] = group_location_step2_db[Object.keys(group_location_step2_db)[i]][j].paket;
                     fd.append("pakets["+i+"][]", pakets[i][j]);
@@ -1144,21 +1144,21 @@ function SubmitNONTKDN() {
                 // fd.append("group_location_step2_db[]", group_location_step2_db);
             }
 
-            console.log("lokasi_with_paket",lokasi_with_paket);
+            // console.log("lokasi_with_paket",lokasi_with_paket);
             // fd.append("lokasi[]", lokasi_with_paket);
-            console.log("pakets",pakets);
+            // console.log("pakets",pakets);
             // fd.append("pakets[]", pakets);
-            console.log("item_id",item_id);
+            // console.log("item_id",item_id);
             // fd.append("item_id[]", item_id);
-            console.log("satuan_id_with_paket",satuan_id_with_paket);
+            // console.log("satuan_id_with_paket",satuan_id_with_paket);
             // fd.append("satuan_id_with_paket[]", satuan_id_with_paket);
-            console.log("volume_with_paket",volume_with_paket);
+            // console.log("volume_with_paket",volume_with_paket);
             // fd.append("volume_with_paket[]", volume_with_paket);
-            console.log("harga_satuan_with_paket",harga_satuan_with_paket);
+            // console.log("harga_satuan_with_paket",harga_satuan_with_paket);
             // fd.append("harga_satuan_with_paket[]", harga_satuan_with_paket);
-            console.log("jumlah_harga_with_paket",jumlah_harga_with_paket);
+            // console.log("jumlah_harga_with_paket",jumlah_harga_with_paket);
             // fd.append("jumlah_harga_with_paket[]", jumlah_harga_with_paket);
-            console.log("tkdn_with_paket",tkdn_with_paket);
+            // console.log("tkdn_with_paket",tkdn_with_paket);
             // fd.append("tkdn_with_paket[]", tkdn_with_paket);
 
                 // for (var i = 0; i < click; i++) {
@@ -1236,7 +1236,7 @@ function SubmitNONTKDN() {
             total_harga = total_harga.replace(/\./g, "");
             total_harga = total_harga.replace(/\,/g, ".");
             total_harga = parseInt(total_harga);
-            console.log(total_harga);
+            // console.log(total_harga);
             // var total_harga = bef_ppn_total_harga + ppn;
             // total_harga = Math.round(total_harga);
 
@@ -1333,7 +1333,7 @@ function SubmitNONTKDN() {
                                         timer: 2e3,
                                         buttons: false
                                     });
-                                    console.log(response);
+                                    // console.log(response);
                                     window.location.href = '../preview-pdf-khs/' + response;
 
                                 }
@@ -1408,7 +1408,7 @@ function SubmitNONTKDN() {
                                             timer: 2e3,
                                             buttons: false
                                         });
-                                        console.log(response);
+                                        // console.log(response);
                                         window.location.href = '../preview-pdf-khs/' + response;
 
                                     }

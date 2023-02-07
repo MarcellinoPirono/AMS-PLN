@@ -227,7 +227,7 @@
                                                         <div class="card-header justify-content-start">
                                                             <h5 id="pagu_prk" class="card-title"
                                                                 style="font-size: 14px;">Pagu PRK: <b>Rp.</b> <b
-                                                                    id="rupiah">{{ $nonpos[0]->prks->pagu_prk }}</b>
+                                                                    id="rupiah">@currency($nonpos[0]->prks->prk_sisa)</b>
                                                             </h5>
                                                         </div>
                                                         <div class="row ml-2">

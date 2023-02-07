@@ -23,19 +23,37 @@ class MainController extends Controller
         $non_po_ditolak = NonPo::where('status', 'Ditolak')->count();
         $non_po_diterima = NonPo::where('status', 'Diterima')->count();
         $non_po_waiting_list = NonPo::where('status', 'Waiting List')->count();
-        $all_skk = Skk::whereYear('created_at', '=', $this_year)->get();
-        // dd($all_skk);
+        $non_po_on_progress = NonPo::where('status', 'Progress')->count();
+        $non_po_all_on_progress = $non_po_waiting_list + $non_po_on_progress;
+        $all_skk_ai = Skk::whereYear('created_at', '=', $this_year)->whereNot('pagu_skk', '0')->where('ai_ao', 'AI')->get();
+        $all_skk_ao = Skk::whereYear('created_at', '=', $this_year)->whereNot('pagu_skk', '0')->where('ai_ao', 'AO')->get();
+        // dd($all_skk_ai);
 
-        $nomor_skk_this_year = [];
-        $sisa_skk_this_year = [];
+        //SKK AI
+        $nomor_skk_ai_this_year = [];
+        $percentage_sisa_skk_ai_this_year = [];
+
+        //SKK AO
+        $nomor_skk_ao_this_year = [];
+        $percentage_sisa_skk_ao_this_year = [];
 
         // $this_year_skk = $all_skk->created_at->format('y');
-        for($i = 0; $i < count($all_skk); $i++){
-            $nomor_skk_this_year[$i] = $all_skk[$i]->nomor_skk;
-            $sisa_skk_this_year[$i] = $all_skk[$i]->skk_sisa;
+        for($i = 0; $i < count($all_skk_ai); $i++){
+            $nomor_skk_ai_this_year[$i] = $all_skk_ai[$i]->nomor_skk;
+            $percentage_sisa_skk_ai_this_year[$i] = (float)bcdiv(($all_skk_ai[$i]->skk_sisa) / ($all_skk_ai[$i]->pagu_skk) * 100, 1, 2);
+            if($percentage_sisa_skk_ai_this_year[$i] < 0) {
+                $percentage_sisa_skk_ai_this_year[$i] = 0;
+            }
+        }
+        for($i = 0; $i < count($all_skk_ao); $i++){
+            $nomor_skk_ao_this_year[$i] = $all_skk_ao[$i]->nomor_skk;
+            $percentage_sisa_skk_ao_this_year[$i] = (float)bcdiv(($all_skk_ao[$i]->skk_sisa) / ($all_skk_ao[$i]->pagu_skk) * 100, 1, 2);
+            if($percentage_sisa_skk_ao_this_year[$i] < 0) {
+                $percentage_sisa_skk_ao_this_year[$i] = 0;
+            }
         }
         // dd($nomor_skk_this_year);
-        // dd($sisa_skk_this_year);
+        // dd($percentage_sisa_skk_ao_this_year, $percentage_sisa_skk_ai_this_year);
 
 
         return view('dashboard.index', [
@@ -47,8 +65,11 @@ class MainController extends Controller
             'po_khs_on_progress' => $po_khs_on_progress,
             'non_po_ditolak' => $non_po_ditolak,
             'non_po_diterima' => $non_po_diterima,
-            'non_po_waiting_list' => $non_po_waiting_list,
-            'nomor_skk_this_year' => $nomor_skk_this_year,
+            'non_po_all_on_progress' => $non_po_all_on_progress,
+            'nomor_skk_ai_this_year' => $nomor_skk_ai_this_year,
+            'percentage_sisa_skk_ai_this_year' => $percentage_sisa_skk_ai_this_year,
+            'nomor_skk_ao_this_year' => $nomor_skk_ao_this_year,
+            'percentage_sisa_skk_ao_this_year' => $percentage_sisa_skk_ao_this_year,
             // 'all_skk' => $all_skk,
         ]);
 

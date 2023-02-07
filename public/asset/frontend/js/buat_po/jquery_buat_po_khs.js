@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
             success: function(result) {
                 var pemisah_titik = result;
                 pemisah_titik = parseInt(pemisah_titik);
-                console.log(pemisah_titik);
+                // console.log(pemisah_titik);
                 var total = document.getElementById('total').innerText;
                 if(document.getElementById('total').innerHTML != "") {
                     // console.log(document.getElementById('total').innerHTML);

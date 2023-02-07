@@ -127,17 +127,17 @@
                                 {{-- @if ($khs->id == ['khs_id'])
                                     <option value="{{ $khs->id }}" selected>{{ $khs->jenis_khs }}</option>
                                 @endif --}}
-                
+
                                 {{-- @if (old('edit_khs_id') === $khs->id || $kontrak->khs_id === $khs->id)
                                     <option value="{{$khs->id}}" selected>{{ $khs->jenis_khs }}</option>
                                 @else
                                     <option value="{{$khs->id}}" >{{ $khs->jenis_khs }}</option>
                                 @endif --}}
-                               
+
                                 {{-- <option value="{{ $khs->id }}" {{ ($khs->id == old('edit_khs_id', $kontrak->khs_id)) ? 'selected' : '' }}>{{ $khs->jenis_khs }}</option> --}}
                                 <option @if ($khs->id === $kontrak->khs_id || old('edit_khs_id') === $khs->id) selected @endif >
                                     {{ $khs->jenis_khs }}</option>
-                               
+
                                 {{-- <option value="{{ $khs->id }}" {{ (old("khs_id") == $khs->id ? "selected":"") }}>{{ $khs->jenis_khs }}</option> --}}
                             @endforeach
                         </select>
@@ -245,7 +245,7 @@
                     });
             });
 
-    
+
             $('.tombol-edit').click(function(e) {
                 var id = $(this).data('id');
                 $.ajax({
@@ -277,8 +277,8 @@
                                 }
                             });
                         });
-                        console.log(response.result.khs.jenis_khs);
-                        console.log(response.result);
+                        // console.log(response.result.khs.jenis_khs);
+                        // console.log(response.result);
                     }
                 });
             });

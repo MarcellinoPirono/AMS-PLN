@@ -32,24 +32,8 @@ function updateformwithpaket(c) {
                 item += ("<li>" + response[i].nama_item +
                     "</li>")
             }
-            // var table = document.getElementById('tabelRAB');
-            // console.log(table);
 
-            console.log("table = ", table);
-            console.log("index_table = ", index_table);
-            // var table = c.parentNode.parentNode.previousElementSibling;
-            // console.log("table = ", table);
             click++;
-            // var select1 = document.createElement("select");
-            // select1.innerHTML = "<option value='' selected disabled data-select2-id='2'>Pilih Pekerjaan</option>" + item;
-            // select1.setAttribute("id", "item_id[" + click + "]");
-            // select1.setAttribute("name", "item_id");
-            // select1.setAttribute("class", "multi-select form-control input-default ");
-            // //   select1.setAttribute("data-select2-id", "item_id[" + click + "]");
-            // select1.setAttribute("onchange", "change_item(this)");
-            // select1.setAttribute("style", "border-radius: 40px; width: 250px !Important: ");
-            // select1.setAttribute("required", true);
-            //   select1.select2();
 
             strong = document.createElement("strong");
             strong.setAttribute("id", "nomor");
@@ -66,7 +50,6 @@ function updateformwithpaket(c) {
             input.setAttribute('placeholder', 'Pilih Pekerjaan');
             input.setAttribute('required', true);
             input.setAttribute('onkeyup', 'filterFunction3(this,event)');
-            // input.setAttribute('onblur', 'change_item(this)');
             input.setAttribute('onkeydown', 'return no_bckspc(this, event)');
             input.setAttribute('title', '');
 
@@ -140,9 +123,7 @@ function updateformwithpaket(c) {
             button.innerHTML = "<i class='fa fa-trash'></i>";
             button.setAttribute("onclick", "deleteRowWithPaket(this)");
             button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
-            // button.setAttribute("style", "margin-top: 18px");
 
-            // console.log(table);
             var row = table.insertRow(-1);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -163,7 +144,6 @@ function updateformwithpaket(c) {
             cell8.appendChild(input6);
             cell9.appendChild(button);
 
-            // $('.multi-select').select2()
 
             reindexwithpaket(table);
             index_table -= index.length;
@@ -189,18 +169,7 @@ function updateform() {
                     "</li>")
             }
             var table = document.getElementById('tabelRAB');
-            console.log(table);
             click++;
-            // var select1 = document.createElement("select");
-            // select1.innerHTML = "<option value='' selected disabled data-select2-id='2'>Pilih Pekerjaan</option>" + item;
-            // select1.setAttribute("id", "item_id[" + click + "]");
-            // select1.setAttribute("name", "item_id");
-            // select1.setAttribute("class", "multi-select form-control input-default ");
-            // //   select1.setAttribute("data-select2-id", "item_id[" + click + "]");
-            // select1.setAttribute("onchange", "change_item(this)");
-            // select1.setAttribute("style", "border-radius: 40px; width: 250px !Important: ");
-            // select1.setAttribute("required", true);
-            //   select1.select2();
 
             var select1 = document.createElement("div");
             select1.setAttribute('class', 'searching-select2');
@@ -213,7 +182,6 @@ function updateform() {
             input.setAttribute('onkeyup', 'filterFunction2(this,event)');
             input.setAttribute('onkeydown', 'return no_bckspc(this, event)');
             input.setAttribute('title', '');
-            // input.setAttribute('onblur', 'change_item(this)');
 
             select1.append(input);
 
@@ -284,9 +252,7 @@ function updateform() {
             button.innerHTML = "<i class='fa fa-trash'></i>";
             button.setAttribute("onclick", "deleteRow(this)");
             button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
-            // button.setAttribute("style", "margin-top: 15px");
 
-            console.log(table);
             var row = table.insertRow(-1);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -306,8 +272,6 @@ function updateform() {
             cell7.appendChild(input5);
             cell8.appendChild(input6);
             cell9.appendChild(button);
-
-            // $('.multi-select').select2()
 
             reindex();
         }
@@ -367,7 +331,7 @@ function updatetembusan() {
 
 function deleteRow3(r) {
     var table = r.parentNode.parentNode.rowIndex;
-    // console.log(table);
+
     document.getElementById("tableTembusan").deleteRow(table);
     clicktembusan--;
 
@@ -444,23 +408,10 @@ function updatelokasi() {
         for (var i = 0; i < clicklokasi; i++) {
             updatePaket();
         }
-
-        // for(var i = 0; i < clicklokasi; i++) {
-        //     document.getElementById('lokasi_id['+(i+1)+']').value = document.getElementById('lokasi['+(i+1)+']').value;
-        //     document.getElementById('lokasi_id['+(i+1)+']').setAttribute('disabled', true);
-        //     document.getElementById('deletePaket['+(i+1)+']').setAttribute('disabled', true);
-        // }
     }
 
     if (clicklokasi > 2) {
         updatePaket();
-        // console.log(clickpaket);
-
-        // for(var i = 0; i < clicklokasi; i++) {
-        //     document.getElementById('lokasi_id['+(i+1)+']').value = document.getElementById('lokasi['+(i+1)+']').value;
-        //     document.getElementById('lokasi_id['+(i+1)+']').setAttribute('disabled', true);
-        //     document.getElementById('deletePaket['+(i+1)+']').setAttribute('disabled', true);
-        // }
     }
 
     if (clickpaket != 0) {
@@ -471,8 +422,6 @@ function updatelokasi() {
 }
 
 function deleteRow2(r) {
-    // console.log(clicklokasi);
-    // console.log(r);
     var table = r.parentNode.parentNode.rowIndex;
     document.getElementById("tabelSPBJ").deleteRow(table);
 
@@ -504,7 +453,6 @@ function deleteRow2(r) {
     }
 
     clicklokasi--;
-    // console.log(clicklokasi);
 
     if (clicklokasi == 1) {
         for (var i = 0; i < clicklokasi; i++) {
@@ -538,7 +486,6 @@ function deleteRow2(r) {
     for (var i = 0; i < (clicklokasi - 1); i++) {
         var lokasi_tabel = document.querySelectorAll('#table_step1 tr:nth-child(' + (i +
             5) + ')');
-            console.log(lokasi_tabel);
 
             $('<tr id="location' + (i + 1) + '" class="noborder"><td></td><td></td><td id="location_label' + (i + 1) + '"></td></tr>').insertAfter(lokasi_tabel);
     }
@@ -566,16 +513,10 @@ function deleteRow2(r) {
     if (clicklokasi == 0) {
         updatelokasi();
     }
-    // if (clicklokasi)
 
 }
 
 function reindexPaket() {
-    // $('#tabelPaket tr td:nth-child(3) select').amsifySelect({
-    //     type: amsify,
-    // });
-
-
     const ids = document.querySelectorAll("#tabelPaket tr > td:nth-child(1)");
     ids.forEach((e, i) => {
         e.innerHTML = "<strong id=nomor1[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
@@ -595,7 +536,6 @@ function deleteRow(r) {
     var table = r.parentNode.parentNode.rowIndex;
     document.getElementById("tabelRAB").deleteRow(table);
 
-    // document.getElementById("tabelRAB").deleteRow(table);
     click--;
     var select_id_item = document.querySelectorAll("#tabelRAB tr td:nth-child(2) input");
     for (var i = 0; i < select_id_item.length; i++) {
@@ -734,16 +674,10 @@ function deleteRowWithPaket(r) {
     var table = row.parentNode.parentNode;
 
     var div_tambah_paket = table.nextElementSibling.children[0].children[0];
-    // console.log("div_tambah_paket", div_tambah_paket);
     table.deleteRow(row_index);
     const index = table.querySelectorAll("tr > td:nth-child(1)");
     index_table = index.length;
-    // index_table -= index.length;
 
-    //var table = r.parentNode.parentNode.rowIndex;
-    // document.getElementById("tabelRAB").deleteRow(table);
-
-    // document.getElementById("tabelRAB").deleteRow(table);
     click--;
     var select_id_item = table.querySelectorAll("tr td:nth-child(2) input");
     for (var i = 0; i < select_id_item.length; i++) {
@@ -778,8 +712,7 @@ function deleteRowWithPaket(r) {
         input_tkdn[i].id = "tkdn[" + (i + 1) + "]";
     }
     reindexwithpaket(table);
-    console.log("index_table", index_table);
-    console.log("click", click);
+
     if (index_table == 0) {
         updateformwithpaket(div_tambah_paket);
     }
@@ -789,23 +722,13 @@ function deleteRowWithPaket(r) {
         document.getElementById("pajak").innerHTML = "";
         document.getElementById("total").innerHTML = "";
     } else {
-        // console.log("document.querySelectorAll('input[name=harga]')", document.querySelectorAll('input[name="harga"]'));
         const harga_input = document.querySelectorAll('input[name="harga"]');
         var total_harga = [];
         harga_input.forEach((e, i) => {
-            // console.log("e", e);
-            // console.log("i", i);
             total_harga[i] = e.value;
-            // console.log(total_harga[i]);
             total_harga[i] = total_harga[i].replace(/\./g, "");
             total_harga[i] = parseInt(total_harga[i]);
         });
-        // var total_harga = [];
-        // for (var i = 0; i < click; i++) {
-        //     total_harga[i] = row.querySelector('input[name="harga"]').value;
-        //     total_harga[i] = total_harga[i].replace(/\./g, "");
-        //     total_harga[i] = parseInt(total_harga[i])
-        // }
         const volume_input = document.querySelectorAll('input[name="volume"');
         var volume_check = [];
         volume_input.forEach((e, i) => {
@@ -900,7 +823,6 @@ function deleteRowWithPaket(r) {
 
 function reindex() {
     const ids = document.querySelectorAll("#tabelRAB tr > td:nth-child(1)");
-    // const ids = tabel.querySelectorAll("tr > td:nth-child(1)");
     ids.forEach((e, i) => {
         e.innerHTML = "<strong style='padding-left: 11px' id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
         nomor_tabel = i + 1;
@@ -908,12 +830,8 @@ function reindex() {
 }
 
 function reindexwithpaket(tabel) {
-    // const ids = document.querySelectorAll("#tabelRAB tr > td:nth-child(1)");
     const ids = tabel.querySelectorAll("tr > td:nth-child(1)");
-    console.log("ids = ", ids);
     ids.forEach((e, i) => {
-        console.log("e", e);
-        console.log("i", i);
         e.innerHTML = "<strong style='padding-left: 11px' id=nomor[" + (i + 1) + "] value=" + (i + 1) + ">" + (i + 1) + "</strong>"
         nomor_tabel = i + 1;
     });
@@ -922,16 +840,7 @@ function reindexwithpaket(tabel) {
 function change_item(c) {
     var row = c.parentNode.parentNode.parentNode.parentNode;
     var change = row.rowIndex;
-    // console.log("row", row);
-    // console.log("change", change);
-    // var test_item_id = document.getElementById("item_id[" + change - 1 + "]").value;
-    // console.log("ea", test_item_id);
     var item_id = document.getElementById("item_id[" + change + "]").value;
-    // var item_id = c.innerHTML;
-    // item_id = item_id.replace(/\ /g, "-");
-    // item_id = item_id.replace(/\//g, "_");
-    // console.log("yy", item_id);
-    // var satuan_non_desimal = ['kg', 'meter', 'panel', 'gr', 'roll', 'sel', 'liter'];
     let token = $('#csrf').val();
     $.ajax({
         url: '/getItem',
@@ -941,109 +850,6 @@ function change_item(c) {
             '_token': token,
         },
         success: function (response) {
-            // console.log(satuan_non_desimal);
-            // if(satuan_non_desimal.includes(response["satuans"][0][0].singkatan)) {
-            //     // console.log()
-            //     alert("ea");
-            //     $('#volume['+ change +']').keypress(function(ini, e) {
-            //         alert("ea1");
-            //         // $(this).closest(".searching-select").find("input").val($(this).text()).blur();
-            //         if (e.keyCode >= 49) {
-            //             if (e.keyCode <= 57) {
-            //                 a = ini.value.toString().replace(".", "");
-            //                 b = a.replace(/[^\d]/g, "");
-            //                 b = (b == "0") ? String.fromCharCode(e.keyCode) : b + String.fromCharCode(e.keyCode);
-            //                 ini.value = tandaPemisahTitik(b);
-            //                 return false;
-            //             } else if (e.keyCode <= 105) {
-            //                 if (e.keyCode >= 96) {
-            //                     //e.keycode = e.keycode - 47;
-            //                     a = ini.value.toString().replace(".", "");
-            //                     b = a.replace(/[^\d]/g, "");
-            //                     b = (b == "0") ? String.fromCharCode(e.keyCode - 48) : b + String.fromCharCode(e.keyCode - 48);
-            //                     ini.value = tandaPemisahTitik(b);
-            //                     //alert(e.keycode);
-            //                     return false;
-            //                 } else {
-            //                     return false;
-            //                 }
-            //             } else {
-            //                 return false;
-            //             }
-            //         } else if (e.keyCode == 48) {
-            //             a = ini.value.replace(".", "") + String.fromCharCode(e.keyCode);
-            //             b = a.replace(/[^\d]/g, "");
-            //             if (parseFloat(b) != 0) {
-            //                 ini.value = tandaPemisahTitik(b);
-            //                 return false;
-            //             } else {
-            //                 return false;
-            //             }
-            //         } else if (e.keyCode == 95) {
-            //             a = ini.value.replace(".", "") + String.fromCharCode(e.keyCode - 48);
-            //             b = a.replace(/[^\d]/g, "");
-            //             if (parseFloat(b) != 0) {
-            //                 ini.value = tandaPemisahTitik(b);
-            //                 return false;
-            //             } else {
-            //                 return false;
-            //             }
-            //         } else if (e.keyCode == 8 || e.keycode == 46) {
-            //             a = ini.value.replace(".", "");
-            //             b = a.replace(/[^\d]/g, "");
-            //             b = b.substr(0, b.length - 1);
-            //             if (tandaPemisahTitik(b) != "") {
-            //                 ini.value = tandaPemisahTitik(b);
-            //             } else {
-            //                 ini.value = "";
-            //             }
-
-            //             return false;
-            //         } else if (e.keyCode == 9) {
-            //             return true;
-            //         } else if (e.keyCode == 17) {
-            //             return true;
-            //         } else {
-            //             //alert (e.keyCode);
-            //             return false;
-            //         }
-            //         // change_paket2(this);
-            //         // change_paket(this);
-            //         // onSelect($(this).text())
-            //     });
-            //     // $('#volume['+ change +']').keypress(numbersonly(this, event))
-            //     // document.getElementById('volume['+ change +']').onkeypress ="return numbersonly(this, event);")
-            // } else {
-            //     alert("ae");
-            //     $('#volume['+ change +']').keypress(function(ini, e) {
-            //         alert("ae1");
-            //         // $(this).closest(".searching-select").find("input").val($(this).text()).blur();
-            //         var txt = String.fromCharCode(e.which);
-            //         if(!txt.match(/[0-9.,]/)) {
-            //             return false;
-            //         } else {
-            //             if (e.keyCode >= 48) {
-            //                 if (e.keyCode <= 57) {
-            //                     if (ini.value == "0") {
-            //                         ini.value = ""
-            //                     }
-            //                 }
-            //             }
-
-            //         }
-            //     });
-            //     // $('#volume['+ change +']').keypress(numbersonly2(this, event))
-            // }
-
-
-            // numbersonly(this, event) {
-
-            // }
-            // console.log(response);
-            // console.log(change);
-            // console.log(response["nama_items"][0].kategori);
-            // console.log(response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")");
-            // row.getElementsByName("kategory_id")[0].value = response["nama_items"][0].kategori;
             document.getElementById('item_id[' + change + ']').title = response["nama_items"][0].nama_item;
             document.getElementById("kategory_id[" + change + "]").value = response["nama_items"][0].kategori;
             document.getElementById("satuan[" + change + "]").value = response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")";
@@ -1094,7 +900,6 @@ function change_item(c) {
             if(document.getElementById('volume['+ change +']').value != "" && document.getElementById('harga_satuan['+ change +']').value != "") {
                 document.getElementById("harga[" + change + "]").value = jumlah_2;
             }
-            // document.getElementById("harga[" + change + "]").value = jumlah_2;
             var volume_check = [];
             var harga_satuan_check = [];
             var harga_check = [];
@@ -1190,20 +995,8 @@ function change_item_with_paket(c) {
     var row = c.parentNode.parentNode.parentNode.parentNode;
     var change = row.rowIndex;
     var change1 = c.parentNode.parentNode.parentNode;
-    // console.log("jkdkjdskjdsjk",change1);
-    // console.log("change", row);
-    // console.log("change", change);
-    // console.log("change1", change1);
-    // console.log("c", c);
-    // console.log("c innerHTML", c.innerHTML);
     row.querySelector('input[name="item_id"]').title = c.innerHTML;
-    // var test_item_id = document.getElementById("item_id[" + change - 1 + "]").value;
-    // console.log("ea", test_item_id);
-    // var item_id = document.getElementById("item_id[" + change + "]").value;
     var item_id = c.innerHTML;
-    // item_id = item_id.replace(/\ /g, "-");
-    // item_id = item_id.replace(/\//g, "_");
-    // console.log("yy", item_id);
     let token = $('#csrf').val();
     $.ajax({
         url: '/getItem',
@@ -1213,14 +1006,6 @@ function change_item_with_paket(c) {
             '_token': token,
         },
         success: function (response) {
-            // console.log(response);
-            // console.log(change);
-            // console.log(response["nama_items"][0].kategori);
-            // console.log(response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")");
-            // console.log("row.getElementsByClassName('kategory_id')", row.getElementsByClassName('kategory_id'));
-            // console.log("row.querySelector(input[name=kategory_id])", row.querySelector('input[name="kategory_id"]'));
-            // console.log(document.getElementById("satuan[4]"));
-            // row.getElementsByName("kategory_id")[0].value = response["nama_items"][0].kategori;
             row.querySelector('input[name="kategory_id"]').value = response["nama_items"][0].kategori;
             row.querySelector('input[name="satuan"]').value = response["satuans"][0][0].kepanjangan + " (" + response["satuans"][0][0].singkatan + ")";
             var harga_satuan = response["nama_items"][0].harga_satuan;
@@ -1264,15 +1049,10 @@ function change_item_with_paket(c) {
             if(row.querySelector('input[name="volume"]').value != "" && row.querySelector('input[name="harga_satuan"]').value != "") {
                 row.querySelector('input[name="harga"]').value = jumlah_2;
             }
-            // console.log("document.querySelectorAll('input[name=harga]')", document.querySelectorAll('input[name="harga"]'));
             const harga_input = document.querySelectorAll('input[name="harga"]');
-            // console.log(harga_input.length);
             var total_harga = [];
             harga_input.forEach((e, i) => {
-                // console.log("e", e);
-                // console.log("i", i);
                 total_harga[i] = e.value;
-                // console.log(total_harga[i]);
                 total_harga[i] = total_harga[i].replace(/\./g, "");
                 total_harga[i] = parseInt(total_harga[i]);
             });
@@ -1382,36 +1162,26 @@ function ganti_item() {
             '_token': token,
         },
         success: function (result) {
-            // console.log(result);
-            // console.log(click);
             var item = [""]
-            // var item_2 = [""]
 
             for (i = 0; i < result['items'].length; i++) {
                 item += ("<li>" + result['items'][i].nama_item + "</li>")
-                // item_2 += ("<li class='amsify-list-item '><input type='radio' name='item_id_amsify' class='amsify-select-input' value='"+ result['items'][i].id +"'>" + result['items'][i].nama_item +"</li>")
             }
-            // console.log(item);
             for (var i = 0; i < click; i++) {
                 document.getElementById('item_id[' + (i + 1) + ']').value = "";
                 document.getElementById("ul_paket_id2[" + (i + 1) + "]").innerHTML = item;
             }
 
             var paket = [""];
-            // var paket_2 = [""];
 
             for (i = 0; i < result['pakets'].length; i++) {
                 paket += ("<li>" + result['pakets'][i].nama_paket + "</li>")
-                // paket_2 += ("<li class='amsify-list-item'><input type='radio' name='paket_id_amsify' class='amsify-select-input' value='"+ result['pakets'][i].slug +"'>" + result['pakets'][i].nama_paket)
             }
-            // paket_2 += ("<li class='amsify-item-noresult'>No matching options</li>")
 
             if (clickpaket != 0) {
                 for (var j = 0; j < clickpaket; j++) {
                     document.getElementById('paket_id[' + (j + 1) + ']').value = "";
                     document.getElementById('ul_paket_id[' + (j + 1) + ']').innerHTML = paket;
-                    // document.getElementsByClassName('amsify-label')[j].innerHTML = "Pilih Paket";
-                    // document.getElementsByClassName('amsify-list')[j].innerHTML = paket_2;
                 }
             }
         }
@@ -1419,10 +1189,6 @@ function ganti_item() {
 }
 
 function blur_volume(c) {
-    // console.log(document.getElementsByName('volume'));
-    // if(volume_check.includes('') && harga_satuan_check.includes('')) {
-    //     return false;
-    // } else {
     var change = c.parentNode.parentNode.rowIndex;
     var volume = document.getElementById("volume[" + change + "]").value;
     if (volume.charAt(volume.length - 1) == ",") {
@@ -1467,7 +1233,6 @@ function blur_volume(c) {
     if (volume_check.includes('') || harga_satuan_check.includes('') || harga_check.includes('')) {
         return false;
     } else {
-        // if()
         var total_harga = [];
         for (var i = 0; i < click; i++) {
             total_harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
@@ -1544,15 +1309,11 @@ function blur_volume(c) {
             document.getElementById("total").style.color = '#F94687';
         }
     }
-    // }
-    // console.log(volume_check);
 }
 
 function blur_volume_with_paket(c) {
     var row = c.parentNode.parentNode;
-    console.log("row", row);
     var volume = row.querySelector('input[name="volume"]').value;
-    console.log("volume", volume);
     if (volume.charAt(volume.length - 1) == ",") {
         row.querySelector('input[name="tkdn"]').value = volume + "0";
     }
@@ -1586,10 +1347,7 @@ function blur_volume_with_paket(c) {
     const harga_input = document.querySelectorAll('input[name="harga"]');
     var total_harga = [];
     harga_input.forEach((e, i) => {
-        // console.log("e", e);
-        // console.log("i", i);
         total_harga[i] = e.value;
-        // console.log(total_harga[i]);
         total_harga[i] = total_harga[i].replace(/\./g, "");
         total_harga[i] = parseInt(total_harga[i]);
     });
@@ -1707,13 +1465,6 @@ function blur_lokasi(ini) {
         }
     }
 
-
-    // var new_click = clicklokasi - 1;
-    // for (var i = 0; i < new_click; i++) {
-    //     document.getElementById('location' + (i + 1)).remove();
-    // }
-
-    // var nomor = 1;
     for (var i = 0; i < clicklokasi; i++) {
         if (i == 0) {
             var lokasi = document.getElementById('lokasi[' + (i + 1) + ']').value;
@@ -1724,7 +1475,6 @@ function blur_lokasi(ini) {
 
             document.getElementById("location_label" + i).innerHTML = (i + 1) + ". " + lokasi;
         }
-        // nomor++;
     }
 }
 

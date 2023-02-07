@@ -14,7 +14,7 @@
     //basic slider ^
 
 
-    //keyboard slider 
+    //keyboard slider
     let keyboardslider = document.getElementById('keyboardslider');
     noUiSlider.create(keyboardslider, {
         start: 10,
@@ -34,8 +34,8 @@
             keyboardslider.noUiSlider.set(value - 10);
         }
 
-        console.log(e)
-        console.log(e.which)
+        // console.log(e)
+        // console.log(e.which)
 
         if (e.which === 39) {
             keyboardslider.noUiSlider.set(value + 10);
@@ -90,8 +90,8 @@
         "November", "December"
     ];
 
-    
-    
+
+
     dateSlider.noUiSlider.on('update', function (values, handle) {
         dateValues[handle].innerHTML = formatDate(new Date(+values[handle]));
     });
@@ -186,7 +186,7 @@
         document.getElementById('lower-value'), // 0
         document.getElementById('upper-value')  // 1
     ];
-    
+
     // Display the slider value and how far the handle moved
     // from the left edge of the slider.
     nonLinearSlider.noUiSlider.on('update', function (values, handle, unencoded, isTap, positions) {
@@ -218,24 +218,24 @@
         // If the sliders aren't interlocked, don't
         // cross-update.
         if (!lockedState) return;
-    
+
         // Select whether to increase or decrease
         // the other slider value.
         var a = slider1 === slider ? 0 : 1;
-    
+
         // Invert a
         var b = a ? 0 : 1;
-    
+
         // Offset the slider value.
         value -= lockedValues[b] - lockedValues[a];
-    
+
         // Set the value
         slider.noUiSlider.set(value);
     }
 
     noUiSlider.create(slider1, {
         start: 60,
-    
+
         // Disable animation on value-setting,
         // so the sliders respond immediately.
         animate: false,
@@ -244,7 +244,7 @@
             max: 100
         }
     });
-    
+
     noUiSlider.create(slider2, {
         start: 80,
         animate: false,
@@ -253,11 +253,11 @@
             max: 100
         }
     });
-    
+
     slider1.noUiSlider.on('update', function (values, handle) {
         slider1Value.innerHTML = values[handle];
     });
-    
+
     slider2.noUiSlider.on('update', function (values, handle) {
         slider2Value.innerHTML = values[handle];
     });
@@ -268,14 +268,14 @@
             Number(slider2.noUiSlider.get())
         ];
     }
-    
+
     slider1.noUiSlider.on('change', setLockedValues);
     slider2.noUiSlider.on('change', setLockedValues);
-    
+
     slider1.noUiSlider.on('slide', function (values, handle) {
         crossUpdate(values[handle], slider2);
     });
-    
+
     slider2.noUiSlider.on('slide', function (values, handle) {
         crossUpdate(values[handle], slider1);
     });
@@ -440,7 +440,7 @@
         document.getElementById('skip-value-lower'),
         document.getElementById('skip-value-upper')
     ];
-    
+
     skipSlider.noUiSlider.on('update', function (values, handle) {
         skipValues[handle].innerHTML = values[handle];
     });
@@ -620,7 +620,7 @@
         document.getElementById('slider-snap-value-lower'),
         document.getElementById('slider-snap-value-upper')
     ];
-    
+
     snapSlider.noUiSlider.on('update', function (values, handle) {
         snapValues[handle].innerHTML = values[handle];
     });
@@ -889,7 +889,7 @@
     //slider behaviour unconstrained ^
 
 
-    //slider behaviour combined 
+    //slider behaviour combined
     var dragTapSlider = document.getElementById('combined');
     noUiSlider.create(dragTapSlider, {
         start: [40, 60],
@@ -972,8 +972,8 @@
         }
         return value % 1000 ? 2 : 1;
     }
-    
-    
+
+
     //slider step ^
 
 
@@ -1110,7 +1110,7 @@
     checkbox2.addEventListener('click', function () {
         toggle.call(this, origins[0]);
     });
-    
+
     checkbox3.addEventListener('click', function () {
         toggle.call(this, origins[1]);
     });

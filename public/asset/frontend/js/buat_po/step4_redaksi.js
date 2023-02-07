@@ -157,8 +157,8 @@ function change_redaksi(c) {
             // ordered_list.setAttribute("type", "a");
             // p.append(ordered_list);
             // console.log(ordered_list);
-            console.log(response.length);
-            console.log(response[0].sub_deskripsi);
+            // console.log(response.length);
+            // console.log(response[0].sub_deskripsi);
             // document.getElementById("deskripsi_id[" + change + "]").innerHTML = response.deskripsi_redaksi;
             for (i = 0; i < response.length; i++) {
                 if(response[i].sub_deskripsi === null){

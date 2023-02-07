@@ -838,7 +838,7 @@ function bikin_table(data) {
             }
 
             for(var k = 0; k < data[Object.keys(data)[i]][j]["item"].length; k++) {
-                console.log(data[Object.keys(data)[i]][j]["item"][k]);
+                // console.log(data[Object.keys(data)[i]][j]["item"][k]);
                 var volume_paket = data[Object.keys(data)[i]][j]["volume"];
                 volume_paket = volume_paket.toString();
                 volume_paket = volume_paket.replace(/\./g, "");
@@ -857,7 +857,7 @@ function bikin_table(data) {
                 jumlah += harga_k;
                 harga_k = tandaPemisahTitik(harga_k)
                 volume_k = tandaPemisahTitik2(volume_k);
-                console.log(volume_k);
+                // console.log(volume_k);
                 harga_satuan_k = tandaPemisahTitik(harga_satuan_k);
 
                 var tkdn_k = data[Object.keys(data)[i]][j]["item"][k][0].tkdn;

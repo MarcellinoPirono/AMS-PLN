@@ -54,9 +54,9 @@ class RincianIndukController extends Controller
 
         return view('khs.detail_khs.item_khs.item_khs', [
             'title' => 'Item KHS '. $jenis_khs.'',
-            'items' => RincianInduk::whereHas('Khs', function($q) {
+            'items' => RincianInduk::where('khs_id', $khs_id)->whereHas('Khs', function($q) {
                 $q->where('isActive', True);
-            })->get()->orderBy('id', 'DESC')->get(),
+            })->orderBy('id', 'DESC')->get(),
             'jenis_khs' => $jenis_khs,
             'kategori_item' => $kategori_item
         ]);

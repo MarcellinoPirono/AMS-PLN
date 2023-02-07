@@ -15,14 +15,14 @@
 	var barChart1 = function(){
 		if(jQuery('#barChart_1').length > 0 ){
 			const barChart_1 = document.getElementById("barChart_1").getContext('2d');
-			document.getElementById('')
+			// document.getElementById('')
 // var nomor_skk_this_year = JSON.parse('{!! json_encode($nomor_skk_this_year) !!}');
 //
 			// const all_skk = {{json_encode($all_skk)}};
 			// const all_skk = @JSON($all_skk);
 
 			// const all_skk = document.getElementById("all_skk").value;
-			console.log(nomor_skk_this_year);
+			// console.log(nomor_skk_this_year);
 
 
 			barChart_1.height = 100;
@@ -31,11 +31,13 @@
 				type: 'bar',
 				data: {
 					defaultFontFamily: 'Poppins',
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+					labels: _xdata,
+					// labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
 					datasets: [
 						{
-							label: "My First dataset",
-							data: [65, 59, 80, 81, 56, 55, 40, 26, 35, 30, 56, 55],
+							label: "Persentase Tersedia",
+							data: _ydata,
+							// data: [65, 59, 80, 81, 56, 55, 40, 26, 35, 30, 56, 55],
 							borderColor: 'rgba(30, 167, 197, 1)',
 							borderWidth: "0",
 							backgroundColor: 'rgba(30, 167, 197, 1)'
@@ -47,7 +49,13 @@
 					scales: {
 						yAxes: [{
 							ticks: {
-								beginAtZero: true
+								min: 0,
+                                max: 100,
+                                maxTicksLimit: 10,
+                                // padding: 10,
+                                // callback: function(value, index, values) {
+                                //     return number_format(value) + ' %';
+                                // }
 							}
 						}],
 						xAxes: [{
@@ -55,7 +63,15 @@
 							barPercentage: 0.5
 						}]
 					}
-				}
+				},
+                // tooltips: {
+                //     callbacks: {
+                //         label: function(tooltipItem, chart) {
+                //             var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                //             return datasetLabel + ': ' + number_format(tooltipItem.yLabel) + ' %';
+                //         }
+                //     }
+                // }
 			});
 		}
 	}
@@ -65,9 +81,9 @@
 		//gradient bar chart
 			const barChart_2 = document.getElementById("barChart_2").getContext('2d');
 			//generate gradient
-			const barChart_2gradientStroke = barChart_2.createLinearGradient(0, 0, 0, 250);
-			barChart_2gradientStroke.addColorStop(0, "rgba(11, 42, 151, 1)");
-			barChart_2gradientStroke.addColorStop(1, "rgba(11, 42, 151, 0.5)");
+			// const barChart_2gradientStroke = barChart_2.createLinearGradient(0, 0, 0, 250);
+			// barChart_2gradientStroke.addColorStop(0, "rgba(11, 42, 151, 1)");
+			// barChart_2gradientStroke.addColorStop(1, "rgba(11, 42, 151, 0.5)");
 
 			barChart_2.height = 100;
 
@@ -75,15 +91,16 @@
 				type: 'bar',
 				data: {
 					defaultFontFamily: 'Poppins',
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+					// labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+					labels: _vdata,
 					datasets: [
 						{
-							label: "My First dataset",
-							data: [65, 59, 80, 81, 56, 55, 40],
-							borderColor: barChart_2gradientStroke,
+							label: "Persentase Tersedia",
+							// data: [65, 59, 80, 81, 56, 55, 40, 26, 35, 30, 56, 55],
+							data: _udata,
+							borderColor: 'rgba(30, 167, 197, 1)',
 							borderWidth: "0",
-							backgroundColor: barChart_2gradientStroke,
-							hoverBackgroundColor: barChart_2gradientStroke
+							backgroundColor: 'rgba(30, 167, 197, 1)'
 						}
 					]
 				},
@@ -92,7 +109,13 @@
 					scales: {
 						yAxes: [{
 							ticks: {
-								beginAtZero: true
+								min: 0,
+                                max: 100,
+                                maxTicksLimit: 10,
+                                // padding: 10,
+                                // callback: function(value, index, values) {
+                                //     return number_format(value) + ' %';
+                                // }
 							}
 						}],
 						xAxes: [{
@@ -100,7 +123,15 @@
 							barPercentage: 0.5
 						}]
 					}
-				}
+				},
+                // tooltips: {
+                //     callbacks: {
+                //         label: function(tooltipItem, chart) {
+                //             var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                //             return datasetLabel + ': ' + number_format(tooltipItem.yLabel) + ' %';
+                //         }
+                //     }
+                // }
 			});
 		}
 	}
