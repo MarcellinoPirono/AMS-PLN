@@ -853,7 +853,7 @@
                         "jumlah_harga": harga,
                         "click": click,
                     }
-                    console.log(data);
+                    // console.log(data);
 
                     $.ajax({
                         type: 'POST',

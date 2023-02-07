@@ -1206,11 +1206,11 @@
 
 
                         var tujuan = $("#tujuan option:selected").text();
-                        console.log(tujuan);
+                        // console.log(tujuan);
                         var sumber = $("#sumber option:selected").text();
                         var sifat = $("#sifat option:selected").text();
                         var lampiran = $("#lampiran").val();
-                        console.log(lampiran);
+                        // console.log(lampiran);
                         var sifat_lampiran = $("#sifat_lampiran option:selected").text();
                         var perihal = $("#perihal").val();
                         var isi_surat = $("#deskripsi_id").val();
@@ -1240,7 +1240,7 @@
                                 document.getElementById("jumlah_harga_hpe[" + (i + 1) + "]").value,
                             ]
                         }
-                        console.log("baris", baris);
+                        // console.log("baris", baris);
 
                         const result_rab_non_po = baris.filter(element => {
                             return element !== null;
@@ -1269,7 +1269,7 @@
                                     "</td> <td class='first' align='right' valign='middle'>" +
                                     result_rab_non_po[j][6] + "</td> </tr>")
                             }
-                            console.log("html_rab", html_rab);
+                            // console.log("html_rab", html_rab);
                             document.getElementById("uraian_rab").innerHTML =
                                 "<tr> <td class='first' align='center' valign='middle'><td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
                                 html_rab;
@@ -1485,7 +1485,7 @@
                         total_harga_perkiraan_all_2 = total_harga_perkiraan_all.substr(i - 1, 1) + total_harga_perkiraan_all_2;
                     }
                 }
-                console.log("total_harga_perkiraan_all_2", total_harga_perkiraan_all_2);
+                // console.log("total_harga_perkiraan_all_2", total_harga_perkiraan_all_2);
                 document.getElementById("jumlah-hpe").innerHTML = "Rp. " + total_harga_perkiraan_all_2;
                 document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_satuan_all_2;
                 total_harga_satuan_all = parseInt(total_harga_satuan_all);
@@ -1949,7 +1949,7 @@
                             //     "jumlah_harga": harga,
                             //     "click": click,
                             // }
-                            console.log("fd", fd);
+                            // console.log("fd", fd);
                             // console.log(data);
 
                             $.ajax({

@@ -347,11 +347,11 @@
     var click = 0
     var nomor_tabel = 0
     var k = 0
-    
+
     function updateform() {
-        
+
         var kontrak_induk = document.getElementById('kontrak_induk').value;
-        
+
         $.ajax({
             url: '/getKontrakInduk',
             type: "POST",
@@ -361,11 +361,11 @@
                 for (i = 0; i < response.length; i++) {
                     kategori += ("<option value='" + response[i].id + "'>" + response[i].nama_kategori +
                         "</option>")
-                }                    
-                
+                }
+
                 var table = document.getElementsByTagName("table")[0];
                 click++;
-                console.log(click);
+                // console.log(click);
 
                 var select1 = document.createElement("select");
                 select1.innerHTML = "<option value='0' selected disabled>Pilih Kategori</option>" + kategori + "";
@@ -423,12 +423,12 @@
                 input4.setAttribute("readonly", true);
                 input4.setAttribute("disabled", true);
                 input4.setAttribute("required", true);
-                
+
                 var button = document.createElement("button");
                 button.innerHTML = "<i class='fa fa-trash'></i>";
                 button.setAttribute("onclick", "deleteRow(this)");
                 button.setAttribute("class", "btn btn-danger shadow btn-xs sharp");
-                
+
                 var row = table.insertRow(-1);
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
@@ -446,7 +446,7 @@
                 cell6.appendChild(input3);
                 cell7.appendChild(input4);
                 cell8.appendChild(button);
-                
+
                 reindex();
             }
         });
@@ -458,37 +458,37 @@
         click--;
 
         var select_id_kategori = document.querySelectorAll("#tabelRAB tr td:nth-child(2) select");
-        for(var i=0; i<select_id_kategori.length; i++) 
+        for(var i=0; i<select_id_kategori.length; i++)
         {
             select_id_kategori[i].id = "kategory_id["+(i+1)+"]";
         }
 
         var select_id_item = document.querySelectorAll("#tabelRAB tr td:nth-child(3) select");
-        for(var i=0; i<select_id_item.length; i++) 
+        for(var i=0; i<select_id_item.length; i++)
         {
             select_id_item[i].id = "item_id["+(i+1)+"]";
         }
-        
+
         var select_id_satuan = document.querySelectorAll("#tabelRAB tr td:nth-child(4) input");
-        for(var i=0; i<select_id_satuan.length; i++) 
+        for(var i=0; i<select_id_satuan.length; i++)
         {
             select_id_satuan[i].id = "satuan["+(i+1)+"]";
         }
-        
+
         var select_id_volume = document.querySelectorAll("#tabelRAB tr td:nth-child(5) input");
-        for(var i=0; i<select_id_volume.length; i++) 
+        for(var i=0; i<select_id_volume.length; i++)
         {
             select_id_volume[i].id = "volume["+(i+1)+"]";
         }
-        
+
         var select_id_harga_satuan = document.querySelectorAll("#tabelRAB tr td:nth-child(6) input");
-        for(var i=0; i<select_id_harga_satuan.length; i++) 
+        for(var i=0; i<select_id_harga_satuan.length; i++)
         {
             select_id_harga_satuan[i].id = "harga_satuan["+(i+1)+"]";
         }
-        
+
         var select_id_harga = document.querySelectorAll("#tabelRAB tr td:nth-child(7) input");
-        for(var i=0; i<select_id_harga.length; i++) 
+        for(var i=0; i<select_id_harga.length; i++)
         {
             select_id_harga[i].id = "harga["+(i+1)+"]";
         }
@@ -501,13 +501,13 @@
         } else
         {
             var total_harga = [];
-    
+
             for(var i = 0; i < click; i++)
             {
                 total_harga[i] = document.getElementById("harga["+(i+1)+"]").value;
                 total_harga[i] = parseInt(total_harga[i])
             }
-    
+
             const total_harga_all = total_harga.reduce((accumulator, currentvalue) => accumulator + currentvalue);
             document.getElementById("jumlah").innerHTML = "Rp. " + total_harga_all;
             var ppn = total_harga_all * 11 / 100;
@@ -521,7 +521,7 @@
 
         reindex();
     }
-    
+
     function reindex() {
         const ids = document.querySelectorAll("tr > td:nth-child(1)");
         ids.forEach((e, i) => {

@@ -259,12 +259,12 @@ nama_paket.addEventListener('change', function(){
 
     function check(ini) {
         if ($(ini).is(":checked")) {
-            console.log(ini);
+            // console.log(ini);
             document.getElementById("volume[" + ini.value + "]").setAttribute('required', '')
             document.getElementById("volume[" + ini.value + "]").setAttribute('autofocus', '')
             document.getElementById("volume[" + ini.value + "]").removeAttribute('disabled')
         } else {
-            console.log(ini);
+            // console.log(ini);
             document.getElementById("volume[" + ini.value + "]").value = "";
             document.getElementById("harga[" + ini.value + "]").value = "";
             document.getElementById("volume[" + ini.value + "]").removeAttribute('required')

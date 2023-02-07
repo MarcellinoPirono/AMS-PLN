@@ -893,7 +893,7 @@
                             return element !== null;
                         })
 
-                        console.log("result_rab_non_po", result_rab_non_po);
+                        // console.log("result_rab_non_po", result_rab_non_po);
 
                         if (result_rab_non_po.length > 0) {
                             var html_rab = [""];
@@ -912,7 +912,7 @@
                                     "</td> <td class='first' align='right' valign='middle'>" +
                                     result_rab_non_po[j][4] + "</td> </tr>")
                             }
-                            console.log("html_rab", html_rab);
+                            // console.log("html_rab", html_rab);
                             document.getElementById("uraian_rab").innerHTML =
                                 "<tr> <td class='first' align='center' valign='middle'><td class='first' align='center' valign='middle'></td> <td class='first' align='center' valign='middle'></td> <td class='first' align='right' valign='middle'></td> <td class='first' align='right' valign='middle'></td> </tr>" +
                                 html_rab;
@@ -1020,7 +1020,7 @@
                         success: function(result) {
                             var pemisah_titik = result;
                             pemisah_titik = parseInt(pemisah_titik);
-                            console.log(pemisah_titik);
+                            // console.log(pemisah_titik);
                             var total = document.getElementById('total').innerText;
                             if (document.getElementById('total').innerHTML != "") {
                                 // console.log(document.getElementById('total').innerHTML);
@@ -2595,11 +2595,11 @@
             ppn_id = parseFloat(ppn_id);
             var ppn = bef_ppn_total_harga * ppn_id / 100;
             ppn = Math.round(ppn);
-            console.log("bef_ppn_total_harga", bef_ppn_total_harga);
-            console.log("ppn", ppn);
+            // console.log("bef_ppn_total_harga", bef_ppn_total_harga);
+            // console.log("ppn", ppn);
             var total_harga = bef_ppn_total_harga + ppn;
             total_harga = Math.round(total_harga);
-            console.log("total_harga", total_harga);
+            // console.log("total_harga", total_harga);
 
             if (kak.length > 0) {
                 fd.append("_token", token)
@@ -2647,7 +2647,7 @@
                         //     "jumlah_harga": harga,
                         //     "click": click,
                         // }
-                        console.log(fd);
+                        // console.log(fd);
                         // console.log(data);
 
                         $.ajax({

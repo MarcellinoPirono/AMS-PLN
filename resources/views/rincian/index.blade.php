@@ -40,7 +40,7 @@
                             <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
                             <input type="search" id="search" name="search" class="form-control" placeholder="Search here..." />
                         </div>
-                      
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -151,12 +151,12 @@
         data:{'search':$value},
 
         success:function(data){
-            console.log(data);
+            // console.log(data);
             $('#Content').html(data);
         }
 
     });
-        
+
     });
 </script>
 @endsection

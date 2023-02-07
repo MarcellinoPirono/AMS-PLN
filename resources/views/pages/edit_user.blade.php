@@ -270,7 +270,7 @@
                     for (var i = 0; i < pondFiles.length; i++) {
                         fd.append('file', pondFiles[i].file);
                     }
-                    console.log(fd);
+                    // console.log(fd);
                     var token = $('#csrf').val();
                     var username = $("#new_username").val();
                     var username_old = $("#old_username").val();

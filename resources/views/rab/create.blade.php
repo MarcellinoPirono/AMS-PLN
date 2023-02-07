@@ -439,7 +439,7 @@
 
                 var table = document.getElementById('tabelRAB');
                 click++;
-                console.log(click);
+                // console.log(click);
 
                 var select1 = document.createElement("select");
                 select1.innerHTML = "<option value='0' selected disabled>Pilih Pekerjaan</option>" + item +
@@ -750,7 +750,7 @@
                         "jumlah_harga": harga,
                         "click": click,
                     }
-                    console.log(data);
+                    // console.log(data);
 
                     $.ajax({
                         type: 'POST',

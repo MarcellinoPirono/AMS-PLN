@@ -74,7 +74,7 @@
         </div>
     </div>
 
-     <!-- <script type="text/javascript">
+    {{-- <script type="text/javascript">
     $('#search').on('keyup',function(){
         $value=$(this).val();
 
@@ -103,7 +103,7 @@
     });
 
     });
-</script> -->
+</script> --}}
 
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

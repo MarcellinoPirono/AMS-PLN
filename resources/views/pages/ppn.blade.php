@@ -248,7 +248,7 @@
                 var ppn = $('#ppn').val();
                 var token = $('#csrf').val();
 
-                console.log(ppn);
+                // console.log(ppn);
                 $.ajax({
                     url: 'ppn/' + ppn + '/edit',
                     type: 'GET',
@@ -259,7 +259,7 @@
                         ppn = ppn.replace(/\./g, ",");
                         $('#category_form').modal('show');
                         $('#edit_ppn').val(ppn);
-                        console.log("test");
+                        // console.log("test");
                         $('#edit_valid_khs').validate({
                             rules: {
                                 edit_ppn: {
@@ -451,7 +451,7 @@
                 },
 
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     $('#Content').html(data);
                 }
 

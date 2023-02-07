@@ -117,7 +117,7 @@
                 },
 
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     $('#Content').html(data);
                 }
 

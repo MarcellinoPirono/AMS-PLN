@@ -1,14 +1,10 @@
 function SubmitTKDN() {
-    // console.log(clickredaksi);
-    // console.log(click);
     var token = $('#csrf').val();
     var po = document.getElementById('po').value;
-    // console.log(po);
     var today = new Date();
     today = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
     var kontrak_induk = document.getElementById('kontrak_induk').value;
     var pekerjaan = document.getElementById('pekerjaan').value;
-    // var lokasi = document.getElementById('lokasi').value;
     var start_date = document.getElementById('start_date').value;
     var end_date = document.getElementById('end_date').value;
     start_date = new Date(start_date);
@@ -27,7 +23,6 @@ function SubmitTKDN() {
     var jenis_cetak = document.getElementById('tkdn').value;
 
     if(clickpaket == 0) {
-        // console.log(pondfiles);
         var item_id = [];
         var kategory_id = [];
         var satuan = [];
@@ -38,24 +33,8 @@ function SubmitTKDN() {
         var kln = [];
         var kdn = [];
         var total_tkdn = [];
-        // var kdn = [];
-        // var kln = [];
-        // var total_tkdn = [];
-        // var lampiran = pondfiles[0].files;
         var lampiran = $('#lampiran')[0].files;
-
-        // var lampi{{ ran = $('input }}[type=file]').getFiles();
-        // console.log(lampiran);
-
-        // log;
-
-
-        // console.log("clickpaket",clickpaket);
-
-
         var fd = new FormData();
-
-
 
         for (var i = 0; i < click; i++) {
             item_id[i] = document.getElementById("item_id[" + (i + 1) + "]").value;
@@ -78,15 +57,7 @@ function SubmitTKDN() {
             tkdn[i] = tkdn[i].replace(/\./g, "");
             tkdn[i] = tkdn[i].replace(/\,/g, ".");
             tkdn[i] = parseFloat(tkdn[i]);
-            // kdn[i] = harga_satuan[i] * (tkdn[i] / 100);
-            // kdn[i] = Math.round(kdn[i]);
-            // kln[i] = harga_satuan[i] -  kdn[i];
-            // total_tkdn[i] = kdn[i] + kln[i];
-
             fd.append("tkdn[]", tkdn[i]);
-            // fd.append("kdn[]", kdn);
-            // fd.append("kln[]", kln);
-            // fd.append("total_tkdn[]", total_tkdn);
             harga[i] = document.getElementById("harga[" + (i + 1) + "]").value;
             harga[i] = harga[i].replace(/\./g, "");
             harga[i] = parseInt(harga[i]);
@@ -120,9 +91,6 @@ function SubmitTKDN() {
         let deskripsi_id = [];
         let sub_deskripsi_id = [];
         let sub_deskripsi_step4 = [];
-        // var null_value = null;
-        // console.log(document.querySelector('#sub_deskripsi_id[' + (1) + ']'));
-
 
         for (let index = 0; index < clickredaksi; index++) {
             redaksi_id[index] = document.getElementById('redaksi_id[' + (index + 1) + ']').value;
@@ -136,7 +104,6 @@ function SubmitTKDN() {
 
             for(var k = 0; k < li.length; k++) {
                 sub_deskripsi_id[index][k] = li[k].innerHTML;
-                // console.log(sub_deskripsi_id[index][k]);
                 if(sub_deskripsi_id[index][k] != "Tidak Ada Sub Deskripsi") {
                     sub_deskripsi_id[index][k] = sub_deskripsi_id[index][k].replace((k+1)+". ", "");
                     fd.append("sub_deskripsi_id["+index+"][]", sub_deskripsi_id[index][k]);

@@ -168,7 +168,7 @@
 <script>
     jQuery(document).ready(function() {
         jQuery('.show-pass2').on('click', function() {
-            console.log(this);
+            // console.log(this);
             jQuery(this).toggleClass('active');
             if (jQuery('#new_password').attr('type') == 'password') {
                 jQuery('#new_password').attr('type', 'text');
@@ -177,7 +177,7 @@
             }
         });
         jQuery('.show-pass4').on('click', function() {
-            console.log(this);
+            // console.log(this);
             jQuery(this).toggleClass('active');
             if (jQuery('#password_lama').attr('type') == 'password') {
                 jQuery('#password_lama').attr('type', 'text');
@@ -215,7 +215,7 @@
         )
 
         var password_lama = document.getElementById('password_lama').value;
-        console.log(password_lama);
+        // console.log(password_lama);
         $('.btnpass').click(function(e) {
             $('#resetpassword').modal('show');
 

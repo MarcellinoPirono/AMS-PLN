@@ -1137,7 +1137,7 @@
                             "</option>")
                     }
                     click++;
-                    console.log(click);
+                    // console.log(click);
 
                     var table = document.getElementById('tabelRAB');
 
@@ -1238,7 +1238,7 @@
             // console.log(click);
             // var click = document.getElementById('tabelRAB').tBodies[0].rows.length;
             click--;
-            console.log(click);
+            // console.log(click);
 
             var select_id_item = document.querySelectorAll("#tabelRAB tr td:nth-child(2) select");
             for (var i = 0; i < select_id_item.length; i++) {
@@ -1923,7 +1923,7 @@
     <script type="text/javascript">
         window.onload = function(id) {
             var id = document.getElementById('id').value;
-            console.log(id);
+            // console.log(id);
             window.location.href = "http://127.0.0.1:8000/po-khs/edit-po/" + id + "/#daftar_rab"
         }
     </script>

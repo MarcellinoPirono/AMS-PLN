@@ -261,7 +261,7 @@
             $('.tombol-edit').click(function(e) {
                 var id = $(this).data('id');
                 var token = $('#csrf').val();
-                console.log(id);
+                // console.log(id);
 
                 $.ajax({
                     url: 'jenis-khs/' + id + '/edit',
@@ -272,7 +272,7 @@
                         var old_jenis_khs = response.result.jenis_khs;
                         $('#edit_nama_pekerjaan').val(response.result.nama_pekerjaan);
                         // $('#edit_nama_pekerjaan').val(response.result.nama_pekerjaan);
-                        console.log("test");
+                        // console.log("test");
                         $('#edit_valid_khs').validate({
                             rules: {
                                 edit_jenis_khs: {
@@ -492,7 +492,7 @@
                 },
 
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     $('#Content').html(data);
                 }
 

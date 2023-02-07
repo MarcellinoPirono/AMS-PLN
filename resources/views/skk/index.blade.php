@@ -126,7 +126,7 @@
 
                 // var deleteid = $(this).closest("tr").find('.delete_id').val();
                 var deleteid = id.value;
-                console.log(deleteid);
+                // console.log(deleteid);
 
 
                 swal({

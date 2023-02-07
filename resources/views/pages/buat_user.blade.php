@@ -297,7 +297,7 @@
                     }
                     var token = $('#csrf').val();
                     var new_username = $("#new_username").val();
-                    console.log(new_username);
+                    // console.log(new_username);
                     var password = $("#password").val();
                     var name = $("#name").val();
                     var email = $("#email").val();
@@ -312,7 +312,7 @@
                     fd.append("role", role);
                     // var pic_profile = pond.files;
 
-                    console.log(fd);
+                    // console.log(fd);
 
 
                     $.ajax({

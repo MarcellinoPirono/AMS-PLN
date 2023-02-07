@@ -28,25 +28,13 @@ function updateRedaksi() {
             select1.setAttribute("required", true);
 
             var input1 = document.createElement("p");
-            // input1.setAttribute("type", "text");
-            // input1.setAttribute("class", "form-control deskripsi_id");
             input1.setAttribute("id", "deskripsi_id[" + clickredaksi + "]");
             input1.setAttribute("name", "deskripsi_id");
             input1.setAttribute("style", "vertical-align: top; text-align: justify  !important");
-            // input1.setAttribute("placeholder", "Deskripsi Redaksi");
-            // input1.setAttribute("value", "");
-            // input1.setAttribute("disabled", true);
-            // input1.setAttribute("required", true);
 
             var input2 = document.createElement("ol");
-            // input2.setAttribute("type", "text");
-            // input2.setAttribute("class", "form-control sub_deskripsi_id");
             input2.setAttribute("id", "sub_deskripsi_id[" + clickredaksi + "]");
             input2.setAttribute("name", "sub_deskripsi_id");
-            // input2.setAttribute("placeholder", "Sub Deskripsi Kosong");
-            // input2.setAttribute("value", "");
-            // input2.setAttribute("disabled", true);
-            // input2.setAttribute("required", true);
 
             var button = document.createElement("button");
             button.innerHTML = "<i class='fa fa-trash'></i>";
@@ -66,10 +54,7 @@ function updateRedaksi() {
             cell4.appendChild(input2);
             cell5.appendChild(button);
 
-
-
             reindex1();
-
         }
     });
 
@@ -114,52 +99,31 @@ function reindex1() {
 function change_redaksi(c) {
     var change = c.parentNode.parentNode.rowIndex;
     let token = $('#csrf').val();
-    // alert(token);
     var redaksi_id = document.getElementById("redaksi_id[" + change + "]").value;
-    // alert(redaksi_id);
 
     $.ajax({
         url: '/getDeskripsi',
         type: "POST",
-
-        // "headers": { 'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content') },
         data: {
             'redaksi_id':  redaksi_id,
             '_token' : token,
-
-                //   headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content'), '_method': 'patch'},
-
         },
         success: function (response) {
             document.getElementById("deskripsi_id[" + change + "]").innerHTML = response.deskripsi_redaksi;
-            // document.getElementById("sub_deskripsi_id[" + change + "]").value = response.sub_deskripsi;
-
-
         }
     })
     $.ajax({
         url: '/getSubDeskripsi',
         type: "POST",
 
-        // "headers": { 'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content') },
         data: {
             'redaksi_id':  redaksi_id,
             '_token' : token,
-
-                //   headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content'), '_method': 'patch'},
-
         },
         success: function (response) {
-            // var sub_deskripsi = [""];
             document.getElementById("sub_deskripsi_id["+ change +"]").innerHTML = "";
             var ordered_list = document.getElementById("sub_deskripsi_id["+ change +"]");
-            // var ordered_list = document.createElement("ol");
-            // ordered_list.setAttribute("type", "a");
-            // p.append(ordered_list);
-            // console.log(ordered_list);
-            // console.log(response.length);
-            // console.log(response[0].sub_deskripsi);
-            // document.getElementById("deskripsi_id[" + change + "]").innerHTML = response.deskripsi_redaksi;
+
             for (i = 0; i < response.length; i++) {
                 if(response[i].sub_deskripsi === null){
                     var list_item = document.createElement("li");
@@ -171,15 +135,7 @@ function change_redaksi(c) {
                     ordered_list.append(list_item);
                     list_item.innerHTML = i+1 + ". " + response[i].sub_deskripsi;
                 }
-
-
-                // sub_deskripsi += ("<li>" + response['sub_deskripsi'][i].sub_deskripsi
-
-                //     "</li>")
             }
-            // document.getElementById("sub_deskripsi_id[" + change + "]").value = response.sub_deskripsi;
-
-
         }
     })
 }

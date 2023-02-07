@@ -141,9 +141,9 @@
 
 <script>
     function deleteuser(id) {
-        console.log(id);
+        // console.log(id);
             var deleteid = id.value;
-            console.log(deleteid);
+            // console.log(deleteid);
 
             swal({
                     title: "Apakah anda yakin?",

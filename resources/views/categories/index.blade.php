@@ -311,11 +311,11 @@
                                 }).then((result) => {
                                     location.reload();
                                 });
-                                console.log(response);
+                                // console.log(response);
                             }
                         });
                     });
-                    console.log(response.result);
+                    // console.log(response.result);
                 }
             });
         }
@@ -387,7 +387,7 @@
                 },
 
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     $('#Content').html(data);
                 }
 

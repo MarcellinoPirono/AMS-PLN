@@ -182,7 +182,7 @@
 
         function updatelokasi() {
             var tabel_sub_deskripsi = document.getElementById('tabelSPBJ');
-            console.log(clicksubdeskripsi);
+            // console.log(clicksubdeskripsi);
             clicksubdeskripsi++;
 
 
