@@ -31,7 +31,7 @@
 				type: 'bar',
 				data: {
 					defaultFontFamily: 'Poppins',
-					labels: _xdata,
+					labels: _xdata, 
 					// labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
 					datasets: [
 						{

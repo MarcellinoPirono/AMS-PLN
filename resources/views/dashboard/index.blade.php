@@ -37,8 +37,8 @@
                     <div class="card avtivity-card">
                         <div class="card-body">
                             <div class="media align-items-center">
-                                <span class="activity-icon bgl-warning mr-md-4 mr-3">
-                                    <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="",
+                                <span class="activity-icon bgl-success mr-md-4 mr-3">
+                                    <img src="{{ asset('/') }}./asset/frontend/images/SVG/check.svg" alt="",
                                         width="39px">
                                 </span>
                                 <div class="media-body">
@@ -61,7 +61,7 @@
                         <div class="card-body">
                             <div class="media align-items-center">
                                 <span class="activity-icon bgl-warning mr-md-4 mr-3">
-                                    <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="",
+                                    <img src="{{ asset('/') }}./asset/frontend/images/SVG/sand.svg" alt="",
                                         width="39px">
                                 </span>
                                 <div class="media-body">
@@ -107,8 +107,8 @@
                     <div class="card avtivity-card">
                         <div class="card-body">
                             <div class="media align-items-center">
-                                <span class="activity-icon bgl-warning mr-md-4 mr-3">
-                                    <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="",
+                                <span class="activity-icon bgl-success mr-md-4 mr-3">
+                                    <img src="{{ asset('/') }}./asset/frontend/images/SVG/check.svg" alt="",
                                         width="39px">
                                 </span>
                                 <div class="media-body">
@@ -130,7 +130,7 @@
                         <div class="card-body">
                             <div class="media align-items-center">
                                 <span class="activity-icon bgl-warning   mr-md-4 mr-3">
-                                    <img src="{{ asset('/') }}./asset/frontend/images/bolt.svg" alt="",
+                                    <img src="{{ asset('/') }}./asset/frontend/images/SVG/sand.svg" alt="",
                                         width="39px">
                                 </span>
                                 <div class="media-body">
