@@ -358,6 +358,12 @@ function SubmitTKDN() {
             }
         }
 
+        tembusan = [];
+        for (var i = 0; i < clicktembusan; i++) {
+            tembusan[i] = document.getElementById("tembusan[" + (i + 1) + "]").value;
+            fd.append("tembusan[]", tembusan[i]);
+        }
+
         var harga = document.getElementById("jumlah").value;
         var ppn = document.getElementById("pajak").value;
         var total_harga = document.getElementById("total").innerHTML;
@@ -875,6 +881,12 @@ function SubmitNONTKDN() {
                         fd.append("sub_deskripsi_id["+index+"][]", sub_deskripsi_step4[index][k]);
                     }
                 }
+            }
+
+            tembusan = [];
+            for (var i = 0; i < clicktembusan; i++) {
+                tembusan[i] = document.getElementById("tembusan[" + (i + 1) + "]").value;
+                fd.append("tembusan[]", tembusan[i]);
             }
 
             var harga = document.getElementById("jumlah").value;
