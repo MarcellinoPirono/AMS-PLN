@@ -60,13 +60,18 @@ class RabController extends Controller
     {
         // Gate::allows('Supervisor');
 
-        $id = auth()->user()->id;
+    $id = auth()->user()->id;
         // dd($id);
         if(auth()->user()->role == "Supervisor") {
             return view('rab.index', [
                 'title' => 'PO KHS',
                 'title1' => 'RAB',
-                'rabs' => Rab::orderBy('id', 'DESC')->where('user_id', $id)->get(),
+                'rabs' => Rab::whereHas('kontrak_induks', function($q) {
+                    $q->whereHas('Khs', function($q) {
+                        $q->where('isActive', True);
+                    });
+                })->orderBy('id', 'DESC')->where('user_id', $id)->get(),
+                // Rab::orderBy('id', 'DESC')->where('user_id', $id)->get(),
                 'kontraks' => Rab::get("nomor_kontrak_induk")->unique("nomor_kontrak_induk"),
                 'skks' => Skk::all(),
                 'prks' => Prk::all(),
@@ -76,16 +81,17 @@ class RabController extends Controller
             return view('rab.index', [
                 'title' => 'PO KHS',
                 'title1' => 'RAB',
-                'rabs' => Rab::orderBy('id', 'DESC')->get(),
+                'rabs' => Rab::whereHas('kontrak_induks', function($q) {
+                    $q->whereHas('Khs', function($q) {
+                        $q->where('isActive', True);
+                    });
+                })->orderBy('id', 'DESC')->where('user_id', $id)->get(),
                 'kontraks' => Rab::get("nomor_kontrak_induk")->unique("nomor_kontrak_induk"),
                 'skks' => Skk::all(),
                 'prks' => Prk::all(),
                 'kontrakinduks' => KontrakInduk::all(),
             ]);
         }
-
-
-
     }
 
 

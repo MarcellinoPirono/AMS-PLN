@@ -6,6 +6,7 @@
 
 	} */
 
+
  var dzSparkLine = function(){
 	let draw = Chart.controllers.line.__super__.draw; //draw shadow
 
@@ -14,6 +15,15 @@
 	var barChart1 = function(){
 		if(jQuery('#barChart_1').length > 0 ){
 			const barChart_1 = document.getElementById("barChart_1").getContext('2d');
+			document.getElementById('')
+// var nomor_skk_this_year = JSON.parse('{!! json_encode($nomor_skk_this_year) !!}');
+//
+			// const all_skk = {{json_encode($all_skk)}};
+			// const all_skk = @JSON($all_skk);
+
+			// const all_skk = document.getElementById("all_skk").value;
+			console.log(nomor_skk_this_year);
+
 
 			barChart_1.height = 100;
 

@@ -1787,8 +1787,8 @@ class PdfkhsController extends Controller
             $d++;
         }
 
-        $jabatan_manager = Pejabat::where('jabatan', 'Manager UP3')->value('jabatan');
-        $nama_manager = Pejabat::where('jabatan', 'Manager UP3')->value('nama_pejabat');
+        $jabatan_manager = Pejabat::where('id', 1)->value('jabatan');
+        $nama_manager = Pejabat::where('id', 1)->value('nama_pejabat');
 
         $jumlah = OrderKhs::where('rab_id', $rab_id2)->sum('jumlah_harga');
         $ppn_id = PpnModel::all();

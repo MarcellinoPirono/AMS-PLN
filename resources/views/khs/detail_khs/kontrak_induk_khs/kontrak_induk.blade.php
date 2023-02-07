@@ -9,6 +9,7 @@
             <strong>Success!</strong> {{ session('status') }}
         </div>
     @endif
+    @include('sweetalert::alert')
 
     <div class="row">
         <div class="col-lg-12">

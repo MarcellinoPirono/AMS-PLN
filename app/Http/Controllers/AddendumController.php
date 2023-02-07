@@ -18,15 +18,15 @@ class AddendumController extends Controller
 {
     public function index()
     {
-        // $addendums = DB::table('addendums')->join('kontrak_induks', 'addendums.nomor_kontrak_induk', '=', 'kontrak_induks.nomor_kontrak_induk')->join('khs', 'kontrak_induks.jenis_khs', '=', 'khs.jenis_khs')->get(['addendums.*', 'kontrak_induks.*', 'khs.*']);
-        // dd($addendums);
-        // $addendums = Khs::with();
-        // dd(Addendum::orderby('id', 'DESC')->get());
         return view('khs.detail_khs.addendum_khs.addendum_khs', [
             'title' => 'Addendum',
             'active' => 'Addendum',
             'active1' => 'Addendum KHS',
-            'addendums' => Addendum::orderby('id', 'DESC')->get(),
+            'addendums' => Addendum::whereHas('kontrak_induks', function($q) {
+                $q->whereHas('Khs', function($q) {
+                    $q->where('isActive', True);
+                });
+            })->orderBy('id', 'DESC')->get(),
             'kontrakinduks' => KontrakInduk::all(),
             'khss' => Khs::all(),
         ]);
@@ -123,7 +123,13 @@ class AddendumController extends Controller
         ];
 
         // dd($data);
-        return view('khs.detail_khs.addendum_khs.edit_addendum', $data);
+        if($addendums->kontrak_induks->khs->isActive == True){
+            return view('khs.detail_khs.addendum_khs.edit_addendum', $data);
+        }else{
+            Alert::error('Mohon Maaf', 'Halaman Tidak Tersedia');
+
+            return back();
+        }
     }
 
     public function update(Request $request, $id)

@@ -54,7 +54,9 @@ class RincianIndukController extends Controller
 
         return view('khs.detail_khs.item_khs.item_khs', [
             'title' => 'Item KHS '. $jenis_khs.'',
-            'items' => RincianInduk::where('khs_id', $khs_id)->orderBy('id', 'DESC')->get(),
+            'items' => RincianInduk::whereHas('Khs', function($q) {
+                $q->where('isActive', True);
+            })->get()->orderBy('id', 'DESC')->get(),
             'jenis_khs' => $jenis_khs,
             'kategori_item' => $kategori_item
         ]);
@@ -192,7 +194,14 @@ class RincianIndukController extends Controller
             'satuans' => $satuan,
             'id_item' => $id_item
         ];
-        return view('khs.detail_khs.item_khs.edit_item_khs', $data);
+
+        if($item_khs->khs->isActive == True){
+            return view('khs.detail_khs.item_khs.edit_item_khs', $data);
+        }else{
+            Alert::error('Mohon Maaf', 'Halaman Tidak Tersedia');
+
+            return back();
+        }
     }
 
     /**

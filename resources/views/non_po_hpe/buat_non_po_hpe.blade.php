@@ -193,7 +193,7 @@
                                                         <select class="form-control input-default" id="pejabat_id"
                                                             style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
                                                             name="pejabat_id" required disabled>
-                                                            <option value="" selected disabled>{{  $nonpo-> }}jabatan{{  - }} {{  $nonpo->nama_pejabat}}
+                                                            <option value="" selected disabled>{{ $nonpo->jabatan }} - {{ $nonpo->nama_pejabat }}
                                                             </option>
                                                             @foreach ($pejabats as $pejabat)
                                                                 <option value="{{ $pejabat->id }}"

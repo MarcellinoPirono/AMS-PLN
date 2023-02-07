@@ -5,7 +5,8 @@
     <div class="row">
         <div class="col-xl-6 col-xxl-12">
             <div class="row">
-                <div class="col-sm-6">
+                {{--<input type="hidden" value="{{$all_skk}}" id="all_skk">--}}
+                {{-- <div class="col-sm-6">
                     <div class="card avtivity-card">
                         <div class="card-body">
                             <div class="media align-items-center">
@@ -14,9 +15,9 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">PO KHS SP/APP</p>
+                                    <p class="fs-14 mb-2">PO KHS Ditolak</p>
 
-                                    <span class="title text-black font-w600">123</span>
+                                    <span class="title text-black font-w600">{{$po_khs_ditolak}}</span>
 
                                 </div>
                             </div>
@@ -28,8 +29,8 @@
                         </div>
                         <div class="effect bg-primary"></div>
                     </div>
-                </div>
-                <div class="col-sm-6">
+                </div> --}}
+                {{-- <div class="col-sm-6">
                     <div class="card avtivity-card">
                         <div class="card-body">
                             <div class="media align-items-center">
@@ -38,8 +39,8 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">PO KHS JTM</p>
-                                    <span class="title text-black font-w600">241</span>
+                                    <p class="fs-14 mb-2">PO KHS Diterima</p>
+                                    <span class="title text-black font-w600">{{$po_khs_diterima}}</span>
                                 </div>
                             </div>
                             <div class="progress" style="height:5px;">
@@ -50,6 +51,9 @@
                         </div>
                         <div class="effect bg-primary"></div>
                     </div>
+                </div> --}}
+                <div class="col-sm-12 ml-3">
+                    <h4] class="text-black"><b>PO KHS</b></h4>
                 </div>
                 <div class="col-sm-6">
                     <div class="card avtivity-card">
@@ -60,8 +64,8 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Kontrak Non-PO</p>
-                                    <span class="title text-black font-w600">433</span>
+                                    <p class="fs-14 mb-2">PO KHS On Progress</p>
+                                    <span class="title text-black font-w600">{{$po_khs_on_progress}}</span>
                                 </div>
                             </div>
                             <div class="progress" style="height:5px;">
@@ -82,8 +86,8 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Kontrak PO Non KHS</p>
-                                    <span class="title text-black font-w600">271</span>
+                                    <p class="fs-14 mb-2">Non PO Diterima</p>
+                                    <span class="title text-black font-w600">{{$non_po_ditolak}}</span>
                                 </div>
                             </div>
                             <div class="progress" style="height:5px;">
@@ -104,8 +108,8 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Kontrak NON PO</p>
-                                    <span class="title text-black font-w600">134</span>
+                                    <p class="fs-14 mb-2">Non PO Diterima</p>
+                                    <span class="title text-black font-w600">{{$non_po_diterima}}</span>
                                 </div>
                             </div>
                             <div class="progress" style="height:5px;">
@@ -126,8 +130,8 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Material</p>
-                                    <span class="title text-black font-w600">297</span>
+                                    <p class="fs-14 mb-2">Non PO On Progress</p>
+                                    <span class="title text-black font-w600">{{$non_po_waiting_list}}</span>
                                 </div>
                             </div>
                             <div class="progress" style="height:5px;">
@@ -154,7 +158,7 @@
                         <button type="button" class="btn rounded btn-light" data-toggle="dropdown"
                             aria-expanded="true">
                             <i class="bi bi-credit-card-2-front-fill " style="color: rgb(42, 147, 165);"></i>
-                            Pilih SPKK
+                            Pilih SKK
                             <svg class="ml-2" width="14" height="8" viewBox="0 0 14 8" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 0.999999L7 7L13 1" stroke="#1EA7C5" stroke-width="2" stroke-linecap="round"
@@ -162,8 +166,8 @@
                             </svg>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="javascript:void(0);">SPKK 1</a>
-                            <a class="dropdown-item" href="javascript:void(0);">SPKK 2</a>
+                            <a class="dropdown-item" href="javascript:void(0);">SKK 1</a>
+                            <a class="dropdown-item" href="javascript:void(0);">SKK 2</a>
                         </div>
                     </div>
                 </div>

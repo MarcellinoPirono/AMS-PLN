@@ -10,16 +10,28 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class KontrakIndukController extends Controller
 {
     public function index()
     {
+        $khs_id_active = Khs::where('isActive', True)->get('id');
+        // dd($khs_id_active);
+        // $khs_id = [];
+        // for($i=0; $i<count($khs_id_active); $i++){
+        //     $khs_id[$i] = KontrakInduk::where('khs_id', $khs_id_active[$i]->id)->get();
+        // }
+        // dd($khs_id);
+        // for
         return view('khs.detail_khs.kontrak_induk_khs.kontrak_induk', [
             'title' => 'Kontrak Induk KHS',
             'khss' => Khs::all(),
-            'kontrakinduks' => KontrakInduk::all(),
+            // 'kontrakinduks' => $khs_id,
+            'kontrakinduks' => KontrakInduk::whereHas('Khs', function($q) {
+                $q->where('isActive', True);
+            })->get(),
             'vendors' => Vendor::all()
         ]);
 
@@ -92,7 +104,14 @@ class KontrakIndukController extends Controller
             'vendors' => Vendor::all(),
             // 'categories' => ItemRincianInduk::orderBy('id', 'DESC')->get(),
         ];
-        return view('khs.detail_khs.kontrak_induk_khs.edit_kontrak_induk_khs', $data);
+        if($kontrakinduks->khs->isActive == True){
+            return view('khs.detail_khs.kontrak_induk_khs.edit_kontrak_induk_khs', $data);
+        }
+        else{
+            Alert::error('Mohon Maaf', 'Halaman Tidak Tersedia');
+
+            return back();
+        }
     }
 
     public function update(Request $request, $id)

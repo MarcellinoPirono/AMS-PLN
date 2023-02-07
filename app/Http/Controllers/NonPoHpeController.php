@@ -267,8 +267,6 @@ class NonPoHpeController extends Controller
 
     public function simpan_edit_hpe(Request $request){
         // dd($request);
-
-
         $non_po_id = $request->non_po_id;
         $nama_pdf = NonPo::where('id', $non_po_id)->value("nomor_rpbj");
         $nama_pdf = str_replace('.', '_', $nama_pdf);
@@ -386,6 +384,7 @@ class NonPoHpeController extends Controller
     public function view_surat_dinas($non_po_id, $nama_pdf){
         $values_pdf_page1 = NonPo::where('id', $non_po_id)->get();
         $surats = OrderSuratDinas::where('non_po_id', $non_po_id)->get();
+        // dd($surats);
         $order_surat_dinas_id = OrderSuratDinas::where('non_po_id', $non_po_id)->value('id');
         $tembusans = Tembusan::where('order_surat_dinas_id', $order_surat_dinas_id)->get();
 
@@ -684,8 +683,8 @@ class NonPoHpeController extends Controller
     public function load_view_nota_dinas_hpe($non_po_id, $nama_pdf){
         $values_pdf_page1 = NonPO::where('id', $non_po_id)->get();
         $values_pdf_page2 = RabNonPO::where('non_po_id', $non_po_id)->get();
-        $manajer_keuangan = Pejabat::where('jabatan', 'ASISTANT MANAGER KEUANGAN ADMINISTRASI DAN UMUM')->first(['jabatan', 'nama_pejabat']);
-        $manajer_perencanaan = Pejabat::where('jabatan', 'ASISTANT MANAGER PERENCANAAN')->first(['jabatan', 'nama_pejabat']);
+        $manajer_keuangan = Pejabat::where('id', 7)->first(['jabatan', 'nama_pejabat']);
+        $manajer_perencanaan = Pejabat::where('id', 3)->first(['jabatan', 'nama_pejabat']);
         // $values_pdf_page3 = NonPo::where('id', $id)->get();
         // dd($manajer_keuangan);
         $jumlah = RabNonPo::where('non_po_id', $non_po_id)->sum('jumlah_harga');
