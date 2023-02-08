@@ -359,23 +359,33 @@ class NonPOController extends Controller
             'kak' => null,
             'nota_dinas' => null,
             'total_harga' => $request->total_harga,
-            'total_harga_hpe' => $request->total_harga_hpe,
+            'total_harga_hpe' => $request->total_hpe,
             'pdf_file' => $nama_pdf,
             'status' => $status,
             'slug' => $nama_pdf,
         ];
 
-        NonPo::create($non_po);
+        // dd($request->total_hpe);
+
+        NonPo::create ($non_po);
 
         $prk = Prk::where('id', $request->prk_id)->get();
         $skk = Skk::where('id', $request->skk_id)->get();
 
+        //update prk sisa
+        $updated_prk_sisa = (float)$prk[0]->prk_sisa - (float)$request->total_hpe;
+        Prk::where('id', $request->prk_id)->update(array('prk_sisa'=>(Double)$updated_prk_sisa));
+
+        //update skk sisa
+        $updated_skk_sisa = (float)$skk[0]->skk_sisa - (float)$request->total_hpe;
+        Skk::where('id', $request->skk_id)->update(array('skk_sisa'=>(Double)$updated_skk_sisa));
+
         //update prk terkontrak
-        $updated_prk_terkontrak = (float)$prk[0]->prk_terkontrak + (float)$request->total_harga;
+        $updated_prk_terkontrak = (float)$prk[0]->prk_terkontrak + (float)$request->total_hpe;
         Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
 
         //update skk terkontrak
-        $updated_skk_terkontrak = (float)$skk[0]->skk_terkontrak + (float)$request->total_harga;
+        $updated_skk_terkontrak = (float)$skk[0]->skk_terkontrak + (float)$request->total_hpe;
         Skk::where('id', $request->skk_id)->update(array('skk_terkontrak'=>(Double)$updated_skk_terkontrak));
 
         return response()->json([

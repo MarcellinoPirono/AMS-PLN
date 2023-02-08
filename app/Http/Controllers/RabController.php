@@ -948,6 +948,14 @@ class RabController extends Controller
         $prk = Prk::where('id', $request->prk_id)->get();
         $skk = Skk::where('id', $request->skk_id)->get();
 
+        //update prk sisa
+        $updated_prk_sisa = (float)$prk[0]->prk_sisa - (float)$request->total_harga;
+        Prk::where('id', $request->prk_id)->update(array('prk_sisa'=>(Double)$updated_prk_sisa));
+
+        //update skk sisa
+        $updated_skk_sisa = (float)$skk[0]->skk_sisa - (float)$request->total_harga;
+        Skk::where('id', $request->skk_id)->update(array('skk_sisa'=>(Double)$updated_skk_sisa));
+
         //update prk terkontrak
         $updated_prk_terkontrak = (float)$prk[0]->prk_terkontrak + (float)$request->total_harga;
         Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
@@ -962,7 +970,7 @@ class RabController extends Controller
     }
 
     public function setuju(Request $request){
-        // dd($request);
+        // dd($request->terima);
 
         $id = Rab::where('slug', $request->slug)->value('id');
         $total_harga = Rab::where('slug', $request->slug)->value('total_harga');
