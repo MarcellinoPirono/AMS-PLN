@@ -375,7 +375,7 @@ class DatabaseSeeder extends Seeder
             'prk_progress' => '0',
             'prk_realisasi' => '0',
             'prk_terbayar' => '0',
-            'prk_sisa' => '0',
+            'prk_sisa' => '10000000',
         ]);
         Prk::create([
             'no_skk_prk' => '1',
@@ -386,7 +386,7 @@ class DatabaseSeeder extends Seeder
             'prk_progress' => '0',
             'prk_realisasi' => '0',
             'prk_terbayar' => '0',
-            'prk_sisa' => '0',
+            'prk_sisa' => '10000000',
         ]);
         Prk::create([
             'no_skk_prk' => '1',
@@ -397,7 +397,7 @@ class DatabaseSeeder extends Seeder
             'prk_progress' => '0',
             'prk_realisasi' => '0',
             'prk_terbayar' => '0',
-            'prk_sisa' => '0',
+            'prk_sisa' => '10000000',
         ]);
         Prk::create([
             'no_skk_prk' => '2',
@@ -408,7 +408,7 @@ class DatabaseSeeder extends Seeder
             'prk_progress' => '0',
             'prk_realisasi' => '0',
             'prk_terbayar' => '0',
-            'prk_sisa' => '0',
+            'prk_sisa' => '10000000',
         ]);
         Prk::create([
             'no_skk_prk' => '3',
@@ -419,7 +419,7 @@ class DatabaseSeeder extends Seeder
             'prk_progress' => '0',
             'prk_realisasi' => '0',
             'prk_terbayar' => '0',
-            'prk_sisa' => '0',
+            'prk_sisa' => '10000000',
         ]);
 
     }
