@@ -13,7 +13,7 @@ class Prk extends Model
 
     public function skks()
     {
-        return $this->belongsTo(Skk::class, 'no_skk_prk', 'id');
+        return $this->belongsTo(Skk::class, 'no_skk_prk');
     }
 
     public function rabs()

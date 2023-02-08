@@ -19,12 +19,15 @@
                     </div>
 
                     <div class="d-flex justify-content-end mr-5">
+                        <a href="/skk/create-xlsx" class="btn btn-primary btn-xs ml-3 mt-3">Via Excel<span
+                            class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                        </a>
                         <a href="/skk/create" class="btn btn-primary">Tambah SKK<span class="btn-icon-right"><i
                             class="fa fa-plus-circle"></i></span>
                          </a>
                     </div>
                 </div>
-                
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="tableSKK" class="table table-responsive-sm">

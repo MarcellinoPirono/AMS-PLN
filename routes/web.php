@@ -88,6 +88,7 @@ Route::post('/checkJenisKhs', [KhsController::class, 'checkJenisKhs']);
 Route::post('/checkJenisKhs/edit', [KhsController::class, 'checkJenisKhs_edit'])->middleware('Manager');
 
 //Vendor KHS
+
 Route::get('/vendor-khs/create-xlsx', [VendorController::class, 'create_xlsx'])->middleware('Manager');
 Route::post('vendor-khs/import', [VendorController::class, 'import'])->middleware('Manager');
 Route::post('/checkVendor', [VendorController::class, 'checkVendor'])->middleware('Manager');
@@ -171,13 +172,16 @@ Route::get('/upload-po', [RabController::class, 'upload_po_khs'])->middleware('M
 Route::post('/simpan-upload-po', [RabController::class, 'simpan_upload_po_khs'])->middleware('Manager');
 
 //PRK
+Route::get('/prk/create-xlsx', [PrkController::class, 'create_xlsx'])->middleware('Manager');
+Route::post('prk/import', [PrkController::class, 'import'])->middleware('Manager');
 Route::resource('prk', PrkController::class)->middleware('Keuangan');
 Route::any('prk/filter', [PrkController::class, 'filterprk'])->middleware('Keuangan');
 Route::get('/search-prk', [PrkController::class, 'searchprk'])->middleware('Keuangan');
 Route::post('/checkPRK', [PrkController::class, 'checkPRK'])->middleware('Keuangan');
 Route::post('/checkPRK_edit', [PrkController::class, 'checkPRK_edit'])->middleware('Keuangan');
 
-
+Route::get('/skk/create-xlsx', [SkkController::class, 'create_xlsx'])->middleware('Manager');
+Route::post('skk/import', [SkkController::class, 'import'])->middleware('Manager');
 Route::resource('skk', SkkController::class)->middleware('Keuangan');
 Route::get('/search-skk', [SkkController::class, 'searchskk'])->middleware('Keuangan');
 Route::post('/getSKK', [SkkController::class, 'getSKK'])->middleware('SupervisorMiddleware');
@@ -188,6 +192,7 @@ Route::post('/getKontrakInduk', [SkkController::class, 'getKontrakInduk'])->midd
 Route::post('/getKontrak_Induk', [SkkController::class, 'getKontrak_Induk'])->middleware('SupervisorMiddleware');
 Route::post('/checkSKK', [SkkController::class, 'checkSKK'])->middleware('SupervisorMiddleware');
 Route::post('/checkSKK_edit', [SkkController::class, 'checkSKK_edit'])->middleware('Keuangan');
+
 // Route::post('skk/check-no-skk.php');
 
 

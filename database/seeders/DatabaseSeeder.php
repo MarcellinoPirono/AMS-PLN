@@ -329,98 +329,98 @@ class DatabaseSeeder extends Seeder
 
 
 
-        Skk::create([
-            'nomor_skk' => '020/DAN/2020',
-            'uraian_skk' => 'Pembelian Motor',
-            'pagu_skk' => '30000000',
-            'ai_ao' => 'AO',
-            'skk_terkontrak' => '0',
-            'skk_progress' => '0',
-            'skk_realisasi' => '0',
-            'skk_terbayar' => '0',
-            'skk_sisa' => '30000000',
-        ]);
-        Skk::create([
-            'nomor_skk' => '021/DAN/2021',
-            'uraian_skk' => 'Pembelian Mobil',
-            'pagu_skk' => '10000000',
-            'ai_ao' => 'AI',
+        // Skk::create([
+        //     'nomor_skk' => '020/DAN/2020',
+        //     'uraian_skk' => 'Pembelian Motor',
+        //     'pagu_skk' => '30000000',
+        //     'ai_ao' => 'AO',
+        //     'skk_terkontrak' => '0',
+        //     'skk_progress' => '0',
+        //     'skk_realisasi' => '0',
+        //     'skk_terbayar' => '0',
+        //     'skk_sisa' => '30000000',
+        // ]);
+        // Skk::create([
+        //     'nomor_skk' => '021/DAN/2021',
+        //     'uraian_skk' => 'Pembelian Mobil',
+        //     'pagu_skk' => '10000000',
+        //     'ai_ao' => 'AI',
 
-            'skk_terkontrak' => '0',
-            'skk_progress' => '0',
-            'skk_realisasi' => '0',
-            'skk_terbayar' => '0',
-            'skk_sisa' => '10000000',
-        ]);
-        Skk::create([
-            'nomor_skk' => '022/DAN/2022',
-            'uraian_skk' => 'Pembelian Skuter',
-            'pagu_skk' => '10000000',
-            'ai_ao' => 'AI',
+        //     'skk_terkontrak' => '0',
+        //     'skk_progress' => '0',
+        //     'skk_realisasi' => '0',
+        //     'skk_terbayar' => '0',
+        //     'skk_sisa' => '10000000',
+        // ]);
+        // Skk::create([
+        //     'nomor_skk' => '022/DAN/2022',
+        //     'uraian_skk' => 'Pembelian Skuter',
+        //     'pagu_skk' => '10000000',
+        //     'ai_ao' => 'AI',
 
-            'skk_terkontrak' => '0',
-            'skk_progress' => '0',
-            'skk_realisasi' => '0',
-            'skk_terbayar' => '0',
-            'skk_sisa' => '10000000',
-        ]);
+        //     'skk_terkontrak' => '0',
+        //     'skk_progress' => '0',
+        //     'skk_realisasi' => '0',
+        //     'skk_terbayar' => '0',
+        //     'skk_sisa' => '10000000',
+        // ]);
 
-        Prk::create([
-            'no_skk_prk' => '1',
-            'no_prk' => '001/DAN.PRK/2020',
-            'uraian_prk' => 'Pembelian Ban',
-            'pagu_prk' => '10000000',
-            'prk_terkontrak' => '0',
-            'prk_progress' => '0',
-            'prk_progress' => '0',
-            'prk_realisasi' => '0',
-            'prk_terbayar' => '0',
-            'prk_sisa' => '10000000',
-        ]);
-        Prk::create([
-            'no_skk_prk' => '1',
-            'no_prk' => '002/DAN.PRK/2020',
-            'uraian_prk' => 'Pembelian Velg',
-            'pagu_prk' => '10000000',
-            'prk_terkontrak' => '0',
-            'prk_progress' => '0',
-            'prk_realisasi' => '0',
-            'prk_terbayar' => '0',
-            'prk_sisa' => '10000000',
-        ]);
-        Prk::create([
-            'no_skk_prk' => '1',
-            'no_prk' => '003/DAN.PRK/2020',
-            'uraian_prk' => 'Pembelian Spion',
-            'pagu_prk' => '10000000',
-            'prk_terkontrak' => '0',
-            'prk_progress' => '0',
-            'prk_realisasi' => '0',
-            'prk_terbayar' => '0',
-            'prk_sisa' => '10000000',
-        ]);
-        Prk::create([
-            'no_skk_prk' => '2',
-            'no_prk' => '010/DAN.PRK/2021',
-            'uraian_prk' => 'Pembelian Knalpot',
-            'pagu_prk' => '10000000',
-            'prk_terkontrak' => '0',
-            'prk_progress' => '0',
-            'prk_realisasi' => '0',
-            'prk_terbayar' => '0',
-            'prk_sisa' => '10000000',
-        ]);
-        Prk::create([
-            'no_skk_prk' => '3',
-            'no_prk' => '020/DAN.PRK/2022',
-            'uraian_prk' => 'Pembelian Roda',
-            'pagu_prk' => '10000000',
-            'prk_terkontrak' => '0',
-            'prk_progress' => '0',
-            'prk_realisasi' => '0',
-            'prk_terbayar' => '0',
-            'prk_sisa' => '10000000',
-        ]);
+        // Prk::create([
+        //     'no_skk_prk' => '1',
+        //     'no_prk' => '001/DAN.PRK/2020',
+        //     'uraian_prk' => 'Pembelian Ban',
+        //     'pagu_prk' => '10000000',
+        //     'prk_terkontrak' => '0',
+        //     'prk_progress' => '0',
+        //     'prk_progress' => '0',
+        //     'prk_realisasi' => '0',
+        //     'prk_terbayar' => '0',
+        //     'prk_sisa' => '10000000',
+        // ]);
+        // Prk::create([
+        //     'no_skk_prk' => '1',
+        //     'no_prk' => '002/DAN.PRK/2020',
+        //     'uraian_prk' => 'Pembelian Velg',
+        //     'pagu_prk' => '10000000',
+        //     'prk_terkontrak' => '0',
+        //     'prk_progress' => '0',
+        //     'prk_realisasi' => '0',
+        //     'prk_terbayar' => '0',
+        //     'prk_sisa' => '10000000',
+        // ]);
+        // Prk::create([
+        //     'no_skk_prk' => '1',
+        //     'no_prk' => '003/DAN.PRK/2020',
+        //     'uraian_prk' => 'Pembelian Spion',
+        //     'pagu_prk' => '10000000',
+        //     'prk_terkontrak' => '0',
+        //     'prk_progress' => '0',
+        //     'prk_realisasi' => '0',
+        //     'prk_terbayar' => '0',
+        //     'prk_sisa' => '10000000',
+        // ]);
+        // Prk::create([
+        //     'no_skk_prk' => '2',
+        //     'no_prk' => '010/DAN.PRK/2021',
+        //     'uraian_prk' => 'Pembelian Knalpot',
+        //     'pagu_prk' => '10000000',
+        //     'prk_terkontrak' => '0',
+        //     'prk_progress' => '0',
+        //     'prk_realisasi' => '0',
+        //     'prk_terbayar' => '0',
+        //     'prk_sisa' => '10000000',
+        // ]);
+        // Prk::create([
+        //     'no_skk_prk' => '3',
+        //     'no_prk' => '020/DAN.PRK/2022',
+        //     'uraian_prk' => 'Pembelian Roda',
+        //     'pagu_prk' => '10000000',
+        //     'prk_terkontrak' => '0',
+        //     'prk_progress' => '0',
+        //     'prk_realisasi' => '0',
+        //     'prk_terbayar' => '0',
+        //     'prk_sisa' => '10000000',
+        // ]);
 
     }
 }

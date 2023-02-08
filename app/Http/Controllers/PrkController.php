@@ -6,9 +6,11 @@ use App\Http\Requests\StorePrkRequest;
 use App\Http\Requests\UpdatePrkRequest;
 use App\Models\Prk;
 use App\Models\Skk;
+use App\Imports\PrkImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -42,6 +44,35 @@ class PrkController extends Controller
             'active1' => 'Tambah PRK',
             'skss' => Skk::all(),
         ]);
+    }
+
+
+    public function create_xlsx()
+    {
+
+        return view(
+            'prk.excel',
+            [
+                'title' => 'Buat PRK',
+                'active' => 'PRK',
+                'active1' => 'Tambah PRK',
+                // 'items' => ItemRincianInduk::all(),
+            ]
+        );
+    }
+
+    function import(Request $request)
+    {
+
+     $this->validate($request, [
+      'select_file'  => 'required|mimes:xls,xlsx'
+     ]);
+
+
+    Excel::import(new PrkImport, $request->file('select_file')->store('temp'));
+
+
+    return redirect('/prk');
     }
 
     /**

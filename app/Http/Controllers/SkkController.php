@@ -8,10 +8,15 @@ use App\Models\RincianInduk;
 use App\Models\PaketPekerjaan;
 use App\Models\Satuan;
 use App\Models\Skk;
+use App\Models\Prk;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use App\Imports\SkkImport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 
 class SKKController extends Controller
@@ -305,6 +310,34 @@ class SKKController extends Controller
         } else {
             echo json_encode(true);
         }
+    }
+
+    public function create_xlsx()
+    {
+
+        return view(
+            'skk.excel',
+            [
+                'title' => 'Buat Vendor',
+                'active' => 'Vendor',
+                'active1' => 'Tambah Vendor',
+                // 'items' => ItemRincianInduk::all(),
+            ]
+        );
+    }
+
+    function import(Request $request)
+    {
+
+     $this->validate($request, [
+      'select_file'  => 'required|mimes:xls,xlsx'
+     ]);
+
+
+    Excel::import(new SkkImport, $request->file('select_file')->store('temp'));
+
+
+    return redirect('/skk');
     }
 
 }
