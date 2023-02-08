@@ -32,12 +32,12 @@
             <tr>
                 <td>SUMBER ANGGARAN</td>
                 <td>:</td>
-                <td>{{ $nonpo->skk_id }}</td>
+                <td>{{ $nonpo->skks->nomor_skk }}</td>
             </tr>
             <tr>
                 <td>NOMOR PRK</td>
                 <td>:</td>
-                <td>{{ $nonpo->prk_id }}</td>
+                <td>{{ $nonpo->prks->no_prk }}</td>
             </tr>
         </table>
     @endforeach

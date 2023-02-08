@@ -101,7 +101,11 @@
                                         <td>{{ $nonpo->skks->nomor_skk }}</td>
                                         <td>{{ $nonpo->prks->no_prk }}</td>
                                         <td>{{ $nonpo->supervisor }}</td>
+                                        @if($nonpo->total_harga_perkiraan == null)
                                         <td>@currency($nonpo->total_harga)</td>
+                                        @else
+                                        <td>@currency($nonpo->total_harga_hpe)</td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

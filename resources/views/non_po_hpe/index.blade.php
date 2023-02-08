@@ -5,7 +5,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header position-relative justify-content-center float-right">
-                    <div class="col-xl-3 col-l-4 col-m-3 col-sm-2 mt-3">
+                    <div class="col-lg-6">
                         <select id="filter-skk1" class="form-control filter">
                             <option value="">Pilih SKK</option>
                             @foreach ($skks as $skk)
@@ -13,7 +13,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-xl-3 col-l-4 col-m-3 col-sm-2 mt-3">
+                    <div class="col-lg-6">
                         <select id="filter-prk1" class="form-control filter">
                             <option value="">Pilih PRK</option>
                             @foreach ($prks as $prk)

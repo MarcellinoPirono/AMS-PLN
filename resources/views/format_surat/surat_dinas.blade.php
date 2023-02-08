@@ -81,12 +81,12 @@
         <tr>
             <td style="width: 20%">Sumber Dana</td>
             <td style="width: 1%">:</td>
-            <td>{{$nonpo->skk_id}}</td>
+            <td>{{$nonpo->skks->nomor_skk}}</td>
         </tr>
         <tr>
             <td>PRK</td>
             <td>:</td>
-            <td align="left">{{$nonpo->prk_id}}</td>
+            <td align="left">{{$nonpo->prks->no_prk}}</td>
         </tr>
         <tr>
             <td>Perkiraan Harga</td>
