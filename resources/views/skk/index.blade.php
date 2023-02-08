@@ -6,7 +6,8 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header position-relative">
+
 
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
                         <select id="filter-skk" class="form-control filter">
@@ -16,20 +17,14 @@
                             @endforeach
                         </select>
                     </div>
-                    <a href="/skk/create" class="btn btn-primary mr-auto ml-3 ">Tambah SKK<span class="btn-icon-right"><i
-                                class="fa fa-plus-circle"></i></span>
-                    </a>
-                    <!-- <div class="input-group search-area position-relative">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
-                            <input type="search" id="search" name="search" class="form-control" placeholder="Search here..." />
-                        </div>
-                    </div> -->
 
-                    {{-- <div class="sweetalert mt-5">
-                                        <button class="btn btn-warning btn sweet-confirm">Sweet Confirm</button>
-                                </div> --}}
+                    <div class="d-flex justify-content-end mr-5">
+                        <a href="/skk/create" class="btn btn-primary">Tambah SKK<span class="btn-icon-right"><i
+                            class="fa fa-plus-circle"></i></span>
+                         </a>
+                    </div>
                 </div>
+                
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="tableSKK" class="table table-responsive-sm">

@@ -4,11 +4,10 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="d-flex justify-content-end mr-5 mt-5">
-                    <a href="/prk/create" class="btn btn-primary mr-auto ml-3 ">Tambah PRK <i class="bi bi-plus"></i>
-            </a>
-                </div>
-                <div class="card-header">
+
+                <div class="card-header position-relative">
+
+
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
                         <select id="filter-prk" class="form-control filter-skk">
                             <option value="">Pilih SKK</option>
@@ -17,8 +16,14 @@
                             @endforeach
                         </select>
                     </div>
-
+                    <div class="d-flex justify-content-end mr-5">
+                        <a href="/prk/create" class="btn btn-primary">Tambah PRK <i class="fa fa-plus-circle"></i>
+                        </a>
+                    </div>
                 </div>
+
+
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-responsive-md" id="tablePRK">
