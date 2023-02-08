@@ -18,10 +18,10 @@ class MainController extends Controller
         $this_year = $date->year;
         // dd($this_year);
         $po_khs_ditolak = Rab::where('status', 'Ditolak')->count();
-        $po_khs_diterima = Rab::where('status', 'Diterima')->count();
+        $po_khs_diterima = Rab::where('status', 'Disetujui')->count();
         $po_khs_on_progress = Rab::where('status', 'Progress')->count();
         $non_po_ditolak = NonPo::where('status', 'Ditolak')->count();
-        $non_po_diterima = NonPo::where('status', 'Diterima')->count();
+        $non_po_diterima = NonPo::where('status', 'Disetujui')->count();
         $non_po_waiting_list = NonPo::where('status', 'Waiting List')->count();
         $non_po_on_progress = NonPo::where('status', 'Progress')->count();
         $non_po_all_on_progress = $non_po_waiting_list + $non_po_on_progress;

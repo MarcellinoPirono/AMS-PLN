@@ -115,7 +115,7 @@ function updateformwithpaket(c) {
             input6.setAttribute("id", "tkdn[" + index_table + "]");
             input6.setAttribute("name", "tkdn");
             input6.setAttribute("placeholder", "TKDN");
-            input6.setAttribute("onkeypress", "tkdn_format(this)");
+            input6.setAttribute("onkeypress", "tkdn_format_with_paket(this)");
             input6.setAttribute("value", "");
             input6.setAttribute("required", "");
 
@@ -149,6 +149,51 @@ function updateformwithpaket(c) {
             index_table -= index.length;
         }
     });
+}
+
+function tkdn_format_with_paket(c) {
+    var row = c.parentNode.parentNode;
+    var tkdn = row.querySelector('input[name="tkdn"]');
+
+    tkdn.addEventListener('input', function (prev) {
+        return function (evt) {
+            if (this.value.charAt(0) == "1") {
+                if (this.value.charAt(1) == "0") {
+                    if (this.value.charAt(2) == "0") {
+                        if (this.value.charAt(3) == ",") {
+                            this.value = prev;
+                        } else {
+                            if (!/^\d{0,3}(?:\,\d{0,2})?$/.test(this.value)) {
+                                this.value = prev;
+                            } else {
+                                prev = this.value;
+                            }
+                        }
+                    } else {
+                        if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                            this.value = prev;
+                        } else {
+                            prev = this.value;
+                        }
+                    }
+                } else {
+                    if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                        this.value = prev;
+                    } else {
+                        prev = this.value;
+                    }
+                }
+            } else if (this.value.charAt(0) == ",") {
+                this.value = "";
+            } else {
+                if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                    this.value = prev;
+                } else {
+                    prev = this.value;
+                }
+            }
+        };
+    }(tkdn.value), false);
 }
 
 function updateform() {

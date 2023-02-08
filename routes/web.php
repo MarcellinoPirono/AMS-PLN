@@ -167,7 +167,9 @@ Route::post('/getVendor', [RabController::class, 'getVendor'])->middleware('Supe
 Route::get('/getRedaksi', [RabController::class, 'getRedaksi'])->middleware('SupervisorMiddleware');
 Route::post('/getDeskripsi', [RabController::class, 'getDeskripsi'])->middleware('SupervisorMiddleware');
 Route::post('/getSubDeskripsi', [RabController::class, 'getSubDeskripsi'])->middleware('SupervisorMiddleware');
+Route::get('/upload-po', [RabController::class, 'upload_po_khs'])->middleware('Manager');
 
+//PRK
 Route::resource('prk', PrkController::class)->middleware('Keuangan');
 Route::any('prk/filter', [PrkController::class, 'filterprk'])->middleware('Keuangan');
 Route::get('/search-prk', [PrkController::class, 'searchprk'])->middleware('Keuangan');

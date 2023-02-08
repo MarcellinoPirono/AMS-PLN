@@ -42,7 +42,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">PO KHS Diterima</p>
+                                    <p class="fs-14 mb-2">PO KHS Disetujui</p>
                                     <span class="title text-black font-w600">{{$po_khs_diterima}}</span>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                                         width="39px">
                                 </span>
                                 <div class="media-body">
-                                    <p class="fs-14 mb-2">Non PO Diterima</p>
+                                    <p class="fs-14 mb-2">Non PO Disetujui</p>
                                     <span class="title text-black font-w600">{{$non_po_diterima}}</span>
                                 </div>
                             </div>

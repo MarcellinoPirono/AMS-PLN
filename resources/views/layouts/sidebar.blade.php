@@ -179,9 +179,11 @@
                     <li><a class="nav-link {{ Request::is('pejabat*') ? 'active' : '' }}"
                             href="/pejabat"><strong>Data Pejabat</strong></a>
                     </li>
-
                     <li><a class="nav-link {{ Request::is('ppn*') ? 'active' : '' }}"
                             href="/ppn"><strong>Data PPN</strong></a>
+                    </li>
+                    <li><a class="nav-link {{ Request::is('ppn*') ? 'active' : '' }}"
+                            href="/upload-po"><strong>Upload PO</strong></a>
                     </li>
                     @if (auth()->user()->role === "Admin")
                     <li><a class="nav-link {{ Request::is('user*') ? 'active' : '' }}"

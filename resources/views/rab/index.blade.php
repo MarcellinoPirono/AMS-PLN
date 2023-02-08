@@ -51,9 +51,9 @@
                     <div class="col-xl-2 col-l-4 col-m-3 col-sm-2 mt-3">
                         <select id="filter-status" class="form-control filter">
                             <option value="">Pilih Status</option>
-                            <option value="Progress">Progress</option>
-                            <option value="Disetujui">Disetujui</option>
-                            <option value="Ditolak">Ditolak</option>
+                            <option value="=">Progress</option>
+                            <option value="-">Disetujui</option>
+                            <option value="+">Ditolak</option>
                             {{-- @foreach ($rabs as $rab)
                                 <option value="{{ $rab->status}}">
                                     {{ $rab->status }}</option>
@@ -103,13 +103,13 @@
                                         </td>
                                         @if ($rab->status == 'Progress')
                                             {{-- <td><span class="badge light badge-warning">{{ $rab->status }}</span></td> --}}
-                                            <td align="center" valign="middle" style="vertical-align: middle"><span class="badge light badge-warning1">-</span></span></td>
+                                            <td align="center" valign="top" style="vertical-align: top"><span class="badge light badge-warning1">=</span></span></td>
                                         @elseif ($rab->status == 'Disetujui')
                                             {{-- <td><span class="badge light badge-success">{{ $rab->status }}</span></td> --}}
-                                            <td align="center" valign="middle" style="vertical-align: middle"><span class="badge light badge-success1">-</span></span></td>
+                                            <td align="center" valign="top" style="vertical-align: top"><span class="badge light badge-success1">-</span></span></td>
                                         @else
                                             {{-- <td><span class="badge light badge-danger">{{ $rab->status }}</span></td> --}}
-                                            <td align="center" valign="middle" style="vertical-align: middle"><span class="badge light badge-danger1">-</span></td>
+                                            <td align="center" valign="top" style="vertical-align: top"><span class="badge light badge-danger1">+</span></td>
                                         @endif
                                         <td>{{ $rab->nomor_po }}</td>
                                         <td>{{ \Carbon\Carbon::parse($rab->tanggal_po)->isoFormat('dddd, DD-MMMM-YYYY') }}

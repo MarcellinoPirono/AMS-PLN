@@ -867,6 +867,32 @@ class RabController extends Controller
         //     echo json_encode(true);
         // }
     }
+    public function upload_po_khs()
+    {
+        $data_items = RincianInduk::select('id', 'nama_item', 'harga_satuan', 'satuan_id')->get();
+        $data_kategori = ItemRincianInduk::select('id', 'khs_id', 'nama_kategori')->get();
+
+        return view(
+            'rab.upload_po_khs',
+            [
+                'active1' => 'Upload PO-KHS',
+                'title' => 'PO-KHS',
+                'title1' => 'PO-KHS',
+                'active' => 'PO-KHS',
+                'skks' => Skk::all(),
+                'prks' => Prk::all(),
+                'categories' => ItemRincianInduk::all(),
+                'items' => RincianInduk::all(),
+                'kontraks' => KontrakInduk::all(),
+                'pejabats' => Pejabat::all(),
+                'khs' => Khs::all(),
+                'redaksis'=>Redaksi::all(),
+                'ppn'=>PpnModel::all(),
+            ],
+            compact('data_kategori', 'data_items')
+        );
+    }
+
     public function setuju(Request $request){
         // dd($request);
 

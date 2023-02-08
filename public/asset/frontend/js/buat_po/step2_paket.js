@@ -414,7 +414,7 @@ function deletePaket(r) {
                 input7.setAttribute("name", "tkdn");
                 input7.setAttribute("id", "tkdn[1]");
                 input7.setAttribute("placeholder", "TKDN");
-                input7.setAttribute("onkeypress", "tkdn_format(this)");
+                input7.setAttribute("onkeypress", "tkdn_format_with_paket(this)");
                 input7.setAttribute("required", true);
 
                 button1 = document.createElement('button');
@@ -471,6 +471,51 @@ function deletePaket(r) {
     // }
 
     reindexPaket();
+}
+
+function tkdn_format_with_paket(c) {
+    var row = c.parentNode.parentNode;
+    var tkdn = row.querySelector('input[name="tkdn"]');
+
+    tkdn.addEventListener('input', function (prev) {
+        return function (evt) {
+            if (this.value.charAt(0) == "1") {
+                if (this.value.charAt(1) == "0") {
+                    if (this.value.charAt(2) == "0") {
+                        if (this.value.charAt(3) == ",") {
+                            this.value = prev;
+                        } else {
+                            if (!/^\d{0,3}(?:\,\d{0,2})?$/.test(this.value)) {
+                                this.value = prev;
+                            } else {
+                                prev = this.value;
+                            }
+                        }
+                    } else {
+                        if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                            this.value = prev;
+                        } else {
+                            prev = this.value;
+                        }
+                    }
+                } else {
+                    if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                        this.value = prev;
+                    } else {
+                        prev = this.value;
+                    }
+                }
+            } else if (this.value.charAt(0) == ",") {
+                this.value = "";
+            } else {
+                if (!/^\d{0,2}(?:\,\d{0,2})?$/.test(this.value)) {
+                    this.value = prev;
+                } else {
+                    prev = this.value;
+                }
+            }
+        };
+    }(tkdn.value), false);
 }
 
 function reindexPaket() {
@@ -968,7 +1013,7 @@ function bikin_table(data) {
                 input7.setAttribute("value", tkdn_k);
                 input7.setAttribute("id", "tkdn[" + (k+1) + "]");
                 input7.setAttribute("placeholder", "TKDN");
-                input7.setAttribute("onkeypress", "tkdn_format(this)");
+                input7.setAttribute("onkeypress", "tkdn_format_with_paket(this)");
                 input7.setAttribute("required", true);
 
                 button1 = document.createElement('button');

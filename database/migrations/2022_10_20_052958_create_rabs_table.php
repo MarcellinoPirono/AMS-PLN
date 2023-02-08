@@ -44,7 +44,7 @@ return new class extends Migration
             // $table->string('lampiran')->nullable();
             // $table->string('pdf_file_disetujui');
             // $table->string('pdf_file_ditolak');
-            $table->string('jenis_cetak');
+            // $table->string('jenis_cetak')->nullable();
 
 
             // $table->integer('volume');

@@ -11,6 +11,45 @@
                         </a>
                     @endif
                 </div>
+                <div class="card-header position-relative justify-content-center float-right">
+                    {{-- <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih SKK</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="javascript:void()">Janurari</a>
+                                        <a class="dropdown-item" href="javascript:void()">Februari</a>
+                                    </div>
+                                </div> --}}
+
+                    <div class="col-xl-4 col-l-4 col-m-3 col-sm-2 mt-3">
+                        <select id="filter-skk1" class="form-control filter">
+                            <option value="">Pilih SKK</option>
+                            @foreach ($skks as $skk)
+                                <option value="{{ $skk->nomor_skk }}">{{ $skk->nomor_skk }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-xl-4 col-l-4 col-m-3 col-sm-2 mt-3">
+                        <select id="filter-prk1" class="form-control filter">
+                            <option value="">Pilih PRK</option>
+                            @foreach ($prks as $prk)
+                                <option value="{{ $prk->no_prk }}">{{ $prk->no_prk }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-xl-4 col-l-4 col-m-3 col-sm-2 mt-3">
+                        <select id="filter-status" class="form-control filter">
+                            <option value="">Pilih Status</option>
+                            <option value="=">Progress</option>
+                            <option value="-">Disetujui</option>
+                            <option value="+">Ditolak</option>
+                            {{-- @foreach ($rabs as $rab)
+                                <option value="{{ $rab->status}}">
+                                    {{ $rab->status }}</option>
+                            @endforeach --}}
+                        </select>
+                    </div>
+                </div>
                 <div id="" class="card-body">
                     <div class="table-responsive">
                         <table class="table table-responsive-md" id="tableNonPo">
@@ -44,18 +83,18 @@
                                         @if ($nonpo->status == 'Progress')
                                             {{-- <td><span class="badge light badge-warning">{{ $rab->status }}</span></td> --}}
                                             <td align="center" valign="top" style="vertical-align: top"><span
-                                                    class="badge light badge-warning1">-</span></span></td>
+                                                    class="badge light badge-warning1">=</span></span></td>
                                         @elseif ($nonpo->status == 'Waiting List')
                                             {{-- <td><span class="badge light badge-success">{{ $rab->status }}</span></td> --}}
                                             <td align="center" valign="top" style="vertical-align: top"><span
-                                                    class="badge light badge-warning2">-</span></span></td>
+                                                    class="badge light badge-warning2">=</span></span></td>
                                         @elseif ($nonpo->status == 'Disetujui')
                                             <td align="center" valign="top" style="vertical-align: top"><span
                                                     class="badge light badge-success1">-</span></span></td>
                                         @else
                                             {{-- <td><span class="badge light badge-danger">{{ $rab->status }}</span></td> --}}
                                             <td align="center" valign="top" style="vertical-align: top"><span
-                                                    class="badge light badge-danger1">-</span></td>
+                                                    class="badge light badge-danger1">+</span></td>
                                         @endif
                                         <td>{{ $nonpo->nomor_rpbj }}</td>
                                         <td>{{ $nonpo->pekerjaan }}</td>
@@ -93,14 +132,19 @@
             }
 
         });
-        // $('#filter-kategori').on("change", function(event) {
-        //     var categor = $('#filter-kategori').val();
-        //     tableItem.columns(2).search(categor).draw();
-        // });
+        $('#filter-prk1').on("change", function(event) {
+            var prk = $('#filter-prk1').val();
+            ListTabelRab.columns(6).search(prk).draw();
+        });
 
-        // $('#filter-addendum-kontrak-induk').on("change", function(event) {
-        //     var categor = $('#filter-addendum-kontrak-induk').val();
-        //     tableItem.columns(2).search(categor).draw();
-        // });
+        $('#filter-skk1').on("change", function(event) {
+            var skk = $('#filter-skk1').val();
+            ListTabelRab.columns(5).search(skk).draw();
+        });
+
+        $('#filter-status').on("change", function(event) {
+            var status = $('#filter-status').val();
+            ListTabelRab.columns(2).search(status).draw();
+        });
     </script>
 @endsection

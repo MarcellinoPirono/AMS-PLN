@@ -5,17 +5,6 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <!-- <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Pilih
-                                SKK</button>
-                            <div class="dropdown-menu">
-                                <select id="filter-skk" class="form-control filter-skk" onchange="displayVals(this.value)">
-                                    @foreach ($skks as $skk)
-    <option value="{{ $skk->id }}">{{ $skk->nomor_skk }}</option>
-    @endforeach
-                                </select>
-                            </div>
-                        </div> -->
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
                         <select id="filter-prk" class="form-control filter-skk">
                             <option value="">Pilih SKK</option>
@@ -27,12 +16,6 @@
                     <a href="/prk/create" class="btn btn-primary mr-auto ml-3 ">Tambah PRK <span class="btn-icon-right"><i
                                 class="fa fa-plus-circle"></i></span>
                     </a>
-                    <!-- <div class="input-group search-area position-relative">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
-                                <input id="search" type="search" name="search" class="form-control" placeholder="Search here..." />
-                            </div>
-                        </div> -->
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -72,8 +55,6 @@
                                                 <a href="/prk/{{ $prk->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                {{-- <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
-                                                        class="fa fa-trash"></i></button> --}}
                                             </div>
                                             {{-- <div class="d-flex">
                                                 <a href="/prk/{{ $prk->id }}/edit"

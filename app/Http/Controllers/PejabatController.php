@@ -86,16 +86,16 @@ class PejabatController extends Controller
         // return redirect('/kontrak-induk-khs')->with('status', 'Kontrak Induk KHS Berhasil Diedit.');
     }
 
-    // public function destroy(KontrakInduk $KontrakInduk, $id)
-    // {
-    //     // dd($id);
-    //     $KontrakInduk = KontrakInduk::find($id);
-    //     $KontrakInduk->delete();
+    public function destroy(KontrakInduk $KontrakInduk, $id)
+    {
+        // dd($id);
+        // $KontrakInduk = KontrakInduk::find($id);
+        // $KontrakInduk->delete();
 
-    //     return response()->json([
-    //         'success'   => true
-    //     ]);
-    // }
+        // return response()->json([
+        //     'success'   => true
+        // ]);
+    }
 
     // public function filterkontrakinduk(Request $request)
     // {

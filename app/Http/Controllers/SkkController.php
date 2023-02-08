@@ -151,16 +151,16 @@ class SKKController extends Controller
      */
     public function destroy(SKK $sKK, $id)
     {
-        Gate::allows('Keuangan');
+    //     Gate::allows('Keuangan');
 
-        // dd($id);
-        $sKK = SKK::find($id);
-        $sKK->prks()->delete();
-        $sKK->delete();
+    //     // dd($id);
+    //     $sKK = SKK::find($id);
+    //     $sKK->prks()->delete();
+    //     $sKK->delete();
 
-        return response()->json([
-            'success'   => true
-        ]);
+    //     return response()->json([
+    //         'success'   => true
+    //     ]);
     }
 
     public function getSKK(Request $request)

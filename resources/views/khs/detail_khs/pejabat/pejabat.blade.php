@@ -58,89 +58,33 @@
                                         <td>{{ $pejabat->unit_up3 }}</td>
                                         <td>{{ $pejabat->unit_ulp }}</td>
                                         <td>
-                                            <div class="d-flex">
+                                            <div class="text-center">
+                                                <a href="/pejabat/{{ $pejabat->id }}/edit"
+                                                    class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                        class="fa fa-pencil"></i></a>
+                                            </div>
+                                            {{-- <div class="d-flex">
                                                 <a href="/pejabat/{{ $pejabat->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
                                                 <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
                                                         class="fa fa-trash"></i></button>
-                                            </div>
+                                            </div> --}}
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                             </tbody>
                             <tbody id="Content" class="searchdata">
-
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-center">
-                            {{-- {{ $items->links() }} --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- <script type="text/javascript">
-        $(".filter-kontrak-induk").on('change', function() {
-            let filter = this.value;
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                url: '{{ URL::to('kontrak-induk-khs/filter') }}',
-                method: "POST",
-                data: JSON.stringify({
-                    filter: filter,
-                    // '_token': token,
-                }),
-                headers: {
-                    'Accept': 'application/json',
-                    'content-Type': 'application/json'
-                },
-                success: function(data) {
-                    $('#read').html(data)
-                }
-            })
-        });
-    </script> -->
-
-    <!-- <script type="text/javascript">
-        $('#search').on('keyup', function() {
-            $value = $(this).val();
-
-            if ($value) {
-                $('.alldata').hide();
-                $('.searchdata').show();
-            } else {
-                $('.alldata').show();
-                $('.searchdata').hide();
-
-            }
-
-            $.ajax({
-
-                type: 'get',
-                url: '{{ URL::to('search-pejabat') }}',
-                data: {
-                    'search': $value
-                },
-
-                success: function(data) {
-                    console.log(data);
-                    $('#Content').html(data);
-                }
-
-            });
-
-        });
-    </script> -->
-
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

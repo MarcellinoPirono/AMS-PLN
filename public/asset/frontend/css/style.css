@@ -14621,7 +14621,7 @@ svg.pulse-svg .third-circle {
 
 @media only screen and (max-width: 575px) {
     .header-right .header-profile>a.nav-link .header-info {
-        display: none;
+        /* display: none; */
     }
 }
 
@@ -44892,11 +44892,14 @@ span#counter {
         font-size: 14px;
         width: 170px;
     }
+
 }
 
 @media only screen and (max-width: 575px) {
     .add-menu-sidebar {
         margin: 20px 25px 20px;
+        display: none;
+
     }
 }
 

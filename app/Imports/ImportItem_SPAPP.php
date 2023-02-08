@@ -58,7 +58,7 @@ class ImportItem_SPAPP implements ToModel, WithHeadingRow, WithValidation
             'kategori' => 'required',
             'nama_item' => 'required',
             'satuan_id' => 'required',
-            'harga_satuan' => 'required|numeric',
+            'harga_satuan' => 'required|numeric|regex:/^[0-9]+$/',
             'tkdn' => 'required|numeric',
 
         ];

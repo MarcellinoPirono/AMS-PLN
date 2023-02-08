@@ -25,7 +25,6 @@ class PrkFactory extends Factory
             'prk_realisasi' => '0',
             'prk_terbayar' => '0',
             'prk_sisa' => '0',
-
         ];
     }
 }

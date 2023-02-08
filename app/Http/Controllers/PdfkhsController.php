@@ -94,7 +94,7 @@ class PdfkhsController extends Controller
         $rab = [
             'nomor_po' => $request->nomor_po,
             'status' => $request->status,
-            'jenis_cetak' => $request->jenis_cetak,
+            // 'jenis_cetak' => $request->jenis_cetak,
             'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
@@ -306,7 +306,7 @@ class PdfkhsController extends Controller
         $rab = [
             'nomor_po' => $request->nomor_po,
             'status' => $request->status,
-            'jenis_cetak' => $request->jenis_cetak,
+            // 'jenis_cetak' => $request->jenis_cetak,
             'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
@@ -491,7 +491,7 @@ class PdfkhsController extends Controller
         $rab = [
             'nomor_po' => $request->nomor_po,
             'status' => $request->status,
-            'jenis_cetak' => $request->jenis_cetak,
+            // 'jenis_cetak' => $request->jenis_cetak,
             'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,
@@ -677,7 +677,7 @@ class PdfkhsController extends Controller
         $rab = [
             'nomor_po' => $request->nomor_po,
             'status' => $request->status,
-            'jenis_cetak' => $request->jenis_cetak,
+            // 'jenis_cetak' => $request->jenis_cetak,
             'user_id' => $request->user_id,
             'tanggal_po' => $request->tanggal_po,
             'skk_id' => $request->skk_id,

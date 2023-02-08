@@ -20,7 +20,7 @@ function SubmitTKDN() {
     var pengawas_lapangan = document.getElementById('pengawas_lapangan').value;
     var status = "Progress";
     var user_id = document.getElementById('user_id').value;
-    var jenis_cetak = document.getElementById('tkdn').value;
+    // var jenis_cetak = document.getElementById('tkdn').value;
 
     if(clickpaket == 0) {
         var item_id = [];
@@ -146,7 +146,7 @@ function SubmitTKDN() {
             fd.append("clickredaksi", clickredaksi);
             fd.append("status", status);
             fd.append("user_id", user_id);
-            fd.append("jenis_cetak", jenis_cetak);
+            // fd.append("jenis_cetak", jenis_cetak);
 
             swal({
                 title: "Apakah anda yakin?",
@@ -209,7 +209,7 @@ function SubmitTKDN() {
             fd.append("clickredaksi", clickredaksi);
             fd.append("status", status);
             fd.append("user_id", user_id);
-            fd.append("jenis_cetak", jenis_cetak);
+            // fd.append("jenis_cetak", jenis_cetak);
 
             swal({
                 title: "Apakah anda yakin?",
@@ -393,7 +393,7 @@ function SubmitTKDN() {
             fd.append("clickredaksi", clickredaksi);
             fd.append("status", status);
             fd.append("user_id", user_id);
-            fd.append("jenis_cetak", jenis_cetak);
+            // fd.append("jenis_cetak", jenis_cetak);
 
             var data = {
                 "_token" : token,
@@ -489,7 +489,7 @@ function SubmitTKDN() {
                 fd.append("clickredaksi", clickredaksi);
                 fd.append("status", status);
                 fd.append("user_id", user_id);
-                fd.append("jenis_cetak", jenis_cetak);
+                // fd.append("jenis_cetak", jenis_cetak);
 
                 swal({
                     title: "Apakah anda yakin?",
@@ -560,7 +560,7 @@ function SubmitNONTKDN() {
         var pengawas_lapangan = document.getElementById('pengawas_lapangan').value;
         var status = "Progress";
         var user_id = document.getElementById('user_id').value;
-        var jenis_cetak = document.getElementById('non_tkdn').value;
+        // var jenis_cetak = document.getElementById('non_tkdn').value;
 
         if(clickpaket == 0) {
             var item_id = [];
@@ -679,7 +679,7 @@ function SubmitNONTKDN() {
                 fd.append("clickredaksi", clickredaksi);
                 fd.append("status", status);
                 fd.append("user_id", user_id);
-                fd.append("jenis_cetak", jenis_cetak);
+                // fd.append("jenis_cetak", jenis_cetak);
 
                 swal({
                     title: "Apakah anda yakin?",
@@ -743,7 +743,7 @@ function SubmitNONTKDN() {
                 fd.append("clickredaksi", clickredaksi);
                 fd.append("status", status);
                 fd.append("user_id", user_id);
-                fd.append("jenis_cetak", jenis_cetak);
+                // fd.append("jenis_cetak", jenis_cetak);
 
                 swal({
                     title: "Apakah anda yakin?",
@@ -918,7 +918,7 @@ function SubmitNONTKDN() {
                 fd.append("clickredaksi", clickredaksi);
                 fd.append("status", status);
                 fd.append("user_id", user_id);
-                fd.append("jenis_cetak", jenis_cetak);
+                // fd.append("jenis_cetak", jenis_cetak);
                 var data = {
                     "_token" : token,
                     "tanggal_po" : today,
@@ -1013,7 +1013,7 @@ function SubmitNONTKDN() {
                     fd.append("clickredaksi", clickredaksi);
                     fd.append("status", status);
                     fd.append("user_id", user_id);
-                    fd.append("jenis_cetak", jenis_cetak);
+                    // fd.append("jenis_cetak", jenis_cetak);
 
                     swal({
                         title: "Apakah anda yakin?",

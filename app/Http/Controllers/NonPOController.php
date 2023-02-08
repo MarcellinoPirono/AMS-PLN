@@ -29,6 +29,8 @@ class NonPOController extends Controller
             'title' => 'Non-PO',
             'title1' => 'Non-PO',
             'nonpos' => NonPO::orderBy('id', 'DESC')->get(),
+            'skks' => Skk::all(),
+            'prks' => Prk::all(),
             // 'redaksis'=>Redaksi::all(),
         ]);
     }
