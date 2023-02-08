@@ -222,7 +222,7 @@
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <div class="form-group">
-                                                    <label class="text-label">Pilih Manager <span
+                                                    <label class="text-label">Pilih Manager<span
                                                             class="text-danger">*</span></label>
                                                     <select class="form-control input-default" id="pejabat_id"
                                                     style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
@@ -2679,7 +2679,7 @@
                         });
                     } else {
                         swal({
-                            title: "Data Belum Ditambah",
+                            title: "Non-PO Belum Dibuat",
                             text: "Silakan Cek Kembali Data Anda",
                             icon: "error",
                             timer: 2e3,

@@ -70,14 +70,15 @@ class RabController extends Controller
                     $q->whereHas('Khs', function($q) {
                         $q->where('isActive', True);
                     });
-                })->orderBy('id', 'DESC')->where('user_id', $id)->get(),
+                })->orderBy('id', 'DESC')->where('user_id', $id)->orWhere('user_id', null)->get(),
                 // Rab::orderBy('id', 'DESC')->where('user_id', $id)->get(),
                 'kontraks' => Rab::get("nomor_kontrak_induk")->unique("nomor_kontrak_induk"),
                 'skks' => Skk::all(),
                 'prks' => Prk::all(),
                 'kontrakinduks' => KontrakInduk::all(),
             ]);
-        } else {
+        }
+        if(auth()->user()->role == "Admin" || auth()->user()->role == "Manager"  ) {
             return view('rab.index', [
                 'title' => 'PO KHS',
                 'title1' => 'RAB',
@@ -85,7 +86,23 @@ class RabController extends Controller
                     $q->whereHas('Khs', function($q) {
                         $q->where('isActive', True);
                     });
-                })->orderBy('id', 'DESC')->where('user_id', $id)->get(),
+                })->orderBy('id', 'DESC')->get(),
+                // Rab::orderBy('id', 'DESC')->where('user_id', $id)->get(),
+                'kontraks' => Rab::get("nomor_kontrak_induk")->unique("nomor_kontrak_induk"),
+                'skks' => Skk::all(),
+                'prks' => Prk::all(),
+                'kontrakinduks' => KontrakInduk::all(),
+            ]);
+        }
+        else {
+            return view('rab.index', [
+                'title' => 'PO KHS',
+                'title1' => 'RAB',
+                'rabs' => Rab::whereHas('nomor_kontraks', function($q) {
+                    $q->whereHas('Khs', function($q) {
+                        $q->where('isActive', True);
+                    });
+                })->orderBy('id', 'DESC')->where('user_id', $id)->orWhere('user_id', null)->get(),
                 'kontraks' => Rab::get("nomor_kontrak_induk")->unique("nomor_kontrak_induk"),
                 'skks' => Skk::all(),
                 'prks' => Prk::all(),
@@ -892,6 +909,57 @@ class RabController extends Controller
             compact('data_kategori', 'data_items')
         );
     }
+    public function simpan_upload_po_khs(Request $request)
+    {
+        $nama_pdf = $request->nomor_po;
+        $nama_pdf = str_replace('.', '_', $nama_pdf);
+        $nama_pdf = str_replace('/','-', $nama_pdf);
+        $nama_pdf = str_replace(' ','-', $nama_pdf);
+        $fileName = $nama_pdf.'.pdf';
+        // dd($fileName);
+        $path = $request->file('pdf_po')->storeAs('storage/file-pdf-khs/tkdn', $fileName, 'public');
+        // dd($path);
+        $status = "Disetujui";
+
+        $addendum_id = Addendum::where('nomor_addendum', $request->addendum_id)->value('id');
+        $rab = [
+            'nomor_po' => $request->nomor_po,
+            'status' => $status,
+            'tanggal_po' => $request->tanggal_po,
+            'skk_id' => $request->skk_id,
+            'prk_id' => $request->prk_id,
+            'pekerjaan' => $request->pekerjaan,
+            'startdate' => $request->startdate,
+            'enddate' => $request->enddate,
+            'nomor_kontrak_induk' => $request->nomor_kontrak_induk,
+            'addendum_id' => $addendum_id,
+            'pejabat_id' => $request->pejabat_id,
+            'pengawas_pekerjaan' => $request->pengawas_pekerjaan,
+            'pengawas_lapangan' => $request->pengawas_lapangan,
+            'total_harga' => $request->total_harga,
+            'user_id' => null,
+            'pdf_file' => $path,
+            'slug' => $nama_pdf,
+        ];
+
+
+        Rab::create($rab);
+
+        $prk = Prk::where('id', $request->prk_id)->get();
+        $skk = Skk::where('id', $request->skk_id)->get();
+
+        //update prk terkontrak
+        $updated_prk_terkontrak = (float)$prk[0]->prk_terkontrak + (float)$request->total_harga;
+        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
+
+        //update skk terkontrak
+        $updated_skk_terkontrak = (float)$skk[0]->skk_terkontrak + (float)$request->total_harga;
+        Skk::where('id', $request->skk_id)->update(array('skk_terkontrak'=>(Double)$updated_skk_terkontrak));
+
+        return response()->json([
+            'success'   => true
+        ]);
+    }
 
     public function setuju(Request $request){
         // dd($request);
@@ -901,7 +969,6 @@ class RabController extends Controller
         $prk_id = Rab::where('slug', $request->slug)->value('prk_id');
         $skk_id = Rab::where('slug', $request->slug)->value('skk_id');
         $status = Rab::where('slug', $request->slug)->value('status');
-        $jenis_cetak = Rab::where('slug', $request->slug)->value('jenis_cetak');
         $values_pdf_page1 = Rab::where('slug', $request->slug)->get();
 
         $prk = Prk::where('id', $prk_id)->get();

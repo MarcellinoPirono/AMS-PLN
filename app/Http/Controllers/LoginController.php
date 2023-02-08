@@ -36,16 +36,16 @@ class LoginController extends Controller
             // dd($credentials);
 
 
-            if (auth()->user()->role === 'Supervisor') {
+            if (auth()->user()->role === 'Supervisor' || auth()->user()->role === 'REN' ) {
                 $request->session()->regenerate();
                 Alert::success('Login Telah Berhasil', 'Selamat Datang di SIPAKAINGA '.$request->username.'');
-                return redirect('po-khs');
+                return redirect('/dashboard');
 
             } else if(auth()->user()->role === 'Keuangan'){
                 $request->session()->regenerate();
 
                 Alert::success('Login Telah Berhasil', 'Selamat Datang di SIPAKAINGA '.$request->username.'');
-                return redirect('skk');
+                return redirect('/dashboard');
 
             }
             else if (auth()->user()->role === 'Admin' || auth()->user()->role === 'Manager' ){

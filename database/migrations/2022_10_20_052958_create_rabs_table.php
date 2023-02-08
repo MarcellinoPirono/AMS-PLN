@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nomor_po');
             $table->string('status');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->nullable();
             $table->text('slug');
             $table->date('tanggal_po');
             // $table->string('skk_id')->nullable();

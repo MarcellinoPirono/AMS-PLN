@@ -168,6 +168,7 @@ Route::get('/getRedaksi', [RabController::class, 'getRedaksi'])->middleware('Sup
 Route::post('/getDeskripsi', [RabController::class, 'getDeskripsi'])->middleware('SupervisorMiddleware');
 Route::post('/getSubDeskripsi', [RabController::class, 'getSubDeskripsi'])->middleware('SupervisorMiddleware');
 Route::get('/upload-po', [RabController::class, 'upload_po_khs'])->middleware('Manager');
+Route::post('/simpan-upload-po', [RabController::class, 'simpan_upload_po_khs'])->middleware('Manager');
 
 //PRK
 Route::resource('prk', PrkController::class)->middleware('Keuangan');
@@ -229,6 +230,8 @@ Route::post('/checkNotaDinas', [NonPOController::class, 'checkNotaDinas'])->midd
 Route::get('download-non-po/{slug}', [NonPOController::class, 'download_nonpo'])->middleware('SupervisorMiddleware');
 Route::get('preview-non-po/{slug}', [NonPOController::class, 'preview_non_po'])->middleware('SupervisorMiddleware');
 Route::resource('non-po', NonPOController::class)->middleware('SupervisorMiddleware');
+Route::get('/upload-non-po', [NonPOController::class, 'upload_non_po'])->middleware('Manager');
+Route::post('/simpan-upload-non-po', [NonPOController::class, 'simpan_upload_non_po'])->middleware('Manager');
 
 Route::get('buat-non-po-hpe/{slug}', [NonPoHpeController::class, 'buat_non_po_hpe'])->middleware('SupervisorMiddleware');
 Route::get('edit-hpe/{slug}', [NonPoHpeController::class, 'edit_hpe'])->middleware('SupervisorMiddleware');

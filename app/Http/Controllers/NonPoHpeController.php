@@ -53,6 +53,8 @@ class NonPoHpeController extends Controller
             return view('non_po_hpe.index', [
                 'title' => 'HPE',
                 'title1' => 'HPE',
+                'skks' => Skk::all(),
+                'prks' => Prk::all(),
                 'nonpos' => NonPo::orderBy('id', 'DESC')->where('user_id', $id)->where('status', 'Waiting List')->get(),
             ]);
         }
@@ -61,6 +63,8 @@ class NonPoHpeController extends Controller
             return view('non_po_hpe.index', [
                 'title' => 'HPE',
                 'title1' => 'HPE',
+                'skks' => Skk::all(),
+                'prks' => Prk::all(),
                 'nonpos' => NonPo::orderBy('id', 'DESC')->where('status', 'Waiting List')->get(),
             ]);
 
@@ -579,8 +583,6 @@ class NonPoHpeController extends Controller
         // dd($nama_pdf);
 
         $status = NonPo::where('slug', $nama_pdf)->value('status');
-        $document = NonPo::where('slug', $nama_pdf)->value('pdf_file');
-        // dd($status);
 
         if ($status === "Disetujui"){
 

@@ -299,6 +299,90 @@ class NonPOController extends Controller
 
     }
 
+    public function upload_non_po()
+    {
+        return view('non-po.upload_non_po',[
+            'active1' => 'Upload Non-PO ',
+            'title' => 'Non Purchase Order',
+            'title1' => 'Non-PO',
+            'active' => 'Non-PO',
+            'skks' => Skk::all(),
+            'prks' => Prk::all(),
+            'pejabats' => Pejabat::all(),
+            'ppn'=> PpnModel::all(),
+            'user_id'=> User::find(Auth::id())->value('id'),
+        ]);
+    }
+
+    public function simpan_upload_non_po(Request $request)
+    {
+        // dd($request);
+        $nama_pdf = $request->nomor_rpbj;
+        $nama_pdf = str_replace('.', '_', $nama_pdf);
+        $nama_pdf = str_replace('/','-', $nama_pdf);
+        $nama_pdf = str_replace(' ','-', $nama_pdf);
+
+        // $filename_kak = time().'_'.$nama_pdf.'_'.$request->file('kak')->getClientOriginalName();
+        // $kak = $request->file('kak')->storeAs('storage/kak-non-po', $filename_kak, 'public');
+
+        // // dd($kak);
+        // $filename_nota_dinas = time().'_'.$nama_pdf.'_'.$request->file('nota_dinas')->getClientOriginalName();
+        // $nota_dinas = $request->file('nota_dinas')->storeAs('storage/nota-dinas-non-po', $filename_nota_dinas, 'public');
+
+        // $fileName = $nama_pdf.'.pdf';
+        // // dd($fileName);
+        // $path = $request->file('pdf_non_po')->storeAs('storage/file-pdf-khs/non-po', $fileName, 'public');
+        // dd($path);
+        $oMerger = PDFMerger::init();
+        $oMerger->addPDF($request->file('nota_dinas')->getPathName(), 'all');
+        $oMerger->addPDF($request->file('pdf_non_po')->getPathName(), 'all');
+        $oMerger->addPDF($request->file('kak')->getPathName(), 'all');
+        $oMerger->merge();
+        $oMerger->save('storage/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'.pdf');
+
+
+        $status = "Disetujui";
+        $nama_pejabat = Pejabat::where('id', $request->pejabat_id)->value('nama_pejabat');
+        $jabatan = Pejabat::where('id', $request->pejabat_id)->value('jabatan');
+
+        $non_po = [
+            'user_id' => $request->user_id,
+            'nomor_rpbj' => $request->nomor_rpbj,
+            'pekerjaan' => $request->pekerjaan,
+            'skk_id' => $request->skk_id,
+            'prk_id' => $request->prk_id,
+            'supervisor' => $request->supervisor,
+            'startdate' => $request->startdate,
+            'enddate' => $request->enddate,
+            'nama_pejabat' => $nama_pejabat,
+            'jabatan' => $jabatan,
+            'kak' => null,
+            'nota_dinas' => null,
+            'total_harga' => $request->total_harga,
+            'total_harga_hpe' => $request->total_harga_hpe,
+            'pdf_file' => $nama_pdf,
+            'status' => $status,
+            'slug' => $nama_pdf,
+        ];
+
+        NonPo::create($non_po);
+
+        $prk = Prk::where('id', $request->prk_id)->get();
+        $skk = Skk::where('id', $request->skk_id)->get();
+
+        //update prk terkontrak
+        $updated_prk_terkontrak = (float)$prk[0]->prk_terkontrak + (float)$request->total_harga;
+        Prk::where('id', $request->prk_id)->update(array('prk_terkontrak'=>(Double)$updated_prk_terkontrak));
+
+        //update skk terkontrak
+        $updated_skk_terkontrak = (float)$skk[0]->skk_terkontrak + (float)$request->total_harga;
+        Skk::where('id', $request->skk_id)->update(array('skk_terkontrak'=>(Double)$updated_skk_terkontrak));
+
+        return response()->json([
+            'success'   => true
+        ]);
+    }
+
 
 
     public function download(Request $request, $id)
@@ -420,8 +504,6 @@ class NonPOController extends Controller
         // dd($nama_pdf);
 
         $status = NonPo::where('slug', $nama_pdf)->value('status');
-        $document = NonPo::where('slug', $nama_pdf)->value('pdf_file');
-        // dd($status);
 
         if ($status === "Disetujui"){
 
@@ -432,6 +514,11 @@ class NonPOController extends Controller
 
 
             return Storage::download('public/storage/file-pdf-khs/non-po/hpe/'.$nama_pdf.'-HPE_ditolak.pdf');
+        }
+        else if ($status === "Progress"){
+
+
+            return Storage::download('public/storage/file-pdf-khs/non-po/'.$nama_pdf.'.pdf');
         }
         else{
 

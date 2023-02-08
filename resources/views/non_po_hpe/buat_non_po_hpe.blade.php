@@ -1939,8 +1939,8 @@
                                 dataType: 'json',
                                 success: function(response) {
                                     swal({
-                                        title: "Data Ditambah",
-                                        text: "Data Berhasil Ditambah",
+                                        title: "HPE Berhasil Dibuat",
+                                        text: "Non-PO Berhasil Dibuatkan HPE",
                                         icon: "success",
                                         timer: 2e3,
                                         buttons: false
@@ -1952,7 +1952,7 @@
                             });
                         } else {
                             swal({
-                                title: "Data Belum Ditambah",
+                                title: "HPE Belum Dibuat",
                                 text: "Silakan Cek Kembali Data Anda",
                                 icon: "error",
                                 timer: 2e3,

@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string("pekerjaan");
             $table->foreignId("skk_id");
             $table->foreignId("prk_id");
-            $table->string("kak");
-            $table->string("nota_dinas");
+            $table->string("kak")->nullable();
+            $table->string("nota_dinas")->nullable();
             $table->string("supervisor");
             $table->date('startdate');
             $table->date('enddate');

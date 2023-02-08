@@ -846,19 +846,19 @@ class PdfkhsController extends Controller
 
             // $document = Rab::where('slug', $nama_pdf)->value('pdf_file');
 
-            return Storage::download('public/'.$document.'.pdf');
+            return Storage::download('public/storage/file-pdf-khs/tkdn/'.$nama_pdf.'.pdf');
         }
         else if ($status === "Ditolak"){
 
             // $document = Rab::where('slug', $nama_pdf)->value('pdf_file');
 
-            return Storage::download('public/'.$document.'_ditolak.pdf');
+            return Storage::download('public/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_ditolak.pdf');
         }
         else{
 
             // $document = Rab::where('slug', $nama_pdf)->value('pdf_file');
 
-            return  Storage::download('public/'.$document.'_progress.pdf');
+            return  Storage::download('public/storage/file-pdf-khs/tkdn/'.$nama_pdf.'_progress.pdf');
         }
 
     }

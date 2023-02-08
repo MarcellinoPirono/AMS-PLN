@@ -16,75 +16,75 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
-                        <form name="valid_upload_po" id="valid_upload_po" action="#">
+                        <form name="valid_upload_non_po" id="valid_upload_non_po" action="#">
                             <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                             <input type="hidden" value="{{ auth()->user()->id }}" id="user_id">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="first-name" class="form-label">No. Purchase
-                                        Order(PO) <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="po" name="po"
-                                        value="{{ old('po') }}" placeholder="No. PO" required autofocus
-                                        onblur="validunique(this)">
-                                    <div class="valid-feedback">Data Terisi</div>
-                                    <div id="invalid_po" class="invalid-feedback">Silakan Isi No. PO</div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="first-name" class="form-label">Pilih No. Kontrak
-                                        Induk <span class="text-danger">*</span></label>
-                                    <select class="form-control input-default" id="kontrak_induk" name="kontrak_induk"
-                                        style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"required>
-                                        <option selected disabled value="">Pilih No. Kontrak Induk
-                                        </option>
-                                        @foreach ($kontraks as $kontrak)
-                                            @if ($kontrak->khs->isActive == true)
-                                                <option value="{{ $kontrak->id }}">
-                                                    {{ $kontrak->khs->jenis_khs }} -
-                                                    {{ $kontrak->nomor_kontrak_induk }} -
-                                                    {{ $kontrak->vendors->nama_vendor }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <div class="valid-feedback">
-                                        Data Terpilih
+                                    <label class="text-label">Input Nota Dinas <span class="text-danger">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input id="nota_dinas" type="file"
+                                                class="form-control custom-file-input"
+                                                style="border-radius: 0 20px 20px 0" required
+                                                onchange="fileValidation1(this);" accept=".pdf" />
+                                            <label id="label_nota_dinas" class="custom-file-label">Choose or
+                                                Drag file</label>
+                                        </div>
                                     </div>
-                                    <div class="invalid-feedback">
-                                        Silakan Pilih No. Kontrak Induk
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="text-label">Judul Pekerjaan <span class="text-danger">*</span></label>
-                                    <textarea type="text" class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan" id="pekerjaan"
-                                        placeholder="Pekerjaan" required>{{ old('pekerjaan') }}</textarea>
                                     <div class="valid-feedback">
                                         Data Terisi
                                     </div>
                                     <div class="invalid-feedback">
-                                        Silakan isi Judul Pekerjaan
+                                        Silakan Upload Nota Dinas
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="text-label">Pilih Direksi Pekerjaan <span
-                                            class="text-danger">*</span></label>
-                                    <select class="form-control input-default" id="pejabat" name="pejabat"
-                                        style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
-                                        required>
-                                        <option value="" selected disabled>Direksi Pekerjaan
-                                        </option>
-                                        @foreach ($pejabats as $pejabat)
-                                            @if ($pejabat->jabatan != 'MANAGER UP3')
-                                                <option value="{{ $pejabat->id }}">
-                                                    {{ $pejabat->jabatan }} -
-                                                    {{ $pejabat->nama_pejabat }}
-                                                </option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <label class="text-label">Upload KAK <span class="text-danger">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input id="kak" type="file"
+                                                class="form-control custom-file-input" required
+                                                onchange="fileValidation2(this);" accept=".pdf" />
+                                            <label id="label_kak" class="custom-file-label">Choose or Drag
+                                                file</label>
+                                        </div>
+                                    </div>
                                     <div class="valid-feedback">
-                                        Data Terpilih
+                                        Data Terisi
                                     </div>
                                     <div class="invalid-feedback">
-                                        Silakan Pilih Direksi
+                                        Silakan Upload KAK
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="text-label">Input No. Nota Dinas <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="nomor_rpbj"
+                                        id="nomor_rpbj" placeholder="Nomor Nota Dinas" required autofocus
+                                        value="{{ old('nomor_rpbj') }}" onblur="validunique(this)">
+                                    <div class="valid-feedback">
+                                        Data Terisi
+                                    </div>
+                                    <div id="invalid_nota_dinas" class="invalid-feedback">
+                                        Silakan Isi Nomor Nota Dinas
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="text-label">Input Pekerjaan <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="pekerjaan"
+                                        id="pekerjaan" placeholder="Pekerjaan" required autofocus
+                                        value="{{ old('pekerjaan') }}">
+                                    <div class="valid-feedback">
+                                        Data Terisi
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Silakan isi Pekerjaan
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -124,16 +124,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="text-label">No. Addendum</label>
-                                    <input type="text" class="form-control" name="addendum" id="addendum"
-                                        placeholder="No. Addendum Belum Ada" required disabled>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="text-label">Nama Vendor</label>
-                                    <input type="text" class="form-control" name="vendor" id="vendor"
-                                        placeholder="Nama Vendor" required disabled>
-                                </div>
-                                <div class="form-group col-md-6">
                                     <label class="text-label">Input No.SKK <span class="text-danger">*</span></label>
                                     <select class="form-control input-default" id="skk_id" name="skk_id" required>
                                         <option value="" selected disabled>Pilih No. SKK</option>
@@ -162,26 +152,38 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="text-label">Input Pengawas Pekerjaan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('pengawas') is-invalid @enderror"
-                                        name="pengawas_pekerjaan" id="pengawas_pekerjaan"
-                                        placeholder="Pengawas Pekerjaan" required autofocus
-                                        value="{{ old('pengawas_pekerjaan') }}">
+                                    <label class="text-label">Supervisor <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="supervisor"
+                                        id="supervisor" placeholder="Supervisor" required autofocus
+                                        value="{{ old('supervisor') }}">
                                     <div class="valid-feedback">
                                         Data Terisi
                                     </div>
                                     <div class="invalid-feedback">
-                                        Silakan isi Pengawas Pekerjaan
+                                        Silakan isi Supervisor
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="text-label">Input Pengawas Lapangan</label>
-                                    <input type="text" class="form-control" name="pengawas_lapangan"
-                                        id="pengawas_lapangan" placeholder="Pengawas Lapangan" autofocus
-                                        value="{{ old('pengawas_lapangan') }}">
+                                    <label class="text-label">Pilih Manager<span class="text-danger">*</span></label>
+                                    <select class="form-control input-default" id="pejabat_id"
+                                    style="height: 60px !important ; word-wrap: normal !important; white-space: normal; overflow: hidden;   text-overflow: ellipsis;"
+                                    name="pejabat_id" required>
+                                        <option value="" selected disabled>Manager
+                                        </option>
+                                        @foreach ($pejabats as $pejabat)
+                                            @if ($pejabat->jabatan != 'MANAGER UP3')
+                                                <option value="{{ $pejabat->id }}">
+                                                    {{ $pejabat->jabatan }} -
+                                                    {{ $pejabat->nama_pejabat }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                                     <div class="valid-feedback">
-                                        Data Boleh Kosong
+                                        Data Terpilih
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Silakan Pilih Manager
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -194,24 +196,27 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="text-label">Upload File PO (.pdf)</label>
+                                    <label class="text-label">Input Total HPE(Rp.)</label>
+                                    <input type="text" class="form-control" name="total_hpe" id="total_hpe"
+                                        placeholder="Total HPE" autofocus value="{{ old('total_hpe') }}"
+                                        onkeydown="return numbersonly(this, event);">
+                                    <div class="valid-feedback">
+                                        Data Boleh Kosong
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="text-label">Upload File Non-PO (.pdf)</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Upload</span>
                                         </div>
                                         <div class="custom-file">
-                                            <input id="pdf_po" type="file" name="pdf_po"
+                                            <input id="pdf_non_po" type="file" name="pdf_non_po"
                                                 class="form-control custom-file-input" onchange="fileValidation(this);"
                                                 accept=".pdf" />
                                             <label id="labelfile" class="custom-file-label">Choose or Drag
                                                 file</label>
                                         </div>
-                                        <!-- <button class="btn btn-danger btn-xxs mt-1 ml-3"
-                                                                onclick="onclear()">Delete file <i
-                                                                    class='fa fa-trash'></i></button>
-                                                            <button class="btn btn-secondary btn-xxs mt-1 ml-3"
-                                                                onclick="toggle()" type="button">Show/Hide <i
-                                                                    class='fa fa-eye'></i> -->
                                     </div>
                                     {{-- <img class="m-auto justify-content-center" src="#"
                                         id="img-lampiran" width="300px" /> --}}
@@ -362,18 +367,18 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#valid_upload_po').validate({
+            $('#valid_upload_non_po').validate({
                 rules: {
-                    po: {
+                    nota_dinas: {
                         required: true
                     },
-                    kontrak_induk: {
+                    kak: {
+                        required: true
+                    },
+                    nomor_rpbj: {
                         required: true
                     },
                     pekerjaan: {
-                        required: true
-                    },
-                    pejabat: {
                         required: true
                     },
                     start_date: {
@@ -388,28 +393,34 @@
                     prk_id: {
                         required: true
                     },
-                    pengawas_pekerjaan: {
+                    supervisor: {
+                        required: true
+                    },
+                    pejabat_id: {
                         required: true
                     },
                     total_harga: {
                         required: true
                     },
-                    pdf_po: {
+                    total_hpe: {
+                        required: true
+                    },
+                    pdf_non_po: {
                         required: true
                     }
                 },
                 messages: {
-                    po: {
-                        required: "Silahkan Isi Nomor Purchase Order"
+                    nota_dinas: {
+                        required: "Silahkan Upload Nota Dinas"
                     },
-                    kontrak_induk: {
-                        required: "Silakan Isi Nomor Kontrak Induk"
+                    kak: {
+                        required: "Silakan Upload KAK"
                     },
                     pekerjaan: {
                         required: "Silakan Isi Pekerjaan"
                     },
-                    pejabat: {
-                        required: "Silakan Pilih Direksi Pekerjaan"
+                    nomor_rpbj: {
+                        required: "Silakan Isi Nomor Surat Dinas"
                     },
                     start_date: {
                         required: "Silakan Pilih Start Date"
@@ -423,34 +434,42 @@
                     prk_id: {
                         required: "Silakan Pilih Nomor PRK"
                     },
-                    pengawas_pekerjaan: {
-                        required: "Silakan Isi Pengawas Pekerjaan"
+                    supervisor: {
+                        required: "Silakan Isi Supervisor"
+                    },
+                    pejabat_id: {
+                        required: "Silakan Pilih Manager"
                     },
                     total_harga: {
                         required: "Silakan Isi Total Harga"
                     },
-                    pdf_po: {
+                    total_hpe: {
+                        required: "Silakan Isi Total HPE"
+                    },
+                    pdf_non_po: {
                         required: "Silakan Upload File PO"
                     }
                 },
                 submitHandler: function(form) {
                     event.preventDefault();
                     var token = $('#csrf').val();
-                    var po = $("#po").val();
-                    var kontrak_induk = $("#kontrak_induk").val();
+                    var nota_dinas = $('#nota_dinas')[0].files;
+                    var kak = $('#kak')[0].files;
+                    var nomor_rpbj = $("#nomor_rpbj").val();
                     var pekerjaan = $("#pekerjaan").val();
-                    var pejabat = $("#pejabat").val();
                     var start_date = $("#start_date").val();
                     var end_date = $("#end_date").val();
-                    var addendum = $("#addendum").val();
                     var skk_id = $("#skk_id").val();
                     var prk_id = $("#prk_id").val();
-                    var pengawas_pekerjaan = $("#pengawas_pekerjaan").val();
-                    var pengawas_lapangan = $("#pengawas_lapangan").val();
+                    var supervisor = $("#supervisor").val();
+                    var pejabat_id = $("#pejabat_id").val();
                     var total_harga = $("#total_harga").val();
                     total_harga = total_harga.replace(/\./g, "");
                     total_harga = parseInt(total_harga);
-                    var pdf_po = $('#pdf_po')[0].files;
+                    var total_hpe = $("#total_hpe").val();
+                    total_hpe = total_hpe.replace(/\./g, "");
+                    total_hpe = parseInt(total_hpe);
+                    var pdf_non_po = $('#pdf_non_po')[0].files;
                     var user_id = $('#user_id').val();
                     var today = new Date();
                     today = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
@@ -466,25 +485,24 @@
                     var fd = new FormData();
 
                     fd.append("_token", token);
-                    fd.append("nomor_po", po);
-                    fd.append("nomor_kontrak_induk", kontrak_induk);
+                    fd.append("nota_dinas", nota_dinas[0]);
+                    fd.append("kak", kak[0]);
                     fd.append("pekerjaan", pekerjaan);
-                    fd.append("pejabat_id", pejabat);
+                    fd.append("nomor_rpbj", nomor_rpbj);
                     fd.append("startdate", start_date);
                     fd.append("enddate", end_date);
-                    fd.append("addendum_id", addendum);
                     fd.append("skk_id", skk_id);
                     fd.append("prk_id", prk_id);
-                    fd.append("pengawas_pekerjaan", pengawas_pekerjaan);
-                    fd.append("pengawas_lapangan", pengawas_lapangan);
+                    fd.append("supervisor", supervisor);
+                    fd.append("pejabat_id", pejabat_id);
                     fd.append("total_harga", total_harga);
+                    fd.append("total_hpe", total_hpe);
                     fd.append("user_id", user_id);
-                    fd.append("tanggal_po", today);
-                    fd.append("pdf_po", pdf_po[0]);
+                    fd.append("pdf_non_po", pdf_non_po[0]);
 
                     $.ajax({
                         type: 'POST',
-                        url: "/simpan-upload-po",
+                        url: "/simpan-upload-non-po",
                         data: fd,
                         contentType: false,
                         processData: false,
@@ -498,7 +516,7 @@
                                     buttons: false
                                 })
                                 .then((result) => {
-                                    window.location.href = "/po-khs";
+                                    window.location.href = "/non-po";
                                 });
                         }
                     });

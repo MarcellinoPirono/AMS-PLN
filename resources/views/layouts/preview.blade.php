@@ -132,7 +132,7 @@
                                     swal({
                                             title: "PO-KHS Ditolak",
                                             text: "PO-KHS Telah Ditolak",
-                                            icon: "success",
+                                            icon: "error",
                                             timer: 2e3,
                                             buttons: false
                                         })

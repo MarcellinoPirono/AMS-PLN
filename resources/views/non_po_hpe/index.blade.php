@@ -4,7 +4,23 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header position-relative justify-content-center float-right">
+                    <div class="col-xl-3 col-l-4 col-m-3 col-sm-2 mt-3">
+                        <select id="filter-skk1" class="form-control filter">
+                            <option value="">Pilih SKK</option>
+                            @foreach ($skks as $skk)
+                                <option value="{{ $skk->nomor_skk }}">{{ $skk->nomor_skk }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-xl-3 col-l-4 col-m-3 col-sm-2 mt-3">
+                        <select id="filter-prk1" class="form-control filter">
+                            <option value="">Pilih PRK</option>
+                            @foreach ($prks as $prk)
+                                <option value="{{ $prk->no_prk }}">{{ $prk->no_prk }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -73,14 +89,14 @@
             }
 
         });
-        // $('#filter-kategori').on("change", function(event) {
-        //     var categor = $('#filter-kategori').val();
-        //     tableItem.columns(2).search(categor).draw();
-        // });
+        $('#filter-prk1').on("change", function(event) {
+            var prk = $('#filter-prk1').val();
+            ListTabelRab.columns(6).search(prk).draw();
+        });
 
-        // $('#filter-addendum-kontrak-induk').on("change", function(event) {
-        //     var categor = $('#filter-addendum-kontrak-induk').val();
-        //     tableItem.columns(2).search(categor).draw();
-        // });
+        $('#filter-skk1').on("change", function(event) {
+            var skk = $('#filter-skk1').val();
+            ListTabelRab.columns(5).search(skk).draw();
+        });
     </script>
 @endsection

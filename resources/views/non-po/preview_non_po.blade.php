@@ -33,8 +33,9 @@
                 <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/hpe/' . $filename . '-HPE_ditolak.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
                 @elseif ($rabs->status === 'Waiting List')
-                <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/hpe/' . $filename . '-HPE_onprogress.pdf') }}"
+                <embed src="{{ asset('storage/storage/file-pdf- /non-po/hpe/' . $filename . '-HPE_onprogress.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
+
                 @else
                 <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/hpe/' . $filename . '.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
@@ -86,8 +87,8 @@
                                 data: data,
                                 success: function(response) {
                                     swal({
-                                            title: "PO-KHS Disetujui",
-                                            text: "PO-KHS Telah Disetujui",
+                                            title: "Non-PO Disetujui",
+                                            text: "Non-PO Telah Disetujui",
                                             icon: "success",
                                             timer: 2e3,
                                             buttons: false
@@ -123,8 +124,8 @@
                                 data: data,
                                 success: function(response) {
                                     swal({
-                                            title: "PO-KHS Ditolak",
-                                            text: "PO-KHS Telah Ditolak",
+                                            title: "Non-PO Ditolak",
+                                            text: "Non-PO Telah Ditolak",
                                             icon: "error",
                                             timer: 2e3,
                                             buttons: false

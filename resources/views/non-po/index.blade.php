@@ -130,7 +130,6 @@
             createdRow: function(row, data, index) {
                 $(row).addClass('selected')
             }
-
         });
         $('#filter-prk1').on("change", function(event) {
             var prk = $('#filter-prk1').val();
