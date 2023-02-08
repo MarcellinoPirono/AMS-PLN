@@ -34,9 +34,9 @@
                             </ul>
                         </div>
                     </div>
-                    <a href="/addendum-khs/create-xlsx" class="btn btn-primary btn-xxs mr-auto ml-3"
+                    {{-- <a href="/addendum-khs/create-xlsx" class="btn btn-primary btn-xxs mr-auto ml-3"
                         style="font-size: 13px">Via Excel <i class="fa fa-plus-circle"></i></span>
-                    </a>
+                    </a> --}}
                     <a href="/addendum-khs/create" class="btn btn-primary position-relative float-right mt-3 ml-3"
                         style="font-size: 13px">Tambah Addendum <i class="bi bi-plus-circle"></i>
                     </a>
