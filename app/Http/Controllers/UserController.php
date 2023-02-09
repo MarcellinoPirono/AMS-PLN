@@ -204,9 +204,10 @@ class UserController extends Controller
     }
     public function check_password(Request $request) {
         // $jenis_khs = $request->post('edit_jenis_khs');
-        // dd($request);
+        $username = auth()->user()->username;
 
-        $id = User::where('username', $request->username)->value('id');
+
+        $id = User::where('username', $username)->value('id');
         $users = User::findOrFail($id);
 
          $data = [
@@ -219,9 +220,32 @@ class UserController extends Controller
 
         $users->update($data);
 
-        Alert::success('Reset Password', 'Telah Berhasil');
+        // Alert::success('Ganti Password', 'Telah Berhasil');
 
-        return back();
+        return redirect('/')->withSuccess('Ganti Password Telah Berhasil');
+        // return response()->json([
+        //     'success'   => true
+        // ]);
+
+    }
+    public function reset_password(Request $request) {
+        // $jenis_khs = $request->post('edit_jenis_khs');
+
+        $users = User::findOrFail($request->id);
+
+         $data = [
+            'password' => $request->new_password1,
+        ];
+
+        $data['password']= Hash::make($data['password']);
+        // dd($users);
+
+
+        $users->update($data);
+
+        // Alert::success('Reset Password', 'Telah Berhasil');
+
+        return redirect('/user')->withSuccess('Reset Password Telah Berhasil');
         // return response()->json([
         //     'success'   => true
         // ]);
@@ -238,6 +262,7 @@ class UserController extends Controller
             echo json_encode(true);
         }
     }
+
     public function password_lama(Request $request) {
         $password_lama = $request->post('password_lama');
         // dd(auth()->user()->password);

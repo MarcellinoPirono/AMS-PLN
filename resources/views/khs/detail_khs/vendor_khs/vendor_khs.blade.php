@@ -6,9 +6,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header position-relative justify-content-end float-right" style="justify-content: start;">
-                    {{-- <a href="/vendor-khs/create-xlsx" class="btn btn-primary btn-xs ml-3 mt-3">Via Excel<span
+                     <a href="/vendor-khs/create-xlsx" class="btn btn-primary btn-xs ml-3 mt-3">Via Excel<span
                         class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
-                    </a> --}}
+                    </a>
                     <a href="/vendor-khs/create" class="btn btn-primary float-right mt-3 ml-3">Tambah Vendor <i class="bi bi-plus-circle"></i>
                     </a>
                 </div>

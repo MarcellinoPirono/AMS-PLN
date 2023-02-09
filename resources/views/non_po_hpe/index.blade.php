@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+@include('sweetalert::alert')
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -91,12 +92,12 @@
         });
         $('#filter-prk1').on("change", function(event) {
             var prk = $('#filter-prk1').val();
-            ListTabelRab.columns(6).search(prk).draw();
+            ListTabelNonPoHpe.columns(6).search(prk).draw();
         });
 
         $('#filter-skk1').on("change", function(event) {
             var skk = $('#filter-skk1').val();
-            ListTabelRab.columns(5).search(skk).draw();
+            ListTabelNonPoHpe.columns(5).search(skk).draw();
         });
     </script>
 @endsection

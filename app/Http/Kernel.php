@@ -69,6 +69,10 @@ class Kernel extends HttpKernel
         'Keuangan' => \App\Http\Middleware\Keuangan::class,
         'SupervisorMiddleware' => \App\Http\Middleware\SupervisorMiddleware::class,
         'AdminMiddleware' => \App\Http\Middleware\AdminMiddleware::class,
+        'RenMiddleware' => \App\Http\Middleware\RenMiddleware::class,
         'Manager' => \App\Http\Middleware\Manager::class,
+        'PoKhsMiddleWare' => \App\Http\Middleware\PoKhsMiddleWare::class,
+        'NonPoMiddleware' => \App\Http\Middleware\NonPoMiddleware::class,
+        'HpeMiddleware' => \App\Http\Middleware\HpeMiddleware::class,
     ];
 }

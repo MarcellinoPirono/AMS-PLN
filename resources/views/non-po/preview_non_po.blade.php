@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('content')
+@include('sweetalert::alert')
+
 
     <div class="page-titles">
         <ol class="breadcrumb">
@@ -12,7 +14,7 @@
             <div class="card">
 
                 <div class="card-body">
-                @if (auth()->user()->role === 'Manager' || auth()->user()->role === 'Admin')
+                @if (auth()->user()->role === 'Manager' || auth()->user()->role === 'Admin' || auth()->user()->role === 'REN')
                     @if ($rabs->status === 'Progress')
                         <div class="col-md-12 d-flex justify-content-end mt-5 mb-3">
 
@@ -32,12 +34,12 @@
                 @elseif ($rabs->status === 'Ditolak')
                 <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/hpe/' . $filename . '-HPE_ditolak.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
-                @elseif ($rabs->status === 'Waiting List')
-                <embed src="{{ asset('storage/storage/file-pdf- /non-po/hpe/' . $filename . '-HPE_onprogress.pdf') }}"
+                @elseif ($rabs->status === 'Disetujui')
+                <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/hpe/' . $filename . '.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
 
                 @else
-                <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/hpe/' . $filename . '.pdf') }}"
+                <embed src="{{ asset('storage/storage/file-pdf-khs/non-po/hpe/' . $filename . '-HPE_onprogress.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
 
                 @endif
@@ -94,7 +96,7 @@
                                             buttons: false
                                         })
                                         .then((result) => {
-                                            window.location.href = "/non-po-hpe";
+                                            window.location.href = "/non-po";
                                         });
                                 }
                             });

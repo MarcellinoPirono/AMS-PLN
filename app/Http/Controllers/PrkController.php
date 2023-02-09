@@ -7,6 +7,9 @@ use App\Http\Requests\UpdatePrkRequest;
 use App\Models\Prk;
 use App\Models\Skk;
 use App\Imports\PrkImport;
+use App\Exports\PrkExport;
+use App\Imports\MultiPrkImport;
+use App\Exports\MultiPrkExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -47,32 +50,28 @@ class PrkController extends Controller
     }
 
 
-    public function create_xlsx()
+    public function export()
     {
+        $sheets = ['Tabel Prk', 'Tabel No_SKK_PRK'];
 
-        return view(
-            'prk.excel',
-            [
-                'title' => 'Buat PRK',
-                'active' => 'PRK',
-                'active1' => 'Tambah PRK',
-                // 'items' => ItemRincianInduk::all(),
-            ]
-        );
+        return Excel::download(new MultiPrkExport($sheets), 'Template Import PRK.xlsx');
     }
 
     function import(Request $request)
     {
 
-     $this->validate($request, [
-      'select_file'  => 'required|mimes:xls,xlsx'
-     ]);
+        $this->validate($request, [
+        'select_file'  => 'required|mimes:xls,xlsx'
+        ]);
+
+        $import = new MultiPrkImport();
+        $import->onlySheets(0);
 
 
-    Excel::import(new PrkImport, $request->file('select_file')->store('temp'));
+        Excel::import($import, $request->file('select_file')->store('temp'));
 
 
-    return redirect('/prk');
+        return redirect('/prk')->withSuccess('Import File Berhasil');
     }
 
     /**

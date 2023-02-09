@@ -137,9 +137,11 @@
                                 <strong>NON-PO</strong>
                             </a>
                         </li>
+                        @if (auth()->user()->role === 'Admin' || auth()->user()->role === 'Supervisor')
                         <li><a class="nav-link {{ Request::is('upload-non-po*') ? 'active' : '' }}"
                                 href="/upload-non-po"><strong>Upload Non-PO</strong></a>
                         </li>
+                        @endif
                         @if (auth()->user()->role === 'REN' || auth()->user()->role === 'Admin' || auth()->user()->role === 'Manager')
                             <li>
                                 <a class="nav-link {{ Request::is('pokhs*') ? 'active' : '' }}" href="/non-po-hpe">

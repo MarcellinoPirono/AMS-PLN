@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use App\Imports\SkkImport;
+use App\Exports\SkkExport;
+use App\Imports\MultiSkkImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -312,32 +314,26 @@ class SKKController extends Controller
         }
     }
 
-    public function create_xlsx()
+    public function export()
     {
+        $sheets = ['Tabel Skk'];
 
-        return view(
-            'skk.excel',
-            [
-                'title' => 'Buat Vendor',
-                'active' => 'Vendor',
-                'active1' => 'Tambah Vendor',
-                // 'items' => ItemRincianInduk::all(),
-            ]
-        );
+        return Excel::download(new SkkExport($sheets), 'Template Import SKK.xlsx');
     }
 
     function import(Request $request)
     {
 
-     $this->validate($request, [
-      'select_file'  => 'required|mimes:xls,xlsx'
-     ]);
+        $this->validate($request, [
+        'select_file'  => 'required|mimes:xls,xlsx'
+        ]);
+
+        $import = new MultiSkkImport();
+        $import->onlySheets(0);
+        Excel::import($import, $request->file('select_file')->store('temp'));
 
 
-    Excel::import(new SkkImport, $request->file('select_file')->store('temp'));
-
-
-    return redirect('/skk');
+        return redirect('/skk')->withSuccess('Import File Berhasil');
     }
 
 }

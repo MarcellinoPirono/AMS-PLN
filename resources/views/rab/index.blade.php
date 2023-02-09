@@ -6,7 +6,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="d-flex justify-content-end mr-5 mt-5">
-                    @if (auth()->user()->role === 'Supervisor' || auth()->user()->role === 'Admin')
+                    @if (auth()->user()->role === 'Supervisor' || auth()->user()->role === 'Admin' || auth()->user()->role === 'REN')
                         <a href="/po-khs/buat-po" type="button" class="btn btn-primary ml-3 mt-3">Buat Kontrak (PO) <i
                                 class="bi bi-pencil-square"></i>
                         </a>

@@ -1,11 +1,13 @@
 @extends('layouts.main')
 
 @section('content')
+@include('sweetalert::alert')
+
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="d-flex justify-content-end mr-5 mt-5">
-                    @if (auth()->user()->role === 'Supervisor' || auth()->user()->role === 'Admin' || auth()->user()->role === 'REN')
+                    @if (auth()->user()->role === 'Supervisor' || auth()->user()->role === 'Admin')
                         <a href="/non-po/buat-non-po" type="button" class="btn btn-primary ml-3 mt-3">Buat Kontrak (NON-PO) <i
                                 class="bi bi-pencil-square"></i>
                         </a>
@@ -137,17 +139,17 @@
         });
         $('#filter-prk1').on("change", function(event) {
             var prk = $('#filter-prk1').val();
-            ListTabelRab.columns(6).search(prk).draw();
+            tableNonPo.columns(6).search(prk).draw();
         });
 
         $('#filter-skk1').on("change", function(event) {
             var skk = $('#filter-skk1').val();
-            ListTabelRab.columns(5).search(skk).draw();
+            tableNonPo.columns(5).search(skk).draw();
         });
 
         $('#filter-status').on("change", function(event) {
             var status = $('#filter-status').val();
-            ListTabelRab.columns(2).search(status).draw();
+            tableNonPo.columns(2).search(status).draw();
         });
     </script>
 @endsection

@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('content')
+@include('sweetalert::alert')
+
 
     <div class="page-titles">
         <ol class="breadcrumb">

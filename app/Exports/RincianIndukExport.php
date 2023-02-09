@@ -32,12 +32,13 @@ class RincianIndukExport implements FromQuery, WithHeadings, WithTitle, WithEven
     protected $results;
 
     function __construct($sheets, $khs_id) {
-            // $
             $satuan = Satuan::pluck('singkatan')->toArray();
             $khss = Khs::pluck('jenis_khs')->toArray();
             $khs = RincianInduk::where('khs_id', $khs_id)->get();
+            // dd($khs);
             $row_count = count($khs);
-            $column_count = 7;
+            // dd($row_count);
+            $column_count = 6;
             $selects = [
                 ['satuan'=>'D',
                 'options'=>$satuan]
@@ -125,15 +126,19 @@ class RincianIndukExport implements FromQuery, WithHeadings, WithTitle, WithEven
                     $validation->setPromptTitle('Pick from list');
                     $validation->setPrompt('Please pick a value from the drop-down list.');
                     $validation->setFormula1(sprintf('"%s"',implode(',',$options)));
+                    // dd($validation);
 
                     // clone validation to remaining rows
                     for ($i = 2; $i <= $row_count+1; $i++) {
                         $event->sheet->getCell("{$drop_column}{$i}")->setDataValidation(clone $validation);
+                        // dd($event->sheet->getCell("{$drop_column}{$i}")->setDataValidation(clone $validation));
                     }
                     // set columns to autosize
                     for ($i = 1; $i <= $column_count; $i++) {
                         $column = Coordinate::stringFromColumnIndex($i);
+                        // dd($column);
                         $event->sheet->getColumnDimension($column)->setAutoSize(true);
+                        // dd($event->sheet->getColumnDimension("D")->setAutoSize(true));
                     }
                 }
 

@@ -58,7 +58,8 @@ class ImportItem_SPAPP implements ToModel, WithHeadingRow, WithValidation
             'kategori' => 'required',
             'nama_item' => 'required',
             'satuan_id' => 'required',
-            'harga_satuan' => 'required|numeric|regex:/^[0-9]+$/',
+            // 'harga_satuan' => 'regex:/^-?[0-9]+$/',
+            'harga_satuan' => 'required|regex:/^[0-9]+$/',
             'tkdn' => 'required|numeric',
 
         ];
@@ -75,7 +76,8 @@ class ImportItem_SPAPP implements ToModel, WithHeadingRow, WithValidation
             'khs_id.exists' => 'Harus Sesuai Jenis Khs!',
             'kategori.required' => 'Kolom kategori tidak boleh Kosong !',
             'satuan_id.required' => 'Kolom satuan_id tidak boleh Kosong !',
-            'harga_satuan.numeric' => 'Kolom harga_satuan harus numeric',
+            // 'harga_satuan.numeric' => 'Kolom harga_satuan harus numeric',
+            'harga_satuan.regex' => 'Kolom harga_satuan Harus Numeric & tidak boleh ada (-  .  ,)',
             'harga_satuan.required' => 'Kolom harga_satuan tidak boleh Kosong !',
             'tkdn.required' => 'Kolom tkdn tidak boleh Kosong !',
             'tkdn.numeric' => 'Kolom tkdn harus numeric',

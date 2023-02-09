@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('skks', function (Blueprint $table) {
             $table->id();
-            $table->string('nomor_skk')->nullable();
+            $table->string('nomor_skk');
             $table->string('ai_ao');
             $table->string('uraian_skk');
             $table->string('pagu_skk');

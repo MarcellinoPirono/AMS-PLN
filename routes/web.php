@@ -154,10 +154,10 @@ Route::post('/checkItem', [RincianIndukController::class, 'checkItem'])->middlew
 Route::post('/checkItem_edit', [RincianIndukController::class, 'checkItem_edit'])->middleware('Manager');
 
 //PO KHS
-Route::get('po-khs/buat-po', [RabController::class, 'buat_po_khs'])->middleware('SupervisorMiddleware');
+Route::get('po-khs/buat-po', [RabController::class, 'buat_po_khs'])->middleware('PoKhsMiddleWare');
 Route::get('po-khs/edit-po/{slug}', [RabController::class, 'edit_po_khs'])->middleware('SupervisorMiddleware');
 Route::put('po-khs/edit-po/{slug}', [RabController::class, 'update_po_khs'])->middleware('SupervisorMiddleware');
-Route::post('simpan-po-khs', [RabController::class, 'simpan_po_khs'])->middleware('SupervisorMiddleware');
+Route::post('simpan-po-khs', [RabController::class, 'simpan_po_khs'])->middleware('PoKhsMiddleWare');
 Route::post('/checkPO', [RabController::class, 'checkPO'])->middleware('SupervisorMiddleware');
 Route::get('/po-khs', [RabController::class, 'index'])->middleware('SupervisorMiddleware');
 Route::get('export-pdf-khs/{slug}', [RabController::class, 'export_pdf_khs'])->middleware('SupervisorMiddleware');
@@ -168,11 +168,11 @@ Route::post('/getVendor', [RabController::class, 'getVendor'])->middleware('Supe
 Route::get('/getRedaksi', [RabController::class, 'getRedaksi'])->middleware('SupervisorMiddleware');
 Route::post('/getDeskripsi', [RabController::class, 'getDeskripsi'])->middleware('SupervisorMiddleware');
 Route::post('/getSubDeskripsi', [RabController::class, 'getSubDeskripsi'])->middleware('SupervisorMiddleware');
-Route::get('/upload-po', [RabController::class, 'upload_po_khs'])->middleware('Manager');
-Route::post('/simpan-upload-po', [RabController::class, 'simpan_upload_po_khs'])->middleware('Manager');
+Route::get('/upload-po', [RabController::class, 'upload_po_khs'])->middleware('SupervisorMiddleware');
+Route::post('/simpan-upload-po', [RabController::class, 'simpan_upload_po_khs'])->middleware('SupervisorMiddleware');
 
 //PRK
-Route::get('/prk/create-xlsx', [PrkController::class, 'create_xlsx'])->middleware('Manager');
+Route::get('/prk/export', [PrkController::class, 'export'])->middleware('Manager');
 Route::post('prk/import', [PrkController::class, 'import'])->middleware('Manager');
 Route::resource('prk', PrkController::class)->middleware('Keuangan');
 Route::any('prk/filter', [PrkController::class, 'filterprk'])->middleware('Keuangan');
@@ -180,7 +180,7 @@ Route::get('/search-prk', [PrkController::class, 'searchprk'])->middleware('Keua
 Route::post('/checkPRK', [PrkController::class, 'checkPRK'])->middleware('Keuangan');
 Route::post('/checkPRK_edit', [PrkController::class, 'checkPRK_edit'])->middleware('Keuangan');
 
-Route::get('/skk/create-xlsx', [SkkController::class, 'create_xlsx'])->middleware('Manager');
+Route::get('/skk/export', [SkkController::class, 'export'])->middleware('Manager');
 Route::post('skk/import', [SkkController::class, 'import'])->middleware('Manager');
 Route::resource('skk', SkkController::class)->middleware('Keuangan');
 Route::get('/search-skk', [SkkController::class, 'searchskk'])->middleware('Keuangan');
@@ -229,34 +229,36 @@ Route::post('/gantiPaket', [PaketPekerjaanController::class, 'ganti_paket'])->mi
 // ]);{{  }}
 
 //Non-PO
-Route::get('non-po/buat-non-po', [NonPOController::class, 'buat_non_po'])->middleware('SupervisorMiddleware');
-Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po'])->middleware('SupervisorMiddleware');
+Route::get('non-po/buat-non-po', [NonPOController::class, 'buat_non_po'])->middleware('NonPoMiddleware');
+Route::post('simpan-non-po', [NonPOController::class, 'simpan_non_po'])->middleware('NonPoMiddleware');
 Route::post('/checkNotaDinas', [NonPOController::class, 'checkNotaDinas'])->middleware('SupervisorMiddleware');
 Route::get('download-non-po/{slug}', [NonPOController::class, 'download_nonpo'])->middleware('SupervisorMiddleware');
 Route::get('preview-non-po/{slug}', [NonPOController::class, 'preview_non_po'])->middleware('SupervisorMiddleware');
 Route::resource('non-po', NonPOController::class)->middleware('SupervisorMiddleware');
-Route::get('/upload-non-po', [NonPOController::class, 'upload_non_po'])->middleware('Manager');
-Route::post('/simpan-upload-non-po', [NonPOController::class, 'simpan_upload_non_po'])->middleware('Manager');
-
-Route::get('buat-non-po-hpe/{slug}', [NonPoHpeController::class, 'buat_non_po_hpe'])->middleware('SupervisorMiddleware');
-Route::get('edit-hpe/{slug}', [NonPoHpeController::class, 'edit_hpe'])->middleware('SupervisorMiddleware');
-Route::post('/getDeskripsiNota', [NonPoHpeController::class, 'getDeskripsi'])->middleware('SupervisorMiddleware');
-Route::post('simpan-non-po-hpe', [NonPoHpeController::class, 'simpan_non_po_hpe'])->middleware('SupervisorMiddleware');
-Route::post('simpan-edit-hpe', [NonPoHpeController::class, 'simpan_edit_hpe'])->middleware('SupervisorMiddleware');
-Route::get('preview-hpe/{slug}', [NonPoHpeController::class, 'preview_hpe'])->middleware('SupervisorMiddleware');
-Route::get('download-hpe/{slug}', [NonPoHpeController::class, 'download'])->middleware('SupervisorMiddleware');
-Route::get('download-test/{slug}', [NonPoHpeController::class, 'download_test'])->middleware('SupervisorMiddleware');
+Route::get('/upload-non-po', [NonPOController::class, 'upload_non_po'])->middleware('NonPoMiddleware');
+Route::post('/simpan-upload-non-po', [NonPOController::class, 'simpan_upload_non_po'])->middleware('NonPoMiddleware');
 
 
-Route::resource('non-po-hpe', NonPoHpeController::class)->middleware('SupervisorMiddleware');
+//HPE
+Route::get('buat-non-po-hpe/{slug}', [NonPoHpeController::class, 'buat_non_po_hpe'])->middleware('RenMiddleware');
+Route::get('edit-hpe/{slug}', [NonPoHpeController::class, 'edit_hpe'])->middleware('Manager');
+Route::post('/getDeskripsiNota', [NonPoHpeController::class, 'getDeskripsi'])->middleware('RenMiddleware');
+Route::post('simpan-non-po-hpe', [NonPoHpeController::class, 'simpan_non_po_hpe'])->middleware('RenMiddleware');
+Route::post('simpan-edit-hpe', [NonPoHpeController::class, 'simpan_edit_hpe'])->middleware('Manager');
+Route::get('preview-hpe/{slug}', [NonPoHpeController::class, 'preview_hpe'])->middleware('RenMiddleware');
+Route::get('download-hpe/{slug}', [NonPoHpeController::class, 'download'])->middleware('RenMiddleware');
+Route::get('download-test/{slug}', [NonPoHpeController::class, 'download_test'])->middleware('RenMiddleware');
+
+
+Route::resource('non-po-hpe', NonPoHpeController::class)->middleware('RenMiddleware');
 // Route::resource('non-po-hpe', NonPOHPEController::class);
 
-Route::get('hpe/export-pdf-khs/{id}', [HpeController::class, 'export_pdf_khs'])->middleware('SupervisorMiddleware');
-Route::resource('hpe', HpeController::class)->middleware('SupervisorMiddleware');
+// Route::get('hpe/export-pdf-khs/{id}', [HpeController::class, 'export_pdf_khs'])->middleware('SupervisorMiddleware');
+// Route::resource('hpe', HpeController::class)->middleware('SupervisorMiddleware');
 
-Route::resource('pengesahan-hpe', PengesahanHpeController::class)->middleware('SupervisorMiddleware');
+// Route::resource('pengesahan-hpe', PengesahanHpeController::class)->middleware('SupervisorMiddleware');
 
-Route::get('download-hpe/{id}', [HpeController::class, 'download'])->middleware('SupervisorMiddleware');
+// Route::get('download-hpe/{id}', [HpeController::class, 'download'])->middleware('SupervisorMiddleware');
 
 
 
@@ -289,6 +291,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/edit-profile-update', 'update')->name('user.update')->middleware('SupervisorMiddleware');
     Route::get('/edit-password', 'edit_password')->name('user.edit_password')->middleware('SupervisorMiddleware');
     Route::post('/check-password', 'check_password')->name('user.check_password')->middleware('SupervisorMiddleware');
+    Route::post('/reset-password', 'reset_password')->name('user.reset_password')->middleware('AdminMiddleware');
     Route::post('/password-lama', 'password_lama')->middleware('SupervisorMiddleware');
     Route::post('/user', 'store')->name('user')->middleware('AdminMiddleware');
     Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile')->middleware('SupervisorMiddleware');

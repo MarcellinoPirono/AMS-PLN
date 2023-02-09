@@ -36010,6 +36010,46 @@ input[type="checkbox"]:checked:after {
     display: inline-block;
 }
 
+.show-pass5 {
+    cursor: pointer;
+}
+
+.show-pass5 .fa-eye {
+    display: none;
+}
+
+.show-pass5.active .fa-eye-slash {
+    display: none;
+}
+
+.show-pass5.active .fa-eye {
+    display: inline-block;
+}
+
+.show-pass5.accordion-no-gutter .fa-eye {
+    display: inline-block;
+}
+
+.show-pass6 {
+    cursor: pointer;
+}
+
+.show-pass6 .fa-eye {
+    display: none;
+}
+
+.show-pass6.active .fa-eye-slash {
+    display: none;
+}
+
+.show-pass6.active .fa-eye {
+    display: inline-block;
+}
+
+.show-pass6.accordion-no-gutter .fa-eye {
+    display: inline-block;
+}
+
 .asColorPicker-dropdown {
     max-width: 26rem;
 }

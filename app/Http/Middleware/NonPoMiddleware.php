@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
-class RenMiddleware
+class NonPoMiddleware
 {
     /**
      * Handle an incoming request.
@@ -23,15 +23,15 @@ class RenMiddleware
 
         }
         else{
-            if (auth()->user()->role === 'REN' || auth()->user()->role === 'Manager' || auth()->user()->role === 'Admin' ){
+            if (auth()->user()->role === 'Supervisor' || auth()->user()->role === 'Admin'){
                 return $next($request);
             }
-
             else{
                 Alert::error('Mohon Maaf', 'Halaman Tidak Tersedia');
                 return back();
 
             }
+
         }
     }
 }

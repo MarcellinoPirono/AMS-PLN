@@ -97,7 +97,7 @@
                                             </span>
                                         </div>
                                         <input type="password" class="form-control" style="border-radius-right: 1.5rem"
-                                            placeholder="Password Baru" id="new_password" name="new_password">
+                                            placeholder="Password Baru" id="new_password1" name="new_password1">
                                     </div>
                                 </div> -->
                                 <div class="col-md-12 d-flex justify-content-center">
@@ -105,9 +105,65 @@
                                         onclick="window.location.replace(document.referrer);">Back</a>
                                     <button type="submit" id="btntambah" class="btn btn-primary">Edit User</button>
                                 </div>
+                                <a href="#" class="btn-xs mt-2 resetpassbtn">Reset Password ?</a>
                         </form>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="passwor_reset" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form name="passwor_form" id="passwor_form" action="/reset-password" method="post"
+                    method="post">
+                    @csrf
+                    <div class="modal-body">
+
+                        <div class="form-group">
+
+                            <label for="recipient-name" class="col-form-label">Masukkan Password Baru :</label>
+                            <div class="input-group transparent-append" style="border-radius: 1.5rem">
+                                <div class="input-group-append show-pass5" style="border-radius: 1.5rem">
+                                    <span class="input-group-text"
+                                        style="border-top-left-radius: 1.5rem; border-bottom-left-radius: 1.5rem">
+                                        <i class="fa fa-eye-slash"></i>
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                                <input type="password" class="form-control" style="border-radius-right: 1.5rem"
+                                    placeholder="Password Baru" id="new_password1" name="new_password1">
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" id="id" value="{{ $users->id }}">
+                        <div class="form-group">
+                            <label class="col-form-label">Konfirmasi Password Baru :</label>
+                            <div class="input-group transparent-append" style="border-radius: 1.5rem">
+                                <div class="input-group-append show-pass6" style="border-radius: 1.5rem">
+                                    <span class="input-group-text"
+                                        style="border-top-left-radius: 1.5rem; border-bottom-left-radius: 1.5rem">
+                                        <i class="fa fa-eye-slash"></i>
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                                <input type="password" class="form-control" style="border-radius-right: 1.5rem"
+                                    placeholder="Konfirmasi Password" id="konfirmasi_password1"
+                                    name="konfirmasi_password1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-primary">Reset</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -133,13 +189,21 @@
 
     <script>
         jQuery(document).ready(function() {
-
-            jQuery('.show-pass').on('click', function() {
+            jQuery('.show-pass5').on('click', function() {
+                // console.log(this);
                 jQuery(this).toggleClass('active');
-                if (jQuery('#password').attr('type') == 'password') {
-                    jQuery('#password').attr('type', 'text');
-                } else if (jQuery('#password').attr('type') == 'text') {
-                    jQuery('#password').attr('type', 'password');
+                if (jQuery('#new_password1').attr('type') == 'password') {
+                    jQuery('#new_password1').attr('type', 'text');
+                } else if (jQuery('#new_password1').attr('type') == 'text') {
+                    jQuery('#new_password1').attr('type', 'password');
+                }
+            });
+            jQuery('.show-pass6').on('click', function() {
+                jQuery(this).toggleClass('active');
+                if (jQuery('#konfirmasi_password1').attr('type') == 'password') {
+                    jQuery('#konfirmasi_password1').attr('type', 'text');
+                } else if (jQuery('#konfirmasi_password1').attr('type') == 'text') {
+                    jQuery('#konfirmasi_password1').attr('type', 'password');
                 }
             });
         });
@@ -151,6 +215,123 @@
                 return false;
             return true;
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            jQuery.validator.addMethod("uppercaseCheck",
+                function(value, element, param) {
+                    return this.optional(element) || (value.match(/[A-Z]/));
+                }, "Silakan Masukkan Minimal 1 Karakter Uppercase"
+            )
+            jQuery.validator.addMethod("nomorCheck",
+                function(value, element, param) {
+                    return this.optional(element) || (value.match(/[0-9]/));
+                }, "Silakan Masukkan Minimal 1 Karakter Numerik"
+            )
+            jQuery.validator.addMethod("spesialcharCheck",
+                function(value, element, param) {
+                    return this.optional(element) || (value.match(/[●!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/));
+                }, "Silakan Masukkan Minimal 1 Spesial Karakter"
+            )
+
+            var password_lama = document.getElementById('password_lama').value;
+            // console.log(password_lama);
+            $('.resetpassbtn').click(function(e) {
+                $('#passwor_reset').modal('show');
+
+
+                $('#passwor_form').validate({
+                    rules: {
+
+                        new_password1: {
+                            required: true,
+                            minlength: 5,
+                            uppercaseCheck: true,
+                            nomorCheck: true,
+                            spesialcharCheck: true,
+                        },
+                        konfirmasi_password1: {
+                            required: true,
+                            minlength: 5,
+                            equalTo: "#new_password1"
+                        }
+                    },
+                    messages: {
+                        new_password1: {
+                            required: "Silahkan Isi Terlebih Dahulu",
+                            minlength: "Minimal 5 Karakter",
+
+                        },
+                        konfirmasi_password1: {
+                            required: "Silahkan Isi Terlebih Dahulu",
+                            minlength: "Minimal 5 Karakter",
+                            equalTo: "Password Tidak Sama",
+                        }
+                    },
+
+
+                });
+
+                // $.ajax({
+                //     url: "{{ route('user.edit_password') }}",
+                //     type: 'GET',
+                //     success: function(response) {
+                //         $('#passwor_reset').modal('show');
+
+                //         $('#passwor_form').validate({
+                //             rules:{
+                //                 new_password1:{
+                //                     required :true,
+                //                     minlength: 5,
+                //                 },
+                //                 konfirmasi_password1:{
+                //                     required :true,
+                //                     minlength: 5,
+                //                     equalTo: "#new_password1"
+                //                 }
+                //             },
+                //             messages: {
+                //                 new_password1: {
+                //                     required: "Silahkan Isi Terlebih Dahulu",
+                //                     minlength: "Minimal 5 Karakter",
+
+                //                 },
+                //                 konfirmasi_password1: {
+                //                     required: "Silahkan Isi Terlebih Dahulu",
+                //                     minlength: "Minimal 5 Karakter",
+                //                     equalTo: "Password Tidak Sama",
+                //                 }
+                //             },
+
+                //             // submitHandler: function(form) {
+                //             //     $.ajax({
+                //             //         url: '/check-password',
+                //             //         type: 'PUT',
+                //             //         data: {
+                //             //             new_password1: $('#new_password1').val(),
+                //             //             konfirmasi_password1: $('#konfirmasi_password1').val(),
+                //             //             username: $('#username').val(),
+
+                //             //         },
+                //             //         success: function(response) {
+                //             //             swal({
+                //             //                 title: "Password Diubah",
+                //             //                 text: "Password Telah Berhasil Diubah",
+                //             //                 icon: "success",
+                //             //                 timer: 2e3,
+                //             //                 buttons: false
+                //             //             }).then((result) => {
+                //             //                 location.reload();
+                //             //             });
+                //             //         }
+                //             //     });
+                //             // }
+                //         });
+
+                //     }
+                // });
+            });
+        });
     </script>
     <script>
         $(document).ready(function() {

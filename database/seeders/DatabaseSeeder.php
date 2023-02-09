@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\ItemRincianInduk;
+use App\Models\AiAo;
 use App\Models\RincianInduk;
 use App\Models\Skk;
 use App\Models\Prk;
@@ -134,6 +135,13 @@ class DatabaseSeeder extends Seeder
         ItemRincianInduk::create([
             'nama_kategori' => 'Material',
             'khs_id' => '2'
+        ]);
+        
+        AiAo::create([
+            'aiao' => 'AI',
+        ]);
+        AiAo::create([
+            'aiao' => 'AO',
         ]);
 
 
