@@ -66,7 +66,10 @@
                                         placeholder="TKDN" name="tkdn" id="tkdn" required>
                                 </div>
                             </div>
-                            <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Tambah</button>
+                            <div class="justify-content-end float-right">
+
+                                <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Tambah</button>
+                            </div>
                         </form>
                     </div>
                 </div>

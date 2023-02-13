@@ -15,9 +15,10 @@
                 <ul class="navbar-nav header-right">
                     <li class="nav-item">
                         <div class="add-menu-sidebar" id="products">
-                            <img style="width: 20px" src="{{ asset('/') }}./asset/frontend/images/calendar.png" alt=""
-                                class="mr-2" />
-                            <p style="font-size: 12px" class="font-w100 mb-0" id="reload" name="reload">{{ date('D, d-M-Y H:i:s') }} </p>
+                            <img style="width: 20px" src="{{ asset('/') }}./asset/frontend/images/calendar.png"
+                                alt="" class="mr-2" />
+                            <p style="font-size: 12px" class="font-w100 mb-0" id="reload" name="reload">
+                                {{ date('D, d-M-Y H:i:s') }} </p>
                         </div>
                         {{-- <div class="d-xl-inline-flex d-none">
                         </div> --}}
@@ -328,4 +329,15 @@
             // });
         });
     });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        setInterval(function() {
+            $('#reload').load(window.location.href + " #reload");
+        }, 1000);
+    });
+
+    function updateDiv() {
+        document.getElementById("reload").innerHTML = document.getElementById("reload").innerHTML;
+    }
 </script>

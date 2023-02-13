@@ -104,6 +104,7 @@ class PrkController extends Controller
         foreach($previous_pagu_prk as $pagu_prk)
             $total_pagu_prk += (Double)$pagu_prk->pagu_prk;
         $updated_pagu_skk = $request->pagu_prk + $total_pagu_prk;
+        dd($udated_pagu_skk);
         Skk::where('id', $request->no_skk_prk)->update(array('pagu_skk'=>(Double)$updated_pagu_skk));
 
         $previous_prk_terkontrak = Prk::where('no_skk_prk', $request->no_skk_prk)->get("prk_terkontrak");

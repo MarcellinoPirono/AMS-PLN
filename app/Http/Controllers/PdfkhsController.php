@@ -476,7 +476,7 @@ class PdfkhsController extends Controller
     public function cetak_paket_tkdn_lampiran(Request $request)
     {
 
-        // dd($request);
+        // dd($request->file('lampiran'));
         $addendum_id = Addendum::where('nomor_addendum', $request->addendum_id)->value('id');
 
         $nama_pdf = $request->nomor_po;

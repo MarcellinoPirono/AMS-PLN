@@ -299,12 +299,7 @@
         });
     </script> --}}
 
-    {{-- <script type="text/javascript">
-        function updateDiv() {
-            document.getElementById("reload").innerHTML = document.getElementById("reload").innerHTML;
-        }
 
-    </script> --}}
 
     <script>
         var expanded = false;
@@ -332,11 +327,7 @@
             },
         });
 
-        // $(document).ready(function() {
-        //     setInterval(function() {
-        //         $('#reload').load(window.location.href + " #reload");
-        //     }, 1000);
-        // });
+
 
         // var fixmeTop = $('.fixme').offset().top;
         // $(window).scroll(function() {

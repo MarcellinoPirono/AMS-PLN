@@ -119,8 +119,11 @@
                                     </table>
                                 </div>
                             </div>
-                            <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Submit
-                                Paket</button>
+                            <div class="justify-content-end float-right mr-5 mb-5">
+
+                                <button type="submit" id="btn_tambah" class="btn btn-primary position-relative">Tambah
+                                    Paket</button>
+                            </div>
                         </form>
                     </div>
                 </div>

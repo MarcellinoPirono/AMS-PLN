@@ -24,7 +24,7 @@ class MenuController extends Controller
         return view('paket-pekerjaan.menu', [
             'title' => 'Pilih Menu Paket Pekerjaan KHS',
             'title1' => 'Paket Pekerjaan KHS',
-            'jenis_khs' => Khs::all(),
+            'jenis_khs' => Khs::where('isActive', True)->get(),
 
         ]);
     }
