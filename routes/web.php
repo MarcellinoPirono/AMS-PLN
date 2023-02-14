@@ -300,7 +300,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/password-lama', 'password_lama')->middleware('SupervisorMiddleware');
     Route::post('/user', 'store')->name('user')->middleware('AdminMiddleware');
     Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile')->middleware('SupervisorMiddleware');
-    Route::delete('/deleteuser/{id}', 'destroy')->name('hapus')->middleware('AdminMiddleware');
+    Route::delete('/deleteuser/{id}', 'destroy')->middleware('AdminMiddleware');
 });
 
 Route::fallback([UserController::class,'not_found']);

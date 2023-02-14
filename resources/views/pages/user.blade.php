@@ -1,22 +1,22 @@
 @extends('layouts.main')
 
 @section('content')
-@include('sweetalert::alert')
+{{-- @include('sweetalert::alert') --}}
 
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header position-relative justify-content-end float-right" style="justify-content: start;">
-                    
+
                     <a href="/user/create" class="btn btn-primary float-right mt-3 ml-3">Tambah User <i class="bi bi-plus-circle"></i>
                     </a>
                 </div>
                 <div class="card-body">
-                    @if (session('success'))
+                    {{-- @if (session('success'))
                         <div class="sweetalert sweet-success">
                             {{ session('success') }}
                         </div>
-                    @endif
+                    @endif --}}
                     <div class="table-responsive" id="read">
                         <table id="tableVendor" class="table table-responsive-md">
                             <thead>
@@ -89,36 +89,6 @@
         </div>
     </div>
 
-     <!-- <script type="text/javascript">
-    $('#search').on('keyup',function(){
-        $value=$(this).val();
-
-        if($value){
-            $('.alldata').hide();
-            $('.searchdata').show();
-        }
-
-        else{
-            $('.alldata').show();
-            $('.searchdata').hide();
-
-        }
-
-    $.ajax({
-
-        type: 'get',
-        url:'{{URL::to('search-addendum-khs') }}',
-        data:{'search':$value},
-
-        success:function(data){
-            console.log(data);
-            $('#Content').html(data);
-        }
-
-    });
-
-    });
-</script> -->
 
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

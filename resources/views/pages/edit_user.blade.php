@@ -4,7 +4,7 @@
     <div class="page-titles">
         <ol class="breadcrumb">
             @if (auth()->user()->role === 'Admin')
-                <li class="breadcrumb-item"><a href="/user">{{ $active }}</a></li>
+                <li class="breadcrumb-item"><a onclick=" window.location.replace(document.referrer)";>{{ $active }}</a></li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $active1 }}</a></li>
             @endif
         </ol>
@@ -525,7 +525,9 @@
                                             buttons: false
                                         })
                                         .then((result) => {
-                                            window.location.href = "/user";
+                                            // window.location.href = "/user";
+                                            window.location.replace(document.referrer);
+
                                         });
                                 }
                             });
@@ -549,6 +551,8 @@
                                     })
                                     .then((result) => {
                                         window.location.replace(document.referrer);
+                                        // window.location.replace(document.referrer);
+                                        // window.location.href = "/user";
                                     });
                             }
                         });

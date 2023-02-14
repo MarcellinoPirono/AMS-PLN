@@ -67,7 +67,7 @@
                                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                         </div>
                                         <input type="text" class="form-control" id="new_username" name="new_username"
-                                            placeholder="Enter a username..">
+                                            placeholder="Silahkan masukkan username...">
                                     </div>
                                     <!-- <label class="text-label">Username</label>
                                                             <div class="input-group">
@@ -89,7 +89,7 @@
                                             </span>
                                         </div>
                                         <input style="border-radius-right: 1.5rem" type="password" class="form-control" id="password"
-                                            name="password" placeholder="Choose a safe one..">
+                                            name="password" placeholder="Silahkan Masukkan Password... ">
                                     </div>
 
                                     <!-- <label class="text-label">Password *</label>

@@ -1,29 +1,21 @@
 @extends('layouts.main')
 
 @section('content')
-    @if (session()->has('status'))
-        <div class="alert alert-success alert-dismissible alert-alt fade show">
-            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i
-                        class="mdi mdi-close"></i></span>
-            </button>
-            <strong>Success!</strong> {{ session('status') }}
-        </div>
-    @endif
+
 
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <div class="col-xl-4 col-l-4 col-m-3 col-sm-2">
-                        <select id="filter-pejabat" class="form-control filter-kategori">
+                        {{-- <select id="filter-pejabat" class="form-control filter-kategori">
                             <option value="">Pilih Kategori</option>
                             @foreach ($unit_up3 as $unit_up3)
                             <option value="{{$unit_up3->unit_up3}}">{{$unit_up3->unit_up3}}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                     </div>
-                    <a href="/pejabat/create" class="btn btn-primary mr-auto ml-3">Tambah Pejabat<span
-                            class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                    <a href="/pejabat/create" class="btn btn-primary float right mt-5 mr-5">Tambah Pejabat <i class="bi bi-plus-circle"></i>
                     </a>
                     <!-- <div class="input-group search-area position-relative">
                         <div class="input-group-append">
