@@ -31,7 +31,7 @@
     @foreach ($po_khs as $pokhs)
     <table class="sub-judul" width="95%" cellspacing="0" cellpadding="0" align="center">
         <tr>
-            <td colspan="3" class="judul">RINCIAN ANGGARAN BIAYA RAB CONTOHH</td>
+            <td colspan="3" class="judul">RINCIAN ANGGARAN BIAYA</td>
         </tr>
         <tr>
             <td width="18%" style="height: 4px;">PEKERJAAN</td>
