@@ -148,7 +148,7 @@ function reindex2() {
                 nama_redaksi:{
                     required: true,
                     remote: {
-                        url: "/checkRedaksi",
+                        url: "/checkRedaksiNota",
                         type: "post"
                     }
                 },
@@ -171,7 +171,6 @@ function reindex2() {
                     var token = $('#csrf').val();
                     var nama_redaksi = $("#nama_redaksi").val();
                     var deskripsi_redaksi = $("#deskripsi_redaksi").val();
-
                     var sub_deskripsi = [];
 
 

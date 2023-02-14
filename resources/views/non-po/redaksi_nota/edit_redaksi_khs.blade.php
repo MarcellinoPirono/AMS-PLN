@@ -210,7 +210,7 @@
                     nama_redaksi: {
                         required: true,
                         remote: {
-                            url: "/checkRedaksi_edit",
+                            url: "/checkRedaksi_edit_nota",
                             type: "post",
                             data: {
                                 'old_nama_redaksi': old_nama_redaksi

@@ -133,6 +133,7 @@ Route::post('/checkRedaksi_edit', [RedaksiController::class, 'checkRedaksi_edit'
 //Redaksi KHS
 Route::resource('redaksi-nota-dinas', RedaksiNotaDinasController::class)->middleware('Manager');
 Route::post('/checkRedaksiNota', [RedaksiNotaDinasController::class, 'checkRedaksi'])->middleware('Manager');
+// Route::post('/checkRedaksi', [RedaksiController::class, 'checkRedaksi'])->middleware('Manager');
 Route::post('/checkRedaksi_edit_nota', [RedaksiNotaDinasController::class, 'checkRedaksi_edit'])->middleware('Manager');
 
 //Pejabat
