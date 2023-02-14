@@ -291,6 +291,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/user', 'index')->middleware('AdminMiddleware');
     Route::get('/user/create', 'create')->name('user.create')->middleware('AdminMiddleware');
     Route::post('/edit-profile', 'edit')->name('user.edit_profile')->middleware('SupervisorMiddleware');
+    Route::get('/edit-profile', 'edit_view')->name('user.edit_profile_view')->middleware('SupervisorMiddleware');
     // Route::post('/user/{username}/edit', 'edit_admin')->middleware('AdminMiddleware');
     // Route::put('/user/{username}/edit', 'update_admin')->middleware('AdminMiddleware');
     Route::post('/edit-profile-update', 'update')->name('user.update')->middleware('SupervisorMiddleware');
@@ -298,7 +299,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/check-password', 'check_password')->name('user.check_password')->middleware('SupervisorMiddleware');
     Route::post('/reset-password', 'reset_password')->name('user.reset_password')->middleware('AdminMiddleware');
     Route::post('/password-lama', 'password_lama')->middleware('SupervisorMiddleware');
-    Route::post('/user', 'store')->name('user')->middleware('AdminMiddleware');
+    Route::post('/user', 'store')->middleware('AdminMiddleware');
     Route::post('/pic_profile', 'simpan_gambar')->name('pic_profile')->middleware('SupervisorMiddleware');
     Route::delete('/deleteuser/{id}', 'destroy')->middleware('AdminMiddleware');
 });

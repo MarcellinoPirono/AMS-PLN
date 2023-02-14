@@ -125,6 +125,28 @@ class UserController extends Controller
 
         return view('pages.edit_user', $data);
     }
+    public function edit_view(Request $request)
+    {
+        // dd($request);
+        $username = $request->username;
+        $user = User::where('username', $request->username)->value('id');
+
+        $user = User::find($user);
+        // dd($username);
+
+        $data = [
+            'users'  => $user,
+            'title' => 'Edit Data User',
+            'active' => 'User',
+            'old_username' => $username,
+            'active1' => 'Edit User',
+        ];
+
+        // dd($data);
+
+
+        return view('pages.edit_user', $data);
+    }
 
     /**
      * Update the specified resource in storage.

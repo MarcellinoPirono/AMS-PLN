@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-{{-- @include('sweetalert::alert') --}}
+@include('sweetalert::alert')
 
     <div class="row">
         <div class="col-lg-12">

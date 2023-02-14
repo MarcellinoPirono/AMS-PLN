@@ -47,7 +47,7 @@
                                     @csrf
                                     <input type="hidden" id="username" name="username"
                                         value="{{ auth()->user()->username }}">
-                                    <button type="submit" class="dropdown-item ai-icon">
+                                    <button class="dropdown-item ai-icon">
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary"
                                             width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -340,4 +340,7 @@
     function updateDiv() {
         document.getElementById("reload").innerHTML = document.getElementById("reload").innerHTML;
     }
+
 </script>
+
+

@@ -4,7 +4,7 @@
     <div class="page-titles">
         <ol class="breadcrumb">
             @if (auth()->user()->role === 'Admin')
-                <li class="breadcrumb-item"><a onclick=" window.location.replace(document.referrer)";>{{ $active }}</a></li>
+                <li class="breadcrumb-item"><a href="/user">{{ $active }}</a></li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ $active1 }}</a></li>
             @endif
         </ol>
@@ -105,7 +105,9 @@
                                         onclick="window.location.replace(document.referrer);">Back</a>
                                     <button type="submit" id="btntambah" class="btn btn-primary">Edit User</button>
                                 </div>
+                                @if (auth()->user()->role === "Admin")
                                 <a href="#" class="btn-xs mt-2 resetpassbtn">Reset Password ?</a>
+                                @endif
                         </form>
                     </div>
                 </div>
