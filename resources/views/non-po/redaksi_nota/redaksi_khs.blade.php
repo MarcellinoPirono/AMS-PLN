@@ -14,7 +14,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="d-flex justify-content-end mr-5 mt-5">
-                    <a href="/redaksi-nota-dinas/create" class="btn btn-primary">Tambah Redaksi NON-PO <i class="fa fa-plus-circle"></i>
+                    <a href="/redaksi-nota-dinas/create" class="btn btn-primary">Tambah Redaksi NON-PO <i class="bi bi-plus-circle"></i>
                     </a>
                 </div>
 

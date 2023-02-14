@@ -41,7 +41,7 @@
                     auth()->user()->role === 'REN')
 
                 <h5>
-                    <p class="fs-12 ml-3 mt-4 mb-1 text-black">KHS</p>
+                    <p class="fs-12 ml-3 mt-4 mb-1 text-black">Buat Kontrak</p>
                 </h5>
                 <li>
                     <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -123,9 +123,9 @@
                      </li>
                  </ul>
              </li> -->
-                <h5>
+                {{-- <h5>
                     <p class="fs-12 ml-3 mt-4 mb-1 text-black">Non PO</p>
-                </h5>
+                </h5> --}}
                 <li>
                     <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                         <i class="bi bi-journal-bookmark-fill"></i>

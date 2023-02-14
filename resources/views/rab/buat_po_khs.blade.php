@@ -24,7 +24,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#spbj">
                                         <div class="num">1</div>
-                                        SPBJ
+                                        Informasi Umum
                                     </a>
                                 </li>
                                 <li class="nav-item">

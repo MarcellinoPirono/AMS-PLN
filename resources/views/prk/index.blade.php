@@ -28,7 +28,7 @@
                         {{-- <a href="/prk/create-xlsx" class="btn btn-primary btn-xs ml-3 mt-3">Via Excel<span
                             class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                         </a> --}}
-                        <a href="/prk/create" class="btn btn-primary btn-md">Tambah PRK <i class="fa fa-plus-circle"></i>
+                        <a href="/prk/create" class="btn btn-primary btn-md">Tambah PRK <i class="bi bi-plus-circle"></i>
                         </a>
                     </div>
                 </div>

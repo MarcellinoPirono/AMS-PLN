@@ -20,7 +20,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#informasi_umum">
                                         <div class="num">1</div>
-                                        Upload Kerangka Acuan Kerja
+                                        Informasi Umum
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -337,7 +337,7 @@
                                                                 <div
                                                                     class="position-relative justify-content-end float-left">
                                                                     <a type="button" id="tambah-pekerjaan"
-                                                                        class="btn btn-primary position-relative justify-content-end"
+                                                                        class="btn btn-primary btn-sm position-relative justify-content-end"
                                                                         onclick="updateform()" required>Tambah</a>
                                                                 </div>
                                                             </div>

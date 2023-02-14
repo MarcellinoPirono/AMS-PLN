@@ -47,7 +47,7 @@
 
 
                         <div class="col-lg-12 mb-2">
-                            <div class="col-md-12 d-flex justify-content-center">
+                            <div class="col-md-12 d-flex justify-content-end mr-5 mb-5">
                                 <button type="submit" id="btntambah"
                                     class="btn btn-primary">Tambah Data</button>
                             </div>
