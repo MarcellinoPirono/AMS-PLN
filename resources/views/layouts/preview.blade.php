@@ -84,7 +84,6 @@
                         text: "Setelah Surat disetujui, Anda tidak dapat menolak Surat ini lagi!",
                         icon: "warning",
                         buttons: true,
-                        dangerMode: true,
                     })
                     .then((willCreate) => {
                         if (willCreate) {
@@ -121,7 +120,6 @@
                         text: "Setelah Surat ditolak, Anda tidak dapat menyetujui Surat ini lagi!",
                         icon: "warning",
                         buttons: true,
-                        dangerMode: true,
                     })
                     .then((willCreate) => {
                         if (willCreate) {

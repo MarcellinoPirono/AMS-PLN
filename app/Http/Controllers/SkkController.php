@@ -17,9 +17,7 @@ use App\Imports\SkkImport;
 use App\Exports\SkkExport;
 use App\Imports\MultiSkkImport;
 use Maatwebsite\Excel\Facades\Excel;
-
-
-
+use Mockery\Undefined;
 
 class SKKController extends Controller
 {
@@ -41,7 +39,7 @@ class SKKController extends Controller
 
         return view('skk.index', [
             'title' => 'SKK',
-            'skks' => Skk::orderBy('id', 'DESC')->get(),
+            'skks' => Skk::all(),
         ]);
     }
 

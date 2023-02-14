@@ -50,39 +50,71 @@
                                     <!-- <th>PRK Realisasi</th>
                                         <th>PRK Terbayar</th> -->
                                     <th>PRK Sisa</th>
+                                    <th>Persentase</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="alldata">
                                 @foreach ($prks as $prk)
-                                    <tr>
-                                        <input type="hidden" class="delete_id" value="{{ $prk->id }}">
-                                        <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
-                                        <td>{{ $prk->skks->nomor_skk }}</td>
-                                        <td>{{ $prk->no_prk }}</td>
-                                        <td>{{ $prk->uraian_prk }}</td>
-                                        <td> @currency($prk->pagu_prk)</td>
-                                        <td> @currency($prk->prk_terkontrak)</td>
-                                        <td> @currency($prk->prk_progress)</td>
-                                        {{-- <td> @currency($prk->prk_realisasi)</td>
-                                        <td> @currency($prk->prk_terbayar)</td> --}}
-                                        <td> @currency($prk->prk_sisa)</td>
-
-                                        <td>
-                                            <div class="text-center">
-                                                <a href="/prk/{{ $prk->id }}/edit"
-                                                    class="btn btn-primary shadow btn-xs sharp mr-1"><i
-                                                        class="fa fa-pencil"></i></a>
-                                            </div>
-                                            {{-- <div class="d-flex">
-                                                <a href="/prk/{{ $prk->id }}/edit"
-                                                    class="btn btn-primary shadow btn-xs sharp mr-1"><i
-                                                        class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
-                                                        class="fa fa-trash"></i></button>
-                                            </div> --}}
-                                        </td>
-                                    </tr>
+                                    @if($prk->pagu_prk == 0)
+                                        <tr>
+                                            <input type="hidden" class="delete_id" value="{{ $prk->id }}">
+                                            <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
+                                            <td>{{ $prk->skks->nomor_skk }}</td>
+                                            <td>{{ $prk->no_prk }}</td>
+                                            <td>{{ $prk->uraian_prk }}</td>
+                                            <td> @currency($prk->pagu_prk)</td>
+                                            <td> @currency($prk->prk_terkontrak)</td>
+                                            <td> @currency($prk->prk_progress)</td>
+                                            {{-- <td> @currency($prk->prk_realisasi)</td>
+                                            <td> @currency($prk->prk_terbayar)</td> --}}
+                                            <td> @currency($prk->prk_sisa)</td>
+                                            <td>0,00 %</td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <a href="/prk/{{ $prk->id }}/edit"
+                                                        class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                            class="fa fa-pencil"></i></a>
+                                                </div>
+                                                {{-- <div class="d-flex">
+                                                    <a href="/prk/{{ $prk->id }}/edit"
+                                                        class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                            class="fa fa-pencil"></i></a>
+                                                    <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </div> --}}
+                                            </td>
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <input type="hidden" class="delete_id" value="{{ $prk->id }}">
+                                            <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
+                                            <td>{{ $prk->skks->nomor_skk }}</td>
+                                            <td>{{ $prk->no_prk }}</td>
+                                            <td>{{ $prk->uraian_prk }}</td>
+                                            <td> @currency($prk->pagu_prk)</td>
+                                            <td> @currency($prk->prk_terkontrak)</td>
+                                            <td> @currency($prk->prk_progress)</td>
+                                            {{-- <td> @currency($prk->prk_realisasi)</td>
+                                            <td> @currency($prk->prk_terbayar)</td> --}}
+                                            <td> @currency($prk->prk_sisa)</td>
+                                            <td>{{ str_replace('.', ',', bcdiv((float)$prk->prk_terkontrak / (float)$prk->pagu_prk * 100, 1, 2)) }} %</td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <a href="/prk/{{ $prk->id }}/edit"
+                                                        class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                            class="fa fa-pencil"></i></a>
+                                                </div>
+                                                {{-- <div class="d-flex">
+                                                    <a href="/prk/{{ $prk->id }}/edit"
+                                                        class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                            class="fa fa-pencil"></i></a>
+                                                    <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </div> --}}
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                             <tbody id="Content" class="searchdata">

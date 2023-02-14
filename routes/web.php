@@ -47,7 +47,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index'])->middleware('SupervisorMiddleware');
 
-Route::get('/dashboard', [MainController::class, 'index'])->name('dashboard')->middleware('SupervisorMiddleware');/*->middleware('admin')*/;
+Route::get('/dashboard', [MainController::class, 'index'])->name('dashboard')->middleware('SupervisorMiddleware');
+Route::post('/getPersentaseAI', [MainController::class, 'getPersentaseAI'])->middleware('SupervisorMiddleware');
+Route::post('/getNominalAI', [MainController::class, 'getNominalAI'])->middleware('SupervisorMiddleware');
+Route::post('/getPersentaseAO', [MainController::class, 'getPersentaseAO'])->middleware('SupervisorMiddleware');
+Route::post('/getNominalAO', [MainController::class, 'getNominalAO'])->middleware('SupervisorMiddleware');
+// /*->middleware('admin')*/
 
 //LOGIN
 Route::get('/login', [LoginController::class, 'login'])->middleware('guest');

@@ -47,40 +47,75 @@
                                     <!-- <th>SKK Realisasi</th>
                                                     <th>SKK Terbayar</th> -->
                                     <th>SKK Sisa</th>
+                                    <th>Persentase</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="alldata">
                                 @foreach ($skks as $skk)
-                                    <tr>
-                                        <input type="hidden" class="delete_id" value="{{ $skk->id }}">
-                                        <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
-                                        <td>{{ $skk->ai_ao }}</td>
-                                        <td>{{ $skk->nomor_skk }}</td>
-                                        <td>{{ $skk->uraian_skk }}</td>
-                                        <td>@currency($skk->pagu_skk)</td>
-                                        <td>@currency($skk->skk_terkontrak)</td>
-                                        <td>@currency($skk->skk_progress)</td>
-                                        {{-- <td>@currency($skk->skk_realisasi)</td>
-                                        <td>@currency($skk->skk_terbayar)</td> --}}
-                                        <td>@currency($skk->skk_sisa)</td>
-                                        <td>
-                                            <div class="text-center">
-                                                <a href="/skk/{{ $skk->id }}/edit"
-                                                    class="btn btn-primary shadow btn-xs sharp mr-1"><i
-                                                        class="fa fa-pencil"></i></a>
-                                                {{-- <button class="btn btn-danger shadow btn-xs sharp" onclick="deleteSkk(this)"><i
-                                                        class="fa fa-trash"></i></button> --}}
-                                            </div>
-                                            {{-- <div class="d-flex">
-                                                <a href="/skk/{{ $skk->id }}/edit"
-                                                    class="btn btn-primary shadow btn-xs sharp mr-1"><i
-                                                        class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp" onclick="deleteSkk(this)"><i
-                                                        class="fa fa-trash"></i></button>
-                                            </div> --}}
-                                        </td>
-                                    </tr>
+                                    @if($skk->pagu_skk == 0)
+                                        <tr>
+                                            <input type="hidden" class="delete_id" value="{{ $skk->id }}">
+                                            <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
+                                            <td>{{ $skk->ai_ao }}</td>
+                                            <td>{{ $skk->nomor_skk }}</td>
+                                            <td>{{ $skk->uraian_skk }}</td>
+                                            <td>@currency($skk->pagu_skk)</td>
+                                            <td>@currency($skk->skk_terkontrak)</td>
+                                            <td>@currency($skk->skk_progress)</td>
+                                            {{-- <td>@currency($skk->skk_realisasi)</td>
+                                            <td>@currency($skk->skk_terbayar)</td> --}}
+                                            <td>@currency($skk->skk_sisa)</td>
+                                            <td>0,00 %</td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <a href="/skk/{{ $skk->id }}/edit"
+                                                        class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                            class="fa fa-pencil"></i></a>
+                                                    {{-- <button class="btn btn-danger shadow btn-xs sharp" onclick="deleteSkk(this)"><i
+                                                            class="fa fa-trash"></i></button> --}}
+                                                </div>
+                                                {{-- <div class="d-flex">
+                                                    <a href="/skk/{{ $skk->id }}/edit"
+                                                        class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                            class="fa fa-pencil"></i></a>
+                                                    <button class="btn btn-danger shadow btn-xs sharp" onclick="deleteSkk(this)"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </div> --}}
+                                            </td>
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <input type="hidden" class="delete_id" value="{{ $skk->id }}">
+                                            <td align="center" valign="middle"><strong>{{ $loop->iteration }}</strong></td>
+                                            <td>{{ $skk->ai_ao }}</td>
+                                            <td>{{ $skk->nomor_skk }}</td>
+                                            <td>{{ $skk->uraian_skk }}</td>
+                                            <td>@currency($skk->pagu_skk)</td>
+                                            <td>@currency($skk->skk_terkontrak)</td>
+                                            <td>@currency($skk->skk_progress)</td>
+                                            {{-- <td>@currency($skk->skk_realisasi)</td>
+                                            <td>@currency($skk->skk_terbayar)</td> --}}
+                                            <td>@currency($skk->skk_sisa)</td>
+                                            <td>{{ str_replace('.', ',', bcdiv((float)$skk->skk_terkontrak / (float)$skk->pagu_skk * 100, 1, 2)) }} %</td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <a href="/skk/{{ $skk->id }}/edit"
+                                                        class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                            class="fa fa-pencil"></i></a>
+                                                    {{-- <button class="btn btn-danger shadow btn-xs sharp" onclick="deleteSkk(this)"><i
+                                                            class="fa fa-trash"></i></button> --}}
+                                                </div>
+                                                {{-- <div class="d-flex">
+                                                    <a href="/skk/{{ $skk->id }}/edit"
+                                                        class="btn btn-primary shadow btn-xs sharp mr-1"><i
+                                                            class="fa fa-pencil"></i></a>
+                                                    <button class="btn btn-danger shadow btn-xs sharp" onclick="deleteSkk(this)"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </div> --}}
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                             <tbody id="Content" class="searchdata">

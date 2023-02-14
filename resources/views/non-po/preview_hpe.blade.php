@@ -85,7 +85,6 @@
                         text: "Setelah Surat disetujui, Anda tidak dapat menolak Non-PO ini lagi!",
                         icon: "warning",
                         buttons: true,
-                        dangerMode: true,
                     })
                     .then((willCreate) => {
                         if (willCreate) {
@@ -122,7 +121,6 @@
                         text: "Setelah Non-PO ditolak, Anda tidak dapat menyetujui Non-PO ini lagi!",
                         icon: "warning",
                         buttons: true,
-                        dangerMode: true,
                     })
                     .then((willCreate) => {
                         if (willCreate) {

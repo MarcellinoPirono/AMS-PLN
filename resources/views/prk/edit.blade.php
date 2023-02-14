@@ -34,7 +34,7 @@
                                 <label class="col-sm-25 col-form-label">No. PRK:</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" placeholder="No PRK"
-                                        name="no_prk" id="no_prk" required autofocus
+                                        name="no_prk" id="no_prk" readonly disabled
                                         value="{{ old('no_prk', $prk->no_prk) }}">
                                     <input type="hidden" id="old_prk" value="{{ $prk->no_prk }}">
                                 </div>

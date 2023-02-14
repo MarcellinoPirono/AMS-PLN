@@ -205,7 +205,6 @@ function updateform() {
         data: {
             'kontrak_induk': kontrak_induk,
             '_token': token
-
         },
         success: function (response) {
             var item = [""]

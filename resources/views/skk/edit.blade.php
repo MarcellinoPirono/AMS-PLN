@@ -23,7 +23,7 @@
                                 <div class="col-sm-6">
                                     <input type="text"
                                         class="form-control input-default" placeholder="Nomor SKK"
-                                        name="nomor_skk" id="nomor_skk" required autofocus
+                                        name="nomor_skk" id="nomor_skk" readonly disabled
                                         value="{{ old('nomor_skk', $skk->nomor_skk) }}">
                                     <input type="hidden" id="old_skk" value="{{ $skk->nomor_skk }}">
                                 </div>

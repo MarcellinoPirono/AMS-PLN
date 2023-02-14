@@ -437,12 +437,12 @@
                                                         <option value="" selected disabled required>Pilih Tujuan
                                                         </option>
                                                         @foreach ($pejabats as $pejabat)
-                                                            @if ($pejabat->jabatan != 'MANAGER UP3')
-                                                                <option value="{{ $pejabat->id }}">
-                                                                    {{ $pejabat->jabatan }} -
-                                                                    {{ $pejabat->nama_pejabat }}
-                                                                </option>
-                                                            @endif
+                                                            {{-- @if ($pejabat->jabatan != 'MANAGER UP3') --}}
+                                                            <option value="{{ $pejabat->id }}">
+                                                                {{ $pejabat->jabatan }} -
+                                                                {{ $pejabat->nama_pejabat }}
+                                                            </option>
+                                                            {{-- @endif --}}
                                                         @endforeach
                                                     </select>
                                                     <div class="valid-feedback">
@@ -463,12 +463,12 @@
                                                         <option value="" selected disabled required>Pilih Sumber
                                                         </option>
                                                         @foreach ($pejabats as $pejabat)
-                                                            @if ($pejabat->jabatan != 'MANAGER UP3')
-                                                                <option value="{{ $pejabat->id }}">
-                                                                    {{ $pejabat->jabatan }} -
-                                                                    {{ $pejabat->nama_pejabat }}
-                                                                </option>
-                                                            @endif
+                                                            {{-- @if ($pejabat->jabatan != 'MANAGER UP3') --}}
+                                                            <option value="{{ $pejabat->id }}">
+                                                                {{ $pejabat->jabatan }} -
+                                                                {{ $pejabat->nama_pejabat }}
+                                                            </option>
+                                                            {{-- @endif --}}
                                                         @endforeach
                                                     </select>
                                                     <div class="valid-feedback">
