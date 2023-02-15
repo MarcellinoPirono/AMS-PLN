@@ -46,7 +46,7 @@
                                                 <a href="/redaksi-nota-dinas/{{ $redaksi->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                <button value="{{ $redaksi->id }}" class="btn btn-danger shadow btn-xs sharp btndelete" onclick="deleteredaksi(this)"><i
                                                         class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
@@ -95,7 +95,7 @@
         });
     </script> -->
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         $('#search').on('keyup', function() {
             $value = $(this).val();
 
@@ -124,7 +124,7 @@
             });
 
         });
-    </script>
+    </script> --}}
 
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -143,31 +143,14 @@
         }
     });
 
-    // $('#filter-kontrak-induk-khs').on("change", function(event){
-    //     var jenis_khs = $('#filter-kontrak-induk-khs').val();
-    //     // console.log(category);
-    //     // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
-    //     tableKontrakInduk.columns(1).search(jenis_khs).draw();
-    // });
-
-    // $('#filter-kontrak-induk-vendor').on("change", function(event){
-    //     var nama_vendor = $('#filter-kontrak-induk-vendor').val();
-    //     // console.log(category);
-    //     // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
-    //     tableKontrakInduk.columns(4).search(nama_vendor).draw();
-    // });
-
 
 </script>
-@endsection
 
 
 <script>
-    $(document).ready(function() {
-        $('.btndelete').click(function(e) {
-            e.preventDefault();
+    function deleteredaksi(e) {
 
-            var deleteid = $(this).closest("tr").find('.delete_id').val();
+            var deleteid = e.value;
 
             swal({
                     title: "Apakah anda yakin?",
@@ -185,7 +168,7 @@
                         };
                         $.ajax({
                             type: "DELETE",
-                            url: "{{ url('kontrak-induk-khs') }}" + '/' + deleteid,
+                            url: "{{ url('redaksi-nota-dinas') }}" + '/' + deleteid,
                             data: data,
                             success: function(response) {
                                 swal({
@@ -210,8 +193,7 @@
                         });
                     }
                 });
-        });
-    });
+        }
 </script>
 
 <script>
@@ -229,3 +211,5 @@
         });
     }
 </script>
+@endsection
+

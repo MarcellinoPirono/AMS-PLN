@@ -73,7 +73,7 @@
                                                 <a href="/redaksi-khs/{{ $redaksi->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                <button value="{{ $redaksi->id }}" class="btn btn-danger shadow btn-xs sharp" onclick="deleteredaksi(this)"><i
                                                         class="fa fa-trash"></i></button>
                                             </div>
                                         </td>
@@ -170,75 +170,59 @@
         }
     });
 
-    // $('#filter-kontrak-induk-khs').on("change", function(event){
-    //     var jenis_khs = $('#filter-kontrak-induk-khs').val();
-    //     // console.log(category);
-    //     // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
-    //     tableKontrakInduk.columns(1).search(jenis_khs).draw();
-    // });
-
-    // $('#filter-kontrak-induk-vendor').on("change", function(event){
-    //     var nama_vendor = $('#filter-kontrak-induk-vendor').val();
-    //     // console.log(category);
-    //     // tableItem.fnFilter("^"+ $(this).val() +"$", 2, false, false)
-    //     tableKontrakInduk.columns(4).search(nama_vendor).draw();
-    // });
-
 
 </script>
 @endsection
 
 
 <script>
-    $(document).ready(function() {
-        $('.btndelete').click(function(e) {
-            e.preventDefault();
+   function deleteredaksi(e) {
 
-            var deleteid = $(this).closest("tr").find('.delete_id').val();
+        var deleteid = e.value;
+        console.log(deleteid);
 
-            swal({
-                    title: "Apakah anda yakin?",
-                    text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
+        swal({
+                title: "Apakah anda yakin?",
+                text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
 
-                        var data = {
-                            "_token": $('input[name=_token]').val(),
-                            'id': deleteid,
-                        };
-                        $.ajax({
-                            type: "DELETE",
-                            url: "{{ url('kontrak-induk-khs') }}" + '/' + deleteid,
-                            data: data,
-                            success: function(response) {
-                                swal({
-                                        title: "Data Dihapus",
-                                        text: "Data Berhasil Dihapus",
-                                        icon: "success",
-                                        timer: 2e3,
-                                        buttons: false
-                                    })
-                                    .then((result) => {
-                                        location.reload();
-                                    });
-                            }
-                        });
-                    } else {
-                        swal({
-                            title: "Data Tidak Dihapus",
-                            text: "Data Batal Dihapus",
-                            icon: "error",
-                            timer: 2e3,
-                            buttons: false
-                        });
-                    }
-                });
-        });
-    });
+                    var data = {
+                        "_token": $('input[name=_token]').val(),
+                        'id': deleteid,
+                    };
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('redaksi-khs') }}" + '/' + deleteid,
+                        data: data,
+                        success: function(response) {
+                            swal({
+                                    title: "Data Dihapus",
+                                    text: "Data Berhasil Dihapus",
+                                    icon: "success",
+                                    timer: 2e3,
+                                    buttons: false
+                                })
+                                .then((result) => {
+                                    location.reload();
+                                });
+                        }
+                    });
+                } else {
+                    swal({
+                        title: "Data Tidak Dihapus",
+                        text: "Data Batal Dihapus",
+                        icon: "error",
+                        timer: 2e3,
+                        buttons: false
+                    });
+                }
+            });
+        }
 </script>
 
 <script>

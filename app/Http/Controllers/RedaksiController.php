@@ -168,4 +168,15 @@ class RedaksiController extends Controller
             echo json_encode(true);
         }
     }
+    public function destroy($id)
+    {
+        // dd($id);
+        SubRedaksi::where('redaksi_id', $id)->delete();
+        $redaksi = Redaksi::find($id);
+        $redaksi->delete();
+
+        return response()->json([
+            'success'   => true
+        ]);
+    }
 }

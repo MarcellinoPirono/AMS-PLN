@@ -140,4 +140,19 @@ class RedaksiNotaDinasController extends Controller
             echo json_encode(true);
         }
     }
+
+    public function destroy($id)
+    {
+        // dd($id);
+        $redaksi = RedaksiNotaDinas::find($id);
+        $redaksi->delete();
+
+        return response()->json([
+            'success'   => true
+        ]);
+    }
+
+
+
+
 }

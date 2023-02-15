@@ -107,6 +107,7 @@
                         success: function (response) {
                             // console.log(response);
                             myChart.data.datasets[0].data = response;
+                            myChart.data.datasets[0].label = "Persentase Tersedia";
                             myChart.options.scales.yAxes[0].ticks = {
                                 min: 0,
                                 max: 100,
@@ -216,6 +217,7 @@
                         success: function (response) {
                             // console.log(response);
                             myChart2.data.datasets[0].data = response;
+                            myChart2.data.datasets[0].label = "Persentase Tersedia";
                             myChart2.options.scales.yAxes[0].ticks = {
                                 min: 0,
                                 max: 100,
