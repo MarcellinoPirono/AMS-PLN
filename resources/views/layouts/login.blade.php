@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login Sipakainga = PLN UP3-MAKASSAR SELATAN</title>
+	<title>Login Sipakainga - PLN UP3-MAKASSAR SELATAN</title>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}./asset/frontend/images/icon.svg" />
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 
