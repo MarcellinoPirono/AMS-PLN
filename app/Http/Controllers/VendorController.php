@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Models\Vendor;
+use App\Imports\MultiVendorImport;
 use App\Imports\VendorImport;
+use App\Exports\VendorExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class VendorController extends Controller
 {
@@ -15,6 +19,30 @@ class VendorController extends Controller
             'vendors' => Vendor::orderby('id', 'DESC')->get(),
             // 'kontrak' => Vendor::all(),
         ]);
+
+    }
+    public function export()
+    {
+        $sheets = ['Tabel Vendor'];
+
+        return Excel::download(new VendorExport($sheets), 'Template Import Vendor KHS.xlsx');
+    }
+
+    function import(Request $request)
+    {
+
+        $this->validate($request, [
+        'select_file'  => 'required|mimes:xls,xlsx'
+        ]);
+
+        $import = new MultiVendorImport();
+        $import->onlySheets(0);
+        Excel::import($import, $request->file('select_file')->store('temp'));
+
+        Alert::success('Import Telah Berhasil');
+
+        return redirect('/vendor-khs');
+
 
     }
 
@@ -44,52 +72,6 @@ class VendorController extends Controller
                 // 'items' => ItemRincianInduk::all(),
             ]
         );
-    }
-    function import(Request $request)
-    {
-        // dd($request);
-     $this->validate($request, [
-      'select_file'  => 'required|mimes:xls,xlsx'
-     ]);
-
-    // $file = $request->file('select_file');
-    // $nama_file = rand().$file->getClientOriginalName();
-    // $file->move('storage/storage/file_vendor', $nama_file);
-
-
-    // $import = Excel::import(new VendorImport, public_path('/file_vendor/'.$nama_file));
-    Excel::import(new VendorImport, $request->file('select_file')->store('temp'));
-
-    // Session::flash('sukses','Data Siswa Berhasil Diimport!');
-
-    //  dd($import);
-
-    //  dd($data);
-
-    //  if($data->count() > 0)
-    //  {
-    //   foreach($data->toArray() as $key => $value)
-    //   {
-    //    foreach($value as $row)
-    //    {
-    //     $insert_data[] = array(
-    //      'khs_id'  => $row['khs_id'],
-    //      'kategori'   => $row['kategori'],
-    //      'nama_item'   => $row['nama_item'],
-    //      'satuan_id'    => $row['satuan_id'],
-    //      'harga_satuan'  => $row['harga_satuan'],
-    //     );
-    //    }
-    //   }
-
-    //   if(!empty($insert_data))
-    //   {
-    //    DB::table('rincian_induks')->insert($insert_data);
-    //   }
-    //  }
-    //  dd($insert_data);
-    return redirect('/vendor-khs');
-    //  return back()->with('success', 'Excel Data Imported successfully.');
     }
 
     public function store(Request $request)

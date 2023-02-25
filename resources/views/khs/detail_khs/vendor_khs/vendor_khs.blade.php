@@ -1,21 +1,32 @@
 @extends('layouts.main')
 
 @section('content')
+@include('sweetalert::alert')
 
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header position-relative justify-content-end float-right" style="justify-content: start;">
+                <div class="card-header position-relative justify-content-end">
                      {{-- <a href="/vendor-khs/create-xlsx" class="btn btn-primary btn-xs ml-3 mt-3">Via Excel<span
                         class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                     </a> --}}
-                    <a href="/vendor-khs/create" class="btn btn-primary float-right mt-3 ml-3">Tambah Vendor <i class="bi bi-plus-circle"></i>
+
+                    <button type="button" class="btn btn-secondary btn-md mr-3" data-toggle="modal" data-target="#importExcel">
+                        Import Data Vendor (Excel) <i class="bi bi-upload"></i>
+                    </button>
+
+                    <a href="/vendor-khs/export" class="btn btn-success btn-md mr-3">Export Data Vendor (Excel) <i
+                            class="bi bi-download"></i>
                     </a>
+                    <div class="d-flex justify-content-end">
+                        <a href="/vendor-khs/create" class="btn btn-primary btn-md">Tambah Vendor <i class="bi bi-plus-circle"></i>
+                        </a>
+
+                    </div>
                 </div>
                 <div class="card-body">
                     @if (session('success'))
                         <div class="sweetalert sweet-success">
-                            {{ session('success') }}
                         </div>
                     @endif
                     <div class="table-responsive" id="read">
@@ -51,8 +62,8 @@
                                                 <a href="/vendor-khs/{{ $vendor->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button value="{{$vendor->id}}" class="btn btn-danger shadow btn-xs sharp" onclick="deleteItem(this)"><i
-                                                        class="fa fa-trash"></i></button>
+                                                {{-- <button value="{{$vendor->id}}" class="btn btn-danger shadow btn-xs sharp" onclick="deleteItem(this)"><i
+                                                        class="fa fa-trash"></i></button> --}}
 
                                             </div>
                                         </td>
@@ -72,6 +83,48 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form method="post" action="{{ url('vendor-khs/import') }}" enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Import Excel Data Vendor KHS</h5>
+                        </div>
+                        <div class="modal-body">
+
+                            {{ csrf_field() }}
+
+                            <div class="form-group">
+                                <label class="text-label">Pilih file excel</label>
+
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="select_file" id="select_file">
+                                        <label class="custom-file-label">Choose file</label>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- <div class="input-group">
+                                                    <div class="custom-file"></div>
+
+                                                    <input id="select_file" name="select_file" type="file"
+                                                        class="form-control custom-file-input" style="border-radius: 0 20px 20px 0" required />
+                                                </div> -->
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
     </div>
 
     {{-- <script type="text/javascript">

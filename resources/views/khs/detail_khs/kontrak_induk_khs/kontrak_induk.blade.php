@@ -1,14 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    @if (session()->has('status'))
-        <div class="alert alert-success alert-dismissible alert-alt fade show">
-            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i
-                        class="mdi mdi-close"></i></span>
-            </button>
-            <strong>Success!</strong> {{ session('status') }}
-        </div>
-    @endif
+
     @include('sweetalert::alert')
 
     <div class="row">
@@ -51,8 +44,15 @@
                     {{-- <a href="/kontrak-induk-khs/create-xlsx" class="btn btn-primary btn-xxs mr-auto ml-3"
                         style="font-size: 13px">Via Excel <i class="fa fa-plus-circle"></i></span>
                     </a> --}}
-                    <a href="/kontrak-induk-khs/create" class="btn btn-primary float-right mr-3 mt-3"
-                        style="font-size: 13px">Tambah Kontrak Induk <i class="bi bi-plus-circle"></i>
+
+                    <button type="button" class="btn btn-secondary btn-md mr-2" data-toggle="modal" data-target="#importExcel">
+                        Import(excel) <i class="bi bi-upload"></i>
+                    </button>
+
+                    <a href="/kontrak-induk-khs/export" class="btn btn-success btn-md mr-2">Export(excel) <i
+                            class="bi bi-download"></i>
+                    <a href="/kontrak-induk-khs/create" class="btn btn-primary btn-md mr-2"
+                        style="font-size: 13px">Tambah <i class="bi bi-plus-circle"></i>
                     </a>
                     <!-- <div class="input-group search-area position-relative">
                             <div class="input-group-append">
@@ -64,6 +64,10 @@
                         </div> -->
                 </div>
                 <div class="card-body">
+                    @if (session('success'))
+                        <div class="sweetalert sweet-success">
+                        </div>
+                     @endif
 
                     <div class="table-responsive" id="read">
                         <table id="tableKontrakInduk" class="table table-responsive-md">
@@ -93,8 +97,8 @@
                                                 <a href="/kontrak-induk-khs/{{ $kontrakinduk->id }}/edit"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
-                                                        class="fa fa-trash"></i></button>
+                                                {{-- <button onclick="deleteItem(this)" value="{{$kontrakinduk->id}}" class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                        class="fa fa-trash"></i></button> --}}
                                             </div>
                                         </td>
                                     </tr>
@@ -114,6 +118,48 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form method="post" action="{{ url('kontrak-induk-khs/import') }}" enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Import Excel Data Kontrak induk KHS</h5>
+                        </div>
+                        <div class="modal-body">
+
+                            {{ csrf_field() }}
+
+                            <div class="form-group">
+                                <label class="text-label">Pilih file excel</label>
+
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="select_file" id="select_file">
+                                        <label class="custom-file-label">Choose file</label>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- <div class="input-group">
+                                                    <div class="custom-file"></div>
+
+                                                    <input id="select_file" name="select_file" type="file"
+                                                        class="form-control custom-file-input" style="border-radius: 0 20px 20px 0" required />
+                                                </div> -->
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
     </div>
 
     <!-- <script type="text/javascript">
@@ -277,11 +323,10 @@
         }
     </script>
     <script>
-        $(document).ready(function() {
-            $('.btndelete').click(function(e) {
-                e.preventDefault();
 
-                var deleteid = $(this).closest("tr").find('.delete_id').val();
+        function deleteItem(id) {
+
+                var deleteid = id.value;
 
                 swal({
                         title: "Apakah anda yakin?",
@@ -324,8 +369,7 @@
                             });
                         }
                     });
-            });
-        });
+            }
     </script>
 @endsection
 

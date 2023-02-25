@@ -22,15 +22,15 @@
 
                     {{--
                 <iframe src="{{ asset('storage/storage/file-pdf-khs/'.$filename.'.pdf') }}"  type="application/pdf" width="100%" height="600px"/> --}}
-                @if ($rabs->status === 'Progress')
+                @if ($rabs->status === 'Disetujui')
 
-                <embed src="{{ asset('storage/storage/file-pdf-khs/tkdn/' . $filename . '_progress.pdf') }}"
+                <embed src="{{ asset('storage/storage/file-pdf-khs/tkdn/' . $filename . '.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
                 @elseif ($rabs->status === 'Ditolak')
                 <embed src="{{ asset('storage/storage/file-pdf-khs/tkdn/' . $filename . '_ditolak.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
                 @else
-                <embed src="{{ asset('storage/storage/file-pdf-khs/tkdn/' . $filename . '.pdf') }}"
+                <embed src="{{ asset('storage/storage/file-pdf-khs/tkdn/' . $filename . '_progress.pdf') }}"
                     type="application/pdf" width="100%" height="600px" />
 
                 @endif

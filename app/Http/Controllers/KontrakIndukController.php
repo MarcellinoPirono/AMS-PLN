@@ -6,6 +6,8 @@ use App\Models\KontrakInduk;
 use App\Models\Khs;
 use App\Models\Vendor;
 use App\Imports\KontrakIndukImport;
+use App\Exports\KontrakIndukExport;
+use App\Imports\MultiKontrakIndukImport;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Carbon\Carbon;
@@ -48,30 +50,27 @@ class KontrakIndukController extends Controller
         ]);
     }
 
-    public function create_xlsx()
+    public function export()
     {
+        $sheets = ['Tabel Kontrak Induk Khs'];
 
-        return view(
-            'khs.detail_khs.kontrak_induk_khs.buat_kontrak_induk_khs_via_excel',
-            [
-                'title' => 'Kontrak Induk',
-            'active' => 'Kontrak Induk',
-            'active1' => 'Tambah Kontrak Induk KHS',
-                // 'items' => ItemRincianInduk::all(),
-            ]
-        );
+        return Excel::download(new KontrakIndukExport($sheets), 'Template Kontrak Induk KHS.xlsx');
     }
     function import(Request $request)
     {
-        // dd($request);
-     $this->validate($request, [
-      'select_file'  => 'required|mimes:xls,xlsx'
-     ]);
+
+        $this->validate($request, [
+        'select_file'  => 'required|mimes:xls,xlsx'
+        ]);
+
+        $import = new MultiKontrakIndukImport();
+        $import->onlySheets(0);
+        Excel::import($import, $request->file('select_file')->store('temp'));
+
+        Alert::success('Import Telah Berhasil');
 
 
-     Excel::import(new KontrakIndukImport, $request->file('select_file')->store('temp'));
-
-    return redirect('/kontrak-induk-khs');
+        return redirect('/kontrak-induk-khs');
     }
 
     public function store(Request $request)

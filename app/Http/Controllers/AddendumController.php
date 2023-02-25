@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Addendum;
 use App\Imports\AddendumImport;
+use App\Imports\MultiAddendumImport;
+use App\Exports\AddendumExport;
 use App\Models\KontrakInduk;
 use App\Models\Khs;
 use Illuminate\Support\Facades\DB;
@@ -42,31 +44,27 @@ class AddendumController extends Controller
         ]);
     }
 
-    public function create_xlsx()
-    {
 
-        return view(
-            'khs.detail_khs.addendum_khs.buat_addendum_via_excel',
-            [
-                'title' => 'Addendum',
-                'active' => 'Tambah Addendum',
-                'active1' => 'Tambah Addendum KHS',
-                // 'items' => ItemRincianInduk::all(),
-            ]
-        );
+    public function export()
+    {
+        $sheets = ['Tabel Addendum KHS'];
+
+        return Excel::download(new AddendumExport($sheets), 'Template Addendum KHS.xlsx');
     }
     function import(Request $request)
     {
-        // dd($request);
-     $this->validate($request, [
-      'select_file'  => 'required|mimes:xls,xlsx'
-     ]);
 
+        $this->validate($request, [
+        'select_file'  => 'required|mimes:xls,xlsx'
+        ]);
 
+        $import = new MultiAddendumImport();
+        $import->onlySheets(0);
+        Excel::import($import, $request->file('select_file')->store('temp'));
 
-    Excel::import(new AddendumImport, $request->file('select_file')->store('temp'));
-    return redirect('/addendum-khs');
-    //  return back()->with('success', 'Excel Data Imported successfully.');
+        Alert::success('Import Telah Berhasil');
+
+        return redirect('/addendum-khs');
     }
 
 

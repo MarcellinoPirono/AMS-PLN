@@ -94,7 +94,8 @@ Route::post('/checkJenisKhs/edit', [KhsController::class, 'checkJenisKhs_edit'])
 
 //Vendor KHS
 
-Route::get('/vendor-khs/create-xlsx', [VendorController::class, 'create_xlsx'])->middleware('Manager');
+Route::post('/vendor-khs/import', [VendorController::class, 'import'])->middleware('Manager');
+Route::get('/vendor-khs/export', [VendorController::class, 'export'])->middleware('Manager');
 Route::post('vendor-khs/import', [VendorController::class, 'import'])->middleware('Manager');
 Route::post('/checkVendor', [VendorController::class, 'checkVendor'])->middleware('Manager');
 Route::post('/checkVendor_edit', [VendorController::class, 'checkVendor_edit'])->middleware('Manager');
@@ -103,7 +104,7 @@ Route::resource('vendor-khs', VendorController::class)->middleware('Manager');
 Route::get('/search-vendor', [VendorController::class, 'searchvendor'])->middleware('Manager');
 
 //Kontrak Induk KHS
-Route::get('/kontrak-induk-khs/create-xlsx', [KontrakIndukController::class, 'create_xlsx'])->middleware('Manager');
+Route::get('/kontrak-induk-khs/export', [KontrakIndukController::class, 'export'])->middleware('Manager');
 Route::post('kontrak-induk-khs/import', [KontrakIndukController::class, 'import'])->middleware('Manager');
 Route::post('/checkKontrakInduk', [KontrakIndukController::class, 'checkKontrakInduk'])->middleware('Manager');
 Route::post('/checkKontrakInduk_edit', [KontrakIndukController::class, 'checkKontrakInduk_edit'])->middleware('Manager');
@@ -112,7 +113,8 @@ Route::any('kontrak-induk-khs/filter', [KontrakIndukController::class, 'filterko
 Route::get('/search-kontrak-induk', [KontrakIndukController::class, 'searchkontrakinduk'])->middleware('Manager');
 
 //Addendum KHS
-Route::get('/addendum-khs/create-xlsx', [AddendumController::class, 'create_xlsx'])->middleware('Manager');
+Route::get('/addendum-khs/export', [AddendumController::class, 'export'])->middleware('Manager');
+Route::post('/addendum-khs/import', [AddendumController::class, 'import'])->middleware('Manager');
 Route::get('download-addendum/{id}', [AddendumController::class, 'download_addendum'])->middleware('Manager');
 Route::post('addendum-khs/import', [AddendumController::class, 'import'])->middleware('Manager');
 Route::post('addendum-khs/{id}/edit', [AddendumController::class, 'update'])->middleware('Manager');
