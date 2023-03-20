@@ -158,6 +158,7 @@ class RabController extends Controller
                 'items' => RincianInduk::all(),
                 'kontraks' => KontrakInduk::all(),
                 'pejabats' => Pejabat::all(),
+                // 'khs' => Khs::all()->where('isAcative', TRUE),
                 'khs' => Khs::all(),
                 'redaksis'=>Redaksi::all(),
                 'ppn'=>PpnModel::all(),

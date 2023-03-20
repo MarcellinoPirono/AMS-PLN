@@ -65,15 +65,15 @@
                                         @if ($khs->isActive == True)
                                         <td style="text-align: justify;">Aktif</td>
                                         @else
-                                        <td style="text-align: justify;">Non-Atif</td>
+                                        <td style="text-align: justify;">Non-Aktif</td>
                                         @endif
                                         <td>
                                             <div class="d-flex">
                                                 <a href="#" data-id="{{ $khs->id }}"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1 tombol-edit"><i
                                                         class="fa fa-pencil"></i></a>
-                                                <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
-                                                        class="fa fa-trash"></i></button>
+                                                {{-- <button class="btn btn-danger shadow btn-xs sharp btndelete"><i
+                                                        class="fa fa-trash"></i></button> --}}
                                             </div>
                                         </td>
                                     </tr>

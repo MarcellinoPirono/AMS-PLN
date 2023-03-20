@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Khs;
+use App\Models\KontrakInduk;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreKhsRequest;
 
@@ -144,6 +145,8 @@ class KhsController extends Controller
      */
     public function destroy(Khs $khs, $id)
     {
+        // $kontraks = KontrakInduk::where('khs_id', $id);
+
         $khs = Khs::find($id);
         // $khs->rincian_induks()->delete();
         $khs->delete();
